@@ -1,0 +1,232 @@
+﻿from __future__ import annotations
+
+import json
+import logging
+import re
+import socket
+import time
+import urllib.error
+import urllib.request
+from dataclasses import dataclass
+from typing import Any
+
+from app.core.config import AppConfig
+from app.core.tracing_factory import get_tracing_runtime
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class LLMCallError(RuntimeError):
+    reason: str
+    message: str
+    attempt_count: int = 0
+    retry_count_used: int = 0
+
+    def __str__(self) -> str:
+        return self.message
+
+
+class AgentLLMClient:
+    def __init__(self, config: AppConfig):
+        self.config = config
+
+    def enabled(self) -> bool:
+        return bool(self.config.openai_api_key and self.config.openai_base_url and self.config.openai_model)
+
+    def invoke_json(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        network_retries: int | None = None,
+    ) -> dict[str, Any]:
+        if not self.enabled():
+            raise LLMCallError(
+                reason='llm_not_configured',
+                message='LLM is not configured: missing OPENAI_API_KEY/OPENAI_BASE_URL/OPENAI_MODEL',
+                attempt_count=0,
+                retry_count_used=0,
+            )
+
+        retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
+        attempts = retries + 1
+
+        runtime = get_tracing_runtime()
+        base_url = self.config.openai_base_url.rstrip('/')
+        url = f'{base_url}/chat/completions'
+        payload = {
+            'model': self.config.openai_model,
+            'messages': [
+                {
+                    'role': 'system',
+                    'content': (
+                        f'{system_prompt}\n'
+                        'Return only one valid JSON object. '
+                        'Do not include markdown code fences. '
+                        'Do not include explanation text before or after JSON.'
+                    ),
+                },
+                {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
+            ],
+            'temperature': 0.2,
+        }
+
+        last_exc: Exception | None = None
+        last_reason = 'unknown'
+
+        trace_ctx = _trace_ctx(
+            name=trace_name,
+            inputs=user_payload,
+            metadata={'model': self.config.openai_model, **metadata},
+            project=runtime.project,
+            client=runtime.client,
+            enabled=runtime.langsmith_enabled,
+        )
+
+        with trace_ctx:
+            for idx in range(attempts):
+                try:
+                    req = urllib.request.Request(
+                        url,
+                        data=json.dumps(payload, ensure_ascii=False).encode('utf-8'),
+                        headers={
+                            'Content-Type': 'application/json',
+                            'Authorization': f'Bearer {self.config.openai_api_key}',
+                        },
+                        method='POST',
+                    )
+                    with urllib.request.urlopen(req, timeout=self.config.request_timeout_seconds) as resp:
+                        body = resp.read().decode('utf-8', errors='ignore')
+                    data = json.loads(body)
+                    choices = data.get('choices', [])
+                    if not choices:
+                        raise LLMCallError(
+                            reason='empty_choices',
+                            message='LLM response missing choices',
+                            attempt_count=idx + 1,
+                            retry_count_used=idx,
+                        )
+                    content = (choices[0].get('message') or {}).get('content', '{}')
+                    parsed = _parse_json_content(content)
+                    return parsed
+                except LLMCallError as exc:
+                    last_exc = exc
+                    last_reason = exc.reason
+                    if idx < attempts - 1 and _is_retryable_reason(exc.reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+                except Exception as exc:
+                    reason = _classify_error(exc)
+                    last_exc = exc
+                    last_reason = reason
+                    if idx < attempts - 1 and _is_retryable_reason(reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+
+        message = f'LLM call failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM call failed'
+        raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
+
+
+class _NullTrace:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+
+def _trace_ctx(*, name: str, inputs: dict[str, Any], metadata: dict[str, Any], project: str, client: Any | None, enabled: bool):
+    if not enabled or client is None:
+        return _NullTrace()
+    try:
+        from langsmith.run_helpers import trace
+
+        return trace(
+            name=name,
+            run_type='llm',
+            inputs=inputs,
+            metadata=metadata,
+            project_name=project,
+            client=client,
+        )
+    except Exception as exc:
+        logger.warning('LangSmith trace creation failed for %s: %s', name, exc)
+        return _NullTrace()
+
+
+def _sleep_backoff(idx: int, base_ms: int, max_ms: int) -> None:
+    delay_ms = min(max_ms, base_ms * (2**idx))
+    time.sleep(delay_ms / 1000.0)
+
+
+def _is_retryable_reason(reason: str) -> bool:
+    return reason in {
+        'network_timeout',
+        'network_reset',
+        'http_5xx',
+        'http_429',
+        'json_decode_error',
+        'unknown_network',
+    }
+
+
+def _classify_error(exc: Exception) -> str:
+    if isinstance(exc, TimeoutError):
+        return 'network_timeout'
+    if isinstance(exc, socket.timeout):
+        return 'network_timeout'
+    if isinstance(exc, urllib.error.HTTPError):
+        if exc.code == 429:
+            return 'http_429'
+        if 500 <= exc.code <= 599:
+            return 'http_5xx'
+        return 'http_4xx'
+    if isinstance(exc, urllib.error.URLError):
+        reason = str(exc.reason).lower()
+        if 'timed out' in reason:
+            return 'network_timeout'
+        if 'reset' in reason or 'closed' in reason:
+            return 'network_reset'
+        return 'unknown_network'
+    if isinstance(exc, json.JSONDecodeError):
+        return 'json_decode_error'
+    if isinstance(exc, ValueError):
+        return 'json_decode_error'
+    return 'unknown'
+
+
+def _parse_json_content(content: Any) -> dict[str, Any]:
+    text = str(content or '').strip()
+    if not text:
+        raise ValueError('json_parse_failed: empty_response_content')
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    else:
+        if isinstance(parsed, dict):
+            return parsed
+        raise ValueError('json_parse_failed: parsed JSON is not an object')
+
+    cleaned = _strip_json_fence(text).strip()
+    start = cleaned.find('{')
+    end = cleaned.rfind('}')
+    if start != -1 and end != -1 and end >= start:
+        candidate = cleaned[start : end + 1]
+        parsed = json.loads(candidate)
+        if isinstance(parsed, dict):
+            return parsed
+    raise ValueError('json_parse_failed: unable to parse valid JSON object from response')
+
+
+def _strip_json_fence(text: str) -> str:
+    stripped = text.strip()
+    if stripped.startswith('```'):
+        stripped = re.sub(r'^```(?:json)?\s*', '', stripped, flags=re.IGNORECASE)
+        stripped = re.sub(r'\s*```$', '', stripped)
+    return stripped

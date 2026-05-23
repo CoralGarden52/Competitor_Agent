@@ -1,0 +1,59 @@
+﻿# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!*.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+backend/.venv/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Logs
+*.log
+
+# Runtime / local data
+backend/.data/
+backend/collector_exports/
+*.db
+*.sqlite
+*.sqlite3
+
+# Frontend / Node
+node_modules/
+frontend/node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+
+# Test outputs
+pytestdebug.log

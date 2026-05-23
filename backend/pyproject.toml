@@ -1,0 +1,23 @@
+[project]
+name = "competitor-analysis-backend"
+version = "0.1.0"
+description = "Backend v1 for multi-agent competitor analysis workflow"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.34.0",
+  "pydantic>=2.8.0",
+  "pydantic-settings>=2.4.0",
+  "openai>=1.30.0",
+  "langgraph>=0.2.30",
+  "langsmith>=0.7.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "httpx>=0.28.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

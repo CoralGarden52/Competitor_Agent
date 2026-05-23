@@ -1,0 +1,3433 @@
+{
+  "prompt": "general AI agent competitor analysis",
+  "industry_hint": "",
+  "inferred_industry": "artificial_intelligence",
+  "effective_max_urls": 10,
+  "max_urls_note": "server uses COLLECTOR_MAX_URLS from .env",
+  "candidate_groups": {
+    "direct": [
+      {
+        "name": "AutoGPT",
+        "fit_type": "direct",
+        "reason": "Pioneering open-source general autonomous AI agent that supports self-directed multi-step task orchestration, web browsing and cross-source data aggregation to complete full end-to-end general competitor analysis workflows without frequent human prompting",
+        "confidence": 0.92
+      },
+      {
+        "name": "OpenAI GPT-4o Advanced Agents",
+        "fit_type": "direct",
+        "reason": "Official native general AI agent product from OpenAI that natively supports long-running task planning, third-party tool calling, and public information crawling to generate structured, data-backed general competitor analysis reports",
+        "confidence": 0.94
+      }
+    ],
+    "substitute": [
+      {
+        "name": "Standard ChatGPT 4o Conversational Chatbot",
+        "fit_type": "substitute",
+        "reason": "General conversational large language model that can generate competitor analysis content based on manually input user prompts, but lacks native autonomous agent capabilities to automatically run multi-step data collection, fact verification and iterative analysis workflows",
+        "confidence": 0.76
+      },
+      {
+        "name": "Microsoft 365 Copilot",
+        "fit_type": "substitute",
+        "reason": "Conversational AI assistant integrated with the Microsoft 365 ecosystem that can leverage internal enterprise data to generate partial competitor-related insights, but is not purpose-built as a general autonomous AI agent for full end-to-end competitor analysis",
+        "confidence": 0.71
+      }
+    ]
+  },
+  "candidates": {
+    "direct": [
+      {
+        "name": "AutoGPT",
+        "fit_type": "direct",
+        "reason": "Pioneering open-source general autonomous AI agent that supports self-directed multi-step task orchestration, web browsing and cross-source data aggregation to complete full end-to-end general competitor analysis workflows without frequent human prompting",
+        "confidence": 0.92
+      },
+      {
+        "name": "OpenAI GPT-4o Advanced Agents",
+        "fit_type": "direct",
+        "reason": "Official native general AI agent product from OpenAI that natively supports long-running task planning, third-party tool calling, and public information crawling to generate structured, data-backed general competitor analysis reports",
+        "confidence": 0.94
+      }
+    ],
+    "substitute": [
+      {
+        "name": "Standard ChatGPT 4o Conversational Chatbot",
+        "fit_type": "substitute",
+        "reason": "General conversational large language model that can generate competitor analysis content based on manually input user prompts, but lacks native autonomous agent capabilities to automatically run multi-step data collection, fact verification and iterative analysis workflows",
+        "confidence": 0.76
+      },
+      {
+        "name": "Microsoft 365 Copilot",
+        "fit_type": "substitute",
+        "reason": "Conversational AI assistant integrated with the Microsoft 365 ecosystem that can leverage internal enterprise data to generate partial competitor-related insights, but is not purpose-built as a general autonomous AI agent for full end-to-end competitor analysis",
+        "confidence": 0.71
+      }
+    ]
+  },
+  "handoff_targets": {
+    "direct": [
+      "AutoGPT",
+      "OpenAI GPT-4o Advanced Agents"
+    ],
+    "substitute": [
+      "Standard ChatGPT 4o Conversational Chatbot",
+      "Microsoft 365 Copilot"
+    ]
+  },
+  "plan_phase": {
+    "competitors_generated": [
+      "AutoGPT",
+      "OpenAI GPT-4o Advanced Agents",
+      "Standard ChatGPT 4o Conversational Chatbot",
+      "Microsoft 365 Copilot"
+    ],
+    "schema_generated": [
+      {
+        "field_name": "feature_tree",
+        "query_templates": [
+          "{product} feature_tree"
+        ],
+        "recommended_sources": [
+          "official",
+          "public_web"
+        ],
+        "priority": 1
+      },
+      {
+        "field_name": "strengths",
+        "query_templates": [
+          "{product} strengths"
+        ],
+        "recommended_sources": [
+          "official",
+          "public_web"
+        ],
+        "priority": 2
+      },
+      {
+        "field_name": "weaknesses",
+        "query_templates": [
+          "{product} weaknesses"
+        ],
+        "recommended_sources": [
+          "official",
+          "public_web"
+        ],
+        "priority": 3
+      },
+      {
+        "field_name": "pricing_model",
+        "query_templates": [
+          "{product} pricing_model"
+        ],
+        "recommended_sources": [
+          "official",
+          "public_web"
+        ],
+        "priority": 4
+      },
+      {
+        "field_name": "user_feedback",
+        "query_templates": [
+          "{product} user feedback 知乎 reddit"
+        ],
+        "recommended_sources": [
+          "zhihu",
+          "community"
+        ],
+        "priority": 5
+      }
+    ],
+    "planner_meta": {
+      "model": "ep-20260514111325-xjmj7",
+      "generated_at": "2026-05-23T05:14:43.489703+00:00",
+      "plan_hash": "6a8d402285de93c8",
+      "llm_enabled": true,
+      "llm_call_status": {
+        "success": false,
+        "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+        "http_status": null,
+        "error": "Request timed out.",
+        "attempted_endpoints": [
+          "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
+        ]
+      },
+      "candidate_policy": "direct_substitute_only"
+    }
+  },
+  "execution_timeline": [
+    {
+      "seq": 1,
+      "event_type": "plan.competitors_generated",
+      "payload": {
+        "planned_competitors": [
+          "AutoGPT",
+          "OpenAI GPT-4o Advanced Agents",
+          "Standard ChatGPT 4o Conversational Chatbot",
+          "Microsoft 365 Copilot"
+        ],
+        "candidate_groups": {
+          "direct": [
+            {
+              "name": "AutoGPT",
+              "fit_type": "direct",
+              "reason": "Pioneering open-source general autonomous AI agent that supports self-directed multi-step task orchestration, web browsing and cross-source data aggregation to complete full end-to-end general competitor analysis workflows without frequent human prompting",
+              "confidence": 0.92
+            },
+            {
+              "name": "OpenAI GPT-4o Advanced Agents",
+              "fit_type": "direct",
+              "reason": "Official native general AI agent product from OpenAI that natively supports long-running task planning, third-party tool calling, and public information crawling to generate structured, data-backed general competitor analysis reports",
+              "confidence": 0.94
+            }
+          ],
+          "substitute": [
+            {
+              "name": "Standard ChatGPT 4o Conversational Chatbot",
+              "fit_type": "substitute",
+              "reason": "General conversational large language model that can generate competitor analysis content based on manually input user prompts, but lacks native autonomous agent capabilities to automatically run multi-step data collection, fact verification and iterative analysis workflows",
+              "confidence": 0.76
+            },
+            {
+              "name": "Microsoft 365 Copilot",
+              "fit_type": "substitute",
+              "reason": "Conversational AI assistant integrated with the Microsoft 365 ecosystem that can leverage internal enterprise data to generate partial competitor-related insights, but is not purpose-built as a general autonomous AI agent for full end-to-end competitor analysis",
+              "confidence": 0.71
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 2,
+      "event_type": "plan.schema_generated",
+      "payload": {
+        "analysis_schema_plan": [
+          {
+            "field_name": "feature_tree",
+            "query_templates": [
+              "{product} feature_tree"
+            ],
+            "recommended_sources": [
+              "official",
+              "public_web"
+            ],
+            "priority": 1
+          },
+          {
+            "field_name": "strengths",
+            "query_templates": [
+              "{product} strengths"
+            ],
+            "recommended_sources": [
+              "official",
+              "public_web"
+            ],
+            "priority": 2
+          },
+          {
+            "field_name": "weaknesses",
+            "query_templates": [
+              "{product} weaknesses"
+            ],
+            "recommended_sources": [
+              "official",
+              "public_web"
+            ],
+            "priority": 3
+          },
+          {
+            "field_name": "pricing_model",
+            "query_templates": [
+              "{product} pricing_model"
+            ],
+            "recommended_sources": [
+              "official",
+              "public_web"
+            ],
+            "priority": 4
+          },
+          {
+            "field_name": "user_feedback",
+            "query_templates": [
+              "{product} user feedback 知乎 reddit"
+            ],
+            "recommended_sources": [
+              "zhihu",
+              "community"
+            ],
+            "priority": 5
+          }
+        ]
+      }
+    },
+    {
+      "seq": 3,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.started",
+      "field_name": "feature_tree",
+      "query_count": 1
+    },
+    {
+      "seq": 4,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.started",
+      "query": "AutoGPT feature_tree"
+    },
+    {
+      "seq": 5,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "AutoGPT feature_tree",
+      "hit_count": 5
+    },
+    {
+      "seq": 6,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.started",
+      "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+    },
+    {
+      "seq": 7,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+    },
+    {
+      "seq": 8,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 9,
+      "competitor": "AutoGPT",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+    },
+    {
+      "seq": 10,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc",
+      "content_len": 4706
+    },
+    {
+      "seq": 11,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "feature_tree",
+      "limit": 1
+    },
+    {
+      "seq": 12,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.completed",
+      "field_name": "feature_tree",
+      "evidence_count": 1
+    },
+    {
+      "seq": 13,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.started",
+      "field_name": "strengths",
+      "query_count": 1
+    },
+    {
+      "seq": 14,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.started",
+      "query": "AutoGPT strengths"
+    },
+    {
+      "seq": 15,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "AutoGPT strengths",
+      "hit_count": 5
+    },
+    {
+      "seq": 16,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+    },
+    {
+      "seq": 17,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+    },
+    {
+      "seq": 18,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 19,
+      "competitor": "AutoGPT",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+    },
+    {
+      "seq": 20,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt",
+      "content_len": 51200
+    },
+    {
+      "seq": 21,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "strengths",
+      "limit": 1
+    },
+    {
+      "seq": 22,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.completed",
+      "field_name": "strengths",
+      "evidence_count": 1
+    },
+    {
+      "seq": 23,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.started",
+      "field_name": "weaknesses",
+      "query_count": 1
+    },
+    {
+      "seq": 24,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.started",
+      "query": "AutoGPT weaknesses"
+    },
+    {
+      "seq": 25,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "AutoGPT weaknesses",
+      "hit_count": 5
+    },
+    {
+      "seq": 26,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.started",
+      "url": "https://zhuanlan.zhihu.com/p/622352946"
+    },
+    {
+      "seq": 27,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://zhuanlan.zhihu.com/p/622352946"
+    },
+    {
+      "seq": 28,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://zhuanlan.zhihu.com/p/622352946",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 29,
+      "competitor": "AutoGPT",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/622352946"
+    },
+    {
+      "seq": 30,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.failed",
+      "provider": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/622352946",
+      "errors": [
+        "tavily_extract_empty"
+      ]
+    },
+    {
+      "seq": 31,
+      "competitor": "AutoGPT",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "tavily_extract",
+      "to": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/622352946"
+    },
+    {
+      "seq": 32,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.completed",
+      "provider": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/622352946",
+      "content_len": 61263
+    },
+    {
+      "seq": 33,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "weaknesses",
+      "limit": 1
+    },
+    {
+      "seq": 34,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.completed",
+      "field_name": "weaknesses",
+      "evidence_count": 1
+    },
+    {
+      "seq": 35,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.started",
+      "field_name": "pricing_model",
+      "query_count": 1
+    },
+    {
+      "seq": 36,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.started",
+      "query": "AutoGPT pricing_model"
+    },
+    {
+      "seq": 37,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "AutoGPT pricing_model",
+      "hit_count": 5
+    },
+    {
+      "seq": 38,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.ibm.com/think/topics/autogpt"
+    },
+    {
+      "seq": 39,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.cache_hit",
+      "url": "https://www.ibm.com/think/topics/autogpt"
+    },
+    {
+      "seq": 40,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "pricing_model",
+      "limit": 1
+    },
+    {
+      "seq": 41,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.completed",
+      "field_name": "pricing_model",
+      "evidence_count": 1
+    },
+    {
+      "seq": 42,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.started",
+      "field_name": "user_feedback",
+      "query_count": 1
+    },
+    {
+      "seq": 43,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.started",
+      "query": "AutoGPT user feedback 知乎 reddit"
+    },
+    {
+      "seq": 44,
+      "competitor": "AutoGPT",
+      "event_type": "collector.search.completed",
+      "provider": "zhihu_official",
+      "query": "AutoGPT user feedback 知乎 reddit",
+      "hit_count": 5
+    },
+    {
+      "seq": 45,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.started",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 46,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 47,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 48,
+      "competitor": "AutoGPT",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 49,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.failed",
+      "provider": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "tavily_extract_empty"
+      ]
+    },
+    {
+      "seq": 50,
+      "competitor": "AutoGPT",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "tavily_extract",
+      "to": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 51,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fetch.completed",
+      "provider": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "content_len": 7637
+    },
+    {
+      "seq": 52,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "user_feedback",
+      "limit": 1
+    },
+    {
+      "seq": 53,
+      "competitor": "AutoGPT",
+      "event_type": "collector.field_query.completed",
+      "field_name": "user_feedback",
+      "evidence_count": 1
+    },
+    {
+      "seq": 54,
+      "competitor": "AutoGPT",
+      "event_type": "collector.fallback.trace",
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/622352946"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/622352946"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ]
+    },
+    {
+      "seq": 55,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.started",
+      "field_name": "feature_tree",
+      "query_count": 1
+    },
+    {
+      "seq": 56,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.started",
+      "query": "OpenAI GPT-4o Advanced Agents feature_tree"
+    },
+    {
+      "seq": 57,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "OpenAI GPT-4o Advanced Agents feature_tree",
+      "hit_count": 5
+    },
+    {
+      "seq": 58,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.yicai.com/news/102423144.html"
+    },
+    {
+      "seq": 59,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://www.yicai.com/news/102423144.html"
+    },
+    {
+      "seq": 60,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://www.yicai.com/news/102423144.html",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 61,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://www.yicai.com/news/102423144.html"
+    },
+    {
+      "seq": 62,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://www.yicai.com/news/102423144.html",
+      "content_len": 6099
+    },
+    {
+      "seq": 63,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "feature_tree",
+      "limit": 1
+    },
+    {
+      "seq": 64,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.completed",
+      "field_name": "feature_tree",
+      "evidence_count": 1
+    },
+    {
+      "seq": 65,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.started",
+      "field_name": "strengths",
+      "query_count": 1
+    },
+    {
+      "seq": 66,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.started",
+      "query": "OpenAI GPT-4o Advanced Agents strengths"
+    },
+    {
+      "seq": 67,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "OpenAI GPT-4o Advanced Agents strengths",
+      "hit_count": 5
+    },
+    {
+      "seq": 68,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.yicai.com/news/102423144.html"
+    },
+    {
+      "seq": 69,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.cache_hit",
+      "url": "https://www.yicai.com/news/102423144.html"
+    },
+    {
+      "seq": 70,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "strengths",
+      "limit": 1
+    },
+    {
+      "seq": 71,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.completed",
+      "field_name": "strengths",
+      "evidence_count": 1
+    },
+    {
+      "seq": 72,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.started",
+      "field_name": "weaknesses",
+      "query_count": 1
+    },
+    {
+      "seq": 73,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.started",
+      "query": "OpenAI GPT-4o Advanced Agents weaknesses"
+    },
+    {
+      "seq": 74,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "OpenAI GPT-4o Advanced Agents weaknesses",
+      "hit_count": 5
+    },
+    {
+      "seq": 75,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.started",
+      "url": "https://openai.com/index/spring-update"
+    },
+    {
+      "seq": 76,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.cache_hit",
+      "url": "https://openai.com/index/spring-update"
+    },
+    {
+      "seq": 77,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "weaknesses",
+      "limit": 1
+    },
+    {
+      "seq": 78,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.completed",
+      "field_name": "weaknesses",
+      "evidence_count": 1
+    },
+    {
+      "seq": 79,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.started",
+      "field_name": "pricing_model",
+      "query_count": 1
+    },
+    {
+      "seq": 80,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.started",
+      "query": "OpenAI GPT-4o Advanced Agents pricing_model"
+    },
+    {
+      "seq": 81,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "OpenAI GPT-4o Advanced Agents pricing_model",
+      "hit_count": 5
+    },
+    {
+      "seq": 82,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.started",
+      "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+    },
+    {
+      "seq": 83,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+    },
+    {
+      "seq": 84,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 85,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+    },
+    {
+      "seq": 86,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence",
+      "content_len": 13340
+    },
+    {
+      "seq": 87,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "pricing_model",
+      "limit": 1
+    },
+    {
+      "seq": 88,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.completed",
+      "field_name": "pricing_model",
+      "evidence_count": 1
+    },
+    {
+      "seq": 89,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.started",
+      "field_name": "user_feedback",
+      "query_count": 1
+    },
+    {
+      "seq": 90,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.started",
+      "query": "OpenAI GPT-4o Advanced Agents user feedback 知乎 reddit"
+    },
+    {
+      "seq": 91,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.search.completed",
+      "provider": "zhihu_official",
+      "query": "OpenAI GPT-4o Advanced Agents user feedback 知乎 reddit",
+      "hit_count": 5
+    },
+    {
+      "seq": 92,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.started",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 93,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 94,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 95,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 96,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.failed",
+      "provider": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "tavily_extract_empty"
+      ]
+    },
+    {
+      "seq": 97,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "tavily_extract",
+      "to": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 98,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fetch.completed",
+      "provider": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "content_len": 10568
+    },
+    {
+      "seq": 99,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "user_feedback",
+      "limit": 1
+    },
+    {
+      "seq": 100,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.field_query.completed",
+      "field_name": "user_feedback",
+      "evidence_count": 1
+    },
+    {
+      "seq": 101,
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "event_type": "collector.fallback.trace",
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.yicai.com/news/102423144.html"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ]
+    },
+    {
+      "seq": 102,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.started",
+      "field_name": "feature_tree",
+      "query_count": 1
+    },
+    {
+      "seq": 103,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.started",
+      "query": "Standard ChatGPT 4o Conversational Chatbot feature_tree"
+    },
+    {
+      "seq": 104,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Standard ChatGPT 4o Conversational Chatbot feature_tree",
+      "hit_count": 5
+    },
+    {
+      "seq": 105,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.started",
+      "url": "https://cloud.tencent.com/developer/article/2423741"
+    },
+    {
+      "seq": 106,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://cloud.tencent.com/developer/article/2423741"
+    },
+    {
+      "seq": 107,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://cloud.tencent.com/developer/article/2423741",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 108,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://cloud.tencent.com/developer/article/2423741"
+    },
+    {
+      "seq": 109,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://cloud.tencent.com/developer/article/2423741",
+      "content_len": 2253
+    },
+    {
+      "seq": 110,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "feature_tree",
+      "limit": 1
+    },
+    {
+      "seq": 111,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "feature_tree",
+      "evidence_count": 1
+    },
+    {
+      "seq": 112,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.started",
+      "field_name": "strengths",
+      "query_count": 1
+    },
+    {
+      "seq": 113,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.started",
+      "query": "Standard ChatGPT 4o Conversational Chatbot strengths"
+    },
+    {
+      "seq": 114,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Standard ChatGPT 4o Conversational Chatbot strengths",
+      "hit_count": 5
+    },
+    {
+      "seq": 115,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.started",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+    },
+    {
+      "seq": 116,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+    },
+    {
+      "seq": 117,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 118,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+    },
+    {
+      "seq": 119,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.failed",
+      "provider": "tavily_extract",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+      "errors": [
+        "tavily_extract_empty"
+      ]
+    },
+    {
+      "seq": 120,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "tavily_extract",
+      "to": "firecrawl_fetch",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+    },
+    {
+      "seq": 121,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.completed",
+      "provider": "firecrawl_fetch",
+      "url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+      "content_len": 1377
+    },
+    {
+      "seq": 122,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "strengths",
+      "limit": 1
+    },
+    {
+      "seq": 123,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "strengths",
+      "evidence_count": 1
+    },
+    {
+      "seq": 124,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.started",
+      "field_name": "weaknesses",
+      "query_count": 1
+    },
+    {
+      "seq": 125,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.started",
+      "query": "Standard ChatGPT 4o Conversational Chatbot weaknesses"
+    },
+    {
+      "seq": 126,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Standard ChatGPT 4o Conversational Chatbot weaknesses",
+      "hit_count": 5
+    },
+    {
+      "seq": 127,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.started",
+      "url": "https://openai.com/index/hello-gpt-4o"
+    },
+    {
+      "seq": 128,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.cache_hit",
+      "url": "https://openai.com/index/hello-gpt-4o"
+    },
+    {
+      "seq": 129,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "weaknesses",
+      "limit": 1
+    },
+    {
+      "seq": 130,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "weaknesses",
+      "evidence_count": 1
+    },
+    {
+      "seq": 131,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.started",
+      "field_name": "pricing_model",
+      "query_count": 1
+    },
+    {
+      "seq": 132,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.started",
+      "query": "Standard ChatGPT 4o Conversational Chatbot pricing_model"
+    },
+    {
+      "seq": 133,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Standard ChatGPT 4o Conversational Chatbot pricing_model",
+      "hit_count": 5
+    },
+    {
+      "seq": 134,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.started",
+      "url": "https://openai.com"
+    },
+    {
+      "seq": 135,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.cache_hit",
+      "url": "https://openai.com"
+    },
+    {
+      "seq": 136,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "pricing_model",
+      "limit": 1
+    },
+    {
+      "seq": 137,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "pricing_model",
+      "evidence_count": 1
+    },
+    {
+      "seq": 138,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.started",
+      "field_name": "user_feedback",
+      "query_count": 1
+    },
+    {
+      "seq": 139,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.started",
+      "query": "Standard ChatGPT 4o Conversational Chatbot user feedback 知乎 reddit"
+    },
+    {
+      "seq": 140,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.search.completed",
+      "provider": "zhihu_official",
+      "query": "Standard ChatGPT 4o Conversational Chatbot user feedback 知乎 reddit",
+      "hit_count": 5
+    },
+    {
+      "seq": 141,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 142,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 143,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 144,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 145,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.failed",
+      "provider": "tavily_extract",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "tavily_extract_empty"
+      ]
+    },
+    {
+      "seq": 146,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "tavily_extract",
+      "to": "firecrawl_fetch",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 147,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fetch.completed",
+      "provider": "firecrawl_fetch",
+      "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "content_len": 4943
+    },
+    {
+      "seq": 148,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "user_feedback",
+      "limit": 1
+    },
+    {
+      "seq": 149,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "user_feedback",
+      "evidence_count": 1
+    },
+    {
+      "seq": 150,
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "event_type": "collector.fallback.trace",
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://cloud.tencent.com/developer/article/2423741"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ]
+    },
+    {
+      "seq": 151,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.started",
+      "field_name": "feature_tree",
+      "query_count": 1
+    },
+    {
+      "seq": 152,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.started",
+      "query": "Microsoft 365 Copilot feature_tree"
+    },
+    {
+      "seq": 153,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Microsoft 365 Copilot feature_tree",
+      "hit_count": 5
+    },
+    {
+      "seq": 154,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+    },
+    {
+      "seq": 155,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+    },
+    {
+      "seq": 156,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 157,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+    },
+    {
+      "seq": 158,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training",
+      "content_len": 8016
+    },
+    {
+      "seq": 159,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "feature_tree",
+      "limit": 1
+    },
+    {
+      "seq": 160,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "feature_tree",
+      "evidence_count": 1
+    },
+    {
+      "seq": 161,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.started",
+      "field_name": "strengths",
+      "query_count": 1
+    },
+    {
+      "seq": 162,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.started",
+      "query": "Microsoft 365 Copilot strengths"
+    },
+    {
+      "seq": 163,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Microsoft 365 Copilot strengths",
+      "hit_count": 5
+    },
+    {
+      "seq": 164,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.started",
+      "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+    },
+    {
+      "seq": 165,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+    },
+    {
+      "seq": 166,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 167,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+    },
+    {
+      "seq": 168,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel",
+      "content_len": 5253
+    },
+    {
+      "seq": 169,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "strengths",
+      "limit": 1
+    },
+    {
+      "seq": 170,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "strengths",
+      "evidence_count": 1
+    },
+    {
+      "seq": 171,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.started",
+      "field_name": "weaknesses",
+      "query_count": 1
+    },
+    {
+      "seq": 172,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.started",
+      "query": "Microsoft 365 Copilot weaknesses"
+    },
+    {
+      "seq": 173,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Microsoft 365 Copilot weaknesses",
+      "hit_count": 5
+    },
+    {
+      "seq": 174,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.started",
+      "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+    },
+    {
+      "seq": 175,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+    },
+    {
+      "seq": 176,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 177,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+    },
+    {
+      "seq": 178,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot",
+      "content_len": 14834
+    },
+    {
+      "seq": 179,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "weaknesses",
+      "limit": 1
+    },
+    {
+      "seq": 180,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "weaknesses",
+      "evidence_count": 1
+    },
+    {
+      "seq": 181,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.started",
+      "field_name": "pricing_model",
+      "query_count": 1
+    },
+    {
+      "seq": 182,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.started",
+      "query": "Microsoft 365 Copilot pricing_model"
+    },
+    {
+      "seq": 183,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.completed",
+      "provider": "qianfan",
+      "query": "Microsoft 365 Copilot pricing_model",
+      "hit_count": 5
+    },
+    {
+      "seq": 184,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.started",
+      "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+    },
+    {
+      "seq": 185,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+    },
+    {
+      "seq": 186,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 187,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+    },
+    {
+      "seq": 188,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.completed",
+      "provider": "tavily_extract",
+      "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise",
+      "content_len": 16584
+    },
+    {
+      "seq": 189,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "pricing_model",
+      "limit": 1
+    },
+    {
+      "seq": 190,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "pricing_model",
+      "evidence_count": 1
+    },
+    {
+      "seq": 191,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.started",
+      "field_name": "user_feedback",
+      "query_count": 1
+    },
+    {
+      "seq": 192,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.started",
+      "query": "Microsoft 365 Copilot user feedback 知乎 reddit"
+    },
+    {
+      "seq": 193,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.search.completed",
+      "provider": "zhihu_official",
+      "query": "Microsoft 365 Copilot user feedback 知乎 reddit",
+      "hit_count": 5
+    },
+    {
+      "seq": 194,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.started",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 195,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.cache_miss",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 196,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.failed",
+      "provider": "jina",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "jina_fetch_failed: HTTP Error 403: Forbidden"
+      ]
+    },
+    {
+      "seq": 197,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "jina",
+      "to": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 198,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.failed",
+      "provider": "tavily_extract",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "errors": [
+        "tavily_extract_empty"
+      ]
+    },
+    {
+      "seq": 199,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.provider.fallback",
+      "phase": "fetch",
+      "from": "tavily_extract",
+      "to": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+    },
+    {
+      "seq": 200,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fetch.completed",
+      "provider": "firecrawl_fetch",
+      "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3",
+      "content_len": 9187
+    },
+    {
+      "seq": 201,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_quota_reached",
+      "field_name": "user_feedback",
+      "limit": 1
+    },
+    {
+      "seq": 202,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.field_query.completed",
+      "field_name": "user_feedback",
+      "evidence_count": 1
+    },
+    {
+      "seq": 203,
+      "competitor": "Microsoft 365 Copilot",
+      "event_type": "collector.fallback.trace",
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ]
+    }
+  ],
+  "preview": [
+    {
+      "competitor": "AutoGPT",
+      "evidence_count": 5,
+      "sample": [
+        {
+          "query": "AutoGPT feature_tree",
+          "title": "GitHub星标超16万,爆火AutoGPT进阶版:定制节点、多智能体协同",
+          "source_url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc",
+          "snippet": " 主要组件和关键特性 该项目具有以下两个主要组件,分别是后端的 AutoGPT Server 和前端的 AutoGPT Builder。其中 Server 负责创建复合多智能体系统,将 AutoGPT 智能体和其他非智能体组件用作其原语(primitive)。 AutoGPT Server (Backend):https://github.com/Significant-Gravitas/AutoGPT/tree/master/rnd/autogpt_serverAutoGPT Builder (Frontend):https://github.com/Significant-Gravitas/AutoGPT/tree/master/rnd/autogpt_builder 设置和运行 Server 和 Builder 的具体步骤如下: 导航到 AutoGPT GitHub 存储库;单击「代码」(Code)按钮,然后选择「下载 ZIP」;下载后,将 ZIP 文件解压到你选择的文件夹中;打开解压的文件夹并导航到「rnd」目录;进入「AutoGPT Server」文件夹;在「rnd」目录中打",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:14:49.694558+00:00",
+          "extract_fields": {
+            "price_detected": false,
+            "feature_detected": true,
+            "feedback_detected": false,
+            "captured_at": "2026-05-23T05:14:49.693560+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\d0d644ac3da29238cebb9c878276e40359b041d742ad6b3c7ef3971756a96aa4.txt",
+          "content_hash": "d0d644ac3da29238cebb9c878276e40359b041d742ad6b3c7ef3971756a96aa4",
+          "content_excerpt": "![到百度首页](https://mbdp01.bdstatic.com/static/landing-pc/img/logo_top.79fdb8c2.png \"到百度首页\")\n![](https://psstatic.cdn.bcebos.com/basics/aichat/search_1761738231000.png)\n![](https://psstatic.cdn.bcebos.com/basics/aichat/copy_1761738240000.png)\n![](https://avatar.bdstatic.com/it/u=1561533990,1202445578&fm=3012&app=3012&autime=1775702880&size=b200,200)\n\n机器之心Pro\n\n机器之心报道\n\n**机器之心编辑部**\n\n还记得去年 AI 大牛 Andrej Karpathy 大力宣传的「AutoGPT」项目吗？它是一个由 GPT-4 驱动的实验性开源应用程序，可以自主实现用户设定的任何目标，展现出了自主 AI 的发展趋势。\n\n一年多的时间，该项目的 GitHub 星标总数已经超过了 16 万，足可见其持续受欢迎的程度。\n\n![](https://pics0.baidu.com/feed/78310a55b319ebc481c43326823699f21f1716ea.jpeg@f_auto?token=636e12aa237d60788d4281ae45daa4c0)\n\nGitHub 地址：https://github.com/Significant-Gravitas/AutoGPT\n\n昨日，项目作者在社媒 X 上宣布了下一代「AutoGPT」的到来，目前是 Pre-alpha 版本。与前代相比，下一代「AutoGPT」让构建、运行和共享 AI 智能体变得比以往任何时候都更容易，同时可靠性也大大提升。\n\n![](https://pics6.baidu.com/feed/3bf33a87e950352adc0affd65353adfcb3118ba7.jpeg@f_auto?token=d736a66b692bcf680c2be4e9644874bf)\n\n图源：https://x.com/SigGravitas/status/181280",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "feature_tree",
+          "query_template": "AutoGPT feature_tree",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "AutoGPT strengths",
+          "title": "OpenClaw vs AutoGPT: Which AI Agent Should You Use in 2026",
+          "source_url": "https://www.bluehost.com/blog/openclaw-vs-autogpt",
+          "snippet": "OpenClaw vs AutoGPT: Which AI Agent Should You Use in 2026 Hosting , OpenClaw , Uncategorized Published :  16 Mins Read Key highlights Understand how OpenClaw functions as a structured execution and workflow automation layer built for operational AI systems. Explore how AutoGPT operates as an autonomous reasoning framework designed for goal-driven, recursive task execution. Compare how both AI agent tools address fundamentally different problems across separate architectural layers. Identify Ope",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:14:54.058701+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:14:54.057689+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\4261895d7d597d85749d5e2ef29d80a74d39f3d3c779a314b13c3e365b38db34.txt",
+          "content_hash": "4261895d7d597d85749d5e2ef29d80a74d39f3d3c779a314b13c3e365b38db34",
+          "content_excerpt": "# OpenClaw vs AutoGPT: Best Tool for Automation in 2026\n\n[![Image 1](blob:http://localhost/61cfc1675a383319f36f6085e0cebb5a)ChatGPT,![Image 3](blob:http://localhost/61cfc1675a383319f36f6085e0cebb5a)Claude,![Image 5](blob:http://localhost/61cfc1675a383319f36f6085e0cebb5a)Gemini,![Image 7](blob:http://localhost/61cfc1675a383319f36f6085e0cebb5a)Grok — all four for$20/mo](https://www.bluehost.com/all-access)\n\n*   [Contact Sales](https://www.bluehost.com/blog/openclaw-vs-autogpt#)[Call 855-372-3679 Mon–Fri, 8am–11pm ET (~30s wait)](tel:%208553723679) [Chat With Us](tel:%208553723679)    \n*   [Help](https://www.bluehost.com/blog/openclaw-vs-autogpt)[SALES 844-303-1730](tel:8443031730) [SUPPORT 888-401-4678](tel:8884014678) [INTERNATIONAL+1 801 765-9400](tel:+18017659400)  [Chat With Us Chat Now](https://www.bluehost.com/blog/openclaw-vs-autogpt)  [Support AI Resources for every level of expertise](https://www.bluehost.com/support?currencyCode=USD&langPref=en) [Blog AI Resources for every lev",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "strengths",
+          "query_template": "AutoGPT strengths",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "AutoGPT weaknesses",
+          "title": "AutoGPT的真实体验:打破封闭性的AI工具",
+          "source_url": "https://zhuanlan.zhihu.com/p/622352946",
+          "snippet": " AutoGPT最近在社交媒体上刷屏,它可以从外部网络获取信息,并使用这些信息来训练和优化GPT模型。这个功能的出现打开了人们的想象空间,但是,这一功能到底有多“Auto”呢? 为了测试AutoGPT的真实能力,我在AWS服务器上部署了这个工具,并对其进行了测试。我给AutoGPT下达了一个任务:以“chatpdf功能的工具网站(http://www.chatspdf.cn),如何推广给更多人使用”为题,编写一个可行的落地方案。 我花费了很长时间尝试各种方法,但最终却没有成功。我向AutoGPT询问是否有任何建议,但是,它并没有给我一个令人满意的答复。虽然AutoGPT具备了从外部网络获取信息的能力,但是,它在解决实际问题时的表现并不尽如人意。 最后实在等不了了,我说: give me a result according current info you've got 他告诉我: I apologize, but I have not received any new information from you since my last response. Please let me",
+          "source_provider": "qianfan",
+          "source_type": "community",
+          "retrieval_method": "qianfan+firecrawl_fetch",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:15:07.709652+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:15:07.708653+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\e242e8ffcffec765716578a37b3e9f4ba751af6d61e4970934a78dd8cf41a244.txt",
+          "content_hash": "e242e8ffcffec765716578a37b3e9f4ba751af6d61e4970934a78dd8cf41a244",
+          "content_excerpt": "![](https://zhuanlan.zhihu.com/p/622352946)\n\nAutoGPT最近在社交媒体上刷屏，它可以从外部网络获取信息，并使用这些信息来训练和优化GPT模型。这个功能的出现打开了人们的想象空间，但是，这一功能到底有多“Auto”呢？\n\n为了测试AutoGPT的真实能力，我在AWS服务器上部署了这个工具，并对其进行了测试。我给AutoGPT下达了一个任务：以“chatpdf功能的工具网站（ [http://www.chatspdf.cn](https://link.zhihu.com/?target=http%3A//www.chatspdf.cn)），如何推广给更多人使用”为题，编写一个可行的落地方案。\n\n我花费了很长时间尝试各种方法，但最终却没有成功。我向AutoGPT询问是否有任何建议，但是，它并没有给我一个令人满意的答复。虽然AutoGPT具备了从外部网络获取信息的能力，但是，它在解决实际问题时的表现并不尽如人意。\n\n最后实在等不了了，我说：\n\ngive me a result according current info you've got\n\n他告诉我：\n\nI apologize, but I have not received any new information from you since my last response. Please let me know if there is anything specific you would like me to do or if you have any questions.\n\n综合来看，我认为这种技术的发展还有很大的探索空间。我们可以通过预定义的流程和动作，获取外部信息并进行分析，这可以应用于很多领域。但是，要实现商业化的应用，我们需要结合具体的业务场景，对AutoGPT进行定制开发，才能发挥出更大的价值。\n\n目前，AutoGPT还没有达到商业化应用的水平，但是，随着技术的不断发展，我们有理由相信，它会越来越智能，越来越“Auto”。\n\n下面是整个过程，比较长，反正就是去各个网站找内容，找到内容分析，存储到本地，循环往复。大概浏览即可。\n\n```text\n(venv) [root@ip-172-31-29-153 Auto-GPT]# python -m auto",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "weaknesses",
+          "query_template": "AutoGPT weaknesses",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        }
+      ],
+      "search_events": [
+        {
+          "event_type": "collector.search.started",
+          "query": "AutoGPT feature_tree"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "AutoGPT feature_tree",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "AutoGPT strengths"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "AutoGPT strengths",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "AutoGPT weaknesses"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "AutoGPT weaknesses",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "AutoGPT pricing_model"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "AutoGPT pricing_model",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "AutoGPT user feedback 知乎 reddit"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "zhihu_official",
+          "query": "AutoGPT user feedback 知乎 reddit",
+          "hit_count": 5
+        }
+      ],
+      "fetch_events": [
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc",
+          "content_len": 4706
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt",
+          "content_len": 51200
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://zhuanlan.zhihu.com/p/622352946"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://zhuanlan.zhihu.com/p/622352946"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://zhuanlan.zhihu.com/p/622352946",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/622352946",
+          "errors": [
+            "tavily_extract_empty"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/622352946",
+          "content_len": 61263
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.ibm.com/think/topics/autogpt"
+        },
+        {
+          "event_type": "collector.fetch.cache_hit",
+          "url": "https://www.ibm.com/think/topics/autogpt"
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "tavily_extract_empty"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "content_len": 7637
+        }
+      ],
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/622352946"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/622352946"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ],
+      "field_stats": [
+        {
+          "field_name": "feature_tree",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "pricing_model",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "strengths",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "user_feedback",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "weaknesses",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        }
+      ],
+      "field_summaries": {
+        "feature_tree": {
+          "summary": " 主要组件和关键特性 该项目具有以下两个主要组件,分别是后端的 AutoGPT Server 和前端的 AutoGPT Builder。其中 Server 负责创建复合多智能体系统,将 AutoGPT 智能体和其他非智能体组件用作其原语(p",
+          "evidence_urls": [
+            "https://baijiahao.baidu.com/s?id=1804898727124635672&wfr=spider&for=pc"
+          ],
+          "confidence": 0.72
+        },
+        "strengths": {
+          "summary": "OpenClaw vs AutoGPT: Which AI Agent Should You Use in 2026 Hosting , OpenClaw , Uncategorized Published :  16 Mins Read ",
+          "evidence_urls": [
+            "https://www.bluehost.com/blog/openclaw-vs-autogpt"
+          ],
+          "confidence": 0.72
+        },
+        "weaknesses": {
+          "summary": " AutoGPT最近在社交媒体上刷屏,它可以从外部网络获取信息,并使用这些信息来训练和优化GPT模型。这个功能的出现打开了人们的想象空间,但是,这一功能到底有多“Auto”呢? 为了测试AutoGPT的真实能力,我在AWS服务器上部署了这个",
+          "evidence_urls": [
+            "https://zhuanlan.zhihu.com/p/622352946"
+          ],
+          "confidence": 0.72
+        },
+        "pricing_model": {
+          "summary": " AutoGPT is an open-sourceartificial intelligence (AI)platform that allows users to automate multistep projects and comp",
+          "evidence_urls": [
+            "https://www.ibm.com/think/topics/autogpt"
+          ],
+          "confidence": 0.72
+        },
+        "user_feedback": {
+          "summary": "1.监控目标 subreddit 中的相关话题\n2.识别潜在机会：发现用户讨论与品牌相关的问题\n3.生成回复：撰写有帮助、非推销性质的回复\n4.自动发布：在合适的时机发布回复\n5.效果追踪：记录互动数据，优化后续策略\n这个案例展示了 Aut",
+          "evidence_urls": [
+            "https://zhuanlan.zhihu.com/p/2022787497416033743?utm_medium=openapi_platform&utm_source=1af04ca3"
+          ],
+          "confidence": 0.72
+        }
+      }
+    },
+    {
+      "competitor": "OpenAI GPT-4o Advanced Agents",
+      "evidence_count": 4,
+      "sample": [
+        {
+          "query": "OpenAI GPT-4o Advanced Agents feature_tree",
+          "title": "OpenAI公布2025年将发布的技术产品:AGI、Agents、GPT-4o升级版",
+          "source_url": "https://www.yicai.com/news/102423144.html",
+          "snippet": "OpenAI公布2025年将发布的技术产品:AGI、Agents、GPT-4o升级版 OpenAI首席执行官Sam Altman公布了2025年即将发布的技术产品。 12月31日凌晨,OpenAI首席执行官萨姆·奥特曼(Sam Altman)公布了2025年即将发布的技术产品。 分别是:AGI(通用人工智能)、Agents(智能体)、更好的GPT-4o升级版、更好的记忆存储、更好的上下文窗口、“Grow up mode”(成人模式)、深度研究特色功能、更好的Sora、更好的个性化定制。",
+          "source_provider": "qianfan",
+          "source_type": "news",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:15:23.475334+00:00",
+          "extract_fields": {
+            "price_detected": false,
+            "feature_detected": false,
+            "feedback_detected": false,
+            "captured_at": "2026-05-23T05:15:23.474335+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\d3c5cfc1cb690de8c3f4b55ddabd40344897fa6ac6c8888253722b80951d52b2.txt",
+          "content_hash": "d3c5cfc1cb690de8c3f4b55ddabd40344897fa6ac6c8888253722b80951d52b2",
+          "content_excerpt": "[首页](/) > [新闻](/news/) > 科技\n\n#### 分享到：\n\n* 微信\n* 微博\n* QQ\n\n|  |\n| --- |\n| 分享到微信  打开微信，点击底部的“发现”， 使用“扫一扫”即可将网页分享至朋友圈。 |\n\n# OpenAI公布2025年将发布的技术产品：AGI、Agents、GPT-4o升级版\n\n第一财经 *2024-12-31 08:22:28*![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAYAAAAiYZ4HAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKTWlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVN3WJP3Fj7f92UPVkLY8LGXbIEAIiOsCMgQWaIQkgBhhBASQMWFiApWFBURnEhVxILVCkidiOKgKLhnQYqIWotVXDjuH9yntX167+3t+9f7vOec5/zOec8PgBESJpHmomoAOVKFPDrYH49PSMTJvYACFUjgBCAQ5svCZwXFAADwA3l4fnSwP/wBr28AAgBw1S4kEsfh/4O6UCZXACCRAOAiEucLAZBSAMguVMgUAMgYALBTs2QKAJQAAGx5fEIiAKoNAOz0ST4FANipk9wXANiiHKkIAI0BAJkoRyQCQLsAYFWBUiwCwMIAoKxAIi4EwK4BgFm2MkcCgL0FAHaOWJAPQGAAgJlCLMwAIDgCAEMeE80DIEwDoDDSv+CpX3CFuEgBAMDLlc2XS9IzFLiV0Bp38vDg4iHiwmyxQmEXKRBmCeQinJebIxNI5wNMzgwAABr50cH+OD+Q5+bk4eZm52zv9MWi/mvwbyI+IfHf/ryMAgQAEE7P79pf5eXWA3DHAbB1v2upWwDaVgBo3/ldM9sJoFoK0Hr5i3k4/EAenqFQyDwdHAoLC+0lYqG9MOOLPv8z4W/gi372/EAe/tt68ABxmkCZrcCjg/1xYW52rlKO58sEQjFu9+cj/seFf/2OKdHiNLFcLBWK8ViJuFAiTcd5uVKRR",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "feature_tree",
+          "query_template": "OpenAI GPT-4o Advanced Agents feature_tree",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "OpenAI GPT-4o Advanced Agents weaknesses",
+          "title": "Spring Update",
+          "source_url": "https://openai.com/index/spring-update",
+          "snippet": " Introducing GPT‑4o and making more capabilities available for free in ChatGPT. Learn more about GPT‑4o and advanced tools to ChatGPT for free users. Hello GPT-4o Learn more about GPT‑4o, our new flagship model that can reason across audio, vision, and text in real time.",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+cache+firecrawl_fetch",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:15:26.882309+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": false,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:15:26.882309+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\09bf398f31e936684c416dc3b4a758beba5897d4cdc0bcb7c3ca789437df3654.txt",
+          "content_hash": "09bf398f31e936684c416dc3b4a758beba5897d4cdc0bcb7c3ca789437df3654",
+          "content_excerpt": "Spring Update \\| OpenAI\n\nMay 13, 2024\n\n# Spring Update\n\nIntroducing GPT‑4o and making more capabilities available for free in ChatGPT.\n\n![](https://i3.ytimg.com/vi/DQacCB9tDaw/maxresdefault.jpg?w=3840&q=50&fm=webp)\n\nPlay video\n\nLearn more about GPT‑4o and advanced tools to ChatGPT for free users.\n\nShare\n\n### Hello GPT-4o\n\nLearn more about GPT‑4o, our new flagship model that can reason across audio, vision, and text in real time.\n\n[Learn more](https://openai.com/index/hello-gpt-4o/)\n\nYour browser does not support the video tag.\n\n00:00\n\n### More tools for ChatGPT free users\n\nLearn more about our newest flagship model and the new capabilities available for ChatGPT free users.\n\n[Learn more](https://openai.com/index/gpt-4o-and-more-tools-to-chatgpt-free/)\n\nYour browser does not support the video tag.\n\n00:00",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "weaknesses",
+          "query_template": "OpenAI GPT-4o Advanced Agents weaknesses",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "OpenAI GPT-4o Advanced Agents pricing_model",
+          "title": "GPT‑4o mini: advancing cost-efficient intelligence",
+          "source_url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence",
+          "snippet": "GPT‑4o mini: advancing cost-efficient intelligence OpenAI is committed to making intelligence as broadly accessible as possible. Today, we're announcing GPT‑4o mini, our most cost-efficient small model. We expect GPT‑4o mini will significantly expand the range of applications built with AI by making intelligence much more affordable. GPT‑4o mini scores 82% on MMLU and currently outperforms GPT‑41on chat preferences inLMSYS leaderboard⁠(opens in a new window). It is priced at 15 cents per million",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:15:31.019837+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:15:31.017838+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\9b2454b23a4078e26f344285425c30e68d613d1a555ff667e14ec895f9fcaf12.txt",
+          "content_hash": "9b2454b23a4078e26f344285425c30e68d613d1a555ff667e14ec895f9fcaf12",
+          "content_excerpt": "# GPT-4o mini: advancing cost-efficient intelligence | OpenAI\n\n[Skip to main content](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/#main)\n\n[](https://openai.com/)\n\n*   [Research](https://openai.com/research/index/)\n*   Products\n*   [Business](https://openai.com/business/)\n*   [Developers](https://openai.com/api/)\n*   [Company](https://openai.com/about/)\n*   [Foundation(opens in a new window)](https://openaifoundation.org/)\n\nLog in[Try ChatGPT(opens in a new window)](https://chatgpt.com/?openaicom-did=e81f866b-637b-4c99-bf1c-b7ee333ecedf&openaicom_referred=true)\n\n*   Research\n*   Products\n*   Business\n*   Developers\n*   Company\n*   [Foundation(opens in a new window)](https://openaifoundation.org/)\n\nGPT-4o mini: advancing cost-efficient intelligence | OpenAI\n\nJuly 18, 2024\n\n[Release](https://openai.com/research/index/release/)\n\n# GPT‑4o mini: advancing cost-efficient intelligence\n\nIntroducing our most cost-efficient small model\n\nListen to article\n\n[Audio 1](",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "pricing_model",
+          "query_template": "OpenAI GPT-4o Advanced Agents pricing_model",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        }
+      ],
+      "search_events": [
+        {
+          "event_type": "collector.search.started",
+          "query": "OpenAI GPT-4o Advanced Agents feature_tree"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "OpenAI GPT-4o Advanced Agents feature_tree",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "OpenAI GPT-4o Advanced Agents strengths"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "OpenAI GPT-4o Advanced Agents strengths",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "OpenAI GPT-4o Advanced Agents weaknesses"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "OpenAI GPT-4o Advanced Agents weaknesses",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "OpenAI GPT-4o Advanced Agents pricing_model"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "OpenAI GPT-4o Advanced Agents pricing_model",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "OpenAI GPT-4o Advanced Agents user feedback 知乎 reddit"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "zhihu_official",
+          "query": "OpenAI GPT-4o Advanced Agents user feedback 知乎 reddit",
+          "hit_count": 5
+        }
+      ],
+      "fetch_events": [
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.yicai.com/news/102423144.html"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://www.yicai.com/news/102423144.html"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://www.yicai.com/news/102423144.html",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://www.yicai.com/news/102423144.html",
+          "content_len": 6099
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.yicai.com/news/102423144.html"
+        },
+        {
+          "event_type": "collector.fetch.cache_hit",
+          "url": "https://www.yicai.com/news/102423144.html"
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://openai.com/index/spring-update"
+        },
+        {
+          "event_type": "collector.fetch.cache_hit",
+          "url": "https://openai.com/index/spring-update"
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence",
+          "content_len": 13340
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "tavily_extract_empty"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "content_len": 10568
+        }
+      ],
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.yicai.com/news/102423144.html"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ],
+      "field_stats": [
+        {
+          "field_name": "feature_tree",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "pricing_model",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "strengths",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "user_feedback",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "weaknesses",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        }
+      ],
+      "field_summaries": {
+        "feature_tree": {
+          "summary": "OpenAI公布2025年将发布的技术产品:AGI、Agents、GPT-4o升级版 OpenAI首席执行官Sam Altman公布了2025年即将发布的技术产品。 12月31日凌晨,OpenAI首席执行官萨姆·奥特曼(Sam Altman",
+          "evidence_urls": [
+            "https://www.yicai.com/news/102423144.html"
+          ],
+          "confidence": 0.72
+        },
+        "weaknesses": {
+          "summary": " Introducing GPT‑4o and making more capabilities available for free in ChatGPT. Learn more about GPT‑4o and advanced too",
+          "evidence_urls": [
+            "https://openai.com/index/spring-update"
+          ],
+          "confidence": 0.72
+        },
+        "pricing_model": {
+          "summary": "GPT‑4o mini: advancing cost-efficient intelligence OpenAI is committed to making intelligence as broadly accessible as p",
+          "evidence_urls": [
+            "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence"
+          ],
+          "confidence": 0.72
+        },
+        "user_feedback": {
+          "summary": "智东西\n作者 | 陈骏达\n编辑 | 云鹏\nGPT-4o全面回归了。\n智东西8月14日报道，昨日，OpenAI首席执行官Sam Altman在X平台上，宣布了对ChatGPT的最新升级。针对付费用户，GPT-4o现已重新出现在默认模型选择器中",
+          "evidence_urls": [
+            "https://zhuanlan.zhihu.com/p/1939356325785104461?utm_medium=openapi_platform&utm_source=1af04ca3"
+          ],
+          "confidence": 0.72
+        }
+      }
+    },
+    {
+      "competitor": "Standard ChatGPT 4o Conversational Chatbot",
+      "evidence_count": 5,
+      "sample": [
+        {
+          "query": "Standard ChatGPT 4o Conversational Chatbot feature_tree",
+          "title": "重磅消息!ChatGPT免费开放!所有用户可免费使用GPT-4o浏览、视觉和数据分析功能,彻底颠覆AI行业!",
+          "source_url": "https://cloud.tencent.com/developer/article/2423741",
+          "snippet": "ChatGPT免费开放!所有用户可免费使用GPT-4o浏览、视觉和数据分析功能,彻底颠覆AI行业! 重磅消息!ChatGPT免费开放!所有用户可免费使用GPT-4o浏览、视觉和数据分析功能,彻底颠覆AI行业! GPT-4o免费开放,AI技术进步新里程 技术进步的里程碑 成本效益显著 广泛应用前景 开发者的福音 安全与伦理考量 GPT-4o的影响与展望 对教育行业的影响 对内容创作行业的影响 对客服与支持行业的影响 未来发展与应对策略 技术进步 应用拓展 市场转型 应对策略 重磅消息!ChatGPT免费开放!所有用户可免费使用GPT-4o浏览、视觉和数据分析功能,彻底颠覆AI行业! 👋 大家好,我是猫头虎,今天给大家带来一条重磅消息!昨天,北京时间2024年5月30日,OpenAI官方在X(前身为Twitter)上发帖宣布:“All ChatGPT Free users can now use browse, vision, data analysis, file uploads, and GPTs”。也就是说,所有的ChatGPT免费用户现在都可以使用浏览、视觉、数据分析、文件上传和G",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:15:48.451470+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:15:48.450470+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\ad2abca982f867c748ae990232ecfa02c090d3f8f1c186c97c8bab0858841e79.txt",
+          "content_hash": "ad2abca982f867c748ae990232ecfa02c090d3f8f1c186c97c8bab0858841e79",
+          "content_excerpt": "## 重磅消息！ChatGPT免费开放！所有用户可免费使用GPT-4o浏览、视觉和数据分析功能，彻底颠覆AI行业！\n\n![](https://qccommunity.qcloudimg.com/image/new.png)\n\n# 重磅消息！ChatGPT免费开放！所有用户可免费使用GPT-4o浏览、视觉和数据分析功能，彻底颠覆AI行业！\n\n![作者头像](https://developer.qcloudimg.com/http-save/10011/ef9ea0ea444f8bf9539353dd5995461e.jpg)\n\n**文章目录**\n\n### 重磅消息！ChatGPT免费开放！所有用户可免费使用GPT-4o浏览、视觉和数据分析功能，彻底颠覆AI行业！\n\n👋 大家好，我是猫头虎，今天给大家带来一条重磅消息！昨天，北京时间2024年5月30日，OpenAI官方在X（前身为Twitter）上发帖宣布：“All ChatGPT Free users can now use browse, vision, data analysis, file uploads, and GPTs”。也就是说，所有的ChatGPT免费用户现在都可以使用浏览、视觉、数据分析、文件上传和GPTs功能啦！\n\n![在这里插入图片描述](https://developer.qcloudimg.com/http-save/yehe-11053981/fa5296d138d2ce5d3786f19160b3b15a.png)\n\n#### GPT-4o免费开放，AI技术进步新里程\n\n##### 技术进步的里程碑\n\n##### 成本效益显著\n\n##### 广泛应用前景\n\n##### 开发者的福音\n\n#### 安全与伦理考量\n\n#### GPT-4o的影响与展望\n\n![在这里插入图片描述](https://developer.qcloudimg.com/http-save/yehe-11053981/0618ce640bdb9ca9dfdce7f423d6c1cb.png)\n\n##### 对教育行业的影响\n\n##### 对内容创作行业的影响\n\n##### 对客服与支持行业的影响\n\n#### 未来发展与应对策略\n\n##### 技术进步\n\n随着算法优化和计算能力提升，未来的GPT模型将更加强大，处理问题的能",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "feature_tree",
+          "query_template": "Standard ChatGPT 4o Conversational Chatbot feature_tree",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "Standard ChatGPT 4o Conversational Chatbot strengths",
+          "title": "ChatGPT vs Chatbots Unleashing the Power of Conversational AI",
+          "source_url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+          "snippet": "ChatGPT vs Chatbots Unleashing the Power of Conversational AIdoi:10.47363/jmsmr/2023(4)158This article explores the distinctions between ChatGPT and chatbots, two prominent technologies in the field of conversational AI. ChatGPT, powered by OpenAI's GPT-3.5 architecture, represents a state-of-the-art natural language processing model that learns from vast text data, enabling it to generate contextually relevant responses. In contrast, chatbots operate within predefined rules and offer structured",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+firecrawl_fetch",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:15:59.088868+00:00",
+          "extract_fields": {
+            "price_detected": false,
+            "feature_detected": true,
+            "feedback_detected": false,
+            "captured_at": "2026-05-23T05:15:59.087863+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\dcb1fb2865dbf8c630e9022e2be52bc02babf7a4a35c24953ae456db6309f672.txt",
+          "content_hash": "dcb1fb2865dbf8c630e9022e2be52bc02babf7a4a35c24953ae456db6309f672",
+          "content_excerpt": "PDF.js viewer\n\nThumbnailsDocument OutlineAttachmentsLayers\n\nPrevious\n\nNext\n\nHighlight allMatch case\n\nWhole words\n\nPresentation ModeOpenPrintDownload[Current View](https://srcpublishers.com/plugins/generic/pdfJsViewer/pdf.js/web/viewer.html?file=https%3A%2F%2Fsrcpublishers.com%2Fmaterial-sciences-manufacturing-%2Farticle%2Fdownload%2F3401%2F3509%2F12313# \"Current view (copy or open in new window)\")\n\nGo to First PageGo to Last Page\n\nRotate ClockwiseRotate Counterclockwise\n\nText Selection ToolHand Tool\n\nVertical ScrollingHorizontal ScrollingWrapped Scrolling\n\nNo SpreadsOdd SpreadsEven Spreads\n\nDocument Properties…\n\nToggle Sidebar\n\nFind\n\nPrevious\n\nNext\n\nof 0\n\nPresentation ModeOpenPrintDownload[Current View](https://srcpublishers.com/plugins/generic/pdfJsViewer/pdf.js/web/viewer.html?file=https%3A%2F%2Fsrcpublishers.com%2Fmaterial-sciences-manufacturing-%2Farticle%2Fdownload%2F3401%2F3509%2F12313# \"Current view (copy or open in new window)\")\n\nTools\n\nZoom Out\n\nZoom In\n\nAutomatic ZoomActual S",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "strengths",
+          "query_template": "Standard ChatGPT 4o Conversational Chatbot strengths",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "Standard ChatGPT 4o Conversational Chatbot weaknesses",
+          "title": "Hello GPT‑4o",
+          "source_url": "https://openai.com/index/hello-gpt-4o",
+          "snippet": " We’re announcing GPT‑4o, our new flagship model that can reason across audio, vision, and text in real time. ContributionsTry on ChatGPT(opens in a new window)GPT-4o System Card All videos on this page are at 1x real time. Guessing May 13th’s announcement. More Resources Try in Playground Model capabilities Two GPT‑4os interacting and singing. Interview prep. Rock Paper Scissors. Sarcasm. Math with Sal and Imran Khan. Two GPT‑4os harmonizing. Point and learn Spanish. Meeting AI. Real-time trans",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+cache+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:16:00.689242+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:16:00.689242+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\7de1c4f6e044dd92e1f2cb8ed9303100b8d48dd179986aa33c685a84178f34b9.txt",
+          "content_hash": "7de1c4f6e044dd92e1f2cb8ed9303100b8d48dd179986aa33c685a84178f34b9",
+          "content_excerpt": "# Hello GPT-4o | OpenAI\n\n[Skip to main content](https://openai.com/index/hello-gpt-4o/#main)\n\n[](https://openai.com/)\n\n*   [Research](https://openai.com/research/index/)\n*   Products\n*   [Business](https://openai.com/business/)\n*   [Developers](https://openai.com/api/)\n*   [Company](https://openai.com/about/)\n*   [Foundation(opens in a new window)](https://openaifoundation.org/)\n\nLog in[Try ChatGPT(opens in a new window)](https://chatgpt.com/?openaicom-did=56fe368d-7373-45e3-9198-c568ef5d2fb4&openaicom_referred=true)\n\n*   Research\n*   Products\n*   Business\n*   Developers\n*   Company\n*   [Foundation(opens in a new window)](https://openaifoundation.org/)\n\nHello GPT-4o | OpenAI\n\nTable of contents\n\n*   [Explorations of capabilities](https://openai.com/index/hello-gpt-4o/#explorations-of-capabilities)\n*   [Model evaluations](https://openai.com/index/hello-gpt-4o/#model-evaluations)\n*   [ChatGPT-4o Risk Scorecard](https://openai.com/index/hello-gpt-4o/#chatgpt-4o-risk-scorecard)\n\nMay 13, 202",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "weaknesses",
+          "query_template": "Standard ChatGPT 4o Conversational Chatbot weaknesses",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        }
+      ],
+      "search_events": [
+        {
+          "event_type": "collector.search.started",
+          "query": "Standard ChatGPT 4o Conversational Chatbot feature_tree"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Standard ChatGPT 4o Conversational Chatbot feature_tree",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Standard ChatGPT 4o Conversational Chatbot strengths"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Standard ChatGPT 4o Conversational Chatbot strengths",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Standard ChatGPT 4o Conversational Chatbot weaknesses"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Standard ChatGPT 4o Conversational Chatbot weaknesses",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Standard ChatGPT 4o Conversational Chatbot pricing_model"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Standard ChatGPT 4o Conversational Chatbot pricing_model",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Standard ChatGPT 4o Conversational Chatbot user feedback 知乎 reddit"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "zhihu_official",
+          "query": "Standard ChatGPT 4o Conversational Chatbot user feedback 知乎 reddit",
+          "hit_count": 5
+        }
+      ],
+      "fetch_events": [
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://cloud.tencent.com/developer/article/2423741"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://cloud.tencent.com/developer/article/2423741"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://cloud.tencent.com/developer/article/2423741",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://cloud.tencent.com/developer/article/2423741",
+          "content_len": 2253
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "tavily_extract",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+          "errors": [
+            "tavily_extract_empty"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "firecrawl_fetch",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158",
+          "content_len": 1377
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://openai.com/index/hello-gpt-4o"
+        },
+        {
+          "event_type": "collector.fetch.cache_hit",
+          "url": "https://openai.com/index/hello-gpt-4o"
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://openai.com"
+        },
+        {
+          "event_type": "collector.fetch.cache_hit",
+          "url": "https://openai.com"
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "tavily_extract",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "tavily_extract_empty"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "firecrawl_fetch",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "content_len": 4943
+        }
+      ],
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://cloud.tencent.com/developer/article/2423741"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "http://doi.org/10.47363/jmsmr/2023(4)158"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ],
+      "field_stats": [
+        {
+          "field_name": "feature_tree",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "pricing_model",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "strengths",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "user_feedback",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "weaknesses",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        }
+      ],
+      "field_summaries": {
+        "feature_tree": {
+          "summary": "ChatGPT免费开放!所有用户可免费使用GPT-4o浏览、视觉和数据分析功能,彻底颠覆AI行业! 重磅消息!ChatGPT免费开放!所有用户可免费使用GPT-4o浏览、视觉和数据分析功能,彻底颠覆AI行业! GPT-4o免费开放,AI技术",
+          "evidence_urls": [
+            "https://cloud.tencent.com/developer/article/2423741"
+          ],
+          "confidence": 0.72
+        },
+        "strengths": {
+          "summary": "ChatGPT vs Chatbots Unleashing the Power of Conversational AIdoi:10.47363/jmsmr/2023(4)158This article explores the dist",
+          "evidence_urls": [
+            "http://doi.org/10.47363/jmsmr/2023(4)158"
+          ],
+          "confidence": 0.72
+        },
+        "weaknesses": {
+          "summary": " We’re announcing GPT‑4o, our new flagship model that can reason across audio, vision, and text in real time. Contributi",
+          "evidence_urls": [
+            "https://openai.com/index/hello-gpt-4o"
+          ],
+          "confidence": 0.72
+        },
+        "pricing_model": {
+          "summary": " Helping ChatGPT better recognize context in sensitive conversations Safety May 14, 2026 Introducing Trusted Contact in ",
+          "evidence_urls": [
+            "https://openai.com"
+          ],
+          "confidence": 0.72
+        },
+        "user_feedback": {
+          "summary": "GPT-5.1发布了！这是一次不错的升级。 我特别喜欢他们在指令遵循和适应性思维方面的进步。 智力和风格的提升也很不错。\n这次升级主要核心点在于：在“智能＋可交互友好性”方面做提升。也就是说，不只是追求 benchmark 提升，还更注重用",
+          "evidence_urls": [
+            "https://www.zhihu.com/question/1972269490478744852/answer/1973841917025473554?utm_medium=openapi_platform&utm_source=1af04ca3"
+          ],
+          "confidence": 0.72
+        }
+      }
+    },
+    {
+      "competitor": "Microsoft 365 Copilot",
+      "evidence_count": 5,
+      "sample": [
+        {
+          "query": "Microsoft 365 Copilot feature_tree",
+          "title": "Download PDF version",
+          "source_url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training",
+          "snippet": " This course examines how administrators can manage and extend Microsoft 365 Copilot to meet their business needs. The course introduces you to Copilot, examines how to implement and administer it, and then explores the fundamentals of Copilot extensibility. Microsoft 365 Copilot Admin Course Delivery Methods In-Person Online Upskill your whole team by bringing Private Team Training to your facility. Microsoft 365 Copilot Admin Course Information In this course, you will: Gain end-to-end knowled",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:16:18.918218+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:16:18.916219+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\4e8bebd102fc13fbc670c948eb28776643934fbcacbe76c2bcb40923cf95820f.txt",
+          "content_hash": "4e8bebd102fc13fbc670c948eb28776643934fbcacbe76c2bcb40923cf95820f",
+          "content_excerpt": "[![Learning Tree](/images/branding/learning-tree-logo_reversed.webp) ![Learning Tree](/images/branding/logo-blue.png)](/) \n\n* [CA](https://www.learningtree.ca)\n* [UK](https://www.learningtree.co.uk)\n* [SE](https://www.learningtree.se)\n* [JP](https://www.learningtree.co.jp)\n\n[888-843-8733](tel:888-843-8733)\n\n[888-843-8733](tel:888-843-8733)\n\n\n\n# Manage and Extend Microsoft 365 Copilot (MS-4017)\n\nCourse 8749 [Advantage Plan Course](/plans/advantage-enterprise/)\n\n* Duration: **1 day**\n* Language: **English**\n* Level: **Intermediate**\n\nThis course examines how administrators can manage and extend Microsoft 365 Copilot to meet their business needs. The course introduces you to Copilot, examines how to implement and administer it, and then explores the fundamentals of Copilot extensibility.\n\n## Microsoft 365 Copilot Admin Course Delivery Methods\n\n* In-Person\n* Online\n* Upskill your whole team by bringing Private Team Training to your facility.\n\n## Microsoft 365 Copilot Admin Course Informati",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "feature_tree",
+          "query_template": "Microsoft 365 Copilot feature_tree",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "Microsoft 365 Copilot strengths",
+          "title": "Microsoft 365 Copilot - Advisory",
+          "source_url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel",
+          "snippet": " Jumpstart your journey with the Crayon Microsoft 365 Copilot Readiness Workshop – your cornerstone for secure and efficient AI adoption within your organization. With the Crayon AI Advisory, our role is to guide you through the complexities of adopting Microsoft 365 Copilot in your organization. We focus on several key conversation points:  The AI-Powered Organization Crayon is here to explore how your organization can use AI not just as a tool, but as a catalyst for growth and productivity. It",
+          "source_provider": "qianfan",
+          "source_type": "report",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:16:25.663861+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:16:25.661864+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\54b6e933deb5f72ea003c728d249802fea704057993b2d5952e7a302b4ebfaeb.txt",
+          "content_hash": "54b6e933deb5f72ea003c728d249802fea704057993b2d5952e7a302b4ebfaeb",
+          "content_excerpt": "[跳到主内容](#maincontent)\n\n专用计划\n\n请稍等片刻，正在登录...\n\nhttps://store-images.s-microsoft.com/image/apps.60599.58228dc1-a577-446d-9b4d-f4f7ac03a07a.0e126e23-1aef-4b1b-a54a-f4eb65b4be71.2b3ae3cd-e3b4-4d60-a633-9fb4cec16cc7\n\n# Microsoft 365 Copilot - Advisory\n\n## Crayon\n\n定价 $5,000\n\nJust a moment, logging you in...\n\n## Jumpstart your journey with the Crayon Microsoft 365 Copilot Readiness Workshop – your cornerstone for secure and efficient AI adoption within your organization.\n\nWith the Crayon AI Advisory, our role is to guide you through the complexities of adopting Microsoft 365 Copilot in your organization. We focus on several key conversation points:\n\nThe AI-Powered Organization\n\nCrayon is here to explore how your organization can use AI not just as a tool, but as a catalyst for growth and productivity. It's about empowering your employees and creating an environment that fosters creativity and efficiency.\n\nThe Microsoft 365 Copilot\n\nUnderstanding Copilot's unique strengths is crucial. Together, ",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "strengths",
+          "query_template": "Microsoft 365 Copilot strengths",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        },
+        {
+          "query": "Microsoft 365 Copilot weaknesses",
+          "title": "Ignite 2024: Why nearly 70% of the Fortune 500 now use Microsoft 365 Copilot",
+          "source_url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot",
+          "snippet": "Ignite 2024: Why nearly 70% of the Fortune 500 now use Microsoft 365 Copilot Two things can be true at the same time. In the case of AI, it is absolutely true that the industry is moving incredibly fast and evolving quickly. It’s also true that hundreds of thousands of customers are using Microsoft AI technology today and, by making early bets on the platform, are seeing big benefits now and future-proofing their ability to benefit from the next big wave of AI improvements. Microsoft Igniteis ou",
+          "source_provider": "qianfan",
+          "source_type": "news",
+          "retrieval_method": "qianfan+tavily_extract",
+          "retrieval_status": "ok",
+          "captured_at": "2026-05-23 05:16:29.588993+00:00",
+          "extract_fields": {
+            "price_detected": true,
+            "feature_detected": true,
+            "feedback_detected": true,
+            "captured_at": "2026-05-23T05:16:29.587994+00:00"
+          },
+          "confidence": 0.72,
+          "recency_score": 1.0,
+          "license_or_tos_note": "public web source, compliance checkpoint recorded",
+          "raw_content_path": ".data\\raw_evidence\\preview\\8fdb9e1c5c81edf640030549d4cd3e222717a6efafa6368e76b10e9f996368f4.txt",
+          "content_hash": "8fdb9e1c5c81edf640030549d4cd3e222717a6efafa6368e76b10e9f996368f4",
+          "content_excerpt": "[Skip to Main Content](#main-content)\n\n[Microsoft](https://www.microsoft.com) \n\nSource Asia\n\n[Source Asia](https://news.microsoft.com/source/asia/)\n\n# Ignite 2024: Why nearly 70% of the Fortune 500 now use Microsoft 365 Copilot\n\n| Microsoft Hong Kong\n\nTwo things can be true at the same time.\n\nIn the case of AI, it is absolutely true that the industry is moving incredibly fast and evolving quickly. It’s also true that hundreds of thousands of customers are using Microsoft AI technology today and, by making early bets on the platform, are seeing big benefits now and future-proofing their ability to benefit from the next big wave of AI improvements.\n\n[**Microsoft Ignite**](https://ignite.microsoft.com/en-US/home) is our annual event that spotlights the updates and creations that enable customers, partners and developers to unleash the full potential of Microsoft’s technology and change the way we approach work.\n\nThis year, we are announcing about 80 new products and features, including ne",
+          "latency_ms": 0,
+          "error_code": "",
+          "schema_field": "weaknesses",
+          "query_template": "Microsoft 365 Copilot weaknesses",
+          "recommended_source_type": "official,public_web",
+          "cross_source_ok": true
+        }
+      ],
+      "search_events": [
+        {
+          "event_type": "collector.search.started",
+          "query": "Microsoft 365 Copilot feature_tree"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Microsoft 365 Copilot feature_tree",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Microsoft 365 Copilot strengths"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Microsoft 365 Copilot strengths",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Microsoft 365 Copilot weaknesses"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Microsoft 365 Copilot weaknesses",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Microsoft 365 Copilot pricing_model"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "qianfan",
+          "query": "Microsoft 365 Copilot pricing_model",
+          "hit_count": 5
+        },
+        {
+          "event_type": "collector.search.started",
+          "query": "Microsoft 365 Copilot user feedback 知乎 reddit"
+        },
+        {
+          "event_type": "collector.search.completed",
+          "provider": "zhihu_official",
+          "query": "Microsoft 365 Copilot user feedback 知乎 reddit",
+          "hit_count": 5
+        }
+      ],
+      "fetch_events": [
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training",
+          "content_len": 8016
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel",
+          "content_len": 5253
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot",
+          "content_len": 14834
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "tavily_extract",
+          "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise",
+          "content_len": 16584
+        },
+        {
+          "event_type": "collector.fetch.started",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.cache_miss",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "jina",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "jina_fetch_failed: HTTP Error 403: Forbidden"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.failed",
+          "provider": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "errors": [
+            "tavily_extract_empty"
+          ]
+        },
+        {
+          "event_type": "collector.fetch.completed",
+          "provider": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3",
+          "content_len": 9187
+        }
+      ],
+      "fallback_trace": [
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "jina",
+          "to": "tavily_extract",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+        },
+        {
+          "event_type": "collector.provider.fallback",
+          "phase": "fetch",
+          "from": "tavily_extract",
+          "to": "firecrawl_fetch",
+          "url": "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+        }
+      ],
+      "field_stats": [
+        {
+          "field_name": "feature_tree",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "pricing_model",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "strengths",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "user_feedback",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        },
+        {
+          "field_name": "weaknesses",
+          "evidence_count": 1,
+          "quota_limit": 1,
+          "queries_used": 1
+        }
+      ],
+      "field_summaries": {
+        "feature_tree": {
+          "summary": " This course examines how administrators can manage and extend Microsoft 365 Copilot to meet their business needs. The c",
+          "evidence_urls": [
+            "https://www.learningtree.com/courses/microsoft-365-copilot-admin-training"
+          ],
+          "confidence": 0.72
+        },
+        "strengths": {
+          "summary": " Jumpstart your journey with the Crayon Microsoft 365 Copilot Readiness Workshop – your cornerstone for secure and effic",
+          "evidence_urls": [
+            "https://appsource.microsoft.com/zh-cn/marketplace/consulting-services/crayon-group-as-1129016.m365_copilot_readiness_workshop_advisory?search=excel"
+          ],
+          "confidence": 0.72
+        },
+        "weaknesses": {
+          "summary": "Ignite 2024: Why nearly 70% of the Fortune 500 now use Microsoft 365 Copilot Two things can be true at the same time. In",
+          "evidence_urls": [
+            "https://news.microsoft.com/en-hk/2024/11/20/ignite-2024-why-nearly-70-of-the-fortune-500-now-use-microsoft-365-copilot"
+          ],
+          "confidence": 0.72
+        },
+        "pricing_model": {
+          "summary": " 智能Microsoft 365 Copilot 副驾驶®  工作原理  计划和定价  了解如何使用它  资源  相关产品  打开Copilot 对话助手 下载应用  请登录你的帐户 登录 智能Microsoft 365 Copilot 副",
+          "evidence_urls": [
+            "https://www.microsoft.com/zh-cn/microsoft-365/copilot/pricing/enterprise"
+          ],
+          "confidence": 0.72
+        },
+        "user_feedback": {
+          "summary": "1. AI 模型巅峰对决：OpenAI 的“红色代码”与 GPT-5.2 的空降\n上个月 Google 发布 Gemini 3 曾引发了 OpenAI 内部的警惕。本周，OpenAI 给出了强有力的回击。\n・GPT-5.2 全线发布： 12",
+          "evidence_urls": [
+            "https://zhuanlan.zhihu.com/p/1985359433883214518?utm_medium=openapi_platform&utm_source=1af04ca3"
+          ],
+          "confidence": 0.72
+        }
+      }
+    }
+  ],
+  "errors": [
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "tavily_extract_empty",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "tavily_extract_empty",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "tavily_extract_empty",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "tavily_extract_empty",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "tavily_extract_empty",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "jina_fetch_failed: HTTP Error 403: Forbidden",
+    "tavily_extract_empty"
+  ],
+  "planned_competitors": [
+    "AutoGPT",
+    "OpenAI GPT-4o Advanced Agents",
+    "Standard ChatGPT 4o Conversational Chatbot",
+    "Microsoft 365 Copilot"
+  ],
+  "analysis_schema_plan": [
+    {
+      "field_name": "feature_tree",
+      "query_templates": [
+        "{product} feature_tree"
+      ],
+      "recommended_sources": [
+        "official",
+        "public_web"
+      ],
+      "priority": 1
+    },
+    {
+      "field_name": "strengths",
+      "query_templates": [
+        "{product} strengths"
+      ],
+      "recommended_sources": [
+        "official",
+        "public_web"
+      ],
+      "priority": 2
+    },
+    {
+      "field_name": "weaknesses",
+      "query_templates": [
+        "{product} weaknesses"
+      ],
+      "recommended_sources": [
+        "official",
+        "public_web"
+      ],
+      "priority": 3
+    },
+    {
+      "field_name": "pricing_model",
+      "query_templates": [
+        "{product} pricing_model"
+      ],
+      "recommended_sources": [
+        "official",
+        "public_web"
+      ],
+      "priority": 4
+    },
+    {
+      "field_name": "user_feedback",
+      "query_templates": [
+        "{product} user feedback 知乎 reddit"
+      ],
+      "recommended_sources": [
+        "zhihu",
+        "community"
+      ],
+      "priority": 5
+    }
+  ],
+  "planner_meta": {
+    "model": "ep-20260514111325-xjmj7",
+    "generated_at": "2026-05-23T05:14:43.489703+00:00",
+    "plan_hash": "6a8d402285de93c8",
+    "llm_enabled": true,
+    "llm_call_status": {
+      "success": false,
+      "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+      "http_status": null,
+      "error": "Request timed out.",
+      "attempted_endpoints": [
+        "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
+      ]
+    },
+    "candidate_policy": "direct_substitute_only"
+  }
+}

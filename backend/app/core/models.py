@@ -1,0 +1,383 @@
+from __future__ import annotations
+
+from datetime import UTC, datetime
+from enum import StrEnum
+from typing import Any, Literal
+from uuid import uuid4
+
+from pydantic import BaseModel, Field, model_validator
+
+
+class Severity(StrEnum):
+    low = 'low'
+    medium = 'medium'
+    high = 'high'
+    critical = 'critical'
+
+
+class TicketStatus(StrEnum):
+    created = 'created'
+    in_progress = 'in_progress'
+    resolved = 'resolved'
+    rejected = 'rejected'
+
+
+class ProposalStatus(StrEnum):
+    proposed = 'proposed'
+    reviewed = 'reviewed'
+    activated = 'activated'
+    rejected = 'rejected'
+
+
+class RiskLevel(StrEnum):
+    low = 'low'
+    medium = 'medium'
+    high = 'high'
+
+
+class PolicyDecision(StrEnum):
+    approved = 'approved'
+    rejected = 'rejected'
+    review_required = 'review_required'
+
+
+class StageName(StrEnum):
+    plan = 'plan'
+    collect = 'collect'
+    normalize = 'normalize'
+    analyze = 'analyze'
+    draft = 'draft'
+    qa = 'qa'
+    finalize = 'finalize'
+
+
+class EventType(StrEnum):
+    plan_started = 'plan.started'
+    collect_completed = 'collect.completed'
+    analyze_completed = 'analyze.completed'
+    draft_completed = 'draft.completed'
+    qa_rework_ticket_created = 'qa.rework_ticket_created'
+
+
+class FeatureNode(BaseModel):
+    name: str
+    capability: str
+    children: list['FeatureNode'] = Field(default_factory=list)
+
+
+class PricingTier(BaseModel):
+    name: str
+    price_range: str
+    billing_cycle: str
+    limits: list[str] = Field(default_factory=list)
+
+
+class PricingModel(BaseModel):
+    model_config = {'protected_namespaces': ()}
+    model_type: str
+    free_tier: bool
+    billing_dimensions: list[str] = Field(default_factory=list)
+    tiers: list[PricingTier] = Field(default_factory=list)
+
+
+class FeedbackSummary(BaseModel):
+    positive_themes: list[str] = Field(default_factory=list)
+    negative_themes: list[str] = Field(default_factory=list)
+    representative_quotes: list[str] = Field(default_factory=list)
+    sentiment_distribution: dict[str, float] = Field(default_factory=dict)
+
+
+class Evidence(BaseModel):
+    evidence_id: str = Field(default_factory=lambda: f'evd_{uuid4().hex[:10]}')
+    source_url: str
+    query: str = ''
+    captured_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    title: str = ''
+    snippet: str
+    claim_tags: list[str] = Field(default_factory=list)
+    credibility_score: float = Field(default=0.7, ge=0.0, le=1.0)
+    confidence: float = Field(default=0.7, ge=0.0, le=1.0)
+    recency_score: float = Field(default=0.5, ge=0.0, le=1.0)
+    raw_content_path: str = ''
+    extract_fields: dict[str, Any] = Field(default_factory=dict)
+    license_or_tos_note: str = ''
+    source_type: Literal['official', 'news', 'review', 'community', 'report'] = 'official'
+    retrieval_method: str = 'tool_search'
+    retrieval_status: Literal['ok', 'partial', 'failed'] = 'ok'
+    domain_extensions: dict[str, Any] = Field(default_factory=dict)
+
+
+class RawEvidence(Evidence):
+    """Protocol-level alias for collector output evidence."""
+
+
+class CompetitorProfile(BaseModel):
+    industry: str
+    product_name: str
+    positioning: str
+    feature_tree: list[FeatureNode]
+    advantages: list[str]
+    disadvantages: list[str]
+    pricing_model: PricingModel
+    user_feedback: FeedbackSummary
+    evidence_refs: list[str] = Field(default_factory=list)
+    domain_extensions: dict[str, Any] = Field(default_factory=dict)
+
+
+class Finding(BaseModel):
+    finding_id: str = Field(default_factory=lambda: f'fdg_{uuid4().hex[:10]}')
+    statement: str
+    category: Literal['feature', 'pricing', 'feedback', 'risk']
+    evidence_refs: list[str] = Field(min_length=1)
+    confidence: float = Field(default=0.7, ge=0.0, le=1.0)
+    risk_flag: bool = False
+
+
+class Report(BaseModel):
+    executive_summary: str
+    comparison_matrix: list[dict[str, Any]] = Field(default_factory=list)
+    swot: dict[str, list[str]] = Field(default_factory=lambda: {'strengths': [], 'weaknesses': [], 'opportunities': [], 'threats': []})
+    opportunities: list[str] = Field(default_factory=list)
+    appendix_sources: list[str] = Field(default_factory=list)
+    markdown: str = ''
+
+
+class ReworkIssue(BaseModel):
+    code: str
+    message: str
+    stage: StageName
+
+
+class ReworkTicket(BaseModel):
+    ticket_id: str = Field(default_factory=lambda: f'tkt_{uuid4().hex[:10]}')
+    target_agent: Literal['Collect', 'Analyze', 'Draft']
+    issues: list[ReworkIssue]
+    evidence_refs: list[str] = Field(default_factory=list)
+    qa_rules: list[str] = Field(default_factory=list)
+    severity: Severity = Severity.medium
+    deadline: str = ''
+    acceptance_criteria: list[str] = Field(default_factory=list)
+    status: TicketStatus = TicketStatus.created
+
+    @model_validator(mode='after')
+    def validate_rework_ticket(self):
+        if not self.target_agent:
+            raise ValueError('target_agent is required')
+        if not self.issues:
+            raise ValueError('issues is required')
+        return self
+
+
+class SelfEval(BaseModel):
+    coverage: float = Field(default=0.0, ge=0.0, le=1.0)
+    consistency: float = Field(default=0.0, ge=0.0, le=1.0)
+    evidence_quality: float = Field(default=0.0, ge=0.0, le=1.0)
+    uncertainty: float = Field(default=0.0, ge=0.0, le=1.0)
+
+
+class SchemaEvolutionProposal(BaseModel):
+    proposal_id: str = Field(default_factory=lambda: f'sep_{uuid4().hex[:10]}')
+    industry: str
+    missing_dimension: str
+    rationale: str
+    suggested_fields: list[str] = Field(default_factory=list)
+    impact_scope: list[str] = Field(default_factory=list)
+    status: ProposalStatus = ProposalStatus.proposed
+    auto_decision: Literal['approved', 'rejected', 'pending'] = 'pending'
+    reviewed_by: str = 'auto-rule-engine'
+    review_notes: str = ''
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    target_version: str = 'v1'
+
+
+class ApprovalPolicy(BaseModel):
+    policy_id: str = Field(default_factory=lambda: f'pol_{uuid4().hex[:10]}')
+    industry: str = 'global'
+    enabled: bool = True
+    priority: int = 100
+    max_fields: int = 6
+    max_qa_failures: int = 3
+    max_allowed_risk: RiskLevel = RiskLevel.medium
+    denied_scopes: list[str] = Field(default_factory=list)
+    decision: PolicyDecision = PolicyDecision.approved
+    version: str = 'v1'
+    notes: str = ''
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class FieldRiskProfile(BaseModel):
+    profile_id: str = Field(default_factory=lambda: f'frp_{uuid4().hex[:10]}')
+    industry: str = 'global'
+    field_name: str
+    risk_level: RiskLevel = RiskLevel.medium
+    notes: str = ''
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class PolicyAuditRecord(BaseModel):
+    audit_id: str = Field(default_factory=lambda: f'aud_{uuid4().hex[:10]}')
+    proposal_id: str
+    industry: str
+    matched_policy_id: str | None = None
+    decision: PolicyDecision
+    reason: str
+    risk_summary: dict[str, str] = Field(default_factory=dict)
+    context: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class PolicyDecisionResult(BaseModel):
+    decision: PolicyDecision
+    matched_policy_id: str | None = None
+    reason: str
+    risk_summary: dict[str, str] = Field(default_factory=dict)
+
+
+class RunRequest(BaseModel):
+    industry: str
+    competitors: list[str] = Field(min_length=1)
+    language: str = 'zh-CN'
+    timeframe: str = 'last_12_months'
+
+
+class RunState(BaseModel):
+    run_id: str = Field(default_factory=lambda: f'run_{uuid4().hex[:12]}')
+    attempt: int = 1
+    parent_attempt: int | None = None
+    ticket_id: str | None = None
+    industry: str
+    competitors: list[str]
+    language: str = 'zh-CN'
+    timeframe: str = 'last_12_months'
+    split_strategy: str = 'by_competitor'
+    core_schema_version: str = 'core_v1'
+    domain_schema_version: str = 'v1'
+    planned_competitors: list[str] = Field(default_factory=list)
+    planner_meta: dict[str, Any] = Field(default_factory=dict)
+    analysis_schema_plan: list[dict[str, Any]] = Field(default_factory=list)
+    evidences: list[Evidence] = Field(default_factory=list)
+    profiles: list[CompetitorProfile] = Field(default_factory=list)
+    findings: list[Finding] = Field(default_factory=list)
+    report: Report | None = None
+    tickets: list[ReworkTicket] = Field(default_factory=list)
+    self_eval: dict[str, SelfEval] = Field(default_factory=dict)
+    schema_evolution_proposals: list[SchemaEvolutionProposal] = Field(default_factory=list)
+    status: Literal['running', 'failed', 'completed'] = 'running'
+
+
+class EventRecord(BaseModel):
+    run_id: str
+    stage: StageName
+    event_type: str
+    payload: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class RunSummary(BaseModel):
+    run_id: str
+    industry: str
+    status: str
+    competitor_count: int
+    created_at: datetime
+    updated_at: datetime
+
+
+class RunResponse(BaseModel):
+    summary: RunSummary
+    state: RunState
+
+
+class StageSnapshot(BaseModel):
+    run_id: str
+    stage: StageName
+    input_hash: str
+    output_hash: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class CollectOutput(BaseModel):
+    raw_evidences: list[RawEvidence] = Field(default_factory=list)
+    provider_events: list[dict[str, Any]] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
+
+
+class AnalyzeOutput(BaseModel):
+    profiles: list[CompetitorProfile] = Field(default_factory=list)
+    findings: list[Finding] = Field(default_factory=list)
+
+
+class DraftOutput(BaseModel):
+    report: Report
+
+
+class QAOutput(BaseModel):
+    passed: bool
+    issues: list[ReworkIssue] = Field(default_factory=list)
+    target_agent: Literal['Collect', 'Analyze', 'Draft'] | None = None
+    ticket: ReworkTicket | None = None
+
+    @model_validator(mode='after')
+    def validate_qa_output(self):
+        if not self.passed and self.target_agent is None:
+            raise ValueError('target_agent is required when QA fails')
+        return self
+
+
+class EventEnvelope(BaseModel):
+    event_type: str
+    stage: StageName
+    run_id: str
+    attempt: int
+    payload: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class ProposalReviewRequest(BaseModel):
+    decision: Literal['reviewed', 'rejected']
+    reviewer: str = 'human-reviewer'
+    notes: str = ''
+
+
+class ProposalActivateRequest(BaseModel):
+    activated_by: str = 'human-reviewer'
+    force: bool = False
+
+
+class PolicyUpsertRequest(BaseModel):
+    industry: str = 'global'
+    enabled: bool = True
+    priority: int = 100
+    max_fields: int = 6
+    max_qa_failures: int = 3
+    max_allowed_risk: RiskLevel = RiskLevel.medium
+    denied_scopes: list[str] = Field(default_factory=list)
+    decision: PolicyDecision = PolicyDecision.approved
+    version: str = 'v1'
+    notes: str = ''
+    policy_id: str | None = None
+
+
+class FieldRiskUpsertItem(BaseModel):
+    industry: str = 'global'
+    field_name: str
+    risk_level: RiskLevel = RiskLevel.medium
+    notes: str = ''
+
+
+class FieldRiskUpsertRequest(BaseModel):
+    items: list[FieldRiskUpsertItem] = Field(min_length=1)
+
+
+class QAResult(BaseModel):
+    passed: bool
+    issues: list[ReworkIssue] = Field(default_factory=list)
+    target_agent: Literal['Collect', 'Analyze', 'Draft'] | None = None
+
+    @model_validator(mode='after')
+    def validate_target(self):
+        if not self.passed and self.target_agent is None:
+            raise ValueError('target_agent is required when QA fails')
+        return self

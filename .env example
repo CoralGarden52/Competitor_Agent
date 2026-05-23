@@ -1,0 +1,38 @@
+﻿# Model runtime
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
+OPENAI_MODEL=your_model_id_here
+
+# Search / Fetch providers (deer-flow style)
+# Tavily: API key only (no base_url required in deer-flow community tool)
+TAVILY_API_KEY=your_tavily_api_key_here
+SERPER_API_KEY=your_serper_api_key_here
+EXA_API_KEY=your_exa_api_key_here
+FIRECRAWL_API_KEY=your_firecrawl_api_key_here
+
+# InfoQuest
+INFOQUEST_API_KEY=your_infoquest_api_key_here
+
+# Jina Reader (if provider account is required in your environment)
+JINA_API_KEY=your_jina_api_key_here
+
+# Baidu Search (aligned with competitive_agent/config.py)
+BAIDU_SEARCH_API_KEY=your_baidu_search_api_key_here
+BAIDU_SEARCH_ENDPOINT=https://qianfan.baidubce.com/v2/ai_search/web_search
+
+# Zhihu Open Platform (official API)
+ZHIHU_CLIENT_ID=your_zhihu_client_id_here
+ZHIHU_CLIENT_SECRET=your_zhihu_client_secret_here
+ZHIHU_BASE_URL=
+ZHIHU_SEARCH_ACCESS_SECRET=your_zhihu_search_access_secret_here
+ZHIHU_SEARCH_ENDPOINT=https://developer.zhihu.com/api/v1/content/zhihu_search
+
+# Bing / request config (aligned with competitive_agent/config.py)
+BING_SEARCH_API_KEY=your_bing_search_api_key_here
+BING_SEARCH_ENDPOINT=https://api.bing.microsoft.com/v7.0/search
+REQUEST_TIMEOUT_SECONDS=45
+MAX_SEARCH_RESULTS=8
+COLLECTOR_PROVIDER_TIMEOUT_SEC=12
+COLLECTOR_PROVIDER_RETRY=1
+COLLECTOR_SEARCH_ORDER=qianfan,tavily,serper,exa,firecrawl_search,zhihu_official
+COLLECTOR_FETCH_ORDER=jina,firecrawl_fetch,tavily_extract
