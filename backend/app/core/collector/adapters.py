@@ -29,7 +29,7 @@ class DeerFlowCollectorAdapter:
             sys.path.append(str(harness_path))
 
     def collect_competitor(self, competitor: str, industry: str, max_results: int = 3) -> CollectResult:
-        query = f'{competitor} {industry} pricing features user reviews'
+        query = f'{competitor} {industry} 价格 功能 用户评价'
         errors: list[str] = []
         items: list[dict[str, Any]] = []
 

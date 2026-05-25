@@ -133,13 +133,60 @@ class Finding(BaseModel):
     risk_flag: bool = False
 
 
+class AnalysisSchemaField(BaseModel):
+    field_name: str
+    query_templates: list[str] = Field(default_factory=list)
+    recommended_sources: list[str] = Field(default_factory=list)
+    priority: int = 1
+
+
+class FieldEvidenceBundle(BaseModel):
+    field_name: str
+    evidences: list[RawEvidence] = Field(default_factory=list)
+
+
+class CompetitorEvidenceBundle(BaseModel):
+    product_name: str
+    fields: list[FieldEvidenceBundle] = Field(default_factory=list)
+
+
+class AnalysisFieldResult(BaseModel):
+    field_name: str
+    summary: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.7, ge=0.0, le=1.0)
+    normalized_value: dict[str, Any] = Field(default_factory=dict)
+    evidence_gaps: list[str] = Field(default_factory=list)
+
+
+class CompetitorAnalysisRecord(BaseModel):
+    product_name: str
+    fields: list[AnalysisFieldResult] = Field(default_factory=list)
+
+
+class ReportClaim(BaseModel):
+    statement: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.7, ge=0.0, le=1.0)
+
+
+class ReportSection(BaseModel):
+    section_id: str
+    title: str
+    field_name: str = ''
+    claims: list[ReportClaim] = Field(default_factory=list)
+    content_markdown: str = ''
+
+
 class Report(BaseModel):
     executive_summary: str
     comparison_matrix: list[dict[str, Any]] = Field(default_factory=list)
     swot: dict[str, list[str]] = Field(default_factory=lambda: {'strengths': [], 'weaknesses': [], 'opportunities': [], 'threats': []})
     opportunities: list[str] = Field(default_factory=list)
     appendix_sources: list[str] = Field(default_factory=list)
+    sections: list[ReportSection] = Field(default_factory=list)
     markdown: str = ''
+    html: str = ''
 
 
 class ReworkIssue(BaseModel):
@@ -239,6 +286,7 @@ class PolicyDecisionResult(BaseModel):
 class RunRequest(BaseModel):
     industry: str
     competitors: list[str] = Field(min_length=1)
+    user_prompt: str = ''
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
 
@@ -250,6 +298,7 @@ class RunState(BaseModel):
     ticket_id: str | None = None
     industry: str
     competitors: list[str]
+    user_prompt: str = ''
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
     split_strategy: str = 'by_competitor'
@@ -257,8 +306,9 @@ class RunState(BaseModel):
     domain_schema_version: str = 'v1'
     planned_competitors: list[str] = Field(default_factory=list)
     planner_meta: dict[str, Any] = Field(default_factory=dict)
-    analysis_schema_plan: list[dict[str, Any]] = Field(default_factory=list)
+    analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
     evidences: list[Evidence] = Field(default_factory=list)
+    competitor_analyses: list[CompetitorAnalysisRecord] = Field(default_factory=list)
     profiles: list[CompetitorProfile] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     report: Report | None = None
@@ -305,6 +355,7 @@ class CollectOutput(BaseModel):
 
 
 class AnalyzeOutput(BaseModel):
+    competitors: list[CompetitorAnalysisRecord] = Field(default_factory=list)
     profiles: list[CompetitorProfile] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
 

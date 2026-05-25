@@ -9,6 +9,27 @@ from app.core.storage import SQLiteStore
 
 def validate_core_fields(state: RunState) -> list[ReworkIssue]:
     issues: list[ReworkIssue] = []
+    expected_fields = [item.field_name for item in state.analysis_schema_plan]
+    expected_competitors = state.planned_competitors or state.competitors
+    analysis_map = {item.product_name: {field.field_name for field in item.fields} for item in state.competitor_analyses}
+
+    for competitor in expected_competitors:
+        observed = analysis_map.get(competitor, set())
+        if not observed:
+            issues.append(
+                ReworkIssue(code='competitor_analysis.missing', message=f'{competitor} missing field-level analysis.', stage=StageName.analyze)
+            )
+            continue
+        missing_fields = [field for field in expected_fields if field not in observed]
+        if missing_fields:
+            issues.append(
+                ReworkIssue(
+                    code='competitor_analysis.field_coverage_missing',
+                    message=f'{competitor} missing analysis fields: {", ".join(missing_fields)}',
+                    stage=StageName.analyze,
+                )
+            )
+
     if not state.profiles:
         issues.append(ReworkIssue(code='profiles.missing', message='No competitor profiles produced.', stage=StageName.analyze))
         return issues
@@ -78,6 +99,19 @@ def validate_self_eval(state: RunState) -> list[ReworkIssue]:
     return issues
 
 
+def validate_report_structure(state: RunState) -> list[ReworkIssue]:
+    if state.report is None:
+        return [ReworkIssue(code='report.missing', message='No report produced.', stage=StageName.draft)]
+    issues: list[ReworkIssue] = []
+    if not state.report.sections:
+        issues.append(ReworkIssue(code='report.sections_missing', message='Report missing structured sections.', stage=StageName.draft))
+    if not state.report.appendix_sources:
+        issues.append(ReworkIssue(code='report.sources_missing', message='Report missing appendix_sources.', stage=StageName.draft))
+    if not state.report.html:
+        issues.append(ReworkIssue(code='report.html_missing', message='Report missing html output.', stage=StageName.draft))
+    return issues
+
+
 def target_agent_from_issues(issues: list[ReworkIssue]) -> str:
     if not issues:
         return 'Draft'
@@ -95,6 +129,7 @@ def run_qa_gate(state: RunState, store: SQLiteStore) -> QAResult:
     issues.extend(validate_core_fields(state))
     issues.extend(validate_domain_extensions(state, store))
     issues.extend(validate_self_eval(state))
+    issues.extend(validate_report_structure(state))
     if not issues:
         return QAResult(passed=True)
     return QAResult(passed=False, issues=issues, target_agent=target_agent_from_issues(issues))

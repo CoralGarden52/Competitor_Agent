@@ -22,6 +22,7 @@ from app.core.models import (
     ReworkIssue,
     ReworkTicket,
     RunRequest,
+    RunState,
     StageName,
 )
 from app.core.workflow import CompetitorWorkflowService
@@ -82,3 +83,34 @@ def test_run_state_graph_state_roundtrip(tmp_path) -> None:
     restored = service.graph_state_to_run_state(graph)
     assert restored.run_id == run.run_id
     assert restored.industry == run.industry
+
+
+def test_collector_preview_handles_empty_competitor_plan(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / 'test.db')
+    service = CompetitorWorkflowService(store)
+    service.orchestrator.generate_dynamic_plan = lambda **_kwargs: {  # type: ignore[method-assign]
+        'planned_competitors': [],
+        'candidate_groups': {'direct': [], 'substitute': []},
+        'analysis_schema_plan': [],
+        'inferred_industry': 'saas',
+        'planner_meta': {},
+    }
+    preview = service.collector_preview(prompt='AI agent competitor analysis')
+    assert preview['planned_competitors'] == []
+    assert preview['preview'] == []
+    assert 'no_competitors_discovered' in preview['errors']
+
+
+def test_plan_persists_inferred_industry_into_run_state(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / 'test.db')
+    service = CompetitorWorkflowService(store)
+    service.orchestrator.generate_dynamic_plan = lambda **_kwargs: {  # type: ignore[method-assign]
+        'planned_competitors': ['alpha'],
+        'candidate_groups': {'direct': [{'name': 'alpha'}], 'substitute': []},
+        'analysis_schema_plan': [],
+        'inferred_industry': 'meeting_software',
+        'planner_meta': {},
+    }
+    state = RunState(industry='', competitors=['alpha'], user_prompt='线上会议软件竞品分析')
+    service._plan(state)
+    assert state.industry == 'meeting_software'

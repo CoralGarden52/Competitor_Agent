@@ -14,6 +14,7 @@ from app.core.langgraph_runtime import WorkflowLangGraphRuntime
 from app.core.planner_llm import PlannerLLMClient
 from app.core.graph_state import WorkflowGraphState, init_graph_state_from_run_request, make_stage_snapshot
 from app.core.models import (
+    AnalysisSchemaField,
     ApprovalPolicy,
     CompetitorProfile,
     FieldRiskProfile,
@@ -69,6 +70,7 @@ class CompetitorWorkflowService:
         state = RunState(
             industry=request.industry.strip().lower(),
             competitors=request.competitors,
+            user_prompt=request.user_prompt.strip(),
             language=request.language,
             timeframe=request.timeframe,
             core_schema_version=CORE_SCHEMA_VERSION,
@@ -80,7 +82,12 @@ class CompetitorWorkflowService:
             core_schema_version=state.core_schema_version,
             domain_schema_version=state.domain_schema_version,
         )
-        self._save_and_event(state, StageName.plan, 'start', {'competitors': request.competitors})
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'start',
+            {'competitors': request.competitors, 'user_prompt': request.user_prompt.strip()},
+        )
         state = self.runtime.execute(state)
         if state.status not in ('completed', 'failed'):
             state.status = 'failed'
@@ -137,7 +144,7 @@ class CompetitorWorkflowService:
             return None
         before = state.model_dump()
         if 'analysis_schema_plan' in patch and isinstance(patch['analysis_schema_plan'], list):
-            state.analysis_schema_plan = patch['analysis_schema_plan']  # type: ignore[assignment]
+            state.analysis_schema_plan = [AnalysisSchemaField.model_validate(item) for item in patch['analysis_schema_plan']]  # type: ignore[list-item]
         if 'planned_competitors' in patch and isinstance(patch['planned_competitors'], list):
             state.planned_competitors = [str(x) for x in patch['planned_competitors']]  # type: ignore[index]
         if 'status' in patch and isinstance(patch['status'], str):
@@ -156,6 +163,8 @@ class CompetitorWorkflowService:
         return RunResponse(summary=self._summary_for(state), state=state)
 
     def collector_preview(self, *, prompt: str, industry_hint: str = '', competitor_hints: list[str] | None = None) -> dict:
+        import concurrent.futures
+
         dynamic_plan = self.orchestrator.generate_dynamic_plan(
             prompt=prompt,
             industry_hint=industry_hint,
@@ -186,7 +195,38 @@ class CompetitorWorkflowService:
             }
         )
         seq += 1
-        for competitor in planned_competitors:
+
+        if not planned_competitors:
+            response = {
+                'prompt': prompt,
+                'industry_hint': industry_hint,
+                'inferred_industry': inferred_industry,
+                'effective_max_urls': effective_max_urls,
+                'max_urls_note': 'server uses COLLECTOR_MAX_URLS from .env',
+                'candidate_groups': candidate_groups,
+                'candidates': candidate_groups,
+                'handoff_targets': {'direct': [], 'substitute': []},
+                'plan_phase': {
+                    'competitors_generated': planned_competitors,
+                    'schema_generated': analysis_schema_plan,
+                    'planner_meta': dynamic_plan.get('planner_meta', {}),
+                },
+                'execution_timeline': execution_timeline,
+                'preview': [],
+                'errors': ['no_competitors_discovered'],
+                'planned_competitors': planned_competitors,
+                'analysis_schema_plan': analysis_schema_plan,
+                'planner_meta': dynamic_plan.get('planner_meta', {}),
+            }
+            auto_saved, auto_saved_file, auto_saved_error = self._auto_save_preview_result(response)
+            response['auto_saved'] = auto_saved
+            response['auto_saved_file'] = auto_saved_file
+            if auto_saved_error:
+                response['auto_saved_error'] = auto_saved_error
+            return response
+
+        def _collect_one_competitor(competitor: str) -> tuple[str, dict]:
+            """并发采集单个竞品的数据"""
             result = self.collector.collect(
                 run_id='preview',
                 industry=inferred_industry,
@@ -204,22 +244,38 @@ class CompetitorWorkflowService:
                     break
             field_stats = self._build_field_stats(result.provider_events)
             field_summaries = self._build_field_summaries(result.evidences)
-            preview.append(
-                {
-                    'competitor': competitor,
-                    'evidence_count': len(result.evidences),
-                    'sample': result.evidences[:3],
-                    'search_events': search_events,
-                    'fetch_events': fetch_events,
-                    'fallback_trace': fallback_trace,
-                    'field_stats': field_stats,
-                    'field_summaries': field_summaries,
-                }
-            )
-            for event in result.provider_events:
-                execution_timeline.append({'seq': seq, 'competitor': competitor, **event})
-                seq += 1
-            errors.extend(result.errors)
+            return competitor, {
+                'competitor': competitor,
+                'evidence_count': len(result.evidences),
+                'sample': result.evidences[:3],
+                'search_events': search_events,
+                'fetch_events': fetch_events,
+                'fallback_trace': fallback_trace,
+                'field_stats': field_stats,
+                'field_summaries': field_summaries,
+                'provider_events': result.provider_events,
+                'errors': result.errors,
+            }
+
+        # 并发执行所有竞品的采集
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(planned_competitors), 4)) as executor:
+            futures = {executor.submit(_collect_one_competitor, comp): comp for comp in planned_competitors}
+            for future in concurrent.futures.as_completed(futures):
+                competitor, result_data = future.result()
+                preview.append({
+                    'competitor': result_data['competitor'],
+                    'evidence_count': result_data['evidence_count'],
+                    'sample': result_data['sample'],
+                    'search_events': result_data['search_events'],
+                    'fetch_events': result_data['fetch_events'],
+                    'fallback_trace': result_data['fallback_trace'],
+                    'field_stats': result_data['field_stats'],
+                    'field_summaries': result_data['field_summaries'],
+                })
+                for event in result_data['provider_events']:
+                    execution_timeline.append({'seq': seq, 'competitor': competitor, **event})
+                    seq += 1
+                errors.extend(result_data['errors'])
         response = {
             'prompt': prompt,
             'industry_hint': industry_hint,
@@ -382,9 +438,19 @@ class CompetitorWorkflowService:
         return proposal
 
     def _plan(self, state: RunState) -> None:
-        dynamic_plan = self.orchestrator.generate_dynamic_plan(industry=state.industry, competitors=state.competitors)
+        dynamic_plan = self.orchestrator.generate_dynamic_plan(
+            prompt=state.user_prompt,
+            industry=state.industry,
+            competitors=state.competitors,
+        )
+        inferred_industry = str(dynamic_plan.get('inferred_industry', '')).strip().lower()
+        if inferred_industry:
+            state.industry = inferred_industry
         state.planned_competitors = dynamic_plan.get('planned_competitors', state.competitors)
-        state.analysis_schema_plan = dynamic_plan.get('analysis_schema_plan', [])
+        state.analysis_schema_plan = [
+            item if isinstance(item, AnalysisSchemaField) else AnalysisSchemaField.model_validate(item)
+            for item in dynamic_plan.get('analysis_schema_plan', [])
+        ]
         state.planner_meta = dynamic_plan.get('planner_meta', {})
         split_strategy = 'by_competitor' if len(state.competitors) <= 4 else 'by_topic'
         state.split_strategy = split_strategy
@@ -411,7 +477,7 @@ class CompetitorWorkflowService:
             state,
             StageName.plan,
             'plan.schema_generated',
-            {'analysis_schema_plan': state.analysis_schema_plan},
+            {'analysis_schema_plan': [item.model_dump(mode='json') for item in state.analysis_schema_plan]},
         )
 
     def _collect(self, state: RunState) -> None:
@@ -499,6 +565,7 @@ class CompetitorWorkflowService:
                 'agent.llm.fallback.completed',
                 {'agent': 'AnalystAgent', 'fallback_reason': exc.reason, 'fallback_used': True},
             )
+        state.competitor_analyses = analyzed.competitors
         state.profiles = analyzed.profiles
         state.findings = analyzed.findings
         domain = get_domain_schema(self.store, state.industry)
@@ -508,7 +575,13 @@ class CompetitorWorkflowService:
             state,
             StageName.analyze,
             EventType.analyze_completed.value,
-            {'profile_count': len(state.profiles), 'finding_count': len(state.findings), 'domain': domain.industry, 'domain_version': domain.version},
+            {
+                'competitor_analysis_count': len(state.competitor_analyses),
+                'profile_count': len(state.profiles),
+                'finding_count': len(state.findings),
+                'domain': domain.industry,
+                'domain_version': domain.version,
+            },
         )
 
     def _draft(self, state: RunState) -> None:

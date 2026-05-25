@@ -16,7 +16,8 @@ class QACriticAgent:
         payload = {
             'industry': state.industry,
             'language': state.language,
-            'analysis_schema_plan': state.analysis_schema_plan,
+            'analysis_schema_plan': [x.model_dump(mode='json') for x in state.analysis_schema_plan],
+            'competitors': [x.model_dump(mode='json') for x in state.competitor_analyses],
             'profiles': [x.model_dump(mode='json') for x in state.profiles],
             'findings': [x.model_dump(mode='json') for x in state.findings],
             'report': state.report.model_dump(mode='json') if state.report else None,

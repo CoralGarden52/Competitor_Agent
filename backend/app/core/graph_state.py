@@ -16,9 +16,11 @@ class WorkflowGraphState(TypedDict):
     current_stage: str
     industry: str
     competitors: list[str]
+    user_prompt: str
     language: str
     timeframe: str
     raw_evidences: list[dict]
+    competitor_analyses: list[dict]
     profiles: list[dict]
     findings: list[dict]
     report: dict | None
@@ -56,9 +58,11 @@ def init_graph_state_from_run_request(*, request: RunRequest, run_id: str, core_
         'current_stage': StageName.plan.value,
         'industry': request.industry.strip().lower(),
         'competitors': request.competitors,
+        'user_prompt': request.user_prompt.strip(),
         'language': request.language,
         'timeframe': request.timeframe,
         'raw_evidences': [],
+        'competitor_analyses': [],
         'profiles': [],
         'findings': [],
         'report': None,
@@ -83,6 +87,7 @@ def merge_collect_output(state: WorkflowGraphState, output: CollectOutput) -> Wo
 
 def merge_analyze_output(state: WorkflowGraphState, output: AnalyzeOutput) -> WorkflowGraphState:
     merged = dict(state)
+    merged['competitor_analyses'] = [item.model_dump() for item in output.competitors]
     merged['profiles'] = [item.model_dump() for item in output.profiles]
     merged['findings'] = [item.model_dump() for item in output.findings]
     merged['current_stage'] = StageName.analyze.value

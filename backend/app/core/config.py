@@ -34,7 +34,7 @@ class AppConfig(BaseSettings):
     zhihu_search_endpoint: str = 'https://developer.zhihu.com/api/v1/content/zhihu_search'
     bing_api_key: str = ''
     bing_endpoint: str = 'https://api.bing.microsoft.com/v7.0/search'
-    request_timeout_seconds: int = Field(default=20, ge=3, le=60)
+    request_timeout_seconds: int = Field(default=20, ge=3, le=600)
     planner_llm_retry_count: int = Field(default=2, ge=0, le=6)
     planner_llm_retry_backoff_ms: int = Field(default=800, ge=50, le=10000)
     planner_llm_retry_max_backoff_ms: int = Field(default=4000, ge=100, le=30000)
@@ -42,9 +42,9 @@ class AppConfig(BaseSettings):
     max_search_results: int = Field(default=8, ge=1, le=20)
     collector_timeout_sec: int = Field(default=12, ge=3, le=60)
     collector_max_results_per_query: int = Field(default=5, ge=1, le=20)
-    collector_provider_timeout_sec: int = Field(default=12, ge=3, le=60)
+    collector_provider_timeout_sec: int = Field(default=12, ge=3, le=600)
     collector_provider_retry: int = Field(default=1, ge=0, le=3)
-    collector_search_order: str = 'qianfan,tavily,serper,exa,firecrawl_search,zhihu_official'
+    collector_search_order: str = 'tavily,qianfan,serper,exa,firecrawl_search,zhihu_official'
     collector_fetch_order: str = 'jina,firecrawl_fetch,tavily_extract'
     collector_cache_enabled: bool = True
     collector_cache_ttl_days: int = Field(default=30, ge=1, le=365)
@@ -58,6 +58,7 @@ class AppConfig(BaseSettings):
     agent_llm_retry_max_backoff_ms: int = Field(default=2000, ge=100, le=30000)
     agent_llm_fallback_enabled: bool = True
     agent_llm_fallback_on_validation_error: bool = True
+    analyze_llm_max_workers: int = Field(default=6, ge=1, le=32)
 
     @property
     def sqlite_path_obj(self) -> Path:

@@ -54,6 +54,10 @@ class WorkflowLangGraphRuntime:
         return result['run_state']
 
     def _trace(self, node_name: str, run_state: RunState, fn):
+        import time
+        start_time = time.time()
+        print(f"[{time.strftime('%H:%M:%S')}] START: {node_name} (run_id={run_state.run_id[:8]})")
+        
         trace_id = self.service.store.trace_node_started(run_id=run_state.run_id, node_name=node_name, attempt=run_state.attempt)
         self.service.store.trace_node_input(
             run_id=run_state.run_id,
@@ -61,12 +65,16 @@ class WorkflowLangGraphRuntime:
             input_payload={
                 'industry': run_state.industry,
                 'competitors': run_state.competitors,
+                'user_prompt': run_state.user_prompt,
                 'planned_competitors': run_state.planned_competitors,
                 'status': run_state.status,
             },
         )
         try:
             fn(run_state)
+            elapsed = time.time() - start_time
+            print(f"[{time.strftime('%H:%M:%S')}] END:   {node_name} (耗时={elapsed:.2f}s, evidences={len(run_state.evidences)}, profiles={len(run_state.profiles)})")
+            
             self.service.store.trace_node_completed(
                 trace_id=trace_id,
                 run_id=run_state.run_id,
@@ -86,6 +94,8 @@ class WorkflowLangGraphRuntime:
                 state=run_state,
             )
         except Exception as exc:
+            elapsed = time.time() - start_time
+            print(f"[{time.strftime('%H:%M:%S')}] FAIL:  {node_name} (耗时={elapsed:.2f}s, error={str(exc)})")
             self.service.store.trace_node_failed(trace_id=trace_id, error_text=str(exc))
             raise
 

@@ -52,29 +52,31 @@ def _http_post_text(url: str, payload: dict[str, Any], headers: dict[str, str], 
 class TavilySearchProvider:
     def __init__(self, config: AppConfig):
         self.config = config
+        self.client = None
+        if self.config.tavily_api_key:
+            try:
+                from tavily import TavilyClient
+                self.client = TavilyClient(self.config.tavily_api_key)
+            except ImportError:
+                pass
 
     def name(self) -> str:
         return 'tavily'
 
     def health(self) -> ProviderHealth:
-        ready = bool(self.config.tavily_api_key)
-        return ProviderHealth(provider=self.name(), capabilities=['web_search'], available=ready, auth_ready=ready, note='api key required')
+        ready = bool(self.client)
+        return ProviderHealth(provider=self.name(), capabilities=['web_search'], available=ready, auth_ready=bool(self.config.tavily_api_key), note='api key required')
 
     def search(self, query: str, max_results: int) -> tuple[list[SearchHit], list[str]]:
-        if not self.config.tavily_api_key:
-            return [], ['tavily_unavailable: missing TAVILY_API_KEY']
+        if not self.client:
+            return [], ['tavily_unavailable: missing TAVILY_API_KEY or tavily-python not installed']
         start = time.time()
         try:
-            data = _http_post_json(
-                'https://api.tavily.com/search',
-                {'api_key': self.config.tavily_api_key, 'query': query, 'max_results': max_results},
-                {'Content-Type': 'application/json'},
-                self.config.collector_provider_timeout_sec,
-            )
+            response = self.client.search(query=query, search_depth="advanced", max_results=max_results)
             latency_ms = int((time.time() - start) * 1000)
             out = [
                 SearchHit(query=query, title=r.get('title', ''), url=r.get('url', ''), snippet=r.get('content', ''), source_provider=self.name(), latency_ms=latency_ms)
-                for r in data.get('results', [])
+                for r in response.get('results', [])
                 if r.get('url')
             ]
             return out, []
@@ -351,6 +353,7 @@ class FirecrawlFetchProvider:
 class TavilyExtractProvider:
     def __init__(self, config: AppConfig):
         self.config = config
+        self._client = None
 
     def name(self) -> str:
         return 'tavily_extract'
@@ -363,17 +366,19 @@ class TavilyExtractProvider:
         if not self.config.tavily_api_key:
             return '', ['tavily_extract_unavailable: missing TAVILY_API_KEY']
         try:
-            data = _http_post_json(
-                'https://api.tavily.com/extract',
-                {'api_key': self.config.tavily_api_key, 'urls': [url]},
-                {'Content-Type': 'application/json'},
-                self.config.collector_provider_timeout_sec,
-            )
-            results = data.get('results', []) if isinstance(data, dict) else []
+            from tavily import TavilyClient
+            
+            if self._client is None:
+                self._client = TavilyClient(self.config.tavily_api_key)
+            
+            response = self._client.extract(urls=[url])
+            results = response.get('results', []) if isinstance(response, dict) else []
             if not results:
                 return '', ['tavily_extract_empty']
             content = results[0].get('raw_content', '') or ''
             return content, ([] if content else ['tavily_extract_empty'])
+        except ImportError:
+            return '', ['tavily_extract_unavailable: tavily package not installed']
         except Exception as exc:
             return '', [f'tavily_extract_unavailable: {exc}']
 

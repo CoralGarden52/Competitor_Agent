@@ -47,6 +47,8 @@ backend/collector_exports/
 *.db
 *.sqlite
 *.sqlite3
+.data/
+mock_data/
 
 # Frontend / Node
 node_modules/
