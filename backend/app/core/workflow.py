@@ -452,6 +452,9 @@ class CompetitorWorkflowService:
             for item in dynamic_plan.get('analysis_schema_plan', [])
         ]
         state.planner_meta = dynamic_plan.get('planner_meta', {})
+        candidate_groups = dynamic_plan.get('candidate_groups', {})
+        if isinstance(candidate_groups, dict) and candidate_groups:
+            state.planner_meta['candidate_groups'] = candidate_groups
         split_strategy = 'by_competitor' if len(state.competitors) <= 4 else 'by_topic'
         state.split_strategy = split_strategy
         state.self_eval['plan'] = SelfEval(coverage=1.0, consistency=0.9, evidence_quality=0.8, uncertainty=0.2)

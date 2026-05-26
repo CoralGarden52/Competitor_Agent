@@ -25,10 +25,12 @@ class _QueuedLLM:
 
     def __init__(self, responses):
         self._responses = list(responses)
+        self.calls = []
 
     def invoke_json(self, *args, **kwargs):
         if not self._responses:
             raise AssertionError('No queued LLM response left')
+        self.calls.append(kwargs)
         return self._responses.pop(0)
 
 
@@ -189,6 +191,10 @@ def test_run_llm_synthesizes_overview_sections_in_second_pass() -> None:
     assert section_ids[:2] == ['background_goal', 'conclusion_advice']
     assert drafted.report.executive_summary.startswith('协作办公赛道的主要分化点')
     assert '## 建议行动' not in drafted.report.markdown
+    overview_payload = llm.calls[1]['user_payload']
+    assert 'comparison_matrix' in overview_payload
+    assert 'sections' not in overview_payload
+    assert '竞品对比矩阵' in overview_payload.get('task', '')
 
 
 def test_run_fallback_still_generates_non_meta_overview_sections() -> None:
@@ -227,3 +233,63 @@ def test_run_fallback_still_generates_non_meta_overview_sections() -> None:
     assert '## 建议行动' not in drafted.report.markdown
     assert drafted.report.sections[0].section_id == 'background_goal'
     assert drafted.report.sections[1].section_id == 'conclusion_advice'
+
+
+def test_dynamic_field_section_contains_provenance_links() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='meeting_software',
+        competitors=['腾讯会议'],
+        evidences=[
+            Evidence(
+                source_url='https://example.com/product',
+                title='腾讯会议产品页',
+                snippet='支持视频会议',
+                evidence_id='ev1',
+            )
+        ],
+    )
+    records = [
+        CompetitorAnalysisRecord(
+            product_name='腾讯会议',
+            fields=[
+                AnalysisFieldResult(
+                    field_name='feature_tree',
+                    summary='支持视频会议与协作',
+                    evidence_refs=['ev1'],
+                    confidence=0.8,
+                    normalized_value={},
+                )
+            ],
+        )
+    ]
+    text = agent._dynamic_field_section_text(state, records, 'feature_tree')
+    assert '溯源' in text
+    assert '[腾讯会议产品页](https://example.com/product)' in text
+
+
+def test_markdownish_to_html_renders_inline_links() -> None:
+    html = WriterAgent._markdownish_to_html('- 溯源：[腾讯会议产品页](https://example.com/product)')
+    assert '<a href="https://example.com/product"' in html
+    assert '腾讯会议产品页</a>' in html
+
+
+def test_comparison_matrix_labels_direct_and_substitute_competitors() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='collaboration_software',
+        competitors=['钉钉', '石墨文档'],
+        planner_meta={
+            'candidate_groups': {
+                'direct': [{'name': '钉钉'}],
+                'substitute': [{'name': '石墨文档'}],
+            }
+        },
+    )
+    records = [
+        CompetitorAnalysisRecord(product_name='钉钉', fields=[AnalysisFieldResult(field_name='feature_tree', summary='企业协同', evidence_refs=[], confidence=0.8, normalized_value={})]),
+        CompetitorAnalysisRecord(product_name='石墨文档', fields=[AnalysisFieldResult(field_name='feature_tree', summary='文档协作', evidence_refs=[], confidence=0.8, normalized_value={})]),
+    ]
+    matrix = agent._comparison_matrix(state, records)
+    assert matrix[0]['product'] == '钉钉（直接竞品）'
+    assert matrix[1]['product'] == '石墨文档（替代竞品）'

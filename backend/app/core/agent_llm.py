@@ -89,18 +89,7 @@ class AgentLLMClient:
         with trace_ctx:
             for idx in range(attempts):
                 try:
-                    req = urllib.request.Request(
-                        url,
-                        data=json.dumps(payload, ensure_ascii=False).encode('utf-8'),
-                        headers={
-                            'Content-Type': 'application/json',
-                            'Authorization': f'Bearer {self.config.openai_api_key}',
-                        },
-                        method='POST',
-                    )
-                    with urllib.request.urlopen(req, timeout=self.config.request_timeout_seconds) as resp:
-                        body = resp.read().decode('utf-8', errors='ignore')
-                    data = json.loads(body)
+                    data = self._post_chat_completion(url=url, payload=payload)
                     choices = data.get('choices', [])
                     if not choices:
                         raise LLMCallError(
@@ -110,7 +99,16 @@ class AgentLLMClient:
                             retry_count_used=idx,
                         )
                     content = (choices[0].get('message') or {}).get('content', '{}')
-                    parsed = _parse_json_content(content)
+                    try:
+                        parsed = _parse_json_content(content)
+                    except ValueError:
+                        repaired = self._repair_json_response(
+                            url=url,
+                            raw_content=content,
+                            trace_name=trace_name,
+                            metadata=metadata,
+                        )
+                        parsed = _parse_json_content(repaired)
                     return parsed
                 except LLMCallError as exc:
                     last_exc = exc
@@ -130,6 +128,64 @@ class AgentLLMClient:
 
         message = f'LLM call failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM call failed'
         raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
+
+    def _post_chat_completion(self, *, url: str, payload: dict[str, Any]) -> dict[str, Any]:
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload, ensure_ascii=False).encode('utf-8'),
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {self.config.openai_api_key}',
+            },
+            method='POST',
+        )
+        with urllib.request.urlopen(req, timeout=self.config.request_timeout_seconds) as resp:
+            body = resp.read().decode('utf-8', errors='ignore')
+        return json.loads(body)
+
+    def _repair_json_response(
+        self,
+        *,
+        url: str,
+        raw_content: Any,
+        trace_name: str,
+        metadata: dict[str, Any],
+    ) -> str:
+        repair_payload = {
+            'model': self.config.openai_model,
+            'messages': [
+                {
+                    'role': 'system',
+                    'content': (
+                        '你是 JSON 修复助手。'
+                        '你的唯一任务是把给定文本修正为一个且仅一个合法 JSON 对象。'
+                        '不要补充解释，不要输出 markdown 代码块，不要输出多个 JSON 对象。'
+                        '如果原文里已经包含 JSON，请尽量保持原有字段和值，只修复格式问题。'
+                    ),
+                },
+                {
+                    'role': 'user',
+                    'content': json.dumps(
+                        {
+                            'task': '请将下面这段模型输出修正为一个合法的 JSON 对象，只返回修正后的 JSON。',
+                            'raw_content': str(raw_content or ''),
+                        },
+                        ensure_ascii=False,
+                    ),
+                },
+            ],
+            'temperature': 0.0,
+        }
+        repair_data = self._post_chat_completion(url=url, payload=repair_payload)
+        choices = repair_data.get('choices', [])
+        if not choices:
+            raise LLMCallError(
+                reason='empty_choices',
+                message=f'LLM JSON repair missing choices for {trace_name}',
+                attempt_count=1,
+                retry_count_used=0,
+            )
+        return str((choices[0].get('message') or {}).get('content', '{}'))
 
 
 class _NullTrace:

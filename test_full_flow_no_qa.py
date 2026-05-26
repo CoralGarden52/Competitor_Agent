@@ -19,8 +19,8 @@ TEST_CASE = {
     "hints": [],
     "language": "zh-CN",
     "timeframe": "last_12_months",
-    "max_direct": 5,
-    "max_substitute": 3,
+    "max_direct": 3,
+    "max_substitute": 1,
     "output_dir": "complete_flow_result",
 }
 

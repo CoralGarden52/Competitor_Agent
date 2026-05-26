@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from html import escape
+import re
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.models import (
@@ -75,7 +76,7 @@ class WriterAgent:
 
     def run_fallback(self, state: RunState) -> DraftOutput:
         records = self._records(state)
-        matrix = self._comparison_matrix(records)
+        matrix = self._comparison_matrix(state, records)
         sections = self._template_sections(state, records, include_overview_sections=False)
         report = Report(
             executive_summary=self._executive_summary(state, records),
@@ -107,7 +108,7 @@ class WriterAgent:
         if not report.executive_summary.strip():
             report.executive_summary = self._executive_summary(state, records)
         if not report.comparison_matrix:
-            report.comparison_matrix = self._comparison_matrix(records)
+            report.comparison_matrix = self._comparison_matrix(state, records)
         if not report.sections:
             report.sections = self._template_sections(state, records, include_overview_sections=include_overview_sections)
         else:
@@ -139,10 +140,10 @@ class WriterAgent:
             return state.competitor_analyses
         return [CompetitorAnalysisRecord(product_name=profile.product_name, fields=[]) for profile in state.profiles]
 
-    def _comparison_matrix(self, records: list[CompetitorAnalysisRecord]) -> list[dict]:
+    def _comparison_matrix(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[dict]:
         matrix: list[dict] = []
         for record in records:
-            row = {'product': record.product_name}
+            row = {'product': self._display_product_name(state, record.product_name)}
             for field in record.fields:
                 row[field.field_name] = self._compact_text(field.summary, limit=110)
             matrix.append(row)
@@ -173,6 +174,34 @@ class WriterAgent:
     def _dynamic_section_title(field_name: str) -> str:
         label = field_name.replace('_', ' ').strip()
         return f'动态维度：{label}'
+
+    def _display_product_name(self, state: RunState, product_name: str) -> str:
+        fit_type = self._competitor_fit_type(state, product_name)
+        if fit_type == 'direct':
+            return f'{product_name}（直接竞品）'
+        if fit_type == 'substitute':
+            return f'{product_name}（间接竞品）'
+        return product_name
+
+    @staticmethod
+    def _competitor_fit_type(state: RunState, product_name: str) -> str:
+        candidate_groups = state.planner_meta.get('candidate_groups', {}) if isinstance(state.planner_meta, dict) else {}
+        if not isinstance(candidate_groups, dict):
+            return ''
+        target = product_name.strip().casefold()
+        for fit_type in ('direct', 'substitute'):
+            items = candidate_groups.get(fit_type, [])
+            if not isinstance(items, list):
+                continue
+            for item in items:
+                name = ''
+                if isinstance(item, dict):
+                    name = str(item.get('name', '')).strip()
+                else:
+                    name = str(item).strip()
+                if name.casefold() == target:
+                    return fit_type
+        return ''
 
     def _template_sections(
         self,
@@ -247,23 +276,23 @@ class WriterAgent:
             return claims, content
         if section_id == 'capability_comparison':
             claims = self._field_claims(records, preferred_fields=['feature_tree'])
-            return claims, self._dynamic_field_section_text(records, 'feature_tree') or '暂无核心能力结构证据。'
+            return claims, self._dynamic_field_section_text(state, records, 'feature_tree') or '暂无核心能力结构证据。'
         if section_id == 'pricing_strategy':
             claims = self._field_claims(records, preferred_fields=['pricing_model'])
-            return claims, self._dynamic_field_section_text(records, 'pricing_model') or '暂无稳定的定价与商业化证据。'
+            return claims, self._dynamic_field_section_text(state, records, 'pricing_model') or '暂无稳定的定价与商业化证据。'
         if section_id == 'user_feedback_analysis':
             claims = self._field_claims(records, preferred_fields=['user_feedback'])
-            return claims, self._dynamic_field_section_text(records, 'user_feedback') or '暂无足够用户反馈证据。'
+            return claims, self._dynamic_field_section_text(state, records, 'user_feedback') or '暂无足够用户反馈证据。'
         if section_id == 'strengths_weaknesses':
             claims = self._field_claims(records, preferred_fields=['strengths', 'weaknesses'])
-            return claims, self._strengths_weaknesses_text(records)
+            return claims, self._strengths_weaknesses_text(state, records)
         if section_id == 'action_recommendations':
             claims = self._collect_weakness_claims(records)
             content = '\n'.join(f"- {item}" for item in self._opportunity_bullets(records))
             return claims, content or '暂无建议动作。'
         if field_name:
             claims = self._field_claims(records, preferred_fields=[field_name])
-            content = self._dynamic_field_section_text(records, field_name)
+            content = self._dynamic_field_section_text(state, records, field_name)
             return claims, content or ('\n'.join(f"- {claim.statement}" for claim in claims) or '暂无足够字段证据。')
         claims = self._field_claims(records, preferred_fields=[])
         return claims, '\n'.join(f"- {claim.statement}" for claim in claims)
@@ -405,8 +434,8 @@ class WriterAgent:
             )
         return f"<div class='claims'>{''.join(items)}</div>"
 
-    @staticmethod
-    def _markdownish_to_html(text: str) -> str:
+    @classmethod
+    def _markdownish_to_html(cls, text: str) -> str:
         lines = [line.strip() for line in text.splitlines() if line.strip()]
         if not lines:
             return '<p>暂无内容。</p>'
@@ -414,12 +443,12 @@ class WriterAgent:
         current_list: list[str] = []
         for line in lines:
             if line.startswith('- '):
-                current_list.append(f"<li>{escape(line[2:])}</li>")
+                current_list.append(f"<li>{cls._render_inline_markdown_links(line[2:])}</li>")
                 continue
             if current_list:
                 html_parts.append('<ul>' + ''.join(current_list) + '</ul>')
                 current_list = []
-            html_parts.append(f"<p>{escape(line)}</p>")
+            html_parts.append(f"<p>{cls._render_inline_markdown_links(line)}</p>")
         if current_list:
             html_parts.append('<ul>' + ''.join(current_list) + '</ul>')
         return ''.join(html_parts)
@@ -464,7 +493,7 @@ class WriterAgent:
                 )
         return claims
 
-    def _dynamic_field_section_text(self, records: list[CompetitorAnalysisRecord], field_name: str) -> str:
+    def _dynamic_field_section_text(self, state: RunState, records: list[CompetitorAnalysisRecord], field_name: str) -> str:
         lines: list[str] = []
         for record in records:
             field = self._get_field(record, field_name)
@@ -472,6 +501,9 @@ class WriterAgent:
                 continue
             lines.append(f"- {record.product_name}: {field.summary}")
             lines.extend(self._normalized_value_bullets(field))
+            links = self._field_provenance_line(state, field)
+            if links:
+                lines.append(links)
         return '\n'.join(lines)
 
     @staticmethod
@@ -642,7 +674,7 @@ class WriterAgent:
             urls.append(url)
         return urls
 
-    def _strengths_weaknesses_text(self, records: list[CompetitorAnalysisRecord]) -> str:
+    def _strengths_weaknesses_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
         lines: list[str] = []
         for record in records:
             strengths = self._get_field(record, 'strengths')
@@ -651,31 +683,39 @@ class WriterAgent:
             weakness_text = weaknesses.summary if weaknesses is not None and weaknesses.summary.strip().lower() != 'unknown' else '暂无明确短板证据'
             lines.append(f"- {record.product_name}")
             lines.append(f"  - 优势：{self._compact_text(strength_text, 160)}")
+            if strengths is not None:
+                strength_links = self._field_provenance_line(state, strengths)
+                if strength_links:
+                    lines.append(strength_links)
             lines.append(f"  - 劣势/风险：{self._compact_text(weakness_text, 160)}")
+            if weaknesses is not None:
+                weakness_links = self._field_provenance_line(state, weaknesses)
+                if weakness_links:
+                    lines.append(weakness_links)
         return '\n'.join(lines) or '暂无优劣势对比内容。'
 
     def _synthesize_overview_sections(self, drafted: DraftOutput, *, state: RunState) -> DraftOutput:
         report = drafted.report
-        body_sections = [section for section in report.sections if section.section_id not in {'background_goal', 'conclusion_advice'}]
         payload = {
             'industry': state.industry,
             'language': state.language,
             'user_prompt': state.user_prompt,
+            'task': (
+                '你现在只负责生成竞品分析报告的开头两章和执行摘要。'
+                '请严格基于“用户请求”和“竞品对比矩阵”来写，不要使用其他上下文，不要补充矩阵外的新事实。'
+                '请输出三部分内容：'
+                '1) “研究范围与目标”：说明本次分析对象、覆盖范围、重点比较维度和报告用途；'
+                '2) “核心结论”：总结主要差异、适用场景分化、值得关注的竞争结论，并给出1-2条高层建议；'
+                '3) “executive_summary”：写成2-3句适合放在报告开头的高密度摘要。'
+                '写作风格要正式、专业、适合产品经理/业务负责人阅读。'
+                '不要写参考来源、不要写 evidence_id、不要逐字段复述、不要写“本报告分析了几个竞品几个维度”这类元话术。'
+            ),
             'comparison_matrix': report.comparison_matrix,
-            'sections': [
-                {
-                    'section_id': section.section_id,
-                    'title': section.title,
-                    'field_name': section.field_name,
-                    'content_markdown': section.content_markdown,
-                }
-                for section in body_sections
-            ],
         }
         records = self._records(state)
-        background_text = self._background_text_from_body(state, body_sections)
-        conclusion_text = self._conclusion_text_from_body(state, records, body_sections)
-        executive_summary = self._executive_summary_from_body(state, records, body_sections)
+        background_text = self._background_text_from_body(state, report.comparison_matrix)
+        conclusion_text = self._conclusion_text_from_body(state, records, report.comparison_matrix)
+        executive_summary = self._executive_summary_from_body(state, records, report.comparison_matrix)
         try:
             result = self.llm.invoke_json(
                 trace_name='agent.draft.generate_overview',
@@ -701,6 +741,7 @@ class WriterAgent:
             ReportSection(section_id='background_goal', title='一、研究范围与目标', field_name='', claims=[], content_markdown=background_text),
             ReportSection(section_id='conclusion_advice', title='二、核心结论', field_name='', claims=[], content_markdown=conclusion_text),
         ]
+        body_sections = [section for section in report.sections if section.section_id not in {'background_goal', 'conclusion_advice'}]
         report.sections = self._inject_overview_sections(body_sections, overview_sections, state=state)
         report.executive_summary = executive_summary
         report.markdown = self._markdown_from_template(state, report)
@@ -724,10 +765,8 @@ class WriterAgent:
                 ordered.append(body_by_id[section_id])
         return ordered
 
-    def _background_text_from_body(self, state: RunState, sections: list[ReportSection]) -> str:
-        focus_labels = [section.title.replace('三、', '').replace('四、', '').replace('五、', '').replace('六、', '').replace('七、', '').replace('八、', '') for section in sections[:4]]
-        focus_labels = [label.strip() for label in focus_labels if label.strip()]
-        focus_text = '、'.join(focus_labels[:4]) if focus_labels else '核心能力、商业化、用户反馈等维度'
+    def _background_text_from_body(self, state: RunState, comparison_matrix: list[dict]) -> str:
+        focus_text = self._matrix_focus_text(comparison_matrix)
         if state.user_prompt.strip():
             return f"本次研究围绕“{state.user_prompt.strip()}”展开，选取已识别的主要竞品进行对比，重点关注{focus_text}，目标是为产品判断、方案取舍和后续策略提供一页式结论。"
         return f"本次研究聚焦 {state.industry} 方向的主要竞品，基于公开信息对产品能力、商业模式和用户采用信号进行结构化对比，重点关注{focus_text}。"
@@ -736,14 +775,11 @@ class WriterAgent:
         self,
         state: RunState,
         records: list[CompetitorAnalysisRecord],
-        sections: list[ReportSection],
+        comparison_matrix: list[dict],
     ) -> str:
-        summary = self._executive_summary_from_body(state, records, sections)
+        summary = self._executive_summary_from_body(state, records, comparison_matrix)
         lines = [summary]
-        overview = next((section for section in sections if section.section_id == 'comparison_overview' and section.content_markdown.strip()), None)
-        if overview is not None:
-            overview_lines = [line.strip() for line in overview.content_markdown.splitlines() if line.strip()][:3]
-            lines.extend(overview_lines)
+        lines.extend(self._matrix_overview_bullets(comparison_matrix))
         actions = self._opportunity_bullets(records)[:2]
         if actions:
             lines.append('建议优先动作：')
@@ -754,16 +790,96 @@ class WriterAgent:
         self,
         state: RunState,
         records: list[CompetitorAnalysisRecord],
-        sections: list[ReportSection],
+        comparison_matrix: list[dict],
     ) -> str:
         if not records:
             return f"本次{state.industry or '竞品'}分析已形成基础报告，但当前可用于归纳的稳定字段仍然有限，建议结合正文查看已采集到的差异信息。"
         names = [record.product_name for record in records[:3]]
         name_text = '、'.join(names)
-        dynamic_section_count = len([section for section in sections if section.section_id.startswith('dynamic_')])
-        if dynamic_section_count:
-            return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在产品形态、商业化路径与若干关键扩展能力上，报告正文已优先展开这些可区分竞品的维度。建议重点结合对比总览、优劣势与建议动作章节判断取舍。"
+        focus_text = self._matrix_focus_text(comparison_matrix)
+        if self._matrix_has_dynamic_dimensions(comparison_matrix):
+            return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在{focus_text}等维度上，其中扩展能力和商业化路径最能拉开区分度。建议优先结合对比矩阵与后续建议动作判断产品取舍。"
         return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在产品能力、定价方式和用户采用信号上。建议重点结合对比总览、优劣势与建议动作章节判断取舍。"
+
+    @staticmethod
+    def _matrix_focus_text(comparison_matrix: list[dict]) -> str:
+        if not comparison_matrix:
+            return '核心能力、商业化、用户反馈等维度'
+        keys = [key for key in comparison_matrix[0].keys() if key != 'product']
+        labels = [key.replace('_', ' ').strip() for key in keys[:4]]
+        labels = [label for label in labels if label]
+        return '、'.join(labels) if labels else '核心能力、商业化、用户反馈等维度'
+
+    @staticmethod
+    def _matrix_has_dynamic_dimensions(comparison_matrix: list[dict]) -> bool:
+        if not comparison_matrix:
+            return False
+        core_fields = {'product', 'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
+        keys = {key for key in comparison_matrix[0].keys()}
+        return any(key not in core_fields for key in keys)
+
+    @staticmethod
+    def _matrix_overview_bullets(comparison_matrix: list[dict]) -> list[str]:
+        bullets: list[str] = []
+        for row in comparison_matrix[:3]:
+            product = str(row.get('product', '')).strip()
+            if not product:
+                continue
+            highlights = []
+            for key, value in row.items():
+                if key == 'product':
+                    continue
+                text = ' '.join(str(value or '').split())
+                if text:
+                    highlights.append(f"{key}: {text[:50] + ('…' if len(text) > 50 else '')}")
+                if len(highlights) >= 2:
+                    break
+            if highlights:
+                bullets.append(f"- {product}：{'；'.join(highlights)}")
+        return bullets[:3]
+
+    def _field_provenance_line(self, state: RunState, field: AnalysisFieldResult) -> str:
+        links = self._evidence_links_for_refs(state, field.evidence_refs)
+        if not links:
+            return ''
+        return f"  - 溯源：{'；'.join(links)}"
+
+    def _evidence_links_for_refs(self, state: RunState, refs: list[str]) -> list[str]:
+        link_map: list[str] = []
+        seen: set[str] = set()
+        for ref in refs[:4]:
+            evidence = next((ev for ev in state.evidences if ev.evidence_id == ref), None)
+            if evidence is None:
+                continue
+            url = evidence.source_url.strip()
+            if not url or url in seen:
+                continue
+            seen.add(url)
+            label = self._source_link_label(evidence.title, url, len(seen))
+            link_map.append(f"[{label}]({url})")
+        return link_map
+
+    @staticmethod
+    def _source_link_label(title: str, url: str, index: int) -> str:
+        cleaned_title = ' '.join((title or '').split())
+        if cleaned_title:
+            return cleaned_title[:40]
+        return f'来源{index}'
+
+    @staticmethod
+    def _render_inline_markdown_links(text: str) -> str:
+        pattern = re.compile(r'\[([^\]]+)\]\((https?://[^)]+)\)')
+        html_parts: list[str] = []
+        last = 0
+        for match in pattern.finditer(text):
+            start, end = match.span()
+            html_parts.append(escape(text[last:start]))
+            label = escape(match.group(1))
+            url = escape(match.group(2), quote=True)
+            html_parts.append(f"<a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">{label}</a>")
+            last = end
+        html_parts.append(escape(text[last:]))
+        return ''.join(html_parts)
 
     @staticmethod
     def _compact_text(text: str, limit: int) -> str:
