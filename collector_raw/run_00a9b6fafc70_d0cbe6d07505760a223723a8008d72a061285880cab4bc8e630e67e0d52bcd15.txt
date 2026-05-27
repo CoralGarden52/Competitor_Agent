@@ -1,0 +1,259 @@
+# WPS开放平台文档
+
+Title: WPS开放平台文档
+
+URL Source: https://open-mobapp.wps.cn/doc/dev
+
+Markdown Content:
+# WPS开放平台文档
+
+# [![Image 1: WPS开放平台文档](https://open-mobapp.wps.cn/doc/_media/logo.svg)](https://open-mobapp.wps.cn/doc/dev/)
+
+*   [起步](https://open-mobapp.wps.cn/doc/dev#/README "起步")
+
+*   开始
+
+    *   [WPS 小程序创建指南](https://open-mobapp.wps.cn/doc/dev#/Guide/create_app "WPS 小程序创建指南")
+    *   [开发前准备](https://open-mobapp.wps.cn/doc/dev#/Guide/access_request "开发前准备")
+    *   [支付服务配置](https://open-mobapp.wps.cn/doc/dev#/Guide/pay_request "支付服务配置")
+    *   [WPS 小程序上架流程](https://open-mobapp.wps.cn/doc/dev#/Guide/hosting "WPS 小程序上架流程")
+
+*   wps 小程序功能接入
+
+    *   账号授权
+
+        *   [账号授权流程](https://open-mobapp.wps.cn/doc/dev#/Server/Auth/auth?id=%e8%b4%a6%e5%8f%b7%e6%8e%88%e6%9d%83%e6%b5%81%e7%a8%8b "账号授权流程")
+        *   [API 接入](https://open-mobapp.wps.cn/doc/dev#/Server/Auth/auth?id=api%e6%8e%a5%e5%85%a5 "API 接入")
+
+    *   支付
+
+        *   [支付简介](https://open-mobapp.wps.cn/doc/dev#/Server/Pay/about "支付简介")
+        *   [开始接入](https://open-mobapp.wps.cn/doc/dev#/Server/Pay/start "开始接入")
+        *   [支付相关接口说明](https://open-mobapp.wps.cn/doc/dev#/Server/Pay/pay_api "支付相关接口说明")
+
+*   wps 小程序服务端 API
+
+    *   [通过 code 换取授权 access_token](https://open-mobapp.wps.cn/doc/dev#/Server/api?id=%e9%80%9a%e8%bf%87code%e6%8d%a2%e5%8f%96%e6%8e%88%e6%9d%83access-token "通过 code 换取授权 access_token")
+    *   [刷新 access_token](https://open-mobapp.wps.cn/doc/dev#/Server/api?id=%e5%88%b7%e6%96%b0access-token "刷新 access_token")
+    *   [获取用户信息](https://open-mobapp.wps.cn/doc/dev#/Server/api?id=%e8%8e%b7%e5%8f%96%e7%94%a8%e6%88%b7%e4%bf%a1%e6%81%af "获取用户信息")
+    *   [支付 API](https://open-mobapp.wps.cn/doc/dev#/Server/Pay/pay_api "支付 API")
+
+*   wps 小程序 API
+
+    *   小程序开发约定
+
+        *   [API 约定](https://open-mobapp.wps.cn/doc/dev#/Convention/api "API 约定")
+        *   [错误码及函数调用约定](https://open-mobapp.wps.cn/doc/dev#/Convention/functionCall "错误码及函数调用约定")
+
+    *   基础库
+
+        *   [版本分布](https://open-mobapp.wps.cn/doc/dev#/framework/framework?id=%e7%89%88%e6%9c%ac%e5%88%86%e5%b8%83 "版本分布")
+        *   [低版本兼容](https://open-mobapp.wps.cn/doc/dev#/framework/compatibility?id=%e5%85%bc%e5%ae%b9 "低版本兼容")
+        *   [基础库初始化](https://open-mobapp.wps.cn/doc/dev#/framework/init?id=%e5%88%9d%e5%a7%8b%e5%8c%96 "基础库初始化")
+
+    *   基础
+
+        *   [场景值](https://open-mobapp.wps.cn/doc/dev#/Base/scene "场景值")
+
+            *   [新建入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/10101 "新建入口")
+
+            *   [应用页 banner](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20101 "应用页 banner")
+
+            *   [应用页分类](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20102 "应用页分类")
+
+            *   [应用页专题](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20103 "应用页专题")
+
+            *   [应用页搜索](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20104 "应用页搜索")
+
+            *   [应用页最近](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20105 "应用页最近")
+
+            *   [文字组件工具入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20201 "文字组件工具入口")
+
+            *   [表格组件工具入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20301 "表格组件工具入口")
+
+            *   [演示组件工具入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20401 "演示组件工具入口")
+
+            *   [PDF 组件工具入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20501 "PDF 组件工具入口")
+
+            *   [桌面快捷方式入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/20601 "桌面快捷方式入口")
+
+            *   [首页搜索 banner](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30100 "首页搜索 banner")
+
+            *   [首页搜索应用入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30101 "首页搜索应用入口")
+
+            *   [首页搜索结果应用列表入口](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30102 "首页搜索结果应用列表入口")
+
+            *   [稻壳搜索 banner](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30200 "稻壳搜索 banner")
+
+            *   [文字稻壳搜索](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30300 "文字稻壳搜索")
+
+            *   [表格稻壳搜索](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30400 "表格稻壳搜索")
+
+            *   [演示稻壳搜索](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/30500 "演示稻壳搜索")
+
+            *   [稻壳商城模板分类下文字链](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/40000 "稻壳商城模板分类下文字链")
+
+            *   [文字模板商城模板分类下文字链](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/40100 "文字模板商城模板分类下文字链")
+
+            *   [文字组件简历工具](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/50100 "文字组件简历工具")
+
+            *   [文字组件尾部信息推荐卡](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/50300 "文字组件尾部信息推荐卡")
+
+            *   [文字提示条](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/50400 "文字提示条")
+
+            *   [pdf 尾部推荐卡](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/80200 "pdf 尾部推荐卡")
+
+            *   [pdf 提示条](https://open-mobapp.wps.cn/doc/dev#/Base/SceneRes/80300 "pdf 提示条")
+
+            *   [wps.canIUse](https://open-mobapp.wps.cn/doc/dev#/Base/canIUse "wps.canIUse")
+
+            *   [wps.applyUpdate](https://open-mobapp.wps.cn/doc/dev#/Base/applyUpdate "wps.applyUpdate")
+
+        *   应用级事件
+
+            *   [wps.onAppShow](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/onAppShow "wps.onAppShow")
+            *   [wps.offAppShow](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/offAppShow "wps.offAppShow")
+            *   [wps.onAppClose](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/onAppClose "wps.onAppClose")
+            *   [wps.offAppClose](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/offAppClose "wps.offAppClose")
+            *   [NetworkChange](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/NetworkChange "NetworkChange")
+            *   [onAppRoute](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/onAppRoute "onAppRoute")
+            *   [onAppUpdateReady](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/onAppUpdateReady "onAppUpdateReady")
+
+        *   事件监听
+
+            *   [wps.setActionListener](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/setActionListener "wps.setActionListener")
+            *   [wps.removeActionListener](https://open-mobapp.wps.cn/doc/dev#/Base/Listener/removeActionListener "wps.removeActionListener")
+
+    *   开放能力
+
+        *   [wps.authorize](https://open-mobapp.wps.cn/doc/dev#/Open/authorize "wps.authorize")
+
+    *   系统
+
+        *   [wps.getSystemInfo](https://open-mobapp.wps.cn/doc/dev#/System/system?id=%e8%8e%b7%e5%8f%96%e7%b3%bb%e7%bb%9f%e4%bf%a1%e6%81%af "wps.getSystemInfo")
+
+    *   账号
+
+        *   [wps.isLogin](https://open-mobapp.wps.cn/doc/dev#/Account/isLogin "wps.isLogin")
+        *   [wps.login](https://open-mobapp.wps.cn/doc/dev#/Account/login "wps.login")
+        *   [wps.getUserInfo](https://open-mobapp.wps.cn/doc/dev#/Account/getUserInfo "wps.getUserInfo")
+        *   [wps.isVip](https://open-mobapp.wps.cn/doc/dev#/Account/isVip "wps.isVip")
+        *   [wps.isWpsVip](https://open-mobapp.wps.cn/doc/dev#/Account/isWpsVip "wps.isWpsVip")
+        *   [wps.isDocerVip](https://open-mobapp.wps.cn/doc/dev#/Account/isDocerVip "wps.isDocerVip")
+        *   [wps.isSuperVip](https://open-mobapp.wps.cn/doc/dev#/Account/isSuperVip "wps.isSuperVip")
+        *   [wps.getVipInfo](https://open-mobapp.wps.cn/doc/dev#/Account/getVipInfo "wps.getVipInfo")
+        *   [wps.canVipFreeTrail](https://open-mobapp.wps.cn/doc/dev#/Account/canVipFreeTrail "wps.canVipFreeTrail")
+        *   [wps.getUserPhone](https://open-mobapp.wps.cn/doc/dev#/Account/getUserPhone "wps.getUserPhone")
+        *   [wps.isCompanyUser](https://open-mobapp.wps.cn/doc/dev#/Account/isCompanyUser "wps.isCompanyUser")
+
+    *   支付
+
+        *   [wps.prepay](https://open-mobapp.wps.cn/doc/dev#/Payment/prepay "wps.prepay")
+        *   [wps.directPrepay](https://open-mobapp.wps.cn/doc/dev#/Payment/directPrepay "wps.directPrepay")
+        *   [wps.buyPrivilege](https://open-mobapp.wps.cn/doc/dev#/Payment/buyPrivilege "wps.buyPrivilege")
+        *   [wps.getPrivilegePrice](https://open-mobapp.wps.cn/doc/dev#/Payment/getPrivilegePrice "wps.getPrivilegePrice")
+        *   [wps.buyVip](https://open-mobapp.wps.cn/doc/dev#/Payment/buyVip "wps.buyVip")
+        *   [wps.prepayV2](https://open-mobapp.wps.cn/doc/dev#/Payment/prepayV2 "wps.prepayV2")
+
+    *   文档
+
+        *   [wps.saveFile](https://open-mobapp.wps.cn/doc/dev#/Document/saveFile "wps.saveFile")
+        *   [wps.selectFiles](https://open-mobapp.wps.cn/doc/dev#/Document/selectFiles "wps.selectFiles")
+        *   [wps.pickContentFromSpreadsheet](https://open-mobapp.wps.cn/doc/dev#/Document/pickContentFromSpreadsheet "wps.pickContentFromSpreadsheet")
+        *   [wps.getDocCharCount](https://open-mobapp.wps.cn/doc/dev#/Document/getDocCharCount "wps.getDocCharCount")
+
+    *   数据缓存
+
+        *   [wps.setStorage](https://open-mobapp.wps.cn/doc/dev#/Storage/setStorage "wps.setStorage")
+        *   [wps.removeStorage](https://open-mobapp.wps.cn/doc/dev#/Storage/removeStorage "wps.removeStorage")
+        *   [wps.getStorage](https://open-mobapp.wps.cn/doc/dev#/Storage/getStorage "wps.getStorage")
+        *   [wps.clearStorage](https://open-mobapp.wps.cn/doc/dev#/Storage/clearStorage "wps.clearStorage")
+
+    *   媒体
+
+        *   [wps.saveImageToPhotosAlbum](https://open-mobapp.wps.cn/doc/dev#/Media/saveImageToPhotosAlbum "wps.saveImageToPhotosAlbum")
+        *   [wps.chooseImage](https://open-mobapp.wps.cn/doc/dev#/Media/chooseImage "wps.chooseImage")
+        *   [wps.chooseVideo](https://open-mobapp.wps.cn/doc/dev#/Media/chooseVideo "wps.chooseVideo")
+        *   [wps.chooseImageFromDocer](https://open-mobapp.wps.cn/doc/dev#/Media/chooseImageFromDocer "wps.chooseImageFromDocer")
+        *   [wps.getImageBase64](https://open-mobapp.wps.cn/doc/dev#/Media/getImageBase64 "wps.getImageBase64")
+
+    *   网络
+
+        *   [wps.httpRequest](https://open-mobapp.wps.cn/doc/dev#/Request/httpRequest "wps.httpRequest")
+        *   [wps.downloadFile](https://open-mobapp.wps.cn/doc/dev#/Request/downloadFile "wps.downloadFile")
+        *   [DownloadTask](https://open-mobapp.wps.cn/doc/dev#/Request/downloadTask "DownloadTask")
+        *   [DownloadTask.onProgressUpdate](https://open-mobapp.wps.cn/doc/dev#/Request/onProgressUpdate "DownloadTask.onProgressUpdate")
+
+    *   路由
+
+        *   [wps.navigateToMiniProgram](https://open-mobapp.wps.cn/doc/dev#/Route/navigateToMiniProgram "wps.navigateToMiniProgram")
+        *   [wps.navigateBackMiniProgram](https://open-mobapp.wps.cn/doc/dev#/Route/navigateBackMiniProgram "wps.navigateBackMiniProgram")
+        *   [wps.navigateTo](https://open-mobapp.wps.cn/doc/dev#/Route/navigateTo "wps.navigateTo")
+        *   [wps.closeWeb](https://open-mobapp.wps.cn/doc/dev#/Route/closeWeb "wps.closeWeb")
+
+    *   界面
+
+        *   [wps.showNavigationBar](https://open-mobapp.wps.cn/doc/dev#/Interface/showNavigationBar "wps.showNavigationBar")
+        *   [wps.hideNavigationBar](https://open-mobapp.wps.cn/doc/dev#/Interface/hideNavigationBar "wps.hideNavigationBar")
+
+    *   工具
+
+        *   [wps.getPlatform](https://open-mobapp.wps.cn/doc/dev#/Tools/getPlatform "wps.getPlatform")
+        *   [wps.getAppVersion](https://open-mobapp.wps.cn/doc/dev#/Tools/getAppVersion "wps.getAppVersion")
+        *   [wps.sharePicture](https://open-mobapp.wps.cn/doc/dev#/Tools/sharePicture "wps.sharePicture")
+        *   [wps.showShareMenu](https://open-mobapp.wps.cn/doc/dev#/Tools/showShareMenu "wps.showShareMenu")
+        *   [wps.singleShare](https://open-mobapp.wps.cn/doc/dev#/Tools/singleShare "wps.singleShare")
+        *   [wps.isSupportShare](https://open-mobapp.wps.cn/doc/dev#/Tools/isSupportShare "wps.isSupportShare")
+        *   [wps.showHud](https://open-mobapp.wps.cn/doc/dev#/Tools/showHud "wps.showHud")
+        *   [wps.hideHud](https://open-mobapp.wps.cn/doc/dev#/Tools/hideHud "wps.hideHud")
+        *   [wps.showToast](https://open-mobapp.wps.cn/doc/dev#/Tools/showToast "wps.showToast")
+        *   [wps.installFont](https://open-mobapp.wps.cn/doc/dev#/Tools/installFont "wps.installFont")
+        *   [wps.existFont](https://open-mobapp.wps.cn/doc/dev#/Tools/existFont "wps.existFont")
+        *   [wps.scanCode](https://open-mobapp.wps.cn/doc/dev#/Tools/scanCode "wps.scanCode")
+        *   [wps.shareDocument](https://open-mobapp.wps.cn/doc/dev#/Tools/shareDocument "wps.shareDocument")
+        *   [wps.hideKeyboard](https://open-mobapp.wps.cn/doc/dev#/Tools/hideKeyboard "wps.hideKeyboard")
+        *   [wps.addToDesktop](https://open-mobapp.wps.cn/doc/dev#/Tools/addToDesktop "wps.addToDesktop")
+
+*   微信内 H5 接入
+
+    *   [H5(微信内)支付流程](https://open-mobapp.wps.cn/doc/dev#/WechatWeb/wechatPay "H5(微信内)支付流程")
+    *   [H5(微信内)购买会员流程](https://open-mobapp.wps.cn/doc/dev#/WechatWeb/wechatBuyVip "H5(微信内)购买会员流程")
+    *   [微信公众号 API](https://open-mobapp.wps.cn/doc/dev#/WechatWeb/api "微信公众号 API")
+
+*   问题汇总
+
+    *   []
+
+*   [更新日志](https://open-mobapp.wps.cn/doc/dev#/UpdateLog/index "更新日志")
+
+## [起步](https://open-mobapp.wps.cn/doc/dev#/?id=%e8%b5%b7%e6%ad%a5)
+
+### [WPS 小程序简介](https://open-mobapp.wps.cn/doc/dev#/?id=wps-%e5%b0%8f%e7%a8%8b%e5%ba%8f%e7%ae%80%e4%bb%8b)
+
+金山办公一直致力于将 WPS OFFICE 打造为一个强大的、全方位的办公软件。在此基础上，WPS 开放平台希望通过更开放的能力、更统一的形态，为接入 WPS 开放平台的开发者应用/在线服务提供基础的接入能力、运营支持和规则体系，方便开发者应用/在线服务更快速、便捷地接入 WPS OFFICE（个人版），进而帮助更多的开发者应用/在线服务融入 WPS 办公生态中。
+
+​ 我们希望你接入 WPS 开放平台的应用/在线服务（以下简称为“开发者应用/在线服务”），能够符合金山办公一直以来的价值观：一切以用户利益为前提，切实解决用户办公需求，为用户提供高品质的服务。
+
+​ 期待你的加入！
+
+### [安装 WPS](https://open-mobapp.wps.cn/doc/dev#/?id=%e5%ae%89%e8%a3%85-wps)
+
+PC 客户端
+
+可前往 WPS 官网：[https://www.wps.cn/](https://www.wps.cn/) 进行下载（WPS OFFICE 2019 PC 版）
+
+Android 客户端：
+
+各大厂商应用市场搜索 WPS OFFICE 进行下载安装
+
+iOS 客户端：
+
+苹果 app store 搜索 WPS OFFICE 进行下载安装
+
+### [WPS 小程序入口](https://open-mobapp.wps.cn/doc/dev#/?id=wps-%e5%b0%8f%e7%a8%8b%e5%ba%8f%e5%85%a5%e5%8f%a3)
+
+PC 客户端：小程序正式上架后，可在 PC 客户端首页应用中心、组件应用中心、搜索等入口找到你的小程序。
+
+Android 客户端与 iOS 客户端：小程序正式上架后，可在应用中心、组件应用中心、搜索等入口找到你的小程序。
+
+[NEXT WPS 小程序创建指南](https://open-mobapp.wps.cn/doc/dev#/Guide/create_app)

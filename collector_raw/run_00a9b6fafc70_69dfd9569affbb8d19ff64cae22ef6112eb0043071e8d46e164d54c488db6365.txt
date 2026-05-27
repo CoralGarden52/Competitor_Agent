@@ -1,0 +1,139 @@
+# 专有钉钉
+
+Title: 专有钉钉
+
+URL Source: https://www.on-premises.dingtalk.com/
+
+Markdown Content:
+# 专有钉钉
+
+温馨提示：为了避免漏接消息和语音通话，请务必确认开启了手机系统通知设置，[操作指引](https://yida.alibaba-inc.com/o/dg-work/universal#/)
+
+[![Image 1: 404](blob:http://localhost/01f55662979d19b217f4aa76b5aeff6d)](https://www.on-premises.dingtalk.com/)
+
+[首页](https://www.on-premises.dingtalk.com/home)[开放平台](https://www.on-premises.dingtalk.com/portal)
+
+[客户端下载](https://www.on-premises.dingtalk.com/download)[钉钉官网](https://www.dingtalk.com/)
+
+专有钉钉数字化协同平台
+
+更开放的设计能力，更开放的集成能力
+
+更结构化协同产品，更定制化开放平台
+
+[我要咨询](https://yida.alibaba-inc.com/o/gwzydd1)
+
+![Image 2](https://img.alicdn.com/tfs/TB1pykpUeH2gK0jSZJnXXaT1FXa-1704-1180.png)
+
+核心优势
+
+*   支持专有化部署，数据落本地，更安全
+*   客户可对该产品持牌运营
+*   结构化编排，协助构建本地应用中心
+*   提供移动应用全面安全保障体系
+
+![Image 3](https://img.alicdn.com/tfs/TB1x_ujF8r0gK0jSZFnXXbRRXXa-162-162.png)
+
+互通能力 _支持跨域跨组织互联_ _零时差单聊群聊互通_
+
+![Image 4](https://img.alicdn.com/tfs/TB1PxydF4v1gK0jSZFFXXb0sXXa-162-162.png)
+
+部署方式 _灵活支持专网部署_ _和本地部署_
+
+![Image 5](https://img.alicdn.com/tfs/TB1ab1bF7L0gK0jSZFAXXcA9pXa-162-162.png)
+
+组织管理 _百万人员轻松管理_ _分级权限精准管控_
+
+![Image 6](https://img.alicdn.com/tfs/TB1V8edF7T2gK0jSZPcXXcKkpXa-162-162.png)
+
+开放集成 _更开放设计与集成能力_ _高效接入业务应用_
+
+产品功能
+
+### ![Image 7](https://img.alicdn.com/tfs/TB1ZsehFVT7gK0jSZFpXXaTkpXa-192-190.png)
+
+分级分权工作台
+*   支持主导航扩展排序
+*   添加工作台应用入口
+*   应用可分级分权管控
+*   应用可见即可用
+
+![Image 8](https://img.alicdn.com/imgextra/i4/O1CN019zcQSM1kdqyyRRv3W_!!6000000004707-2-tps-2062-1492.png)
+
+### ![Image 9](https://img.alicdn.com/tfs/TB19OuhF4D1gK0jSZFsXXbldVXa-192-192.png)
+
+通信多元消息必达
+*   即时通讯
+*   云会议
+*   工作通知
+*   云邮
+
+![Image 10](https://img.alicdn.com/imgextra/i1/O1CN01vJRTP11ZLZOb89Yra_!!6000000003178-2-tps-2062-1492.png)
+
+### ![Image 11](https://img.alicdn.com/tfs/TB1YZikF7Y2gK0jSZFgXXc5OFXa-190-192.png)
+
+大型组织多层级通讯录
+*   可见性灵活配置
+*   支持百万级组织架构
+*   支持人员防骚扰
+*   支持跨域跨机构搜索
+
+![Image 12](https://img.alicdn.com/imgextra/i3/O1CN0121RY7A1uNUzuZxPsj_!!6000000006025-2-tps-2062-1492.png)
+
+### ![Image 13](https://img.alicdn.com/tfs/TB1gCuiFYr1gK0jSZFDXXb9yVXa-192-192.png)
+
+帐号权限统一管理
+*   帐号权限管理和分配
+*   统一身份认证
+*   支持单点登录
+
+![Image 14](https://img.alicdn.com/imgextra/i1/O1CN01daRPIj1NLmBapxMCO_!!6000000001554-2-tps-2062-1492.png)
+
+### ![Image 15](https://img.alicdn.com/tfs/TB1ZsehFVT7gK0jSZFpXXaTkpXa-192-190.png)
+
+分级分权工作台
+*   支持主导航扩展排序
+*   添加工作台应用入口
+*   应用可分级分权管控
+*   应用可见即可用
+
+![Image 16](https://img.alicdn.com/imgextra/i4/O1CN019zcQSM1kdqyyRRv3W_!!6000000004707-2-tps-2062-1492.png)
+
+### ![Image 17](https://img.alicdn.com/tfs/TB19OuhF4D1gK0jSZFsXXbldVXa-192-192.png)
+
+通信多元消息必达
+*   即时通讯
+*   云会议
+*   工作通知
+*   云邮
+
+![Image 18](https://img.alicdn.com/imgextra/i1/O1CN01vJRTP11ZLZOb89Yra_!!6000000003178-2-tps-2062-1492.png)
+
+安全护城河
+
+![Image 19](https://img.alicdn.com/tfs/TB1R.vvEmf2gK0jSZFPXXXsopXa-308-234.png)管理安全 _登录设备可管可控；用户身份多重认证；敏感词汇自动过滤；安全网关全面护航_
+
+![Image 20](https://img.alicdn.com/tfs/TB1KrzuEkL0gK0jSZFtXXXQCXXa-308-234.png)数据安全 _信源加密、安全沙箱、加密隧道、远程毁钥，保障数据全生命周期安全_
+
+![Image 21](https://img.alicdn.com/tfs/TB1IFDzEbY1gK0jSZTEXXXDQVXa-308-234.png)合规安全 _满足移动办公安全技术规范；满足信息化项目建设管理办法要求_
+
+快速通道
+
+[管理工作台](https://console.on-premises.dingtalk.com/gov?__id=index)
+
+常用链接
+
+[文档中心](https://open-portal.on-premises.dingtalk.com/portal/#/helpdoc)
+
+法律声明
+
+[服务协议](https://terms.alicdn.com/legal-agreement/terms/suit_bu1_alibaba_group/suit_bu1_alibaba_group202003271403_38651.html)
+
+[隐私政策](https://terms.alicdn.com/legal-agreement/terms/suit_bu1_alibaba_group/suit_bu1_alibaba_group202003301827_76585.html)
+
+友情链接：
+
+[阿里巴巴集团](https://www.alibabagroup.com/cn/global/home)[淘宝网](https://www.taobao.com/)[天猫](https://www.tmall.com/)[聚划算](https://ju.taobao.com/)[全球速卖通](https://www.aliexpress.com/)[阿里巴巴国际交易市场](https://www.alibaba.com/)[1688](https://www.1688.com/)[阿里妈妈](https://www.alimama.com/index.htm)[阿里星球](https://www.alibabaplanet.com/)[飞猪](https://www.fliggy.com/)[阿里云计算](https://www.aliyun.com/)[支付宝商家平台](https://b.alipay.com/)[UC](https://www.uc.cn/)[UC头条](https://toutiao.uc.cn/)[阿里聚安全](https://security.alibaba.com/)[友盟](https://www.umeng.com/)
+
+*   [© 2019-2024阿里巴巴集团.版权所有 浙ICP备18037475号-1](https://beian.miit.gov.cn/)
+*   [![Image 22](https://img.alicdn.com/tfs/TB15eblAaL7gK0jSZFBXXXZZpXa-20-20.png) 浙公网安备 33011002010140号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33011002010140)

@@ -1,0 +1,397 @@
+# 企业版价格调整公告_石墨博客
+
+Title: 企业版价格调整公告_石墨博客
+
+URL Source: https://shimo.im/blog/articles/AVWCH3WLABMME.html
+
+Markdown Content:
+# 企业版价格调整公告_石墨博客
+
+## [](https://shimo.im/welcome)
+
+[石墨办公](https://shimo.im/firm)[个人版](https://shimo.im/personal)[模版库](https://shimo.im/templates?from=home)[解决方案](https://shimo.im/firm/samples)[私有化部署](https://shimo.im/firm/private)[定价](https://shimo.im/pricing)[下载](https://shimo.im/download)支持![Image 1](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/support-default-opaque.d3ca6861.png)
+
+[免费使用](https://shimo.im/registType?from=home)[立即登录](https://shimo.im/loginByPassword?from=home)
+
+所有文章
+
+*     效率实践   
+    *   [![Image 2](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 该出发了！别忘了带上石墨文档！](https://shimo.im/blog/articles/A6XPMNYJACV4C.html)
+    *   [![Image 3](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 年度总结｜用石墨文档，和2024来一场漂亮的告别演讲！](https://shimo.im/blog/articles/A6IYSFSUACAIC.html)
+    *   [![Image 4](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨学院｜这些神仙好用功能硬控30秒！](https://shimo.im/blog/articles/A435GYL5ACAIC.html)
+    *   [![Image 5](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 38妇女节｜不同阶段的“你”都应该闪闪发光！](https://shimo.im/blog/articles/A4J6NOAQACFIK.html)
+    *   [![Image 6](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 24年主线任务｜用石墨文档进入开挂模式](https://shimo.im/blog/articles/A4J6KQBVACFIK.html)
+    *   [![Image 7](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一图搞懂石墨文档私有部署！](https://shimo.im/blog/articles/A3JHRHOWACFIK.html)
+    *   [![Image 8](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 软件合规 安全可控 | 石墨文档正版化解决方案](https://shimo.im/blog/articles/A24TVRHWACFIK.html)
+    *   [![Image 9](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 集成赋能 | 一图搞懂石墨文档 SDK](https://shimo.im/blog/articles/A2TTG5Q4ACFIK.html)
+    *   [![Image 10](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 企业文件安全管控并不难，做好 4 个环节筑起 “铜墙铁壁”！](https://shimo.im/blog/articles/A2K3CBSMACFIK.html)
+    *   [![Image 11](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 5 小时变 10 分钟，用好石墨表格，数据处理真的很轻松！](https://shimo.im/blog/articles/A2FGXV4VACFIK.html)
+    *   [![Image 12](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 简单 4 步管好企业文件，“信息孤岛” 秒变 “知识大陆”！](https://shimo.im/blog/articles/AZWQIZN5ACG7A.html)
+    *   [![Image 13](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 为了点醒老板，我差点下一秒就离职！](https://shimo.im/blog/articles/AZU65MPJACJZU.html)
+    *   [![Image 14](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 金三银四想跳槽？简历不对，功夫白费！](https://shimo.im/blog/articles/AZEHJPT5ACJRO.html)
+    *   [![Image 15](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一图在手，效率我有！2023 企业效率作战地图全网首发！](https://shimo.im/blog/articles/AY7CFZWKACFL4.html)
+    *   [![Image 16](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 我用一个石墨独有难题，把 ChatGPT 整不会了！](https://shimo.im/blog/articles/AY3XFSPPACFL4.html)
+    *   [![Image 17](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 像高启强一样做项目管理，我的效率开始「狂飙」！](https://shimo.im/blog/articles/AYZ5QYJYACIAO.html)
+    *   [![Image 18](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 不“躺平”也不“内卷”，这个春节假期如何休出“松弛感”？](https://shimo.im/blog/articles/AYZ5OCBYACIAO.html)
+    *   [![Image 19](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 辛苦一年，别又输在年终总结上，这四招让你脱颖而出！](https://shimo.im/blog/articles/AYZ5LWLEACIAO.html)
+    *   [![Image 20](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 电商人的双十一，有人加班熬夜，有人轻松躺赢](https://shimo.im/blog/articles/AYDY6AZMAAF2Y.html)
+    *   [![Image 21](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 你和电商高手间，也许只差了这 10 套宝藏模版！](https://shimo.im/blog/articles/AX65K6G7AAF2Y.html)
+    *   [![Image 22](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 协同文档选 SaaS 还是私有部署？看了这个漫画，总算搞明白了！](https://shimo.im/blog/articles/AXXUQGS3AAF2Y.html)
+    *   [![Image 23](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 社恐人职场求生，太太太太太难了](https://shimo.im/blog/articles/AXLCGEXTAAF2Y.html)
+    *   [![Image 24](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 从头到尾 1 张表，协同统筹数百人，这真是项目管理天花板](https://shimo.im/blog/articles/AXEDX2PSAAZRM.html)
+    *   [![Image 25](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨这些功能，希望你永远用不上，但必要时真能「救命」](https://shimo.im/blog/articles/AXCCBJXDAAZRM.html)
+    *   [![Image 26](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 卖公司、搭进销存系统，他把石墨「玩」出新高度](https://shimo.im/blog/articles/AXCB7G7MAAZRM.html)
+    *   [![Image 27](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 500 强企业 HR：自从用了石墨，我的生活和工作变得又酷又高效](https://shimo.im/blog/articles/AW56EVETAAZRM.html)
+    *   [![Image 28](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) “我用 10 张表搞定了公司 618 大促 ”](https://shimo.im/blog/articles/AW56BF6HAAZRM.html)
+    *   [![Image 29](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 如何打造一份惊艳所有人的 618 购物清单？](https://shimo.im/blog/articles/AW23CJUQAAYZ6.html)
+    *   [![Image 30](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 《焦点访谈》报道 | 小区被封一个月，他们这样用石墨温暖守“沪”](https://shimo.im/blog/articles/AWU566N3ACTNE.html)
+    *   [![Image 31](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 3000 字实战干货 | TOP 电商企业都是如何进行团队协作的？](https://shimo.im/blog/articles/AWMFHI7KABTK6.html)
+    *   [![Image 32](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 难以置信，居家之后我的办公效率居然变高了](https://shimo.im/blog/articles/AWHHI43FABTK6.html)
+    *   [![Image 33](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 新冠卷土重来，这份协同抗疫实战指南请查收！](https://shimo.im/blog/articles/AWE6VMNAABTK6.html)
+    *   [![Image 34](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨「双碳」纪事​](https://shimo.im/blog/articles/AWE6OLRWABTK6.html)
+    *   [![Image 35](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 当代职场女性减负指南](https://shimo.im/blog/articles/AWC4XLFTABTK6.html)
+    *   [![Image 36](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 月薪3K跟月薪3W的电商运营差距在哪里？](https://shimo.im/blog/articles/AV7ZXSQDABMYS.html)
+    *   [![Image 37](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 把谷爱凌的时间管理用到工作中是种什么体验？](https://shimo.im/blog/articles/AV6A5LQFABMRQ.html)
+    *   [![Image 38](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 用《开端》打开石墨，这次春节「循环」真不一样！](https://shimo.im/blog/articles/AV5F5XSLABM6Q.html)
+    *   [![Image 39](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 疫情之下，企业做好这5点，远程办公不慌乱](https://shimo.im/blog/articles/AVYLN6IIABNSA.html)
+    *   [![Image 40](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 职场大猫初长成，你是狮型还是虎型人格？](https://shimo.im/blog/articles/AVYLLEPTABNSA.html)
+    *   [![Image 41](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 换领导后，竟然要求每天写日报，真的有必要吗？](https://shimo.im/blog/articles/AVYJXAAZABMPC.html)
+    *   [![Image 42](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 轻松搞定远程办公，石墨文档产研团队专属模板套件发布！](https://shimo.im/blog/articles/AVYJUQFRABMPC.html)
+    *   [![Image 43](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) HR 必读 | 解锁协同办公新技能，工作从此无烦恼](https://shimo.im/blog/articles/AVYJQ7GRABMPC.html)
+    *   [![Image 44](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 1 年业绩激增 700%，石墨文档销售团队的秘籍原来是这个](https://shimo.im/blog/articles/AVX2P57KABMPC.html)
+    *   [![Image 45](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 企业如何做好任务管理？「任务管理三部曲」模板来了](https://shimo.im/blog/articles/AVX2OTESABMPC.html)
+    *   [![Image 46](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 速度转需 | 收好这 30 套表单模板，春节防疫高效不慌乱](https://shimo.im/blog/articles/AVX2LYPMABMPC.html)
+    *   [![Image 47](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 挑战 1 小时搞定年度总结](https://shimo.im/blog/articles/AVX2J6RQABMPC.html)
+    *   [![Image 48](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 如何更高效地写一份产品需求文档](https://shimo.im/blog/articles/AVWCJZX3ABMME.html)
+    *   [![Image 49](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 把控项目进度，用石墨文档就够了](https://shimo.im/blog/articles/AVWCKF3RABMME.html)
+    *   [![Image 50](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一个 200w 新媒体人都在使用的校稿方式](https://shimo.im/blog/articles/AVWCJFE2ABMME.html)
+    *   [![Image 51](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 如何做一次简单高效的脑暴？秘诀在这里](https://shimo.im/blog/articles/AVWCIYGNABMME.html)
+    *   [![Image 52](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 你还在「穷忙」吗？何不试试极简主义](https://shimo.im/blog/articles/AVWCH7OSABMME.html)
+    *   [![Image 53](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 这3个时间管理方法，让你的8小时≥别人的24小时](https://shimo.im/blog/articles/AVWCGKMLABMME.html)
+    *   [![Image 54](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档：云端上的会议白板](https://shimo.im/blog/articles/AVWCBP5JABMME.html)
+    *   [![Image 55](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨助力，让你策划的市场活动更加完美](https://shimo.im/blog/articles/AVWCA66DABMME.html)
+
+*     客户案例   
+    *   [![Image 56](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 全球领先的消费电子和家电制造商，选择石墨文档中台！](https://shimo.im/blog/articles/A6K3L6NUACOGI.html)
+    *   [![Image 57](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 智能清洁先锋企业，选择石墨私有部署！](https://shimo.im/blog/articles/A6FEXTPVACAIC.html)
+    *   [![Image 58](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 游戏行业突围的 「秘密武器」是它？](https://shimo.im/blog/articles/A6DLDBQMACAIC.html)
+    *   [![Image 59](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 家电行业的技术领航者，选择石墨文档中台！](https://shimo.im/blog/articles/A6BYUOGXACAIC.html)
+    *   [![Image 60](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 试遍协同工具，教育科技独角兽公司选定石墨文档！](https://shimo.im/blog/articles/A6BYT3CLACAIC.html)
+    *   [![Image 61](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 行业领先的上市电商平台，选择石墨文档中台！](https://shimo.im/blog/articles/A6BYRMD4ACAIC.html)
+    *   [![Image 62](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 这家上市教育巨头，选择石墨私有化部署！](https://shimo.im/blog/articles/A6BYMUNMACAIC.html)
+    *   [![Image 63](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 文档中台与企业云盘完美融合，助力某大型移动出行平台数字化跃升！](https://shimo.im/blog/articles/A6BYLB6BACAIC.html)
+    *   [![Image 64](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档 x 会议系统，专业的 “会” 更好用！](https://shimo.im/blog/articles/A576T5E5ACAIC.html)
+    *   [![Image 65](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档与华为签署深化鸿蒙生态合作协议](https://shimo.im/blog/articles/A4J6PTSGACFIK.html)
+    *   [![Image 66](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 当石墨文档遇上文石 BOOX 墨水平板：一种很新的办公方式诞生！](https://shimo.im/blog/articles/A4J6OONTACFIK.html)
+    *   [![Image 67](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一个知识库管理百种药品资料，在恩威每个员工都成为了“医药专家”！](https://shimo.im/blog/articles/AZ57BPPIACG7A.html)
+    *   [![Image 68](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 3 天开 27 场会议，这个国家级医药平台如何成为会议效率天花板？](https://shimo.im/blog/articles/AZBEHZZ3ACKPO.html)
+    *   [![Image 69](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 粉丝千万、演讲刷屏、课程大卖，内容型团队的爆款密码找到了！](https://shimo.im/blog/articles/AXSJR4NBAAF2Y.html)
+    *   [![Image 70](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一张表格管项目、管销售，这个机器人集团把协作“卷”出新高度](https://shimo.im/blog/articles/AXOUF6AUAAF2Y.html)
+    *   [![Image 71](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 当探月遇见石墨，一场奇妙的「效率化学反应」发生了！](https://shimo.im/blog/articles/AXHNO4XPAAF2Y.html)
+    *   [![Image 72](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 双厨狂喜！日食记 x 石墨文档，让创作像葱油拌面一样爽滑~](https://shimo.im/blog/articles/AW4UY3JZAAZRM.html)
+    *   [![Image 73](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 传统制造业“课代表”，这家企业每台设备都有一张“维保身份证”](https://shimo.im/blog/articles/AWN6XEKFACRR6.html)
+    *   [![Image 74](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 2年100倍增长，西瓜创客是如何通过石墨文档进行管理和教学的？](https://shimo.im/blog/articles/AVYBKZQEABMPC.html)
+    *   [![Image 75](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 在这家财经教育公司，新人入职的第一件事就是学习石墨](https://shimo.im/blog/articles/AVYBEXOMABMPC.html)
+    *   [![Image 76](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 诞生在美国硅谷，这家留学机构为什么放弃 Google 选择石墨？](https://shimo.im/blog/articles/AVYBBRXXABMPC.html)
+    *   [![Image 77](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 跨部门协作、异地沟通，这家出版社是如何走向高效办公之路的？](https://shimo.im/blog/articles/AVYA63IWABMPC.html)
+    *   [![Image 78](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 尝试国内外多款办公工具，猿辅导为什么最终选择石墨？](https://shimo.im/blog/articles/AVXZERU4ABMPC.html)
+    *   [![Image 79](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 跨地域、多部门，同道大叔如何高效管控商务合同和财务收款？](https://shimo.im/blog/articles/AVXZBJEBABMPC.html)
+    *   [![Image 80](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 新世相的 10w+ 效率之路](https://shimo.im/blog/articles/AVXY7B7LABMPC.html)
+    *   [![Image 81](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 2043％ 增长，服务千万用户，风变科技以协同加速企业进化](https://shimo.im/blog/articles/AVW2WLE5ABMPC.html)
+    *   [![Image 82](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一土教育 | 工作群+主文档，企业协同管理原来可以如此灵活高效！](https://shimo.im/blog/articles/AVWBRVX2ABMME.html)
+    *   [![Image 83](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 好物 | 石墨打破信息壁垒，提高跨部门协作效能](https://shimo.im/blog/articles/AVWB7BCOABMME.html)
+    *   [![Image 84](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 驿氪 | 选择石墨，就是选择高效协作](https://shimo.im/blog/articles/AVWCBFRMABMME.html)
+    *   [![Image 85](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 跟谁学 | PM实时协作，项目管理从未如此简单](https://shimo.im/blog/articles/AVWCBPWNABMME.html)
+    *   [![Image 86](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 多彩投 | 石墨文档+钉钉，互联网金融团队的工作利器](https://shimo.im/blog/articles/AVWCB2EFABMME.html)
+    *   [![Image 87](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 独家揭秘 | GQ的爆款文章究竟是如何诞生的？](https://shimo.im/blog/articles/AVWCCFVNABMME.html)
+    *   [![Image 88](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 享物说不仅有彭于晏代言，还有石墨文档助力高效办公](https://shimo.im/blog/articles/AVWCGSFJABMME.html)
+    *   [![Image 89](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 喜茶 | 一个爆红茶饮店背后的办公修养](https://shimo.im/blog/articles/AVWCG4NMABMME.html)
+    *   [![Image 90](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) ABC 在线英语 | 颠覆传统办公模式，让工作更高效！](https://shimo.im/blog/articles/AVWCIIOJABMME.html)
+    *   [![Image 91](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 婚礼猫 | 上线一款产品，只需遵循这五步](https://shimo.im/blog/articles/AVWCISOQABMME.html)
+    *   [![Image 92](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 揭秘：石墨文档团队背后的协作故事！](https://shimo.im/blog/articles/AVWIZ3BAABMME.html)
+    *   [![Image 93](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 界面正午 | 一日之计在正午，提高效率正当时](https://shimo.im/blog/articles/AVWCI75KABMME.html)
+    *   [![Image 94](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 北大附中 | 群策群力，打造新型教研教学方式](https://shimo.im/blog/articles/AVWCJTX6ABMME.html)
+    *   [![Image 95](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 黄油相机 | 图片社区的高效运营，拉近和用户的距离](https://shimo.im/blog/articles/AVWCKDQSABMME.html)
+    *   [![Image 96](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 特赞的设计大师如何用「 石墨文档 」采访 MUJI 的创始人？](https://shimo.im/blog/articles/AVWCJQOLABMME.html)
+    *   [![Image 97](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 路书 | 一场成功的产品发布会，一次高效的协作之旅](https://shimo.im/blog/articles/AVWCFLKDABMME.html)
+    *   [![Image 98](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) Flipboard | 揭秘中国版4.0 发布背后的协作流程](https://shimo.im/blog/articles/AVWCCM2JABMME.html)
+    *   [![Image 99](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 中央财经大学 | 单打独斗不如合力协作](https://shimo.im/blog/articles/AVWCCAOBABMME.html)
+
+*     签约快讯   
+    *   [![Image 100](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与科大讯飞、东风商用车等知名企业完成签约！](https://shimo.im/blog/articles/A6BYH332ACAIC.html)
+    *   [![Image 101](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与小天才、九江银行等知名企业完成签约！](https://shimo.im/blog/articles/A6BYHLWYACAIC.html)
+    *   [![Image 102](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与OPPO、招商基金等知名企业完成签约！](https://shimo.im/blog/articles/A6BYHADGACAIC.html)
+    *   [![Image 103](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与云鲸智能、龙创悦动等知名企业完成签约！](https://shimo.im/blog/articles/A6BYGJYSACAIC.html)
+    *   [![Image 104](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与作业帮、微众银行等知名企业完成签约！](https://shimo.im/blog/articles/A6BYF3LTACAIC.html)
+    *   [![Image 105](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与猿辅导、天翼数字生活等知名企业完成签约！](https://shimo.im/blog/articles/A6BYFNCCACAIC.html)
+    *   [![Image 106](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约快讯｜石墨文档与唯品会、武汉光讯科技等知名企业完成签约！](https://shimo.im/blog/articles/A6BSUGA6ACAIC.html)
+    *   [![Image 107](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 喜讯 | 石墨文档与亿迅科技、天翼数字生活等知名企业完成签约！](https://shimo.im/blog/articles/A6BSTT73ACAIC.html)
+    *   [![Image 108](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 喜讯 | 石墨文档与奥克斯集团、江苏红网等知名企业完成签约！](https://shimo.im/blog/articles/A6BSTGXMACAIC.html)
+    *   [![Image 109](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 石墨文档与网易有道、招商金科等知名企业完成签约！](https://shimo.im/blog/articles/A6BSQ3DXACAIC.html)
+    *   [![Image 110](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档与跨越速运、信达澳亚基金完成签约！](https://shimo.im/blog/articles/A4J6SM2RACFIK.html)
+    *   [![Image 111](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档与中国电信广东研究院、长亮科技完成签约！](https://shimo.im/blog/articles/A4J6RI43ACFIK.html)
+    *   [![Image 112](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 石墨文档与中国船舶集团、南方电网等知名企业完成签约！](https://shimo.im/blog/articles/A3IPKFKTACFIK.html)
+    *   [![Image 113](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 石墨签约本源量子、山东民基，助力实现高效协同与数据沉淀](https://shimo.im/blog/articles/AWPQ35U3ACRR6.html)
+    *   [![Image 114](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 石墨签约曹操出行、吴江法院，私有部署护航企业高效安全协同](https://shimo.im/blog/articles/AWN65QMPACRR6.html)
+    *   [![Image 115](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 佰才邦 x 石墨文档，助力打造 5G 领域国际创新企业](https://shimo.im/blog/articles/AVYBONOJABMPC.html)
+    *   [![Image 116](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | Moka x 石墨文档，全面升级数据资产管理和协同办公效率](https://shimo.im/blog/articles/AVX2GTXIABMPC.html)
+    *   [![Image 117](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 怪兽充电 x 石墨文档，有效优化企业内协同办公流程](https://shimo.im/blog/articles/AVX2FYKOABMPC.html)
+    *   [![Image 118](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 招商局集团 x石墨文档，云 Office 见证百年央企数字化办公升级](https://shimo.im/blog/articles/AVX2EM7WABMPC.html)
+    *   [![Image 119](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 新东方在线 x 石墨文档，云 Office 激发教育行业在线生产力](https://shimo.im/blog/articles/AVX2DP2AABMPC.html)
+    *   [![Image 120](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 北京机械设备研究所 x 石墨文档，多地协同办公模式升级](https://shimo.im/blog/articles/AVX2A656ABMPC.html)
+    *   [![Image 121](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 沃尔沃 x 石墨文档，搭建企业信息云端协同共享平台](https://shimo.im/blog/articles/AVXZ7JHIABMPC.html)
+    *   [![Image 122](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 龙湖集团 x 石墨文档，私有化部署保障万人级协作高效安全](https://shimo.im/blog/articles/AVXZ4RQBABMPC.html)
+    *   [![Image 123](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 猿辅导 x 石墨文档，私有部署推动协同办公效率显著提升](https://shimo.im/blog/articles/AVWB6C7LABMME.html)
+    *   [![Image 124](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 签约 | 音遇 x 石墨文档，全站私有部署保障协同办公安全稳定](https://shimo.im/blog/articles/AVWB6YDYABMME.html)
+
+*     产品上新   
+    *   [![Image 125](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 幻灯片新体验｜辅助面板已上线，我们的行动会更加迅捷](https://shimo.im/blog/articles/A6G77LC6ACAIC.html)
+    *   [![Image 126](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 新功能｜应用表格「仪表盘」首秀时刻！](https://shimo.im/blog/articles/A56FJQKMACAIC.html)
+    *   [![Image 127](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「上新」新模板，新入口，新体验！](https://shimo.im/blog/articles/A5E6XJ6ZACAIC.html)
+    *   [![Image 128](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「客户端更新」万众期待的功能它来了！](https://shimo.im/blog/articles/A47RXKGSACAIC.html)
+    *   [![Image 129](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「功能更新」标签功能上线，轻松高效管理文件！](https://shimo.im/blog/articles/A4YJX2OAACAIC.html)
+    *   [![Image 130](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨「团队版」闪亮登场，高效协作新选择！](https://shimo.im/blog/articles/A4WRRQLMACAIC.html)
+    *   [![Image 131](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨「文档中台」上线，为您的产品赋予文件预览和协同编辑超能力！](https://shimo.im/blog/articles/A4UH5SI2ACAIC.html)
+    *   [![Image 132](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 十周年福利来袭，会员钜“石”惠！](https://shimo.im/blog/articles/A4PK43R5ACAIC.html)
+    *   [![Image 133](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档全系产品全面支持国产化！](https://shimo.im/blog/articles/A4LXB32YACAIC.html)
+    *   [![Image 134](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 重磅推出｜石墨云Office私有部署版国产化适配全面升级](https://shimo.im/blog/articles/A4JWCDE4ACFIK.html)
+    *   [![Image 135](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 千呼万唤，PDF 转 Word、Excel、PPT 功能终于来了！](https://shimo.im/blog/articles/A2ZAMXULACFIK.html)
+    *   [![Image 136](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) OFD 阅读器、一键上云，石墨桌面客户端又有大动作！](https://shimo.im/blog/articles/AZ5GTZCYACG7A.html)
+    *   [![Image 137](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 泰酷辣，石墨表单支持关联应用表格啦！](https://shimo.im/blog/articles/AZU64EUVACJZU.html)
+    *   [![Image 138](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 随时随地高效办公，石墨全新移动网页版发布！](https://shimo.im/blog/articles/AX3J53WVAAF2Y.html)
+    *   [![Image 139](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨桌面客户端 3.0 发布，不，产品经理说是震撼发布！](https://shimo.im/blog/articles/AXUCVUFLAAF2Y.html)
+    *   [![Image 140](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 应用表格上新「说明」功能！愿世上再无因填表而痛苦的人](https://shimo.im/blog/articles/AW23BOLXAAYZ6.html)
+    *   [![Image 141](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 应用表格上新日历视图！再也不用担心错过 deadline](https://shimo.im/blog/articles/AWN64FCUACRR6.html)
+    *   [![Image 142](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨 x Canva | 用对工具，你也可以是 PPT 设计师](https://shimo.im/blog/articles/AWIZ3UDNABTK6.html)
+    *   [![Image 143](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 总担心企业文件泄露？99% 的管理者都应该开启这个新功能](https://shimo.im/blog/articles/AVYJO7QJABMPC.html)
+    *   [![Image 144](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 单元格更新自动提醒，石墨「关注选区」是项目管理利器](https://shimo.im/blog/articles/AVYJN52GABMPC.html)
+    *   [![Image 145](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 千人千面！协作空间权限体系升级，助力企业实现精细化管理](https://shimo.im/blog/articles/AVYJLKEAABMPC.html)
+    *   [![Image 146](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 比 VLOOKUP 好用 10 倍？石墨表格超级查找函数 XLOOKUP 来了](https://shimo.im/blog/articles/AVYJJWEOABMPC.html)
+    *   [![Image 147](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 为极致办公效率而生，石墨全新主站发布！](https://shimo.im/blog/articles/AVYDUKCQABMPC.html)
+    *   [![Image 148](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨 SDK 云端版上线，快速为您的产品集成协同编辑能力](https://shimo.im/blog/articles/AVYDSPYMABMPC.html)
+    *   [![Image 149](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨白板公测版上线，见字如面，让沟通更加准确高效！](https://shimo.im/blog/articles/AVYDRCHIABMPC.html)
+    *   [![Image 150](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 3分钟搞定1000名员工信息统计，这样的「石墨表单」是数据收集管理利器！](https://shimo.im/blog/articles/AVYDPEVVABMPC.html)
+    *   [![Image 151](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨思维导图公测版上线，让发散的思维更有条理](https://shimo.im/blog/articles/AVYDLBRZABMPC.html)
+    *   [![Image 152](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「石墨文字识别」小程序上线，不仅仅是传图识字那么简单](https://shimo.im/blog/articles/AVYDIUYWABMPC.html)
+    *   [![Image 153](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 新品发布｜石墨「应用表格」在线求职](https://shimo.im/blog/articles/AVX2IEGZABMPC.html)
+    *   [![Image 154](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档企业高级版上线，史上功能更强大的企业级在线文档诞生！](https://shimo.im/blog/articles/AVWB5GH3ABMME.html)
+    *   [![Image 155](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档私有化部署，助力企业搭建安全高效的实时协同办公平台](https://shimo.im/blog/articles/AVWB5UYWABMME.html)
+    *   [![Image 156](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨2.0，让项目组协作井然有序](https://shimo.im/blog/articles/AVWCCPVWABMME.html)
+    *   [![Image 157](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档小程序上线，沟通与协作一气呵成](https://shimo.im/blog/articles/AVWCHITKABMME.html)
+    *   [![Image 158](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) Hello，幻灯片。Hello，最完整的云端Office。](https://shimo.im/blog/articles/AVWCHRZLABMME.html)
+
+*     进阶技巧   
+    *   [![Image 159](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 识墨之旅｜那我问你，石墨表单有几种用法？](https://shimo.im/blog/articles/A7D2KAB4ACV4C.html)
+    *   [![Image 160](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 新年第一课！石墨功能拾遗，还有多少惊喜是你不知道的？](https://shimo.im/blog/articles/A6V5VP6XACV4C.html)
+    *   [![Image 161](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「石墨学院」信息收集用石墨表单，很City！](https://shimo.im/blog/articles/A5DFCMFSACAIC.html)
+    *   [![Image 162](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 618大促收官在即，这些经验值得码住！](https://shimo.im/blog/articles/A42E24XBACAIC.html)
+    *   [![Image 163](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 24年主线任务｜用石墨文档进入开挂模式](https://shimo.im/blog/articles/A4PK5UORACAIC.html)
+    *   [![Image 164](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 从头到尾 1 张表，协同统筹数百人，这真是项目管理天花板！](https://shimo.im/blog/articles/A4JWCKTZACFIK.html)
+    *   [![Image 165](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 用了这么多年石墨文档，竟然没发现这些神级功能?](https://shimo.im/blog/articles/A2DMHR24ACFIK.html)
+    *   [![Image 166](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 8 大场景，10 大功能，这才是在线表格的正确打开方式](https://shimo.im/blog/articles/AVYDF7ODABMPC.html)
+    *   [![Image 167](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 像微信群一样@别人，石墨的文档表格也可以](https://shimo.im/blog/articles/AVYDCQBOABMPC.html)
+    *   [![Image 168](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 离职交接不再难，教你一键接管重要文件](https://shimo.im/blog/articles/AVYDANKXABMPC.html)
+    *   [![Image 169](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 7 个文档小技巧，轻松提升 80% 工作效率](https://shimo.im/blog/articles/AVYC3FZFABMPC.html)
+    *   [![Image 170](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 这 9 个进阶公式，记住一半你就是表格达人](https://shimo.im/blog/articles/AVYCXVJWABMPC.html)
+    *   [![Image 171](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 6 步速成，数据达人带你高效玩转石墨表格](https://shimo.im/blog/articles/AVYCVQHPABMPC.html)
+    *   [![Image 172](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 数据总被误删改？石墨表格的锁定单元格你早就该掌握](https://shimo.im/blog/articles/AVYCUR4JABMPC.html)
+    *   [![Image 173](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一份让 leader 满意的数据汇报表长什么样？](https://shimo.im/blog/articles/AVYCL2OUABMPC.html)
+    *   [![Image 174](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 如何一秒找到关键数据，筛选视图帮你直达重点](https://shimo.im/blog/articles/AVYCKVCXABMPC.html)
+    *   [![Image 175](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 超简单的跨表格引用数据方法，再不会就是你的错了](https://shimo.im/blog/articles/AVYCIYVCABMPC.html)
+    *   [![Image 176](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 原以为再也不想做数据整合，直到我学会这招1秒合并工作表](https://shimo.im/blog/articles/AVYCG5M7ABMPC.html)
+    *   [![Image 177](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 这些常用的表格公式，90% 的人竟然都不知道](https://shimo.im/blog/articles/AVX3KXUHABMPC.html)
+    *   [![Image 178](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 这 6 大图表，帮你轻松入门数据可视化](https://shimo.im/blog/articles/AVX3JETQABMPC.html)
+
+*     公司动态   
+    *   [![Image 179](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档与 OpenHarmony 强强联合，按下国产化办公软件 “加速键”](https://shimo.im/blog/articles/A52R5SSLACAIC.html)
+    *   [![Image 180](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 喜讯｜石墨文档与达梦数据完成产品兼容性互认证！](https://shimo.im/blog/articles/A5BLMAQBACAIC.html)
+    *   [![Image 181](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档完成鸿蒙原生全量版本开发，共创办公软件新篇章!](https://shimo.im/blog/articles/A45YJFGSACAIC.html)
+    *   [![Image 182](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 全面革新协同办公体验，石墨文档完成鸿蒙原生应用开发！](https://shimo.im/blog/articles/A3D2VCJIACFIK.html)
+    *   [![Image 183](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档与华为签署深化鸿蒙生态合作协议](https://shimo.im/blog/articles/A2IRN5CRACFIK.html)
+    *   [![Image 184](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档 9 周年，相伴已久，始终如一](https://shimo.im/blog/articles/AZQCHKCXACJZU.html)
+    *   [![Image 185](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档签约文心一言，中国云 Office 开启 AI 新时代](https://shimo.im/blog/articles/AZNYHT7ZACJZU.html)
+    *   [![Image 186](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨荣获华为云、第一新声颁发的六项大奖](https://shimo.im/blog/articles/AZEHH3CNACJRO.html)
+    *   [![Image 187](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) “突围”——2022 电商行业提效专场直播报名开启！](https://shimo.im/blog/articles/AYEJ2B3XAAF2Y.html)
+    *   [![Image 188](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) “B2B 企业节” C 位出道，制造业办公数字化转型看石墨](https://shimo.im/blog/articles/AXXN4V3CAAF2Y.html)
+    *   [![Image 189](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨亮相华为云“B2B 企业节”，全面助力企业降本增效](https://shimo.im/blog/articles/AXSJUXYWAAF2Y.html)
+    *   [![Image 190](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档 x 华为云会议，专业的“会”更好用](https://shimo.im/blog/articles/AXEDZATSAAZRM.html)
+    *   [![Image 191](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨学院开课啦！6月23日19:30直播间等你~](https://shimo.im/blog/articles/AW4UZ4CYAAZRM.html)
+    *   [![Image 192](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 真强大无惧翻车，石墨产品性能公开直播测评，预约围观！](https://shimo.im/blog/articles/AWU6AMCFACTNE.html)
+    *   [![Image 193](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 你对石墨的好奇心，90%在这里都能得到解答](https://shimo.im/blog/articles/AWTUFRJLACRR6.html)
+    *   [![Image 194](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档 8 周年，无限可能在协作](https://shimo.im/blog/articles/AWSCRJNEACRR6.html)
+    *   [![Image 195](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档入选「北京市朝阳区未来独角兽企业榜单」](https://shimo.im/blog/articles/AWPQ5FUHACRR6.html)
+    *   [![Image 196](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 合作第一年，石墨文档跻身「华为云千万俱乐部」](https://shimo.im/blog/articles/AWHHMJUKABTK6.html)
+    *   [![Image 197](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档入选「2021 数字经济产业 TOP100 榜单」](https://shimo.im/blog/articles/AVYK6E73ABNSA.html)
+    *   [![Image 198](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 2019 年最受欢迎的「在线协作文档」榜单揭晓](https://shimo.im/blog/articles/AVYK45DLABNSA.html)
+    *   [![Image 199](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档创始人吴冰、吴洁荣获第四届拉姆·查兰管理实践奖](https://shimo.im/blog/articles/AVYK24ZDABNSA.html)
+    *   [![Image 200](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨创始人，高富帅双胞胎入选《财富》40 Under 40 榜单](https://shimo.im/blog/articles/AVYKXBYNABMPC.html)
+    *   [![Image 201](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 一图看懂 2021「石墨办公」品牌发布会](https://shimo.im/blog/articles/AVYKTTUDABMPC.html)
+    *   [![Image 202](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨办公入选「2021ToB 行业年度榜单 · 产品价值榜」](https://shimo.im/blog/articles/AVX2XQ5WABMPC.html)
+    *   [![Image 203](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 亚布力对话石墨文档吴洁：在中国做一款世界级在线办公产品](https://shimo.im/blog/articles/AVX2WLQZABMPC.html)
+    *   [![Image 204](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 国产化云 Office 首家 | 石墨文档 App 入驻统信 UOS 操作系统](https://shimo.im/blog/articles/AVX2UP6VABMPC.html)
+    *   [![Image 205](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 信创产业的明日之星：石墨文档入选「2021 信创办公软件企业榜」](https://shimo.im/blog/articles/AVX2S5XLABMPC.html)
+
+*     行业资讯   
+    *   [![Image 206](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 带你认识石墨文档](https://shimo.im/blog/articles/AXXNNKDAAAF2Y.html)
+    *   [![Image 207](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 二十年“磨一剑”，“软件正版化”的前世今生与未来](https://shimo.im/blog/articles/AXSJTLGDAAF2Y.html)
+    *   [![Image 208](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档远程协作办公系统，完整的产品矩阵充分满足需求](https://shimo.im/blog/articles/AW4EFG6YAAZRM.html)
+    *   [![Image 209](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 多人编辑表格功能，轻松翻倍工作效率](https://shimo.im/blog/articles/AW34CVCFAAZRM.html)
+    *   [![Image 210](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 企业文档管理混乱？试试石墨文档企业安全管理系统吧！](https://shimo.im/blog/articles/AW3B4LO7AAZRM.html)
+    *   [![Image 211](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档多人在线编辑excel，让企业进行数据处理更加便捷](https://shimo.im/blog/articles/AW223JAGAAYZ6.html)
+    *   [![Image 212](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨企业文档安全管理系统，为企业信息安全保驾护航](https://shimo.im/blog/articles/AW2RM4RNAAYZ6.html)
+    *   [![Image 213](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 实现营销策划方案在线协作——石墨文档帮你搞定](https://shimo.im/blog/articles/AW2JLX6DAAYZ6.html)
+    *   [![Image 214](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨多人协作编辑文档工具，四大优势助力办公高效率](https://shimo.im/blog/articles/AW2ANTU3ACUXI.html)
+    *   [![Image 215](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 云办公，为各行各业赋能，各大行业的共同选择](https://shimo.im/blog/articles/AWZADA2TACUXI.html)
+    *   [![Image 216](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 远程协作办公软件：石墨文档让“云办公”更自然](https://shimo.im/blog/articles/AWYXYUSIACUXI.html)
+    *   [![Image 217](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 巧用远程办公系统，即使在家也能完成工作任务！](https://shimo.im/blog/articles/AWYQ4VMOACUXI.html)
+    *   [![Image 218](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 职场人必会的10大实用功能，在石墨通通可以实现！](https://shimo.im/blog/articles/AWYHJZDXACUXI.html)
+    *   [![Image 219](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨「营销策略七步法」，助你高效完成一场营销活动](https://shimo.im/blog/articles/AWXOVKSOACUXI.html)
+    *   [![Image 220](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 推动企业向优发展的秘密武器：远程协作办公软件石墨文档](https://shimo.im/blog/articles/AWXGLIZQACTNE.html)
+    *   [![Image 221](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 对于学生来说，使用多人在线协作文档的优势是什么？](https://shimo.im/blog/articles/AWW6ABEFACTNE.html)
+    *   [![Image 222](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 这款好用的「多人在线协作文档」工具，让我工作变得更有效率](https://shimo.im/blog/articles/AWWXDDDYACTNE.html)
+    *   [![Image 223](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 企业文档协作工具，首推石墨文档！](https://shimo.im/blog/articles/AWWNPMMVACTNE.html)
+    *   [![Image 224](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 5个远程办公管理心得，让居家办公生活更安心](https://shimo.im/blog/articles/AWVXFQJ6ACTNE.html)
+    *   [![Image 225](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 锁定单元格：将权限管理进行到底](https://shimo.im/blog/articles/AWVOAQFOACTNE.html)
+    *   [![Image 226](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档在线协作编辑，让工作更加easy](https://shimo.im/blog/articles/AWVEKIXZACTNE.html)
+    *   [![Image 227](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 多人在线编辑office，用石墨文档更方便](https://shimo.im/blog/articles/AWU5P2KPACTNE.html)
+    *   [![Image 228](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档，新一代智能安全的企业内容管理平台](https://shimo.im/blog/articles/AWUVJVK4ACRR6.html)
+    *   [![Image 229](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档远程协作办公系统，信息高效流转安全更有保障](https://shimo.im/blog/articles/AWT5KXP2ACRR6.html)
+    *   [![Image 230](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档温暖出品 |《疫情防控实用指南》](https://shimo.im/blog/articles/AWTUGYB4ACRR6.html)
+    *   [![Image 231](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档远程办公解决方案，发挥私有化部署优势充分满足客户需求](https://shimo.im/blog/articles/AWTUCXATACRR6.html)
+    *   [![Image 232](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档远程协作办公软件，拥有众多优势表现更出色](https://shimo.im/blog/articles/AWTMTOSKACRR6.html)
+    *   [![Image 233](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档远程办公方案，多场景下显示高效便利优势](https://shimo.im/blog/articles/AWTDYMCRACRR6.html)
+    *   [![Image 234](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档在线办公系统，提升企业办公效率方面更显优势](https://shimo.im/blog/articles/AWS2EEORACRR6.html)
+    *   [![Image 235](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档多人协同办公，帮助电商客户提升跨部门协作效能](https://shimo.im/blog/articles/AWSJ2VTRACRR6.html)
+    *   [![Image 236](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 拒做职场「背锅侠」，少不了这个高效办公神器](https://shimo.im/blog/articles/AWSBLYCSACRR6.html)
+    *   [![Image 237](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 求职季：石墨助你快速成长为「职场老鸟」](https://shimo.im/blog/articles/AWQIYMXUACRR6.html)
+    *   [![Image 238](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 疫情时代效率办公神器：关于在线协作文档你了解多少？](https://shimo.im/blog/articles/AWP7OINTACRR6.html)
+    *   [![Image 239](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) HR：为什么你又累又忙，还效率低下？](https://shimo.im/blog/articles/AWPYT2HGACRR6.html)
+    *   [![Image 240](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「双减」下的一线教师如何进一步提升工作效率？](https://shimo.im/blog/articles/AWPPHCJEACRR6.html)
+    *   [![Image 241](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 信不信，你每天有1/3的时间都浪费在这里！](https://shimo.im/blog/articles/AWPICDN6ACRR6.html)
+    *   [![Image 242](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档，你真的只当它是个在线word？](https://shimo.im/blog/articles/AWO6LMIEACRR6.html)
+    *   [![Image 243](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 班干部亲测：用它收集信息，效率提升10倍](https://shimo.im/blog/articles/AWON5CT6ACRR6.html)
+    *   [![Image 244](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档五大硬核优势，为企业提供最佳的云端办公解决方案](https://shimo.im/blog/articles/AWOF3KFLACRR6.html)
+    *   [![Image 245](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档：联合办公空间里的「常住人口」](https://shimo.im/blog/articles/AWN5MSFNACRR6.html)
+    *   [![Image 246](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「混合办公」成常态，哪款协同办公产品最适合你？](https://shimo.im/blog/articles/AWNVKSWTACRR6.html)
+    *   [![Image 247](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 在线文档产品那么多,为什么85万家企业只选择石墨文档?](https://shimo.im/blog/articles/AWNM4WJPABTK6.html)
+    *   [![Image 248](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 电脑突然死机，文件没保存怎么办](https://shimo.im/blog/articles/AWMWEA6NABTK6.html)
+    *   [![Image 249](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 旅行途中有了石墨，再也不怕被领导call](https://shimo.im/blog/articles/AWML5CUDABTK6.html)
+    *   [![Image 250](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「公有云」危？「私有云」贵？石墨私有化部署了解一下!](https://shimo.im/blog/articles/AWMEA2ASABTK6.html)
+    *   [![Image 251](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「36kr测评」企业版石墨文档，究竟值不值得采购？](https://shimo.im/blog/articles/AWL3RDBRABTK6.html)
+    *   [![Image 252](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 投入了那么多，你还是不会做内容运营吗？](https://shimo.im/blog/articles/AWLTLSAFABTK6.html)
+    *   [![Image 253](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 从这个销售案例，了解石墨表格使用全流程](https://shimo.im/blog/articles/AWK2WEVUABTK6.html)
+    *   [![Image 254](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 不知道如何应用石墨文档？这几家明星公司的典型方法值得借鉴](https://shimo.im/blog/articles/AWKTYB2JABTK6.html)
+    *   [![Image 255](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 职场办公图鉴 | 累坏你的不是工作，而是工作方式](https://shimo.im/blog/articles/AWKKKDJWABTK6.html)
+    *   [![Image 256](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 逼哭大学生的不是论文，而是没有与导师实现「高效协同」](https://shimo.im/blog/articles/AWJJFKYWABTK6.html)
+    *   [![Image 257](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 企业文件全生命周期安全管控，看看石墨是如何做到的](https://shimo.im/blog/articles/AWJBHR47ABTK6.html)
+    *   [![Image 258](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 拒绝低效知识管理，从选好一款优秀的知识管理软件开始](https://shimo.im/blog/articles/AWIYZU6JABTK6.html)
+    *   [![Image 259](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「国家队」下场做智慧教育，教育机构该如何借助协同文档平台实现破局？](https://shimo.im/blog/articles/AWIQOVHJABTK6.html)
+    *   [![Image 260](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 协同办公赛道日益拥挤，什么才是企业选型的最佳标准？](https://shimo.im/blog/articles/AWIIG5U3ABTK6.html)
+    *   [![Image 261](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 无缝流转：电商如何借助石墨打赢「数据争夺战」？](https://shimo.im/blog/articles/AWIAINCGABTK6.html)
+    *   [![Image 262](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 从纸笔到云端：走向协同高效的人口普查演进史](https://shimo.im/blog/articles/AWH76ITDABTK6.html)
+    *   [![Image 263](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 助力一线教师玩转教育信息化，石墨文档是个不错的选择](https://shimo.im/blog/articles/AWHIRXIUABTK6.html)
+    *   [![Image 264](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 同心战疫，共待花期：他们用互助文档凝聚防疫伟力](https://shimo.im/blog/articles/AWHAHD3BABTK6.html)
+    *   [![Image 265](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「内附下载」企业文档库搭建实践白皮书发布](https://shimo.im/blog/articles/AWGWRIGDABTK6.html)
+    *   [![Image 266](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「极致协同」企业搭建统一文档管理平台的10个关键要素](https://shimo.im/blog/articles/AWGOU2CBABTK6.html)
+    *   [![Image 267](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 最新版 Excel 都没有的 7 个功能，这个在线工具竟然轻松做到！](https://shimo.im/blog/articles/AWGH5SZUABTK6.html)
+    *   [![Image 268](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 石墨文档的企业高级版，到底「高级」在哪？](https://shimo.im/blog/articles/AWFNM2DIABTK6.html)
+    *   [![Image 269](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 后疫情时代中国企业协同办公十大趋势](https://shimo.im/blog/articles/AWFFHNGTABTK6.html)
+    *   [![Image 270](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 行业内卷，新零售如何借助数字化经营实现连锁门店协同管理？](https://shimo.im/blog/articles/AWE5NTJTABTK6.html)
+    *   [![Image 271](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 「智能制造」火了，云端协同的数字工厂究竟长啥样？](https://shimo.im/blog/articles/AWEV7ENFABTK6.html)
+    *   [![Image 272](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 下一个十年，什么能激发企业的内生性进化？](https://shimo.im/blog/articles/AVYLJPJCABNSA.html)
+    *   [![Image 273](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 数字时代，教育企业如何通过石墨打造高效能团队，实现精细化运营？](https://shimo.im/blog/articles/AVYLGSWMABNSA.html)
+    *   [![Image 274](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 什么是私有化部署？适合什么样的企业？一张图解答你所有的困惑！](https://shimo.im/blog/articles/AVYLFQ44ABNSA.html)
+    *   [![Image 275](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 效率 x 安全，这才是企业级云 Office 该有的样子！](https://shimo.im/blog/articles/AVYLFANLABNSA.html)
+    *   [![Image 276](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 在线文档很高效，但为什么企业办公开始钟爱云 Office？](https://shimo.im/blog/articles/AVYLAETJABNSA.html)
+
+*     石墨公告   
+    *   [![Image 277](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 停机维护公告](https://shimo.im/blog/articles/AYPLQYBRACBLI.html)
+    *   [![Image 278](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 福利 | 石墨全部高级付费功能限时免费试用！](https://shimo.im/blog/articles/AWMFDB2GABTK6.html)
+    *   [![Image 279](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/article.7b425307.png) 企业版价格调整公告](https://shimo.im/blog/articles/AVWCH3WLABMME.html)
+
+*   [石墨博客](https://shimo.im/blog)/
+*   [石墨公告](https://shimo.im/blog/tags/notice)/
+*   [企业版价格调整公告](https://shimo.im/)/
+
+# 企业版价格调整公告
+
+**亲爱的石墨文档企业版用户：**
+
+今天想跟大家分享一下石墨文档企业版的最新进展。
+
+自企业版上线以来，在大家的陪伴与支持下，我们不断打磨产品、提升服务，一步步成长为国内最完整易用的云端 Office 产品。我们保持以周为单位的产品迭代速度，陆续上线了石墨幻灯片、石墨表单、文档演示等功能，并补足了桌面客户端、 App 端、小程序端的场景；在不断提升基础编辑性能和企业管理模块的体验之外，更加入 OCR 文字识别、语音输入、幻灯片在线演示等特色功能。这些功能满足了企业用户不断变化发展的需求，让企业办公走向高效、安全。
+
+近期，我们将对石墨文档企业版进行大规模的产品升级：包括发布**企业云盘、思维导图、公共模板市场**等，也会对**文件整理、组织架构管理、成员权限**等方面进行优化迭代，提升使用体验。
+
+石墨文档企业版受到了来自互联网、媒体、教育、金融等数十个行业的各类规模的企业欢迎，在服务方面，我们也将提供更优质的客户成功服务：**一对一专属客服，免费企业培训，**以及**分享不同行业的研究成果**，帮助大家更好地提升协同效率。此外，我们也会为有需要的企业**提供 SDK 与私有部署服务**。
+
+伴随产品与服务的升级，我们将对企业版的定价进行一些调整：2018 年 11 月 15 日起，企业版定价将调整为 30 元/人/月（原价 18 元/人/月）。具体信息详询您的销售顾问，或拨打我们的客服电话 400-666-9920（工作日 9:00-18:00）。
+
+高效、完整、优美是我们不变的追求。我们在努力，只为您毫不费力。
+
+石墨团队
+
+最后更新于 2022 年 09 月 09 日
+
+相关文章
+
+*   [助力一线教师玩转教育信息化，石墨文档是个不错的选择 在信息技术与教育教学走向深度融合的教育信息化2.0时代，高效的协同办公软件更加适合基础教育阶段老师们的教学需求。 2022-09-02](https://shimo.im/blog/articles/AWHIRXIUABTK6.html)
+*   [「双减」下的一线教师如何进一步提升工作效率？ 学生要「双减」，教师也应「减负」。石墨文档能够深入到基础教育阶段教育教学的每一个环节，实现对教研教学的全面赋能，共同推动基础教育的 “提质增效”，减轻一线教师工作负担。 2022-09-02](https://shimo.im/blog/articles/AWPPHCJEACRR6.html)
+
+下一篇
+
+[ABC 在线英语 | 颠覆传统办公模式，让工作更高效！](https://shimo.im/blog/articles/AVWCIIOJABMME.html)
+
+#### 公有云服务咨询
+
+*   [400 666 9920 转 1](tel:400-666-9920)企业用户售前咨询
+*   [400 666 9920 转 3](tel:400-666-9920)SDK 业务咨询
+
+#### 私有部署服务咨询
+
+*   [400 666 9963](tel:400 666 9963)私有部署售前咨询
+
+#### ( 工作日 9:00 - 19:00 )
+
+#### 售后服务咨询
+
+*   [石墨售后服务咨询](https://shimo.sobot.com/chat/pc/v2/index.html?sysnum=99f41a92d15542b7a884c7e355359961&from=iframe&color=41464b&type=0&leave_msg_flag=true&feedback_flag=true)
+
+[](http://weibo.com/shimowendang)[](https://twitter.com/ShimoDocs)[](https://www.facebook.com/shimo.im)
+
+* * *
+
+#### 石墨产品
+
+*   [石墨办公](https://shimo.im/firm)
+*   [个人版](https://shimo.im/personal)
+*   [私有化部署](https://shimo.im/firm/private)
+*   [开发者](https://platform.shimo.im/)
+*   [钉钉版](https://h5.dingtalk.com/orgreg/isvIndex.html?qrCode=E7DB6709D3328D8D75DD1253A34D851CE5137E585AFC0E7FE0FFF492974E2EEDD77FE743C5D2F452BC90E73E1DEC08C6EFCEEFCE9FA82AAF2A166E926746E84038C1809A72199259635E803E96AD90F6&signature=fd4d8a3ba15d3c36c2dec0ebd952e59f462cfc91)
+*   [企业微信版](https://shimo.im/wework)
+*   [下载客户端](https://shimo.im/firm/download)
+
+#### 石墨服务
+
+*   [解决方案](https://shimo.im/firm/samples)
+*   [帮助中心](https://shimo.im/help)
+*   [更新日志](https://shimo.im/docs/WlArzbzMabtOm2A2)
+*   [网站地图](https://shimo.im/sitemap)
+*   [服务条款](https://shimo.im/agreements/service)
+*   [隐私政策](https://shimo.im/agreements/privacy)
+*   [行为规范](https://shimo.im/agreements/behavior)
+
+#### 公司
+
+*   [关于我们](https://shimo.im/about)
+*   [石墨公告](https://shimo.im/blog/tags/notice)
+*   [客户案例](https://shimo.im/blog/tags/cases)
+*   [石墨博客](https://shimo.im/blog)
+*   [技术博客](https://zhuanlan.zhihu.com/shimo)
+*   [媒体报道](https://shimo.im/media_reports)
+*   [公益计划](https://shimo.im/pricing#shimo_public)
+*   [加入我们](https://app.mokahr.com/apply/shimo)
+
+© 2014-2021 武汉初心科技有限公司[鄂公网安备 42018502003887 号](http://www.beian.gov.cn/portal/registerSystemInfo?spm=a313x.7781069.1998910419.37&recordcode=42018502003887)[鄂ICP备14013665号-2](https://beian.miit.gov.cn/)
+
+举报邮箱：contact@shimo.im[中央网信办违法和不良信息举报中心](https://www.12377.cn/?spm=zm1066-001.0.0.1.5WfWt5)电话：12377[![Image 280](https://assets.shimonote.com/static/lizard-service-homepage/assets/CAC.72da4709.png)](https://www.12377.cn/?spm=zm1066-001.0.0.1.5WfWt5)[![Image 281](https://assets.shimonote.com/static/lizard-service-homepage/assets/CACFraud.3c6d5271.png)](https://www.12377.cn/jbxzxq/zpljbxzxq.html)[![Image 282](https://assets.shimonote.com/static/lizard-service-homepage/assets/CACHistory.99d31704.png)](https://www.12377.cn/jbxzxq/64d38691937611ebb858c9da04cf59d3_web.html)

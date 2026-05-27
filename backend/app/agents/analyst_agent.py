@@ -654,11 +654,26 @@ class AnalystAgent:
 
     def _feedback_from_field(self, field: AnalysisFieldResult | None) -> FeedbackSummary:
         payload = field.normalized_value if field is not None else {}
+        raw_distribution = payload.get('sentiment_distribution', {}) if isinstance(payload, dict) and isinstance(payload.get('sentiment_distribution', {}), dict) else {}
+
+        def _to_float(value: Any, default: float = 0.0) -> float:
+            if value is None:
+                return default
+            try:
+                return float(value)
+            except (TypeError, ValueError):
+                return default
+
+        sentiment_distribution = {
+            'positive': _to_float(raw_distribution.get('positive', 0.0)),
+            'neutral': _to_float(raw_distribution.get('neutral', 0.0)),
+            'negative': _to_float(raw_distribution.get('negative', 0.0)),
+        }
         return FeedbackSummary(
             positive_themes=[str(x).strip() for x in payload.get('positive_themes', []) if str(x).strip()] if isinstance(payload, dict) and isinstance(payload.get('positive_themes', []), list) else [],
             negative_themes=[str(x).strip() for x in payload.get('negative_themes', []) if str(x).strip()] if isinstance(payload, dict) and isinstance(payload.get('negative_themes', []), list) else [],
             representative_quotes=[str(x).strip() for x in payload.get('representative_quotes', []) if str(x).strip()] if isinstance(payload, dict) and isinstance(payload.get('representative_quotes', []), list) else [],
-            sentiment_distribution=payload.get('sentiment_distribution', {}) if isinstance(payload, dict) and isinstance(payload.get('sentiment_distribution', {}), dict) else {},
+            sentiment_distribution=sentiment_distribution,
         )
 
     @staticmethod

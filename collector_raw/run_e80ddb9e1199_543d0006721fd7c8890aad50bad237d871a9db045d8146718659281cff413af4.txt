@@ -1,0 +1,136 @@
+# 小红书正内测跳转企业微信 - 电商派
+
+Title: 小红书正内测跳转企业微信
+
+URL Source: https://www.pai.com.cn/245036.html
+
+Markdown Content:
+# 小红书正内测跳转企业微信 - 电商派
+
+[![Image 1: 电商派](https://www.pai.com.cn/static/assets/images/logo.svg)](https://www.pai.com.cn/)[首页](https://www.pai.com.cn/)[快讯](https://www.pai.com.cn/news)[观察](https://www.pai.com.cn/guancha)
+
+Toggle theme
+
+# 小红书正内测跳转企业微信
+
+宋妤
+
+2024-05-15 17:02
+
+5月15日消息，据界面新闻，小红书近日正在内测“跳转企业微信”的功能，目前只针对部分商家开放。
+
+开通该功能的账号在笔记下方可以附上“添加顾问”按钮，点击后会显示“前往微信添加”的提示，随后点击跳转至企业微信添加页面。而原本用户添加企业的客服或工作人员，需要私信小红书账号后，手动去微信添加联系方式。
+
+小红书内部人士透露，目前该功能的开通要求比较高，除了要求企业本身有企业微信的获客助手外，投放广告也是必需条件，并且只有小红书搜索广告可以展示企业微信，不能在全站进行投放。
+
+![Image 2: format-jpg](https://img1.dsb.cn//topics/4227_1715763525.png?x-oss-process=style/format-jpg)
+
+图源：界面新闻
+
+早在今年3月，有媒体在使用小红书的时候注意到，在主页一些图文的展示中，会标识广告字样。打开这类图文会看到左下角原本是填写评论的位置，替换为购买同款链接的按钮。点击链接按钮后，则会直接跳转至微信小程序。
+
+经过几轮的测试，整个跳转的流畅度和微信内部打开小程序别无二致，大大提升了用户体验。关于此次小红书跳转微信小程序的功能更新，小红书客服方面也给出了肯定回答。
+
+![Image 3: format-jpg](https://img1.dsb.cn//topics/4227_1715763568.jpg?x-oss-process=style/format-jpg)
+
+小红书客服 图源：见实
+
+实际上，从2023年3月开始，小红书就开始推动商业化进程。例如，全面开放“笔记带货”、整合电商业务和直播业务、推出买手制电商、布局本地生活服务等。
+
+小红书COO柯南在去年IF大会上提到，有将近70%的月活用户在小红书有搜索行为，三分之一的月活用户打开小红书第一件事就是直奔搜索。柯南说，搜索的有用性，普适性和内容丰富度，给很多不一定是小红书原生的用户，打开了小红书社区的一扇门。越来越多新用户接触到小红书都是因为搜索。
+
+[小红书](https://www.pai.com.cn/search?posts_dsb%5Bquery%5D=%E5%B0%8F%E7%BA%A2%E4%B9%A6)[小红书商业化](https://www.pai.com.cn/search?posts_dsb%5Bquery%5D=%E5%B0%8F%E7%BA%A2%E4%B9%A6%E5%95%86%E4%B8%9A%E5%8C%96)[小红书跳转企业微信](https://www.pai.com.cn/search?posts_dsb%5Bquery%5D=%E5%B0%8F%E7%BA%A2%E4%B9%A6%E8%B7%B3%E8%BD%AC%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1)
+
+ 声明
+
+1、该内容为作者独立观点，不代表电商派观点或立场，文章为作者本人上传，版权归原作者所有，未经允许不得转载。
+
+2、电商号平台仅提供信息存储服务，如发现文章、图片等侵权行为，侵权责任由作者本人承担。
+
+3、如对本稿件有异议或投诉，请联系：info@dsb.cn
+
+相关阅读
+
+[_小_ _红_ _书_ _商业化_“超好吃补给站”第四期招商启动](https://www.pai.com.cn/news-flash/92958.html)
+
+2022-04-12 09:40:24
+
+4月12日消息，日前，_小_ _红_ _书_ _商业化_ 宣布“超好吃补给站”在2022年迎来4.0版本的全面升级，并正式启动招商。据了解，“超好吃补给站”是 _小_ _红_ _书_ _商业化_ 在2021年推出的美食垂类营销IP，自上线以来已落地3期。2021年底，“超好吃补给站”3.0——“人生五味便利店”收官，_小_ _红_ _书_ 商业首次与全国多城市数千家便利店合作，项目共获得2.4亿+曝光量。
+
+[_小_ _红_ _书_ _商业化_ 启动“禧乐计划”](https://www.pai.com.cn/news-flash/92688.html)
+
+2022-04-07 14:30:11
+
+4月7日消息，近日，_小_ _红_ _书_ _商业化_ 推出医疗和婚嫁行业中国行活动“禧乐计划”，首场活动于3月28日在成都落地。会上，_小_ _红_ _书_ 消费成长业务负责人从小红 _书_ 的用户特征、内容长尾优势、品牌建设逻辑等方面介绍了 _小_ _红_ _书_ 的平台营销价值。据了解，_小_ _红_ _书_ _商业化_ 计划通过“禧乐计划”，与医疗、婚嫁行业的品牌共同探索未来营销打法，下一站将于4月落地。
+
+[_小_ _红_ _书_ _商业化_&电商架构调整](https://www.pai.com.cn/news/01kjbt1xhec0rcp1756kgvt2pr)
+
+2026-02-26 09:51:06
+
+2月26日消息，_小_ _红_ _书_ _商业化_&电商团队进行架构调整，总体原则是广告侧和交易侧组织分开，更加聚焦。同时，多名 _小_ _红_ _书_ _商业化_&电商团队的L2（大概对标阿里P9-P10或者字节4-1，4-2）级别高管进行轮岗。其中，欧迪（薯名，下同）、_萧_ 何、米欧聚焦电商业务；昂扬、纳什、觅阳聚焦 _商业化_ 业务；银时调入国际化团队，负责国际化电商0-1。
+
+[微盟营销成为 _小_ _红_ _书_ _商业化_ 上海区域广告代理商](https://www.pai.com.cn/news/01k4sede8x2seez4bqqcdt8k7a)
+
+2025-09-10 17:16:43
+
+9月10日消息，微盟营销在 _小_ _红_ _书_ _商业化_ 生态合作中再拓新版图，成为 _小_ _红_ _书_ _商业化_ 上海、江苏、浙江区域代理商，为区域品牌提供从营销洞察、内容种草、广告投放到达人营销的一站式解决方案，助力品牌在 _小_ _红_ _书_ 平台实现种草与经营的深度融合，驱动线索与生意双重增长。
+
+[消息称 _小_ _红_ _书_ _商业化_ 中台负责人吴颖炳离职](https://www.pai.com.cn/p/01jmxk9g0sgcess4cwcqgv6xpy)
+
+2025-02-25 11:50:02
+
+相关业务目前暂由 _小_ _红_ _书_ CMO之 _恒_ 兼顾。
+
+[消息称 _小_ _红_ _书_ _商业化_ 中台负责人东丈离职](https://www.pai.com.cn/news/01jmxd5c2h59hdp2y474e5w3h8)
+
+2025-02-25 10:16:39
+
+2月25日消息，_小_ _红_ _书_ _商业化_ 中台负责人吴颖炳（薯名：东丈）已于近期离职，相关业务目前暂由 _小_ _红_ _书_ CMO之 _恒_ 兼顾。吴颖炳加入 _小_ _红_ _书_ 的时间仅一年左右。在此之前，他曾是滴滴策略运营高级总监，负责过滴滴网约车全国市场竞争策略的制定和应对，帮助网约车业务从人工运营进化到纯智能运营阶段。更早之前，吴颖炳曾在携程和eBay任职，领域横跨电商、OTA和出行。
+
+[消息称 _小_ _红_ _书_ _商业化_ 负责人之 _恒_ 将离职](https://www.pai.com.cn/news-flash/111713.html)
+
+2023-03-09 21:48:40
+
+3月9日消息，雷峰网独家获悉，_小_ _红_ _书_ _商业化_ 负责人之 _恒_ 将于近期离职。之 _恒_ 于2020年3月加入 _小_ _红_ _书_，加盟前曾担任新浪微博高级副总裁、_商业化_ 广告负责人。一位 _小_ _红_ _书_ 内部人士介绍，“_商业化_ 工作非常辛苦。王雅娟之前工作相对轻松，来 _小_ _红_ _书_ 之后，经常工作到凌晨2点。”
+
+[_小_ _红_ _书_ _商业化_&电商团队调整：银时调任国际化电商负责人](https://www.pai.com.cn/p/01kjbtqd2ed4pqxz3dexxdgv8w)
+
+2026-02-26 10:10:34
+
+广告侧和交易侧组织分离，多名L2级别高管进行轮岗。
+
+[_小_ _红_ _书_ _商业化_ 业务确定2025年三大方向](https://www.pai.com.cn/p/01jf94batfqep118kyzsgcp8j8)
+
+2024-12-17 09:43:32
+
+_小_ _红_ _书_ _商业化_ 业务传来最新消息。
+
+![Image 4](https://img1.dsb.cn/avatars/2021/07/4227_1625624568.jpg?x-oss-process=style/avatar)
+
+宋妤
+
+0
+
+推荐阅读
+
+[![Image 5: 刘强东拿下万亿零售巨头](https://media.dsb.cn/media/150552/conversions/cover-thumb.png) 刘强东拿下万亿零售巨头](https://www.pai.com.cn/p/01kskgy12358gvaan22va4kgje)*   [![Image 6: 狠人钟睒睒出手，行业大为震惊](https://media.dsb.cn/media/150270/conversions/cover-thumb.png)](https://www.pai.com.cn/p/01ksf8dehq25x5wzwja21ag4yf)[狠人钟睒睒出手，行业大为震惊](https://www.pai.com.cn/p/01ksf8dehq25x5wzwja21ag4yf)10小时前  
+*   [![Image 7: 孙东旭离职单飞，带货拿下抖音榜一](https://media.dsb.cn/media/150332/conversions/cover-thumb.png)](https://www.pai.com.cn/p/01ksh2enj7tph6bswp90cjkz62)[孙东旭离职单飞，带货拿下抖音榜一](https://www.pai.com.cn/p/01ksh2enj7tph6bswp90cjkz62)1天前  
+
+*   快速导航
+*   [零售](https://www.pai.com.cn/lingshou)
+
+*   [物流](https://www.pai.com.cn/wuliu)
+
+*   [人物](https://www.pai.com.cn/renwu)
+
+*   [B2B](https://www.pai.com.cn/B2B)
+
+*   [生活服务](https://www.pai.com.cn/O2O)
+
+*   [跨境电商](https://www.pai.com.cn/kuajing)
+
+*   [行业观察](https://www.pai.com.cn/hangye)
+
+**投稿合作**[平台简介](https://www.pai.com.cn/about/about)[联系我们](https://www.pai.com.cn/about/contact)[版权声明](https://www.pai.com.cn/about/copyright)[投稿推荐](https://www.pai.com.cn/about/contact)[商务合作](https://www.pai.com.cn/about/contact)[](https://weibo.com/316593888)
+
+Copyright © 电商派 All Rights Reserved[粤ICP备15083824号](http://beian.miit.gov.cn/)| ICP许可证: 粤B2-20201419[![Image 8: beian](https://www.pai.com.cn/static/assets/images/beian.png)粤公网安备44030002008573号](https://beian.mps.gov.cn/#/query/webSearch?code=44030002008573)

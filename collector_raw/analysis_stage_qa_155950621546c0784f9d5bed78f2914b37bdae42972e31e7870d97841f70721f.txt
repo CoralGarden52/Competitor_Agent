@@ -1,0 +1,13 @@
+# 如何评价Notion笔记软件? - 知乎
+
+如果询问这两年来最火爆的笔记类产品，那么答案很有可能是  Notion.
+在产品端，已经有了不少 Notion 类的产品。具体可以移步参阅我的另外一篇文章《 关于 Notion-Like 工具的畅想》。其中，有些产品在 Notion 的基础上做了优化，也有一些增加了一些新的特色功能。比如，国外有主打本地和加密等特性的  AnyType, 国内有可以当作网盘的文件夹页面功能、通过原生开发提升使用体验的  FlowUs.
+在用户端，Notion 中文社区已经拥有 11200 多人。在各大数字平台，Notion 已经成为热门标签。从少数派到哔哩哔哩，从知乎到小红书，有大量的 Notion 用户每天都在分享自己的 Notion 使用经验。这导致关于 Notion的文章和视频每天都在快速增长。因此，在这篇文章中，我无意于再次班门弄斧地介绍我的 Notion 使用体验。与其他同类产品相比，Notion 除了功能更加强大、更为成熟等特性，围绕 Notion 的社区生态也是 Notion 强大的重要原因。这篇文章，便是将我在 Notion 中文社区以及其他平台所收集、关于 Notion 生态的优质资源加以分享。
+Notion 汉化
+Notion 的中文界面可能是中文区用户呼声最高的功能。然而，由于种种原因，Notion 中文语言界面迟迟没有到来。于是，便有动手能力强的 Notion 用户决定自己解决这个问题。不过好消息是，Notion 的中文界面正在灰度测试，希望早日能发布。如果你在官方正式推出之前中文界面依然想尝试 Notion 汉化版，请参考以下方案：
+目前，Notion 汉化方案有两种：
+网页版汉化：具体操作方法是，在 Chrome 或者 Edge 等浏览器中使用油猴插件 Tampermonkey 的  NotionEnhancer 脚本加以实现。 具体教程参见  notion-enhancer-tampermonkey 或者  notion中文汉化方法·传送门.
+客户端汉化：此方法本质上也是在客户端中增加脚本，开发者貌似和 notion-enhancer 是同一个人。Notion 客户端汉化是由  notion-zh_CN 提供。目前最新的 2.0 版本同时支持网页端(油猴脚本)+桌面端。 具体教程可以参考  Notion中文客户端汉化版教程.
+Notion 插件和工具
+Notion 插件
+在少数派作者 @ JasperJia 的文章《 这 5 个第三方工具让 Notion 更好用》这篇文章中，事实上已经介绍了关于 Notion 的几个强大插件，包括 Save to Notion（网页剪裁）、Notion+ Mark Manager（标注文章）、Notion PDF Export（导出笔记）、Snackthis.co（幻灯片播放）、Indify.co（Notion 页面小组件）。

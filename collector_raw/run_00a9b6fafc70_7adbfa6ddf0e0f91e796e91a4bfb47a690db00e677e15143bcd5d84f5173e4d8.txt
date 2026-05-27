@@ -1,0 +1,1483 @@
+# 下载云文档和文件夹到本地
+
+Title: 下载云文档和文件夹到本地
+
+URL Source: https://www.feishu.cn/hc/zh-CN/articles/360049067463-%E4%B8%8B%E8%BD%BD%E4%BA%91%E6%96%87%E6%A1%A3%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%B0%E6%9C%AC%E5%9C%B0
+
+Markdown Content:
+# 下载云文档和文件夹到本地
+![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d3859633b9c64b969e91c8dec24c9a37~tplv-jbbdkfciu3-image:0:0.image)
+
+[![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/268ec674a56a4510889f7f5ca14f1ba1~tplv-jbbdkfciu3-image:0:0.image)](https://www.feishu.cn/)[帮助中心](https://www.feishu.cn/hc/zh-CN)
+
+新手入门
+
+使用飞书
+
+更多资源
+
+[智能助手](https://www.feishu.cn/hc/zh-CN/chat?referrer=/hc/zh-CN/articles/360049067463-%E4%B8%8B%E8%BD%BD%E4%BA%91%E6%96%87%E6%A1%A3%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%B0%E6%9C%AC%E5%9C%B0)
+
+[登录](https://login.feishu.cn/suite/passport/page/login/?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F360049067463-%25E4%25B8%258B%25E8%25BD%25BD%25E4%25BA%2591%25E6%2596%2587%25E6%25A1%25A3%25E5%2592%258C%25E6%2596%2587%25E4%25BB%25B6%25E5%25A4%25B9%25E5%2588%25B0%25E6%259C%25AC%25E5%259C%25B0)
+
+*   [云文档通用功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7371372929647394819) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6998429212675686401) 
+        *   [云文档介绍](https://www.feishu.cn/hc/zh-CN/articles/803525191890 "云文档介绍")
+        *   [快速上手飞书云文档](https://www.feishu.cn/hc/zh-CN/articles/640457584004 "快速上手飞书云文档")
+        *   [快速上手云文档（新版）](https://www.feishu.cn/hc/zh-CN/articles/629777077520 "快速上手云文档（新版）")
+        *   [使用云文档模板](https://www.feishu.cn/hc/zh-CN/articles/351142559376 "使用云文档模板")
+        *   [使用自定义模板](https://www.feishu.cn/hc/zh-CN/articles/360049067736 "使用自定义模板")
+        *   [云文档功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067483 "云文档功能更新日志")
+
+    *   [个性化与基础设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571655905307) 
+        *   [修改云文档偏好设置](https://www.feishu.cn/hc/zh-CN/articles/849872303611 "修改云文档偏好设置")
+        *   [设置云文档标题图标](https://www.feishu.cn/hc/zh-CN/articles/627693109450 "设置云文档标题图标")
+        *   [切换云文档的登录账号](https://www.feishu.cn/hc/zh-CN/articles/360044240054 "切换云文档的登录账号")
+        *   [设置云文档的默认打开方式](https://www.feishu.cn/hc/zh-CN/articles/360038713913 "设置云文档的默认打开方式")
+        *   [云文档与浏览器或插件的兼容性说明](https://www.feishu.cn/hc/zh-CN/articles/050253926143 "云文档与浏览器或插件的兼容性说明 ")
+        *   [解决 Chrome 扩展程序与文档的冲突](https://www.feishu.cn/hc/zh-CN/articles/360037376033 "解决 Chrome 扩展程序与文档的冲突")
+
+    *   [文件管理与存储](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001027279686025217) 
+        *   [使用我的文档库](https://www.feishu.cn/hc/zh-CN/articles/918479526636 "使用我的文档库")
+        *   [快速上手云盘](https://www.feishu.cn/hc/zh-CN/articles/778513900437 "快速上手云盘")
+        *   [添加云文档快捷方式](https://www.feishu.cn/hc/zh-CN/articles/355494283809 "添加云文档快捷方式")
+        *   [创建子文档](https://www.feishu.cn/hc/zh-CN/articles/891872702435 "创建子文档")
+        *   [使用子页面列表](https://www.feishu.cn/hc/zh-CN/articles/780474929438 "使用子页面列表")
+        *   [使用旧版子页面列表](https://www.feishu.cn/hc/zh-CN/articles/672126501992 "使用旧版子页面列表")
+        *   [上传或导入本地文件和文件夹](https://www.feishu.cn/hc/zh-CN/articles/360033241654 "上传或导入本地文件和文件夹")
+        *   [在云文档使用 Office 文件](https://www.feishu.cn/hc/zh-CN/articles/285296596786 "在云文档使用 Office 文件")
+        *   [将石墨文档导入为云文档](https://www.feishu.cn/hc/zh-CN/articles/049570101480 "将石墨文档导入为云文档")
+        *   [查看、更新和还原文件版本](https://www.feishu.cn/hc/zh-CN/articles/360049067469 "查看、更新和还原文件版本")
+        *   [下载云文档和文件夹到本地](https://www.feishu.cn/hc/zh-CN/articles/360049067463 "下载云文档和文件夹到本地")
+        *   [云文档本地记录常见问题](https://www.feishu.cn/hc/zh-CN/articles/360046996234 "云文档本地记录常见问题")
+        *   [创建云文档副本](https://www.feishu.cn/hc/zh-CN/articles/360044758313 "创建云文档副本")
+        *   [打印云文档](https://www.feishu.cn/hc/zh-CN/articles/686106740508 "打印云文档")
+        *   [移动云文档或文件夹](https://www.feishu.cn/hc/zh-CN/articles/718669141060 "移动云文档或文件夹")
+        *   [云文档移动后，协作者、链接分享和权限设置改变](https://www.feishu.cn/hc/zh-CN/articles/988221280095 "云文档移动后，协作者、链接分享和权限设置改变")
+        *   [删除和恢复云文档、文件夹](https://www.feishu.cn/hc/zh-CN/articles/360049067425 "删除和恢复云文档、文件夹")
+        *   [文件上传、在线预览的大小及格式要求](https://www.feishu.cn/hc/zh-CN/articles/360049067549 "文件上传、在线预览的大小及格式要求")
+        *   [查看并管理云文档存储空间](https://www.feishu.cn/hc/zh-CN/articles/988314140482 "查看并管理云文档存储空间")
+        *   [释放我的存储空间](https://www.feishu.cn/hc/zh-CN/articles/966898605944 "释放我的存储空间")
+
+    *   [分享与协作](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001027096462032924) 
+        *   [云文档和文件夹协作者介绍](https://www.feishu.cn/hc/zh-CN/articles/064037224266 "云文档和文件夹协作者介绍")
+        *   [添加用户组为云文档、文件夹协作者](https://www.feishu.cn/hc/zh-CN/articles/776302054037 "添加用户组为云文档、文件夹协作者")
+        *   [查看云文档创建者、所有者和协作者](https://www.feishu.cn/hc/zh-CN/articles/224264745285 "查看云文档创建者、所有者和协作者")
+        *   [查看云文档信息与隐私设置](https://www.feishu.cn/hc/zh-CN/articles/669630434840 "查看云文档信息与隐私设置")
+        *   [分享云文档](https://www.feishu.cn/hc/zh-CN/articles/360049067490 "分享云文档")
+        *   [用链接分享云文档](https://www.feishu.cn/hc/zh-CN/articles/360049067526 "用链接分享云文档")
+        *   [分享文件夹](https://www.feishu.cn/hc/zh-CN/articles/530434412285 "分享文件夹")
+        *   [用链接分享文件夹](https://www.feishu.cn/hc/zh-CN/articles/911555654000 "用链接分享文件夹")
+        *   [对外分享云文档和文件夹](https://www.feishu.cn/hc/zh-CN/articles/360049067493 "对外分享云文档和文件夹")
+        *   [加密分享云文档和文件夹](https://www.feishu.cn/hc/zh-CN/articles/360049067491 "加密分享云文档和文件夹")
+        *   [停止分享云文档和文件夹](https://www.feishu.cn/hc/zh-CN/articles/228650773875 "停止分享云文档和文件夹")
+
+    *   [权限管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001026955244044290) 
+        *   [快速上手云文档权限](https://www.feishu.cn/hc/zh-CN/articles/360025093793 "快速上手云文档权限")
+        *   [快速上手文件夹的权限](https://www.feishu.cn/hc/zh-CN/articles/360049067444 "快速上手文件夹的权限")
+        *   [筛查并管理云文档权限](https://www.feishu.cn/hc/zh-CN/articles/736569288906 "筛查并管理云文档权限")
+        *   [为云文档设置密级](https://www.feishu.cn/hc/zh-CN/articles/991220891340 "为云文档设置密级")
+        *   [设置云文档访问和点赞者头像可见范围](https://www.feishu.cn/hc/zh-CN/articles/619518192130 "设置云文档访问和点赞者头像可见范围")
+        *   [设置云文档分享、复制、下载、评论等权限](https://www.feishu.cn/hc/zh-CN/articles/360049067527 "设置云文档分享、复制、下载、评论等权限")
+        *   [自动授予云文档的访问和搜索权限](https://www.feishu.cn/hc/zh-CN/articles/739401543616 "自动授予云文档的访问和搜索权限")
+        *   [设置文件夹的分享、复制、下载、评论等权限](https://www.feishu.cn/hc/zh-CN/articles/698728490353 "设置文件夹的分享、复制、下载、评论等权限")
+        *   [转移云文档和文件夹的所有权](https://www.feishu.cn/hc/zh-CN/articles/360049067492 "转移云文档和文件夹的所有权")
+        *   [批量转移云文档所有权](https://www.feishu.cn/hc/zh-CN/articles/948188027470 "批量转移云文档所有权")
+        *   [申请云文档权限](https://www.feishu.cn/hc/zh-CN/articles/360049067494 "申请云文档权限")
+        *   [为什么我不能复制、创建副本、打印、下载或导出云文档？](https://www.feishu.cn/hc/zh-CN/articles/556811576430 "为什么我不能复制、创建副本、打印、下载或导出云文档？")
+        *   [为什么我不能删除云文档、文件夹？](https://www.feishu.cn/hc/zh-CN/articles/075978095260 "为什么我不能删除云文档、文件夹？")
+        *   [申请移动云文档或文件夹](https://www.feishu.cn/hc/zh-CN/articles/394436478773 "申请移动云文档或文件夹")
+        *   [为什么云文档提示“包含敏感信息”？](https://www.feishu.cn/hc/zh-CN/articles/809587899257 "为什么云文档提示“包含敏感信息”？")
+        *   [云文档权限常见问题](https://www.feishu.cn/hc/zh-CN/articles/360044508113 "云文档权限常见问题")
+
+*   [文档](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099738910548312066) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7322752063729778716) 
+        *   [快速上手文档](https://www.feishu.cn/hc/zh-CN/articles/945900971706 "快速上手文档")
+        *   [在文档中使用阅读模式](https://www.feishu.cn/hc/zh-CN/articles/903991718360 "在文档中使用阅读模式")
+        *   [设置文档页面宽度](https://www.feishu.cn/hc/zh-CN/articles/909135942944 "设置文档页面宽度")
+        *   [在移动端使用文档横屏模式](https://www.feishu.cn/hc/zh-CN/articles/285369612462 "在移动端使用文档横屏模式 ")
+        *   [文档常见上限](https://www.feishu.cn/hc/zh-CN/articles/360049067974 "文档常见上限")
+        *   [文档功能常见问题](https://www.feishu.cn/hc/zh-CN/articles/360044024994 "文档功能常见问题")
+        *   [在文档中使用快捷键](https://www.feishu.cn/hc/zh-CN/articles/500625665207 "在文档中使用快捷键")
+
+    *   [编辑与排版](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099740188481470466) 
+        *   [设置文档封面](https://www.feishu.cn/hc/zh-CN/articles/230455566106 "设置文档封面")
+        *   [文档封面的图片要求](https://www.feishu.cn/hc/zh-CN/articles/990851076781 "文档封面的图片要求")
+        *   [在文档中展示或隐藏文档信息](https://www.feishu.cn/hc/zh-CN/articles/398454425785 "在文档中展示或隐藏文档信息")
+        *   [/ 快速插入支持的内容类型缩写](https://www.feishu.cn/hc/zh-CN/articles/273504118179 "/ 快速插入支持的内容类型缩写")
+        *   [使用文档工具栏](https://www.feishu.cn/hc/zh-CN/articles/050365968090 "使用文档工具栏")
+        *   [在文档中使用查找和替换功能](https://www.feishu.cn/hc/zh-CN/articles/191994006277 "在文档中使用查找和替换功能")
+        *   [设置文档章节标题与目录](https://www.feishu.cn/hc/zh-CN/articles/178968744708 "设置文档章节标题与目录")
+        *   [在文档中设置文本样式](https://www.feishu.cn/hc/zh-CN/articles/299406656534 "在文档中设置文本样式")
+        *   [在文档中使用内容块](https://www.feishu.cn/hc/zh-CN/articles/093455583925 "在文档中使用内容块")
+        *   [在文档中添加超链接](https://www.feishu.cn/hc/zh-CN/articles/173087074545 "在文档中添加超链接")
+        *   [在文档中获取并使用锚点链接](https://www.feishu.cn/hc/zh-CN/articles/990666397657 "在文档中获取并使用锚点链接")
+        *   [在文档中设置缩进和对齐](https://www.feishu.cn/hc/zh-CN/articles/614510897297 "在文档中设置缩进和对齐")
+        *   [使用文档的分栏功能](https://www.feishu.cn/hc/zh-CN/articles/501138383591 "使用文档的分栏功能")
+        *   [在文档中使用引用](https://www.feishu.cn/hc/zh-CN/articles/485811754977 "在文档中使用引用")
+        *   [在文档中使用 Markdown](https://www.feishu.cn/hc/zh-CN/articles/118804574721 "在文档中使用 Markdown")
+        *   [在文档中使用有序和无序列表](https://www.feishu.cn/hc/zh-CN/articles/950275915234 "在文档中使用有序和无序列表")
+        *   [在移动端启用离线编辑功能](https://www.feishu.cn/hc/zh-CN/articles/369694430610 "在移动端启用离线编辑功能")
+
+    *   [评论与互动](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001023424869007362) 
+        *   [在文档中使用 @ 功能](https://www.feishu.cn/hc/zh-CN/articles/561128148413 "在文档中使用 @ 功能")
+        *   [在文档中使用评论功能](https://www.feishu.cn/hc/zh-CN/articles/360033768533 "在文档中使用评论功能")
+        *   [在文档中发表私有评论](https://www.feishu.cn/hc/zh-CN/articles/111088238655 "在文档中发表私有评论")
+        *   [管理文档的历史评论](https://www.feishu.cn/hc/zh-CN/articles/141177326495 "管理文档的历史评论")
+        *   [使用文档的修订模式](https://www.feishu.cn/hc/zh-CN/articles/364198000460 "使用文档的修订模式")
+        *   [关注文档更新](https://www.feishu.cn/hc/zh-CN/articles/043453026116 "关注文档更新")
+        *   [使用当前文档通知功能](https://www.feishu.cn/hc/zh-CN/articles/117082248198 "使用当前文档通知功能")
+        *   [查看和还原文档历史记录](https://www.feishu.cn/hc/zh-CN/articles/753686977351 "查看和还原文档历史记录")
+        *   [在文档中使用翻译功能](https://www.feishu.cn/hc/zh-CN/articles/446972352418 "在文档中使用翻译功能")
+        *   [在文档中使用词典功能](https://www.feishu.cn/hc/zh-CN/articles/998910345186 "在文档中使用词典功能")
+        *   [在文档中使用演示模式](https://www.feishu.cn/hc/zh-CN/articles/012802338224 "在文档中使用演示模式")
+        *   [在文档中使用双向链接功能](https://www.feishu.cn/hc/zh-CN/articles/746133328060 "在文档中使用双向链接功能")
+        *   [在文档中使用版本管理功能](https://www.feishu.cn/hc/zh-CN/articles/263283633266 "在文档中使用版本管理功能")
+        *   [在文档中使用局部模板](https://www.feishu.cn/hc/zh-CN/articles/525938261268 "在文档中使用局部模板")
+        *   [使用飞书剪存功能](https://www.feishu.cn/hc/zh-CN/articles/606278856233 "使用飞书剪存功能")
+        *   [在文档中快捷发布订阅号文章](https://www.feishu.cn/hc/zh-CN/articles/070133431681 "在文档中快捷发布订阅号文章")
+        *   [在文档中使用 AI 速览](https://www.feishu.cn/hc/zh-CN/articles/338082285897 "在文档中使用 AI 速览")
+
+    *   [插入多样内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099740780088115202) 
+        *   [在文档中插入图片](https://www.feishu.cn/hc/zh-CN/articles/172132728301 "在文档中插入图片")
+        *   [在文档中插入音视频等文件](https://www.feishu.cn/hc/zh-CN/articles/179223764779 "在文档中插入音视频等文件")
+        *   [在文档中嵌入妙记视频](https://www.feishu.cn/hc/zh-CN/articles/979064987931 "在文档中嵌入妙记视频")
+        *   [在文档中插入表格](https://www.feishu.cn/hc/zh-CN/articles/639833584167 "在文档中插入表格")
+        *   [在文档中插入电子表格](https://www.feishu.cn/hc/zh-CN/articles/176378197082 "在文档中插入电子表格")
+        *   [在文档中引用表格中的数据](https://www.feishu.cn/hc/zh-CN/articles/062169842810 "在文档中引用表格中的数据")
+        *   [在文档中插入高亮块](https://www.feishu.cn/hc/zh-CN/articles/646492863852 "在文档中插入高亮块")
+        *   [在文档中使用同步块](https://www.feishu.cn/hc/zh-CN/articles/479618550246 "在文档中使用同步块")
+        *   [在文档中插入按钮](https://www.feishu.cn/hc/zh-CN/articles/839656564956 "在文档中插入按钮")
+        *   [在文档中使用公式](https://www.feishu.cn/hc/zh-CN/articles/894598450617 "在文档中使用公式")
+        *   [文档支持的公式](https://www.feishu.cn/hc/zh-CN/articles/014150532397 "文档支持的公式")
+        *   [在文档中插入思维导图](https://www.feishu.cn/hc/zh-CN/articles/208000775550 "在文档中插入思维导图")
+        *   [在文档中插入流程图和 UML 图](https://www.feishu.cn/hc/zh-CN/articles/980918978289 "在文档中插入流程图和 UML 图")
+        *   [在文档中插入代码块](https://www.feishu.cn/hc/zh-CN/articles/603012886054 "在文档中插入代码块")
+        *   [在文档中创建和管理任务](https://www.feishu.cn/hc/zh-CN/articles/545362352539 "在文档中创建和管理任务")
+        *   [在文档中插入 OKR](https://www.feishu.cn/hc/zh-CN/articles/667793185547 "在文档中插入 OKR")
+        *   [在文档中插入投票](https://www.feishu.cn/hc/zh-CN/articles/716434036878 "在文档中插入投票")
+        *   [在文档中插入信息收集](https://www.feishu.cn/hc/zh-CN/articles/714555958954 "在文档中插入信息收集")
+        *   [在文档中插入网页链接](https://www.feishu.cn/hc/zh-CN/articles/024005464952 "在文档中插入网页链接")
+        *   [在文档中插入订阅号文章](https://www.feishu.cn/hc/zh-CN/articles/427724143516 "在文档中插入订阅号文章")
+        *   [在文档中插入并设置倒计时](https://www.feishu.cn/hc/zh-CN/articles/442582079971 "在文档中插入并设置倒计时")
+        *   [在文档中插入日程卡片](https://www.feishu.cn/hc/zh-CN/articles/843590202632 "在文档中插入日程卡片")
+        *   [在文档中嵌入视频](https://www.feishu.cn/hc/zh-CN/articles/635939752168 "在文档中嵌入视频")
+        *   [在文档中插入即梦AI](https://www.feishu.cn/hc/zh-CN/articles/083326245649 "在文档中插入即梦AI")
+        *   [在文档中嵌入 Figma](https://www.feishu.cn/hc/zh-CN/articles/263760646259 "在文档中嵌入 Figma")
+        *   [在文档中嵌入墨刀](https://www.feishu.cn/hc/zh-CN/articles/872950051324 "在文档中嵌入墨刀")
+        *   [在文档中嵌入 Canva 可画](https://www.feishu.cn/hc/zh-CN/articles/222254376397 "在文档中嵌入 Canva 可画")
+        *   [在文档中嵌入码上掘金](https://www.feishu.cn/hc/zh-CN/articles/072050591742 "在文档中嵌入码上掘金")
+        *   [在文档中嵌入 CodePen](https://www.feishu.cn/hc/zh-CN/articles/158980222988 "在文档中嵌入 CodePen")
+        *   [在文档中嵌入飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/846070051679 "在文档中嵌入飞书问卷")
+        *   [在文档中嵌入金数据](https://www.feishu.cn/hc/zh-CN/articles/192962990681 "在文档中嵌入金数据")
+        *   [在文档中嵌入 Airtable](https://www.feishu.cn/hc/zh-CN/articles/810399308900 "在文档中嵌入 Airtable")
+        *   [在文档中嵌入地图](https://www.feishu.cn/hc/zh-CN/articles/834338547884 "在文档中嵌入地图")
+
+    *   [文档画板](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7229631290419871746) 
+        *   [创建或插入画板](https://www.feishu.cn/hc/zh-CN/articles/094832636759 "创建或插入画板")
+        *   [画板模板库介绍](https://www.feishu.cn/hc/zh-CN/articles/688002883870 "画板模板库介绍")
+        *   [使用画板社区模板](https://www.feishu.cn/hc/zh-CN/articles/668377664091 "使用画板社区模板")
+        *   [调整画板基础配置](https://www.feishu.cn/hc/zh-CN/articles/629258080541 "调整画板基础配置")
+        *   [编辑画板](https://www.feishu.cn/hc/zh-CN/articles/725144504032 "编辑画板")
+        *   [在画板中使用图形](https://www.feishu.cn/hc/zh-CN/articles/696582613898 "在画板中使用图形")
+        *   [在画板中批量排版图形](https://www.feishu.cn/hc/zh-CN/articles/092268021432 "在画板中批量排版图形")
+        *   [在画板中使用素材](https://www.feishu.cn/hc/zh-CN/articles/547991845172 "在画板中使用素材")
+        *   [在画板中添加图片](https://www.feishu.cn/hc/zh-CN/articles/326570213852 "在画板中添加图片")
+        *   [在画板中使用连线](https://www.feishu.cn/hc/zh-CN/articles/132979810163 "在画板中使用连线")
+        *   [在画板中插入分区](https://www.feishu.cn/hc/zh-CN/articles/084151501421 "在画板中插入分区")
+        *   [在画板中插入便签](https://www.feishu.cn/hc/zh-CN/articles/874281326260 "在画板中插入便签")
+        *   [在画板中插入思维导图](https://www.feishu.cn/hc/zh-CN/articles/728977871585 "在画板中插入思维导图")
+        *   [在画板中插入泳道图](https://www.feishu.cn/hc/zh-CN/articles/689348483926 "在画板中插入泳道图")
+        *   [使用 PlantUML 代码绘图](https://www.feishu.cn/hc/zh-CN/articles/558374236036 "使用 PlantUML 代码绘图")
+        *   [将流程图、UML 图升级为画板](https://www.feishu.cn/hc/zh-CN/articles/044044598089 "将流程图、UML 图升级为画板")
+        *   [使用画板的手绘工具](https://www.feishu.cn/hc/zh-CN/articles/255766186128 "使用画板的手绘工具")
+        *   [翻译画板内容](https://www.feishu.cn/hc/zh-CN/articles/518046367492 "翻译画板内容")
+        *   [在画板中导出内容](https://www.feishu.cn/hc/zh-CN/articles/553971997356 "在画板中导出内容")
+        *   [从外部导入内容至画板](https://www.feishu.cn/hc/zh-CN/articles/018852745122 "从外部导入内容至画板")
+        *   [在画板中搜索、替换文本](https://www.feishu.cn/hc/zh-CN/articles/274864138340 "在画板中搜索、替换文本")
+        *   [在画板中评论与协作](https://www.feishu.cn/hc/zh-CN/articles/924390145762 "在画板中评论与协作")
+        *   [画板常见问题](https://www.feishu.cn/hc/zh-CN/articles/403309346067 "画板常见问题")
+        *   [移动端画板操作说明](https://www.feishu.cn/hc/zh-CN/articles/758840394486 "移动端画板操作说明")
+
+    *   [文档小组件](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7202821021475684380) 
+        *   [文档小组件简介](https://www.feishu.cn/hc/zh-CN/articles/799229201268 "文档小组件简介")
+        *   [使用目录导航小组件](https://www.feishu.cn/hc/zh-CN/articles/508843291189 "使用目录导航小组件")
+        *   [使用时间轴小组件](https://www.feishu.cn/hc/zh-CN/articles/429331890039 "使用时间轴小组件")
+        *   [使用文本绘图小组件](https://www.feishu.cn/hc/zh-CN/articles/496118428959 "使用文本绘图小组件")
+        *   [使用批量设置格式小组件](https://www.feishu.cn/hc/zh-CN/articles/591902762640 "使用批量设置格式小组件")
+        *   [使用文字排版助手小组件](https://www.feishu.cn/hc/zh-CN/articles/317905737314 "使用文字排版助手小组件")
+        *   [使用词条助手小组件](https://www.feishu.cn/hc/zh-CN/articles/763432377121 "使用词条助手小组件")
+        *   [使用飞书快译小组件](https://www.feishu.cn/hc/zh-CN/articles/280042323002 "使用飞书快译小组件")
+
+*   [表格](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571630690305) 
+    *   [基础编辑](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025284031905793) 
+        *   [快速上手表格](https://www.feishu.cn/hc/zh-CN/articles/112470838712 "快速上手表格")
+        *   [导入和转换 Excel 或 CSV 格式文件](https://www.feishu.cn/hc/zh-CN/articles/306848842493 "导入和转换 Excel 或 CSV 格式文件")
+        *   [下载飞书表格](https://www.feishu.cn/hc/zh-CN/articles/108206853774 "下载飞书表格")
+        *   [使用表格的工具栏](https://www.feishu.cn/hc/zh-CN/articles/594614613907 "使用表格的工具栏")
+        *   [设置表格剪贴板权限](https://www.feishu.cn/hc/zh-CN/articles/846833019507 "设置表格剪贴板权限")
+        *   [查看和还原表格历史记录](https://www.feishu.cn/hc/zh-CN/articles/360049067454 "查看和还原表格历史记录")
+        *   [在表格中插入或删除行、列和单元格](https://www.feishu.cn/hc/zh-CN/articles/360049067459 "在表格中插入或删除行、列和单元格")
+        *   [在表格中调整行高和列宽](https://www.feishu.cn/hc/zh-CN/articles/554220835072 "在表格中调整行高和列宽")
+        *   [在表格中删除重复项](https://www.feishu.cn/hc/zh-CN/articles/391395621666 "在表格中删除重复项")
+        *   [在表格中使用选择性粘贴](https://www.feishu.cn/hc/zh-CN/articles/650111142222 "在表格中使用选择性粘贴")
+        *   [在表格中使用自定义排序](https://www.feishu.cn/hc/zh-CN/articles/778926611947 "在表格中使用自定义排序")
+        *   [在表格中查看单元格历史记录](https://www.feishu.cn/hc/zh-CN/articles/333564047986 "在表格中查看单元格历史记录")
+        *   [在表格中使用版本管理](https://www.feishu.cn/hc/zh-CN/articles/895547707871 "在表格中使用版本管理")
+        *   [表格常见问题](https://www.feishu.cn/hc/zh-CN/articles/936038569701 "表格常见问题")
+
+    *   [图表](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7166528109800554524) 
+        *   [表格的图表类型介绍](https://www.feishu.cn/hc/zh-CN/articles/360024868314 "表格的图表类型介绍")
+        *   [在表格中编辑图表的横轴与纵轴](https://www.feishu.cn/hc/zh-CN/articles/890239323043 "在表格中编辑图表的横轴与纵轴")
+        *   [将表格图表粘贴至文档中](https://www.feishu.cn/hc/zh-CN/articles/480980460926 "将表格图表粘贴至文档中")
+        *   [在表格中插入柱状图](https://www.feishu.cn/hc/zh-CN/articles/924494730577 "在表格中插入柱状图")
+        *   [在表格中插入折线图](https://www.feishu.cn/hc/zh-CN/articles/093144056319 "在表格中插入折线图")
+        *   [在表格中插入饼图](https://www.feishu.cn/hc/zh-CN/articles/064715913872 "在表格中插入饼图")
+        *   [在表格中插入条形图](https://www.feishu.cn/hc/zh-CN/articles/638420564515 "在表格中插入条形图")
+        *   [表格面积图](https://www.feishu.cn/hc/zh-CN/articles/083338034261 "表格面积图")
+        *   [在表格中插入散点图](https://www.feishu.cn/hc/zh-CN/articles/968394731609 "在表格中插入散点图")
+        *   [在表格中插入气泡图](https://www.feishu.cn/hc/zh-CN/articles/303452241664 "在表格中插入气泡图")
+        *   [在表格中插入组合图](https://www.feishu.cn/hc/zh-CN/articles/265612775315 "在表格中插入组合图")
+        *   [表格雷达图](https://www.feishu.cn/hc/zh-CN/articles/352365254274 "表格雷达图")
+        *   [在表格中插入词云图](https://www.feishu.cn/hc/zh-CN/articles/822045426080 "在表格中插入词云图")
+        *   [在表格中插入漏斗图](https://www.feishu.cn/hc/zh-CN/articles/931689053009 "在表格中插入漏斗图")
+        *   [表格排列图](https://www.feishu.cn/hc/zh-CN/articles/730061596105 "表格排列图")
+        *   [表格瀑布图](https://www.feishu.cn/hc/zh-CN/articles/858691598826 "表格瀑布图")
+        *   [表格迷你图](https://www.feishu.cn/hc/zh-CN/articles/081828055062 "表格迷你图")
+
+    *   [数据样式与格式](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025456754180124) 
+        *   [在表格中使用数据验证](https://www.feishu.cn/hc/zh-CN/articles/166812667987 "在表格中使用数据验证")
+        *   [在表格中使用条件格式](https://www.feishu.cn/hc/zh-CN/articles/360049067529 "在表格中使用条件格式")
+        *   [在表格中使用智能填充](https://www.feishu.cn/hc/zh-CN/articles/417938854678 "在表格中使用智能填充")
+        *   [为单元格内的局部内容设置样式](https://www.feishu.cn/hc/zh-CN/articles/947298221311 "为单元格内的局部内容设置样式 ")
+        *   [自定义单元格数字格式](https://www.feishu.cn/hc/zh-CN/articles/351833304508 "自定义单元格数字格式")
+        *   [在表格中调整文本格式](https://www.feishu.cn/hc/zh-CN/articles/292932475211 "在表格中调整文本格式")
+        *   [在表格中设置文本换行](https://www.feishu.cn/hc/zh-CN/articles/360033241354 "在表格中设置文本换行")
+        *   [在表格中使用文本对齐](https://www.feishu.cn/hc/zh-CN/articles/175041461404 "在表格中使用文本对齐")
+        *   [在表格中设置数据格式](https://www.feishu.cn/hc/zh-CN/articles/360033771233 "在表格中设置数据格式")
+        *   [在表格中隐藏工作表和行列](https://www.feishu.cn/hc/zh-CN/articles/407375351801 "在表格中隐藏工作表和行列")
+        *   [在表格中使用数据分列](https://www.feishu.cn/hc/zh-CN/articles/704196629179 "在表格中使用数据分列")
+        *   [在表格中使用行列分组](https://www.feishu.cn/hc/zh-CN/articles/786653931891 "在表格中使用行列分组")
+        *   [在表格中使用行列转置](https://www.feishu.cn/hc/zh-CN/articles/654713164526 "在表格中使用行列转置")
+        *   [设置表格边框线](https://www.feishu.cn/hc/zh-CN/articles/271143096822 "设置表格边框线")
+        *   [表格条件格式自定义公式实用案例](https://www.feishu.cn/hc/zh-CN/articles/569227825031 "表格条件格式自定义公式实用案例")
+        *   [使用条件格式中的百分比和百分点值](https://www.feishu.cn/hc/zh-CN/articles/015451255587 "使用条件格式中的百分比和百分点值")
+
+    *   [插入内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025379154657281) 
+        *   [在表格中使用复选框](https://www.feishu.cn/hc/zh-CN/articles/360049067956 "在表格中使用复选框")
+        *   [在表格中使用下拉列表](https://www.feishu.cn/hc/zh-CN/articles/360024868414 "在表格中使用下拉列表")
+        *   [在表格中插入日期提醒](https://www.feishu.cn/hc/zh-CN/articles/360049067673 "在表格中插入日期提醒")
+        *   [在表格中插入图片](https://www.feishu.cn/hc/zh-CN/articles/360033771293 "在表格中插入图片")
+        *   [在表格中使用定位链接](https://www.feishu.cn/hc/zh-CN/articles/360049067872 "在表格中使用定位链接")
+        *   [在表格中添加附件](https://www.feishu.cn/hc/zh-CN/articles/360049068037 "在表格中添加附件")
+        *   [在表格里进行评论](https://www.feishu.cn/hc/zh-CN/articles/360025021493 "在表格里进行评论")
+
+    *   [数据与函数](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025543218921474) 
+        *   [基础介绍](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336916461920763905) 
+            *   [使用表格函数](https://www.feishu.cn/hc/zh-CN/articles/360025092793 "使用表格函数")
+            *   [表格函数大全](https://www.feishu.cn/hc/zh-CN/articles/612277190803 "表格函数大全")
+            *   [跨表格引用数据](https://www.feishu.cn/hc/zh-CN/articles/796499086024 "跨表格引用数据")
+            *   [筛选表格内容](https://www.feishu.cn/hc/zh-CN/articles/360024868694 "筛选表格内容")
+            *   [在表格中使用筛选视图](https://www.feishu.cn/hc/zh-CN/articles/360049067640 "在表格中使用筛选视图")
+            *   [正则语法](https://www.feishu.cn/hc/zh-CN/articles/088019936950 "正则语法")
+            *   [表格单元格绿标的常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067746 "表格单元格绿标的常见问题")
+            *   [引用企业内已有标签库为数据打标签](https://www.feishu.cn/hc/zh-CN/articles/183236313606 "引用企业内已有标签库为数据打标签")
+
+        *   [日期函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005117672971321346) 
+            *   [DATE 函数](https://www.feishu.cn/hc/zh-CN/articles/003767346268 "DATE 函数")
+            *   [表格 DATEDIF 函数](https://www.feishu.cn/hc/zh-CN/articles/898300276702 "表格 DATEDIF 函数")
+            *   [DATEVALUE 函数](https://www.feishu.cn/hc/zh-CN/articles/670736853855 "DATEVALUE 函数")
+            *   [DAY 函数](https://www.feishu.cn/hc/zh-CN/articles/938818225350 "DAY 函数")
+            *   [DAYS 函数](https://www.feishu.cn/hc/zh-CN/articles/087372818343 "DAYS 函数")
+            *   [DAYS360 函数](https://www.feishu.cn/hc/zh-CN/articles/479956133090 "DAYS360 函数")
+            *   [EDATE 函数](https://www.feishu.cn/hc/zh-CN/articles/351714523382 "EDATE 函数")
+            *   [EOMONTH 函数](https://www.feishu.cn/hc/zh-CN/articles/135851535423 "EOMONTH 函数")
+            *   [HOUR 函数](https://www.feishu.cn/hc/zh-CN/articles/722209279009 "HOUR 函数")
+            *   [MINUTE 函数](https://www.feishu.cn/hc/zh-CN/articles/099089682727 "MINUTE 函数")
+            *   [MONTH 函数](https://www.feishu.cn/hc/zh-CN/articles/844544902104 "MONTH 函数")
+            *   [NETWORKDAYS 函数](https://www.feishu.cn/hc/zh-CN/articles/780135489353 "NETWORKDAYS 函数")
+            *   [使用表格 NETWORKDAYS.INTL 函数](https://www.feishu.cn/hc/zh-CN/articles/128093572918 "使用表格 NETWORKDAYS.INTL 函数")
+            *   [NOW 函数](https://www.feishu.cn/hc/zh-CN/articles/261660436431 "NOW 函数")
+            *   [SECOND 函数](https://www.feishu.cn/hc/zh-CN/articles/119574334060 "SECOND 函数")
+            *   [TIME 函数](https://www.feishu.cn/hc/zh-CN/articles/062748913127 "TIME 函数")
+            *   [TIMEVALUE 函数](https://www.feishu.cn/hc/zh-CN/articles/587395494992 "TIMEVALUE 函数")
+            *   [TODAY 函数](https://www.feishu.cn/hc/zh-CN/articles/923987364545 "TODAY 函数")
+            *   [表格 WEEKDAY 函数](https://www.feishu.cn/hc/zh-CN/articles/855949394928 "表格 WEEKDAY 函数")
+            *   [WEEKNUM 函数](https://www.feishu.cn/hc/zh-CN/articles/780262401024 "WEEKNUM 函数")
+            *   [WORKDAY 函数](https://www.feishu.cn/hc/zh-CN/articles/425368568692 "WORKDAY 函数")
+            *   [WORKDAY.INTL 函数](https://www.feishu.cn/hc/zh-CN/articles/868777318867 "WORKDAY.INTL 函数")
+            *   [YEAR 函数](https://www.feishu.cn/hc/zh-CN/articles/622655979330 "YEAR 函数")
+            *   [YEARFRAC 函数](https://www.feishu.cn/hc/zh-CN/articles/885380240925 "YEARFRAC 函数")
+
+        *   [信息函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005117897290874882) 
+            *   [CELL 函数](https://www.feishu.cn/hc/zh-CN/articles/464983979758 "CELL 函数")
+            *   [ERROR.TYPE 函数](https://www.feishu.cn/hc/zh-CN/articles/924212176024 "ERROR.TYPE 函数")
+            *   [IS 检查系列函数](https://www.feishu.cn/hc/zh-CN/articles/838368166535 "IS 检查系列函数")
+            *   [NA 函数](https://www.feishu.cn/hc/zh-CN/articles/054633310858 "NA 函数")
+            *   [TYPE 函数](https://www.feishu.cn/hc/zh-CN/articles/950979410078 "TYPE 函数")
+
+        *   [逻辑函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005117975430692892) 
+            *   [AND 函数](https://www.feishu.cn/hc/zh-CN/articles/069146076363 "AND 函数")
+            *   [FALSE 函数](https://www.feishu.cn/hc/zh-CN/articles/848487054031 "FALSE 函数")
+            *   [表格 IFS 函数](https://www.feishu.cn/hc/zh-CN/articles/935102336542 "表格 IFS 函数")
+            *   [IF 函数](https://www.feishu.cn/hc/zh-CN/articles/852204656534 "IF 函数")
+            *   [IFERROR 函数](https://www.feishu.cn/hc/zh-CN/articles/667326172419 "IFERROR 函数")
+            *   [IFNA 函数](https://www.feishu.cn/hc/zh-CN/articles/988523533738 "IFNA 函数")
+            *   [NOT 函数](https://www.feishu.cn/hc/zh-CN/articles/777853932027 "NOT 函数")
+            *   [OR 函数](https://www.feishu.cn/hc/zh-CN/articles/049878120682 "OR 函数")
+            *   [SWITCH 函数](https://www.feishu.cn/hc/zh-CN/articles/763009427590 "SWITCH 函数")
+            *   [TRUE 函数](https://www.feishu.cn/hc/zh-CN/articles/012923280621 "TRUE 函数")
+
+        *   [查找函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118069160919042) 
+            *   [查找类函数使用说明](https://www.feishu.cn/hc/zh-CN/articles/358299388716 "查找类函数使用说明")
+            *   [ADDRESS 函数](https://www.feishu.cn/hc/zh-CN/articles/578049009266 "ADDRESS 函数")
+            *   [AREAS 函数](https://www.feishu.cn/hc/zh-CN/articles/492173658695 "AREAS 函数")
+            *   [COLUMN 函数](https://www.feishu.cn/hc/zh-CN/articles/869581872255 "COLUMN 函数")
+            *   [CHOOSE 函数](https://www.feishu.cn/hc/zh-CN/articles/710985012102 "CHOOSE 函数")
+            *   [表格 GETPIVOTDATA 函数](https://www.feishu.cn/hc/zh-CN/articles/833840961271 "表格 GETPIVOTDATA 函数")
+            *   [使用表格 FILTER 函数](https://www.feishu.cn/hc/zh-CN/articles/606507841883 "使用表格 FILTER 函数")
+            *   [FORMULATEXT 函数](https://www.feishu.cn/hc/zh-CN/articles/599250232881 "FORMULATEXT 函数")
+            *   [HLOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/919667533947 "HLOOKUP 函数")
+            *   [使用表格 IMPORTRANGE 函数](https://www.feishu.cn/hc/zh-CN/articles/031622260249 "使用表格 IMPORTRANGE 函数")
+            *   [INDEX 函数](https://www.feishu.cn/hc/zh-CN/articles/249546719735 "INDEX 函数")
+            *   [使用表格 INDIRECT 函数](https://www.feishu.cn/hc/zh-CN/articles/405463391221 "使用表格 INDIRECT 函数")
+            *   [OFFSET 函数](https://www.feishu.cn/hc/zh-CN/articles/178428465536 "OFFSET 函数")
+            *   [REGEX 函数](https://www.feishu.cn/hc/zh-CN/articles/744890843492 "REGEX 函数")
+            *   [LOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/658075027297 "LOOKUP 函数")
+            *   [MATCH 函数](https://www.feishu.cn/hc/zh-CN/articles/514663479434 "MATCH 函数")
+            *   [ROWS 函数](https://www.feishu.cn/hc/zh-CN/articles/195704626697 "ROWS 函数")
+            *   [ROW 函数](https://www.feishu.cn/hc/zh-CN/articles/881836499869 "ROW 函数")
+            *   [SORT 函数](https://www.feishu.cn/hc/zh-CN/articles/989438308026 "SORT 函数")
+            *   [TRANSPOSE 函数](https://www.feishu.cn/hc/zh-CN/articles/521151658260 "TRANSPOSE 函数")
+            *   [表格 VLOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/792448816568 "表格 VLOOKUP 函数")
+            *   [为什么表格 VLOOKUP 查找不到结果？](https://www.feishu.cn/hc/zh-CN/articles/360049067747 "为什么表格 VLOOKUP 查找不到结果？")
+
+        *   [数学函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7346205784722096156) 
+            *   [COMBIN 函数](https://www.feishu.cn/hc/zh-CN/articles/211265168667 "COMBIN 函数")
+            *   [COUNTBLANK 函数](https://www.feishu.cn/hc/zh-CN/articles/662252335061 "COUNTBLANK 函数")
+            *   [LOG10 函数](https://www.feishu.cn/hc/zh-CN/articles/642006197217 "LOG10 函数")
+            *   [SUM 函数](https://www.feishu.cn/hc/zh-CN/articles/964391158474 "SUM 函数")
+            *   [使用表格 SUMIF 函数](https://www.feishu.cn/hc/zh-CN/articles/266533852035 "使用表格 SUMIF 函数")
+            *   [使用表格 SUMIFS 函数](https://www.feishu.cn/hc/zh-CN/articles/907156750196 "使用表格 SUMIFS 函数")
+
+        *   [运算符函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118144645808129) 
+            *   [CONCAT 函数](https://www.feishu.cn/hc/zh-CN/articles/971299243140 "CONCAT 函数")
+            *   [CONCATENATE 函数](https://www.feishu.cn/hc/zh-CN/articles/393734166735 "CONCATENATE 函数")
+
+        *   [统计函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118272706215937) 
+            *   [AVEDEV 函数](https://www.feishu.cn/hc/zh-CN/articles/269247609693 "AVEDEV 函数")
+            *   [AVERAGE 函数](https://www.feishu.cn/hc/zh-CN/articles/274982571236 "AVERAGE 函数")
+            *   [表格 AVERAGEIF 函数](https://www.feishu.cn/hc/zh-CN/articles/182227319316 "表格 AVERAGEIF 函数")
+            *   [表格 AVERAGEIFS 函数](https://www.feishu.cn/hc/zh-CN/articles/310343589276 "表格 AVERAGEIFS 函数")
+            *   [BETA.DIST 函数](https://www.feishu.cn/hc/zh-CN/articles/249573243257 "BETA.DIST 函数")
+            *   [BETA.INV 函数](https://www.feishu.cn/hc/zh-CN/articles/420271450231 "BETA.INV 函数")
+            *   [COUNT 函数](https://www.feishu.cn/hc/zh-CN/articles/876394118507 "COUNT 函数")
+            *   [COUNTA 函数](https://www.feishu.cn/hc/zh-CN/articles/947958003325 "COUNTA 函数")
+            *   [表格 COUNTIF 函数](https://www.feishu.cn/hc/zh-CN/articles/937903503570 "表格 COUNTIF 函数")
+            *   [表格 COUNTIFS 函数](https://www.feishu.cn/hc/zh-CN/articles/905998359022 "表格 COUNTIFS 函数")
+            *   [CONVERT 函数](https://www.feishu.cn/hc/zh-CN/articles/052781507364 "CONVERT 函数")
+            *   [GAMMA.DIST 函数](https://www.feishu.cn/hc/zh-CN/articles/975544273977 "GAMMA.DIST 函数")
+            *   [GAMMA.INV 函数](https://www.feishu.cn/hc/zh-CN/articles/217601150206 "GAMMA.INV 函数")
+            *   [GAMMALN 函数](https://www.feishu.cn/hc/zh-CN/articles/795330194864 "GAMMALN 函数")
+            *   [GAMMALN.PRECISE 函数](https://www.feishu.cn/hc/zh-CN/articles/782921429675 "GAMMALN.PRECISE 函数")
+            *   [INTERCEPT 函数](https://www.feishu.cn/hc/zh-CN/articles/723427151739 "INTERCEPT 函数")
+            *   [LARGE 函数](https://www.feishu.cn/hc/zh-CN/articles/533764792716 "LARGE 函数")
+            *   [MAX 函数](https://www.feishu.cn/hc/zh-CN/articles/311289877757 "MAX 函数")
+            *   [MAXA 函数](https://www.feishu.cn/hc/zh-CN/articles/401989451812 "MAXA 函数")
+            *   [MIN 函数](https://www.feishu.cn/hc/zh-CN/articles/705263019388 "MIN 函数")
+            *   [MINA 函数](https://www.feishu.cn/hc/zh-CN/articles/089347318738 "MINA 函数")
+            *   [MEDIAN 函数](https://www.feishu.cn/hc/zh-CN/articles/241642815792 "MEDIAN 函数")
+            *   [MODE 函数](https://www.feishu.cn/hc/zh-CN/articles/762767362194 "MODE 函数")
+            *   [MODE.MULT 函数](https://www.feishu.cn/hc/zh-CN/articles/289559738570 "MODE.MULT 函数")
+            *   [MODE.SNGL 函数](https://www.feishu.cn/hc/zh-CN/articles/570527628488 "MODE.SNGL 函数")
+            *   [NORM.S.DIST 函数](https://www.feishu.cn/hc/zh-CN/articles/804053713628 "NORM.S.DIST 函数")
+            *   [NORM.S.INV 函数](https://www.feishu.cn/hc/zh-CN/articles/949722511775 "NORM.S.INV 函数")
+            *   [PERCENTRANK 函数](https://www.feishu.cn/hc/zh-CN/articles/813687562584 "PERCENTRANK 函数")
+            *   [PERCENTILE 函数](https://www.feishu.cn/hc/zh-CN/articles/054327997558 "PERCENTILE 函数")
+            *   [QUARTILE 函数](https://www.feishu.cn/hc/zh-CN/articles/810849498500 "QUARTILE 函数")
+            *   [RANK.AVG 函数](https://www.feishu.cn/hc/zh-CN/articles/316173926152 "RANK.AVG 函数")
+            *   [RANK. EQ 函数](https://www.feishu.cn/hc/zh-CN/articles/395949449416 "RANK. EQ 函数 ")
+            *   [SMALL 函数](https://www.feishu.cn/hc/zh-CN/articles/974195508172 "SMALL 函数")
+            *   [TRIMMEAN 函数](https://www.feishu.cn/hc/zh-CN/articles/675471949119 "TRIMMEAN 函数")
+
+        *   [文本函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118212685807618) 
+            *   [ASC 函数](https://www.feishu.cn/hc/zh-CN/articles/912188599332 "ASC 函数")
+            *   [CHAR 函数](https://www.feishu.cn/hc/zh-CN/articles/908981543159 "CHAR 函数")
+            *   [CLEAN 函数](https://www.feishu.cn/hc/zh-CN/articles/414076131844 "CLEAN 函数")
+            *   [EXACT 函数](https://www.feishu.cn/hc/zh-CN/articles/497249007793 "EXACT 函数")
+            *   [FIND 函数](https://www.feishu.cn/hc/zh-CN/articles/236594520955 "FIND 函数")
+            *   [FIXED 函数](https://www.feishu.cn/hc/zh-CN/articles/735797855580 "FIXED 函数")
+            *   [LEN 函数](https://www.feishu.cn/hc/zh-CN/articles/476574618338 "LEN 函数")
+            *   [LEFT 函数](https://www.feishu.cn/hc/zh-CN/articles/510643844292 "LEFT 函数")
+            *   [LOWER 函数](https://www.feishu.cn/hc/zh-CN/articles/812894461033 "LOWER 函数")
+            *   [MID 函数](https://www.feishu.cn/hc/zh-CN/articles/115826432443 "MID 函数")
+            *   [PROPER 函数](https://www.feishu.cn/hc/zh-CN/articles/587943503115 "PROPER 函数")
+            *   [REPLACE 函数](https://www.feishu.cn/hc/zh-CN/articles/149449981751 "REPLACE 函数")
+            *   [REPT 函数](https://www.feishu.cn/hc/zh-CN/articles/459426879750 "REPT 函数")
+            *   [RIGHT 函数](https://www.feishu.cn/hc/zh-CN/articles/582526252236 "RIGHT 函数")
+            *   [SEARCH 函数](https://www.feishu.cn/hc/zh-CN/articles/711640638701 "SEARCH 函数")
+            *   [使用表格 SPLIT 函数](https://www.feishu.cn/hc/zh-CN/articles/429400442849 "使用表格 SPLIT 函数")
+            *   [SUBSTITUTE 函数](https://www.feishu.cn/hc/zh-CN/articles/062922769572 "SUBSTITUTE 函数")
+            *   [TEXTJOIN 函数](https://www.feishu.cn/hc/zh-CN/articles/972982053080 "TEXTJOIN 函数")
+            *   [TRIM 函数](https://www.feishu.cn/hc/zh-CN/articles/632120195721 "TRIM 函数")
+            *   [UPPER 函数](https://www.feishu.cn/hc/zh-CN/articles/656905447997 "UPPER 函数")
+            *   [VALUE 函数](https://www.feishu.cn/hc/zh-CN/articles/293510504978 "VALUE 函数")
+
+        *   [财务函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118433977253890) 
+            *   [ACCRINTM 函数](https://www.feishu.cn/hc/zh-CN/articles/218878481920 "ACCRINTM 函数")
+            *   [COUPDAYBS 函数](https://www.feishu.cn/hc/zh-CN/articles/207489370728 "COUPDAYBS 函数")
+            *   [COUPDAYS 函数](https://www.feishu.cn/hc/zh-CN/articles/823602379805 "COUPDAYS 函数")
+            *   [COUPDAYSNC 函数](https://www.feishu.cn/hc/zh-CN/articles/233189165159 "COUPDAYSNC 函数")
+            *   [COUPNCD 函数](https://www.feishu.cn/hc/zh-CN/articles/366807435365 "COUPNCD 函数")
+            *   [COUPNUM 函数](https://www.feishu.cn/hc/zh-CN/articles/520539409055 "COUPNUM 函数")
+            *   [COUPPCD 函数](https://www.feishu.cn/hc/zh-CN/articles/695014442551 "COUPPCD 函数")
+            *   [使用表格 CUMPRINC 函数](https://www.feishu.cn/hc/zh-CN/articles/765466862089 "使用表格 CUMPRINC 函数")
+            *   [DISC 函数](https://www.feishu.cn/hc/zh-CN/articles/525517683506 "DISC 函数")
+            *   [EFFECT 函数](https://www.feishu.cn/hc/zh-CN/articles/882680029262 "EFFECT 函数")
+            *   [FV 函数](https://www.feishu.cn/hc/zh-CN/articles/834021488901 "FV 函数")
+            *   [FVSCHEDULE 函数](https://www.feishu.cn/hc/zh-CN/articles/080415598346 "FVSCHEDULE 函数")
+            *   [IPMT 函数](https://www.feishu.cn/hc/zh-CN/articles/888617649774 "IPMT 函数")
+            *   [IRR 函数](https://www.feishu.cn/hc/zh-CN/articles/668802732413 "IRR 函数")
+            *   [MIRR 函数](https://www.feishu.cn/hc/zh-CN/articles/257426613714 "MIRR 函数")
+            *   [NOMINAL 函数](https://www.feishu.cn/hc/zh-CN/articles/042062266861 "NOMINAL 函数")
+            *   [NPER 函数](https://www.feishu.cn/hc/zh-CN/articles/978336932407 "NPER 函数")
+            *   [NPV 函数](https://www.feishu.cn/hc/zh-CN/articles/852717556197 "NPV 函数")
+            *   [PMT 函数](https://www.feishu.cn/hc/zh-CN/articles/985517759522 "PMT 函数")
+            *   [PPMT 函数](https://www.feishu.cn/hc/zh-CN/articles/684677259922 "PPMT 函数")
+            *   [PV 函数](https://www.feishu.cn/hc/zh-CN/articles/035813788361 "PV 函数")
+            *   [RATE 函数](https://www.feishu.cn/hc/zh-CN/articles/065900006928 "RATE 函数")
+            *   [XIRR 函数](https://www.feishu.cn/hc/zh-CN/articles/229783860050 "XIRR 函数")
+            *   [XNPV 函数](https://www.feishu.cn/hc/zh-CN/articles/536115928980 "XNPV 函数")
+
+        *   [工程函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118349130661916) 
+            *   [使用表格 BIN2DEC 函数](https://www.feishu.cn/hc/zh-CN/articles/190112746610 "使用表格 BIN2DEC 函数")
+            *   [BIN2HEX 函数](https://www.feishu.cn/hc/zh-CN/articles/745875342894 "BIN2HEX 函数")
+            *   [BIN2OCT 函数](https://www.feishu.cn/hc/zh-CN/articles/877394626177 "BIN2OCT 函数")
+            *   [COMPLEX 函数](https://www.feishu.cn/hc/zh-CN/articles/188478421027 "COMPLEX 函数")
+            *   [DEC2BIN 函数](https://www.feishu.cn/hc/zh-CN/articles/017837054172 "DEC2BIN 函数")
+            *   [DEC2HEX 函数](https://www.feishu.cn/hc/zh-CN/articles/785544204690 "DEC2HEX 函数")
+            *   [DEC2OCT 函数](https://www.feishu.cn/hc/zh-CN/articles/780981854241 "DEC2OCT 函数")
+            *   [DELTA 函数](https://www.feishu.cn/hc/zh-CN/articles/457473402900 "DELTA 函数")
+            *   [ERF 函数](https://www.feishu.cn/hc/zh-CN/articles/160150142014 "ERF 函数")
+            *   [ERF.PRECISE 函数](https://www.feishu.cn/hc/zh-CN/articles/381446431808 "ERF.PRECISE 函数")
+            *   [GESTEP 函数](https://www.feishu.cn/hc/zh-CN/articles/186732181677 "GESTEP 函数")
+            *   [IMABS 函数](https://www.feishu.cn/hc/zh-CN/articles/017632295904 "IMABS 函数")
+            *   [IMAGINARY 函数](https://www.feishu.cn/hc/zh-CN/articles/519958157570 "IMAGINARY 函数")
+            *   [IMARGUMENT 函数](https://www.feishu.cn/hc/zh-CN/articles/408816794493 "IMARGUMENT 函数")
+            *   [IMCONJUGATE 函数](https://www.feishu.cn/hc/zh-CN/articles/295072186309 "IMCONJUGATE 函数")
+            *   [IMCOS 函数](https://www.feishu.cn/hc/zh-CN/articles/381329958630 "IMCOS 函数")
+            *   [表格 IMDIV 函数](https://www.feishu.cn/hc/zh-CN/articles/429479329974 "表格 IMDIV 函数")
+            *   [IMEXP 函数](https://www.feishu.cn/hc/zh-CN/articles/238424099515 "IMEXP 函数")
+            *   [IMLOG10 函数](https://www.feishu.cn/hc/zh-CN/articles/489295141203 "IMLOG10 函数")
+            *   [IMLOG2 函数](https://www.feishu.cn/hc/zh-CN/articles/388880833235 "IMLOG2 函数")
+            *   [IMPRODUCT 函数](https://www.feishu.cn/hc/zh-CN/articles/216721346822 "IMPRODUCT 函数")
+            *   [IMSUB 函数](https://www.feishu.cn/hc/zh-CN/articles/621585791114 "IMSUB 函数")
+            *   [IMSUM 函数](https://www.feishu.cn/hc/zh-CN/articles/315867963126 "IMSUM 函数")
+
+        *   [实用函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7346210516328710146) 
+            *   [ARRAYFORMULA 函数](https://www.feishu.cn/hc/zh-CN/articles/236677831470 "ARRAYFORMULA 函数")
+            *   [ARRAY_CONSTRAIN 函数](https://www.feishu.cn/hc/zh-CN/articles/586858261531 "ARRAY_CONSTRAIN 函数")
+            *   [表格 QUERY 函数](https://www.feishu.cn/hc/zh-CN/articles/675449882826 "表格 QUERY 函数")
+            *   [UNIQUE 函数](https://www.feishu.cn/hc/zh-CN/articles/497819024542 "UNIQUE 函数")
+            *   [表格 XLOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/683338120981 "表格 XLOOKUP 函数")
+
+        *   [网络函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118910383079425) 
+            *   [IMAGE/IMPORT 类函数的使用说明](https://www.feishu.cn/hc/zh-CN/articles/615377957131 "IMAGE/IMPORT 类函数的使用说明")
+
+    *   [数据透视表](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7143532968488271874) 
+        *   [在表格中创建及使用数据透视表](https://www.feishu.cn/hc/zh-CN/articles/762129829042 "在表格中创建及使用数据透视表")
+        *   [了解数据透视表字段](https://www.feishu.cn/hc/zh-CN/articles/735829815215 "了解数据透视表字段")
+        *   [调整数据透视表中值的汇总方式与显示方式](https://www.feishu.cn/hc/zh-CN/articles/421631180862 "调整数据透视表中值的汇总方式与显示方式")
+        *   [在数据透视表中使用计算字段](https://www.feishu.cn/hc/zh-CN/articles/821125695004 "在数据透视表中使用计算字段")
+        *   [在数据透视表中使用分组功能](https://www.feishu.cn/hc/zh-CN/articles/994262092451 "在数据透视表中使用分组功能")
+        *   [调整数据透视表的展示配置](https://www.feishu.cn/hc/zh-CN/articles/637956233845 "调整数据透视表的展示配置")
+        *   [在数据透视表中使用排序与筛选功能](https://www.feishu.cn/hc/zh-CN/articles/918571271638 "在数据透视表中使用排序与筛选功能")
+        *   [数据透视表最佳实践：销售报表分析](https://www.feishu.cn/hc/zh-CN/articles/243765716631 "数据透视表最佳实践：销售报表分析")
+
+    *   [移动端特色功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001026106048954369) 
+        *   [在移动端表格中使用卡片视图](https://www.feishu.cn/hc/zh-CN/articles/813094348964 "在移动端表格中使用卡片视图")
+        *   [在移动端表格中使用智能截屏](https://www.feishu.cn/hc/zh-CN/articles/303044883543 "在移动端表格中使用智能截屏")
+        *   [在移动端开启表格离线可编辑功能](https://www.feishu.cn/hc/zh-CN/articles/242731268594 "在移动端开启表格离线可编辑功能")
+
+    *   [更多表格功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001026017460486145) 
+        *   [保护表格指定数据范围和工作表](https://www.feishu.cn/hc/zh-CN/articles/442040847648 "保护表格指定数据范围和工作表")
+        *   [将表格转换为多维表格](https://www.feishu.cn/hc/zh-CN/articles/360049067798 "将表格转换为多维表格")
+        *   [在表格中使用快捷键](https://www.feishu.cn/hc/zh-CN/articles/661397729819 "在表格中使用快捷键")
+        *   [在表格中冻结行列](https://www.feishu.cn/hc/zh-CN/articles/360033241094 "在表格中冻结行列")
+        *   [高亮所在行列](https://www.feishu.cn/hc/zh-CN/articles/360049067983 "高亮所在行列")
+        *   [在表格中一键生图](https://www.feishu.cn/hc/zh-CN/articles/617378492202 "在表格中一键生图")
+        *   [在表格中缩放页面比例](https://www.feishu.cn/hc/zh-CN/articles/360049067957 "在表格中缩放页面比例")
+        *   [在表格中设置网格线](https://www.feishu.cn/hc/zh-CN/articles/360049068042 "在表格中设置网格线")
+
+*   [幻灯片](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7299794142421483521) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349135490358132739) 
+        *   [快速上手幻灯片](https://www.feishu.cn/hc/zh-CN/articles/047096658995 "快速上手幻灯片")
+        *   [导入 PPT 格式文件](https://www.feishu.cn/hc/zh-CN/articles/716741320420 "导入 PPT 格式文件")
+        *   [幻灯片功能常见问题](https://www.feishu.cn/hc/zh-CN/articles/176417893128 "幻灯片功能常见问题")
+        *   [查看和还原幻灯片的历史记录](https://www.feishu.cn/hc/zh-CN/articles/666331696886 "查看和还原幻灯片的历史记录")
+        *   [演示幻灯片](https://www.feishu.cn/hc/zh-CN/articles/567559924536 "演示幻灯片")
+        *   [管理 WPS 演示文档](https://www.feishu.cn/hc/zh-CN/articles/141089646910 "管理 WPS 演示文档")
+
+    *   [添加、编辑和整理幻灯片](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349135932374941700) 
+        *   [使用母版和布局](https://www.feishu.cn/hc/zh-CN/articles/590299019774 "使用母版和布局")
+        *   [在幻灯片中使用动画效果](https://www.feishu.cn/hc/zh-CN/articles/085603875342 "在幻灯片中使用动画效果")
+
+    *   [插入对象与设置格式](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349136245207613443) 
+        *   [设置幻灯片中对象的格式](https://www.feishu.cn/hc/zh-CN/articles/442577259086 "设置幻灯片中对象的格式")
+        *   [在幻灯片中使用文本](https://www.feishu.cn/hc/zh-CN/articles/656899575944 "在幻灯片中使用文本")
+        *   [在幻灯片中使用图形](https://www.feishu.cn/hc/zh-CN/articles/931384260513 "在幻灯片中使用图形")
+        *   [在幻灯片中使用图片](https://www.feishu.cn/hc/zh-CN/articles/507330793370 "在幻灯片中使用图片")
+        *   [在幻灯片中使用媒体](https://www.feishu.cn/hc/zh-CN/articles/651003642876 "在幻灯片中使用媒体")
+        *   [在幻灯片中使用图表](https://www.feishu.cn/hc/zh-CN/articles/693487084959 "在幻灯片中使用图表")
+        *   [在幻灯片中使用表格](https://www.feishu.cn/hc/zh-CN/articles/965135094101 "在幻灯片中使用表格")
+        *   [在幻灯片中使用画板](https://www.feishu.cn/hc/zh-CN/articles/421228362939 "在幻灯片中使用画板")
+
+    *   [效率工具](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349136580034363395) 
+        *   [使用幻灯片快捷键](https://www.feishu.cn/hc/zh-CN/articles/058251273274 "使用幻灯片快捷键")
+        *   [幻灯片中的动态辅助线](https://www.feishu.cn/hc/zh-CN/articles/770800296763 "幻灯片中的动态辅助线")
+
+    *   [问题排查](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349136997481086980) 
+        *   [为什么幻灯片中的字号大小在浏览器中无法正确显示？](https://www.feishu.cn/hc/zh-CN/articles/474136185798 "为什么幻灯片中的字号大小在浏览器中无法正确显示？")
+
+*   [思维笔记](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571639177218) 
+    *   [创建和编辑思维笔记](https://www.feishu.cn/hc/zh-CN/articles/360049067714 "创建和编辑思维笔记")
+    *   [在思维笔记中添加、编辑、放大和删除图片](https://www.feishu.cn/hc/zh-CN/articles/360049067710 "在思维笔记中添加、编辑、放大和删除图片")
+    *   [在思维笔记中使用思维导图视图](https://www.feishu.cn/hc/zh-CN/articles/360049067712 "在思维笔记中使用思维导图视图")
+    *   [查看和还原思维笔记历史记录](https://www.feishu.cn/hc/zh-CN/articles/360049067764 "查看和还原思维笔记历史记录")
+    *   [在思维笔记中使用评论](https://www.feishu.cn/hc/zh-CN/articles/069333583062 "在思维笔记中使用评论")
+    *   [在移动端使用思维笔记横屏模式](https://www.feishu.cn/hc/zh-CN/articles/625203850282 "在移动端使用思维笔记横屏模式")
+
+*   [知识库](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960496243344670748) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7232179295807193089) 
+        *   [管理员快速上手飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/134238909902 "管理员快速上手飞书知识库")
+        *   [成员快速上手飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/582922484818 "成员快速上手飞书知识库")
+        *   [创建知识库](https://www.feishu.cn/hc/zh-CN/articles/726520434200 "创建知识库")
+        *   [快速了解知识库权限](https://www.feishu.cn/hc/zh-CN/articles/821998241087 "快速了解知识库权限")
+        *   [知识库不同角色权限说明](https://www.feishu.cn/hc/zh-CN/articles/758901371147 "知识库不同角色权限说明")
+        *   [知识库管理员常见问题](https://www.feishu.cn/hc/zh-CN/articles/573667449126 "知识库管理员常见问题")
+        *   [知识库常见上限](https://www.feishu.cn/hc/zh-CN/articles/052034522061 "知识库常见上限")
+
+    *   [管理知识库](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7232179914768826369) 
+        *   [设置知识库公开范围](https://www.feishu.cn/hc/zh-CN/articles/463577318234 "设置知识库公开范围")
+        *   [设置当前知识库管理员和成员](https://www.feishu.cn/hc/zh-CN/articles/530997871518 "设置当前知识库管理员和成员")
+        *   [修改知识库安全设置](https://www.feishu.cn/hc/zh-CN/articles/195691513854 "修改知识库安全设置")
+        *   [设置知识库的知识问答功能](https://www.feishu.cn/hc/zh-CN/articles/138181848717 "设置知识库的知识问答功能")
+        *   [查看单个知识库使用数据](https://www.feishu.cn/hc/zh-CN/articles/646202576650 "查看单个知识库使用数据")
+        *   [添加关联组织用户为当前知识库成员](https://www.feishu.cn/hc/zh-CN/articles/915346029226 "添加关联组织用户为当前知识库成员")
+        *   [手动将 Confluence 数据迁移至飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/612602911143 "手动将 Confluence 数据迁移至飞书知识库")
+        *   [删除和恢复知识库](https://www.feishu.cn/hc/zh-CN/articles/557043079436 "删除和恢复知识库")
+
+    *   [使用知识库](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7232181960856911900) 
+        *   [在知识库中添加页面](https://www.feishu.cn/hc/zh-CN/articles/434905456243 "在知识库中添加页面")
+        *   [在知识库中使用知识问答](https://www.feishu.cn/hc/zh-CN/articles/143241168260 "在知识库中使用知识问答")
+        *   [移动云文档到知识库](https://www.feishu.cn/hc/zh-CN/articles/874534846817 "移动云文档到知识库")
+        *   [批量操作知识库页面](https://www.feishu.cn/hc/zh-CN/articles/763992129311 "批量操作知识库页面")
+        *   [关注知识库更新动态](https://www.feishu.cn/hc/zh-CN/articles/891296506340 "关注知识库更新动态")
+        *   [对外分享知识库页面](https://www.feishu.cn/hc/zh-CN/articles/490001133435 "对外分享知识库页面")
+        *   [对外分享知识库整体](https://www.feishu.cn/hc/zh-CN/articles/328843312369 "对外分享知识库整体")
+        *   [移动或移除知识库页面](https://www.feishu.cn/hc/zh-CN/articles/836041974410 "移动或移除知识库页面")
+        *   [删除和恢复知识库页面](https://www.feishu.cn/hc/zh-CN/articles/391391198820 "删除和恢复知识库页面")
+
+*   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571664277532) 
+    *   [3 分钟上手高效工作法](https://www.feishu.cn/hc/zh-CN/articles/706821922831 "3 分钟上手高效工作法")
+    *   [如何用模板管理时间，记录生活？](https://www.feishu.cn/hc/zh-CN/articles/360049067609 "如何用模板管理时间，记录生活？")
+    *   [如何使用通用模板助力工作提效？](https://www.feishu.cn/hc/zh-CN/articles/360049067605 "如何使用通用模板助力工作提效？")
+    *   [如何利用模板梳理产品开发迭代](https://www.feishu.cn/hc/zh-CN/articles/360049067607 "如何利用模板梳理产品开发迭代")
+    *   [远程协同，如何使用模板高效办公？](https://www.feishu.cn/hc/zh-CN/articles/360049067604 "远程协同，如何使用模板高效办公？")
+    *   [团建难组织？模板帮你轻松组局](https://www.feishu.cn/hc/zh-CN/articles/360047479054 "团建难组织？模板帮你轻松组局")
+    *   [如何用模板轻松完成市场营销策划案？](https://www.feishu.cn/hc/zh-CN/articles/360049067608 "如何用模板轻松完成市场营销策划案？")
+    *   [为什么模板是人事行政的专属锦囊妙计？](https://www.feishu.cn/hc/zh-CN/articles/360049067606 "为什么模板是人事行政的专属锦囊妙计？")
+    *   [一站式模板解决方案，一篇文档轻松上手项目管理](https://www.feishu.cn/hc/zh-CN/articles/788439364854 "一站式模板解决方案，一篇文档轻松上手项目管理")
+    *   [一站式模板解决方案，全局管理产品生命周期](https://www.feishu.cn/hc/zh-CN/articles/233732874751 "一站式模板解决方案，全局管理产品生命周期")
+    *   [一站式模板解决方案，人力资源全流程管理](https://www.feishu.cn/hc/zh-CN/articles/240318604747 "一站式模板解决方案，人力资源全流程管理")
+    *   [一站式模板解决方案，赢战电商大促活动](https://www.feishu.cn/hc/zh-CN/articles/448336660937 "一站式模板解决方案，赢战电商大促活动")
+    *   [一站式模板解决方案，电商日常运营井井有条](https://www.feishu.cn/hc/zh-CN/articles/899981991149 "一站式模板解决方案，电商日常运营井井有条")
+    *   [免费模板，助你完善五一小长假规划！](https://www.feishu.cn/hc/zh-CN/articles/808143288367 "免费模板，助你完善五一小长假规划！")
+    *   [表格模板，帮你轻松管理大型项目](https://www.feishu.cn/hc/zh-CN/articles/360042127334 "表格模板，帮你轻松管理大型项目")
+    *   [飞书文档，同学们的笔记好帮手](https://www.feishu.cn/hc/zh-CN/articles/437322037063 "飞书文档，同学们的笔记好帮手")
+    *   [提升异地协同办公效率](https://www.feishu.cn/hc/zh-CN/articles/360042493854 "提升异地协同办公效率")
+    *   [会议变革，只需一篇文档](https://www.feishu.cn/hc/zh-CN/articles/499934302882 "会议变革，只需一篇文档")
+    *   [多人审改文档费时费力？云文档开创新玩法](https://www.feishu.cn/hc/zh-CN/articles/360047388654 "多人审改文档费时费力？云文档开创新玩法")
+    *   [米居：用云文档激活团队效能](https://www.feishu.cn/hc/zh-CN/articles/867385204283 "米居：用云文档激活团队效能")
+    *   [画板还能这样用？超多花式“画”法](https://www.feishu.cn/hc/zh-CN/articles/258259270732 "画板还能这样用？超多花式“画”法")
+    *   [多人协作数据单独筛选难？筛选视图功能来了！](https://www.feishu.cn/hc/zh-CN/articles/360049067757 "多人协作数据单独筛选难？筛选视图功能来了！")
+    *   [5 个表格功能，让协作“易于言表”](https://www.feishu.cn/hc/zh-CN/articles/360047476874 "5 个表格功能，让协作“易于言表”")
+    *   [G7：用飞书知识库描绘企业知识蓝图](https://www.feishu.cn/hc/zh-CN/articles/926983754268 "G7：用飞书知识库描绘企业知识蓝图")
+    *   [飞书知识库：构建企业与个人的专属智库](https://www.feishu.cn/hc/zh-CN/articles/807073676453 "飞书知识库：构建企业与个人的专属智库")
+    *   [善用文件夹功能，为团队节省更多人力](https://www.feishu.cn/hc/zh-CN/articles/360049067443 "善用文件夹功能，为团队节省更多人力")
+    *   [游戏研发：敏捷开发项目管理应用](https://www.feishu.cn/hc/zh-CN/articles/168231733610 "游戏研发：敏捷开发项目管理应用")
+    *   [蛋壳肌因：用多维表格打造智慧门店](https://www.feishu.cn/hc/zh-CN/articles/895970180756 "蛋壳肌因：用多维表格打造智慧门店")
+    *   [团队提效：用多维表格联动目标拆解与业务执行](https://www.feishu.cn/hc/zh-CN/articles/152249921044 "团队提效：用多维表格联动目标拆解与业务执行")
+    *   [新媒体内容制作实践：多维表格全流程内容管理](https://www.feishu.cn/hc/zh-CN/articles/975953912537 "新媒体内容制作实践：多维表格全流程内容管理")
+    *   [素材管理、异地协作难？云文档搞定一切](https://www.feishu.cn/hc/zh-CN/articles/360049067733 "素材管理、异地协作难？云文档搞定一切")
+    *   [活动策划难？飞书文档模板助你成为活动运营多面手！](https://www.feishu.cn/hc/zh-CN/articles/360049067774 "活动策划难？飞书文档模板助你成为活动运营多面手！")
+
+[云文档](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571605508097)
+
+[云文档通用功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7371372929647394819)
+
+[文件管理与存储](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001027279686025217)
+
+下载云文档和文件夹到本地
+
+# 下载云文档和文件夹到本地
+
+本文阅读时长：7 分钟
+
+一、功能简介​
+
+​
+
+🔖
+
+适用范围：文档、表格、思维笔记、幻灯片、多维表格和上传的文件（文中统称为“云文档”），以及文件夹​
+
+​
+
+在飞书桌面端或网页版，你可以将飞书文档、表格、思维笔记、幻灯片、多维表格、上传的文件和文件夹下载到本地。​
+
+在飞书移动端，你仅可以将飞书文档、表格、文件、思维笔记下载到本地。​
+
+注：有云文档、文件夹可管理权限的用户可下载云文档、文件夹；其他用户能否下载取决于云文档、文件夹“谁可以下载”的权限设置。具体信息请参考[设置云文档分享、复制、下载、评论等权限](https://www.feishu.cn/hc/zh-CN/articles/360049067527)、[设置文件夹的分享、复制、下载、评论等权限](https://www.feishu.cn/hc/zh-CN/articles/698728490353)。​
+
+二、操作流程​
+
+​
+
+💡
+
+重要：通过第三方工具打开下载到本地的飞书云文档时，部分格式会进行降级处理。例如文档中的小组件下载后可能会降级为图片。​
+
+​
+
+下载云文档或文件夹​
+
+桌面端/网页版​
+
+*   下载文档、表格、幻灯片、思维笔记：打开对应内容，点击右上方的 ··· 图标 >下载为，选择希望下载的文件格式。​
+
+*   注：仅在下载文档时，你可以选择是否同时下载评论内容；当你下载幻灯片为 PPT 格式时，备注内容会同时下载。​
+
+*   下载多维表格：打开多维表格，点击右上方的 ··· 图标 >导出，选择希望下载的文件格式。​
+
+*   下载上传的文件：打开文件，点击右上方的 下载 图标，或点击右上方的 ··· 图标 >下载。如果你是在消息中收到文件，可直接下载，具体信息请参考[在会话中发送文件/文件夹](https://www.feishu.cn/hc/zh-CN/articles/360045202373#tabs0|lineguid-NUXIj)。​
+
+*   下载文件夹：在云盘找到需要下载的文件夹，点击右侧的 ··· 图标 > 下载。​
+
+移动端​
+
+*   下载文档、表格：打开对应内容，点击右上方的 ··· 图标 >下载为，选择希望下载的文件格式。​
+
+*   下载思维笔记：打开思维笔记的大纲视图，然后点击 分享>图片分享 > 下载。​
+
+*   下载上传的文件：打开文件，点击右上方的 ··· 图标 >下载。如果你是在消息中收到文件，可直接下载，具体信息请参考[在会话中发送文件/文件夹](https://www.feishu.cn/hc/zh-CN/articles/360045202373#tabs0|lineguid-NUXIj)。​
+
+关于下载表格和多维表格的具体信息，请参考[下载飞书表格](https://www.feishu.cn/hc/zh-CN/articles/108206853774)、[多维表格的导入与导出](https://www.feishu.cn/hc/zh-CN/articles/360049067854)。​
+
+注：​
+
+*   建议在客户端云文档主页下载体积较大的文件，避免网络不佳导致下载失败。​
+
+*   不同类型的内容，支持下载为不同的格式，具体信息如下：​
+
+​
+
+内容类型​桌面端/网页版支持下载的格式​移动端支持下载的格式​
+文档​整个文档可被下载为 Word 或 PDF 格式。​整个文档可被下载为 Word、PDF 或 PNG 格式。​
+表格​整个表格文件可被下载为 Excel 格式；当前工作表可被下载为 CSV 或 PNG 格式。​整个表格文件可被下载为 Excel 格式；当前工作表可被下载为 PNG 格式。​
+思维笔记​大纲视图或思维导图视图均可被下载为 FreeMind 格式；思维导图视图还可被下载为 PNG。​大纲视图可被下载为 PNG 格式；思维导图视图不支持下载。​
+上传的文件​整个文件可以原格式下载。​整个文件可以原格式下载。​
+多维表格​全部数据表或当前数据表/当前视图可被下载为 Excel、CSV 或 Base 格式。​多维表格、幻灯片、文件夹不支持在移动端下载。​
+
+​
+幻灯片​整个幻灯片文件可被下载为 PDF 或 PPT 格式。​​
+文件夹​
+
+​桌面端下载为本地文件夹；网页版下载为压缩文件。​
+
+文件夹中的内容：​
+
+*   文档、表格、幻灯片、思维笔记、多维表格下载后将转化为链接文件（.url）。​
+
+*   文件（图片、视频、PDF 等）以原格式下载。​​
+
+​
+
+批量下载文件夹和上传的文件​
+
+1.   在桌面端或网页上，将需要批量下载的文件夹或文件[移动](https://www.feishu.cn/hc/zh-CN/articles/718669141060#tabs0|lineguid-KTNPM)到同一个目标文件夹。​
+
+1.   点击目标文件夹后的 ··· 图标 >下载，以下载整个文件夹的内容。或者进入目标文件夹，勾选不同内容前的复选框，点击下方 下载 按钮，以下载选中的内容。​
+
+注：批量下载的对象中如果包含除文件外的云文档，此类云文档下载后将转化为链接文件（.url），云文档内容不会同步导出。如果在文件夹中仅勾选除文件外的云文档，则不会出现下载按钮。​
+
+​
+
+250px|700px|reset
+
+![Image 3](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/478196f2fbd2457787cc8174cb29dd93~tplv-jbbdkfciu3-image:0:0.image)​​
+
+查看云文档下载记录​
+
+打开云文档，点击右上方的 ··· 图标>文档信息。在弹窗中点击 操作记录，选择 下载，可查看半年内的下载记录。​
+
+注：有云文档可管理权限的用户可以查看最近半年谁下载了当前云文档。不支持查看文件夹的下载记录。​
+
+设置下载内容的存储位置​
+
+下载内容的存储设置因下载位置不同而异，具体如下：​
+
+*   在桌面端下载内容：可点击个人头像> 设置 > 通用，在 文件保存位置 查看或修改下载内容的存储位置。​
+
+*   在网页上下载内容：可前往浏览器设置，查看或修改下载内容的存储位置。​
+
+*   在移动端下载内容：下载的内容存储位置因操作系统而异，不支持修改。请留意下载成功的提示、在设备的文件管理功能中搜索标题关键词，或者查看飞书移动端安装位置所在文件夹。​
+
+三、常见问题​
+
+问：谁可以下载云文档和文件夹？
+
+答：除云文档、文件夹的所有者和其他可管理的协作者之外，谁能下载取决于云文档、文件夹的权限设置。拥有可管理权限的用户可以为内容选择是否允许可阅读、可编辑的用户下载。​
+
+问：为什么我找不到云文档或文件夹下载按钮？
+
+答：如果你找不到下载按钮，请确认当前内容类型是否支持下载，然后确认你是否有下载所需的权限。对于不满足权限设置中规定权限的用户，下载按钮将会隐藏，你需要联系所有者为你开通权限。​
+
+问：下载的云文档或文件夹会保存在哪里？
+
+答：下载内容的保存位置因下载位置不同而异，具体如下：​
+
+*   在桌面端下载内容：可点击个人头像> 设置 > 通用，在 文件保存位置 查看或修改下载内容的存储位置。​
+
+*   在网页上下载内容：可前往浏览器设置，查看或修改下载内容的存储位置。​
+
+*   在移动端下载内容：下载的内容存储位置因操作系统而异，不支持修改。请留意下载成功的提示、在设备的文件管理功能中搜索标题关键词，或者查看飞书移动端安装位置所在文件夹。​
+
+问：为什么下载的云文档有水印？可以去除水印吗？
+
+答：可能是你所在企业的管理员设置了水印，普通成员无法去除。管理员可以设置[全局水印](https://www.feishu.cn/hc/zh-CN/articles/360042748734)或者[给部门设置水印](https://www.feishu.cn/hc/zh-CN/articles/843678469255)，你可以尝试[联系管理员](https://www.feishu.cn/hc/zh-CN/articles/120364545103#tabs0|faq-302471737502)修改设置。​
+
+问：我可以将云文档或文件夹下载为哪些格式？
+
+答：不同类型的内容，支持下载为不同的格式，具体信息如下：​
+
+​
+
+内容类型​飞书桌面端/网页版支持下载的格式​飞书移动端支持下载的格式​
+文档​整个文档可被下载为 Word 或 PDF 格式。​整个文档可被下载为 Word、PDF 或 PNG 格式。​
+表格​整个表格文件可被下载为 Excel 格式；当前工作表可被下载为 CSV 或 PNG 格式。​整个表格文件可被下载为 Excel 格式；当前工作表可被下载为 PNG 格式。​
+思维笔记​大纲视图或思维导图视图均可被下载为 FreeMind 格式；思维导图视图还可被下载为 PNG。​大纲视图视图可被下载为 PNG 格式；思维导图视图不支持下载。​
+上传的文件​整个文件可以原格式下载。​整个文件可以原格式下载。​
+多维表格​全部数据表或当前数据表/当前视图可被下载为 Excel、CSV 或 Base 格式。​多维表格、幻灯片、文件夹不支持在移动端下载。​
+幻灯片​整个幻灯片文件可被下载为 PDF 或 PPT 格式。​​
+文件夹​
+
+​桌面端下载为本地文件夹；网页版下载为压缩文件。​
+
+文件夹中的内容：​
+
+*   文档、表格、幻灯片、思维笔记、多维表格下载后将转化为链接文件（.url）。​
+
+*   文件（图片、视频、PDF 等）以原格式下载。​​
+
+​
+
+注：不支持将云文档下载为 markdown 格式的文件。​
+
+问：可以批量下载云文档或文件夹吗？
+
+答：你可以在桌面端或网页上批量下载文件夹和上传的文件，具体信息请参考[下载云文档和文件夹到本地](https://www.feishu.cn/hc/zh-CN/articles/360049067463)“批量下载文件夹和上传的文件”小节。​
+
+问：如何下载文档的评论？
+
+答：桌面端或网页上下载文档可以选择同时下载评论，移动端下载文档不支持下载评论。 ​
+
+1.   打开文档，点击 ••• 图标 >下载为，选择 Word 或 PDF。​
+
+1.   在导出设置弹窗中，选择 导出正文及评论 后点击 导出。​
+
+问：下载文档为 PDF 时，如何隐藏标题和文档信息？
+
+答：如果希望下载文档为 PDF 时不显示文档标题、文档信息，你需要先在文档中删除标题文字、[隐藏文档信息](https://www.feishu.cn/hc/zh-CN/articles/398454425785)，然后再发起下载操作。​
+
+问：云文档下载失败怎么办？
+
+答：请从以下方面排查问题。​
+
+1.   确认是否登录正确的飞书账号，且当前账号有下载云文档、文件夹所需的权限。​
+
+1.   如果不存在权限问题，网页版、桌面客户端、移动端客户端下载时可能遇到的问题有：​
+
+*   网页版：下载体积较大的文件时，可能受网络状况影响下载失败，建议更换至客户端的云文档主页尝试下载。​
+
+*   桌面客户端：在桌面客户端下载失败时，可能是飞书客户端读写本地文件夹的权限受到限制，请修改下载内容保存位置后再尝试，或者切换到网页版下载。​
+
+*   移动端客户端：移动端不支持下载幻灯片、多维表格、思维笔记的思维导图视图，请到网页版或者桌面客户端下载。​
+
+问：下载内容后，云文档的所有者会收到通知吗？
+
+答：不会。但有云文档可管理权限的用户可以通过以下方式查看当前云文档半年内的下载记录。​
+
+1.   点击云文档右上方的 ··· 图标>文档信息。​
+
+1.   在弹窗中点击 操作记录，选择 下载，即可查看。​
+
+问：是否支持在移动端消息中发送或下载文件夹？
+
+答： 不支持。如果需要在会话中发送或下载文件夹，请使用飞书桌面端。​
+
+作者：飞书帮助中心
+
+最后更新于2025/05/16
+
+本文是否对你有帮助
+
+提交成功，感谢你的反馈！
+
+未能解决你的问题？请联系[在线客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)
+
+本篇目录
+
+1.   [一、功能简介​](javascript:;)
+2.   [二、操作流程​](javascript:;)
+3.   [下载云文档或文件夹​](javascript:;)
+4.   [批量下载文件夹和上传的文件​](javascript:;)
+5.   [查看云文档下载记录​](javascript:;)
+6.   [设置下载内容的存储位置​](javascript:;)
+7.   [三、常见问题​](javascript:;)
+
+3
+
+*   [云文档通用功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7371372929647394819) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6998429212675686401) 
+        *   [云文档介绍](https://www.feishu.cn/hc/zh-CN/articles/803525191890 "云文档介绍")
+        *   [快速上手飞书云文档](https://www.feishu.cn/hc/zh-CN/articles/640457584004 "快速上手飞书云文档")
+        *   [快速上手云文档（新版）](https://www.feishu.cn/hc/zh-CN/articles/629777077520 "快速上手云文档（新版）")
+        *   [使用云文档模板](https://www.feishu.cn/hc/zh-CN/articles/351142559376 "使用云文档模板")
+        *   [使用自定义模板](https://www.feishu.cn/hc/zh-CN/articles/360049067736 "使用自定义模板")
+        *   [云文档功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067483 "云文档功能更新日志")
+
+    *   [个性化与基础设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571655905307) 
+        *   [修改云文档偏好设置](https://www.feishu.cn/hc/zh-CN/articles/849872303611 "修改云文档偏好设置")
+        *   [设置云文档标题图标](https://www.feishu.cn/hc/zh-CN/articles/627693109450 "设置云文档标题图标")
+        *   [切换云文档的登录账号](https://www.feishu.cn/hc/zh-CN/articles/360044240054 "切换云文档的登录账号")
+        *   [设置云文档的默认打开方式](https://www.feishu.cn/hc/zh-CN/articles/360038713913 "设置云文档的默认打开方式")
+        *   [云文档与浏览器或插件的兼容性说明](https://www.feishu.cn/hc/zh-CN/articles/050253926143 "云文档与浏览器或插件的兼容性说明 ")
+        *   [解决 Chrome 扩展程序与文档的冲突](https://www.feishu.cn/hc/zh-CN/articles/360037376033 "解决 Chrome 扩展程序与文档的冲突")
+
+    *   [文件管理与存储](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001027279686025217) 
+        *   [使用我的文档库](https://www.feishu.cn/hc/zh-CN/articles/918479526636 "使用我的文档库")
+        *   [快速上手云盘](https://www.feishu.cn/hc/zh-CN/articles/778513900437 "快速上手云盘")
+        *   [添加云文档快捷方式](https://www.feishu.cn/hc/zh-CN/articles/355494283809 "添加云文档快捷方式")
+        *   [创建子文档](https://www.feishu.cn/hc/zh-CN/articles/891872702435 "创建子文档")
+        *   [使用子页面列表](https://www.feishu.cn/hc/zh-CN/articles/780474929438 "使用子页面列表")
+        *   [使用旧版子页面列表](https://www.feishu.cn/hc/zh-CN/articles/672126501992 "使用旧版子页面列表")
+        *   [上传或导入本地文件和文件夹](https://www.feishu.cn/hc/zh-CN/articles/360033241654 "上传或导入本地文件和文件夹")
+        *   [在云文档使用 Office 文件](https://www.feishu.cn/hc/zh-CN/articles/285296596786 "在云文档使用 Office 文件")
+        *   [将石墨文档导入为云文档](https://www.feishu.cn/hc/zh-CN/articles/049570101480 "将石墨文档导入为云文档")
+        *   [查看、更新和还原文件版本](https://www.feishu.cn/hc/zh-CN/articles/360049067469 "查看、更新和还原文件版本")
+        *   [下载云文档和文件夹到本地](https://www.feishu.cn/hc/zh-CN/articles/360049067463 "下载云文档和文件夹到本地")
+        *   [云文档本地记录常见问题](https://www.feishu.cn/hc/zh-CN/articles/360046996234 "云文档本地记录常见问题")
+        *   [创建云文档副本](https://www.feishu.cn/hc/zh-CN/articles/360044758313 "创建云文档副本")
+        *   [打印云文档](https://www.feishu.cn/hc/zh-CN/articles/686106740508 "打印云文档")
+        *   [移动云文档或文件夹](https://www.feishu.cn/hc/zh-CN/articles/718669141060 "移动云文档或文件夹")
+        *   [云文档移动后，协作者、链接分享和权限设置改变](https://www.feishu.cn/hc/zh-CN/articles/988221280095 "云文档移动后，协作者、链接分享和权限设置改变")
+        *   [删除和恢复云文档、文件夹](https://www.feishu.cn/hc/zh-CN/articles/360049067425 "删除和恢复云文档、文件夹")
+        *   [文件上传、在线预览的大小及格式要求](https://www.feishu.cn/hc/zh-CN/articles/360049067549 "文件上传、在线预览的大小及格式要求")
+        *   [查看并管理云文档存储空间](https://www.feishu.cn/hc/zh-CN/articles/988314140482 "查看并管理云文档存储空间")
+        *   [释放我的存储空间](https://www.feishu.cn/hc/zh-CN/articles/966898605944 "释放我的存储空间")
+
+    *   [分享与协作](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001027096462032924) 
+        *   [云文档和文件夹协作者介绍](https://www.feishu.cn/hc/zh-CN/articles/064037224266 "云文档和文件夹协作者介绍")
+        *   [添加用户组为云文档、文件夹协作者](https://www.feishu.cn/hc/zh-CN/articles/776302054037 "添加用户组为云文档、文件夹协作者")
+        *   [查看云文档创建者、所有者和协作者](https://www.feishu.cn/hc/zh-CN/articles/224264745285 "查看云文档创建者、所有者和协作者")
+        *   [查看云文档信息与隐私设置](https://www.feishu.cn/hc/zh-CN/articles/669630434840 "查看云文档信息与隐私设置")
+        *   [分享云文档](https://www.feishu.cn/hc/zh-CN/articles/360049067490 "分享云文档")
+        *   [用链接分享云文档](https://www.feishu.cn/hc/zh-CN/articles/360049067526 "用链接分享云文档")
+        *   [分享文件夹](https://www.feishu.cn/hc/zh-CN/articles/530434412285 "分享文件夹")
+        *   [用链接分享文件夹](https://www.feishu.cn/hc/zh-CN/articles/911555654000 "用链接分享文件夹")
+        *   [对外分享云文档和文件夹](https://www.feishu.cn/hc/zh-CN/articles/360049067493 "对外分享云文档和文件夹")
+        *   [加密分享云文档和文件夹](https://www.feishu.cn/hc/zh-CN/articles/360049067491 "加密分享云文档和文件夹")
+        *   [停止分享云文档和文件夹](https://www.feishu.cn/hc/zh-CN/articles/228650773875 "停止分享云文档和文件夹")
+
+    *   [权限管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001026955244044290) 
+        *   [快速上手云文档权限](https://www.feishu.cn/hc/zh-CN/articles/360025093793 "快速上手云文档权限")
+        *   [快速上手文件夹的权限](https://www.feishu.cn/hc/zh-CN/articles/360049067444 "快速上手文件夹的权限")
+        *   [筛查并管理云文档权限](https://www.feishu.cn/hc/zh-CN/articles/736569288906 "筛查并管理云文档权限")
+        *   [为云文档设置密级](https://www.feishu.cn/hc/zh-CN/articles/991220891340 "为云文档设置密级")
+        *   [设置云文档访问和点赞者头像可见范围](https://www.feishu.cn/hc/zh-CN/articles/619518192130 "设置云文档访问和点赞者头像可见范围")
+        *   [设置云文档分享、复制、下载、评论等权限](https://www.feishu.cn/hc/zh-CN/articles/360049067527 "设置云文档分享、复制、下载、评论等权限")
+        *   [自动授予云文档的访问和搜索权限](https://www.feishu.cn/hc/zh-CN/articles/739401543616 "自动授予云文档的访问和搜索权限")
+        *   [设置文件夹的分享、复制、下载、评论等权限](https://www.feishu.cn/hc/zh-CN/articles/698728490353 "设置文件夹的分享、复制、下载、评论等权限")
+        *   [转移云文档和文件夹的所有权](https://www.feishu.cn/hc/zh-CN/articles/360049067492 "转移云文档和文件夹的所有权")
+        *   [批量转移云文档所有权](https://www.feishu.cn/hc/zh-CN/articles/948188027470 "批量转移云文档所有权")
+        *   [申请云文档权限](https://www.feishu.cn/hc/zh-CN/articles/360049067494 "申请云文档权限")
+        *   [为什么我不能复制、创建副本、打印、下载或导出云文档？](https://www.feishu.cn/hc/zh-CN/articles/556811576430 "为什么我不能复制、创建副本、打印、下载或导出云文档？")
+        *   [为什么我不能删除云文档、文件夹？](https://www.feishu.cn/hc/zh-CN/articles/075978095260 "为什么我不能删除云文档、文件夹？")
+        *   [申请移动云文档或文件夹](https://www.feishu.cn/hc/zh-CN/articles/394436478773 "申请移动云文档或文件夹")
+        *   [为什么云文档提示“包含敏感信息”？](https://www.feishu.cn/hc/zh-CN/articles/809587899257 "为什么云文档提示“包含敏感信息”？")
+        *   [云文档权限常见问题](https://www.feishu.cn/hc/zh-CN/articles/360044508113 "云文档权限常见问题")
+
+*   [文档](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099738910548312066) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7322752063729778716) 
+        *   [快速上手文档](https://www.feishu.cn/hc/zh-CN/articles/945900971706 "快速上手文档")
+        *   [在文档中使用阅读模式](https://www.feishu.cn/hc/zh-CN/articles/903991718360 "在文档中使用阅读模式")
+        *   [设置文档页面宽度](https://www.feishu.cn/hc/zh-CN/articles/909135942944 "设置文档页面宽度")
+        *   [在移动端使用文档横屏模式](https://www.feishu.cn/hc/zh-CN/articles/285369612462 "在移动端使用文档横屏模式 ")
+        *   [文档常见上限](https://www.feishu.cn/hc/zh-CN/articles/360049067974 "文档常见上限")
+        *   [文档功能常见问题](https://www.feishu.cn/hc/zh-CN/articles/360044024994 "文档功能常见问题")
+        *   [在文档中使用快捷键](https://www.feishu.cn/hc/zh-CN/articles/500625665207 "在文档中使用快捷键")
+
+    *   [编辑与排版](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099740188481470466) 
+        *   [设置文档封面](https://www.feishu.cn/hc/zh-CN/articles/230455566106 "设置文档封面")
+        *   [文档封面的图片要求](https://www.feishu.cn/hc/zh-CN/articles/990851076781 "文档封面的图片要求")
+        *   [在文档中展示或隐藏文档信息](https://www.feishu.cn/hc/zh-CN/articles/398454425785 "在文档中展示或隐藏文档信息")
+        *   [/ 快速插入支持的内容类型缩写](https://www.feishu.cn/hc/zh-CN/articles/273504118179 "/ 快速插入支持的内容类型缩写")
+        *   [使用文档工具栏](https://www.feishu.cn/hc/zh-CN/articles/050365968090 "使用文档工具栏")
+        *   [在文档中使用查找和替换功能](https://www.feishu.cn/hc/zh-CN/articles/191994006277 "在文档中使用查找和替换功能")
+        *   [设置文档章节标题与目录](https://www.feishu.cn/hc/zh-CN/articles/178968744708 "设置文档章节标题与目录")
+        *   [在文档中设置文本样式](https://www.feishu.cn/hc/zh-CN/articles/299406656534 "在文档中设置文本样式")
+        *   [在文档中使用内容块](https://www.feishu.cn/hc/zh-CN/articles/093455583925 "在文档中使用内容块")
+        *   [在文档中添加超链接](https://www.feishu.cn/hc/zh-CN/articles/173087074545 "在文档中添加超链接")
+        *   [在文档中获取并使用锚点链接](https://www.feishu.cn/hc/zh-CN/articles/990666397657 "在文档中获取并使用锚点链接")
+        *   [在文档中设置缩进和对齐](https://www.feishu.cn/hc/zh-CN/articles/614510897297 "在文档中设置缩进和对齐")
+        *   [使用文档的分栏功能](https://www.feishu.cn/hc/zh-CN/articles/501138383591 "使用文档的分栏功能")
+        *   [在文档中使用引用](https://www.feishu.cn/hc/zh-CN/articles/485811754977 "在文档中使用引用")
+        *   [在文档中使用 Markdown](https://www.feishu.cn/hc/zh-CN/articles/118804574721 "在文档中使用 Markdown")
+        *   [在文档中使用有序和无序列表](https://www.feishu.cn/hc/zh-CN/articles/950275915234 "在文档中使用有序和无序列表")
+        *   [在移动端启用离线编辑功能](https://www.feishu.cn/hc/zh-CN/articles/369694430610 "在移动端启用离线编辑功能")
+
+    *   [评论与互动](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001023424869007362) 
+        *   [在文档中使用 @ 功能](https://www.feishu.cn/hc/zh-CN/articles/561128148413 "在文档中使用 @ 功能")
+        *   [在文档中使用评论功能](https://www.feishu.cn/hc/zh-CN/articles/360033768533 "在文档中使用评论功能")
+        *   [在文档中发表私有评论](https://www.feishu.cn/hc/zh-CN/articles/111088238655 "在文档中发表私有评论")
+        *   [管理文档的历史评论](https://www.feishu.cn/hc/zh-CN/articles/141177326495 "管理文档的历史评论")
+        *   [使用文档的修订模式](https://www.feishu.cn/hc/zh-CN/articles/364198000460 "使用文档的修订模式")
+        *   [关注文档更新](https://www.feishu.cn/hc/zh-CN/articles/043453026116 "关注文档更新")
+        *   [使用当前文档通知功能](https://www.feishu.cn/hc/zh-CN/articles/117082248198 "使用当前文档通知功能")
+        *   [查看和还原文档历史记录](https://www.feishu.cn/hc/zh-CN/articles/753686977351 "查看和还原文档历史记录")
+        *   [在文档中使用翻译功能](https://www.feishu.cn/hc/zh-CN/articles/446972352418 "在文档中使用翻译功能")
+        *   [在文档中使用词典功能](https://www.feishu.cn/hc/zh-CN/articles/998910345186 "在文档中使用词典功能")
+        *   [在文档中使用演示模式](https://www.feishu.cn/hc/zh-CN/articles/012802338224 "在文档中使用演示模式")
+        *   [在文档中使用双向链接功能](https://www.feishu.cn/hc/zh-CN/articles/746133328060 "在文档中使用双向链接功能")
+        *   [在文档中使用版本管理功能](https://www.feishu.cn/hc/zh-CN/articles/263283633266 "在文档中使用版本管理功能")
+        *   [在文档中使用局部模板](https://www.feishu.cn/hc/zh-CN/articles/525938261268 "在文档中使用局部模板")
+        *   [使用飞书剪存功能](https://www.feishu.cn/hc/zh-CN/articles/606278856233 "使用飞书剪存功能")
+        *   [在文档中快捷发布订阅号文章](https://www.feishu.cn/hc/zh-CN/articles/070133431681 "在文档中快捷发布订阅号文章")
+        *   [在文档中使用 AI 速览](https://www.feishu.cn/hc/zh-CN/articles/338082285897 "在文档中使用 AI 速览")
+
+    *   [插入多样内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099740780088115202) 
+        *   [在文档中插入图片](https://www.feishu.cn/hc/zh-CN/articles/172132728301 "在文档中插入图片")
+        *   [在文档中插入音视频等文件](https://www.feishu.cn/hc/zh-CN/articles/179223764779 "在文档中插入音视频等文件")
+        *   [在文档中嵌入妙记视频](https://www.feishu.cn/hc/zh-CN/articles/979064987931 "在文档中嵌入妙记视频")
+        *   [在文档中插入表格](https://www.feishu.cn/hc/zh-CN/articles/639833584167 "在文档中插入表格")
+        *   [在文档中插入电子表格](https://www.feishu.cn/hc/zh-CN/articles/176378197082 "在文档中插入电子表格")
+        *   [在文档中引用表格中的数据](https://www.feishu.cn/hc/zh-CN/articles/062169842810 "在文档中引用表格中的数据")
+        *   [在文档中插入高亮块](https://www.feishu.cn/hc/zh-CN/articles/646492863852 "在文档中插入高亮块")
+        *   [在文档中使用同步块](https://www.feishu.cn/hc/zh-CN/articles/479618550246 "在文档中使用同步块")
+        *   [在文档中插入按钮](https://www.feishu.cn/hc/zh-CN/articles/839656564956 "在文档中插入按钮")
+        *   [在文档中使用公式](https://www.feishu.cn/hc/zh-CN/articles/894598450617 "在文档中使用公式")
+        *   [文档支持的公式](https://www.feishu.cn/hc/zh-CN/articles/014150532397 "文档支持的公式")
+        *   [在文档中插入思维导图](https://www.feishu.cn/hc/zh-CN/articles/208000775550 "在文档中插入思维导图")
+        *   [在文档中插入流程图和 UML 图](https://www.feishu.cn/hc/zh-CN/articles/980918978289 "在文档中插入流程图和 UML 图")
+        *   [在文档中插入代码块](https://www.feishu.cn/hc/zh-CN/articles/603012886054 "在文档中插入代码块")
+        *   [在文档中创建和管理任务](https://www.feishu.cn/hc/zh-CN/articles/545362352539 "在文档中创建和管理任务")
+        *   [在文档中插入 OKR](https://www.feishu.cn/hc/zh-CN/articles/667793185547 "在文档中插入 OKR")
+        *   [在文档中插入投票](https://www.feishu.cn/hc/zh-CN/articles/716434036878 "在文档中插入投票")
+        *   [在文档中插入信息收集](https://www.feishu.cn/hc/zh-CN/articles/714555958954 "在文档中插入信息收集")
+        *   [在文档中插入网页链接](https://www.feishu.cn/hc/zh-CN/articles/024005464952 "在文档中插入网页链接")
+        *   [在文档中插入订阅号文章](https://www.feishu.cn/hc/zh-CN/articles/427724143516 "在文档中插入订阅号文章")
+        *   [在文档中插入并设置倒计时](https://www.feishu.cn/hc/zh-CN/articles/442582079971 "在文档中插入并设置倒计时")
+        *   [在文档中插入日程卡片](https://www.feishu.cn/hc/zh-CN/articles/843590202632 "在文档中插入日程卡片")
+        *   [在文档中嵌入视频](https://www.feishu.cn/hc/zh-CN/articles/635939752168 "在文档中嵌入视频")
+        *   [在文档中插入即梦AI](https://www.feishu.cn/hc/zh-CN/articles/083326245649 "在文档中插入即梦AI")
+        *   [在文档中嵌入 Figma](https://www.feishu.cn/hc/zh-CN/articles/263760646259 "在文档中嵌入 Figma")
+        *   [在文档中嵌入墨刀](https://www.feishu.cn/hc/zh-CN/articles/872950051324 "在文档中嵌入墨刀")
+        *   [在文档中嵌入 Canva 可画](https://www.feishu.cn/hc/zh-CN/articles/222254376397 "在文档中嵌入 Canva 可画")
+        *   [在文档中嵌入码上掘金](https://www.feishu.cn/hc/zh-CN/articles/072050591742 "在文档中嵌入码上掘金")
+        *   [在文档中嵌入 CodePen](https://www.feishu.cn/hc/zh-CN/articles/158980222988 "在文档中嵌入 CodePen")
+        *   [在文档中嵌入飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/846070051679 "在文档中嵌入飞书问卷")
+        *   [在文档中嵌入金数据](https://www.feishu.cn/hc/zh-CN/articles/192962990681 "在文档中嵌入金数据")
+        *   [在文档中嵌入 Airtable](https://www.feishu.cn/hc/zh-CN/articles/810399308900 "在文档中嵌入 Airtable")
+        *   [在文档中嵌入地图](https://www.feishu.cn/hc/zh-CN/articles/834338547884 "在文档中嵌入地图")
+
+    *   [文档画板](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7229631290419871746) 
+        *   [创建或插入画板](https://www.feishu.cn/hc/zh-CN/articles/094832636759 "创建或插入画板")
+        *   [画板模板库介绍](https://www.feishu.cn/hc/zh-CN/articles/688002883870 "画板模板库介绍")
+        *   [使用画板社区模板](https://www.feishu.cn/hc/zh-CN/articles/668377664091 "使用画板社区模板")
+        *   [调整画板基础配置](https://www.feishu.cn/hc/zh-CN/articles/629258080541 "调整画板基础配置")
+        *   [编辑画板](https://www.feishu.cn/hc/zh-CN/articles/725144504032 "编辑画板")
+        *   [在画板中使用图形](https://www.feishu.cn/hc/zh-CN/articles/696582613898 "在画板中使用图形")
+        *   [在画板中批量排版图形](https://www.feishu.cn/hc/zh-CN/articles/092268021432 "在画板中批量排版图形")
+        *   [在画板中使用素材](https://www.feishu.cn/hc/zh-CN/articles/547991845172 "在画板中使用素材")
+        *   [在画板中添加图片](https://www.feishu.cn/hc/zh-CN/articles/326570213852 "在画板中添加图片")
+        *   [在画板中使用连线](https://www.feishu.cn/hc/zh-CN/articles/132979810163 "在画板中使用连线")
+        *   [在画板中插入分区](https://www.feishu.cn/hc/zh-CN/articles/084151501421 "在画板中插入分区")
+        *   [在画板中插入便签](https://www.feishu.cn/hc/zh-CN/articles/874281326260 "在画板中插入便签")
+        *   [在画板中插入思维导图](https://www.feishu.cn/hc/zh-CN/articles/728977871585 "在画板中插入思维导图")
+        *   [在画板中插入泳道图](https://www.feishu.cn/hc/zh-CN/articles/689348483926 "在画板中插入泳道图")
+        *   [使用 PlantUML 代码绘图](https://www.feishu.cn/hc/zh-CN/articles/558374236036 "使用 PlantUML 代码绘图")
+        *   [将流程图、UML 图升级为画板](https://www.feishu.cn/hc/zh-CN/articles/044044598089 "将流程图、UML 图升级为画板")
+        *   [使用画板的手绘工具](https://www.feishu.cn/hc/zh-CN/articles/255766186128 "使用画板的手绘工具")
+        *   [翻译画板内容](https://www.feishu.cn/hc/zh-CN/articles/518046367492 "翻译画板内容")
+        *   [在画板中导出内容](https://www.feishu.cn/hc/zh-CN/articles/553971997356 "在画板中导出内容")
+        *   [从外部导入内容至画板](https://www.feishu.cn/hc/zh-CN/articles/018852745122 "从外部导入内容至画板")
+        *   [在画板中搜索、替换文本](https://www.feishu.cn/hc/zh-CN/articles/274864138340 "在画板中搜索、替换文本")
+        *   [在画板中评论与协作](https://www.feishu.cn/hc/zh-CN/articles/924390145762 "在画板中评论与协作")
+        *   [画板常见问题](https://www.feishu.cn/hc/zh-CN/articles/403309346067 "画板常见问题")
+        *   [移动端画板操作说明](https://www.feishu.cn/hc/zh-CN/articles/758840394486 "移动端画板操作说明")
+
+    *   [文档小组件](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7202821021475684380) 
+        *   [文档小组件简介](https://www.feishu.cn/hc/zh-CN/articles/799229201268 "文档小组件简介")
+        *   [使用目录导航小组件](https://www.feishu.cn/hc/zh-CN/articles/508843291189 "使用目录导航小组件")
+        *   [使用时间轴小组件](https://www.feishu.cn/hc/zh-CN/articles/429331890039 "使用时间轴小组件")
+        *   [使用文本绘图小组件](https://www.feishu.cn/hc/zh-CN/articles/496118428959 "使用文本绘图小组件")
+        *   [使用批量设置格式小组件](https://www.feishu.cn/hc/zh-CN/articles/591902762640 "使用批量设置格式小组件")
+        *   [使用文字排版助手小组件](https://www.feishu.cn/hc/zh-CN/articles/317905737314 "使用文字排版助手小组件")
+        *   [使用词条助手小组件](https://www.feishu.cn/hc/zh-CN/articles/763432377121 "使用词条助手小组件")
+        *   [使用飞书快译小组件](https://www.feishu.cn/hc/zh-CN/articles/280042323002 "使用飞书快译小组件")
+
+*   [表格](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571630690305) 
+    *   [基础编辑](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025284031905793) 
+        *   [快速上手表格](https://www.feishu.cn/hc/zh-CN/articles/112470838712 "快速上手表格")
+        *   [导入和转换 Excel 或 CSV 格式文件](https://www.feishu.cn/hc/zh-CN/articles/306848842493 "导入和转换 Excel 或 CSV 格式文件")
+        *   [下载飞书表格](https://www.feishu.cn/hc/zh-CN/articles/108206853774 "下载飞书表格")
+        *   [使用表格的工具栏](https://www.feishu.cn/hc/zh-CN/articles/594614613907 "使用表格的工具栏")
+        *   [设置表格剪贴板权限](https://www.feishu.cn/hc/zh-CN/articles/846833019507 "设置表格剪贴板权限")
+        *   [查看和还原表格历史记录](https://www.feishu.cn/hc/zh-CN/articles/360049067454 "查看和还原表格历史记录")
+        *   [在表格中插入或删除行、列和单元格](https://www.feishu.cn/hc/zh-CN/articles/360049067459 "在表格中插入或删除行、列和单元格")
+        *   [在表格中调整行高和列宽](https://www.feishu.cn/hc/zh-CN/articles/554220835072 "在表格中调整行高和列宽")
+        *   [在表格中删除重复项](https://www.feishu.cn/hc/zh-CN/articles/391395621666 "在表格中删除重复项")
+        *   [在表格中使用选择性粘贴](https://www.feishu.cn/hc/zh-CN/articles/650111142222 "在表格中使用选择性粘贴")
+        *   [在表格中使用自定义排序](https://www.feishu.cn/hc/zh-CN/articles/778926611947 "在表格中使用自定义排序")
+        *   [在表格中查看单元格历史记录](https://www.feishu.cn/hc/zh-CN/articles/333564047986 "在表格中查看单元格历史记录")
+        *   [在表格中使用版本管理](https://www.feishu.cn/hc/zh-CN/articles/895547707871 "在表格中使用版本管理")
+        *   [表格常见问题](https://www.feishu.cn/hc/zh-CN/articles/936038569701 "表格常见问题")
+
+    *   [图表](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7166528109800554524) 
+        *   [表格的图表类型介绍](https://www.feishu.cn/hc/zh-CN/articles/360024868314 "表格的图表类型介绍")
+        *   [在表格中编辑图表的横轴与纵轴](https://www.feishu.cn/hc/zh-CN/articles/890239323043 "在表格中编辑图表的横轴与纵轴")
+        *   [将表格图表粘贴至文档中](https://www.feishu.cn/hc/zh-CN/articles/480980460926 "将表格图表粘贴至文档中")
+        *   [在表格中插入柱状图](https://www.feishu.cn/hc/zh-CN/articles/924494730577 "在表格中插入柱状图")
+        *   [在表格中插入折线图](https://www.feishu.cn/hc/zh-CN/articles/093144056319 "在表格中插入折线图")
+        *   [在表格中插入饼图](https://www.feishu.cn/hc/zh-CN/articles/064715913872 "在表格中插入饼图")
+        *   [在表格中插入条形图](https://www.feishu.cn/hc/zh-CN/articles/638420564515 "在表格中插入条形图")
+        *   [表格面积图](https://www.feishu.cn/hc/zh-CN/articles/083338034261 "表格面积图")
+        *   [在表格中插入散点图](https://www.feishu.cn/hc/zh-CN/articles/968394731609 "在表格中插入散点图")
+        *   [在表格中插入气泡图](https://www.feishu.cn/hc/zh-CN/articles/303452241664 "在表格中插入气泡图")
+        *   [在表格中插入组合图](https://www.feishu.cn/hc/zh-CN/articles/265612775315 "在表格中插入组合图")
+        *   [表格雷达图](https://www.feishu.cn/hc/zh-CN/articles/352365254274 "表格雷达图")
+        *   [在表格中插入词云图](https://www.feishu.cn/hc/zh-CN/articles/822045426080 "在表格中插入词云图")
+        *   [在表格中插入漏斗图](https://www.feishu.cn/hc/zh-CN/articles/931689053009 "在表格中插入漏斗图")
+        *   [表格排列图](https://www.feishu.cn/hc/zh-CN/articles/730061596105 "表格排列图")
+        *   [表格瀑布图](https://www.feishu.cn/hc/zh-CN/articles/858691598826 "表格瀑布图")
+        *   [表格迷你图](https://www.feishu.cn/hc/zh-CN/articles/081828055062 "表格迷你图")
+
+    *   [数据样式与格式](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025456754180124) 
+        *   [在表格中使用数据验证](https://www.feishu.cn/hc/zh-CN/articles/166812667987 "在表格中使用数据验证")
+        *   [在表格中使用条件格式](https://www.feishu.cn/hc/zh-CN/articles/360049067529 "在表格中使用条件格式")
+        *   [在表格中使用智能填充](https://www.feishu.cn/hc/zh-CN/articles/417938854678 "在表格中使用智能填充")
+        *   [为单元格内的局部内容设置样式](https://www.feishu.cn/hc/zh-CN/articles/947298221311 "为单元格内的局部内容设置样式 ")
+        *   [自定义单元格数字格式](https://www.feishu.cn/hc/zh-CN/articles/351833304508 "自定义单元格数字格式")
+        *   [在表格中调整文本格式](https://www.feishu.cn/hc/zh-CN/articles/292932475211 "在表格中调整文本格式")
+        *   [在表格中设置文本换行](https://www.feishu.cn/hc/zh-CN/articles/360033241354 "在表格中设置文本换行")
+        *   [在表格中使用文本对齐](https://www.feishu.cn/hc/zh-CN/articles/175041461404 "在表格中使用文本对齐")
+        *   [在表格中设置数据格式](https://www.feishu.cn/hc/zh-CN/articles/360033771233 "在表格中设置数据格式")
+        *   [在表格中隐藏工作表和行列](https://www.feishu.cn/hc/zh-CN/articles/407375351801 "在表格中隐藏工作表和行列")
+        *   [在表格中使用数据分列](https://www.feishu.cn/hc/zh-CN/articles/704196629179 "在表格中使用数据分列")
+        *   [在表格中使用行列分组](https://www.feishu.cn/hc/zh-CN/articles/786653931891 "在表格中使用行列分组")
+        *   [在表格中使用行列转置](https://www.feishu.cn/hc/zh-CN/articles/654713164526 "在表格中使用行列转置")
+        *   [设置表格边框线](https://www.feishu.cn/hc/zh-CN/articles/271143096822 "设置表格边框线")
+        *   [表格条件格式自定义公式实用案例](https://www.feishu.cn/hc/zh-CN/articles/569227825031 "表格条件格式自定义公式实用案例")
+        *   [使用条件格式中的百分比和百分点值](https://www.feishu.cn/hc/zh-CN/articles/015451255587 "使用条件格式中的百分比和百分点值")
+
+    *   [插入内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025379154657281) 
+        *   [在表格中使用复选框](https://www.feishu.cn/hc/zh-CN/articles/360049067956 "在表格中使用复选框")
+        *   [在表格中使用下拉列表](https://www.feishu.cn/hc/zh-CN/articles/360024868414 "在表格中使用下拉列表")
+        *   [在表格中插入日期提醒](https://www.feishu.cn/hc/zh-CN/articles/360049067673 "在表格中插入日期提醒")
+        *   [在表格中插入图片](https://www.feishu.cn/hc/zh-CN/articles/360033771293 "在表格中插入图片")
+        *   [在表格中使用定位链接](https://www.feishu.cn/hc/zh-CN/articles/360049067872 "在表格中使用定位链接")
+        *   [在表格中添加附件](https://www.feishu.cn/hc/zh-CN/articles/360049068037 "在表格中添加附件")
+        *   [在表格里进行评论](https://www.feishu.cn/hc/zh-CN/articles/360025021493 "在表格里进行评论")
+
+    *   [数据与函数](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001025543218921474) 
+        *   [基础介绍](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336916461920763905) 
+            *   [使用表格函数](https://www.feishu.cn/hc/zh-CN/articles/360025092793 "使用表格函数")
+            *   [表格函数大全](https://www.feishu.cn/hc/zh-CN/articles/612277190803 "表格函数大全")
+            *   [跨表格引用数据](https://www.feishu.cn/hc/zh-CN/articles/796499086024 "跨表格引用数据")
+            *   [筛选表格内容](https://www.feishu.cn/hc/zh-CN/articles/360024868694 "筛选表格内容")
+            *   [在表格中使用筛选视图](https://www.feishu.cn/hc/zh-CN/articles/360049067640 "在表格中使用筛选视图")
+            *   [正则语法](https://www.feishu.cn/hc/zh-CN/articles/088019936950 "正则语法")
+            *   [表格单元格绿标的常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067746 "表格单元格绿标的常见问题")
+            *   [引用企业内已有标签库为数据打标签](https://www.feishu.cn/hc/zh-CN/articles/183236313606 "引用企业内已有标签库为数据打标签")
+
+        *   [日期函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005117672971321346) 
+            *   [DATE 函数](https://www.feishu.cn/hc/zh-CN/articles/003767346268 "DATE 函数")
+            *   [表格 DATEDIF 函数](https://www.feishu.cn/hc/zh-CN/articles/898300276702 "表格 DATEDIF 函数")
+            *   [DATEVALUE 函数](https://www.feishu.cn/hc/zh-CN/articles/670736853855 "DATEVALUE 函数")
+            *   [DAY 函数](https://www.feishu.cn/hc/zh-CN/articles/938818225350 "DAY 函数")
+            *   [DAYS 函数](https://www.feishu.cn/hc/zh-CN/articles/087372818343 "DAYS 函数")
+            *   [DAYS360 函数](https://www.feishu.cn/hc/zh-CN/articles/479956133090 "DAYS360 函数")
+            *   [EDATE 函数](https://www.feishu.cn/hc/zh-CN/articles/351714523382 "EDATE 函数")
+            *   [EOMONTH 函数](https://www.feishu.cn/hc/zh-CN/articles/135851535423 "EOMONTH 函数")
+            *   [HOUR 函数](https://www.feishu.cn/hc/zh-CN/articles/722209279009 "HOUR 函数")
+            *   [MINUTE 函数](https://www.feishu.cn/hc/zh-CN/articles/099089682727 "MINUTE 函数")
+            *   [MONTH 函数](https://www.feishu.cn/hc/zh-CN/articles/844544902104 "MONTH 函数")
+            *   [NETWORKDAYS 函数](https://www.feishu.cn/hc/zh-CN/articles/780135489353 "NETWORKDAYS 函数")
+            *   [使用表格 NETWORKDAYS.INTL 函数](https://www.feishu.cn/hc/zh-CN/articles/128093572918 "使用表格 NETWORKDAYS.INTL 函数")
+            *   [NOW 函数](https://www.feishu.cn/hc/zh-CN/articles/261660436431 "NOW 函数")
+            *   [SECOND 函数](https://www.feishu.cn/hc/zh-CN/articles/119574334060 "SECOND 函数")
+            *   [TIME 函数](https://www.feishu.cn/hc/zh-CN/articles/062748913127 "TIME 函数")
+            *   [TIMEVALUE 函数](https://www.feishu.cn/hc/zh-CN/articles/587395494992 "TIMEVALUE 函数")
+            *   [TODAY 函数](https://www.feishu.cn/hc/zh-CN/articles/923987364545 "TODAY 函数")
+            *   [表格 WEEKDAY 函数](https://www.feishu.cn/hc/zh-CN/articles/855949394928 "表格 WEEKDAY 函数")
+            *   [WEEKNUM 函数](https://www.feishu.cn/hc/zh-CN/articles/780262401024 "WEEKNUM 函数")
+            *   [WORKDAY 函数](https://www.feishu.cn/hc/zh-CN/articles/425368568692 "WORKDAY 函数")
+            *   [WORKDAY.INTL 函数](https://www.feishu.cn/hc/zh-CN/articles/868777318867 "WORKDAY.INTL 函数")
+            *   [YEAR 函数](https://www.feishu.cn/hc/zh-CN/articles/622655979330 "YEAR 函数")
+            *   [YEARFRAC 函数](https://www.feishu.cn/hc/zh-CN/articles/885380240925 "YEARFRAC 函数")
+
+        *   [信息函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005117897290874882) 
+            *   [CELL 函数](https://www.feishu.cn/hc/zh-CN/articles/464983979758 "CELL 函数")
+            *   [ERROR.TYPE 函数](https://www.feishu.cn/hc/zh-CN/articles/924212176024 "ERROR.TYPE 函数")
+            *   [IS 检查系列函数](https://www.feishu.cn/hc/zh-CN/articles/838368166535 "IS 检查系列函数")
+            *   [NA 函数](https://www.feishu.cn/hc/zh-CN/articles/054633310858 "NA 函数")
+            *   [TYPE 函数](https://www.feishu.cn/hc/zh-CN/articles/950979410078 "TYPE 函数")
+
+        *   [逻辑函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005117975430692892) 
+            *   [AND 函数](https://www.feishu.cn/hc/zh-CN/articles/069146076363 "AND 函数")
+            *   [FALSE 函数](https://www.feishu.cn/hc/zh-CN/articles/848487054031 "FALSE 函数")
+            *   [表格 IFS 函数](https://www.feishu.cn/hc/zh-CN/articles/935102336542 "表格 IFS 函数")
+            *   [IF 函数](https://www.feishu.cn/hc/zh-CN/articles/852204656534 "IF 函数")
+            *   [IFERROR 函数](https://www.feishu.cn/hc/zh-CN/articles/667326172419 "IFERROR 函数")
+            *   [IFNA 函数](https://www.feishu.cn/hc/zh-CN/articles/988523533738 "IFNA 函数")
+            *   [NOT 函数](https://www.feishu.cn/hc/zh-CN/articles/777853932027 "NOT 函数")
+            *   [OR 函数](https://www.feishu.cn/hc/zh-CN/articles/049878120682 "OR 函数")
+            *   [SWITCH 函数](https://www.feishu.cn/hc/zh-CN/articles/763009427590 "SWITCH 函数")
+            *   [TRUE 函数](https://www.feishu.cn/hc/zh-CN/articles/012923280621 "TRUE 函数")
+
+        *   [查找函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118069160919042) 
+            *   [查找类函数使用说明](https://www.feishu.cn/hc/zh-CN/articles/358299388716 "查找类函数使用说明")
+            *   [ADDRESS 函数](https://www.feishu.cn/hc/zh-CN/articles/578049009266 "ADDRESS 函数")
+            *   [AREAS 函数](https://www.feishu.cn/hc/zh-CN/articles/492173658695 "AREAS 函数")
+            *   [COLUMN 函数](https://www.feishu.cn/hc/zh-CN/articles/869581872255 "COLUMN 函数")
+            *   [CHOOSE 函数](https://www.feishu.cn/hc/zh-CN/articles/710985012102 "CHOOSE 函数")
+            *   [表格 GETPIVOTDATA 函数](https://www.feishu.cn/hc/zh-CN/articles/833840961271 "表格 GETPIVOTDATA 函数")
+            *   [使用表格 FILTER 函数](https://www.feishu.cn/hc/zh-CN/articles/606507841883 "使用表格 FILTER 函数")
+            *   [FORMULATEXT 函数](https://www.feishu.cn/hc/zh-CN/articles/599250232881 "FORMULATEXT 函数")
+            *   [HLOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/919667533947 "HLOOKUP 函数")
+            *   [使用表格 IMPORTRANGE 函数](https://www.feishu.cn/hc/zh-CN/articles/031622260249 "使用表格 IMPORTRANGE 函数")
+            *   [INDEX 函数](https://www.feishu.cn/hc/zh-CN/articles/249546719735 "INDEX 函数")
+            *   [使用表格 INDIRECT 函数](https://www.feishu.cn/hc/zh-CN/articles/405463391221 "使用表格 INDIRECT 函数")
+            *   [OFFSET 函数](https://www.feishu.cn/hc/zh-CN/articles/178428465536 "OFFSET 函数")
+            *   [REGEX 函数](https://www.feishu.cn/hc/zh-CN/articles/744890843492 "REGEX 函数")
+            *   [LOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/658075027297 "LOOKUP 函数")
+            *   [MATCH 函数](https://www.feishu.cn/hc/zh-CN/articles/514663479434 "MATCH 函数")
+            *   [ROWS 函数](https://www.feishu.cn/hc/zh-CN/articles/195704626697 "ROWS 函数")
+            *   [ROW 函数](https://www.feishu.cn/hc/zh-CN/articles/881836499869 "ROW 函数")
+            *   [SORT 函数](https://www.feishu.cn/hc/zh-CN/articles/989438308026 "SORT 函数")
+            *   [TRANSPOSE 函数](https://www.feishu.cn/hc/zh-CN/articles/521151658260 "TRANSPOSE 函数")
+            *   [表格 VLOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/792448816568 "表格 VLOOKUP 函数")
+            *   [为什么表格 VLOOKUP 查找不到结果？](https://www.feishu.cn/hc/zh-CN/articles/360049067747 "为什么表格 VLOOKUP 查找不到结果？")
+
+        *   [数学函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7346205784722096156) 
+            *   [COMBIN 函数](https://www.feishu.cn/hc/zh-CN/articles/211265168667 "COMBIN 函数")
+            *   [COUNTBLANK 函数](https://www.feishu.cn/hc/zh-CN/articles/662252335061 "COUNTBLANK 函数")
+            *   [LOG10 函数](https://www.feishu.cn/hc/zh-CN/articles/642006197217 "LOG10 函数")
+            *   [SUM 函数](https://www.feishu.cn/hc/zh-CN/articles/964391158474 "SUM 函数")
+            *   [使用表格 SUMIF 函数](https://www.feishu.cn/hc/zh-CN/articles/266533852035 "使用表格 SUMIF 函数")
+            *   [使用表格 SUMIFS 函数](https://www.feishu.cn/hc/zh-CN/articles/907156750196 "使用表格 SUMIFS 函数")
+
+        *   [运算符函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118144645808129) 
+            *   [CONCAT 函数](https://www.feishu.cn/hc/zh-CN/articles/971299243140 "CONCAT 函数")
+            *   [CONCATENATE 函数](https://www.feishu.cn/hc/zh-CN/articles/393734166735 "CONCATENATE 函数")
+
+        *   [统计函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118272706215937) 
+            *   [AVEDEV 函数](https://www.feishu.cn/hc/zh-CN/articles/269247609693 "AVEDEV 函数")
+            *   [AVERAGE 函数](https://www.feishu.cn/hc/zh-CN/articles/274982571236 "AVERAGE 函数")
+            *   [表格 AVERAGEIF 函数](https://www.feishu.cn/hc/zh-CN/articles/182227319316 "表格 AVERAGEIF 函数")
+            *   [表格 AVERAGEIFS 函数](https://www.feishu.cn/hc/zh-CN/articles/310343589276 "表格 AVERAGEIFS 函数")
+            *   [BETA.DIST 函数](https://www.feishu.cn/hc/zh-CN/articles/249573243257 "BETA.DIST 函数")
+            *   [BETA.INV 函数](https://www.feishu.cn/hc/zh-CN/articles/420271450231 "BETA.INV 函数")
+            *   [COUNT 函数](https://www.feishu.cn/hc/zh-CN/articles/876394118507 "COUNT 函数")
+            *   [COUNTA 函数](https://www.feishu.cn/hc/zh-CN/articles/947958003325 "COUNTA 函数")
+            *   [表格 COUNTIF 函数](https://www.feishu.cn/hc/zh-CN/articles/937903503570 "表格 COUNTIF 函数")
+            *   [表格 COUNTIFS 函数](https://www.feishu.cn/hc/zh-CN/articles/905998359022 "表格 COUNTIFS 函数")
+            *   [CONVERT 函数](https://www.feishu.cn/hc/zh-CN/articles/052781507364 "CONVERT 函数")
+            *   [GAMMA.DIST 函数](https://www.feishu.cn/hc/zh-CN/articles/975544273977 "GAMMA.DIST 函数")
+            *   [GAMMA.INV 函数](https://www.feishu.cn/hc/zh-CN/articles/217601150206 "GAMMA.INV 函数")
+            *   [GAMMALN 函数](https://www.feishu.cn/hc/zh-CN/articles/795330194864 "GAMMALN 函数")
+            *   [GAMMALN.PRECISE 函数](https://www.feishu.cn/hc/zh-CN/articles/782921429675 "GAMMALN.PRECISE 函数")
+            *   [INTERCEPT 函数](https://www.feishu.cn/hc/zh-CN/articles/723427151739 "INTERCEPT 函数")
+            *   [LARGE 函数](https://www.feishu.cn/hc/zh-CN/articles/533764792716 "LARGE 函数")
+            *   [MAX 函数](https://www.feishu.cn/hc/zh-CN/articles/311289877757 "MAX 函数")
+            *   [MAXA 函数](https://www.feishu.cn/hc/zh-CN/articles/401989451812 "MAXA 函数")
+            *   [MIN 函数](https://www.feishu.cn/hc/zh-CN/articles/705263019388 "MIN 函数")
+            *   [MINA 函数](https://www.feishu.cn/hc/zh-CN/articles/089347318738 "MINA 函数")
+            *   [MEDIAN 函数](https://www.feishu.cn/hc/zh-CN/articles/241642815792 "MEDIAN 函数")
+            *   [MODE 函数](https://www.feishu.cn/hc/zh-CN/articles/762767362194 "MODE 函数")
+            *   [MODE.MULT 函数](https://www.feishu.cn/hc/zh-CN/articles/289559738570 "MODE.MULT 函数")
+            *   [MODE.SNGL 函数](https://www.feishu.cn/hc/zh-CN/articles/570527628488 "MODE.SNGL 函数")
+            *   [NORM.S.DIST 函数](https://www.feishu.cn/hc/zh-CN/articles/804053713628 "NORM.S.DIST 函数")
+            *   [NORM.S.INV 函数](https://www.feishu.cn/hc/zh-CN/articles/949722511775 "NORM.S.INV 函数")
+            *   [PERCENTRANK 函数](https://www.feishu.cn/hc/zh-CN/articles/813687562584 "PERCENTRANK 函数")
+            *   [PERCENTILE 函数](https://www.feishu.cn/hc/zh-CN/articles/054327997558 "PERCENTILE 函数")
+            *   [QUARTILE 函数](https://www.feishu.cn/hc/zh-CN/articles/810849498500 "QUARTILE 函数")
+            *   [RANK.AVG 函数](https://www.feishu.cn/hc/zh-CN/articles/316173926152 "RANK.AVG 函数")
+            *   [RANK. EQ 函数](https://www.feishu.cn/hc/zh-CN/articles/395949449416 "RANK. EQ 函数 ")
+            *   [SMALL 函数](https://www.feishu.cn/hc/zh-CN/articles/974195508172 "SMALL 函数")
+            *   [TRIMMEAN 函数](https://www.feishu.cn/hc/zh-CN/articles/675471949119 "TRIMMEAN 函数")
+
+        *   [文本函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118212685807618) 
+            *   [ASC 函数](https://www.feishu.cn/hc/zh-CN/articles/912188599332 "ASC 函数")
+            *   [CHAR 函数](https://www.feishu.cn/hc/zh-CN/articles/908981543159 "CHAR 函数")
+            *   [CLEAN 函数](https://www.feishu.cn/hc/zh-CN/articles/414076131844 "CLEAN 函数")
+            *   [EXACT 函数](https://www.feishu.cn/hc/zh-CN/articles/497249007793 "EXACT 函数")
+            *   [FIND 函数](https://www.feishu.cn/hc/zh-CN/articles/236594520955 "FIND 函数")
+            *   [FIXED 函数](https://www.feishu.cn/hc/zh-CN/articles/735797855580 "FIXED 函数")
+            *   [LEN 函数](https://www.feishu.cn/hc/zh-CN/articles/476574618338 "LEN 函数")
+            *   [LEFT 函数](https://www.feishu.cn/hc/zh-CN/articles/510643844292 "LEFT 函数")
+            *   [LOWER 函数](https://www.feishu.cn/hc/zh-CN/articles/812894461033 "LOWER 函数")
+            *   [MID 函数](https://www.feishu.cn/hc/zh-CN/articles/115826432443 "MID 函数")
+            *   [PROPER 函数](https://www.feishu.cn/hc/zh-CN/articles/587943503115 "PROPER 函数")
+            *   [REPLACE 函数](https://www.feishu.cn/hc/zh-CN/articles/149449981751 "REPLACE 函数")
+            *   [REPT 函数](https://www.feishu.cn/hc/zh-CN/articles/459426879750 "REPT 函数")
+            *   [RIGHT 函数](https://www.feishu.cn/hc/zh-CN/articles/582526252236 "RIGHT 函数")
+            *   [SEARCH 函数](https://www.feishu.cn/hc/zh-CN/articles/711640638701 "SEARCH 函数")
+            *   [使用表格 SPLIT 函数](https://www.feishu.cn/hc/zh-CN/articles/429400442849 "使用表格 SPLIT 函数")
+            *   [SUBSTITUTE 函数](https://www.feishu.cn/hc/zh-CN/articles/062922769572 "SUBSTITUTE 函数")
+            *   [TEXTJOIN 函数](https://www.feishu.cn/hc/zh-CN/articles/972982053080 "TEXTJOIN 函数")
+            *   [TRIM 函数](https://www.feishu.cn/hc/zh-CN/articles/632120195721 "TRIM 函数")
+            *   [UPPER 函数](https://www.feishu.cn/hc/zh-CN/articles/656905447997 "UPPER 函数")
+            *   [VALUE 函数](https://www.feishu.cn/hc/zh-CN/articles/293510504978 "VALUE 函数")
+
+        *   [财务函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118433977253890) 
+            *   [ACCRINTM 函数](https://www.feishu.cn/hc/zh-CN/articles/218878481920 "ACCRINTM 函数")
+            *   [COUPDAYBS 函数](https://www.feishu.cn/hc/zh-CN/articles/207489370728 "COUPDAYBS 函数")
+            *   [COUPDAYS 函数](https://www.feishu.cn/hc/zh-CN/articles/823602379805 "COUPDAYS 函数")
+            *   [COUPDAYSNC 函数](https://www.feishu.cn/hc/zh-CN/articles/233189165159 "COUPDAYSNC 函数")
+            *   [COUPNCD 函数](https://www.feishu.cn/hc/zh-CN/articles/366807435365 "COUPNCD 函数")
+            *   [COUPNUM 函数](https://www.feishu.cn/hc/zh-CN/articles/520539409055 "COUPNUM 函数")
+            *   [COUPPCD 函数](https://www.feishu.cn/hc/zh-CN/articles/695014442551 "COUPPCD 函数")
+            *   [使用表格 CUMPRINC 函数](https://www.feishu.cn/hc/zh-CN/articles/765466862089 "使用表格 CUMPRINC 函数")
+            *   [DISC 函数](https://www.feishu.cn/hc/zh-CN/articles/525517683506 "DISC 函数")
+            *   [EFFECT 函数](https://www.feishu.cn/hc/zh-CN/articles/882680029262 "EFFECT 函数")
+            *   [FV 函数](https://www.feishu.cn/hc/zh-CN/articles/834021488901 "FV 函数")
+            *   [FVSCHEDULE 函数](https://www.feishu.cn/hc/zh-CN/articles/080415598346 "FVSCHEDULE 函数")
+            *   [IPMT 函数](https://www.feishu.cn/hc/zh-CN/articles/888617649774 "IPMT 函数")
+            *   [IRR 函数](https://www.feishu.cn/hc/zh-CN/articles/668802732413 "IRR 函数")
+            *   [MIRR 函数](https://www.feishu.cn/hc/zh-CN/articles/257426613714 "MIRR 函数")
+            *   [NOMINAL 函数](https://www.feishu.cn/hc/zh-CN/articles/042062266861 "NOMINAL 函数")
+            *   [NPER 函数](https://www.feishu.cn/hc/zh-CN/articles/978336932407 "NPER 函数")
+            *   [NPV 函数](https://www.feishu.cn/hc/zh-CN/articles/852717556197 "NPV 函数")
+            *   [PMT 函数](https://www.feishu.cn/hc/zh-CN/articles/985517759522 "PMT 函数")
+            *   [PPMT 函数](https://www.feishu.cn/hc/zh-CN/articles/684677259922 "PPMT 函数")
+            *   [PV 函数](https://www.feishu.cn/hc/zh-CN/articles/035813788361 "PV 函数")
+            *   [RATE 函数](https://www.feishu.cn/hc/zh-CN/articles/065900006928 "RATE 函数")
+            *   [XIRR 函数](https://www.feishu.cn/hc/zh-CN/articles/229783860050 "XIRR 函数")
+            *   [XNPV 函数](https://www.feishu.cn/hc/zh-CN/articles/536115928980 "XNPV 函数")
+
+        *   [工程函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118349130661916) 
+            *   [使用表格 BIN2DEC 函数](https://www.feishu.cn/hc/zh-CN/articles/190112746610 "使用表格 BIN2DEC 函数")
+            *   [BIN2HEX 函数](https://www.feishu.cn/hc/zh-CN/articles/745875342894 "BIN2HEX 函数")
+            *   [BIN2OCT 函数](https://www.feishu.cn/hc/zh-CN/articles/877394626177 "BIN2OCT 函数")
+            *   [COMPLEX 函数](https://www.feishu.cn/hc/zh-CN/articles/188478421027 "COMPLEX 函数")
+            *   [DEC2BIN 函数](https://www.feishu.cn/hc/zh-CN/articles/017837054172 "DEC2BIN 函数")
+            *   [DEC2HEX 函数](https://www.feishu.cn/hc/zh-CN/articles/785544204690 "DEC2HEX 函数")
+            *   [DEC2OCT 函数](https://www.feishu.cn/hc/zh-CN/articles/780981854241 "DEC2OCT 函数")
+            *   [DELTA 函数](https://www.feishu.cn/hc/zh-CN/articles/457473402900 "DELTA 函数")
+            *   [ERF 函数](https://www.feishu.cn/hc/zh-CN/articles/160150142014 "ERF 函数")
+            *   [ERF.PRECISE 函数](https://www.feishu.cn/hc/zh-CN/articles/381446431808 "ERF.PRECISE 函数")
+            *   [GESTEP 函数](https://www.feishu.cn/hc/zh-CN/articles/186732181677 "GESTEP 函数")
+            *   [IMABS 函数](https://www.feishu.cn/hc/zh-CN/articles/017632295904 "IMABS 函数")
+            *   [IMAGINARY 函数](https://www.feishu.cn/hc/zh-CN/articles/519958157570 "IMAGINARY 函数")
+            *   [IMARGUMENT 函数](https://www.feishu.cn/hc/zh-CN/articles/408816794493 "IMARGUMENT 函数")
+            *   [IMCONJUGATE 函数](https://www.feishu.cn/hc/zh-CN/articles/295072186309 "IMCONJUGATE 函数")
+            *   [IMCOS 函数](https://www.feishu.cn/hc/zh-CN/articles/381329958630 "IMCOS 函数")
+            *   [表格 IMDIV 函数](https://www.feishu.cn/hc/zh-CN/articles/429479329974 "表格 IMDIV 函数")
+            *   [IMEXP 函数](https://www.feishu.cn/hc/zh-CN/articles/238424099515 "IMEXP 函数")
+            *   [IMLOG10 函数](https://www.feishu.cn/hc/zh-CN/articles/489295141203 "IMLOG10 函数")
+            *   [IMLOG2 函数](https://www.feishu.cn/hc/zh-CN/articles/388880833235 "IMLOG2 函数")
+            *   [IMPRODUCT 函数](https://www.feishu.cn/hc/zh-CN/articles/216721346822 "IMPRODUCT 函数")
+            *   [IMSUB 函数](https://www.feishu.cn/hc/zh-CN/articles/621585791114 "IMSUB 函数")
+            *   [IMSUM 函数](https://www.feishu.cn/hc/zh-CN/articles/315867963126 "IMSUM 函数")
+
+        *   [实用函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7346210516328710146) 
+            *   [ARRAYFORMULA 函数](https://www.feishu.cn/hc/zh-CN/articles/236677831470 "ARRAYFORMULA 函数")
+            *   [ARRAY_CONSTRAIN 函数](https://www.feishu.cn/hc/zh-CN/articles/586858261531 "ARRAY_CONSTRAIN 函数")
+            *   [表格 QUERY 函数](https://www.feishu.cn/hc/zh-CN/articles/675449882826 "表格 QUERY 函数")
+            *   [UNIQUE 函数](https://www.feishu.cn/hc/zh-CN/articles/497819024542 "UNIQUE 函数")
+            *   [表格 XLOOKUP 函数](https://www.feishu.cn/hc/zh-CN/articles/683338120981 "表格 XLOOKUP 函数")
+
+        *   [网络函数合集](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7005118910383079425) 
+            *   [IMAGE/IMPORT 类函数的使用说明](https://www.feishu.cn/hc/zh-CN/articles/615377957131 "IMAGE/IMPORT 类函数的使用说明")
+
+    *   [数据透视表](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7143532968488271874) 
+        *   [在表格中创建及使用数据透视表](https://www.feishu.cn/hc/zh-CN/articles/762129829042 "在表格中创建及使用数据透视表")
+        *   [了解数据透视表字段](https://www.feishu.cn/hc/zh-CN/articles/735829815215 "了解数据透视表字段")
+        *   [调整数据透视表中值的汇总方式与显示方式](https://www.feishu.cn/hc/zh-CN/articles/421631180862 "调整数据透视表中值的汇总方式与显示方式")
+        *   [在数据透视表中使用计算字段](https://www.feishu.cn/hc/zh-CN/articles/821125695004 "在数据透视表中使用计算字段")
+        *   [在数据透视表中使用分组功能](https://www.feishu.cn/hc/zh-CN/articles/994262092451 "在数据透视表中使用分组功能")
+        *   [调整数据透视表的展示配置](https://www.feishu.cn/hc/zh-CN/articles/637956233845 "调整数据透视表的展示配置")
+        *   [在数据透视表中使用排序与筛选功能](https://www.feishu.cn/hc/zh-CN/articles/918571271638 "在数据透视表中使用排序与筛选功能")
+        *   [数据透视表最佳实践：销售报表分析](https://www.feishu.cn/hc/zh-CN/articles/243765716631 "数据透视表最佳实践：销售报表分析")
+
+    *   [移动端特色功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001026106048954369) 
+        *   [在移动端表格中使用卡片视图](https://www.feishu.cn/hc/zh-CN/articles/813094348964 "在移动端表格中使用卡片视图")
+        *   [在移动端表格中使用智能截屏](https://www.feishu.cn/hc/zh-CN/articles/303044883543 "在移动端表格中使用智能截屏")
+        *   [在移动端开启表格离线可编辑功能](https://www.feishu.cn/hc/zh-CN/articles/242731268594 "在移动端开启表格离线可编辑功能")
+
+    *   [更多表格功能](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7001026017460486145) 
+        *   [保护表格指定数据范围和工作表](https://www.feishu.cn/hc/zh-CN/articles/442040847648 "保护表格指定数据范围和工作表")
+        *   [将表格转换为多维表格](https://www.feishu.cn/hc/zh-CN/articles/360049067798 "将表格转换为多维表格")
+        *   [在表格中使用快捷键](https://www.feishu.cn/hc/zh-CN/articles/661397729819 "在表格中使用快捷键")
+        *   [在表格中冻结行列](https://www.feishu.cn/hc/zh-CN/articles/360033241094 "在表格中冻结行列")
+        *   [高亮所在行列](https://www.feishu.cn/hc/zh-CN/articles/360049067983 "高亮所在行列")
+        *   [在表格中一键生图](https://www.feishu.cn/hc/zh-CN/articles/617378492202 "在表格中一键生图")
+        *   [在表格中缩放页面比例](https://www.feishu.cn/hc/zh-CN/articles/360049067957 "在表格中缩放页面比例")
+        *   [在表格中设置网格线](https://www.feishu.cn/hc/zh-CN/articles/360049068042 "在表格中设置网格线")
+
+*   [幻灯片](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7299794142421483521) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349135490358132739) 
+        *   [快速上手幻灯片](https://www.feishu.cn/hc/zh-CN/articles/047096658995 "快速上手幻灯片")
+        *   [导入 PPT 格式文件](https://www.feishu.cn/hc/zh-CN/articles/716741320420 "导入 PPT 格式文件")
+        *   [幻灯片功能常见问题](https://www.feishu.cn/hc/zh-CN/articles/176417893128 "幻灯片功能常见问题")
+        *   [查看和还原幻灯片的历史记录](https://www.feishu.cn/hc/zh-CN/articles/666331696886 "查看和还原幻灯片的历史记录")
+        *   [演示幻灯片](https://www.feishu.cn/hc/zh-CN/articles/567559924536 "演示幻灯片")
+        *   [管理 WPS 演示文档](https://www.feishu.cn/hc/zh-CN/articles/141089646910 "管理 WPS 演示文档")
+
+    *   [添加、编辑和整理幻灯片](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349135932374941700) 
+        *   [使用母版和布局](https://www.feishu.cn/hc/zh-CN/articles/590299019774 "使用母版和布局")
+        *   [在幻灯片中使用动画效果](https://www.feishu.cn/hc/zh-CN/articles/085603875342 "在幻灯片中使用动画效果")
+
+    *   [插入对象与设置格式](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349136245207613443) 
+        *   [设置幻灯片中对象的格式](https://www.feishu.cn/hc/zh-CN/articles/442577259086 "设置幻灯片中对象的格式")
+        *   [在幻灯片中使用文本](https://www.feishu.cn/hc/zh-CN/articles/656899575944 "在幻灯片中使用文本")
+        *   [在幻灯片中使用图形](https://www.feishu.cn/hc/zh-CN/articles/931384260513 "在幻灯片中使用图形")
+        *   [在幻灯片中使用图片](https://www.feishu.cn/hc/zh-CN/articles/507330793370 "在幻灯片中使用图片")
+        *   [在幻灯片中使用媒体](https://www.feishu.cn/hc/zh-CN/articles/651003642876 "在幻灯片中使用媒体")
+        *   [在幻灯片中使用图表](https://www.feishu.cn/hc/zh-CN/articles/693487084959 "在幻灯片中使用图表")
+        *   [在幻灯片中使用表格](https://www.feishu.cn/hc/zh-CN/articles/965135094101 "在幻灯片中使用表格")
+        *   [在幻灯片中使用画板](https://www.feishu.cn/hc/zh-CN/articles/421228362939 "在幻灯片中使用画板")
+
+    *   [效率工具](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349136580034363395) 
+        *   [使用幻灯片快捷键](https://www.feishu.cn/hc/zh-CN/articles/058251273274 "使用幻灯片快捷键")
+        *   [幻灯片中的动态辅助线](https://www.feishu.cn/hc/zh-CN/articles/770800296763 "幻灯片中的动态辅助线")
+
+    *   [问题排查](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7349136997481086980) 
+        *   [为什么幻灯片中的字号大小在浏览器中无法正确显示？](https://www.feishu.cn/hc/zh-CN/articles/474136185798 "为什么幻灯片中的字号大小在浏览器中无法正确显示？")
+
+*   [思维笔记](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571639177218) 
+    *   [创建和编辑思维笔记](https://www.feishu.cn/hc/zh-CN/articles/360049067714 "创建和编辑思维笔记")
+    *   [在思维笔记中添加、编辑、放大和删除图片](https://www.feishu.cn/hc/zh-CN/articles/360049067710 "在思维笔记中添加、编辑、放大和删除图片")
+    *   [在思维笔记中使用思维导图视图](https://www.feishu.cn/hc/zh-CN/articles/360049067712 "在思维笔记中使用思维导图视图")
+    *   [查看和还原思维笔记历史记录](https://www.feishu.cn/hc/zh-CN/articles/360049067764 "查看和还原思维笔记历史记录")
+    *   [在思维笔记中使用评论](https://www.feishu.cn/hc/zh-CN/articles/069333583062 "在思维笔记中使用评论")
+    *   [在移动端使用思维笔记横屏模式](https://www.feishu.cn/hc/zh-CN/articles/625203850282 "在移动端使用思维笔记横屏模式")
+
+*   [知识库](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960496243344670748) 
+    *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7232179295807193089) 
+        *   [管理员快速上手飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/134238909902 "管理员快速上手飞书知识库")
+        *   [成员快速上手飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/582922484818 "成员快速上手飞书知识库")
+        *   [创建知识库](https://www.feishu.cn/hc/zh-CN/articles/726520434200 "创建知识库")
+        *   [快速了解知识库权限](https://www.feishu.cn/hc/zh-CN/articles/821998241087 "快速了解知识库权限")
+        *   [知识库不同角色权限说明](https://www.feishu.cn/hc/zh-CN/articles/758901371147 "知识库不同角色权限说明")
+        *   [知识库管理员常见问题](https://www.feishu.cn/hc/zh-CN/articles/573667449126 "知识库管理员常见问题")
+        *   [知识库常见上限](https://www.feishu.cn/hc/zh-CN/articles/052034522061 "知识库常见上限")
+
+    *   [管理知识库](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7232179914768826369) 
+        *   [设置知识库公开范围](https://www.feishu.cn/hc/zh-CN/articles/463577318234 "设置知识库公开范围")
+        *   [设置当前知识库管理员和成员](https://www.feishu.cn/hc/zh-CN/articles/530997871518 "设置当前知识库管理员和成员")
+        *   [修改知识库安全设置](https://www.feishu.cn/hc/zh-CN/articles/195691513854 "修改知识库安全设置")
+        *   [设置知识库的知识问答功能](https://www.feishu.cn/hc/zh-CN/articles/138181848717 "设置知识库的知识问答功能")
+        *   [查看单个知识库使用数据](https://www.feishu.cn/hc/zh-CN/articles/646202576650 "查看单个知识库使用数据")
+        *   [添加关联组织用户为当前知识库成员](https://www.feishu.cn/hc/zh-CN/articles/915346029226 "添加关联组织用户为当前知识库成员")
+        *   [手动将 Confluence 数据迁移至飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/612602911143 "手动将 Confluence 数据迁移至飞书知识库")
+        *   [删除和恢复知识库](https://www.feishu.cn/hc/zh-CN/articles/557043079436 "删除和恢复知识库")
+
+    *   [使用知识库](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7232181960856911900) 
+        *   [在知识库中添加页面](https://www.feishu.cn/hc/zh-CN/articles/434905456243 "在知识库中添加页面")
+        *   [在知识库中使用知识问答](https://www.feishu.cn/hc/zh-CN/articles/143241168260 "在知识库中使用知识问答")
+        *   [移动云文档到知识库](https://www.feishu.cn/hc/zh-CN/articles/874534846817 "移动云文档到知识库")
+        *   [批量操作知识库页面](https://www.feishu.cn/hc/zh-CN/articles/763992129311 "批量操作知识库页面")
+        *   [关注知识库更新动态](https://www.feishu.cn/hc/zh-CN/articles/891296506340 "关注知识库更新动态")
+        *   [对外分享知识库页面](https://www.feishu.cn/hc/zh-CN/articles/490001133435 "对外分享知识库页面")
+        *   [对外分享知识库整体](https://www.feishu.cn/hc/zh-CN/articles/328843312369 "对外分享知识库整体")
+        *   [移动或移除知识库页面](https://www.feishu.cn/hc/zh-CN/articles/836041974410 "移动或移除知识库页面")
+        *   [删除和恢复知识库页面](https://www.feishu.cn/hc/zh-CN/articles/391391198820 "删除和恢复知识库页面")
+
+*   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571664277532) 
+    *   [3 分钟上手高效工作法](https://www.feishu.cn/hc/zh-CN/articles/706821922831 "3 分钟上手高效工作法")
+    *   [如何用模板管理时间，记录生活？](https://www.feishu.cn/hc/zh-CN/articles/360049067609 "如何用模板管理时间，记录生活？")
+    *   [如何使用通用模板助力工作提效？](https://www.feishu.cn/hc/zh-CN/articles/360049067605 "如何使用通用模板助力工作提效？")
+    *   [如何利用模板梳理产品开发迭代](https://www.feishu.cn/hc/zh-CN/articles/360049067607 "如何利用模板梳理产品开发迭代")
+    *   [远程协同，如何使用模板高效办公？](https://www.feishu.cn/hc/zh-CN/articles/360049067604 "远程协同，如何使用模板高效办公？")
+    *   [团建难组织？模板帮你轻松组局](https://www.feishu.cn/hc/zh-CN/articles/360047479054 "团建难组织？模板帮你轻松组局")
+    *   [如何用模板轻松完成市场营销策划案？](https://www.feishu.cn/hc/zh-CN/articles/360049067608 "如何用模板轻松完成市场营销策划案？")
+    *   [为什么模板是人事行政的专属锦囊妙计？](https://www.feishu.cn/hc/zh-CN/articles/360049067606 "为什么模板是人事行政的专属锦囊妙计？")
+    *   [一站式模板解决方案，一篇文档轻松上手项目管理](https://www.feishu.cn/hc/zh-CN/articles/788439364854 "一站式模板解决方案，一篇文档轻松上手项目管理")
+    *   [一站式模板解决方案，全局管理产品生命周期](https://www.feishu.cn/hc/zh-CN/articles/233732874751 "一站式模板解决方案，全局管理产品生命周期")
+    *   [一站式模板解决方案，人力资源全流程管理](https://www.feishu.cn/hc/zh-CN/articles/240318604747 "一站式模板解决方案，人力资源全流程管理")
+    *   [一站式模板解决方案，赢战电商大促活动](https://www.feishu.cn/hc/zh-CN/articles/448336660937 "一站式模板解决方案，赢战电商大促活动")
+    *   [一站式模板解决方案，电商日常运营井井有条](https://www.feishu.cn/hc/zh-CN/articles/899981991149 "一站式模板解决方案，电商日常运营井井有条")
+    *   [免费模板，助你完善五一小长假规划！](https://www.feishu.cn/hc/zh-CN/articles/808143288367 "免费模板，助你完善五一小长假规划！")
+    *   [表格模板，帮你轻松管理大型项目](https://www.feishu.cn/hc/zh-CN/articles/360042127334 "表格模板，帮你轻松管理大型项目")
+    *   [飞书文档，同学们的笔记好帮手](https://www.feishu.cn/hc/zh-CN/articles/437322037063 "飞书文档，同学们的笔记好帮手")
+    *   [提升异地协同办公效率](https://www.feishu.cn/hc/zh-CN/articles/360042493854 "提升异地协同办公效率")
+    *   [会议变革，只需一篇文档](https://www.feishu.cn/hc/zh-CN/articles/499934302882 "会议变革，只需一篇文档")
+    *   [多人审改文档费时费力？云文档开创新玩法](https://www.feishu.cn/hc/zh-CN/articles/360047388654 "多人审改文档费时费力？云文档开创新玩法")
+    *   [米居：用云文档激活团队效能](https://www.feishu.cn/hc/zh-CN/articles/867385204283 "米居：用云文档激活团队效能")
+    *   [画板还能这样用？超多花式“画”法](https://www.feishu.cn/hc/zh-CN/articles/258259270732 "画板还能这样用？超多花式“画”法")
+    *   [多人协作数据单独筛选难？筛选视图功能来了！](https://www.feishu.cn/hc/zh-CN/articles/360049067757 "多人协作数据单独筛选难？筛选视图功能来了！")
+    *   [5 个表格功能，让协作“易于言表”](https://www.feishu.cn/hc/zh-CN/articles/360047476874 "5 个表格功能，让协作“易于言表”")
+    *   [G7：用飞书知识库描绘企业知识蓝图](https://www.feishu.cn/hc/zh-CN/articles/926983754268 "G7：用飞书知识库描绘企业知识蓝图")
+    *   [飞书知识库：构建企业与个人的专属智库](https://www.feishu.cn/hc/zh-CN/articles/807073676453 "飞书知识库：构建企业与个人的专属智库")
+    *   [善用文件夹功能，为团队节省更多人力](https://www.feishu.cn/hc/zh-CN/articles/360049067443 "善用文件夹功能，为团队节省更多人力")
+    *   [游戏研发：敏捷开发项目管理应用](https://www.feishu.cn/hc/zh-CN/articles/168231733610 "游戏研发：敏捷开发项目管理应用")
+    *   [蛋壳肌因：用多维表格打造智慧门店](https://www.feishu.cn/hc/zh-CN/articles/895970180756 "蛋壳肌因：用多维表格打造智慧门店")
+    *   [团队提效：用多维表格联动目标拆解与业务执行](https://www.feishu.cn/hc/zh-CN/articles/152249921044 "团队提效：用多维表格联动目标拆解与业务执行")
+    *   [新媒体内容制作实践：多维表格全流程内容管理](https://www.feishu.cn/hc/zh-CN/articles/975953912537 "新媒体内容制作实践：多维表格全流程内容管理")
+    *   [素材管理、异地协作难？云文档搞定一切](https://www.feishu.cn/hc/zh-CN/articles/360049067733 "素材管理、异地协作难？云文档搞定一切")
+    *   [活动策划难？飞书文档模板助你成为活动运营多面手！](https://www.feishu.cn/hc/zh-CN/articles/360049067774 "活动策划难？飞书文档模板助你成为活动运营多面手！")
+
+简体中文
+
+English
+
+[![Image 4](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ec090d13c05142508f47228ec31aef55~tplv-jbbdkfciu3-image:0:0.image)](javascript:void(0);)[](https://weibo.com/u/7223713567)[](https://www.zhihu.com/org/fei-shu-27-96/activities)[](https://www.toutiao.com/c/user/3073831497904140/)[![Image 5: social](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d58453d89da34a179ac64a94d4c136f5~tplv-jbbdkfciu3-image:0:0.image)](https://web.okjike.com/u/b02229cb-9242-4a7f-9ec7-8a8cacb2142c)
+
+Copyright © 2024 北京飞书科技有限公司[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 6](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image) 京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+购买咨询
+
+一对一专业企业顾问
+
+工作日 09:00 - 18:00 在线服务
+
+[预约顾问 免费获取专属服务 填写表单享功能配置等服务](https://www.feishu.cn/salessupport?from=helpcenter_hover)
+
+![Image 7](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=6d97073e-abae-40b6-ba5d-3a4f10c2ace7&bo=1&sid=9877fbf059c611f1afae2d4b9e592d5c&vid=98783c3059c611f1b858cf88770b4261&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E4%B8%8B%E8%BD%BD%E4%BA%91%E6%96%87%E6%A1%A3%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%B0%E6%9C%AC%E5%9C%B0&kw=%E4%B8%8B%E8%BD%BD,%E5%AF%BC%E5%87%BA,%E4%B8%8B%E8%BD%BD%E6%96%87%E6%A1%A3,%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6,%E4%B8%8B%E8%BD%BD%E8%A1%A8%E6%A0%BC,%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%9C%AC%E5%9C%B0&p=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F360049067463-%25E4%25B8%258B%25E8%25BD%25BD%25E4%25BA%2591%25E6%2596%2587%25E6%25A1%25A3%25E5%2592%258C%25E6%2596%2587%25E4%25BB%25B6%25E5%25A4%25B9%25E5%2588%25B0%25E6%259C%25AC%25E5%259C%25B0&r=&lt=4728&evt=pageLoad&sv=2&cdb=AQAQ&rn=379065)

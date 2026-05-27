@@ -1,0 +1,279 @@
+# Guidance for Chatbot User Feedback and Analytics on AWS
+
+Title: Guidance for Chatbot User Feedback and Analytics on AWS
+
+URL Source: https://aws.amazon.com/solutions/guidance/chatbot-user-feedback-and-analytics-on-aws
+
+Markdown Content:
+# Guidance for Chatbot User Feedback and Analytics on AWS
+
+## Select your cookie preferences
+
+We use essential cookies and similar tools that are necessary to provide our site and services. We use performance cookies to collect anonymous statistics, so we can understand how customers use our site and make improvements. Essential cookies cannot be deactivated, but you can choose “Customize” or “Decline” to decline performance cookies. 
+
+ If you agree, AWS and approved third parties will also use cookies to provide useful site features, remember your preferences, and display relevant content, including relevant advertising. To accept or decline all non-essential cookies, choose “Accept” or “Decline.” To make more detailed choices, choose “Customize.”
+
+Accept Decline Customize
+
+## Customize cookie preferences
+
+We use cookies and similar tools (collectively, "cookies") for the following purposes.
+
+### Essential
+
+Essential cookies are necessary to provide our site and services and cannot be deactivated. They are usually set in response to your actions on the site, such as setting your privacy preferences, signing in, or filling in forms.
+
+- [x]  
+
+Allowed
+
+### Performance
+
+Performance cookies provide anonymous statistics about how customers navigate our site so we can improve site experience and performance. Approved third parties may perform analytics on our behalf, but they cannot use the data for their own purposes.
+
+- [x]  
+
+Allowed
+
+### Functional
+
+Functional cookies help us provide useful site features, remember your preferences, and display relevant content. Approved third parties may set these cookies to provide certain site features. If you do not allow these cookies, then some or all of these services may not function properly.
+
+- [x]  
+
+Allowed
+
+### Advertising
+
+Advertising cookies may be set through our site by us or our advertising partners and help us deliver relevant marketing content. If you do not allow these cookies, you will experience less relevant advertising.
+
+- [x]  
+
+Allowed
+
+Blocking some types of cookies may impact your experience of our sites. You may review and change your choices at any time by selecting Cookie preferences in the footer of this site. We and selected third-parties use cookies or similar technologies as specified in the[AWS Cookie Notice](https://aws.amazon.com/legal/cookies/).
+
+Cancel Save preferences
+
+## Your privacy choices
+
+We and our advertising partners (“we”) may use information we collect from or about you to show you ads on other websites and online services. Under certain laws, this activity is referred to as “cross-context behavioral advertising” or “targeted advertising.”
+
+To opt out of our use of cookies or similar technologies to engage in these activities, select “Opt out of cross-context behavioral ads” and “Save preferences” below. If you clear your browser cookies or visit this site from a different device or browser, you will need to make your selection again. For more information about cookies and how we use them, read our[Cookie Notice](https://aws.amazon.com/legal/cookies/).
+
+Allow cross-context behavioral ads Opt out of cross-context behavioral ads 
+
+ 
+
+To opt out of the use of other identifiers, such as contact information, for these activities, fill out the form[here](https://pulse.aws/application/ZRPLWLL6?p=0).
+
+For more information about how AWS handles your information, read the[AWS Privacy Notice](https://aws.amazon.com/privacy/).
+
+Cancel Save preferences
+
+## Unable to save cookie preferences
+
+We will only store essential cookies at this time, because we were unable to save your cookie preferences.
+
+If you want to change your cookie preferences, try again later using the link in the AWS console footer, or contact support if the problem persists.
+
+Dismiss
+
+[Skip to main content](https://aws.amazon.com/solutions/guidance/chatbot-user-feedback-and-analytics-on-aws#aws-page-content-main)
+
+[](https://aws.amazon.com/?nc2=h_home)
+
+*       Filter: All                 
+*    
+
+*    
+*   English
+*   [Contact us](https://aws.amazon.com/contact-us/?nc2=h_ut_cu)
+*   [AWS Marketplace](https://aws.amazon.com/marketplace?nc2=h_utmp)
+*   Support
+*   My account
+*    
+
+*   [](https://aws.amazon.com/?nc2=h_home)
+*   [AWS Summits](https://aws.amazon.com/events/summits/?nc2=h_l1_f)
+*   Discover AWS 
+*   Products 
+*   Solutions 
+*   Pricing 
+*   Resources 
+
+*   Search
+
+    Filter: All                 
+*   [Sign in to console](https://console.aws.amazon.com/console/home/?nc2=h_si&src=header-signin)
+*   [Create account](https://signin.aws.amazon.com/signup?request_type=register)
+
+AWS Solutions Library
+
+*   Industry 
+*   Cross-Industry 
+*   Technology 
+*   Organization Type 
+*   Browse By 
+*   More 
+
+*   [AWS Solutions Library](https://aws.amazon.com/solutions/)
+*   Guidance for Chatbot User Feedback and Analytics on AWS
+
+# Guidance for Chatbot User Feedback and Analytics on AWS
+
+[Go to sample code](https://github.com/aws-solutions-library-samples/guidance-for-chatbot-user-feedback-and-analytics-on-aws)
+
+## Overview
+
+This Guidance demonstrates a prescriptive approach to gathering and storing human feedback on generative artificial intelligence (AI) applications, allowing businesses to estimate the value of their AI investments by collecting user satisfaction data. It implements a feedback collection mechanism for custom-built chatbots on AWS and Amazon Q Business chatbots. Decision-makers can easily access and visualize key performance indicators (KPIs) derived from user ratings and comments on chat responses, which provide valuable insights into the performance and effectiveness of their generative AI applications.
+
+## How it works
+
+*   Diagram 1
+*   Diagram 2
+
+### For Amazon Q Business Chatbot
+
+This architecture diagram shows how to enhance observability of user interactions with an Amazon Q Business chatbot. For the custom generative AI chatbot built on AWS, open the other tab.
+
+[Download the architecture diagram PDF](https://d1.awsstatic.com/solutions/guidance/architecture-diagrams/chatbot-user-feedback-and-analytics-on-aws.pdf#page=1)
+
+![Image 1: Architecture diagram illustrating the flow of chatbot user feedback analytics using Amazon Q Business and various AWS services, including AWS CloudTrail, EventBridge, Lambda, API Gateway, S3, IAM, KMS, Data Catalog, Athena, and QuickSight.](https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/architecture/approved/images/de761f872a0cc3bdd1124b5f167c9849-aws-architecture-diagram-chatbot-user-feedback-analytics-amazon-q-business-2945x1737.3075f87b2ee219aa031f6c6298de0dd98a9e4bb4.png)
+
+### For Custom Chatbot
+
+This architecture diagram shows how to enhance observability of user interactions with a custom generative AI chatbot built on AWS. For the Amazon Q Business chatbot, open the other tab.
+
+[Download the architecture diagram PDF](https://d1.awsstatic.com/solutions/guidance/architecture-diagrams/chatbot-user-feedback-and-analytics-on-aws.pdf#page=2)
+
+![Image 2: Architecture diagram illustrating a solution for capturing and analyzing custom chatbot user feedback using AWS services, including Amazon API Gateway, AWS Lambda, Amazon S3, AWS KMS, Data Catalog, Amazon Athena, and Amazon QuickSight.](https://d1.awsstatic.com/onedam/marketing-channels/website/aws/en_US/architecture/approved/images/1445985b00e063b3ee21ea7132ed207c-aws-custom-chatbot-user-feedback-analytics-architecture-diagram-2945x1622.138daf55fa9d47c87bdf46a54f23372e172a580a.png)
+
+## Deploy with confidence
+
+Ready to deploy?Review the sample code on GitHub for detailed deployment instructions to deploy as-is or customize to fit your needs.
+
+[Go to sample code](https://github.com/aws-solutions-library-samples/guidance-for-chatbot-user-feedback-and-analytics-on-aws)
+
+## Well-Architected Pillars
+
+The architecture diagram above is an example of a Solution created with Well-Architected best practices in mind. To be fully Well-Architected, you should follow as many Well-Architected best practices as possible.
+
+### Operational Excellence
+
+**Lambda** functions process and handle incoming requests and events, enabling operational excellence through serverless computing. **EventBridge** seamlessly routes feedback data emitted by **Amazon Q**, while **API Gateway** serves as the secure entry point, minimizing operational overhead. AWS handles provisioning, scaling, and maintenance, allowing you to focus on application logic. This reduces operational burden and ensures efficient, reliable operations.
+
+[Read the Operational Excellence whitepaper](https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html)
+
+### Security
+
+Sensitive user feedback data is securely stored in **Amazon S3**, with encryption managed by **AWS KMS**. Access control is implemented through**API Gateway's** custom authorizers, providing a secure entry point. This comprehensive approach to data protection, access control, and secure communication safeguards customer information and application integrity.
+
+[Read the Security whitepaper](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)
+
+### Reliability
+
+This Guidance uses [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK), which enables infrastructure as code deployment and promotes consistent, repeatable deployments that reduce the risk of human error.
+
+Serverless**Lambda** functions handle data processing and business logic with serverless components that automatically scale and recover from failures transparently, ensuring a reliable posture. The services in this Guidance contribute to reliability by providing fault tolerance, scalability, and automated recovery.
+
+[Read the Reliability whitepaper](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html)
+
+### Performance Efficiency
+
+**EventBridge** ingests events from [Amazon Simple Queue Service](https://aws.amazon.com/sqs/) (Amazon SQS), while **API Gateway** ingests feedback events from custom AI chatbots. **EventBridge** can process and deliver high volumes of events with low latency, and **API Gateway**is a scalable, high-performance API management service. These services can handle varying workloads and traffic without compromising performance.
+
+[Read the Performance Efficiency whitepaper](https://docs.aws.amazon.com/wellarchitected/latest/performance-efficiency-pillar/welcome.html)
+
+### Cost Optimization
+
+**Amazon S3** provides cost-effective data storage and charges only for the amount of data stored. **Lambda**avoids idle compute costs by automatically scaling and charging only for execution duration. **Athena**enables ad-hoc SQL querying of data stored in **Amazon S3** without provisioning dedicated infrastructure, so that you pay only for queries executed.
+
+[Read the Cost Optimization whitepaper](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
+
+### Sustainability
+
+Serverless services like **Lambda** and **API Gateway**enhance sustainability by automatically scaling up and down based on demand. When there are no events to process, these components remain idle, optimizing resource usage and minimizing wasted resources. This approach reduces the environmental impact of the Guidance to its effective usage, aligning with sustainable practices.
+
+[Read the Sustainability whitepaper](https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/sustainability-pillar.html)
+
+# Disclaimer
+
+The sample code; software libraries; command line tools; proofs of concept; templates; or other related technology (including any of the foregoing that are provided by our personnel) is provided to you as AWS Content under the AWS Customer Agreement, or the relevant written agreement between you and AWS (whichever applies). You should not use this AWS Content in your production accounts, or on production or other critical data. You are responsible for testing, securing, and optimizing the AWS Content, such as sample code, as appropriate for production grade use based on your specific quality control practices and standards. Deploying AWS Content may incur AWS charges for creating or using AWS chargeable resources, such as running Amazon EC2 instances or using Amazon S3 storage.
+
+References to third-party services or organizations in this Guidance do not imply an endorsement, sponsorship, or affiliation between Amazon or AWS and the third party. Guidance from AWS is a technical starting point, and you can customize your integration with third-party services when you deploy the architecture.
+
+## Did you find what you were looking for today?
+
+Let us know so we can improve the quality of the content on our pages
+
+Yes No
+
+[Create an AWS account](https://signin.aws.amazon.com/signup?request_type=register)
+
+## Learn
+
+*   [What Is AWS?](https://aws.amazon.com/what-is-aws/?nc1=f_cc)
+*   [What Is Cloud Computing?](https://aws.amazon.com/what-is-cloud-computing/?nc1=f_cc)
+*   [What Is Agentic AI?](https://aws.amazon.com/what-is/agentic-ai/?nc1=f_cc)
+*   [Cloud Computing Concepts Hub](https://aws.amazon.com/what-is/?nc1=f_cc)
+*   [AWS Cloud Security](https://aws.amazon.com/security/?nc1=f_cc)
+*   [What's New](https://aws.amazon.com/new/?nc1=f_cc)
+*   [Blogs](https://aws.amazon.com/blogs/?nc1=f_cc)
+*   [Press Releases](https://press.aboutamazon.com/press-releases/aws)
+
+## Resources
+
+*   [Getting Started](https://aws.amazon.com/getting-started/?nc1=f_cc)
+*   [Training](https://aws.amazon.com/training/?nc1=f_cc)
+*   [AWS Trust Center](https://aws.amazon.com/trust-center/?nc1=f_cc)
+*   [AWS Solutions Library](https://aws.amazon.com/solutions/?nc1=f_cc)
+*   [Architecture Center](https://aws.amazon.com/architecture/?nc1=f_cc)
+*   [Product and Technical FAQs](https://aws.amazon.com/faqs/?nc1=f_dr)
+*   [Analyst Reports](https://aws.amazon.com/resources/analyst-reports/?nc1=f_cc)
+*   [AWS Partners](https://aws.amazon.com/partners/work-with-partners/?nc1=f_dr)
+
+## Developers
+
+*   [Builder Center](https://aws.amazon.com/developer/?nc1=f_dr)
+*   [SDKs & Tools](https://aws.amazon.com/developer/tools/?nc1=f_dr)
+*   [.NET on AWS](https://aws.amazon.com/developer/language/net/?nc1=f_dr)
+*   [Python on AWS](https://aws.amazon.com/developer/language/python/?nc1=f_dr)
+*   [Java on AWS](https://aws.amazon.com/developer/language/java/?nc1=f_dr)
+*   [PHP on AWS](https://aws.amazon.com/developer/language/php/?nc1=f_cc)
+*   [JavaScript on AWS](https://aws.amazon.com/developer/language/javascript/?nc1=f_dr)
+
+## Help
+
+*   [Contact Us](https://aws.amazon.com/contact-us/?nc1=f_m)
+*   [File a Support Ticket](https://console.aws.amazon.com/support/home/?nc1=f_dr)
+*   [AWS re:Post](https://repost.aws/?nc1=f_dr)
+*   [Knowledge Center](https://repost.aws/knowledge-center/?nc1=f_dr)
+*   [AWS Support Overview](https://aws.amazon.com/premiumsupport/?nc1=f_dr)
+*   [Get Expert Help](https://iq.aws.amazon.com/?utm=mkt.foot/?nc1=f_m)
+*   [AWS Accessibility](https://aws.amazon.com/accessibility/?nc1=f_cc)
+*   [Legal](https://aws.amazon.com/legal/?nc1=f_cc)
+*   [Event Code of Conduct](https://aws.amazon.com/codeofconduct/?nc1=f_cc)
+*   [Event Terms & Conditions](https://aws.amazon.com/events/terms/?nc1=f_cc)
+
+English
+
+Back to top
+
+Amazon is an equal opportunity employer and does not discriminate on the basis of protected veteran status, disability or other legally protected status.
+
+[](https://twitter.com/awscloud)[](https://www.facebook.com/amazonwebservices)[](https://www.linkedin.com/company/amazon-web-services/)[](https://www.instagram.com/amazonwebservices/)[](https://www.twitch.tv/aws)[](https://www.youtube.com/user/AmazonWebServices/Cloud/)[](https://aws.amazon.com/podcasts/?nc1=f_cc)[](https://pages.awscloud.com/communication-preferences?trk=homepage)
+
+*   [Privacy](https://aws.amazon.com/privacy/?nc1=f_pr)
+*   [Site terms](https://aws.amazon.com/terms/?nc1=f_pr)
+*   [Cookie Preferences](https://aws.amazon.com/solutions/guidance/chatbot-user-feedback-and-analytics-on-aws/)
+
+© 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+
+- [x]  
+
+Hi, I can connect you with an AWS representative or answer questions you have on AWS.
+
+Need more info? Highlight any text to get an explanation generated with AWS generative AI.
+
+![Image 3: Ask a Question](https://aws.amazon.com/solutions/guidance/chatbot-user-feedback-and-analytics-on-aws)2

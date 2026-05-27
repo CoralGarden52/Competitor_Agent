@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import json
+import concurrent.futures
 from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
@@ -32,7 +33,6 @@ from app.core.models import (
     ProposalReviewRequest,
     ProposalStatus,
     QAOutput,
-    QAResult,
     ReworkIssue,
     ReworkTicket,
     Report,
@@ -46,7 +46,6 @@ from app.core.models import (
     StageName,
     TicketStatus,
 )
-from app.core.qa import run_qa_gate
 from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, registry_snapshot
 from app.core.storage import SQLiteStore
 
@@ -484,10 +483,19 @@ class CompetitorWorkflowService:
         )
 
     def _collect(self, state: RunState) -> None:
-        result: CollectOutput = self.collector_agent.run(state)
+        qa_collect_plan = self._consume_qa_collect_plan(state)
+        result: CollectOutput = self.collector_agent.run(
+            state,
+            target_competitors=qa_collect_plan.get('target_competitors') if qa_collect_plan else None,
+            field_query_overrides=qa_collect_plan.get('field_query_overrides') if qa_collect_plan else None,
+        )
         for pe in result.provider_events:
             self._save_and_event(state, StageName.collect, 'provider_event', pe)
-        state.evidences = list(result.raw_evidences)
+        if qa_collect_plan:
+            # Re-collect mode: preserve prior evidence and append new evidence.
+            state.evidences = list(state.evidences) + list(result.raw_evidences)
+        else:
+            state.evidences = list(result.raw_evidences)
         active_competitors = state.planned_competitors or state.competitors
         coverage = min(1.0, len(state.evidences) / max(2, len(active_competitors) * 2))
         quality = 0.35 if result.errors else 0.72
@@ -496,7 +504,12 @@ class CompetitorWorkflowService:
             state,
             StageName.collect,
             EventType.collect_completed.value,
-            {'evidence_count': len(state.evidences), 'error_count': len(result.errors), 'errors': result.errors[:5]},
+            {
+                'evidence_count': len(state.evidences),
+                'error_count': len(result.errors),
+                'errors': result.errors[:5],
+                'qa_plan_used': bool(qa_collect_plan),
+            },
         )
 
     def _normalize(self, state: RunState) -> None:
@@ -648,70 +661,117 @@ class CompetitorWorkflowService:
         self._save_and_event(state, StageName.draft, EventType.draft_completed.value, {'has_report': state.report is not None})
 
     def _qa(self, state: RunState) -> QAOutput:
-        self._save_and_event(state, StageName.qa, 'agent.llm.started', {'agent': 'QACriticAgent', 'trace_name': 'agent.qa.evaluate_report'})
-        try:
-            result = self.qa_critic_agent.run_llm(state)
-            self._save_and_event(
-                state,
-                StageName.qa,
-                'agent.llm.completed',
-                {
-                    'agent': 'QACriticAgent',
-                    'trace_name': 'agent.qa.evaluate_report',
-                    'attempt_count': 1 + self.config.agent_llm_retry_count,
-                    'retry_count_used': self.config.agent_llm_retry_count,
-                    'fallback_used': False,
-                },
-            )
-        except LLMCallError as exc:
-            fail_payload = {
-                'agent': 'QACriticAgent',
-                'trace_name': 'agent.qa.evaluate_report',
-                'error': str(exc),
-                'failure_reason': exc.reason,
-                'attempt_count': exc.attempt_count,
-                'retry_count_used': exc.retry_count_used,
-                'fallback_used': False,
+        self._save_and_event(state, StageName.qa, 'qa.analysis_review.started', {'competitor_count': len(state.competitor_analyses)})
+        if not state.competitor_analyses:
+            result = QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
+            self._save_and_event(state, StageName.qa, 'qa_checked', {'passed': True, 'issue_count': 0, 'reason': 'no_competitor_analyses'})
+            return result
+
+        schema_fields = [item.field_name for item in state.analysis_schema_plan if item.field_name]
+        reviews: list[dict] = []
+        review_errors: list[dict] = []
+        max_workers = min(4, len(state.competitor_analyses))
+
+        def _review_one(record) -> dict:
+            payload = {
+                'competitor': record.product_name,
+                'run_id': state.run_id,
+                'fields': [field.model_dump(mode='json') for field in record.fields],
             }
-            self._save_and_event(state, StageName.qa, 'agent.llm.failed', fail_payload)
-            allow_fallback = self.config.agent_llm_fallback_enabled and (
-                exc.reason != 'validation_error' or self.config.agent_llm_fallback_on_validation_error
+            return self.qa_critic_agent.run_competitor_analysis_review_llm(
+                analysis_json=payload,
+                schema_fields=schema_fields,
+                industry_hint=state.industry,
             )
-            if not allow_fallback:
-                state.status = 'failed'
-                raise
-            self._save_and_event(
-                state,
-                StageName.qa,
-                'agent.llm.fallback.started',
-                {'agent': 'QACriticAgent', 'fallback_reason': exc.reason, 'fallback_used': True},
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_map = {executor.submit(_review_one, record): record.product_name for record in state.competitor_analyses}
+            for future in concurrent.futures.as_completed(future_map):
+                competitor = future_map[future]
+                try:
+                    review = future.result()
+                    reviews.append({'competitor': competitor, 'review': review})
+                    self._save_and_event(state, StageName.qa, 'qa.analysis_review.completed', {'competitor': competitor})
+                except Exception as exc:  # noqa: BLE001
+                    review_errors.append({'competitor': competitor, 'error': str(exc)})
+                    self._save_and_event(state, StageName.qa, 'qa.analysis_review.failed', {'competitor': competitor, 'error': str(exc)})
+
+        collect_items: list[dict] = []
+        for review_row in reviews:
+            review = review_row.get('review', {})
+            if not isinstance(review, dict) or not bool(review.get('needs_recollect', False)):
+                continue
+            collect_plan = review.get('collect_plan', {})
+            if not isinstance(collect_plan, dict):
+                continue
+            items = collect_plan.get('items', [])
+            if not isinstance(items, list):
+                continue
+            for one in items:
+                if isinstance(one, dict):
+                    collect_items.append(one)
+
+        normalized_items: list[dict] = []
+        for one in collect_items:
+            competitor = str(one.get('competitor', '')).strip()
+            field_name = str(one.get('field_name', '')).strip()
+            reason = str(one.get('reason', '')).strip() or f'evidence_insufficient_for_{field_name}'
+            query_list = one.get('query_list', []) if isinstance(one.get('query_list', []), list) else []
+            queries = [str(q).strip() for q in query_list if str(q).strip()]
+            priority = int(one.get('priority', 1) or 1)
+            if not competitor or not field_name or len(queries) < 2:
+                continue
+            normalized_items.append(
+                {
+                    'competitor': competitor,
+                    'field_name': field_name,
+                    'reason': reason,
+                    'query_list': queries[:4],
+                    'priority': max(1, min(priority, 10)),
+                }
             )
-            try:
-                result = self.qa_critic_agent.run_fallback(state)
-            except Exception as fb_exc:
-                state.status = 'failed'
-                self._save_and_event(
-                    state,
-                    StageName.qa,
-                    'agent.llm.fallback.failed',
-                    {'agent': 'QACriticAgent', 'error': str(fb_exc), 'fallback_reason': exc.reason, 'fallback_used': True},
-                )
-                raise
-            self._save_and_event(
-                state,
-                StageName.qa,
-                'agent.llm.fallback.completed',
-                {'agent': 'QACriticAgent', 'fallback_reason': exc.reason, 'fallback_used': True},
+
+        if not normalized_items:
+            result = QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
+            self._save_and_event(state, StageName.qa, 'qa_checked', {'passed': True, 'issue_count': 0, 'review_errors': review_errors})
+            return result
+
+        issues = [
+            ReworkIssue(
+                code=f'insufficient_{item["competitor"]}_{item["field_name"]}',
+                message=f'{item["competitor"]}:{item["field_name"]} evidence insufficient',
+                stage=StageName.collect,
             )
-        payload = {'passed': result.passed, 'issue_count': len(result.issues)}
-        if not result.passed:
-            payload['target_agent'] = result.target_agent
-            payload['issues'] = [issue.model_dump() for issue in result.issues]
-        self._save_and_event(state, StageName.qa, 'qa_checked', payload)
+            for item in normalized_items
+        ]
+        result = QAOutput.model_validate(
+            {
+                'passed': False,
+                'issues': [x.model_dump(mode='json') for x in issues],
+                'target_agent': 'Collect',
+                'ticket': None,
+                'collect_plan': {'enabled': True, 'items': normalized_items, 'global_notes': 'analysis_stage_parallel_qa'},
+            }
+        )
+        self._save_and_event(
+            state,
+            StageName.qa,
+            'qa_checked',
+            {
+                'passed': False,
+                'issue_count': len(result.issues),
+                'target_agent': result.target_agent,
+                'collect_item_count': len(normalized_items),
+                'review_errors': review_errors,
+            },
+        )
         return result
 
-    def _apply_rework_ticket(self, state: RunState, result: QAResult) -> None:
+    def _apply_rework_ticket(self, state: RunState, result: QAOutput) -> None:
         assert result.target_agent is not None
+        qa_collect_plan = {}
+        if hasattr(result, 'collect_plan') and getattr(result, 'collect_plan') is not None:
+            qa_collect_plan = result.collect_plan.model_dump(mode='json')
         ticket = ReworkTicket(
             target_agent=result.target_agent,
             issues=result.issues,
@@ -721,12 +781,47 @@ class CompetitorWorkflowService:
             deadline=datetime.now(UTC).isoformat(),
             acceptance_criteria=['All required fields present', 'Every finding has valid evidence_refs', 'Self-eval thresholds met'],
             status=TicketStatus.in_progress,
+            domain_extensions={'qa_collect_plan': qa_collect_plan} if qa_collect_plan else {},
         )
         state.tickets.append(ticket)
+        if qa_collect_plan:
+            state.planner_meta['qa_collect_plan'] = qa_collect_plan
         state.parent_attempt = state.attempt
         state.attempt += 1
         state.ticket_id = ticket.ticket_id
         self._save_and_event(state, StageName.qa, EventType.qa_rework_ticket_created.value, ticket.model_dump())
+
+    @staticmethod
+    def _consume_qa_collect_plan(state: RunState) -> dict[str, object] | None:
+        plan = state.planner_meta.pop('qa_collect_plan', None) if isinstance(state.planner_meta, dict) else None
+        if not isinstance(plan, dict):
+            return None
+        if not bool(plan.get('enabled', False)):
+            return None
+        items = plan.get('items', [])
+        if not isinstance(items, list) or not items:
+            return None
+        target_competitors: list[str] = []
+        field_query_overrides: dict[str, list[str]] = {}
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            competitor = str(item.get('competitor', '')).strip()
+            field_name = str(item.get('field_name', '')).strip()
+            query_list = item.get('query_list', [])
+            if not competitor or not field_name or not isinstance(query_list, list):
+                continue
+            if competitor not in target_competitors:
+                target_competitors.append(competitor)
+            sanitized_queries = [str(x).strip() for x in query_list if str(x).strip()]
+            if sanitized_queries:
+                field_query_overrides[f'{competitor}::{field_name}'] = sanitized_queries[:4]
+        if not target_competitors:
+            return None
+        return {
+            'target_competitors': target_competitors,
+            'field_query_overrides': field_query_overrides,
+        }
 
     def _finalize(self, state: RunState) -> None:
         for ticket in state.tickets:

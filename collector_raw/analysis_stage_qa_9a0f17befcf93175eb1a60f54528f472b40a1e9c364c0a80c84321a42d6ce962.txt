@@ -1,0 +1,431 @@
+# 飞书、钉钉与企微的三巨头之争，ToB No.1花落谁家？ | 人人都是产品经理
+
+Title: 飞书、钉钉与企微的三巨头之争，ToB No.1花落谁家？ – 人人都是产品经理,
+
+URL Source: https://www.woshipm.com/it/5145698.html
+
+Published Time: 2021-09-23T09:09:25
+
+Markdown Content:
+# 飞书、钉钉与企微的三巨头之争，ToB No.1花落谁家？ | 人人都是产品经理
+
+[![Image 1: 人人都是产品经理](https://image.woshipm.com/fp/images/logo.png)](https://www.woshipm.com/)
+*   [首页](https://www.woshipm.com/)
+*   [培训课程](javascript:;)[名师辅导课](https://www.qidianla.com/) [AI产品经理转岗特训营](https://ke.qidianla.com/courses/aipmtc) [BAT大厂产品运营体系课](https://vip.qidianla.com/studyClass.html) [B端C端全栈产品经理私教课](https://ke.qidianla.com/courses/bcpm) [查看更多](https://www.qidianla.com/)  [个人自学课](https://www.qidianla.com/) [互联网运营能力进阶](https://ke.qidianla.com/courses/iom) [业务产品经理能力进阶](https://ke.qidianla.com/courses/bupm) [电商产品经理从入门到进阶](https://ke.qidianla.com/courses/ecpm1) [查看更多](https://www.qidianla.com/)  [企业内训课](https://daxue.qidianla.com/) [数字化产品经理课](https://daxue.qidianla.com/) [商业化产品实战课](https://daxue.qidianla.com/) [数字化营销体系课](https://daxue.qidianla.com/)  [B端运营实战课](https://daxue.qidianla.com/) [私域流量实战课](https://daxue.qidianla.com/) [数据分析体系课](https://daxue.qidianla.com/)   [查看更多](https://daxue.qidianla.com/)    
+*   [分类浏览](javascript:;)[业界动态 30918篇文章](https://www.woshipm.com/category/it) [产品设计 19391篇文章](https://www.woshipm.com/category/pd) [产品运营 15246篇文章](https://www.woshipm.com/category/operate) [产品经理 9583篇文章](https://www.woshipm.com/category/pmd) [职场攻略 5375篇文章](https://www.woshipm.com/category/zhichang) [营销推广 4903篇文章](https://www.woshipm.com/category/marketing) [交互体验 3937篇文章](https://www.woshipm.com/category/ucd) [分析评测 3588篇文章](https://www.woshipm.com/category/evaluating) [创业学院 2256篇文章](https://www.woshipm.com/category/chuangye) [用户研究 1903篇文章](https://www.woshipm.com/category/user-research) [数据分析 1803篇文章](https://www.woshipm.com/category/data-analysis) [原型设计 1436篇文章](https://www.woshipm.com/category/rp)    
+*   [活动讲座](https://www.woshipm.com/category/active)
+*   [问答](https://wen.woshipm.com/)
+*   [企业培训](https://daxue.qidianla.com/)
+*   [AI社区](https://www.aixq.cc/)
+*   [图文](https://www.woshipm.com/story)
+*   [HarmonyOS](https://www.woshipm.com/harmony)
+
+[搜索](https://api.woshipm.com/search/list.html)
+
+APP
+
+![Image 2](https://image.woshipm.com/build/img/footer-appdownload.png)
+
+![Image 3](https://image.woshipm.com/VIP.svg)
+
+![Image 4](https://image.woshipm.com/2023/05/19/de725b98-f62f-11ed-adbb-00163e0b5ff3.png)起点课堂会员权益
+
+![Image 5](https://image.woshipm.com/2023/05/19/dfe517e2-f62d-11ed-bbb6-00163e0b5ff3.png)职业体系课特权
+
+![Image 6](https://image.woshipm.com/2023/05/19/ebb5071c-f62d-11ed-bbb6-00163e0b5ff3.png)线下行业大会特权
+
+![Image 7](https://image.woshipm.com/2023/05/19/c9756278-f62d-11ed-94e0-00163e0b5ff3.png)个人IP打造特权
+
+![Image 8](https://image.woshipm.com/2023/05/19/f64625a8-f62d-11ed-bbb6-00163e0b5ff3.png)30+门专项技能课
+
+![Image 9](https://image.woshipm.com/2023/05/19/0148a02a-f62e-11ed-96ae-00163e0b5ff3.png)1300+专题课程
+
+![Image 10](https://image.woshipm.com/2023/05/19/25fc8396-f62e-11ed-adbb-00163e0b5ff3.png)12场职场软技能直播
+
+![Image 11](https://image.woshipm.com/2023/05/19/1d4ecd4e-f62e-11ed-adbb-00163e0b5ff3.png)12场求职辅导直播
+
+![Image 12](https://image.woshipm.com/2023/05/19/30793c56-f62e-11ed-adbb-00163e0b5ff3.png)12场专业技能直播
+
+![Image 13](https://image.woshipm.com/2023/05/19/15fae604-f62e-11ed-bbb6-00163e0b5ff3.png)会员专属社群
+
+![Image 14](https://image.woshipm.com/2023/05/19/0e3283be-f62e-11ed-8df9-00163e0b5ff3.png)荣耀标识
+
+[开通会员](https://vip.qidianla.com/member.html)
+
+发布
+
+注册 | 登录 
+
+登录人人都是产品经理即可获得以下权益
+
+*    关注优质作者
+*    收藏优质内容
+*    查阅浏览足迹
+*    免费发布作品
+*    参与提问答疑
+*    交流互动学习
+
+ 立即登录 
+
+ 首次使用？ 
+
+ 点我注册 
+
+[![Image 15](https://image.woshipm.com/2023/05/24/40884a52-fa29-11ed-8df9-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+## 飞书、钉钉与企微的三巨头之争，ToB No.1花落谁家？
+
+[![Image 16](https://image.woshipm.com/wp-files/2021/07/QltrhsU4RTzVYqoz9KQk.jpg!/both/72x72)](https://www.woshipm.com/u/1275675)
+
+[摩根商研所](https://www.woshipm.com/u/1275675)![Image 17](https://static.woshipm.com/tag/1122_1@2x.png)关注
+
+2021-09-23
+
+ 4 评论  11141 浏览  21 收藏 13 分钟
+
+[![Image 18: 🔗](https://s.w.org/images/core/emoji/16.0.1/svg/1f517.svg) B端产品经理需要更多地进行深入的用户访谈、调研、分析，而C端产品经理需要更多地快速的用户测试、反馈、迭代](https://ke.qidianla.com/courses/bcpm)
+
+> 编辑导读：在疫情之下成长起来的办公软件，如今也逐渐形成“三足鼎立”之势。飞书、钉钉、企业微信各有优势，To B协同平台这一互联网必争之地，三家巨头又将如何“排兵布阵”呢？本文作者对此进行了分析，一起来看看吧。
+
+![Image 19](https://image.woshipm.com/wp-files/2021/09/njgLoTVpAGmgdMS09Wss.jpg)
+
+钉钉为小鹏汽车6年累计节省至少1800万元的成本，今年年初还为钉钉“代言”的小鹏，仅用一个月就完成了全员飞书的切换，至此“造车三傻蔚小理”齐聚飞书。
+
+协同办公效率更高是“蔚小理”转向飞书的共同原因，除此之外，小米、三一重工、金山云等企业也因此成为了飞书的忠实用户。然而飞书虽然好评如潮，但用户数却与钉钉和企业微信相差甚远。
+
+那么飞书能否依靠优越的产品力后来居上赶超钉钉和企业微信呢？To B协同平台这一互联网必争之地，三家巨头又将如何排兵布阵？
+
+## 一、同路不同道，三家巨头的卡位争夺战
+
+企业软件向来被认为是一个闷声发大财的行业，对于互联网巨头而言，在C端业务增速下滑之时，发展上游B端企业服务挖掘新蓝海自然顺理成章。以企业协作这一工具为跳板，通过不断赋能将其打造成平台入口，是互联网巨头们进军B端的最佳切入点之一。
+
+阿里有钉钉，腾讯有企业微信，字节有了飞书，各巨头都想成为协同办公领域的霸主。然而To B业务不同于C端，在通过免费这一“开场神器”挤掉收费玩家后，如何在B端这一零和市场顺利跑出，各巨头都没有必胜的章法，甚至没有借鉴的案例可供参考。因此，同路不同道，各家产品打法各不相同。
+
+### 1. 差异化的飞书，能否赌对未来？
+
+飞书之所以深受互联网企业的追捧，在于其能够关注到协同工具的本质——提高效率，企业的组织框架越大，部门越多，人员越复杂，飞书优势的产品力就越明显。
+
+比如小米，小米虽然属于互联网企业，但从研发到生产再到销售涉及到传统的供应链、高科技研发、销售分发等众多不同的部门，不同背景的员工都有独属于自己的沟通方式与逻辑思维。仅仅是程序员与产品经理之间就能闹出无数矛盾，如此复杂的同创型企业组织各部门开会，其混乱程度和工作效率可想而知。
+
+**飞书的作用就是将各项工作细分并归类，通过算法优化各个环节，以OKR的方式协同各个部门，解决部门对接过程中的内耗提高工作效率，相对于其他协作软件，飞书更注重的是开会的结果，而非单单只为企业开会提供一个平台。**
+
+押注产品力作为差异化竞争，很大程度上是字节跳动业务基因决定的。
+
+多部门共同推动一个产品的成功是张一鸣的一贯打法，今日头条的诞生就是多款应用的共同结果，通过用户细分完成高覆盖。因此，字节跳动本身就具有各部门协同办公的基因，而且以提高效率的产品力作为飞书的主要竞争力，也延续了字节跳动算法的优势。
+
+然而，字节跳动的“算法成功论”并不一定就能在协同办公领域打开局面，**以效率优化为主的飞书注定了其适用面窄的天然弊端，其应用逻辑只适合以互联网公司为主的大公司，赌的是同创型的协作办公市场成为主流，且未来自己的算法一直遥遥领先于同行。**
+
+### 2. 以管理为驱动的钉钉，以用户为核心的企业微信
+
+不同于注重开会结果的飞书，钉钉的重心放在了开会之前的企业管理。
+
+无法与企业微信拼用户，就通过强大的方案能力结合电商生态累计的优势主攻小微企业和政府客户，在先发优势以及疫情的助推下迅速成长获得了大批用户，逐步完成了生态的搭建，暂居行业第一。据易观千帆数据显示，钉钉的活跃人数达到了6209.52万人，远超企业微信的2160.95万人。
+
+**飞书和钉钉走向了两个极端，但又完美互补。飞书聚焦于效率垂直向下，钉钉则致力于大而全的生态体系，成为企业信息化的入口。**然而鱼和熊掌不可兼得，钉钉涉及的领域太杂从而导致细节的缺失，整合能力偏弱最终导致用户体验的下滑，就连“一家人”的小鹏都舍弃钉钉拥抱飞书。
+
+在三家中，腾讯的姿态放的最高，但也最有底气。微信的社交流量就是企业微信的最大的财富，社会文化结构决定了只要涉及到人与人交互的领域都是腾讯的主场，因此哪怕钉钉暂居第一腾讯也并没有太大的急迫感。
+
+腾讯在企业微信上的不紧不慢也与其一贯的作风有关，手握财富密码的腾讯更擅长宏观布控，给一个框架和连接用户的大方针让其他相关商填补。
+
+坐享其成虽好，但保持开放性也就意味着腾讯对企业微信的掌控能力偏弱，服务商们各司其职，内部体系各自为战。因此，企业微信无论是使用体验还是企业的统筹管理都比不上钉钉和飞书，企业微信的内部管理更需要一个飞书。
+
+### 3. 因“企”而异，三巨头初具成效
+
+虽然横向对比，飞书、钉钉和企业微信各有优劣，但如果将目光放在“用户”层面上，或许三家产品的现状都符合巨头们的预期。
+
+不同于C端产品尽可能的将用户的需求统一化或者最大公约数化，B端每个企业的管理组织方式各不相同，很难做到有效的统一，企业级产品必须分门别类。比如销售导向的走向了企业微信，普通民营企业选择了钉钉，互联网大企业成为飞书的忠实用户。
+
+从某种程度上说，巨头们也并没有选择用户的权利。阿里没有微信的12亿用户待激活，也没有字节跳动的算法优势，中小商家资源同比之下是阿里的最优资源，因此出现了泛化且看似需求不定的钉钉。
+
+字节跳动自身业务除了算法这一最大优势，其他业务与协同办公的关联性并不大，聚焦差异化垂直虽然效率和成本小得多，但也是无奈之选。腾讯或许有更多选择，但企业微信还是选择了最简单的一步，拼流量做连接。
+
+**用户群体并没有高下之分，评判一个软件是否好用要站在用户角度看问题。**
+
+飞书在网上好评如潮，核心原因在于飞书的定位就是减少用户的工作量，满足的是讲究效率的老板，用户大都为高发言欲望的群体，且表述能力较强，所以评分较高；钉钉以管理员工入手，满足的“用户”为中小老板，对于他们而言，强掌控的工具就是好软件；而企业微信能与微信客户对话，这是国内其他软件所不能替代的优势。
+
+在协同办公领域，谁能解决企业的痛点谁就是好的工具，不同类型的企业核心用户不同，对某一工具的评判标准自然因“企”而异。在B端，好用并不是泛化的评判语，也不是产品的核心竞争力，如今钉钉、企业微信和飞书各自的卡位已经初具成效，建立护城河才是当务之急。
+
+## 二、先协后同，协同平台的“裙带”制胜法则
+
+在C端，先发优势虽大，但并不能成为企业的护城河，市场份额可以通过砸钱营销的方式获得。但在B端，先发优势是后继者很难逾越的大山。
+
+当市场空白时，通过免费获客的逻辑尚且行得通，但企业对某一协同办公软件产生了依赖，时间间隔越久，无法量化的切换成本越大。切换的难度不亚于抽丝剥茧，切换之前需要专门投入人力资源立项，切换之后需要给员工适用新工具的时间，前后两者都存在很大的不确定性，一旦出问题很可能造成公司全体业务的停摆。
+
+蔚小理之所以不计成本切换成飞书，在于其测算出了飞书带来的可观收益，看到了丰田组织管理模式的弊端，不得不换。但并非所有企业都有壮士断腕的决心，切换的成本与风险足以劝退大部分企业。
+
+在协同办公这一零和市场，拥有先发优势就意味着凭空多了一道护城河。钉钉尽管卡位的是管理，协同效率偏弱，但先发优势足以让钉钉捆绑大量飞书的核心用户，除非飞书足够好，给的钱足够多。
+
+**当然，对于后继者来说，建立护城河也并非无计可施，除了产品本身，To B业务的比拼更像是PR与BD的比拼。**
+
+To B产品除了散户根据业务需求自发使用外，还有一大部分的用户来源于PR或者BD的拓展。比如疫情期间的钉钉网课，学生和老师有需求，阿里直接和教育部谈下了全国推行，并且在PR的营销下火遍了全国。
+
+比如蔚小理切换飞书，除了自身业务需求外也少不了同行们的安利，小米使用小米后向李想推荐了飞书，李想转身将飞书推销给了李斌和何小鹏，这一定程度上靠的就是老板关系，BD的拓展，腾讯会议直接谈下了与联合国的合作也是一样的道理。
+
+切换成本较高，也就意味着一旦谈下了合作，客户就很难流失。钉钉、企业微信和飞书已经有了各自的市场定位，接下来就是阿里、腾讯与字节跳动的资源比拼了。
+
+## ​三、写在最后
+
+任何业务的最终目的都是为了盈利，协同软件更像是平台导流的跳台，随着协同办公的底层化，上游的私有云才是盈利的最终工具。
+
+数据安全问题是企业的命门，企业微信和钉钉已经初步完成了数据私有云的存储，并且有腾讯云和阿里云的背书，而字节跳动私有云的薄弱或许会影响到飞书的业务拓展。
+
+如今巨头对To B市场的布局尚未全面落地，未来竞争格局将走向何方尚且不能一面盖之。
+
+本文由 @摩根频道 原创发布于人人都是产品经理，未经许可，禁止转载。
+
+题图来自Unsplash，基于CC0协议。
+
+ 赞赏 收藏 已收藏 21 点赞 已赞 2
+
+更多精彩内容，请关注人人都是产品经理微信公众号或下载App
+
+[![Image 20](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2022/10/14/63141bf2-4b13-11ed-b465-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[1年](https://www.woshipm.com/tag/1%e5%b9%b4)[初级](https://www.woshipm.com/tag/%e5%88%9d%e7%ba%a7)[办公软件](https://www.woshipm.com/tag/%e5%8a%9e%e5%85%ac%e8%bd%af%e4%bb%b6)
+
+[分享到微博](https://service.weibo.com/share/share.php?appkey=2775287854&title=%E9%A3%9E%E4%B9%A6%E3%80%81%E9%92%89%E9%92%89%E4%B8%8E%E4%BC%81%E5%BE%AE%E7%9A%84%E4%B8%89%E5%B7%A8%E5%A4%B4%E4%B9%8B%E4%BA%89%EF%BC%8CToB&nbsp;No.1%E8%8A%B1%E8%90%BD%E8%B0%81%E5%AE%B6%EF%BC%9F&url=https://www.woshipm.com/it/5145698.html&pic=https://image.woshipm.com/wp-files/2021/09/njgLoTVpAGmgdMS09Wss.jpg)
+
+微信扫一扫 
+
+![Image 21: 微信二维码](https://api.pwmqr.com/qrcode/create/?url=https://www.woshipm.com/it/5145698.html)
+
+分享
+
+[![Image 22](https://image.woshipm.com/wp-files/2021/07/QltrhsU4RTzVYqoz9KQk.jpg!/both/150x150)](https://www.woshipm.com/u/1275675)
+
+[摩根商研所](https://www.woshipm.com/u/1275675)![Image 23](https://static.woshipm.com/tag/1601_1@2x.png)![Image 24](https://static.woshipm.com/tag/1122_1@2x.png)关注
+
+探寻商业本质，专注商业研究与故事。微信TMTmorgan
+
+35篇作品 147381总阅读量
+
+为你推荐
+
+[外卖柜开始向外卖员收费，疯了吗？](https://www.woshipm.com/it/5906143.html "外卖柜开始向外卖员收费，疯了吗？")
+
+09-18 4752 浏览
+
+[![Image 25: 外卖柜开始向外卖员收费，疯了吗？](https://image.woshipm.com/2023/04/17/77655430-dcf5-11ed-9781-00163e0b5ff3.png!/both/120x80)](https://www.woshipm.com/it/5906143.html "外卖柜开始向外卖员收费，疯了吗？")
+
+[如何设计会员产品](https://www.woshipm.com/pd/5839817.html "如何设计会员产品")
+
+06-02 19291 浏览
+
+[![Image 26: 如何设计会员产品](https://image.woshipm.com/2023/04/17/23993cea-dcf5-11ed-897e-00163e0b5ff3.png!/both/120x80)](https://www.woshipm.com/pd/5839817.html "如何设计会员产品")
+
+[B端产品经理面对定制化需求的困境分析](https://ke.qidianla.com/courses/bcpm)
+
+刚刚
+
+[![Image 27](https://image.woshipm.com/2023/08/31/a3407c4e-47b0-11ee-996f-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[会员店入华28年：消亡录与新战役](https://www.woshipm.com/newretail/5839931.html "会员店入华28年：消亡录与新战役")
+
+06-03 7720 浏览
+
+[![Image 28: 会员店入华28年：消亡录与新战役](https://image.woshipm.com/2023/04/13/bdb39b0e-d9e9-11ed-bd74-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/newretail/5839931.html "会员店入华28年：消亡录与新战役")
+
+[复杂表单如何进行设计优化？](https://www.woshipm.com/pd/5943544.html "复杂表单如何进行设计优化？")
+
+11-20 8314 浏览
+
+[![Image 29: 复杂表单如何进行设计优化？](https://image.woshipm.com/2023/04/13/2412bf56-d9ef-11ed-bd74-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/pd/5943544.html "复杂表单如何进行设计优化？")
+
+[陪拍，普通人的生意能走多远?](https://www.woshipm.com/it/5779860.html "陪拍，普通人的生意能走多远?")
+
+03-13 5392 浏览
+
+[![Image 30: 陪拍，普通人的生意能走多远?](https://image.woshipm.com/wp-files/2023/03/myhp2LiUgQq4lhJP7wJg.jpg!/both/120x80)](https://www.woshipm.com/it/5779860.html "陪拍，普通人的生意能走多远?")
+
+[![Image 31: 当AI能力不再是门槛，产品创新的下一战在“场景化落地” | 西安闭门会](https://image.yunyingpai.com/wp/2026/05/P2Slsmm4kYFnagr5dFEn.jpg!/both/240x168)](https://www.woshipm.com/event/6398512.html)
+
+[当AI能力不再是门槛，产品创新的下一战在“场景化落地” | 西安闭门会](https://www.woshipm.com/event/6398512.html)
+
+推荐
+
+评论
+
+评论请登录
+
+1.   [![Image 32](https://static.woshipm.com/passport_avatar_wx_20240626143606_8036.jpg?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/1586692) [逯江龙](https://www.woshipm.com/u/1586692)   个人觉得写的很好，但是只有钉钉用起来省事，企业微信功能少，飞书是真的垃圾…………………… 最近 来自河南 回复![Image 33](https://image.woshipm.com/more.svg)   
+2.   [![Image 34](https://static.woshipm.com/WX_U_202004_20200429081752_4002.jpg?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/1079742) [小酒窝](https://www.woshipm.com/u/1079742)![Image 35](https://static.woshipm.com/tag/1101_1@2x.png)   很清楚 最近 来自重庆 回复![Image 36](https://image.woshipm.com/more.svg)   
+3.   [![Image 37](https://static.woshipm.com/view/woshipm_api_def_20230418084426_3328.png?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/1331779) [jekyll14](https://www.woshipm.com/u/1331779)   今年的云栖上，钉圈的客户还在说，现在就出现了自己「钉人钉语」，民众「微言微语」，不好统一，有割裂感。 最近 回复![Image 38](https://image.woshipm.com/more.svg)   
+4.   [![Image 39](https://thirdwx.qlogo.cn/mmopen/m6EHL0zKOKIc0wEchAliaymgg1GuJtlDwibQjfxQNGucj7jGkWia20pj6kTYPB3KSqWl8NjmwKNU8ORqzGNoMgIWMVDUzzDPcxU/132)](https://www.woshipm.com/u/1164301) [树仔](https://www.woshipm.com/u/1164301)   企业微信能连接客户的个人微信，让以客户为中心的服务企业难以拒绝企业微信，连接客户的团队使用企业微信后，其他团队不可能不与连接客户的团队进行协同 最近 来自广东 回复![Image 40](https://image.woshipm.com/more.svg)   
+
+举报
+
+提交 取消
+
+为你推荐
+
+[![Image 41](https://image.woshipm.com/2023/08/11/303ce05c-380b-11ee-8bde-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)我的成功转型：2年经验后找到涨薪工作的秘诀](https://ke.qidianla.com/courses/90pm)
+
+*   [![Image 42: 告别琐碎工作：数据项目，让你的职业发展更上一层楼](https://image.woshipm.com/2023/04/13/a66ce374-d9ee-11ed-bd74-00163e0b5ff3.jpg!/both/130x88)](https://www.woshipm.com/data-analysis/5820951.html) [告别琐碎工作：数据项目，让你的职业发展更上一层楼](https://www.woshipm.com/data-analysis/5820951.html) 05-08 5518 浏览  
+*   [![Image 43: 线上会议软件调研：腾讯会议的竞品分析 ①](https://image.woshipm.com/2023/04/13/deaa0eb0-d9df-11ed-8fc2-00163e0b5ff3.jpg!/both/130x88)](https://www.woshipm.com/share/5958274.html) [线上会议软件调研：腾讯会议的竞品分析 ①](https://www.woshipm.com/share/5958274.html) 12-13 6159 浏览  
+*   [![Image 44: 小红书、视频号、抖音流量算法机制，建议收藏！](https://image.woshipm.com/2023/04/14/ecf815a8-da8d-11ed-9503-00163e0b5ff3.png!/both/130x88)](https://www.woshipm.com/operate/5865982.html) [小红书、视频号、抖音流量算法机制，建议收藏！](https://www.woshipm.com/operate/5865982.html) 07-13 45383 浏览  
+
+推荐专题[更多专题](https://www.woshipm.com/topic-list)
+
+[_专题_![Image 45](https://image.yunyingpai.com/wp/2020/06/KJEMtm0YvnYDKYZNXtia.jpg?x-oss-process=image/quality,q_80/format,webp) 40483人已学习 20篇文章](https://www.woshipm.com/topic/search)
+
+[产品搜索功能设计指南](https://www.woshipm.com/topic/search)
+
+“搜索功能”拆解：小功能，大细节。
+
+[_专题_![Image 46](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/02/14/8bb375da-ac0c-11ed-8a4c-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 16855人已学习 12篇文章](https://www.woshipm.com/topic/data5)
+
+[数据产品经理的通用技能有哪些？](https://www.woshipm.com/topic/data5)
+
+本专题的文章分享了数据产品经理的通用技能。
+
+[_专题_![Image 47](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/05/11/e4ca42c0-efaa-11ed-bbb6-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 20879人已学习 13篇文章](https://www.woshipm.com/topic/activity)
+
+[电商平台营销活动设计](https://www.woshipm.com/topic/activity)
+
+电商平台为了促销或者扩大知名度，经常会设计或大或小的活动，用户完成任务即可获得奖励，以此来提高用户的活跃度和增加销量。本专题的文章分享了电商平台营销活动设计。
+
+[_专题_![Image 48](https://image.yunyingpai.com/wp/2020/06/NOvjJkpr9B6wfcqazau0.jpg?x-oss-process=image/quality,q_80/format,webp) 74783人已学习 10篇文章](https://www.woshipm.com/topic/project)
+
+[一份完整的运营方案应包含哪些方面？](https://www.woshipm.com/topic/project)
+
+理清思路，才能有的放矢。
+
+[_专题_![Image 49](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2024/04/15/43c27e4c-faf3-11ee-8c03-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 19429人已学习 13篇文章](https://www.woshipm.com/topic/pm-2)
+
+[产品管理流程及规范](https://www.woshipm.com/topic/pm-2)
+
+本文作者总结了那些踩过的坑，为大家详细的罗列出了规范的产品管理流程及规范。
+
+[_专题_![Image 50](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/06/09/595d1a7c-0667-11ee-a032-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 16416人已学习 11篇文章](https://www.woshipm.com/topic/aicc)
+
+[外呼系统的设计指南](https://www.woshipm.com/topic/aicc)
+
+生活中，难免会接到企业的一些外呼电话，无论是人工外呼还是AI外呼，其背后的外呼业务场景是什么？外呼系统包含哪些内容？本专题的文章分享了外呼系统的设计指南。
+
+社群
+
+[付费群](https://www.woshipm.com/it/5145698.html) | [免费群](https://www.woshipm.com/it/5145698.html)
+
+*   ![Image 51](https://image.woshipm.com/fp/images/a1.svg)AI产品经理交流群![Image 52](https://image.woshipm.com/wp-files/2024/04/6GgzZKB2vv6oJwWZrfvI.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/5145698.html)
+*   ![Image 53](https://image.woshipm.com/fp/images/a2.svg)AI工具共学交流群![Image 54](https://image.woshipm.com/wp-files/2024/06/koBjkl4OziVTXHx79TeG.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/5145698.html)
+*   ![Image 55](https://image.woshipm.com/fp/images/a3.svg)华为鸿蒙交流群![Image 56](https://image.woshipm.com/wp-files/2024/11/lfoTXWOHKfpeRunhi7Fk.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/5145698.html)
+*   ![Image 57](https://image.woshipm.com/fp/images/a4.svg)运营增长交流群![Image 58](https://image.yunyingpai.com/wp/2024/01/tz5fR0ocBXaqWOrMZHtV.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/5145698.html)
+*   ![Image 59](https://image.woshipm.com/fp/images/a5.svg)OPC一人公司交流群![Image 60](https://wework.qpic.cn/wwpic3az/765799_Bo4F-gUdR0e-V9f_1772098485/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/5145698.html)
+*   ![Image 61](https://image.woshipm.com/fp/images/a6.svg)OpenCalw&Hermes交流群![Image 62](https://wework.qpic.cn/wwpic3az/61131_STHVj2BZR56rLQW_1771995429/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/5145698.html)
+
+快讯
+
+[查看更多](https://www.woshipm.com/digest)
+
+[腾讯电脑管家入局Mac生态，首推AI Agent安全防护](https://www.woshipm.com/digest/495971)
+
+刚刚
+
+[亚马逊2025年在英投资达200亿美元](https://www.woshipm.com/digest/495979)
+
+刚刚
+
+[阿里员工十三薪并入年终奖](https://www.woshipm.com/digest/495989)
+
+刚刚
+
+热门文章
+
+*   [![Image 63: DeepSeek给AI装了根赛博手指，于是它能看见了](https://image.woshipm.com/2025/02/19/edbd3634-ee6e-11ef-827d-00163e09d72f.png!/both/100x60)](https://www.woshipm.com/ai/6387984.html "DeepSeek给AI装了根赛博手指，于是它能看见了") [DeepSeek给AI装了根赛博手指，于是它能看见了](https://www.woshipm.com/ai/6387984.html "DeepSeek给AI装了根赛博手指，于是它能看见了") 05-03  
+*   [![Image 64: Vibe coding经验分享：看板式管理项目](https://image.woshipm.com/2026/05/12/edb0d404-4e06-11f1-ae91-00163e4b86a1.jpg!/both/100x60)](https://www.woshipm.com/ai/6395020.html "Vibe coding经验分享：看板式管理项目") [Vibe coding经验分享：看板式管理项目](https://www.woshipm.com/ai/6395020.html "Vibe coding经验分享：看板式管理项目") 05-13  
+*   [![Image 65: 字节要挖微信的墙脚](https://image.woshipm.com/2023/04/13/d34ae8a8-d9e1-11ed-9d7a-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/share/6393256.html "字节要挖微信的墙脚") [字节要挖微信的墙脚](https://www.woshipm.com/share/6393256.html "字节要挖微信的墙脚") 05-11  
+*   [![Image 66: AI执行规范只有70%？剩下的30%靠系统“护栏”兜底，一个AI产品经理的可靠性设计笔记](https://image.woshipm.com/2023/04/14/fa63c6e6-da8e-11ed-9503-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6401220.html "AI执行规范只有70%？剩下的30%靠系统“护栏”兜底，一个AI产品经理的可靠性设计笔记") [AI执行规范只有70%？剩下的30%靠系统“护栏”兜底，一个AI产品经理的可靠性设计笔记](https://www.woshipm.com/ai/6401220.html "AI执行规范只有70%？剩下的30%靠系统“护栏”兜底，一个AI产品经理的可靠性设计笔记") 05-25  
+*   [![Image 67: AI大事件：ChatGPT广告主平台正式上线、AI自己造AI的概率被估到60%、国产AI芯片市场份额从5%飙升至41%](https://image.woshipm.com/wp-files/2026/04/ALI5uMaihDeihIqtpOpt.jpg!/both/100x60)](https://www.woshipm.com/ai/6389277.html "AI大事件：ChatGPT广告主平台正式上线、AI自己造AI的概率被估到60%、国产AI芯片市场份额从5%飙升至41%") [AI大事件：ChatGPT广告主平台正式上线、AI自己造AI的概率被估到60%、国产AI芯片市场份额从5%飙升至41%](https://www.woshipm.com/ai/6389277.html "AI大事件：ChatGPT广告主平台正式上线、AI自己造AI的概率被估到60%、国产AI芯片市场份额从5%飙升至41%") 05-06  
+*   [![Image 68: 从豆包付费看 AI 产品任务分层：哪些能力免费，哪些任务收费？](https://image.woshipm.com/2023/04/14/76dafe6a-da9e-11ed-9b82-00163e0b5ff3.png!/both/100x60)](https://www.woshipm.com/operate/6390353.html "从豆包付费看 AI 产品任务分层：哪些能力免费，哪些任务收费？") [从豆包付费看 AI 产品任务分层：哪些能力免费，哪些任务收费？](https://www.woshipm.com/operate/6390353.html "从豆包付费看 AI 产品任务分层：哪些能力免费，哪些任务收费？") 05-07  
+
+![Image 69](https://image.woshipm.com/wp-files/2020/06/qgEa9DwE5Xshp2Q7EbAx.png)
+
+外卖即将到达，为点单人增加一个预告服务，有没搞头？
+
+比如说骑手一次性拿了三个外卖，分别是A点，B点，C点，系统自动按距离分配“配送顺序”，然后系统在根据...
+
+![Image 70](https://static.woshipm.com/WX_U_202001_20200121114005_5237.jpg?imageView2/2/w/80/size-limit/5k!)![Image 71](https://static.woshipm.com/WX_U_201805_20180531185421_8464.jpg?imageView2/2/w/80/size-limit/5k!)![Image 72](https://image.woshipm.com//wp-files/2015/10/touxiang-5.jpg!avatar)26k 点击 27 回答
+
+[进入回答](https://wen.woshipm.com/question/detail/5uqe0j.html?sf=wipm)
+
+[C端的本质就是流量为王么？](https://wen.woshipm.com/question/detail/0eifpe.html?sf=wipm)
+
+ 18.8k 点击 23 回答 
+
+[当你成为产品经理后，有什么惊人的发现？](https://wen.woshipm.com/question/detail/gu4oar.html?sf=wipm)
+
+ 53.2k 点击 45 回答 
+
+[平台产品的迭代时间，到底是由产品决定，还是技术决定？](https://wen.woshipm.com/question/detail/55jhm9.html?sf=wipm)
+
+ 33.3k 点击 26 回答 
+
+文章导航
+
+*   [一、同路不同道，三家巨头的卡位争夺战](https://www.woshipm.com/it/5145698.html#toc-1)
+*   [二、先协后同，协同平台的“裙带”制胜法则](https://www.woshipm.com/it/5145698.html#toc-2)
+*   [​三、写在最后](https://www.woshipm.com/it/5145698.html#toc-3)
+
+关于
+
+ 人人都是产品经理（woshipm.com）是以产品经理、运营为核心的学习、交流、分享平台，集媒体、培训、社群为一体，全方位服务产品人和运营人，成立12年举办在线讲座1000+期，线下分享会500+场，产品经理大会、运营大会50+场，覆盖北上广深杭成都等20个城市，在行业有较高的影响力和知名度。平台聚集了众多BAT美团京东滴滴360小米网易等知名互联网公司产品总监和运营总监，他们在这里与你一起成长。 
+
+合作伙伴
+
+*   [![Image 73: 起点课堂](https://image.woshipm.com/wp-files/2021/10/zUwm4IYjmoiV63Kk9aKQ.png)](https://www.qidianla.com/?woshipm "起点课堂")
+*   [![Image 74](https://image.yunyingpai.com/wp/2021/12/wyRAfH2rXJha57p06bbQ.png)](https://36kr.com/)
+*   [![Image 75: 极验验证](https://image.woshipm.com/wp-files/2020/05/zHiqREB7rkGZsC6rFerJ.png)](https://www.geetest.com/?woshipm)
+*   [![Image 76: 致设计](https://image.woshipm.com/wp-files/2020/05/k7Gf25a7GdaoRNLLogCo.png)](https://www.zhisheji.com/?woshipm "致设计")
+*   [![Image 77: 保利威](https://image.woshipm.com/wp-files/2020/05/KZTBx2R2UyR2k96mHpa4.png)](https://www.polyv.net/?-cpjl)
+
+链接
+
+*   [隐私政策](https://www.woshipm.com/policy)
+*   [投稿须知](https://www.woshipm.com/it/1010671.html)
+*   [意见反馈](https://wen.woshipm.com/question/detail/omkf.html)
+*   [帮助中心](https://doc.weixin.qq.com/doc/w3_ALsAdwZgAO8uhueZ8ahRse75jgAJm?scode=AGsAywdaAA0wPabVgMAYgAZgbwAOM)
+
+![Image 78: 公众号](https://image.woshipm.com/wp-files/2020/06/cKMzCQWucvwdFhHVeoib.jpeg)
+公众号
+
+![Image 79: 视频号](https://image.woshipm.com/wp-files/2020/06/PAVQDSOr3b6NRnHyqAVy.jpeg)
+视频号
+
+*   友情链接
+*   [PM265](https://pm265.com/)
+*   [产品经理导航](https://www.pmbaobao.com/)
+*   [起点课堂](https://www.qidianla.com/)
+*   [猪八戒网](http://www.zbj.com/)
+*   [伙伴云表格](https://www.huoban.com/)
+*   [网易易盾](https://dun.163.com/)
+*   [个推](https://www.getui.com/cn/)
+*   [友盟+](https://www.umeng.com/)
+*   [创业邦](https://www.cyzone.cn/?woshipm)
+*   [AI学习社区](https://www.aixq.cc/ "学习AI第一站")
+*   [慕课网](https://www.imooc.com/ "慕课网")
+
+ 旗下品牌: [起点课堂](https://www.qidianla.com/) | [运营派](https://www.yunyingpai.com/) | [粮仓企微管家](https://www.liangcang.cc/)
+
+ ©2010-2024 - 人人都是产品经理 - [粤ICP备14037330号](https://beian.miit.gov.cn/)-[粤公网安备 44030502001309号](https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001309)
+
+[广播电视节目制作经营许可证（粤）字第03109号](https://static.qidianla.com/Audio-TVLicense.jpg)[增值电信业务经营许可证粤B2-20190788](https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyesearch.jsp?num=%E6%B7%B1%E5%9C%B3%E8%81%9A%E5%8A%9B%E5%88%9B%E6%83%B3%E4%BF%A1%E6%81%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&type=xuke) 版权所有 © 深圳聚力创想信息科技有限公司 
+
+[网站统计](http://tongji.baidu.com/hm-web/welcome/ico?s=b85cbcc76e92e3fd79be8f2fed0f504f)

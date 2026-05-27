@@ -1,0 +1,204 @@
+# 石墨文档官网-在线协同办公系统平台,支持云端多人在线协作文档,表格 ...
+
+Title: 石墨文档官网-在线协同办公系统平台,支持云端多人在线协作文档,表格,幻灯片
+
+URL Source: https://shimo.im/
+
+Markdown Content:
+# 石墨文档官网-在线协同办公系统平台,支持云端多人在线协作文档,表格,幻灯片
+
+# [](https://shimo.im/ "石墨在线文档")
+
+[石墨办公](https://shimo.im/firm)[个人版](https://shimo.im/personal)[模版库](https://shimo.im/templates?from=home)[工具箱](https://shimo.im/toolboxes)[解决方案](https://shimo.im/firm/samples)[私有化部署](https://shimo.im/firm/private)[定价](https://shimo.im/pricing)[下载](https://shimo.im/download)[支持![Image 1](https://as.smgv.cn/static/lizard-service-homepage/assets/support-default-light.371a39fd.png)](https://shimo.im/)
+
+个人使用 团队或企业使用
+
+[登录](https://shimo.im/login?from=home)
+
+## 全新一代云端 Office，面向未来的办公软件
+
+文档实时协同 · 知识沉淀管理 · 数据安全可控
+
+个人使用 团队或企业使用
+
+企业版演示
+
+[Previous](https://shimo.im/#)[Next](https://shimo.im/#)
+
+![Image 2](https://as.smgv.cn/static/lizard-service-homepage/assets/decoration_board.50ebef97.png)
+
+![Image 3](https://as.smgv.cn/static/lizard-service-homepage/assets/homepage_video_poster.39a64947.jpg)
+
+##### 9大产品套件
+
+石墨由文档、表格、幻灯片等八个常用办公套件加上企业级云盘组成， 致力于打造面向未来的多人实时协作「云端 Office」
+
+![Image 4](https://as.smgv.cn/static/lizard-service-homepage/assets/doc.d12d293d.png)
+
+##### 文档
+
+多人在线协作编辑文档，告别通过邮件、IM 软件多次传输文件的繁复 毫秒级实时多端同步，随时随地开展工作，满足多场景办公使用需求 文档可插入各类附件，支持预览，项目资料全面整合，方便管理回溯
+
+![Image 5](https://as.smgv.cn/static/lizard-service-homepage/assets/doc_product_desc_back.4f15795f.png)
+
+![Image 6](https://as.smgv.cn/static/lizard-service-homepage/assets/sheet_product_desc_back.1791d6f4.png)
+
+![Image 7](https://as.smgv.cn/static/lizard-service-homepage/assets/sheet.c78ad43b.png)
+
+##### 表格
+
+导入导出流畅无损，无格式混乱，完美兼容 Excel 6大函数类别，400+公式，覆盖90%主流办公软件所拥有的公式函数 支持单元格锁定，可根据不同协作者开放不同层级的查看/编辑权限 支持独立视图，协作者可快速查阅自己关注的数据区域，视图互不干扰
+
+![Image 8](https://as.smgv.cn/static/lizard-service-homepage/assets/presentation.fbeeebed.png)
+
+##### 幻灯片
+
+高度兼容 PowerPoint，自由导入或导出 .pptx 格式文件，拥有丰富的主题模板、动画效果和形状样式 多人多端同步协作编辑，支持任意位置标注评论，自动保存历史版本，支持回溯 远程 & 本地演示、演讲者 & 普通视图随心切换，配合激光笔与计时器，你将带来一场更打动人的讲演
+
+![Image 9](https://as.smgv.cn/static/lizard-service-homepage/assets/slide_product_desc_back.78851b71.png)
+
+![Image 10](https://as.smgv.cn/static/lizard-service-homepage/assets/table_new_icon.daefbbf7.png)
+##### 应用表格
+
+![Image 11](https://as.smgv.cn/static/lizard-service-homepage/assets/form_icon.684f8f7b.png)
+##### 传统文档
+
+![Image 12](https://as.smgv.cn/static/lizard-service-homepage/assets/docx_icon.2b3372a8.png)
+
+##### 表单
+
+![Image 13](https://as.smgv.cn/static/lizard-service-homepage/assets/mindmap_icon.e0a33edc.png)
+##### 思维导图
+
+![Image 14](https://as.smgv.cn/static/lizard-service-homepage/assets/whitebord_icon.f7aaf0f4.png)
+
+##### 白板
+
+![Image 15](https://as.smgv.cn/static/lizard-service-homepage/assets/team_icon.a5c9d773.png)
+##### 团队空间
+
+新一代的数据协同与项目管理工具。支持多种字段类型，以及灵活好用的筛选、分组等功能可进行高效而立体的数据收集与组织，同时能够创建看板、甘特等视图将项目进度可视化。
+
+![Image 16](https://as.smgv.cn/static/lizard-service-homepage/assets/table_back.4655d070.png)
+
+传统文档高度兼容 Word/WPS 本地文件格式，延续 Office 使用习惯，精准还原源文件格式，适用于合同、标书等复杂排版场景。更可多人多端协同创作、历史版本回溯对比、修订模式辅助审阅，使用体验高效便捷。
+
+![Image 17](https://as.smgv.cn/static/lizard-service-homepage/assets/traditional_back.ccfcc942.png)
+
+石墨表单拥有强大的数据可视化与分析功能，让信息收集、管理与分析灵活便捷，同时与表格互联互通、相得益彰。
+
+![Image 18](https://as.smgv.cn/static/lizard-service-homepage/assets/form.d91584ab.png)
+
+石墨思维导图支持多人协作，可实现多端同步及实时存储，修改过程中可以实时看到其他协作者的标记，激发团队的创造力。
+
+![Image 19](https://as.smgv.cn/static/lizard-service-homepage/assets/mindmap_back.07b2aeb3.png)
+
+石墨白板让「见字如面」成为可能，用白板头脑风暴，还原线下场景的团队讨论，讨论思路与结果同步呈现。
+
+![Image 20](https://as.smgv.cn/static/lizard-service-homepage/assets/whitebord_back.d5289644.png)
+
+石墨文档团队空间支持所有格式文件的上传下载，以及 Office、PDF、Markdown 等多种格式文件的在线预览。可实现灵活、细化的权限控制，更具备空间公告、团队动态等功能，让团队协作透明高效。
+
+![Image 21](https://as.smgv.cn/static/lizard-service-homepage/assets/team_back.0c3db52b.png)
+
+## 「企业文档云」行业领先者
+
+[了解更多>](https://shimo.im/firm/product)
+
+##### 从硅谷到北京，团队协作不受时间和空间的限制
+
+工作安排、项目进度在多端同步，随时随地移动办公 团队多成员共同编辑文档，减少反复传递的低效工作 云端自动存储，避免因数据丢失导致的业务风险 对全文及逐字进行评论，意见和建议汇总在同一文档 团队可通过复制链接、扫描二维码等多种形式共享文档
+
+##### 知识沉淀，井井有条的文档就是团队决策的智慧大脑
+
+即写即存、轻松查找、便捷共享，更高效的内部知识库 可依据内部组织架构，实现文档分层级、分权限的管理 优化组织内部、内部与外部之间的共享资料方式 随时随地查看文档历史记录，一键还原至指定版本 支持按文档标题及内容进行搜索，方便查找所需文档
+
+##### 全过程可留痕，全流程可追溯，保障团队文档安全
+
+管理员可针对全员，设置导出、复制、分享的权限 针对单个文件，管理员和协作者可选择锁定和解锁 支持设置访问者水印，预防内部保密资料泄露 删除、导出、打印、创建副本及人员进出等安全设置 离职员工内容管理与交接，保障文档归属企业
+
+## 为 85 万家知名企业用户提供服务
+
+覆盖互联网、教育、媒体、金融、房地产、新零售、电商等 30 多个行业
+
+[了解行业解决方案>](https://shimo.im/firm/samples)
+
+“ 石墨已成为公司的数字资产中心，从前端业务人员到后端的产研团队，石墨对公司内部项目管理、数字资产流转都有明显提效帮助。”
+
+—— 随心瑜 产品总监 陶鹏
+
+![Image 22](https://as.smgv.cn/static/lizard-service-homepage/assets/suixinyu_logo.15a5a54b.png)
+
+“ 博纳影业集团与石墨文档结缘于2021年，在初次了解石墨文档时，其在线文档高效的协同办公能力和强大的在线表格功能就吸引了我。在实际使用中，石墨文档使得跨部门协同沟通变得简单高效，使用场景贯穿于影视制作和宣发等各个环节，大大提高了工作效率；另外，博纳影业集团覆盖全国的100多家影院，通过石墨文档也可将大量信息和数据准确高效的汇总到集团总部，帮助总部对各地影院进行数据分析和经营指导，及时应对市场的变化，提高了运营效率。最后，感谢石墨文档的服务团队给予了我们强大的技术支撑和服务。”
+
+—— 博纳影业集团 信息技术部总监 刘培
+
+![Image 23](https://as.smgv.cn/static/lizard-service-homepage/assets/bonayingye_logo.18fec89c.png)
+
+##### 颠覆传统办公模式，开启企业高效办公时代
+
+灵活多样的部署方式，满足各规模企业的定制化需求
+
+免费使用[企业版演示](https://shimo.im/preview?from=propaganda_banner&primarySource=1&secondarySource=5&thirdSource=home_bottom)
+
+#### 石墨产品
+
+*   [石墨办公](https://shimo.im/firm)
+*   [个人版](https://shimo.im/personal)
+*   [私有化部署](https://shimo.im/firm/private)
+*   [开放服务平台](https://open.shimo.im/)
+*   [钉钉版](https://h5.dingtalk.com/orgreg/isvIndex.html?qrCode=E7DB6709D3328D8D75DD1253A34D851CE5137E585AFC0E7FE0FFF492974E2EEDD77FE743C5D2F452BC90E73E1DEC08C6EFCEEFCE9FA82AAF2A166E926746E84038C1809A72199259635E803E96AD90F6&signature=fd4d8a3ba15d3c36c2dec0ebd952e59f462cfc91)
+*   [企业微信版](https://shimo.im/wework)
+*   [下载客户端](https://shimo.im/firm/download)
+
+#### 石墨服务
+
+*   [解决方案](https://shimo.im/firm/samples)
+*   [帮助中心](https://shimo.im/help)
+*   [更新日志](https://shimo.im/docs/WlArzbzMabtOm2A2)
+*   [网站地图](https://shimo.im/sitemap)
+*   [服务条款](https://shimo.im/agreements/service)
+*   [隐私政策](https://shimo.im/agreements/privacy)
+*   [行为规范](https://shimo.im/agreements/behavior)
+
+#### 公司
+
+*   [关于我们](https://shimo.im/about)
+*   [石墨公告](https://shimo.im/blog/tags/notice)
+*   [客户案例](https://shimo.im/blog/tags/cases)
+*   [石墨博客](https://shimo.im/blog)
+*   [技术博客](https://zhuanlan.zhihu.com/shimo)
+*   [媒体报道](https://shimo.im/media_reports)
+*   [公益计划](https://shimo.im/pricing#shimo_public)
+*   [加入我们](https://app.mokahr.com/apply/shimo)
+
+#### 公有云服务咨询
+
+*   [400 666 9920 转 1](tel:400-666-9920)
+*   [企业用户售前咨询](tel:400-666-9920)
+*   [400 666 9920 转 3](tel:400-666-9920)
+*   [SDK 业务咨询](tel:400-666-9920)
+
+#### 私有部署服务咨询
+
+*   [400 666 9963](tel:400 666 9963)
+*   [私有部署售前咨询](tel:400 666 9963)
+*   ( 工作日 9:00 - 19:00 )
+
+[](http://weibo.com/shimowendang)[](https://twitter.com/ShimoDocs)
+
+#### 售后服务咨询
+
+*   石墨售后服务咨询
+
+© 2014-2026 武汉初心科技有限公司 84,140,936,301 文字 编写于 石墨文档
+
+[鄂ICP备14013665号-2](https://beian.miit.gov.cn/)[![Image 24](https://as.smgv.cn/static/lizard-service-homepage/assets/national_emblem_icon.0d3d31f3.png)鄂公网安备 42018502003887 号](http://www.beian.gov.cn/portal/registerSystemInfo?spm=a313x.7781069.1998910419.37&recordcode=42018502003887)
+
+举报邮箱：contact@shimo.im[中央网信办违法和不良信息举报中心](http://jubao.py.cnhubei.com/)电话：12377
+
+*   [涉仿冒诈骗类网站平台举报专项](http://jubao.py.cnhubei.com/hbjb.html)
+
+[![Image 25](https://as.smgv.cn/static/lizard-service-homepage/assets/report.e602387f.png)](http://jubao.py.cnhubei.com/)[![Image 26](https://as.smgv.cn/static/lizard-service-homepage/assets/violence_report.3557d62c.png)](http://www.12377.cn/)[![Image 27](https://as.smgv.cn/static/lizard-service-homepage/assets/enterprise_report.b1bd728b.png)](https://www.12377.cn/jbxzxq/sql_web.html)
+
+[企业版演示](https://shimo.im/preview?from=suspension&primarySource=&secondarySource=&thirdSource=home_right_bottom_demo)

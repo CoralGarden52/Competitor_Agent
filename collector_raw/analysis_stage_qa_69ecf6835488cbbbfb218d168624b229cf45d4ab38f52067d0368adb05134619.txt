@@ -1,0 +1,674 @@
+# 问卷调研
+
+Title: 问卷调研
+
+URL Source: https://www.feishu.cn/hc/zh-CN/articles/145119819535-%E9%97%AE%E5%8D%B7%E8%B0%83%E7%A0%94
+
+Markdown Content:
+# 问卷调研
+![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d3859633b9c64b969e91c8dec24c9a37~tplv-jbbdkfciu3-image:0:0.image)
+
+[![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/268ec674a56a4510889f7f5ca14f1ba1~tplv-jbbdkfciu3-image:0:0.image)](https://www.feishu.cn/)[帮助中心](https://www.feishu.cn/hc/zh-CN)
+
+新手入门
+
+使用飞书
+
+更多资源
+
+[智能助手](https://www.feishu.cn/hc/zh-CN/chat?referrer=/hc/zh-CN/articles/145119819535-%E9%97%AE%E5%8D%B7%E8%B0%83%E7%A0%94)
+
+[登录](https://login.feishu.cn/suite/passport/page/login/?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F145119819535-%25E9%2597%25AE%25E5%258D%25B7%25E8%25B0%2583%25E7%25A0%2594)
+
+*   [获取与使用应用](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7148716608741965826) 
+    *   [普通成员获取与使用应用](https://www.feishu.cn/hc/zh-CN/articles/360049067396 "普通成员获取与使用应用")
+    *   [使用企业自建应用](https://www.feishu.cn/hc/zh-CN/articles/360024985993 "使用企业自建应用")
+    *   [添加应用到移动端设备的桌面](https://www.feishu.cn/hc/zh-CN/articles/942996610535 "添加应用到移动端设备的桌面")
+    *   [通过消息快捷操作或加号菜单打开应用](https://www.feishu.cn/hc/zh-CN/articles/360049067645 "通过消息快捷操作或加号菜单打开应用")
+    *   [提交工作台应用反馈](https://www.feishu.cn/hc/zh-CN/articles/360044629054 "提交工作台应用反馈")
+    *   [为什么我无法使用小程序的新功能？](https://www.feishu.cn/hc/zh-CN/articles/360045751273 "为什么我无法使用小程序的新功能？")
+
+*   [敏捷研发](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7321727993686278145) 
+    *   [飞书机器人助手](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7177281426289704962) 
+        *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7226264327865647105) 
+            *   [飞书机器人助手介绍](https://www.feishu.cn/hc/zh-CN/articles/288089283586 "飞书机器人助手介绍")
+            *   [机器人应用概览](https://www.feishu.cn/hc/zh-CN/articles/495678957203 "机器人应用概览")
+            *   [如何使用机器人指令](https://www.feishu.cn/hc/zh-CN/articles/555473130655 "如何使用机器人指令 ")
+            *   [创建应用流程](https://www.feishu.cn/hc/zh-CN/articles/260336708092 "创建应用流程")
+            *   [机器人消息内容支持的文本样式](https://www.feishu.cn/hc/zh-CN/articles/236028437163 "机器人消息内容支持的文本样式")
+            *   [飞书机器人助手常见问题](https://www.feishu.cn/hc/zh-CN/articles/131324417719 "飞书机器人助手常见问题")
+            *   [飞书机器人助手功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/605574009491 "飞书机器人助手功能更新日志")
+
+        *   [触发器和操作节点](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7177282340899848193) 
+            *   [Webhook 触发器](https://www.feishu.cn/hc/zh-CN/articles/807992406756 "Webhook 触发器")
+            *   [GitLab 连接器](https://www.feishu.cn/hc/zh-CN/articles/658025692780 "GitLab 连接器")
+            *   [Sentry 连接器](https://www.feishu.cn/hc/zh-CN/articles/443035335996 "Sentry 连接器")
+            *   [通过飞书机器人发消息](https://www.feishu.cn/hc/zh-CN/articles/348229340087 "通过飞书机器人发消息")
+            *   [Grafana 连接器](https://www.feishu.cn/hc/zh-CN/articles/753973252150 "Grafana 连接器")
+            *   [发送 HTTP 请求](https://www.feishu.cn/hc/zh-CN/articles/476885705178 "发送 HTTP 请求")
+
+        *   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7177284230404210689) 
+            *   [“消息助手”机器人](https://www.feishu.cn/hc/zh-CN/articles/185289387886 "“消息助手”机器人")
+            *   [“群智能助手”机器人](https://www.feishu.cn/hc/zh-CN/articles/054938593114 "“群智能助手”机器人")
+            *   [“新人入职”机器人](https://www.feishu.cn/hc/zh-CN/articles/489218683694 "“新人入职”机器人")
+            *   [“司龄提醒”机器人](https://www.feishu.cn/hc/zh-CN/articles/882335247914 "“司龄提醒”机器人")
+            *   [“周会管理”机器人](https://www.feishu.cn/hc/zh-CN/articles/481234262787 "“周会管理”机器人")
+            *   [“夸夸”机器人](https://www.feishu.cn/hc/zh-CN/articles/469472133125 "“夸夸”机器人")
+            *   [“数据推送”机器人](https://www.feishu.cn/hc/zh-CN/articles/254340348205 "“数据推送”机器人")
+            *   [“值班通知”机器人](https://www.feishu.cn/hc/zh-CN/articles/767682991859 "“值班通知”机器人")
+            *   [“匿名反馈”机器人](https://www.feishu.cn/hc/zh-CN/articles/081515317763 "“匿名反馈”机器人")
+            *   [“定时提醒”机器人](https://www.feishu.cn/hc/zh-CN/articles/928323701025 "“定时提醒”机器人")
+            *   [“生日祝福”机器人](https://www.feishu.cn/hc/zh-CN/articles/196529544104 "“生日祝福”机器人")
+            *   [“群聊迎新”机器人](https://www.feishu.cn/hc/zh-CN/articles/075304378689 "“群聊迎新”机器人")
+            *   [“节日祝福”机器人](https://www.feishu.cn/hc/zh-CN/articles/101689941470 "“节日祝福”机器人")
+            *   [“需求收集”机器人](https://www.feishu.cn/hc/zh-CN/articles/348440462494 "“需求收集”机器人")
+            *   [“每日菜单”机器人](https://www.feishu.cn/hc/zh-CN/articles/195620900676 "“每日菜单”机器人")
+            *   [“员工调研”机器人](https://www.feishu.cn/hc/zh-CN/articles/895740060727 "“员工调研”机器人")
+            *   [“销售战报”机器人](https://www.feishu.cn/hc/zh-CN/articles/608728749818 "“销售战报”机器人")
+
+*   [企业文化](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571962023964) 
+    *   [词典](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7117143783648575489) 
+        *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7225157755841888257) 
+            *   [飞书词典功能介绍](https://www.feishu.cn/hc/zh-CN/articles/088133392087 "飞书词典功能介绍")
+            *   [使用飞书词典](https://www.feishu.cn/hc/zh-CN/articles/322585231952 "使用飞书词典")
+            *   [词典用户使用手册](https://www.feishu.cn/hc/zh-CN/articles/855025407592 "词典用户使用手册")
+            *   [词典功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/899185815351 "词典功能更新日志")
+
+        *   [词典管理员](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7122054909133881346) 
+            *   [词典管理后台介绍](https://www.feishu.cn/hc/zh-CN/articles/388043580636 "词典管理后台介绍")
+            *   [进入词典管理后台](https://www.feishu.cn/hc/zh-CN/articles/788343196609 "进入词典管理后台")
+            *   [分词库管理飞书词典](https://www.feishu.cn/hc/zh-CN/articles/405463843487 "分词库管理飞书词典")
+            *   [查看、启用词典行业词库](https://www.feishu.cn/hc/zh-CN/articles/876887577362 "查看、启用词典行业词库")
+            *   [创建、导入词典词条](https://www.feishu.cn/hc/zh-CN/articles/433150811358 "创建、导入词典词条")
+            *   [查看、管理词典单个词条](https://www.feishu.cn/hc/zh-CN/articles/360607119219 "查看、管理词典单个词条")
+            *   [查看、管理词典全部词条](https://www.feishu.cn/hc/zh-CN/articles/602271072962 "查看、管理词典全部词条")
+            *   [添加、移除词典管理员](https://www.feishu.cn/hc/zh-CN/articles/432584495941 "添加、移除词典管理员")
+            *   [设置词典词条审核模式](https://www.feishu.cn/hc/zh-CN/articles/955066457495 "设置词典词条审核模式")
+            *   [词典免审核模式介绍](https://www.feishu.cn/hc/zh-CN/articles/477229446778 "词典免审核模式介绍")
+            *   [创建、编辑词典词条分类](https://www.feishu.cn/hc/zh-CN/articles/365117872893 "创建、编辑词典词条分类")
+            *   [添加、删除词条分类审核人](https://www.feishu.cn/hc/zh-CN/articles/237717942852 "添加、删除词条分类审核人")
+            *   [审核词典词条、操作记录](https://www.feishu.cn/hc/zh-CN/articles/729641022480 "审核词典词条、操作记录")
+            *   [使用词典小助手推荐功能](https://www.feishu.cn/hc/zh-CN/articles/483171333070 "使用词典小助手推荐功能")
+            *   [使用词典小助手推荐新词条](https://www.feishu.cn/hc/zh-CN/articles/921987023935 "使用词典小助手推荐新词条")
+            *   [使用词典小助手推荐相关词条](https://www.feishu.cn/hc/zh-CN/articles/978092356384 "使用词典小助手推荐相关词条")
+            *   [使用词典小助手推荐相关文档](https://www.feishu.cn/hc/zh-CN/articles/850367692823 "使用词典小助手推荐相关文档")
+            *   [组织词典扩词运营活动](https://www.feishu.cn/hc/zh-CN/articles/554877101551 "组织词典扩词运营活动")
+            *   [使用词典 API 开放能力](https://www.feishu.cn/hc/zh-CN/articles/907279295299 "使用词典 API 开放能力")
+            *   [查看词典数据](https://www.feishu.cn/hc/zh-CN/articles/023916058198 "查看词典数据")
+
+        *   [词典用户](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7122055013127438338) 
+            *   [搜索、发现词典词条](https://www.feishu.cn/hc/zh-CN/articles/792066735384 "搜索、发现词典词条")
+            *   [获取词典词条链接](https://www.feishu.cn/hc/zh-CN/articles/456142443074 "获取词典词条链接")
+            *   [查看、分享词典词条](https://www.feishu.cn/hc/zh-CN/articles/572893042656 "查看、分享词典词条")
+            *   [创建、编辑词典词条](https://www.feishu.cn/hc/zh-CN/articles/330107373016 "创建、编辑词典词条")
+            *   [参与词典词条共创](https://www.feishu.cn/hc/zh-CN/articles/143635838694 "参与词典词条共创")
+            *   [查看词条贡献记录与反馈](https://www.feishu.cn/hc/zh-CN/articles/810077401182 "查看词条贡献记录与反馈")
+            *   [在浏览器使用词典常见问题](https://www.feishu.cn/hc/zh-CN/articles/493146003830 "在浏览器使用词典常见问题")
+
+        *   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7211357433086640129) 
+            *   [运用词典为企业知识流动提效](https://www.feishu.cn/hc/zh-CN/articles/907269113942 "运用词典为企业知识流动提效")
+            *   [千行百业用飞书词典](https://www.feishu.cn/hc/zh-CN/articles/041483817679 "千行百业用飞书词典")
+            *   [餐饮行业：一张词条卡片，撬动企业知识流转](https://www.feishu.cn/hc/zh-CN/articles/969133269711 "餐饮行业：一张词条卡片，撬动企业知识流转")
+            *   [游戏行业：用飞书词典，打造精品游戏](https://www.feishu.cn/hc/zh-CN/articles/422025377032 "游戏行业：用飞书词典，打造精品游戏")
+            *   [电商行业：用飞书词典，高效备战直播大促](https://www.feishu.cn/hc/zh-CN/articles/809053941127 "电商行业：用飞书词典，高效备战直播大促")
+            *   [医药行业：用飞书词典，降低术语沟通成本](https://www.feishu.cn/hc/zh-CN/articles/833287688443 "医药行业：用飞书词典，降低术语沟通成本")
+            *   [汽车行业：用飞书词典，打破跨部门沟通壁垒](https://www.feishu.cn/hc/zh-CN/articles/248824151128 "汽车行业：用飞书词典，打破跨部门沟通壁垒")
+            *   [金融行业：用飞书词典，小白晋升行业专家](https://www.feishu.cn/hc/zh-CN/articles/966691516094 "金融行业：用飞书词典，小白晋升行业专家")
+            *   [消费品牌行业：用飞书词典，助力打造爆款 IP](https://www.feishu.cn/hc/zh-CN/articles/860576924833 "消费品牌行业：用飞书词典，助力打造爆款 IP")
+
+    *   [订阅号](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934153194427645979) 
+        *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145031302952288257) 
+            *   [订阅号操作手册](https://www.feishu.cn/hc/zh-CN/articles/360049067518 "订阅号操作手册")
+            *   [飞书订阅号功能介绍](https://www.feishu.cn/hc/zh-CN/articles/801036064869 "飞书订阅号功能介绍")
+            *   [使用飞书订阅号](https://www.feishu.cn/hc/zh-CN/articles/727924761761 "使用飞书订阅号")
+            *   [使用订阅号内容模板](https://www.feishu.cn/hc/zh-CN/articles/680357300226 "使用订阅号内容模板")
+            *   [订阅号创作灵感介绍](https://www.feishu.cn/hc/zh-CN/articles/633655059477 "订阅号创作灵感介绍")
+            *   [订阅号和广播号功能对比介绍](https://www.feishu.cn/hc/zh-CN/articles/878442725367 "订阅号和广播号功能对比介绍")
+            *   [广播号和公告功能对比介绍](https://www.feishu.cn/hc/zh-CN/articles/528481455784 "广播号和公告功能对比介绍")
+            *   [订阅号功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/560425894995 "订阅号功能更新日志")
+
+        *   [管理应用](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145031972644126721) 
+            *   [应用管理员 | 审核与管理账号](https://www.feishu.cn/hc/zh-CN/articles/360049067786 "应用管理员 | 审核与管理账号")
+            *   [管理订阅号投诉](https://www.feishu.cn/hc/zh-CN/articles/360049067787 "管理订阅号投诉")
+            *   [应用管理员 | 查看数据统计](https://www.feishu.cn/hc/zh-CN/articles/360049067788 "应用管理员 | 查看数据统计")
+
+        *   [运营内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145032199954333698) 
+            *   [进入订阅号账号管理后台](https://www.feishu.cn/hc/zh-CN/articles/160833730765 "进入订阅号账号管理后台")
+            *   [创建订阅号、广播号账号](https://www.feishu.cn/hc/zh-CN/articles/252020974040 "创建订阅号、广播号账号")
+            *   [添加订阅号、广播号账号管理员](https://www.feishu.cn/hc/zh-CN/articles/193883217708 "添加订阅号、广播号账号管理员")
+            *   [设置订阅号账号自定义菜单](https://www.feishu.cn/hc/zh-CN/articles/984579933767 "设置订阅号账号自定义菜单")
+            *   [设置成员默认关注订阅号](https://www.feishu.cn/hc/zh-CN/articles/470624558490 "设置成员默认关注订阅号")
+            *   [创建、发送订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/500373848652 "创建、发送订阅号内容")
+            *   [使用订阅号内容模板新建内容](https://www.feishu.cn/hc/zh-CN/articles/809372464520 "使用订阅号内容模板新建内容")
+            *   [定向发送订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/361406584802 "定向发送订阅号内容")
+            *   [修改、撤回、删除订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/253590036904 "修改、撤回、删除订阅号内容")
+            *   [管理订阅号用户留言](https://www.feishu.cn/hc/zh-CN/articles/971010115443 "管理订阅号用户留言")
+            *   [查看订阅号运营数据](https://www.feishu.cn/hc/zh-CN/articles/311585803357 "查看订阅号运营数据")
+            *   [使用广播号发送公告](https://www.feishu.cn/hc/zh-CN/articles/654838782631 "使用广播号发送公告")
+            *   [设置广播号消息内容标记已阅](https://www.feishu.cn/hc/zh-CN/articles/967965677598 "设置广播号消息内容标记已阅")
+            *   [设置广播号消息内容未读加推](https://www.feishu.cn/hc/zh-CN/articles/113796215567 "设置广播号消息内容未读加推")
+
+        *   [发现内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145032372319272988) 
+            *   [订阅号用户使用手册](https://www.feishu.cn/hc/zh-CN/articles/138759940844 "订阅号用户使用手册")
+            *   [发现、关注订阅号](https://www.feishu.cn/hc/zh-CN/articles/360049067792 "发现、关注订阅号")
+            *   [互动、分享订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/360049067793 "互动、分享订阅号内容")
+
+    *   [公告](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336777330049744897) 
+        *   [使用公告应用](https://www.feishu.cn/hc/zh-CN/articles/360041499553 "使用公告应用")
+
+*   [电子办公](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6968656713213853698) 
+    *   [飞书问卷](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571970461697) 
+        *   [快速玩转飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/666160651932 "快速玩转飞书问卷")
+        *   [智能搭建问卷](https://www.feishu.cn/hc/zh-CN/articles/989015423277 "智能搭建问卷")
+        *   [使用飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/827223408763 "使用飞书问卷")
+        *   [飞书问卷支持的题型](https://www.feishu.cn/hc/zh-CN/articles/573407497307 "飞书问卷支持的题型")
+        *   [使用新版问卷一页一题模式](https://www.feishu.cn/hc/zh-CN/articles/599790873913 "使用新版问卷一页一题模式")
+        *   [飞书问卷常见问题](https://www.feishu.cn/hc/zh-CN/articles/990945803159 "飞书问卷常见问题")
+        *   [使用飞书问卷抽奖功能](https://www.feishu.cn/hc/zh-CN/articles/791148248105 "使用飞书问卷抽奖功能")
+        *   [使用飞书问卷的发送通知功能](https://www.feishu.cn/hc/zh-CN/articles/776871864306 "使用飞书问卷的发送通知功能")
+        *   [在飞书问卷中设置预填默认值](https://www.feishu.cn/hc/zh-CN/articles/197258534891 "在飞书问卷中设置预填默认值")
+        *   [飞书问卷移动端操作指南](https://www.feishu.cn/hc/zh-CN/articles/502277795933 "飞书问卷移动端操作指南")
+        *   [快速玩转旧版飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/360049067680 "快速玩转旧版飞书问卷")
+        *   [使用旧版飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/360049067507 "使用旧版飞书问卷")
+        *   [旧版飞书问卷常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067508 "旧版飞书问卷常见问题")
+        *   [如何灵活管理旧版飞书问卷中的问卷？](https://www.feishu.cn/hc/zh-CN/articles/360049067509 "如何灵活管理旧版飞书问卷中的问卷？")
+        *   [旧版飞书问卷移动端功能简介](https://www.feishu.cn/hc/zh-CN/articles/360049067826 "旧版飞书问卷移动端功能简介")
+        *   [旧版飞书问卷移动端操作指南](https://www.feishu.cn/hc/zh-CN/articles/360049067827 "旧版飞书问卷移动端操作指南")
+        *   [旧版飞书问卷喜获三宝：抽奖、词频分析、实时保存](https://www.feishu.cn/hc/zh-CN/articles/147105538387 "旧版飞书问卷喜获三宝：抽奖、词频分析、实时保存")
+        *   [旧版飞书问卷地理位置授权操作方法](https://www.feishu.cn/hc/zh-CN/articles/962845191253 "旧版飞书问卷地理位置授权操作方法")
+
+    *   [云打印](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572121407516) 
+        *   [成员使用云打印](https://www.feishu.cn/hc/zh-CN/articles/360049067863 "成员使用云打印")
+        *   [管理员部署云打印](https://www.feishu.cn/hc/zh-CN/articles/360049067861 "管理员部署云打印")
+        *   [管理员使用云打印管理后台](https://www.feishu.cn/hc/zh-CN/articles/360049067865 "管理员使用云打印管理后台")
+        *   [云打印用户使用常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067859 "云打印用户使用常见问题")
+        *   [云打印安装与管理常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067860 "云打印安装与管理常见问题")
+        *   [Windows 系统安装富士施乐驱动指南](https://www.feishu.cn/hc/zh-CN/articles/253404846104 "Windows 系统安装富士施乐驱动指南")
+
+    *   [飞书合同](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960861502274338818) 
+        *   [快速了解飞书合同](https://www.feishu.cn/hc/zh-CN/articles/365333586603 "快速了解飞书合同")
+        *   [轻松上手飞书合同](https://www.feishu.cn/hc/zh-CN/articles/049784059519 "轻松上手飞书合同")
+        *   [飞书合同首页介绍](https://www.feishu.cn/hc/zh-CN/articles/913123491893 "飞书合同首页介绍")
+        *   [快速上手合同申请](https://www.feishu.cn/hc/zh-CN/articles/822912255027 "快速上手合同申请")
+        *   [快速上手合同任务中心](https://www.feishu.cn/hc/zh-CN/articles/072634994079 "快速上手合同任务中心")
+        *   [快速上手合同管理](https://www.feishu.cn/hc/zh-CN/articles/064919833391 "快速上手合同管理")
+        *   [飞书合同的履约监控功能介绍](https://www.feishu.cn/hc/zh-CN/articles/600142574597 "飞书合同的履约监控功能介绍")
+        *   [一分钟了解飞书合同](https://www.feishu.cn/hc/zh-CN/articles/753034696689 "一分钟了解飞书合同")
+        *   [飞书合同管理员配置合同类型、字段、流程](https://www.feishu.cn/hc/zh-CN/articles/099630994875 "飞书合同管理员配置合同类型、字段、流程")
+
+    *   [飞书数据立方](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7197747205023776796) 
+        *   [飞书数据立方介绍](https://www.feishu.cn/hc/zh-CN/articles/694723193338 "飞书数据立方介绍")
+        *   [灵活分配数据立方权限](https://www.feishu.cn/hc/zh-CN/articles/311815043522 "灵活分配数据立方权限")
+        *   [了解数据集](https://www.feishu.cn/hc/zh-CN/articles/064373323008 "了解数据集")
+        *   [开始自助分析](https://www.feishu.cn/hc/zh-CN/articles/840185358694 "开始自助分析")
+        *   [数据统计范围](https://www.feishu.cn/hc/zh-CN/articles/695878811913 "数据统计范围")
+
+    *   [飞书提醒](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336779428493754369) 
+        *   [使用飞书提醒](https://www.feishu.cn/hc/zh-CN/articles/360040566773 "使用飞书提醒")
+
+*   [人事行政](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571978833921) 
+    *   [智能门禁](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7047022784580517890) 
+        *   [智能门禁管理员操作手册](https://www.feishu.cn/hc/zh-CN/articles/248849868446 "智能门禁管理员操作手册")
+        *   [设置二维码通行及打卡](https://www.feishu.cn/hc/zh-CN/articles/213970295071 "设置二维码通行及打卡")
+        *   [设置防拆报警和开门超时报警](https://www.feishu.cn/hc/zh-CN/articles/775206739048 "设置防拆报警和开门超时报警")
+        *   [设置权限开放时间](https://www.feishu.cn/hc/zh-CN/articles/421604386771 "设置权限开放时间")
+        *   [管理外部人员通行](https://www.feishu.cn/hc/zh-CN/articles/784804087063 "管理外部人员通行")
+        *   [智能门禁更新日志](https://www.feishu.cn/hc/zh-CN/articles/443128813404 "智能门禁更新日志")
+
+    *   [签到](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934148339646611457) 
+        *   [使用签到应用](https://www.feishu.cn/hc/zh-CN/articles/360048803313 "使用签到应用")
+        *   [配置和管理签到](https://www.feishu.cn/hc/zh-CN/articles/360043339333 "配置和管理签到")
+        *   [设置签到图片只能拍照上传](https://www.feishu.cn/hc/zh-CN/articles/360048089574 "设置签到图片只能拍照上传")
+        *   [部门负责人查看子部门签到情况](https://www.feishu.cn/hc/zh-CN/articles/360048807813 "部门负责人查看子部门签到情况")
+        *   [签到管理后台和飞书管理后台的区别](https://www.feishu.cn/hc/zh-CN/articles/360048805053 "签到管理后台和飞书管理后台的区别")
+        *   [签到管理后台各角色权限说明](https://www.feishu.cn/hc/zh-CN/articles/360048088774 "签到管理后台各角色权限说明")
+        *   [管理员自定义设置签到模板](https://www.feishu.cn/hc/zh-CN/articles/360048807953 "管理员自定义设置签到模板")
+        *   [管理员设置签到范围为全体员工](https://www.feishu.cn/hc/zh-CN/articles/360048807153 "管理员设置签到范围为全体员工")
+        *   [管理员查看成员签到地点分布](https://www.feishu.cn/hc/zh-CN/articles/360048805913 "管理员查看成员签到地点分布")
+
+    *   [汇报](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572113035265) 
+        *   [快速上手飞书汇报](https://www.feishu.cn/hc/zh-CN/articles/360043028774 "快速上手飞书汇报")
+        *   [设置汇报规则](https://www.feishu.cn/hc/zh-CN/articles/360049067937 "设置汇报规则")
+        *   [管理员使用汇报管理后台](https://www.feishu.cn/hc/zh-CN/articles/360049067614 "管理员使用汇报管理后台")
+        *   [汇报功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067695 "汇报功能更新日志")
+
+    *   [访客大师](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145351582555701276) 
+        *   [成员使用访客大师](https://www.feishu.cn/hc/zh-CN/articles/091364742741 "成员使用访客大师")
+        *   [管理员部署访客大师](https://www.feishu.cn/hc/zh-CN/articles/369007813694 "管理员部署访客大师")
+        *   [访客大师常见问题](https://www.feishu.cn/hc/zh-CN/articles/041088185880 "访客大师常见问题")
+
+*   [集成助手](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6937195578094780444) 
+    *   [配置和使用 Asana 助手](https://www.feishu.cn/hc/zh-CN/articles/360035771694 "配置和使用 Asana 助手")
+
+*   [第三方解决方案](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6968661588932902940) 
+    *   [团队协作类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571974623259) 
+        *   [项目管理](https://www.feishu.cn/hc/zh-CN/articles/799268775565 "项目管理")
+        *   [问卷调研](https://www.feishu.cn/hc/zh-CN/articles/145119819535 "问卷调研")
+        *   [数据分析](https://www.feishu.cn/hc/zh-CN/articles/302427089808 "数据分析")
+        *   [设计工具](https://www.feishu.cn/hc/zh-CN/articles/279211575520 "设计工具")
+        *   [敏捷开发](https://www.feishu.cn/hc/zh-CN/articles/772448760278 "敏捷开发")
+        *   [待办工具](https://www.feishu.cn/hc/zh-CN/articles/550314150613 "待办工具")
+
+    *   [客户关系类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572142379035) 
+        *   [客户服务](https://www.feishu.cn/hc/zh-CN/articles/034088422093 "客户服务")
+        *   [客户管理](https://www.feishu.cn/hc/zh-CN/articles/236139041407 "客户管理")
+
+    *   [人力资源类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572129812481) 
+        *   [综合人事](https://www.feishu.cn/hc/zh-CN/articles/962898435211 "综合人事")
+        *   [招聘管理](https://www.feishu.cn/hc/zh-CN/articles/845481424609 "招聘管理")
+        *   [企业文化](https://www.feishu.cn/hc/zh-CN/articles/919521388307 "企业文化")
+        *   [企业福利](https://www.feishu.cn/hc/zh-CN/articles/315334000274 "企业福利")
+        *   [目标绩效](https://www.feishu.cn/hc/zh-CN/articles/058278412817 "目标绩效")
+
+    *   [行政管理类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572146638876) 
+        *   [综合行政](https://www.feishu.cn/hc/zh-CN/articles/977575074907 "综合行政")
+        *   [资产管理](https://www.feishu.cn/hc/zh-CN/articles/643917831764 "资产管理")
+        *   [差旅出行](https://www.feishu.cn/hc/zh-CN/articles/022070963480 "差旅出行")
+
+    *   [财税法类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572134055964) 
+        *   [费控报销](https://www.feishu.cn/hc/zh-CN/articles/047280708145 "费控报销")
+        *   [法务工具](https://www.feishu.cn/hc/zh-CN/articles/663367127451 "法务工具")
+        *   [财务工具](https://www.feishu.cn/hc/zh-CN/articles/597333099229 "财务工具")
+
+    *   [其他](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934150846309679105) 
+        *   [飞书投资云](https://www.feishu.cn/hc/zh-CN/articles/479962176413 "飞书投资云")
+        *   [电子办公](https://www.feishu.cn/hc/zh-CN/articles/012456112713 "电子办公")
+        *   [零代码](https://www.feishu.cn/hc/zh-CN/articles/302490558947 "零代码")
+        *   [培训学习](https://www.feishu.cn/hc/zh-CN/articles/879400227391 "培训学习")
+        *   [进销存](https://www.feishu.cn/hc/zh-CN/articles/675601679484 "进销存")
+
+*   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6935654640448995329) 
+    *   [通用篇｜七款应用，把企业福利送到员工心坎里](https://www.feishu.cn/hc/zh-CN/articles/367302315458 "通用篇｜七款应用，把企业福利送到员工心坎里")
+    *   [管理篇 | 如何挑选一款合适的项目管理应用？](https://www.feishu.cn/hc/zh-CN/articles/360049067699 "管理篇 | 如何挑选一款合适的项目管理应用？")
+    *   [活动篇 | 用考考，办一场超好玩的飞书知识英雄赛](https://www.feishu.cn/hc/zh-CN/articles/360049068025 "活动篇 | 用考考，办一场超好玩的飞书知识英雄赛")
+    *   [行业篇 | 应用秘籍：推荐给互联网人的应用](https://www.feishu.cn/hc/zh-CN/articles/199942111184 "行业篇 | 应用秘籍：推荐给互联网人的应用")
+    *   [行业篇 | 推荐给新媒体人的应用](https://www.feishu.cn/hc/zh-CN/articles/360049068016 "行业篇 | 推荐给新媒体人的应用")
+    *   [行政篇 | 机器人搭配消息卡片，飞书秒变智能行政小助手](https://www.feishu.cn/hc/zh-CN/articles/224140185945 "行政篇 | 机器人搭配消息卡片，飞书秒变智能行政小助手")
+    *   [运维篇 | 机器人自动拉群报警，让运维简单高效](https://www.feishu.cn/hc/zh-CN/articles/743833203207 "运维篇 | 机器人自动拉群报警，让运维简单高效")
+    *   [员工福利发放](https://www.feishu.cn/hc/zh-CN/articles/267904450431 "员工福利发放")
+    *   [解锁年会新玩法](https://www.feishu.cn/hc/zh-CN/articles/162817347797 "解锁年会新玩法")
+
+[应用中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7321718411862507521)
+
+[第三方解决方案](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6968661588932902940)
+
+[团队协作类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571974623259)
+
+问卷调研
+
+# 问卷调研
+
+本文阅读时长：5 分钟
+
+好的问卷调研工具能够帮助企业轻松完成数据的收集、整理和分析工作，挖掘数据的价值，更高效地提高产品和服务的质量。​
+
+本文将介绍：番茄表单、问卷网、问卷星、敏捷投票等问卷调研工具。​
+
+[番茄表单](https://app.feishu.cn/app/cli_a1d50fe347b8500d)​
+
+番茄表单是一款灵活高效的数据收集、分析、管理工具，从 2016 年起就开始专注表单问卷服务，帮助企业实现工作效率的增长。利用番茄表单，你可以轻松地创建问卷调研、报名登记、活动投票、在线订单等表单，摒弃传统的利用 Excel 收集信息的模式，帮助企业提高信息收集效率，自带的统计功能还可以帮你直接出具精美的可视化数据分析图表，强大的协作功能可以让多名成员共同管理一个表单，实现多岗位配合。 ​
+
+- 极简易用：无需编写代码，简单拖拽就可以完成表单制作 ​
+
+- 适用范围广：全行业统一，满足教育、互联网、医疗、制造业、贸易等不同行业需求 ​
+
+- 强大的功能：提供 30 多种题型的编辑，丰富的表单设置，灵活的协作功能，满足用户的个性化需求​
+
+了解更多：[番茄表单帮助手册](https://kau04o66co.feishu.cn/docs/doccnCSRJfHx4FdkitKjl6cezEf)​
+
+[问卷网](https://app.feishu.cn/app/cli_9c10807b13b01108)​
+
+问卷网是一个专业易用的问卷调研、报名表单、投票评选、考试测评平台：​
+
+- 题型丰富，功能强大：13 种题型及相关常用设置，自由选择​
+
+- 主题多样，更具美感：12 套精美主题，让你的问卷更美观​
+
+- 限制答题，掌控答卷质量：支持限制每个设备、IP、微信号只能答一次​
+
+- 多渠道分享，轻松触达：支持飞书、海报等4种分享方式，11套海报任选​
+
+- 数据直观，图表丰富：8 种图表类型，数据更直观​
+
+- 没有限制，放心使用：不限项目数量，不限答卷数量，数据永久保存​
+
+了解更多：[问卷网帮助手册](https://wenjuanwang.feishu.cn/docs/doccnQ5XiJRZCR7J4QVgak3zFdb)​
+
+[问卷星](https://app.feishu.cn/app/cli_a07f9a3debf99013)​
+
+问卷星包括调查、考试、投票、表单、测评、360 度评估六大模块。 ​
+
+- 提供员工满意度调查、员工敬业度调查、市场调查等各种问卷调查 ​
+
+- 支持企业内部各种考试、团队活动投票，报名签到、绩效评估考核等各个应用场景 ​
+
+- 提供 30 多种题型编辑；关联、跳题、引用等多种逻辑设置；奖品设置、问卷外观等多种功能设置​
+
+了解更多：[问卷星帮助手册](https://gk2pntt4t1.feishu.cn/docs/doccnTTytb8tmautErBDN0bj8vg)​
+
+[敏捷投票](https://app.feishu.cn/app/cli_9edf9edc5438900d)​
+
+敏捷投票与飞书深度整合，致力于打造灵活易用的敏捷开发投票工具，适应于各类敏捷开发投票场景。​
+
+- 快速支持各种投票场景，完整支持敏捷开发工时估算、规模估算、与否估算。​
+
+- 完整的投票结果复现，最高值、最低值，弃权票一目了然。​
+
+- 多种结束方式更灵活，手动结束、倒计时自动结束，让投票不再犹豫。​
+
+- 深度符合敏捷开发流程，包括“我”都是投票做出来的哦。​
+
+了解更多：[敏捷投票帮助手册](https://zerozen.feishu.cn/docs/doccnJaHGz90pd1As0DJ4hp4Vmb)​
+
+​
+
+免责声明：飞书开放平台提供了将第三方应用连入飞书的能力，为了让您更好地使用该能力，飞书帮助中心提供了相关操作文档。该等文档均由开发此应用的公司撰写，飞书不对任何来源于第三方的信息、内容、承诺等（包括但不限于安装包安全、信息描述、应用截图、付费）承担责任，请您自行选择，谨慎使用本文档。​
+
+​
+
+作者：飞书帮助中心
+
+最后更新于2022/08/03
+
+本文是否对你有帮助
+
+提交成功，感谢你的反馈！
+
+未能解决你的问题？请联系[在线客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)
+
+本篇目录
+
+1.   [番茄表单​](javascript:;)
+2.   [问卷网​](javascript:;)
+3.   [问卷星​](javascript:;)
+4.   [敏捷投票​](javascript:;)
+
+0
+
+*   [获取与使用应用](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7148716608741965826) 
+    *   [普通成员获取与使用应用](https://www.feishu.cn/hc/zh-CN/articles/360049067396 "普通成员获取与使用应用")
+    *   [使用企业自建应用](https://www.feishu.cn/hc/zh-CN/articles/360024985993 "使用企业自建应用")
+    *   [添加应用到移动端设备的桌面](https://www.feishu.cn/hc/zh-CN/articles/942996610535 "添加应用到移动端设备的桌面")
+    *   [通过消息快捷操作或加号菜单打开应用](https://www.feishu.cn/hc/zh-CN/articles/360049067645 "通过消息快捷操作或加号菜单打开应用")
+    *   [提交工作台应用反馈](https://www.feishu.cn/hc/zh-CN/articles/360044629054 "提交工作台应用反馈")
+    *   [为什么我无法使用小程序的新功能？](https://www.feishu.cn/hc/zh-CN/articles/360045751273 "为什么我无法使用小程序的新功能？")
+
+*   [敏捷研发](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7321727993686278145) 
+    *   [飞书机器人助手](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7177281426289704962) 
+        *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7226264327865647105) 
+            *   [飞书机器人助手介绍](https://www.feishu.cn/hc/zh-CN/articles/288089283586 "飞书机器人助手介绍")
+            *   [机器人应用概览](https://www.feishu.cn/hc/zh-CN/articles/495678957203 "机器人应用概览")
+            *   [如何使用机器人指令](https://www.feishu.cn/hc/zh-CN/articles/555473130655 "如何使用机器人指令 ")
+            *   [创建应用流程](https://www.feishu.cn/hc/zh-CN/articles/260336708092 "创建应用流程")
+            *   [机器人消息内容支持的文本样式](https://www.feishu.cn/hc/zh-CN/articles/236028437163 "机器人消息内容支持的文本样式")
+            *   [飞书机器人助手常见问题](https://www.feishu.cn/hc/zh-CN/articles/131324417719 "飞书机器人助手常见问题")
+            *   [飞书机器人助手功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/605574009491 "飞书机器人助手功能更新日志")
+
+        *   [触发器和操作节点](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7177282340899848193) 
+            *   [Webhook 触发器](https://www.feishu.cn/hc/zh-CN/articles/807992406756 "Webhook 触发器")
+            *   [GitLab 连接器](https://www.feishu.cn/hc/zh-CN/articles/658025692780 "GitLab 连接器")
+            *   [Sentry 连接器](https://www.feishu.cn/hc/zh-CN/articles/443035335996 "Sentry 连接器")
+            *   [通过飞书机器人发消息](https://www.feishu.cn/hc/zh-CN/articles/348229340087 "通过飞书机器人发消息")
+            *   [Grafana 连接器](https://www.feishu.cn/hc/zh-CN/articles/753973252150 "Grafana 连接器")
+            *   [发送 HTTP 请求](https://www.feishu.cn/hc/zh-CN/articles/476885705178 "发送 HTTP 请求")
+
+        *   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7177284230404210689) 
+            *   [“消息助手”机器人](https://www.feishu.cn/hc/zh-CN/articles/185289387886 "“消息助手”机器人")
+            *   [“群智能助手”机器人](https://www.feishu.cn/hc/zh-CN/articles/054938593114 "“群智能助手”机器人")
+            *   [“新人入职”机器人](https://www.feishu.cn/hc/zh-CN/articles/489218683694 "“新人入职”机器人")
+            *   [“司龄提醒”机器人](https://www.feishu.cn/hc/zh-CN/articles/882335247914 "“司龄提醒”机器人")
+            *   [“周会管理”机器人](https://www.feishu.cn/hc/zh-CN/articles/481234262787 "“周会管理”机器人")
+            *   [“夸夸”机器人](https://www.feishu.cn/hc/zh-CN/articles/469472133125 "“夸夸”机器人")
+            *   [“数据推送”机器人](https://www.feishu.cn/hc/zh-CN/articles/254340348205 "“数据推送”机器人")
+            *   [“值班通知”机器人](https://www.feishu.cn/hc/zh-CN/articles/767682991859 "“值班通知”机器人")
+            *   [“匿名反馈”机器人](https://www.feishu.cn/hc/zh-CN/articles/081515317763 "“匿名反馈”机器人")
+            *   [“定时提醒”机器人](https://www.feishu.cn/hc/zh-CN/articles/928323701025 "“定时提醒”机器人")
+            *   [“生日祝福”机器人](https://www.feishu.cn/hc/zh-CN/articles/196529544104 "“生日祝福”机器人")
+            *   [“群聊迎新”机器人](https://www.feishu.cn/hc/zh-CN/articles/075304378689 "“群聊迎新”机器人")
+            *   [“节日祝福”机器人](https://www.feishu.cn/hc/zh-CN/articles/101689941470 "“节日祝福”机器人")
+            *   [“需求收集”机器人](https://www.feishu.cn/hc/zh-CN/articles/348440462494 "“需求收集”机器人")
+            *   [“每日菜单”机器人](https://www.feishu.cn/hc/zh-CN/articles/195620900676 "“每日菜单”机器人")
+            *   [“员工调研”机器人](https://www.feishu.cn/hc/zh-CN/articles/895740060727 "“员工调研”机器人")
+            *   [“销售战报”机器人](https://www.feishu.cn/hc/zh-CN/articles/608728749818 "“销售战报”机器人")
+
+*   [企业文化](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571962023964) 
+    *   [词典](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7117143783648575489) 
+        *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7225157755841888257) 
+            *   [飞书词典功能介绍](https://www.feishu.cn/hc/zh-CN/articles/088133392087 "飞书词典功能介绍")
+            *   [使用飞书词典](https://www.feishu.cn/hc/zh-CN/articles/322585231952 "使用飞书词典")
+            *   [词典用户使用手册](https://www.feishu.cn/hc/zh-CN/articles/855025407592 "词典用户使用手册")
+            *   [词典功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/899185815351 "词典功能更新日志")
+
+        *   [词典管理员](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7122054909133881346) 
+            *   [词典管理后台介绍](https://www.feishu.cn/hc/zh-CN/articles/388043580636 "词典管理后台介绍")
+            *   [进入词典管理后台](https://www.feishu.cn/hc/zh-CN/articles/788343196609 "进入词典管理后台")
+            *   [分词库管理飞书词典](https://www.feishu.cn/hc/zh-CN/articles/405463843487 "分词库管理飞书词典")
+            *   [查看、启用词典行业词库](https://www.feishu.cn/hc/zh-CN/articles/876887577362 "查看、启用词典行业词库")
+            *   [创建、导入词典词条](https://www.feishu.cn/hc/zh-CN/articles/433150811358 "创建、导入词典词条")
+            *   [查看、管理词典单个词条](https://www.feishu.cn/hc/zh-CN/articles/360607119219 "查看、管理词典单个词条")
+            *   [查看、管理词典全部词条](https://www.feishu.cn/hc/zh-CN/articles/602271072962 "查看、管理词典全部词条")
+            *   [添加、移除词典管理员](https://www.feishu.cn/hc/zh-CN/articles/432584495941 "添加、移除词典管理员")
+            *   [设置词典词条审核模式](https://www.feishu.cn/hc/zh-CN/articles/955066457495 "设置词典词条审核模式")
+            *   [词典免审核模式介绍](https://www.feishu.cn/hc/zh-CN/articles/477229446778 "词典免审核模式介绍")
+            *   [创建、编辑词典词条分类](https://www.feishu.cn/hc/zh-CN/articles/365117872893 "创建、编辑词典词条分类")
+            *   [添加、删除词条分类审核人](https://www.feishu.cn/hc/zh-CN/articles/237717942852 "添加、删除词条分类审核人")
+            *   [审核词典词条、操作记录](https://www.feishu.cn/hc/zh-CN/articles/729641022480 "审核词典词条、操作记录")
+            *   [使用词典小助手推荐功能](https://www.feishu.cn/hc/zh-CN/articles/483171333070 "使用词典小助手推荐功能")
+            *   [使用词典小助手推荐新词条](https://www.feishu.cn/hc/zh-CN/articles/921987023935 "使用词典小助手推荐新词条")
+            *   [使用词典小助手推荐相关词条](https://www.feishu.cn/hc/zh-CN/articles/978092356384 "使用词典小助手推荐相关词条")
+            *   [使用词典小助手推荐相关文档](https://www.feishu.cn/hc/zh-CN/articles/850367692823 "使用词典小助手推荐相关文档")
+            *   [组织词典扩词运营活动](https://www.feishu.cn/hc/zh-CN/articles/554877101551 "组织词典扩词运营活动")
+            *   [使用词典 API 开放能力](https://www.feishu.cn/hc/zh-CN/articles/907279295299 "使用词典 API 开放能力")
+            *   [查看词典数据](https://www.feishu.cn/hc/zh-CN/articles/023916058198 "查看词典数据")
+
+        *   [词典用户](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7122055013127438338) 
+            *   [搜索、发现词典词条](https://www.feishu.cn/hc/zh-CN/articles/792066735384 "搜索、发现词典词条")
+            *   [获取词典词条链接](https://www.feishu.cn/hc/zh-CN/articles/456142443074 "获取词典词条链接")
+            *   [查看、分享词典词条](https://www.feishu.cn/hc/zh-CN/articles/572893042656 "查看、分享词典词条")
+            *   [创建、编辑词典词条](https://www.feishu.cn/hc/zh-CN/articles/330107373016 "创建、编辑词典词条")
+            *   [参与词典词条共创](https://www.feishu.cn/hc/zh-CN/articles/143635838694 "参与词典词条共创")
+            *   [查看词条贡献记录与反馈](https://www.feishu.cn/hc/zh-CN/articles/810077401182 "查看词条贡献记录与反馈")
+            *   [在浏览器使用词典常见问题](https://www.feishu.cn/hc/zh-CN/articles/493146003830 "在浏览器使用词典常见问题")
+
+        *   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7211357433086640129) 
+            *   [运用词典为企业知识流动提效](https://www.feishu.cn/hc/zh-CN/articles/907269113942 "运用词典为企业知识流动提效")
+            *   [千行百业用飞书词典](https://www.feishu.cn/hc/zh-CN/articles/041483817679 "千行百业用飞书词典")
+            *   [餐饮行业：一张词条卡片，撬动企业知识流转](https://www.feishu.cn/hc/zh-CN/articles/969133269711 "餐饮行业：一张词条卡片，撬动企业知识流转")
+            *   [游戏行业：用飞书词典，打造精品游戏](https://www.feishu.cn/hc/zh-CN/articles/422025377032 "游戏行业：用飞书词典，打造精品游戏")
+            *   [电商行业：用飞书词典，高效备战直播大促](https://www.feishu.cn/hc/zh-CN/articles/809053941127 "电商行业：用飞书词典，高效备战直播大促")
+            *   [医药行业：用飞书词典，降低术语沟通成本](https://www.feishu.cn/hc/zh-CN/articles/833287688443 "医药行业：用飞书词典，降低术语沟通成本")
+            *   [汽车行业：用飞书词典，打破跨部门沟通壁垒](https://www.feishu.cn/hc/zh-CN/articles/248824151128 "汽车行业：用飞书词典，打破跨部门沟通壁垒")
+            *   [金融行业：用飞书词典，小白晋升行业专家](https://www.feishu.cn/hc/zh-CN/articles/966691516094 "金融行业：用飞书词典，小白晋升行业专家")
+            *   [消费品牌行业：用飞书词典，助力打造爆款 IP](https://www.feishu.cn/hc/zh-CN/articles/860576924833 "消费品牌行业：用飞书词典，助力打造爆款 IP")
+
+    *   [订阅号](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934153194427645979) 
+        *   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145031302952288257) 
+            *   [订阅号操作手册](https://www.feishu.cn/hc/zh-CN/articles/360049067518 "订阅号操作手册")
+            *   [飞书订阅号功能介绍](https://www.feishu.cn/hc/zh-CN/articles/801036064869 "飞书订阅号功能介绍")
+            *   [使用飞书订阅号](https://www.feishu.cn/hc/zh-CN/articles/727924761761 "使用飞书订阅号")
+            *   [使用订阅号内容模板](https://www.feishu.cn/hc/zh-CN/articles/680357300226 "使用订阅号内容模板")
+            *   [订阅号创作灵感介绍](https://www.feishu.cn/hc/zh-CN/articles/633655059477 "订阅号创作灵感介绍")
+            *   [订阅号和广播号功能对比介绍](https://www.feishu.cn/hc/zh-CN/articles/878442725367 "订阅号和广播号功能对比介绍")
+            *   [广播号和公告功能对比介绍](https://www.feishu.cn/hc/zh-CN/articles/528481455784 "广播号和公告功能对比介绍")
+            *   [订阅号功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/560425894995 "订阅号功能更新日志")
+
+        *   [管理应用](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145031972644126721) 
+            *   [应用管理员 | 审核与管理账号](https://www.feishu.cn/hc/zh-CN/articles/360049067786 "应用管理员 | 审核与管理账号")
+            *   [管理订阅号投诉](https://www.feishu.cn/hc/zh-CN/articles/360049067787 "管理订阅号投诉")
+            *   [应用管理员 | 查看数据统计](https://www.feishu.cn/hc/zh-CN/articles/360049067788 "应用管理员 | 查看数据统计")
+
+        *   [运营内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145032199954333698) 
+            *   [进入订阅号账号管理后台](https://www.feishu.cn/hc/zh-CN/articles/160833730765 "进入订阅号账号管理后台")
+            *   [创建订阅号、广播号账号](https://www.feishu.cn/hc/zh-CN/articles/252020974040 "创建订阅号、广播号账号")
+            *   [添加订阅号、广播号账号管理员](https://www.feishu.cn/hc/zh-CN/articles/193883217708 "添加订阅号、广播号账号管理员")
+            *   [设置订阅号账号自定义菜单](https://www.feishu.cn/hc/zh-CN/articles/984579933767 "设置订阅号账号自定义菜单")
+            *   [设置成员默认关注订阅号](https://www.feishu.cn/hc/zh-CN/articles/470624558490 "设置成员默认关注订阅号")
+            *   [创建、发送订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/500373848652 "创建、发送订阅号内容")
+            *   [使用订阅号内容模板新建内容](https://www.feishu.cn/hc/zh-CN/articles/809372464520 "使用订阅号内容模板新建内容")
+            *   [定向发送订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/361406584802 "定向发送订阅号内容")
+            *   [修改、撤回、删除订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/253590036904 "修改、撤回、删除订阅号内容")
+            *   [管理订阅号用户留言](https://www.feishu.cn/hc/zh-CN/articles/971010115443 "管理订阅号用户留言")
+            *   [查看订阅号运营数据](https://www.feishu.cn/hc/zh-CN/articles/311585803357 "查看订阅号运营数据")
+            *   [使用广播号发送公告](https://www.feishu.cn/hc/zh-CN/articles/654838782631 "使用广播号发送公告")
+            *   [设置广播号消息内容标记已阅](https://www.feishu.cn/hc/zh-CN/articles/967965677598 "设置广播号消息内容标记已阅")
+            *   [设置广播号消息内容未读加推](https://www.feishu.cn/hc/zh-CN/articles/113796215567 "设置广播号消息内容未读加推")
+
+        *   [发现内容](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145032372319272988) 
+            *   [订阅号用户使用手册](https://www.feishu.cn/hc/zh-CN/articles/138759940844 "订阅号用户使用手册")
+            *   [发现、关注订阅号](https://www.feishu.cn/hc/zh-CN/articles/360049067792 "发现、关注订阅号")
+            *   [互动、分享订阅号内容](https://www.feishu.cn/hc/zh-CN/articles/360049067793 "互动、分享订阅号内容")
+
+    *   [公告](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336777330049744897) 
+        *   [使用公告应用](https://www.feishu.cn/hc/zh-CN/articles/360041499553 "使用公告应用")
+
+*   [电子办公](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6968656713213853698) 
+    *   [飞书问卷](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571970461697) 
+        *   [快速玩转飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/666160651932 "快速玩转飞书问卷")
+        *   [智能搭建问卷](https://www.feishu.cn/hc/zh-CN/articles/989015423277 "智能搭建问卷")
+        *   [使用飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/827223408763 "使用飞书问卷")
+        *   [飞书问卷支持的题型](https://www.feishu.cn/hc/zh-CN/articles/573407497307 "飞书问卷支持的题型")
+        *   [使用新版问卷一页一题模式](https://www.feishu.cn/hc/zh-CN/articles/599790873913 "使用新版问卷一页一题模式")
+        *   [飞书问卷常见问题](https://www.feishu.cn/hc/zh-CN/articles/990945803159 "飞书问卷常见问题")
+        *   [使用飞书问卷抽奖功能](https://www.feishu.cn/hc/zh-CN/articles/791148248105 "使用飞书问卷抽奖功能")
+        *   [使用飞书问卷的发送通知功能](https://www.feishu.cn/hc/zh-CN/articles/776871864306 "使用飞书问卷的发送通知功能")
+        *   [在飞书问卷中设置预填默认值](https://www.feishu.cn/hc/zh-CN/articles/197258534891 "在飞书问卷中设置预填默认值")
+        *   [飞书问卷移动端操作指南](https://www.feishu.cn/hc/zh-CN/articles/502277795933 "飞书问卷移动端操作指南")
+        *   [快速玩转旧版飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/360049067680 "快速玩转旧版飞书问卷")
+        *   [使用旧版飞书问卷](https://www.feishu.cn/hc/zh-CN/articles/360049067507 "使用旧版飞书问卷")
+        *   [旧版飞书问卷常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067508 "旧版飞书问卷常见问题")
+        *   [如何灵活管理旧版飞书问卷中的问卷？](https://www.feishu.cn/hc/zh-CN/articles/360049067509 "如何灵活管理旧版飞书问卷中的问卷？")
+        *   [旧版飞书问卷移动端功能简介](https://www.feishu.cn/hc/zh-CN/articles/360049067826 "旧版飞书问卷移动端功能简介")
+        *   [旧版飞书问卷移动端操作指南](https://www.feishu.cn/hc/zh-CN/articles/360049067827 "旧版飞书问卷移动端操作指南")
+        *   [旧版飞书问卷喜获三宝：抽奖、词频分析、实时保存](https://www.feishu.cn/hc/zh-CN/articles/147105538387 "旧版飞书问卷喜获三宝：抽奖、词频分析、实时保存")
+        *   [旧版飞书问卷地理位置授权操作方法](https://www.feishu.cn/hc/zh-CN/articles/962845191253 "旧版飞书问卷地理位置授权操作方法")
+
+    *   [云打印](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572121407516) 
+        *   [成员使用云打印](https://www.feishu.cn/hc/zh-CN/articles/360049067863 "成员使用云打印")
+        *   [管理员部署云打印](https://www.feishu.cn/hc/zh-CN/articles/360049067861 "管理员部署云打印")
+        *   [管理员使用云打印管理后台](https://www.feishu.cn/hc/zh-CN/articles/360049067865 "管理员使用云打印管理后台")
+        *   [云打印用户使用常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067859 "云打印用户使用常见问题")
+        *   [云打印安装与管理常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067860 "云打印安装与管理常见问题")
+        *   [Windows 系统安装富士施乐驱动指南](https://www.feishu.cn/hc/zh-CN/articles/253404846104 "Windows 系统安装富士施乐驱动指南")
+
+    *   [飞书合同](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960861502274338818) 
+        *   [快速了解飞书合同](https://www.feishu.cn/hc/zh-CN/articles/365333586603 "快速了解飞书合同")
+        *   [轻松上手飞书合同](https://www.feishu.cn/hc/zh-CN/articles/049784059519 "轻松上手飞书合同")
+        *   [飞书合同首页介绍](https://www.feishu.cn/hc/zh-CN/articles/913123491893 "飞书合同首页介绍")
+        *   [快速上手合同申请](https://www.feishu.cn/hc/zh-CN/articles/822912255027 "快速上手合同申请")
+        *   [快速上手合同任务中心](https://www.feishu.cn/hc/zh-CN/articles/072634994079 "快速上手合同任务中心")
+        *   [快速上手合同管理](https://www.feishu.cn/hc/zh-CN/articles/064919833391 "快速上手合同管理")
+        *   [飞书合同的履约监控功能介绍](https://www.feishu.cn/hc/zh-CN/articles/600142574597 "飞书合同的履约监控功能介绍")
+        *   [一分钟了解飞书合同](https://www.feishu.cn/hc/zh-CN/articles/753034696689 "一分钟了解飞书合同")
+        *   [飞书合同管理员配置合同类型、字段、流程](https://www.feishu.cn/hc/zh-CN/articles/099630994875 "飞书合同管理员配置合同类型、字段、流程")
+
+    *   [飞书数据立方](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7197747205023776796) 
+        *   [飞书数据立方介绍](https://www.feishu.cn/hc/zh-CN/articles/694723193338 "飞书数据立方介绍")
+        *   [灵活分配数据立方权限](https://www.feishu.cn/hc/zh-CN/articles/311815043522 "灵活分配数据立方权限")
+        *   [了解数据集](https://www.feishu.cn/hc/zh-CN/articles/064373323008 "了解数据集")
+        *   [开始自助分析](https://www.feishu.cn/hc/zh-CN/articles/840185358694 "开始自助分析")
+        *   [数据统计范围](https://www.feishu.cn/hc/zh-CN/articles/695878811913 "数据统计范围")
+
+    *   [飞书提醒](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336779428493754369) 
+        *   [使用飞书提醒](https://www.feishu.cn/hc/zh-CN/articles/360040566773 "使用飞书提醒")
+
+*   [人事行政](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571978833921) 
+    *   [智能门禁](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7047022784580517890) 
+        *   [智能门禁管理员操作手册](https://www.feishu.cn/hc/zh-CN/articles/248849868446 "智能门禁管理员操作手册")
+        *   [设置二维码通行及打卡](https://www.feishu.cn/hc/zh-CN/articles/213970295071 "设置二维码通行及打卡")
+        *   [设置防拆报警和开门超时报警](https://www.feishu.cn/hc/zh-CN/articles/775206739048 "设置防拆报警和开门超时报警")
+        *   [设置权限开放时间](https://www.feishu.cn/hc/zh-CN/articles/421604386771 "设置权限开放时间")
+        *   [管理外部人员通行](https://www.feishu.cn/hc/zh-CN/articles/784804087063 "管理外部人员通行")
+        *   [智能门禁更新日志](https://www.feishu.cn/hc/zh-CN/articles/443128813404 "智能门禁更新日志")
+
+    *   [签到](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934148339646611457) 
+        *   [使用签到应用](https://www.feishu.cn/hc/zh-CN/articles/360048803313 "使用签到应用")
+        *   [配置和管理签到](https://www.feishu.cn/hc/zh-CN/articles/360043339333 "配置和管理签到")
+        *   [设置签到图片只能拍照上传](https://www.feishu.cn/hc/zh-CN/articles/360048089574 "设置签到图片只能拍照上传")
+        *   [部门负责人查看子部门签到情况](https://www.feishu.cn/hc/zh-CN/articles/360048807813 "部门负责人查看子部门签到情况")
+        *   [签到管理后台和飞书管理后台的区别](https://www.feishu.cn/hc/zh-CN/articles/360048805053 "签到管理后台和飞书管理后台的区别")
+        *   [签到管理后台各角色权限说明](https://www.feishu.cn/hc/zh-CN/articles/360048088774 "签到管理后台各角色权限说明")
+        *   [管理员自定义设置签到模板](https://www.feishu.cn/hc/zh-CN/articles/360048807953 "管理员自定义设置签到模板")
+        *   [管理员设置签到范围为全体员工](https://www.feishu.cn/hc/zh-CN/articles/360048807153 "管理员设置签到范围为全体员工")
+        *   [管理员查看成员签到地点分布](https://www.feishu.cn/hc/zh-CN/articles/360048805913 "管理员查看成员签到地点分布")
+
+    *   [汇报](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572113035265) 
+        *   [快速上手飞书汇报](https://www.feishu.cn/hc/zh-CN/articles/360043028774 "快速上手飞书汇报")
+        *   [设置汇报规则](https://www.feishu.cn/hc/zh-CN/articles/360049067937 "设置汇报规则")
+        *   [管理员使用汇报管理后台](https://www.feishu.cn/hc/zh-CN/articles/360049067614 "管理员使用汇报管理后台")
+        *   [汇报功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067695 "汇报功能更新日志")
+
+    *   [访客大师](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7145351582555701276) 
+        *   [成员使用访客大师](https://www.feishu.cn/hc/zh-CN/articles/091364742741 "成员使用访客大师")
+        *   [管理员部署访客大师](https://www.feishu.cn/hc/zh-CN/articles/369007813694 "管理员部署访客大师")
+        *   [访客大师常见问题](https://www.feishu.cn/hc/zh-CN/articles/041088185880 "访客大师常见问题")
+
+*   [集成助手](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6937195578094780444) 
+    *   [配置和使用 Asana 助手](https://www.feishu.cn/hc/zh-CN/articles/360035771694 "配置和使用 Asana 助手")
+
+*   [第三方解决方案](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6968661588932902940) 
+    *   [团队协作类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571974623259) 
+        *   [项目管理](https://www.feishu.cn/hc/zh-CN/articles/799268775565 "项目管理")
+        *   [问卷调研](https://www.feishu.cn/hc/zh-CN/articles/145119819535 "问卷调研")
+        *   [数据分析](https://www.feishu.cn/hc/zh-CN/articles/302427089808 "数据分析")
+        *   [设计工具](https://www.feishu.cn/hc/zh-CN/articles/279211575520 "设计工具")
+        *   [敏捷开发](https://www.feishu.cn/hc/zh-CN/articles/772448760278 "敏捷开发")
+        *   [待办工具](https://www.feishu.cn/hc/zh-CN/articles/550314150613 "待办工具")
+
+    *   [客户关系类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572142379035) 
+        *   [客户服务](https://www.feishu.cn/hc/zh-CN/articles/034088422093 "客户服务")
+        *   [客户管理](https://www.feishu.cn/hc/zh-CN/articles/236139041407 "客户管理")
+
+    *   [人力资源类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572129812481) 
+        *   [综合人事](https://www.feishu.cn/hc/zh-CN/articles/962898435211 "综合人事")
+        *   [招聘管理](https://www.feishu.cn/hc/zh-CN/articles/845481424609 "招聘管理")
+        *   [企业文化](https://www.feishu.cn/hc/zh-CN/articles/919521388307 "企业文化")
+        *   [企业福利](https://www.feishu.cn/hc/zh-CN/articles/315334000274 "企业福利")
+        *   [目标绩效](https://www.feishu.cn/hc/zh-CN/articles/058278412817 "目标绩效")
+
+    *   [行政管理类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572146638876) 
+        *   [综合行政](https://www.feishu.cn/hc/zh-CN/articles/977575074907 "综合行政")
+        *   [资产管理](https://www.feishu.cn/hc/zh-CN/articles/643917831764 "资产管理")
+        *   [差旅出行](https://www.feishu.cn/hc/zh-CN/articles/022070963480 "差旅出行")
+
+    *   [财税法类](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572134055964) 
+        *   [费控报销](https://www.feishu.cn/hc/zh-CN/articles/047280708145 "费控报销")
+        *   [法务工具](https://www.feishu.cn/hc/zh-CN/articles/663367127451 "法务工具")
+        *   [财务工具](https://www.feishu.cn/hc/zh-CN/articles/597333099229 "财务工具")
+
+    *   [其他](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934150846309679105) 
+        *   [飞书投资云](https://www.feishu.cn/hc/zh-CN/articles/479962176413 "飞书投资云")
+        *   [电子办公](https://www.feishu.cn/hc/zh-CN/articles/012456112713 "电子办公")
+        *   [零代码](https://www.feishu.cn/hc/zh-CN/articles/302490558947 "零代码")
+        *   [培训学习](https://www.feishu.cn/hc/zh-CN/articles/879400227391 "培训学习")
+        *   [进销存](https://www.feishu.cn/hc/zh-CN/articles/675601679484 "进销存")
+
+*   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6935654640448995329) 
+    *   [通用篇｜七款应用，把企业福利送到员工心坎里](https://www.feishu.cn/hc/zh-CN/articles/367302315458 "通用篇｜七款应用，把企业福利送到员工心坎里")
+    *   [管理篇 | 如何挑选一款合适的项目管理应用？](https://www.feishu.cn/hc/zh-CN/articles/360049067699 "管理篇 | 如何挑选一款合适的项目管理应用？")
+    *   [活动篇 | 用考考，办一场超好玩的飞书知识英雄赛](https://www.feishu.cn/hc/zh-CN/articles/360049068025 "活动篇 | 用考考，办一场超好玩的飞书知识英雄赛")
+    *   [行业篇 | 应用秘籍：推荐给互联网人的应用](https://www.feishu.cn/hc/zh-CN/articles/199942111184 "行业篇 | 应用秘籍：推荐给互联网人的应用")
+    *   [行业篇 | 推荐给新媒体人的应用](https://www.feishu.cn/hc/zh-CN/articles/360049068016 "行业篇 | 推荐给新媒体人的应用")
+    *   [行政篇 | 机器人搭配消息卡片，飞书秒变智能行政小助手](https://www.feishu.cn/hc/zh-CN/articles/224140185945 "行政篇 | 机器人搭配消息卡片，飞书秒变智能行政小助手")
+    *   [运维篇 | 机器人自动拉群报警，让运维简单高效](https://www.feishu.cn/hc/zh-CN/articles/743833203207 "运维篇 | 机器人自动拉群报警，让运维简单高效")
+    *   [员工福利发放](https://www.feishu.cn/hc/zh-CN/articles/267904450431 "员工福利发放")
+    *   [解锁年会新玩法](https://www.feishu.cn/hc/zh-CN/articles/162817347797 "解锁年会新玩法")
+
+简体中文
+
+English
+
+[![Image 3](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ec090d13c05142508f47228ec31aef55~tplv-jbbdkfciu3-image:0:0.image)](javascript:void(0);)[](https://weibo.com/u/7223713567)[](https://www.zhihu.com/org/fei-shu-27-96/activities)[](https://www.toutiao.com/c/user/3073831497904140/)[![Image 4: social](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d58453d89da34a179ac64a94d4c136f5~tplv-jbbdkfciu3-image:0:0.image)](https://web.okjike.com/u/b02229cb-9242-4a7f-9ec7-8a8cacb2142c)
+
+Copyright © 2024 北京飞书科技有限公司[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 5](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image) 京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+rangeDom
+
+购买咨询
+
+一对一专业企业顾问
+
+工作日 09:00 - 18:00 在线服务
+
+[预约顾问 免费获取专属服务 填写表单享功能配置等服务](https://www.feishu.cn/salessupport?from=helpcenter_hover)
+
+![Image 6](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=b6fe0976-54c3-4ef8-b2a6-d906c0c44b0d&bo=1&sid=99ec24e059be11f186a4b702b948a431&vid=99ec63b059be11f195729bd940bee477&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E9%97%AE%E5%8D%B7%E8%B0%83%E7%A0%94&kw=%E9%97%AE%E5%8D%B7%E8%B0%83%E7%A0%94&p=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F145119819535-%25E9%2597%25AE%25E5%258D%25B7%25E8%25B0%2583%25E7%25A0%2594&r=&lt=3758&evt=pageLoad&sv=2&cdb=AQAQ&rn=348221)

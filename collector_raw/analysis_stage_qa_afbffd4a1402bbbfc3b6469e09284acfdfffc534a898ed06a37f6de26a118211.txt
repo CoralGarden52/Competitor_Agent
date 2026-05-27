@@ -1,0 +1,653 @@
+# 被联合国推荐的字节跳动飞书，哪些产品亮点值得学习？
+
+Title: 被联合国推荐的字节跳动飞书，哪些产品亮点值得学习？ – 人人都是产品经理,
+
+URL Source: https://www.woshipm.com/it/3512994.html
+
+Published Time: 2020-03-16T14:03:05
+
+Markdown Content:
+# 被联合国推荐的字节跳动飞书，哪些产品亮点值得学习？ | 人人都是产品经理
+
+[![Image 1: 人人都是产品经理](https://image.woshipm.com/fp/images/logo.png)](https://www.woshipm.com/)
+*   [首页](https://www.woshipm.com/)
+*   [培训课程](javascript:;)[名师辅导课](https://www.qidianla.com/) [AI产品经理转岗特训营](https://ke.qidianla.com/courses/aipmtc) [BAT大厂产品运营体系课](https://vip.qidianla.com/studyClass.html) [B端C端全栈产品经理私教课](https://ke.qidianla.com/courses/bcpm) [查看更多](https://www.qidianla.com/)  [个人自学课](https://www.qidianla.com/) [互联网运营能力进阶](https://ke.qidianla.com/courses/iom) [业务产品经理能力进阶](https://ke.qidianla.com/courses/bupm) [电商产品经理从入门到进阶](https://ke.qidianla.com/courses/ecpm1) [查看更多](https://www.qidianla.com/)  [企业内训课](https://daxue.qidianla.com/) [数字化产品经理课](https://daxue.qidianla.com/) [商业化产品实战课](https://daxue.qidianla.com/) [数字化营销体系课](https://daxue.qidianla.com/)  [B端运营实战课](https://daxue.qidianla.com/) [私域流量实战课](https://daxue.qidianla.com/) [数据分析体系课](https://daxue.qidianla.com/)   [查看更多](https://daxue.qidianla.com/)    
+*   [分类浏览](javascript:;)[业界动态 30918篇文章](https://www.woshipm.com/category/it) [产品设计 19391篇文章](https://www.woshipm.com/category/pd) [产品运营 15246篇文章](https://www.woshipm.com/category/operate) [产品经理 9583篇文章](https://www.woshipm.com/category/pmd) [职场攻略 5375篇文章](https://www.woshipm.com/category/zhichang) [营销推广 4903篇文章](https://www.woshipm.com/category/marketing) [交互体验 3937篇文章](https://www.woshipm.com/category/ucd) [分析评测 3588篇文章](https://www.woshipm.com/category/evaluating) [创业学院 2256篇文章](https://www.woshipm.com/category/chuangye) [用户研究 1903篇文章](https://www.woshipm.com/category/user-research) [数据分析 1803篇文章](https://www.woshipm.com/category/data-analysis) [原型设计 1436篇文章](https://www.woshipm.com/category/rp)    
+*   [活动讲座](https://www.woshipm.com/category/active)
+*   [问答](https://wen.woshipm.com/)
+*   [企业培训](https://daxue.qidianla.com/)
+*   [AI社区](https://www.aixq.cc/)
+*   [图文](https://www.woshipm.com/story)
+*   [HarmonyOS](https://www.woshipm.com/harmony)
+
+[搜索](https://api.woshipm.com/search/list.html)
+
+APP
+
+![Image 2](https://image.woshipm.com/build/img/footer-appdownload.png)
+
+![Image 3](https://image.woshipm.com/VIP.svg)
+
+![Image 4](https://image.woshipm.com/2023/05/19/de725b98-f62f-11ed-adbb-00163e0b5ff3.png)起点课堂会员权益
+
+![Image 5](https://image.woshipm.com/2023/05/19/dfe517e2-f62d-11ed-bbb6-00163e0b5ff3.png)职业体系课特权
+
+![Image 6](https://image.woshipm.com/2023/05/19/ebb5071c-f62d-11ed-bbb6-00163e0b5ff3.png)线下行业大会特权
+
+![Image 7](https://image.woshipm.com/2023/05/19/c9756278-f62d-11ed-94e0-00163e0b5ff3.png)个人IP打造特权
+
+![Image 8](https://image.woshipm.com/2023/05/19/f64625a8-f62d-11ed-bbb6-00163e0b5ff3.png)30+门专项技能课
+
+![Image 9](https://image.woshipm.com/2023/05/19/0148a02a-f62e-11ed-96ae-00163e0b5ff3.png)1300+专题课程
+
+![Image 10](https://image.woshipm.com/2023/05/19/25fc8396-f62e-11ed-adbb-00163e0b5ff3.png)12场职场软技能直播
+
+![Image 11](https://image.woshipm.com/2023/05/19/1d4ecd4e-f62e-11ed-adbb-00163e0b5ff3.png)12场求职辅导直播
+
+![Image 12](https://image.woshipm.com/2023/05/19/30793c56-f62e-11ed-adbb-00163e0b5ff3.png)12场专业技能直播
+
+![Image 13](https://image.woshipm.com/2023/05/19/15fae604-f62e-11ed-bbb6-00163e0b5ff3.png)会员专属社群
+
+![Image 14](https://image.woshipm.com/2023/05/19/0e3283be-f62e-11ed-8df9-00163e0b5ff3.png)荣耀标识
+
+[开通会员](https://vip.qidianla.com/member.html)
+
+发布
+
+注册 | 登录 
+
+登录人人都是产品经理即可获得以下权益
+
+*    关注优质作者
+*    收藏优质内容
+*    查阅浏览足迹
+*    免费发布作品
+*    参与提问答疑
+*    交流互动学习
+
+ 立即登录 
+
+ 首次使用？ 
+
+ 点我注册 
+
+[![Image 15](https://image.woshipm.com/2023/06/07/c05110fe-0530-11ee-b68f-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+## 被联合国推荐的字节跳动飞书，哪些产品亮点值得学习？
+
+[![Image 16](https://static.woshipm.com/APP_U_202103_20210322104135_8170.jpeg?imageView2/1/w/72/h/72/q/100)](https://www.woshipm.com/u/317763)
+
+[十里村](https://www.woshipm.com/u/317763)![Image 17](https://static.woshipm.com/tag/1121_1@2x.png)![Image 18](https://static.woshipm.com/tag/2103_1@2x.png)关注
+
+2020-03-16
+
+ 3 评论  14363 浏览  84 收藏 27 分钟
+
+[🔗 产品经理软技能是指如逻辑分析、文字表达、语言表达、学习能力、总结能力、创新力、好奇心、情绪态度和团队合作等。](https://ke.qidianla.com/courses/90pm)
+
+> 从年后到现在，受疫情影响，全球多地出现教育、办公中断等影响。联合国教科文组织（UNESCO）提倡远程学习，并推荐了一份产品清单给家长、老师和学校使用。国内的飞书因提供了实时视频通信和协作功能位列其中。在激烈的竞争中，字节跳动出品的飞书是如何获得互联网人、甚至联合国教科文组织的青睐呢？我们又能学到什么产品知识呢？笔者将为大家仔细分析。
+
+![Image 19](https://image.woshipm.com/wp-files/2020/03/x9KN4gBNfs2Nn7i7WF2o.jpg)
+
+关于在线办公的发展，我从行业观察者的角度分别写了[《在线办公，昙花一现》](http://www.woshipm.com/it/3380908.html)和[《经此一役，在线办公未来态势几何》](http://www.woshipm.com/it/3448491.html)两篇文章。
+
+最近，我以一名用户或者说是产品经理身份，亲自体验了当下热门的在线办公软件产品。借此想和大家再聊聊我使用之后的感想。
+
+此次分享，我会以字节跳动旗下的飞书作为主要研究案例，原因有三：
+
+1.   飞书宣布向全国所有企业和组织免费开放，不限规模和时长，所以我有机会体验到飞书全部套件功能。
+2.   字节跳动打造了多个爆款APP，在产品设计、用户体验和获客上都独有心得。而飞书曾经又作为字节跳动内部的协同办公产品，我想看看它到底有什么厉害之处。
+3.   最近飞书被限制在微信内使用，以及飞书在疫情期间快速发展，所以我想知道这款产品到底有什么地方让微信害怕的？
+
+## 一、好的产品首先要对用户充满善意
+
+### 1. 多终端同步登录
+
+关于软件应用，我们经常登录和使用的三个端口分别是PC端、APP端和Web端。
+
+但随着手机端的普及，许多产品不仅忽略了Web端，而且还设置了门槛。
+
+比如企业微信和钉钉，在web端都不允许个人用户扫码登录而且在APP端已经注册的个人用户也不能使用，这直接将一部分非企业用户阻挡在外。
+
+从产品的角度来说，这样的体验很不好。从获客的角度来说，看似精准，其实增加了获客的门槛。
+
+![Image 20](https://image.woshipm.com/wp-files/2020/03/2bi4C6XqbkCbkBhnrnSB.jpg)
+
+部分在线办公平台无法支持非企业账号登录
+
+我随后又体验了华为的WeLink 和百度 Hi，都遇到类似的问题：要么需要进行企业身份的审核，要么需要企业管理员帮忙开通账号，才可以登录。
+
+而飞书算是比较人性化的，三个端口都可以同时登录操作。在这点上，我觉得飞书很好继承了字节跳动APP注重用户体验的产品思维——先让用户进来，了解和使用产品，再考虑后续的留存和商业化。
+
+### 2. 给虚拟团队提供便利
+
+我之所以要强调多终端可登录、可使用的重要性，是因为现在也有不少个人、团队，他们虽然不是企业组织，但是依然有在线办公的需求。
+
+比如班委会、学生会、民间自发的公益协会，还有几个好友组成的兼职团队既非企业性质的虚拟合作组织。
+
+他们不仅需要这样的在线办公产品支持，并且付费意愿也不低。
+
+所以不管你注册飞书的哪个端口，都可以在线使用，组建自己的虚拟团队，我觉得这个对于用户来说很有好处的。
+
+### 3. 离线操作，不怕断网
+
+另外，我再提到飞书给我产生好感的一个小功能，或者说用户思维的小细节：在飞书APP的云文档中，可以设置离线使用，就算是没有网络也可以进行登录编辑保存。
+
+因为我们会经常遇到办公途中网络差甚至是没有网络的情况，比如在坐高铁、飞机等——有时候辛辛苦苦整理的内容突然断网，就会失效需要重新编辑。
+
+![Image 21](https://image.woshipm.com/wp-files/2020/03/aS2YIkp0GY3GWCZhoTDF.jpg)
+
+飞书支持文档离线编辑及长图查看
+
+当然，创作者也可以随时取消离线操作，这也确保了资料的安全性。
+
+我觉得这个小细节、小痛点的思考，是真正站在用户的角度来设计产品的。
+
+## 二、在线办公软件的核心是高效协同
+
+我之前就提过，使用在线办公软件是否能提高效率，最大的挑战是员工能力层次不齐。
+
+因为员工在家或在外，相当于是脱管的状态；而且以前许多资料的传输、沟通及办公的流程都是比较单一的。如何让员工使用在线办公产品更方便快捷，如何让员工在家或者在外都能有办公室的工作氛围，如何让员工在被动协同的时候，抓住最核心的信息——这些都是对在线办公产品的高效协同提出了更高的要求。
+
+### 1. 让重要的信息看得见
+
+**a. 群内降噪**
+
+我们每个人每天都会被拉入到各种工作群，群里面时不时的就会有各种讨论及任务。
+
+所以大家至今应该都会面临的一个情况，就是经常需要在微信、钉钉的工作群里面爬楼，生怕错过了什么重要的信息。
+
+很多时候，群里面的讨论是无意义的，就比如群里面经常会发各种欢迎、各种表情包。
+
+这其实浪费了许多人宝贵的时间，那么如何让员工可以快速找到自己想要的信息或者只看对自己有用的信息呢？
+
+飞书提出了解决方案就是给群降噪。
+
+![Image 22](https://image.woshipm.com/wp-files/2020/03/BSeW6s0YRX1G5ndKJ9iU.png)
+
+飞书群聊降噪 和表情回复
+
+其一是可以单独针对某一条信息进行回复，这样即使是多个话题的讨论也不会错乱；而且单独回复的消息前后也会被展示出来，方便其他组员理解。
+
+因为很多时候在微信群里面，根本不知道其他人在讨论什么，因为每个人回复消息的内容和频次都是不一样的。我们只能依赖于各种爬楼，自己去理解串联其中的意思，这也很浪费时间。
+
+其二是使用快捷表情回复时，既不会有消息提醒，又能减少了刷屏，这使得员工办公更加专注和流畅。
+
+**b. 重要消息一键触达**
+
+我们每天都有大量工作要处理，而爬楼处理各种群事宜显得很浪费时间，那我们如何让最有用、最紧急的消息一键触达给协作成员呢？
+
+飞书里面有这3点，值得关注：
+
+**三种语音模式：**
+
+打字或者发语音，是我们在工作中使用频率最高的形式。但是我们经常遇到的困扰是发文字可能太慢，发语音可能被错误理解，还有语音过长来不及听等等。
+
+飞书首先在发送端就提供了三种模式可选，分别是语音加文字、录音、语音转文字：
+
+![Image 23](https://image.woshipm.com/wp-files/2020/03/U8BtPwO029a8xiIQn5Xm.png)
+
+飞书独有的三种语音模式
+
+尤其是语音加文字的功能，发出语音的同时也附带了文字的翻译——这不仅方便了我们在开会等特殊场合快速阅读回复，同时为以后查找重要的聊天信息提供了便利。
+
+另外在已经发出的语音中，可以自由拖动语音的进度，这一点至今仍是微信语音被诟病的地方。
+
+**pin一键群收藏：**
+
+群内经常有重要的对话、文档、图片等信息被聊天所淹没，有时候一些资料还会出现过期的情况。而在飞书上，群成员可以使用pin的功能，使用了pin的功能以后，群内所有的成员都可以随时在pin专区里面看到所有重要的信息。
+
+![Image 24](https://image.woshipm.com/wp-files/2020/03/0rcg5MY7gys0XSGqif6z.jpg)
+
+飞书群消息加急、PIN功能
+
+简单地理解为：任意一个成员，都可以帮助你进行群资料的收藏。
+
+**一键加急：**
+
+pin功能不仅起到了提醒作用，更重要的是起到了长时间的收藏。但如果想要短时间内立马通知相关协作方该怎么办呢？
+
+飞书又推出了一个功能就叫加急，字面意思上就很容易理解了——只要使用加急的功能，那么就可以通过弹窗、短信或电话提醒对方，等于是做了一遍强提醒。这也避免了以后，在工作中出现扯皮、甩锅的情况。
+
+**c. 历史消息自动同步**
+
+对于新加入部门或者项目组的成员，最头疼的情况就是：对于以往的项目情况一无所知——哪怕是有人会进行培训或者项目沟通，都会出现错误偏差的情况，导致消息传递断档。
+
+那么如何让新成员能够快速掌握团队的情况呢？
+
+飞书推出了无缝对接的解决方案，就是历史消息自动同步，让新成员加入可以查找到以往的沟通信息及资料，可以回溯整个项目流程。这不仅帮助新成员更好的理解项目，也为团队成员减少了沟通的成本。
+
+而这种情况在微信或钉钉就比较头疼了，我们经常面临的情况就是群成员需要把以往的聊天记录给打包或者是挨个截图。但这依然会使重要信息的遗漏，导致项目理解上的偏差。
+
+**d. 内容置顶**
+
+许多软件会话和群都有聊天置顶的功能，但是一旦需要置顶的东西多了之后，似乎一个都变得不重要了。
+
+那么如何在消息页面，更加突出个人需要关注的信息呢？
+
+**对话置顶：**
+
+首先是常用的聊天对话窗口，在飞书里我们可以选择把单个好友或者工作群进行特殊的置顶。
+
+它的位置和优先级，比普通的置顶更高，呈现的形式也区别了一般的置顶。
+
+直接采用横排罗列的形式，这样更突出更醒目。
+
+**文档置顶：**
+
+不仅是聊天的信息可以置顶，针对常用的软件和文档也可以进行置顶。比如在云文档中，可以把某个文档、表格、文件夹、图片等形式的资料设置为快速访问的状态。
+
+![Image 25](https://image.woshipm.com/wp-files/2020/03/RPQ4UvYk7f6rOK5253wc.jpg)
+
+飞书会话及文档置顶功能
+
+### 2. 会议高效同步
+
+信息获取只是在线办公的第一步，而频繁的会议和业务在线协同才是在线办公最核心的部分。
+
+我在对比体验之后，飞书在以下这三个方面，给我的印象十分深刻：
+
+**a. 订阅日历，会议不冲突**
+
+飞书在日历方面一个很重要的创新：可以订阅同事的日历行程，以及可以查看同事的会议安排——这样就有效避免了想开会开不了或者是沟通的成本，组织会议者只要通过查看日历行程，就知道大家在哪个时间段比较有空了。
+
+而且一旦发起会议之后，系统会通过三端同时向参会者发起会议提醒。
+
+**b. 在线文档实时提醒**
+
+文档可以支持多人实时编辑其实并不稀奇，这是一款产品应该有的基础配置。但有个问题就是：一旦需要操作或查看的文档多了以后，就很容易忽略掉重要的信息。
+
+![Image 26](https://image.woshipm.com/wp-files/2020/03/Ihk4EZjtEqogC1E3ya6u.jpg)
+
+飞书文档支持实时提醒、评论等功能
+
+*   **可提醒：**在移动端钉钉、企业微信及飞书都支持文档里面@协作方，协作方也可以收到通知。但是仅有飞书可以支持在表格里面@协作方，协作方也可以收到信息提醒。
+*   **可评论：**在移动端飞书可以直接在文档和表格里面，对某件事情进行批注或评论。而钉钉和企业微信不行。
+*   **可私聊：**飞书和企业微信都能在文档里面，选择某个同事直接进行私聊或音视频，而钉钉不支持。
+
+**其他方面的设置：**
+
+除此外，飞书在移动端上关于文档和表格的其他功能比钉钉和微信都全面。尤其是在安全方面，飞书可以查看文档的历史修改记录，可以选择是否让用户进行离线编辑，创建副本、打印等使用权限。
+
+这一点，无论是企业还是其他组织都比较看重的，而钉钉和企业微信在手机端的设置项就仅限于编辑。
+
+还有个小细节，飞书的文档能当做便签来使用，可以直接把文档转换成图片的格式。
+
+**c. 音视频会议 文档共享更出色**
+
+除了使用文档和对话聊天外，沟通效率最高最直接的应该就是音视频会议。
+
+钉钉、企业微信、飞书在流畅性方面都不是大问题，毕竟经过今年开工一役之后，大家都在服务器、产品等方面做了优化；尤其是对于中小企业来说，本来开会的人就不多。
+
+我主要关注的点，还是在于是否方便好用。
+
+**发起会议：**
+
+钉钉和企业微信都把发起会议放在首页右上角的第一位，而飞书把这个功能和其他几个折叠在了一起——作为高频的应用选项，这点飞书其实可以把它前置。
+
+其二，钉钉和企业微信里，发起会议都需要用户选择视频或者音频，而飞书直接把两者集合在一起了；就是发起会议，用户只想语音，可以随时关闭摄像头。
+
+我觉得这点飞书的做法是对的——因为视频就比音频多了一个画面而已，而开会过程中，需要的其他功能一个都没少；所以完全没必要把这两个选项单独拆出来，这样发起会议的步骤反而多了一步。
+
+**资料共享：**
+
+在开会的时候，最怕的就是一方说的津津有味，其他的参会者因为无法看到相关文档而一脸茫然似懂非懂。而且对于小型团队的会议，也没必要买专业的视频投影设备。
+
+在会议的资料共享方面，钉钉做的很粗糙，不管是音频还是视频，通过手机端都无法实时共享。
+
+![Image 27](https://image.woshipm.com/wp-files/2020/03/nNVneHpuQZ5ExK1fw9KF.jpg)
+
+飞书会议模式支持实时文档共享
+
+企业微信音视频都支持文件共享，但我操作了许多次，都只能打开我手机里面的图片，完全没搞懂该如何同步我的文档或表格。而且我在使用图片进行局部放大操作的时候，其他伙伴无法看到我的操作演示。
+
+飞书在移动端支持同步打开各类文档，参会者不仅可以在线看到还能自由编辑；而且飞书推出了跟随功能，就是可以跟随演示者的操作。在PC端，演示者还可以同步个人电脑端的相关网页及其他界面。如果未来飞书在APP移动端也能支持其他软件窗口的同步演示操作，将会更便利和实用。
+
+## 三、在线办公的灵活性
+
+### 1. 信息筛选机制
+
+飞书想尽了各种办法让你不错过重要的信息，除了各种强提醒外，用户也可以主动找到自己想要的内容。
+
+![Image 28](https://image.woshipm.com/wp-files/2020/03/rAVNMkx9WNVfhQEXKp4Z.jpg)
+
+飞书多种搜索及分类功能
+
+**搜索：**飞书除了和钉钉、企业微信一样，支持全站、好友及群的会话搜索外；飞书还能单独支持文档、表格里面的内容搜索——这是钉钉和企业微信都没有的。
+
+这个细节其实也为我们查找消息提供了极大的便利，尤其是一份会议纪要或者特别长的文档内容，如何快速找到与自己相关的选项。
+
+**分类：**飞书在APP端至少有4个地方设置分类选择，比如在消息中心可以切换收件箱、已完成。在云文档板块可以按照文档类型、最近操作状态、或者文档收藏位置等维度进行选择。
+
+其实从产品的角度来说，应该十分清楚，在线办公的时候除了关注及时推送的消息外，经常操作的就是各类文档。而这一方面，飞书做得最好，钉钉次之，企业微信表现平平。
+
+### 2. 自定义工作台
+
+这一点，我想特别强调一下：
+
+**任何一款产品或服务，都不应该是靠强塞或者堆砌给用户，用户应该有足够的自主权。而且一款功能强大的产品，更应该让用户自己来进行选择和调节。**
+
+我先说说我对钉钉的直观印象，我觉得钉钉给我的感觉就像一个分类信息APP，里面的东西多到塞不下；而企业微信又简单到不够用，许多功能想用又用不了——因为很多功能都被微信替代了。
+
+而在飞书上，我看到了未来用户可以自定义在线办公APP的身影：
+
+飞书有个工作台，里面提供了各种在线办公的组合套件，用户可以根据自己的需要下载并添加到常用板块；同时，用户在不需要的情况下，也可以删除一些应用，和我们在手机下下载或卸载APP是一样的。
+
+![Image 29](https://image.woshipm.com/wp-files/2020/03/sEWkkYKyrUOdKozHLsNm.jpg)
+
+飞书自定义工作台
+
+也许未来在飞书上，无论是APP端还是PC端，用户都可以自定义自己的操作页面，甚至是数据报表的格式，都可以像搭积木一样配置，这才是令人期待和喜爱的地方。
+
+## 四、飞书未来发展的三点建议
+
+在这几天体验完在线办公的软件产品之后，尤其是飞书的套件产品之后，针对飞书我有以下三个建议：
+
+### 1. 搭建协同生态
+
+飞书从一款内部产品变成开放性的企业办公产品，目前来说，还有许多功能需要完善。
+
+尤其是飞书如果想要做大，服务更多的企业和用户，就不能仅仅局限于做一两款工具；而应该朝着搭建在线办公生态的思路迈进：既要自己上台唱戏，也要敢于搭台让别人唱戏。让软件和硬件相关的在线办公服务商，都加入到飞书的大生态中。
+
+这样不仅能够化敌为友，而且在产品、功能丰富性上会做得更好，满足更多用户的需求。飞书也能更加聚焦于自己的核心业务，掌握足够的话语权。
+
+### 2. 关注个性化需求
+
+其实目前从整个行业来看，大部分的在线办公产品所提供的服务没有太大的差别，可以说大家都处于在线办公1.0的时代。
+
+而在中国，中小企业很多，社会上也有几千个行业。每个行业都有自己的办公、生产、营销、服务等流程。
+
+但是许多中小企业，他们有需求，却没有这样的研发能力（或者说他们单独开发一个这样的系统，并不划算）。
+
+另外，除了小企业外，还有像公益组织、设计师、工程师等等，这些群体也同样需要这样的工具来满足个性化的办公需求（或者说，有一个这样的平台，能满足他们更加灵活、自由的在线办公需求）。
+
+这一点，恰恰是考验平台能力的地方，也是在线办公2.0的机会点。
+
+### 3. 关于企业或组织数智化改造
+
+我曾多次强调，当前虽然有许多企业开始使用在线办公的产品，但是也仅仅停留在使用工具的阶段——这对企业的经营没有本质的影响，也不是作为一家提供在线办公服务公司的追求。
+
+在中国，有太多的企业业务不在线、服务不在线、数据不在线、管理不在线。
+
+所以，对于飞书来说，免费只是获客的第一步，**如何帮助企业提高经营、管理的效率才是核心。**
+
+比如这次疫情期间，小区人员的进出还要靠发放纸质卡片，靠纸质表格登记。每天统计的人数、温度等数据还要依赖于手动计算或录入——这样的工作不仅不安全，不准确，而且浪费时间和人力。
+
+还有一些四五线的企业，员工请假要填请假单，报销要报销单，外出要外出许可证，薪资计算还要手动对账；企业办公用品的采购及消耗也依赖于纸张，或存在了行政的电脑里，想要查看、申领都极不方便。
+
+对中国的许多企业来说，数智化的改造才刚刚开始。而谁能帮助这些中小企业或组织进行办公的在线化升级和数据、业务的智能化改造，谁就可以获得更多的机会。
+
+所以，飞书在接下来，应该把更重要的时间和精力，花在企业数智化的改造中。
+
+——这不仅对企业有价值和意义，对飞书自身来说也是在营造核心的商业壁垒。
+
+那么，因为此次主要研究的对象是飞书，因此大部分的案例都以飞书为主。但说实话，飞书有一点是特别值得学习的，这也体现了字节跳动在打造爆款APP上独有的用户思维特点。就是作为一款年初才发力的在线办公产品，无论是产品的流畅度、设计细节、产品功能完全不输已经做了6年的钉钉，甚至有些功能比钉钉还更好。
+
+而相比于企业微信，飞书整体上其实感受比它好很多。
+
+——这也是企业微信应该要反思的地方，很多地方和微信实在是太像了，关键又是个简版。
+
+飞书能在这么短的时间内，有这样不错的产品表现，让我对于字节跳动产品、服务的创造力更充满了好奇和钦佩。
+
+### #专栏作家#
+
+十里村，微信公众号：十里村（ID：shilipxl），人人都是产品经理专栏作家。偶尔分享生活，关注电商、科技，新事物。
+
+本文原创发布于人人都是产品经理。未经许可，禁止转载
+
+题图来自Unsplash，基于CC0协议
+
+ 赞赏 收藏 已收藏 84 点赞 已赞 19
+
+更多精彩内容，请关注人人都是产品经理微信公众号或下载App
+
+[![Image 30](https://image.woshipm.com/2024/07/10/37180e94-3e61-11ef-a88c-00163e142b65.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[2年](https://www.woshipm.com/tag/2%e5%b9%b4)[初级](https://www.woshipm.com/tag/%e5%88%9d%e7%ba%a7)[飞书](https://www.woshipm.com/tag/%e9%a3%9e%e4%b9%a6)
+
+[分享到微博](https://service.weibo.com/share/share.php?appkey=2775287854&title=%E8%A2%AB%E8%81%94%E5%90%88%E5%9B%BD%E6%8E%A8%E8%8D%90%E7%9A%84%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E9%A3%9E%E4%B9%A6%EF%BC%8C%E5%93%AA%E4%BA%9B%E4%BA%A7%E5%93%81%E4%BA%AE%E7%82%B9%E5%80%BC%E5%BE%97%E5%AD%A6%E4%B9%A0%EF%BC%9F&url=https://www.woshipm.com/it/3512994.html&pic=https://image.woshipm.com/wp-files/2020/03/x9KN4gBNfs2Nn7i7WF2o.jpg)
+
+微信扫一扫 
+
+![Image 31: 微信二维码](https://api.pwmqr.com/qrcode/create/?url=https://www.woshipm.com/it/3512994.html)
+
+分享
+
+[![Image 32](https://static.woshipm.com/APP_U_202103_20210322104135_8170.jpeg?imageView2/1/w/150/h/150/q/100)](https://www.woshipm.com/u/317763)
+
+[十里村](https://www.woshipm.com/u/317763)![Image 33](https://static.woshipm.com/tag/1121_1@2x.png)![Image 34](https://static.woshipm.com/tag/2103_1@2x.png)关注
+
+创业公司核心成员 公众号：十里村
+
+420篇作品 3284741总阅读量
+
+为你推荐
+
+[抖音“卖”不过时代](https://www.woshipm.com/it/5754822.html "抖音“卖”不过时代")
+
+02-15 4485 浏览
+
+[![Image 35: 抖音“卖”不过时代](https://image.woshipm.com/wp-files/2023/02/CiK2DCNqPmSpCpbte5tn.png!/both/120x80)](https://www.woshipm.com/it/5754822.html "抖音“卖”不过时代")
+
+[董宇辉“升职”，东方甄选“获救”？](https://www.woshipm.com/share/5961329.html "董宇辉“升职”，东方甄选“获救”？")
+
+12-18 2052 浏览
+
+[![Image 36: 董宇辉“升职”，东方甄选“获救”？](https://image.woshipm.com/2023/04/13/45e50a00-d9de-11ed-bd5e-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/share/5961329.html "董宇辉“升职”，东方甄选“获救”？")
+
+[避开坑洞：B端产品需求管理必备指南](https://ke.qidianla.com/courses/bcpm)
+
+刚刚
+
+[![Image 37](https://image.woshipm.com/2023/08/02/68ee3c82-3100-11ee-b430-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[设计已死？狂飙的AIGC将如何改变设计师的未来](https://www.woshipm.com/ai/5795434.html "设计已死？狂飙的AIGC将如何改变设计师的未来")
+
+04-02 10635 浏览
+
+[![Image 38: 设计已死？狂飙的AIGC将如何改变设计师的未来](https://image.woshipm.com/wp-files/2023/04/imYsfTrMvEC1tyTZPVw3.png!/both/120x80)](https://www.woshipm.com/ai/5795434.html "设计已死？狂飙的AIGC将如何改变设计师的未来")
+
+[这门生意，在春运时翻倍暴涨](https://www.woshipm.com/it/5742587.html "这门生意，在春运时翻倍暴涨")
+
+02-03 2469 浏览
+
+[![Image 39: 这门生意，在春运时翻倍暴涨](https://image.woshipm.com/wp-files/2023/02/gK0Hdsrgw227H1oQH8hw.jpg!/both/120x80)](https://www.woshipm.com/it/5742587.html "这门生意，在春运时翻倍暴涨")
+
+[匹配、协同、整合售前资源（下）：个人之道](https://www.woshipm.com/share/5903225.html "匹配、协同、整合售前资源（下）：个人之道")
+
+09-13 3808 浏览
+
+[![Image 40: 匹配、协同、整合售前资源（下）：个人之道](https://image.woshipm.com/2023/04/14/91ccd41e-da9e-11ed-aaf8-00163e0b5ff3.png!/both/120x80)](https://www.woshipm.com/share/5903225.html "匹配、协同、整合售前资源（下）：个人之道")
+
+[![Image 41: 如何用Agent实现效能跃迁？腾讯云AI产业应用大会直播预约开启](https://image.yunyingpai.com/wp/2026/05/9cJeNHMj2Y3D0vrCmmWC.jpg!/both/240x168)](https://www.woshipm.com/open/6398520.html)
+
+[如何用Agent实现效能跃迁？腾讯云AI产业应用大会直播预约开启](https://www.woshipm.com/open/6398520.html)
+
+推荐
+
+评论
+
+评论请登录
+
+1.   [![Image 42](https://static.woshipm.com/view/woshipm_api_def_20230323174405_1554.png?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/171441) [jamie](https://www.woshipm.com/u/171441)   三个端同时可以登录和是不是要进行企业用户审核时是两回事吧 最近 来自广东 回复![Image 43](https://image.woshipm.com/more.svg)   
+2.   [![Image 44](https://image.woshipm.com/wp-files/2018/11/t3Cihu2sAAo1tDWyD35y.png!/both/80x80)](https://www.woshipm.com/u/782092) [东陵碣石](https://www.woshipm.com/u/782092)   多谢大佬分享 最近 来自广东 回复![Image 45](https://image.woshipm.com/more.svg)   
+3.   [![Image 46](https://image.woshipm.com/wp-files/2019/12/dagqPwK8Q6AsVX3rom5S.gif!/both/80x80)](https://www.woshipm.com/u/667886) [尘琴](https://www.woshipm.com/u/667886)   1 最近 来自浙江 回复![Image 47](https://image.woshipm.com/more.svg)   
+
+举报
+
+提交 取消
+
+为你推荐
+
+[![Image 48](https://image.woshipm.com/2023/07/07/452999d6-1c97-11ee-a448-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)讲真的，B端产品经理没那么好当](https://ke.qidianla.com/courses/bcpm)
+
+*   [![Image 49: 当搜索框用上 ChatGPT](https://image.yunyingpai.com/wp/2023/02/TX9hyZaRlPRM5d2PM3QJ.jpg!/both/130x88)](https://www.woshipm.com/ai/5745967.html) [当搜索框用上 ChatGPT](https://www.woshipm.com/ai/5745967.html) 02-07 5995 浏览  
+*   [![Image 50: 三位“挖呀挖幼师”的三种境遇](https://image.woshipm.com/2023/04/17/55b375ce-dcf5-11ed-ab4d-00163e0b5ff3.png!/both/130x88)](https://www.woshipm.com/it/5820628.html) [三位“挖呀挖幼师”的三种境遇](https://www.woshipm.com/it/5820628.html) 05-06 5568 浏览  
+*   [![Image 51: 互联网巨头纷纷加入鸿蒙了](https://image.woshipm.com/wp-files/2023/11/3oHGInZru0V1xHHF2drt.jpg!/both/130x88)](https://www.woshipm.com/it/5940734.html) [互联网巨头纷纷加入鸿蒙了](https://www.woshipm.com/it/5940734.html) 11-15 2492 浏览  
+
+推荐专题[更多专题](https://www.woshipm.com/topic-list)
+
+[_专题_![Image 52](https://image.yunyingpai.com/wp/2020/06/KJEMtm0YvnYDKYZNXtia.jpg?x-oss-process=image/quality,q_80/format,webp) 40483人已学习 20篇文章](https://www.woshipm.com/topic/search)
+
+[产品搜索功能设计指南](https://www.woshipm.com/topic/search)
+
+“搜索功能”拆解：小功能，大细节。
+
+[_专题_![Image 53](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/02/14/8bb375da-ac0c-11ed-8a4c-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 16855人已学习 12篇文章](https://www.woshipm.com/topic/data5)
+
+[数据产品经理的通用技能有哪些？](https://www.woshipm.com/topic/data5)
+
+本专题的文章分享了数据产品经理的通用技能。
+
+[_专题_![Image 54](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/05/11/e4ca42c0-efaa-11ed-bbb6-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 20879人已学习 13篇文章](https://www.woshipm.com/topic/activity)
+
+[电商平台营销活动设计](https://www.woshipm.com/topic/activity)
+
+电商平台为了促销或者扩大知名度，经常会设计或大或小的活动，用户完成任务即可获得奖励，以此来提高用户的活跃度和增加销量。本专题的文章分享了电商平台营销活动设计。
+
+[_专题_![Image 55](https://image.yunyingpai.com/wp/2020/06/NOvjJkpr9B6wfcqazau0.jpg?x-oss-process=image/quality,q_80/format,webp) 74783人已学习 10篇文章](https://www.woshipm.com/topic/project)
+
+[一份完整的运营方案应包含哪些方面？](https://www.woshipm.com/topic/project)
+
+理清思路，才能有的放矢。
+
+[_专题_![Image 56](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2024/04/15/43c27e4c-faf3-11ee-8c03-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 19429人已学习 13篇文章](https://www.woshipm.com/topic/pm-2)
+
+[产品管理流程及规范](https://www.woshipm.com/topic/pm-2)
+
+本文作者总结了那些踩过的坑，为大家详细的罗列出了规范的产品管理流程及规范。
+
+[_专题_![Image 57](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/06/09/595d1a7c-0667-11ee-a032-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 16416人已学习 11篇文章](https://www.woshipm.com/topic/aicc)
+
+[外呼系统的设计指南](https://www.woshipm.com/topic/aicc)
+
+生活中，难免会接到企业的一些外呼电话，无论是人工外呼还是AI外呼，其背后的外呼业务场景是什么？外呼系统包含哪些内容？本专题的文章分享了外呼系统的设计指南。
+
+社群
+
+[付费群](https://www.woshipm.com/it/3512994.html) | [免费群](https://www.woshipm.com/it/3512994.html)
+
+*   ![Image 58](https://image.woshipm.com/fp/images/a1.svg)AI产品经理交流群![Image 59](https://image.woshipm.com/wp-files/2024/04/6GgzZKB2vv6oJwWZrfvI.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/3512994.html)
+*   ![Image 60](https://image.woshipm.com/fp/images/a2.svg)AI工具共学交流群![Image 61](https://image.woshipm.com/wp-files/2024/06/koBjkl4OziVTXHx79TeG.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/3512994.html)
+*   ![Image 62](https://image.woshipm.com/fp/images/a3.svg)华为鸿蒙交流群![Image 63](https://image.woshipm.com/wp-files/2024/11/lfoTXWOHKfpeRunhi7Fk.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/3512994.html)
+*   ![Image 64](https://image.woshipm.com/fp/images/a4.svg)运营增长交流群![Image 65](https://image.yunyingpai.com/wp/2024/01/tz5fR0ocBXaqWOrMZHtV.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/3512994.html)
+*   ![Image 66](https://image.woshipm.com/fp/images/a5.svg)OPC一人公司交流群![Image 67](https://wework.qpic.cn/wwpic3az/765799_Bo4F-gUdR0e-V9f_1772098485/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/3512994.html)
+*   ![Image 68](https://image.woshipm.com/fp/images/a6.svg)OpenCalw&Hermes交流群![Image 69](https://wework.qpic.cn/wwpic3az/61131_STHVj2BZR56rLQW_1771995429/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/it/3512994.html)
+
+快讯
+
+[查看更多](https://www.woshipm.com/digest)
+
+[腾讯电脑管家入局Mac生态，首推AI Agent安全防护](https://www.woshipm.com/digest/495971)
+
+刚刚
+
+[亚马逊2025年在英投资达200亿美元](https://www.woshipm.com/digest/495979)
+
+刚刚
+
+[阿里员工十三薪并入年终奖](https://www.woshipm.com/digest/495989)
+
+刚刚
+
+热门文章
+
+*   [![Image 70: 货代SRM实战：风险与预警怎么做，才能让供应链问题在爆发前被看见？](https://image.woshipm.com/2026/05/08/b7cecf74-4a84-11f1-99a9-00163e09d72f.jpg!/both/100x60)](https://www.woshipm.com/share/6391193.html "货代SRM实战：风险与预警怎么做，才能让供应链问题在爆发前被看见？") [货代SRM实战：风险与预警怎么做，才能让供应链问题在爆发前被看见？](https://www.woshipm.com/share/6391193.html "货代SRM实战：风险与预警怎么做，才能让供应链问题在爆发前被看见？") 05-11  
+*   [![Image 71: 我用 AI 做完一份 PPT 和一个后台页面，才看懂这一代模型在变什么](https://image.woshipm.com/2024/07/12/2db5870c-4003-11ef-93cd-00163e142b65.png!/both/100x60)](https://www.woshipm.com/ai/6398434.html "我用 AI 做完一份 PPT 和一个后台页面，才看懂这一代模型在变什么") [我用 AI 做完一份 PPT 和一个后台页面，才看懂这一代模型在变什么](https://www.woshipm.com/ai/6398434.html "我用 AI 做完一份 PPT 和一个后台页面，才看懂这一代模型在变什么") 05-19  
+*   [![Image 72: 跨境资金池架构设计](https://image.woshipm.com/2023/04/20/240d436c-df4b-11ed-9648-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/share/6395050.html "跨境资金池架构设计") [跨境资金池架构设计](https://www.woshipm.com/share/6395050.html "跨境资金池架构设计") 05-14  
+*   [![Image 73: DeepSeek用算法红利重塑AI定价权](https://image.woshipm.com/2025/03/26/ad0eed00-0a23-11f0-8f5a-00163e09d72f.png!/both/100x60)](https://www.woshipm.com/ai/6390894.html "DeepSeek用算法红利重塑AI定价权") [DeepSeek用算法红利重塑AI定价权](https://www.woshipm.com/ai/6390894.html "DeepSeek用算法红利重塑AI定价权") 05-07  
+*   [![Image 74: 模型越强，为什么 Agent 框架反而更重要？](https://image.woshipm.com/2023/04/13/2810016a-d9de-11ed-8fc2-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6399297.html "模型越强，为什么 Agent 框架反而更重要？") [模型越强，为什么 Agent 框架反而更重要？](https://www.woshipm.com/ai/6399297.html "模型越强，为什么 Agent 框架反而更重要？") 05-21  
+*   [![Image 75: 每天用AI的人，付费意愿是低频者的13倍：你被AI“绑架”了吗？](https://image.woshipm.com/2024/09/09/3d6034ae-6e57-11ef-ab80-00163e142b65.png!/both/100x60)](https://www.woshipm.com/ai/6398494.html "每天用AI的人，付费意愿是低频者的13倍：你被AI“绑架”了吗？") [每天用AI的人，付费意愿是低频者的13倍：你被AI“绑架”了吗？](https://www.woshipm.com/ai/6398494.html "每天用AI的人，付费意愿是低频者的13倍：你被AI“绑架”了吗？") 05-19  
+
+![Image 76](https://image.woshipm.com/wp-files/2020/06/qgEa9DwE5Xshp2Q7EbAx.png)
+
+发出去的信息还可以改动，这个需求是真实存在的吗？
+
+在所有的聊天工具中，鲜有出现已发送消息可以进行修改的。大部分互联网网民都不认为发出去的消息能被修改，...
+
+![Image 77](https://static.woshipm.com/WX_U_202001_20200121114005_5237.jpg?imageView2/2/w/80/size-limit/5k!)![Image 78](https://static.woshipm.com/WX_U_201805_20180531185421_8464.jpg?imageView2/2/w/80/size-limit/5k!)![Image 79](https://image.woshipm.com//wp-files/2015/10/touxiang-5.jpg!avatar)24.6k 点击 20 回答
+
+[进入回答](https://wen.woshipm.com/question/detail/7n0hqd.html?sf=wipm)
+
+[你对“微博热搜榜”有哪些看法？停更一周，会产生哪些影响？](https://wen.woshipm.com/question/detail/old7es.html?sf=wipm)
+
+ 24.8k 点击 25 回答 
+
+[产品下沉是扩张市场的必经之路吗？](https://wen.woshipm.com/question/detail/oq09vf.html?sf=wipm)
+
+ 14.7k 点击 11 回答 
+
+[其他部门有一个目标岗位空缺，想转过去，应该先找自己的领导，还是先找目标岗位的领导？](https://wen.woshipm.com/question/detail/tq2gvf.html?sf=wipm)
+
+ 51.6k 点击 25 回答 
+
+文章导航
+
+*   [一、好的产品首先要对用户充满善意](https://www.woshipm.com/it/3512994.html#toc-1)
+*   [二、在线办公软件的核心是高效协同](https://www.woshipm.com/it/3512994.html#toc-2)
+*   [三、在线办公的灵活性](https://www.woshipm.com/it/3512994.html#toc-3)
+*   [四、飞书未来发展的三点建议](https://www.woshipm.com/it/3512994.html#toc-4)
+
+关于
+
+ 人人都是产品经理（woshipm.com）是以产品经理、运营为核心的学习、交流、分享平台，集媒体、培训、社群为一体，全方位服务产品人和运营人，成立12年举办在线讲座1000+期，线下分享会500+场，产品经理大会、运营大会50+场，覆盖北上广深杭成都等20个城市，在行业有较高的影响力和知名度。平台聚集了众多BAT美团京东滴滴360小米网易等知名互联网公司产品总监和运营总监，他们在这里与你一起成长。 
+
+合作伙伴
+
+*   [![Image 80: 起点课堂](https://image.woshipm.com/wp-files/2021/10/zUwm4IYjmoiV63Kk9aKQ.png)](https://www.qidianla.com/?woshipm "起点课堂")
+*   [![Image 81](https://image.yunyingpai.com/wp/2021/12/wyRAfH2rXJha57p06bbQ.png)](https://36kr.com/)
+*   [![Image 82: 极验验证](https://image.woshipm.com/wp-files/2020/05/zHiqREB7rkGZsC6rFerJ.png)](https://www.geetest.com/?woshipm)
+*   [![Image 83: 致设计](https://image.woshipm.com/wp-files/2020/05/k7Gf25a7GdaoRNLLogCo.png)](https://www.zhisheji.com/?woshipm "致设计")
+*   [![Image 84: 保利威](https://image.woshipm.com/wp-files/2020/05/KZTBx2R2UyR2k96mHpa4.png)](https://www.polyv.net/?-cpjl)
+
+链接
+
+*   [隐私政策](https://www.woshipm.com/policy)
+*   [投稿须知](https://www.woshipm.com/it/1010671.html)
+*   [意见反馈](https://wen.woshipm.com/question/detail/omkf.html)
+*   [帮助中心](https://doc.weixin.qq.com/doc/w3_ALsAdwZgAO8uhueZ8ahRse75jgAJm?scode=AGsAywdaAA0wPabVgMAYgAZgbwAOM)
+
+![Image 85: 公众号](https://image.woshipm.com/wp-files/2020/06/cKMzCQWucvwdFhHVeoib.jpeg)
+公众号
+
+![Image 86: 视频号](https://image.woshipm.com/wp-files/2020/06/PAVQDSOr3b6NRnHyqAVy.jpeg)
+视频号
+
+*   友情链接
+*   [PM265](https://pm265.com/)
+*   [产品经理导航](https://www.pmbaobao.com/)
+*   [起点课堂](https://www.qidianla.com/)
+*   [猪八戒网](http://www.zbj.com/)
+*   [伙伴云表格](https://www.huoban.com/)
+*   [网易易盾](https://dun.163.com/)
+*   [个推](https://www.getui.com/cn/)
+*   [友盟+](https://www.umeng.com/)
+*   [创业邦](https://www.cyzone.cn/?woshipm)
+*   [AI学习社区](https://www.aixq.cc/ "学习AI第一站")
+*   [慕课网](https://www.imooc.com/ "慕课网")
+
+ 旗下品牌: [起点课堂](https://www.qidianla.com/) | [运营派](https://www.yunyingpai.com/) | [粮仓企微管家](https://www.liangcang.cc/)
+
+ ©2010-2024 - 人人都是产品经理 - [粤ICP备14037330号](https://beian.miit.gov.cn/)-[粤公网安备 44030502001309号](https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001309)
+
+[广播电视节目制作经营许可证（粤）字第03109号](https://static.qidianla.com/Audio-TVLicense.jpg)[增值电信业务经营许可证粤B2-20190788](https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyesearch.jsp?num=%E6%B7%B1%E5%9C%B3%E8%81%9A%E5%8A%9B%E5%88%9B%E6%83%B3%E4%BF%A1%E6%81%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&type=xuke) 版权所有 © 深圳聚力创想信息科技有限公司 
+
+[网站统计](http://tongji.baidu.com/hm-web/welcome/ico?s=b85cbcc76e92e3fd79be8f2fed0f504f)

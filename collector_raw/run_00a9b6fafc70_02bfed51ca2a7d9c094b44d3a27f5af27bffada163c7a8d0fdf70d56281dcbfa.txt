@@ -1,0 +1,272 @@
+# 人工智能 - 360/石墨/语雀等6款在线文档系统的功能、优缺点深度分析 - 低代码系列 - SegmentFault 思否
+
+Title: 360/石墨/语雀等6款在线文档系统的功能、优缺点深度分析
+
+URL Source: https://segmentfault.com/a/1190000047319600
+
+Published Time: 2025-10-14T02:36:38.000Z
+
+Markdown Content:
+# 人工智能 - 360/石墨/语雀等6款在线文档系统的功能、优缺点深度分析 - 低代码系列 - SegmentFault 思否
+
+![Image 1](https://sponsor.segmentfault.com/lg.php?bannerid=0&campaignid=0&zoneid=5&loc=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000047319600&cb=de7b92c6e0)
+
+[](https://segmentfault.com/blogs)#### [低代码系列](https://segmentfault.com/blog/jvs_lowcode)
+
+#### [低代码系列](https://segmentfault.com/blog/jvs_lowcode)[注册登录](https://segmentfault.com/user/login)
+
+[关注博客](https://segmentfault.com/a/1190000047319600#)[注册登录](https://segmentfault.com/user/login)
+
+[主页](https://segmentfault.com/blog/jvs_lowcode)
+
+[关于](https://segmentfault.com/blog/jvs_lowcode/about)
+
+[RSS](https://segmentfault.com/feeds/blog/jvs_lowcode)
+
+![Image 2](https://sponsor.segmentfault.com/lg.php?bannerid=875&campaignid=227&zoneid=2&loc=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000047319600&cb=2754661f79)
+
+# [360/石墨/语雀等6款在线文档系统的功能、优缺点深度分析](https://segmentfault.com/a/1190000047319600)
+
+[![Image 3: 头像](https://avatar-static.segmentfault.com/337/821/3378217802-61b0543b63035_huge128) **软件部长**](https://segmentfault.com/u/ruanjiankaifa_xiaofanya)[2025-10-14 重庆](https://segmentfault.com/a/1190000047319600/revision)
+
+阅读 4 分钟
+
+0[](https://segmentfault.com/a/1190000047319600#comment-area)
+
+[**【推荐工具】ONES 企业知识库工具 👍👍👍**](https://sponsor.segmentfault.com/ck.php?oaparams=2__bannerid=941__zoneid=25__cb=38df3a56fb__oadest=https%3A%2F%2Fones.cn%2Fproducts%2Fwiki%3Futm_source%3Dsegmentfault%26utm_medium%3Dtext%26utm_campaign%3Dfill)
+
+![Image 4](https://sponsor.segmentfault.com/lg.php?bannerid=941&campaignid=244&zoneid=25&loc=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000047319600&cb=38df3a56fb)
+
+在数字化时代，企业做知识管理是长期运营的重要环节。随着企业对数据安全的重视以及AI技术的快速发展，企业对文档管理系统的需求从简单的文件存储共享，升级到要求全生命周期管理（私有化、储存、编辑、共享、协作、权限管理）、智能AI的综合解决方案。一款能支持私有化部署并融合AI能力的AI智能文档管理系统是企业的首选方案。
+
+特别是在金融、医疗、政府、军工等受严格监管的这些行业，私有化部署是不可替代的解决方案，它确保敏感数据完全掌控在企业自己的服务器或专属云服务器中，从根本上杜绝了第三方云服务的潜在泄露风险。
+
+**私有化AI知识库系统为企业提供三大核心价值：**
+
+1.   数据主权保障：所有知识数据存储在企业本地服务器，避免第三方平台的数据滥用风险。
+2.   深度定制能力：支持企业根据自身业务逻辑调整知识分类、检索算法、交互界面。
+3.   合规性支持：满足金融、医疗等高敏感行业对数据存储和处理的合规要求。
+
+今天为大家整理了6款主流的可以提供私有化部署的AI知识库系统。
+
+## 1、jvs-knowledge无忧企业文档
+
+jvs-knowledge是一款开源的在线文档系统，提供完全免费的基础版本，前后端分离，采用spring cloud+vue 3开发，支持私有化部署（单机、Docker或K8S集群），并提供源码支持二次开发。
+
+### 核心功能
+
+• 文档管理和编辑：支持多种格式的在线编辑和预览，比如富文本、在线表格、脑图、流程图、Word、Excel、PPT、XMind、Markdown等多种格式。支持多人在线同时编辑同一份文档，内容实时同步。
+
+• AI能力：系统内集成了AI能力，内容编写时，可以续写、润色、扩写、缩写、语病修正、AI翻译、AI总结等方式辅助操作
+
+• 权限管理：企业级权限管理，可以按照组织、部门、角色、群组等多维度设置权限，精细到谁可以阅读，谁可以编辑，谁可以新建等等。
+
+• 全文检索：提供全文搜索引擎（权限范围内的内容），支持从文档标题、内容到图片OCR识别等多种搜索方式，能秒级跳转出搜索结果。
+
+• 知识分享：文档支持多种方式分享，可设置分享有效期，可加密分享，可开放分享下载。
+
+• 集成和扩展：提供丰富的API接口，支持与企业现有系统集成，底层采用微服务架构，易于扩展。
+
+其他功能：无忧企业文档还提供上传、下载、收藏、点赞、评论、版本管理、双屏编辑、文档合并、文档格式转换、等能力。
+
+### 潜在缺点：
+
+• 更加适合企业用户，并且企业需要有技术团队进行后期的维护和升级，有一定的技术门槛要求。
+
+在线demo：[https://knowledge.bctools.cn/](https://link.segmentfault.com/?enc=v6AJvES9fuWY5ZpKE7dXPg%3D%3D.qWPvVmU0d0mUeKGZNI1W8qHp9cXxOJa4YlaYkkUYNAA%3D)
+
+开源私有化部署：[https://gitee.com/software-minister/jvs-knowledge-ui](https://link.segmentfault.com/?enc=LVRDrVNRFysRnmO%2BUXK1tQ%3D%3D.IXnNK39vsM71ewwM1UWfywDzZsyQGjrb4hKtGPI2LNKd0iHkFwBOkfxOPNHGzwqQ2dH4jQgplFloV6uLI4mUJA%3D%3D)
+
+![Image 5: 图片](https://segmentfault.com/img/remote/1460000047319602)
+
+![Image 6: 图片](https://segmentfault.com/img/remote/1460000047319603)
+
+![Image 7: 图片](https://segmentfault.com/img/remote/1460000047319604)
+
+![Image 8: 图片](https://segmentfault.com/img/remote/1460000047319605)
+
+## 2、石墨文档
+
+石墨文档是中国首款在线协同文档办公软件，2015年推出的，支持多人实时协作编辑文档、表格、幻灯片等，并具备全平台兼容、数据安全管控等功能，适合个人或者企业用户。
+
+### 核心功能
+
+• 多人实时协作：支持多人在线同步编辑文档、表格和幻灯片，避免文件反复传输，实现毫秒级同步和跨设备访问。
+
+• 权限管理：提供多层级权限设置（如查看、评论、编辑），并拥有操作日志、历史版本恢复等安全功能。
+
+• 集成能力：支持与企业OA、IM等系统深度集成。
+
+• 全平台兼容性：覆盖Windows、macOS、Linux、iOS和Android平台，支持导入导出Word、Excel等格式，确保数据无损。
+
+### 潜在缺点：
+
+• 在大文件处理和大规模团队管理方面的能力可能不如传统企业级产品，个人免费版的存储空间较小（1G）。
+
+• AI能力相对基础，在智能内容生成和分析方面与领先产品存在差距
+
+![Image 9: 图片](https://segmentfault.com/img/remote/1460000047319606)
+
+## 3、MrDoc（觅道文档）
+
+MrDoc是一款基于Python Django框架开发的轻量级在线文档系统，支持私有化部署，支持跨平台、跨终端使用，适合个人和小型团队的知识管理需求。
+
+### 核心功能
+
+• 站点管理：支持用户注册、登录、权限配置、广告/统计代码嵌入、备案号配置等。
+
+• 文档编辑：支持Markdown格式，可插入图片、音频、视频、思维导图、附件及数学公式等多媒体内容。
+
+• 权限管理：支持用户权限控制，可设置协作人共同编辑文档，并支持文集管理、历史版本追踪等功能。
+
+• 文档导出：可批量导出文档为PDF、Word等格式，并支持生成电子书文件。
+
+### 潜在缺点：
+
+• 功能相对单一，缺乏企业级系统所需的高级权限管理和集成能力。
+
+• 不支持复杂格式文档的在线协作编辑。
+
+![Image 10: 图片](https://segmentfault.com/img/remote/1460000047319607)
+
+## 4、360亿方云
+
+360亿方云是360集团旗下的一款企业级文件安全管理协作平台，适合对数据安全有高要求、需要进行跨地域协作的中小企业。
+
+### 核心功能
+
+• 智能文档处理：提供AI知识问答、AI内容总结、AI知识搜索、基于大模型的内容生成和创作，能深度理解文档内容，快速提炼关键信息。
+
+• 文件管理：支持多种格式文件预览（包括CAD、PSD等120+格式）、智能检索和标签分类管理。 支持多人在线协作编辑
+
+• 权限管理：提供9级精细化权限管控、文件水印、操作日志审计、登录设备限制、传输存储全链路加密等从存储、共享到外发的全流程安全防护。支持私有化、混合云等多种部署模式。存储与备份
+
+• 储存和备份：提供无限扩容存储空间，支持海量数据备份与恢复，国内外多节点访问加速，满足跨国业务需求。
+
+• 集成能力：提供200+开放API、支持与企业微信、钉钉等业务系统集成、支持国产化软硬件环境适配。
+
+### 潜在缺点：
+
+• 个人免费版的存储空间较小，功能上可能无法满足深度办公需求。
+
+• 文档协作功能的用户体验相比专注协作的专业工具可能有差距。
+
+![Image 11: 图片](https://segmentfault.com/img/remote/1460000047319608)
+
+## 5、PingCode知识库
+
+作为国产头部知识管理工具，PingCode以"知识全生命周期管理"为核心理念，深度整合了研发流程。它的知识空间架构支持多级权限管控，可以一键迁移Confluence等海外系统数据，编辑器支持Markdown、代码块、页面关联等20余种专业格式。
+
+### 核心功能
+
+• 文档创建和协同：支持多人实时在线协同编辑，采用富文本编辑器，可以插入图片、表格、代码块、Markdown、页面等内容，并关联研发工作项（如需求、测试任务等），支持多人实时在线编辑
+
+• 权限管理：支持页面级的精细权限设置，提供水印、操作日志审计等功能；支持私有化部署，满足企业对数据安全的严格要求
+
+• 知识共享：支持创建结构化的知识库，形成页面树；支持分组共享
+
+### 潜在缺点：
+
+• 目前不支持多语言环境，不适合需要跨国的公司
+
+• 功能上不太能满足特别复杂或者庞大的知识库需求
+
+![Image 12: 图片](https://segmentfault.com/img/remote/1460000047319609)
+
+## 6、语雀
+
+语雀是蚂蚁集团旗下的一款专业的在线文档编辑协同工具，支持私有化部署，可以将系统部署在自有服务器上。适合个人、团队和企业进行创作、组织、沉淀和协作知识。
+
+### 核心功能
+
+• 文档编辑和创作：自研编辑器不仅支持富文本、表格、思维导图、画板等，还具备 Markdown、代码块、LaTeX 公式 等专业编辑能力，能满足技术文档、产品设计等多种专业场景的创作需求，支持多人实时协同编辑。
+
+• 知识管理：采用“文档-知识库-团队”三层结构，文档必须属于某个知识库。可以结构化对知识进行管理。
+
+• 权限管理：提供页面级和知识库级的精细权限控制（如编辑、复制、分享等）。
+
+• 多端同步：提供网页版、桌面端和移动端，支持多端实时同步，提供了AI对话写作功能，可以辅助生产内容。
+
+### 潜在缺点：
+
+• 设计思路更偏向传统的文档和文件夹模式，内容的相互嵌入不能跨知识库进行
+
+• 在处理非常复杂的Excel公式、PPT动画等深度Office功能时，可能无法完全替代本地Office软件
+
+![Image 13: 图片](https://segmentfault.com/img/remote/1460000047319610)
+
+[在线文档](https://segmentfault.com/t/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3)[私有化部署](https://segmentfault.com/t/%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2)[人工智能](https://segmentfault.com/t/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD)[知识库软件](https://segmentfault.com/t/%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BD%AF%E4%BB%B6)[知识库](https://segmentfault.com/t/%E7%9F%A5%E8%AF%86%E5%BA%93)
+
+![Image 14](https://sponsor.segmentfault.com/lg.php?bannerid=0&campaignid=0&zoneid=3&loc=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000047319600&cb=c7b5c2d481)
+
+赞 收藏
+
+分享
+
+阅读 2.6k[发布于 2025-10-14](https://segmentfault.com/a/1190000047319600/revision)
+
+举报
+
+* * *
+
+[![Image 15: 头像](https://avatar-static.segmentfault.com/337/821/3378217802-61b0543b63035_huge128)](https://segmentfault.com/u/ruanjiankaifa_xiaofanya)
+
+##### [软件部长](https://segmentfault.com/u/ruanjiankaifa_xiaofanya)
+
+43 声望 7 粉丝
+
+软件研发行业老司机，提供些踩坑的经验而已
+
+关注作者
+
+* * *
+
+« 上一篇
+
+[零代码实现！JVS低代码如何通过可视化配置实现复杂校验逻辑？](https://segmentfault.com/a/1190000047317334)
+
+下一篇 »
+
+[【JVS更新日志】开源框架升级vue 3、低代码、企业计划、智能BI及其他产品迎来新版本！](https://segmentfault.com/a/1190000047322171)
+
+[1、jvs-knowledge无忧企业文档](https://segmentfault.com/a/1190000047319600#item-1)[核心功能](https://segmentfault.com/a/1190000047319600#item-1-1)[潜在缺点：](https://segmentfault.com/a/1190000047319600#item-1-2)[2、石墨文档](https://segmentfault.com/a/1190000047319600#item-2)[核心功能](https://segmentfault.com/a/1190000047319600#item-2-3)[潜在缺点：](https://segmentfault.com/a/1190000047319600#item-2-4)[3、MrDoc（觅道文档）](https://segmentfault.com/a/1190000047319600#item-3)[核心功能](https://segmentfault.com/a/1190000047319600#item-3-5)[潜在缺点：](https://segmentfault.com/a/1190000047319600#item-3-6)[4、360亿方云](https://segmentfault.com/a/1190000047319600#item-4)[核心功能](https://segmentfault.com/a/1190000047319600#item-4-7)[潜在缺点：](https://segmentfault.com/a/1190000047319600#item-4-8)[5、PingCode知识库](https://segmentfault.com/a/1190000047319600#item-5)[核心功能](https://segmentfault.com/a/1190000047319600#item-5-9)[潜在缺点：](https://segmentfault.com/a/1190000047319600#item-5-10)[6、语雀](https://segmentfault.com/a/1190000047319600#item-6)[核心功能](https://segmentfault.com/a/1190000047319600#item-6-11)[潜在缺点：](https://segmentfault.com/a/1190000047319600#item-6-12)
+
+[![Image 16](https://sponsor-static.segmentfault.com/17332b4f39e3aa47c04ed72bd883991d.png)](https://sponsor.segmentfault.com/ck.php?oaparams=2__bannerid=942__zoneid=1__cb=2e0a2e696a__oadest=https%3A%2F%2Fones.cn%2Fproducts%2Fwiki%3Futm_source%3Dsegmentfault%26utm_medium%3Dtext%26utm_campaign%3Dfill)
+
+[ONES 企业知识库——帮助团队高效编辑、管理文档，沉淀团队经验](https://sponsor.segmentfault.com/ck.php?oaparams=2__bannerid=942__zoneid=1__cb=2e0a2e696a__oadest=https%3A%2F%2Fones.cn%2Fproducts%2Fwiki%3Futm_source%3Dsegmentfault%26utm_medium%3Dtext%26utm_campaign%3Dfill)
+
+![Image 17](https://sponsor.segmentfault.com/lg.php?bannerid=942&campaignid=244&zoneid=1&loc=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000047319600&cb=2e0a2e696a)
+
+▲
+
+[](https://segmentfault.com/a/1190000047319600#comment-area)
+
+### 引用和评论
+
+**推荐阅读**
+
+[![Image 18: 头像](https://avatar-static.segmentfault.com/337/821/3378217802-61b0543b63035_big64) ###### 物联网平台选型真相：云厂商不会告诉你的3个致命短板！ 软件部长 阅读 740](https://segmentfault.com/a/1190000047634811?utm_source=sf-similar-article)[![Image 19: 头像](https://avatar-static.segmentfault.com/106/625/1066259814-697a333c9b5fc_big64) ###### ai 时代，或者说下一个 xxx 时代，作为程序员可以创业哪些组件占据一席之地? 历代思路整理总结 rabbitcoder 赞 1 阅读 2.3k](https://segmentfault.com/a/1190000047629249?utm_source=sf-similar-article)[![Image 20: 头像](https://avatar-static.segmentfault.com/205/718/2057180355-69cdfa184ed1e_big64) ###### OpenAI vs Anthropic vs Google：2026年AI大模型竞争格局 ViVaAPI 赞 1 阅读 7.3k](https://segmentfault.com/a/1190000047691901?utm_source=sf-similar-article)[![Image 21: 头像](https://avatar-static.segmentfault.com/424/154/4241544123-69a295188caae_big64) ###### 2026年全网最全大模型API横评：Claude / GPT / Gemini 等8 大厂商 20+ 主流模型 七牛云行业应用 阅读 12.6k](https://segmentfault.com/a/1190000047676047?utm_source=sf-similar-article)[![Image 22: 头像](https://avatar-static.segmentfault.com/311/741/311741651-5e703244486fd_big64) ###### LangGraph vs Semantic Kernel：状态图与内核插件的两条技术路线对比 deephub 赞 1 阅读 1.6k](https://segmentfault.com/a/1190000047649978?utm_source=sf-similar-article)[![Image 23: 头像](https://avatar-static.segmentfault.com/526/152/52615256-649946e860b48_big64) ###### OpenAI Codex 安装与使用全指南：API Key 获取与自定义 API 配置与实战排错 uiuihaoAICG 阅读 11.1k](https://segmentfault.com/a/1190000047687741?utm_source=sf-similar-article)[![Image 24: 头像](https://avatar-static.segmentfault.com/291/139/2911397043-69cde2d7cdd60_big64) ###### AI Agent中6种常用的设计模式 苏三说技术 赞 1 阅读 1.3k](https://segmentfault.com/a/1190000047703425?utm_source=sf-similar-article)
+
+**0 条评论**
+
+[得票](https://segmentfault.com/a/1190000047319600?sort=votes)[最新](https://segmentfault.com/a/1190000047319600?sort=newest)
+
+![Image 25: 头像](https://image-static.segmentfault.com/317/931/3179314346-5f61e47221e07)
+
+提交评论
+
+评论支持部分 Markdown 语法：`**粗体** _斜体_ [链接](http://example.com) `代码` - 列表 > 引用`。你还可以使用 `@`来通知其他用户。
+
+©2026 低代码系列
+
+除特别声明外，[作品采用《署名-非商业性使用-禁止演绎 4.0 国际》进行许可](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+[使用 SegmentFault 发布](https://segmentfault.com/blogs)
+
+[SegmentFault - 凝聚集体智慧，推动技术进步](https://segmentfault.com/)
+
+[服务协议](https://segmentfault.com/tos?utm_source=sf-footer)[隐私政策](https://segmentfault.com/privacy?utm_source=sf-footer)[浙ICP备15005796号-2](http://beian.miit.gov.cn/)[浙公网安备33010602002000号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602002000)
+
+![Image 26: preview](https://segmentfault.com/a/1190000047319600)
+
+![Image 27: preview](https://segmentfault.com/a/1190000047319600)

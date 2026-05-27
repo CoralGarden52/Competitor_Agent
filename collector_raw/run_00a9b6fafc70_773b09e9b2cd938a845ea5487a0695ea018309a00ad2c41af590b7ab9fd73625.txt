@@ -1,0 +1,123 @@
+# OfficeAI助手简介 | OfficeAI助手
+
+Title: OfficeAI助手简介 | OfficeAI助手
+
+URL Source: https://www.office-ai.cn/static/introductions/officeai/introduction.html
+
+Published Time: Tue, 26 May 2026 07:52:48 GMT
+
+Markdown Content:
+# OfficeAI助手简介 | OfficeAI助手
+
+OfficeAI助手
+
+0.7.2.7
+
+*   [OfficeAI助手简介](https://www.office-ai.cn/static/introductions/officeai/introduction.html)
+*   [OfficeAI 助手下载](https://www.office-ai.cn/static/introductions/officeai/download.html)
+*   [主界面](https://www.office-ai.cn/static/introductions/officeai/main-program.html)
+*   [WordAI](https://www.office-ai.cn/static/introductions/officeai/wordfunctions.html)
+*   [ExcelAI](https://www.office-ai.cn/static/introductions/officeai/excelfunctions.html)
+*   [管理APIKeys](https://www.office-ai.cn/static/introductions/officeai/local-deployment-of-ai-engine.html)
+*   [本地部署](https://www.office-ai.cn/static/introductions/officeai/on-premises.html)
+*   [切换内置模型](https://www.office-ai.cn/static/introductions/officeai/free-model.html)
+*   [内网部署](https://www.office-ai.cn/static/introductions/officeai/offline-deploy.html)
+*   [英特尔®酷睿Ultra系列本地AI部署指南](https://www.office-ai.cn/static/introductions/officeai/intel-core-ultra-ai-guide.html)
+*   [常见问题](https://www.office-ai.cn/static/introductions/officeai/questions.html)
+*   [更新日志](https://www.office-ai.cn/static/introductions/officeai/update-log.html)
+*   [联系我们](https://www.office-ai.cn/static/introductions/officeai/others.html)
+
+# OfficeAI助手简介
+
+Last modified: 05 十二月 2025
+[⬇️ 点击这里高速下载](https://www.office-ai.cn/static/introductions/officeai/smartdownload.html)
+
+## 功能简介[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_4)
+
+OfficeAI 助手 是一款免费的智能AI办公工具软件，专为 Microsoft Office 和 WPS 用户打造。 无论你是在寻找如何输入“打勾（√）符号”的方法，还是想知道“怎么在插入表格前添加文字”，或者“该用哪个公式”， AI办公助手都能为你提供快速、准确的解决方案。 通过简单的指令，ExcelAI 插件可以帮你自动完成复杂的公式计算、函数选择。 WordAI 插件还具备整理周报、撰写会议纪要、总结内容、以及文案润色的强大功能。 总之，OfficeAI 助手将大大提升你的办公效率，让日常工作变得更加轻松便捷。
+
+## Office AI助手的组成[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#office-ai)
+
+目前本软件目前由主程序和Office/WPS插件组成,具体如下：
+
+*   Office插件
+
+    *   WordAI插件,在打开文档时,以插件形式在word或WPS中使用
+
+    *   ExcelAI插件,在打开表格时使用
+
+*   主程序
+
+    *   用于日常对话
+
+    *   用于修复插件问题
+
+*   本地部署服务
+
+    *   本服务为按需安装,非必须安装使用
+
+    *   当您要使用本地部署相关功能时,本服务会安装并随开机启动
+
+## 免费AI大模型引擎[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#ai)
+
+目前 OfficeAI 自带以下大模型引擎，这些大模型引擎均面向个人用户免费使用：
+
+| 模型名 | 公司 |  | 隐私协议地址 |
+| --- | --- | --- | --- |
+| 豆包 1.5 Pro | 字节跳动 | 默认 | [豆包隐私政策](https://team.doubao.com/zh/privacy-policy) |
+| Deepseek V3 | 深度求索 | 可选 | 由豆包提供 |
+| 文心一言 | 百度 | 可选 | [文言一心隐私政策](https://yiyan.baidu.com/ER7FX3ATERRQT6) |
+| 通义千问 | 阿里 | 可选 | [通义千问隐私政策](https://help.aliyun.com/zh/dashscope/developer-reference/tongyi-qianwen-privacy-policy) |
+
+## 免费 APIKEY 部署[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#apikey)
+
+您可以通过第三方厂商申请 APIKEY ，并填写到OfficeAI中,直接使用你自己的的模型
+
+## 免费本地部署AI引擎[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#ai_1)
+
+您也可以通过“本地部署”的设置选项，通过Ollama，LMStudio平台对接您本地部署的私有大模型。
+
+## 注册与登录[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_9)
+
+*   本程序通过微信扫码登录
+
+*   如果您希望隔离网络使用本软件,请[联系我们](https://www.office-ai.cn/static/introductions/officeai/others.html)
+
+## WordAI界面[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#wordai)
+
+![Image 1: wordai_main.jpg](https://www.office-ai.cn/static/introductions/officeai/images/wordai_main.jpg)
+
+## ExcelAI界面[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#excelai)
+
+![Image 2: excelai_main.jpg](https://www.office-ai.cn/static/introductions/officeai/images/excelai_main.jpg)
+
+## OfficeAI for WPS[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#officeai-for-wps)
+
+![Image 3: wps.png](https://www.office-ai.cn/static/introductions/officeai/images/wps.jpg)
+
+## 安装环境[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_13)
+
+win7/win10/win11或更高 + Office2013/Office2016/Office2019/Office 365
+
+## 语言[](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_14)
+
+目前支持 简体中文,繁体中文和 English
+
+*   [OfficeAI助手简介](https://www.office-ai.cn/static/introductions/officeai/introduction.html)
+*   [功能简介](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_4)
+*   [Office AI助手的组成](https://www.office-ai.cn/static/introductions/officeai/introduction.html#office-ai)
+*   [免费AI大模型引擎](https://www.office-ai.cn/static/introductions/officeai/introduction.html#ai)
+*   [免费 APIKEY 部署](https://www.office-ai.cn/static/introductions/officeai/introduction.html#apikey)
+*   [免费本地部署AI引擎](https://www.office-ai.cn/static/introductions/officeai/introduction.html#ai_1)
+*   [注册与登录](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_9)
+*   [WordAI界面](https://www.office-ai.cn/static/introductions/officeai/introduction.html#wordai)
+*   [ExcelAI界面](https://www.office-ai.cn/static/introductions/officeai/introduction.html#excelai)
+*   [OfficeAI for WPS](https://www.office-ai.cn/static/introductions/officeai/introduction.html#officeai-for-wps)
+*   [安装环境](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_13)
+*   [语言](https://www.office-ai.cn/static/introductions/officeai/introduction.html#-5zf8wi_14)
+
+[OfficeAI 助手下载](https://www.office-ai.cn/static/introductions/officeai/download.html)
+
+Copyright©2020-2025 海鹦科技 版权所有 粤ICP备20044563号-6
+
+Powered by[JetBrains Writerside](https://lp.jetbrains.com/writerside/)

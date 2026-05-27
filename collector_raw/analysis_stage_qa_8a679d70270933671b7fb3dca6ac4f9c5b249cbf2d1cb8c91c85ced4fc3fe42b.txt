@@ -1,0 +1,397 @@
+# 同事群里催催催，龙虾自动回回回！刚发布的「飞书龙虾」把我解脱了 – 量子位
+
+Title: 同事群里催催催，龙虾自动回回回！刚发布的「飞书龙虾」把我解脱了
+
+URL Source: https://www.qbitai.com/2026/03/389322.html
+
+Markdown Content:
+# 同事群里催催催，龙虾自动回回回！刚发布的「飞书龙虾」把我解脱了 – 量子位
+
+*   [首页](http://www.qbitai.com/)
+*   [资讯](https://www.qbitai.com/category/%e8%b5%84%e8%ae%af)
+*   [智能车](https://www.qbitai.com/category/auto)
+*   [智库](https://www.qbitai.com/category/zhiku)
+*   [活动](https://www.qbitai.com/category/huodong)
+*   [MEET大会](https://www.qbitai.com/meet/meet2026/)
+*   [AIGC](https://www.qbitai.com/meet/aigc2025/)
+
+[](https://www.qbitai.com/)
+
+[](javascript:void(0))
+
+扫码关注量子位
+
+![Image 1](https://www.qbitai.com/wp-content/uploads/2019/01/qrcode_QbitAI_1.jpg)
+
+[](https://weibo.com/qbitai?is_all=1)
+
+< img id="wx_img" src="https://www.qbitai.com/wp-content/uploads/imgs/qbitai-logo-1.png" width="400" height="400">
+
+# 同事群里催催催，龙虾自动回回回！刚发布的「飞书龙虾」把我解脱了
+
+![Image 2](http://www.qbitai.com/wp-content/themes/liangziwei/imagesnew/head.jpg)_[十三](https://www.qbitai.com/author/shisan "由 十三 发布")_ 2026-03-19 18:45:00 来源：[量子位](https://www.qbitai.com/)
+
+无需部署，人人可用
+
+> 金磊 发自 凹非寺
+> 
+> 
+> 量子位 | 公众号 QbitAI
+
+终于……让我找到了**治同事**的**龙虾玩法**了。
+
+事情是这样的。
+
+作为一个专业撰稿人，被同事催催催催催稿是再正常不过的了[看]……
+
+于是乎，我灵机一动，把我在**飞书**里类龙虾Agent变成了一只**皮皮虾**：
+
+> 今天飞书群里如果XX@我，并问类似提纲进度如何的问题，你自动帮我回复，说“等会儿”等，不要客气，要显得不耐烦。
+
+![Image 3](https://i.qbitai.com/wp-content/uploads/2026/03/38d6648399b741ff19dbc33dc6d1a44f.webp)
+
+然后，当同事真来催稿的时候，名场面诞生了：
+
+![Image 4](https://i.qbitai.com/wp-content/uploads/2026/03/03fd1df05f55c43795f1fbe1e52b4f33.webp)
+
+我愿称之为，**最强嘴替！**
+
+![Image 5](https://i.qbitai.com/wp-content/uploads/2026/03/df245dda4f1fe3741787905ac6cc371d.webp)
+
+一个字：**爽！**
+
+或许有小伙伴要问了：“我飞书上的龙虾咋就没这么丝滑呢？”
+
+因为，这是刚刚飞书在自家春季发布会中升级类龙虾Agent——**飞书aily**。
+
+用飞书CEO**谢欣**的话来说：
+
+> 升级后的飞书aily，可以让人人都能创建一个能干活、永不宕机的龙虾。
+
+现在的aily，已经是以Agent的形态成为你飞书联系人里的一份子，**无需部署**，就能像同事、像助理一样帮你做很多很多复杂的工作。
+
+不仅如此，飞书这次还把**飞书妙搭Agent**和**多维表格Agent**也一道来了个大升级。
+
+在我整体体验之后，最直接的感受就是，**真挺好用的**。
+
+![Image 6](https://i.qbitai.com/wp-content/uploads/2026/03/6a6d987ea21bbf27d45e20c2fa1e8177.jpeg)
+
+# 不只是自动回消息，越用aily越懂你
+
+继续先来深度实测一波飞书aily。
+
+正如我刚才提到的，它是完全不需要任何部署操作的：
+
+在飞书里搜索“aily”，找到智能伙伴，点击后申请+激活领取就行。
+
+然后它就直接会出现在你飞书的联系人里，你可以先给aily做一些**个性化的设置**：
+
+![Image 7](https://i.qbitai.com/wp-content/uploads/2026/03/96fc41ca4a14e72eab959d55a61b619f.webp)
+
+**跨群、跨文档，都能hold住**
+
+第一个实测，也是基于我日常工作需求而来。
+
+例如同事在飞书里发了我**一个视频**和**一个链接**，让我**出个快讯**：
+
+![Image 8](https://i.qbitai.com/wp-content/uploads/2026/03/c39ea99e41aa9ad5f34b190b3d51865d.webp)
+
+现在，这个工作可以完全交给我的aily来搞。
+
+我只需要跟它说：
+
+> 看下XX给我发的消息，按他要求写个快讯。
+
+![Image 9](https://i.qbitai.com/wp-content/uploads/2026/03/a16eb73841f94233d0fdebd8453b451e.webp)
+
+检查无误之后，我就可以直接把文件发给同事；而且这一切的操作，我都是在手机上完成的，不用再捧个电脑打字了。
+
+**Skills一键安装，越用越懂你**
+
+如果想让龙虾类的Agent做更多的工作，**Skills**和**人设**，定然是非常关键中的关键。
+
+在aily这边也是如此，例如**写文章**这件事，我就让它搞了一个**AI编辑部**，包括六个角色：
+
+*   总编虾：负责根据我给的选题（一个题目就行），深度分析选题的需求来设计提纲。
+*   记者虾：负责根据总编虾的提纲，搜集与选题相关的资料。
+*   编辑虾：负责根据记者虾搜集好的资料，撰写初稿。
+*   校对虾：负责根据编辑虾的初稿，校对文章内容。
+*   排版虾：负责根据校对虾给的终稿，对文章进行排版。
+*   运营虾：负责将排版过的文章发布到网站。
+
+然后给他们每个虾都设置相应的Skills，例如总编虾需要feishu-bitable，用来读取选题、写入提纲、更新任务状态。
+
+再给他们每个虾都立人设，还是以总编虾为例，Prompt是这样的：
+
+`你是【总编虾】，AI编辑部的总负责人，只做总编的本职工作，禁止越权做其他角色的任务。 【你的核心职责】 根据用户给出的选题，深度分析选题的受众、核心看点、传播逻辑，输出专业、可落地的文章提纲。 【你的硬性规则】 1. 提纲必须包含：选题核心立意、受众画像、全文结构（至少3个大章节，每个章节下至少2个小节），每个小节必须标注「需要记者搜集哪类资料」。 2. 写完提纲后，必须调用feishu-bitable技能，把提纲、选题信息同步到飞书多维表格「AI编辑部进度看板」里，把任务状态改为「待记者」，负责人标注「记者虾」。 3. 你只能使用feishu-bitable、feishu-docs这2个技能，禁止调用其他任何技能。 4. 完成所有工作后，必须明确告知用户「总编虾任务已完成，提纲已同步至进度看板」，不要说多余的客套话。`
+然后我们只需要给aily一句话，它就会按照你设定的流程一步步执行：
+
+> 写一篇题目为《OpenClaw，这只虾的发展史》的文章。
+
+![Image 10](https://i.qbitai.com/wp-content/uploads/2026/03/4f428df76f9b45f8802d42ab9650e953.webp)
+
+编辑部的进度看板里，和aily给我发布的消息同步，也是实时可以更新查看每个虾的工作进度：
+
+![Image 11](https://i.qbitai.com/wp-content/uploads/2026/03/1a0122ca3513e7c6888f58e22fc342ed.webp)
+
+而且这不是一次性的那种。
+
+aily会记住我每次做任务的需求，下次如果再遇到相同类型的问题，它会按照你的习惯来执行。
+
+是属于**越用越懂你**的那种。
+
+**企业级长任务，一口气完成**
+
+上面的任务是“人人可养”的龙虾就能实现的任务。
+
+不过飞书这次还发布了一个**aily专业版**，针对的就是企业级超复杂的长任务。
+
+例如我就给它了一个**涵盖7个Sheet的业务数据**：
+
+![Image 12](https://i.qbitai.com/wp-content/uploads/2026/03/ef3bf7e1b6bc4837b5c5229241e7d856.webp)
+
+然后我要求aily一口气完成下面三个任务：
+
+> 帮我基于这份2026年2月全量业务数据，完成3件事：
+> 
+> 
+> 1、 生成一份完整的月度经营汇报PPT，包含核心指标复盘、业务趋势分析、项目进度跟踪、问题风险复盘、下月工作计划；
+> 
+> 2、为PPT配套制作核心的数据可视化图表；
+> 
+> 3、搭建一个可直接使用的多项目进度跟踪看板。
+
+![Image 13](https://i.qbitai.com/wp-content/uploads/2026/03/c2532718c46b5d5668f3631cc53e3378.webp)
+
+aily即使面对如此复杂且长的企业级任务，它也是有条不紊地自动做出规划，然后一步步去实现。
+
+最终PPT、数据可视化图表和进度跟踪看板，就这么水灵灵地诞生了：
+
+![Image 14](https://i.qbitai.com/wp-content/uploads/2026/03/abeed6262dc381a8f0f96f7eb0d329ff.webp)
+
+例如PPT长这样：
+
+![Image 15](https://i.qbitai.com/wp-content/uploads/2026/03/429add74d12ea48463ba1a1dc0fbaad4.gif)
+
+一口气也做出了六个可视化的图表（上下滑动查看）：
+
+![Image 16](https://i.qbitai.com/wp-content/uploads/2026/03/fdcfadda0c5ec8efac96b3cd9bdd0e17.webp)
+
+多项目进度跟踪看板是这样的：
+
+![Image 17](https://i.qbitai.com/wp-content/uploads/2026/03/27ec756d8811caaf5a68fd2b14335cc4.gif)
+
+# 一个点子、一句话，就能落地一套系统
+
+正如我开头提到的，飞书妙搭Agent和多维表格Agent也来一波大升级。
+
+所以接下来，先来看下**飞书妙搭Agent**现在用起来有多方便。
+
+它的入口在这里（https://miaoda.feishu.cn/home）：
+
+![Image 18](https://i.qbitai.com/wp-content/uploads/2026/03/a1eb1fede41249f714f29f4d27bdb7b3.webp)
+
+作为一个Code Agent，我就用一段Prompt做一个**Agent版狼人杀**，来实测一下它的智能程度和便捷性：
+
+![Image 19](https://i.qbitai.com/wp-content/uploads/2026/03/79046bebd028c012fee03177deb9072e.webp)
+
+飞书妙搭Agent先会根据我的Prompt，制定一个**概要设计**：
+
+![Image 20](https://i.qbitai.com/wp-content/uploads/2026/03/6cdaa3419f3a069f0edaf602e58e4cc8.webp)
+
+然后再制定一个**开发计划**：
+
+![Image 21](https://i.qbitai.com/wp-content/uploads/2026/03/3742adde107f7742c73f182a38d5ce8c.webp)
+
+接下来，飞书妙搭Agent会按照我确定的计划自己开始执行了：
+
+![Image 22](https://i.qbitai.com/wp-content/uploads/2026/03/2427e42e6e48c00a8758f44c17257d5f.webp)
+
+整个过程中，除了点两次类似“继续”的按钮之外，我是全程没有插过手，包括调用什么工具，都是飞书妙搭Agent自己决策和执行。
+
+最终，一个完整的、带UI的狼人杀游戏就做好了，而且你也可以直接一键发布到飞书妙搭Agent的应用广场里：
+
+![Image 23](https://i.qbitai.com/wp-content/uploads/2026/03/7f3e6d0d6e39def2e13b6eb8828d2ac8.webp)
+
+最后一个实测，便是新升级的**多维表格Agent**。
+
+![Image 24](https://i.qbitai.com/wp-content/uploads/2026/03/099fe955fcc13870565eaf42c3030b46.webp)
+
+我还是直接给它“喂”一段Prompt：
+
+`帮我搭建一套极简的【小团队周度工作任务跟踪管理系统】，核心是管理团队成员的周度工作任务，跟踪全流程进度，自动统计完成情况，全程不要冗余复杂的内容，简单好用、开箱即用。 具体要求如下： 1. 核心数据表：只保留必要字段，包含任务名称、负责人、任务起止时间、任务优先级、任务状态、任务详情、完成备注，字段类型要匹配对应内容（比如状态用单选下拉、时间用日期格式）； 2. 常用视图配置：帮我做好3个开箱即用的视图，分别是：按负责人分组的看板视图、按截止时间排序的列表视图、本周任务甘特图视图； 3. 数据仪表盘：生成1个简洁的核心统计仪表盘，包含团队总任务数、已完成/未完成任务数、各负责人任务完成率、优先级任务占比，图表要直观清晰； 4. 自动化流程：配置1个简单的提醒流程，当任务截止前1天，状态还是未完成时，自动给负责人发飞书消息提醒； 5. 权限设置：基础规则为「所有人可编辑自己负责的任务，仅可查看他人任务，管理者可编辑全部内容」。`
+多维表格Agent会进行一波深度思考，思考完毕之后，会让你选择“轻量”、“标准”还是“专业”三种搭建模式。
+
+不同搭建模式所需要的时间也有所不同；在这个步骤中，我选择的是“标准”模式。
+
+![Image 25](https://i.qbitai.com/wp-content/uploads/2026/03/7da19214fb7ca4fb6190feaf5ea0256b.webp)
+
+接下来的过程，基本上都是飞书多维表格Agent**自己在动**，例如系统设计是这样的：
+
+![Image 26](https://i.qbitai.com/wp-content/uploads/2026/03/7fa55bc8130178cbc3455164059505d8.gif)
+
+系统设计过后，我们可以先检查一下是否有误，没有问题就可以点击**“开始搭建”**。
+
+同样的，搭建过程也是多维表格Agent**自己动**：
+
+![Image 27](https://i.qbitai.com/wp-content/uploads/2026/03/2ececc6fc69274a9db2a866a053ca5a0.gif)
+
+整个过程也是非常炫酷，不得不说飞书在审美这块也是拿捏住了。
+
+而且不仅仅是Web端，咱们在飞书aily上也可以用语言的方式，用多维表格搭建一个系统，是AI去命令AI工作的那种感觉。
+
+最终，在等待10多分钟后，完整的系统就搭建好：
+
+![Image 28](https://i.qbitai.com/wp-content/uploads/2026/03/7403ff509b3125261f07962461b65562.gif)
+
+方便，着实是方便！
+
+# 为什么大家都喜欢在飞书上养龙虾？
+
+当我们实测完飞书这一轮全链路的Agent升级，也就非常清楚地明白了，为什么从普通职场人、开发者到企业管理者，都不约而同地把飞书当成了养龙虾、落地Agent能力的首选阵地。
+
+这次飞书的春季更新，不止是飞书aily、飞书妙搭Agent、多维表格Agent这三大产品的单点能力迭代，更是把飞书作为Agent最佳载体的核心优势，彻底放大到了全场景。
+
+从人人可养、开箱即用的智能工作伙伴，到一句话就能落地一套业务系统的研发能力，再到一键部署OpenClaw、官方插件直接为龙虾解放手脚的全链路适配，飞书把原本有技术门槛的Agent，变成了能直接融入日常工作流的生产力工具。
+
+而对企业级场景而言，生产力型Agent想要真正从噱头落地为业务价值，从来绕不开两大核心命题：全流程的安全可控与合规适配，以及深度贴合业务的上下文理解与闭环执行能力，这恰恰是飞书为Agent提供的最核心的底层支撑。
+
+从安全层面来看，飞书Agent与企业组织权限体系深度对齐，操作权限与用户本人完全一致，全链路操作留痕可追溯，敏感操作设置人工确认环节，从源头守住了企业数据安全的红线。
+
+落地层面上，飞书沉淀了企业消息、文档、表格等全场景的完整业务上下文，让Agent告别盲猜式对话，精准理解业务需求；更依托一体化的产品体系，让Agent不止能输出方案，更能直接动手执行，实现从需求到结果的全链路闭环，真正把AI能力转化为实实在在的业务生产力。
+
+如今，大模型的商业之争早已从算力、参数的内卷，转向了落地生态的比拼。
+
+飞书早已凭借开放的API生态、极简的接入流程、沉淀多年的企业业务土壤，为Agent打造了最肥沃的生长土壤，也完成了从办公协作平台，到Agent时代智能操作系统的关键跃迁。
+
+# One More Thing：
+
+刚刚结束的春季发布会，飞书是直接在现场演示的demo，并不是讲PPT的那种。
+
+除了我在文中实测的内容之外，飞书团队在现场也演示了很多其它产品的功能和使用方式。
+
+大家如果感兴趣的话，可以去**飞书官方公众号**坐等一波直播回放。
+
+以及，所有产品的发布状态，也给大家放下面了：
+
+![Image 29](https://i.qbitai.com/wp-content/uploads/2026/03/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260320140003_53_3222.jpg)
+
+_版权所有，未经授权不得以任何形式转载及使用，违者必究。_
+
+[OpenClaw](https://www.qbitai.com/tag/openclaw)[养龙虾](https://www.qbitai.com/tag/%e5%85%bb%e9%be%99%e8%99%be)[多维表格](https://www.qbitai.com/tag/%e5%a4%9a%e7%bb%b4%e8%a1%a8%e6%a0%bc)[飞书](https://www.qbitai.com/tag/%e9%a3%9e%e4%b9%a6)[飞书aily](https://www.qbitai.com/tag/%e9%a3%9e%e4%b9%a6aily)[飞书妙搭](https://www.qbitai.com/tag/%e9%a3%9e%e4%b9%a6%e5%a6%99%e6%90%ad)
+
+[](https://www.qbitai.com/2026/03/389322.html#)
+
+[![Image 30](http://www.qbitai.com/wp-content/themes/liangziwei/imagesnew/head.jpg)](https://www.qbitai.com/2026/03/389322.html#)[十三](https://www.qbitai.com/author/shisan "由 十三 发布")
+
+*   [刚刚，国产AI自己造了AI，全球首例！](https://www.qbitai.com/2026/05/425511.html "刚刚，国产AI自己造了AI，全球首例！")_2026-05-26_
+*   [顶流里最快！智谱，你是在「喷」代码吧](https://www.qbitai.com/2026/05/422511.html "顶流里最快！智谱，你是在「喷」代码吧")_2026-05-22_
+*   [国产GPU组了个开源局，把SGLang等核心开发者都摇来了！](https://www.qbitai.com/2026/05/417791.html "国产GPU组了个开源局，把SGLang等核心开发者都摇来了！")_2026-05-14_
+*   [国产GPU开始造世界！国内首个全栈具身智能仿真平台来了](https://www.qbitai.com/2026/05/420084.html "国产GPU开始造世界！国内首个全栈具身智能仿真平台来了")_2026-05-19_
+
+扫码分享至朋友圈![Image 31: Scan me!](blob:http://localhost/ad512ff86dbb11be79fd9249e3a7fab5)
+
+[](https://service.weibo.com/share/share.php?url=https://www.qbitai.com/2026/03/389322.html&title=%E5%90%8C%E4%BA%8B%E7%BE%A4%E9%87%8C%E5%82%AC%E5%82%AC%E5%82%AC%EF%BC%8C%E9%BE%99%E8%99%BE%E8%87%AA%E5%8A%A8%E5%9B%9E%E5%9B%9E%E5%9B%9E%EF%BC%81%E5%88%9A%E5%8F%91%E5%B8%83%E7%9A%84%E3%80%8C%E9%A3%9E%E4%B9%A6%E9%BE%99%E8%99%BE%E3%80%8D%E6%8A%8A%E6%88%91%E8%A7%A3%E8%84%B1%E4%BA%86&appkey=4017757111&searchPic=true&ralateUid=6105753431 "分享到新浪微博")[](https://www.qbitai.com/2026/03/389322.html)
+
+### 相关阅读
+
+[![Image 32](https://i.qbitai.com/wp-content/uploads/2023/11/20231122-115254-e1700717722660.jpeg)](https://www.qbitai.com/2023/11/100140.html)
+
+[](https://www.qbitai.com/2023/11/100140.html)
+
+[](https://www.qbitai.com/2023/11/100140.html)
+#### [](https://www.qbitai.com/2023/11/100140.html)[老板塞给我一个AI新同事，一周后：真香](https://www.qbitai.com/2023/11/100140.html)
+
+习惯了与AI协作后，回不去了
+
+[梦晨](https://www.qbitai.com/?author=32)2023-11-23
+
+[大模型](https://www.qbitai.com/tag/%e5%a4%a7%e6%a8%a1%e5%9e%8b)[字节跳动](https://www.qbitai.com/tag/%e5%ad%97%e8%8a%82%e8%b7%b3%e5%8a%a8)[飞书](https://www.qbitai.com/tag/%e9%a3%9e%e4%b9%a6)
+
+[![Image 33](https://i.qbitai.com/wp-content/uploads/2026/03/42525f06a072fd96a118f33620f7dae5.png)](https://www.qbitai.com/2026/03/385097.html)
+
+[](https://www.qbitai.com/2026/03/385097.html)
+
+[](https://www.qbitai.com/2026/03/385097.html)
+#### [](https://www.qbitai.com/2026/03/385097.html)[只要1分钟！电脑装满血龙虾，现在跟下载APP似的](https://www.qbitai.com/2026/03/385097.html)
+
+史诗级降低门槛，还专门出了个新模型
+
+[十三](https://www.qbitai.com/?author=21)2026-03-10
+
+[AutoClaw](https://www.qbitai.com/tag/autoclaw)[OpenClaw](https://www.qbitai.com/tag/openclaw)[养龙虾](https://www.qbitai.com/tag/%e5%85%bb%e9%be%99%e8%99%be)[智谱](https://www.qbitai.com/tag/%e6%99%ba%e8%b0%b1)
+
+[![Image 34](https://i.qbitai.com/wp-content/uploads/2026/03/Gemini_Generated_Image_x6ivg3x6ivg3x6iv-e1773307978681.png)](https://www.qbitai.com/2026/03/386669.html)
+
+[](https://www.qbitai.com/2026/03/386669.html)
+
+[](https://www.qbitai.com/2026/03/386669.html)
+#### [](https://www.qbitai.com/2026/03/386669.html)[养虾人Token自由！千亿Token+百万奖金等你来拿，0门槛冲就完了](https://www.qbitai.com/2026/03/386669.html)
+
+龙虾大舞台，想来你就来
+
+[鹭羽](https://www.qbitai.com/?author=47845)2026-03-12
+
+[OpenClaw](https://www.qbitai.com/tag/openclaw)[中关村](https://www.qbitai.com/tag/%e4%b8%ad%e5%85%b3%e6%9d%91)[赛事](https://www.qbitai.com/tag/%e8%b5%9b%e4%ba%8b)
+
+[![Image 35](https://i.qbitai.com/wp-content/uploads/2026/04/7a8788bdf9f66b465f9872f59900279a.png)](https://www.qbitai.com/2026/04/402965.html)
+
+[](https://www.qbitai.com/2026/04/402965.html)
+
+[](https://www.qbitai.com/2026/04/402965.html)
+#### [](https://www.qbitai.com/2026/04/402965.html)[OpenClaw的风，已经吹进了奶茶圈](https://www.qbitai.com/2026/04/402965.html)
+
+企业如何安全落地龙虾？
+
+[闻乐](https://www.qbitai.com/?author=47846)2026-04-18
+
+[养龙虾](https://www.qbitai.com/tag/%e5%85%bb%e9%be%99%e8%99%be)
+
+[![Image 36](https://i.qbitai.com/wp-content/uploads/2026/03/%E6%88%AA%E5%B1%8F2026-03-02-18.04.55-1-e1772446399431-768x449.png)](https://www.qbitai.com/2026/03/383023.html)
+
+[](https://www.qbitai.com/2026/03/383023.html)
+
+[](https://www.qbitai.com/2026/03/383023.html)
+#### [](https://www.qbitai.com/2026/03/383023.html)[OpenClaw最佳工具榜来了！这6款龙虾最受欢迎](https://www.qbitai.com/2026/03/383023.html)
+
+还有各种龙虾食用教程
+
+[西风](https://www.qbitai.com/?author=47833)2026-03-02
+
+[OpenClaw](https://www.qbitai.com/tag/openclaw)
+
+[![Image 37](https://i.qbitai.com/wp-content/uploads/2026/04/50507a75ea78afbdf8d343382af79730.webp)](https://www.qbitai.com/2026/04/395202.html)
+
+[](https://www.qbitai.com/2026/04/395202.html)
+
+[](https://www.qbitai.com/2026/04/395202.html)
+#### [](https://www.qbitai.com/2026/04/395202.html)[我的天！豆包每天烧120万亿Tokens啊！](https://www.qbitai.com/2026/04/395202.html)
+
+Seedance 2.0也可以公测了
+
+[十三](https://www.qbitai.com/?author=21)2026-04-02
+
+[token](https://www.qbitai.com/tag/token)[养龙虾](https://www.qbitai.com/tag/%e5%85%bb%e9%be%99%e8%99%be)[豆包](https://www.qbitai.com/tag/%e8%b1%86%e5%8c%85)
+
+### 热门文章
+
+[![Image 38](https://i.qbitai.com/wp-content/uploads/2026/05/%E6%99%BA%E8%B1%A1%E6%9C%AA%E6%9D%A5%E5%9B%BE%E7%89%871.png) #### 智象未来超两千亿参数图像大模型HiDream-O1-Image-Pro发布，融资持续提速 2026-05-20](https://www.qbitai.com/2026/05/420753.html)
+
+[![Image 39](https://i.qbitai.com/wp-content/uploads/2026/05/7746de93748331d695fb57ad81aec72b.png) #### 菲尔兹奖得主都看懵了：OpenAI非数学模型首次自主突破80年未解数学难题 2026-05-21](https://www.qbitai.com/2026/05/422032.html)
+
+[![Image 40](https://i.qbitai.com/wp-content/uploads/2026/05/5f08e7ebf7df8343972a518dfd5c552d.webp) #### 太初元碁洪源：异构计算能力将成为未来AI算力基础设施的重要方向｜AIGC2026 2026-05-20](https://www.qbitai.com/2026/05/420743.html)
+
+[![Image 41](https://i.qbitai.com/wp-content/uploads/2026/05/b580dd707af283f273bca3da9a624757.png) #### 腾讯混元开源全新翻译模型Hy-MT2 ，上线小程序「腾讯Hy翻译」 2026-05-21](https://www.qbitai.com/2026/05/422068.html)
+
+[![Image 42](https://i.qbitai.com/wp-content/uploads/2026/05/6a2af928651534c1ee285667e0888cc9-e1779355001740.png) #### Artificial Analysis放榜：千问3.7问鼎国产模型冠军，全球前五 2026-05-21](https://www.qbitai.com/2026/05/422009.html)
+
+*   [关于量子位](https://www.qbitai.com/?page_id=99)
+*   [加入我们](https://www.qbitai.com/?page_id=101)
+*   [寻求报道](https://www.qbitai.com/?page_id=103)
+*   [商务合作](https://www.qbitai.com/?page_id=105)
+
+[扫码关注量子位 ![Image 43](https://www.qbitai.com/wp-content/uploads/2019/01/qrcode_QbitAI_1.jpg)](javascript:void(0))[](https://weibo.com/qbitai?is_all=1)[](https://www.zhihu.com/org/liang-zi-wei-48/activities)[](https://www.toutiao.com/c/user/53624121633/#mid=1556041376883713)
+
+[](https://www.qbitai.com/2026/03/389322.html#)追踪人工智能新趋势，报道科技行业新突破
+
+量子位 QbitAI 版权所有©北京极客伙伴科技有限公司 [京ICP备17005886号-1](https://beian.miit.gov.cn/)

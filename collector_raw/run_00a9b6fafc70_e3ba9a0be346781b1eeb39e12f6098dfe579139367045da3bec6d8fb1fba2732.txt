@@ -1,0 +1,96 @@
+# 知乎|简书-直接跳转
+
+Title: 知乎|简书-直接跳转
+
+URL Source: https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC
+
+Markdown Content:
+# 知乎|简书-直接跳转
+
+[![Image 1](https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png)](https://greasyfork.org/en)
+
+# [Greasy Fork](https://greasyfork.org/en)
+
+[Sign in](https://greasyfork.org/en/users/sign_in?return_to=%2Fen%2Fscripts%2F408247)
+
+*   [Scripts](https://greasyfork.org/en/scripts)
+*   [Forum](https://greasyfork.org/en/discussions)
+*   [Help](https://greasyfork.org/en/help)
+*   [More](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC#)    *   [Advanced search](https://greasyfork.org/en/search)
+    *   [User list](https://greasyfork.org/en/users)
+    *   [Libraries](https://greasyfork.org/en/scripts/libraries)
+    *   [Moderator log](https://greasyfork.org/en/moderator_actions)
+
+☰
+
+*   [Scripts](https://greasyfork.org/en/scripts)
+*   [Forum](https://greasyfork.org/en/discussions)
+*   [Help](https://greasyfork.org/en/help)
+*   [Advanced search](https://greasyfork.org/en/search)
+*   [User list](https://greasyfork.org/en/users)
+*   [Libraries](https://greasyfork.org/en/scripts/libraries)
+*   [Moderator log](https://greasyfork.org/en/moderator_actions)
+*   [Sign in](https://greasyfork.org/en/users/sign_in?return_to=%2Fen%2Fscripts%2F408247)
+
+*   Info
+*   [Code](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC/code)
+*   [History](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC/versions)
+*   [Feedback (0)](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC/feedback)
+*   [Stats](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC/stats)
+
+## 知乎|简书-直接跳转
+
+屏蔽知乎安全中心，直接跳转链接地址。
+
+[Install this script](https://update.greasyfork.org/scripts/408247/%E7%9F%A5%E4%B9%8E%7C%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC.user.js)[?](https://greasyfork.org/en/help/installing-user-scripts "How to install")
+
+### How to install
+
+You will need to install an extension such as [Tampermonkey](https://addons.mozilla.org/firefox/addon/tampermonkey/), [Greasemonkey](https://addons.mozilla.org/firefox/addon/greasemonkey/) or [Violentmonkey](https://addons.mozilla.org/firefox/addon/violentmonkey/) to install this script.
+
+You will need to install an extension such as [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) to install this script.
+
+You will need to install an extension such as [Tampermonkey](https://addons.opera.com/extensions/details/tampermonkey-beta/) or [Violentmonkey](https://violentmonkey.github.io/get-it/) to install this script.
+
+You will need to install an extension such as [Tampermonkey](https://www.tampermonkey.net/?browser=safari) or [Userscripts](https://apps.apple.com/app/userscripts/id1463298887) to install this script.
+
+You will need to install an extension such as [Tampermonkey](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd) to install this script.
+
+You will need to install a user script manager extension to install this script.
+
+[(I already have a user script manager, let me install it!)](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC#)
+
+ OK 
+### How to install
+
+You will need to install an extension such as [Stylus](https://addons.mozilla.org/firefox/addon/styl-us/) to install this style.
+
+You will need to install an extension such as [Stylus](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) to install this style.
+
+You will need to install an extension such as [Stylus](https://addons.opera.com/extensions/details/stylus/) to install this style.
+
+You will need to install a user style manager extension to install this style.
+
+You will need to install a user style manager extension to install this style.
+
+You will need to install a user style manager extension to install this style.
+
+[(I already have a user style manager, let me install it!)](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC#)
+
+ OK 
+
+[Ask a question, post a review](https://greasyfork.org/en/scripts/408247-%E7%9F%A5%E4%B9%8E-%E7%AE%80%E4%B9%A6-%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC/feedback#post-discussion), or [report the script](https://greasyfork.org/en/reports/new?item_class=script&item_id=408247). 
+
+Author[zl7261](https://greasyfork.org/en/users/673642-zl7261)Daily installs 0 Total installs 336 Ratings 4 0 0 Version 2.0 Created 2020-08-05 Updated 2020-08-11 Size 2.08 KB License GPLv3 Applies to
+*   [zhihu.com](https://greasyfork.org/en/scripts/by-site/zhihu.com "See 1010 other scripts for zhihu.com")
+*   [jianshu.com](https://greasyfork.org/en/scripts/by-site/jianshu.com "See 217 other scripts for jianshu.com")
+
+* * *
+
+You can also try these related scripts:
+
+*   [Zhihu enhancement](https://greasyfork.org/en/scripts/419081-zhihu-enhancement) - A more personalized Zhihu experience~
+*   [微博知乎B站小红书关键词屏蔽器](https://greasyfork.org/en/scripts/543102-%E5%BE%AE%E5%8D%9A%E7%9F%A5%E4%B9%8Eb%E7%AB%99%E5%B0%8F%E7%BA%A2%E4%B9%A6%E5%85%B3%E9%94%AE%E8%AF%8D%E5%B1%8F%E8%94%BD%E5%99%A8) - 屏蔽微博、知乎、小红书、B站含关键词的内容，支持自定义管理
+*   [Watermelon Zhihu](https://greasyfork.org/en/scripts/369415-watermelon-zhihu) - 一个清净的知乎
+*   [Zhihu.com Dark Mode](https://greasyfork.org/en/scripts/404391-zhihu-com-dark-mode) - Enable Zhihu.com Dark Mode
+*   [Autoclose Zhihu Login Prompt](https://greasyfork.org/en/scripts/463539-%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E7%9F%A5%E4%B9%8E%E7%99%BB%E5%BD%95%E6%8F%90%E7%A4%BA) - Autoclose Zhihu Login Prompt is only used to close the pop-up login and registration prompt.

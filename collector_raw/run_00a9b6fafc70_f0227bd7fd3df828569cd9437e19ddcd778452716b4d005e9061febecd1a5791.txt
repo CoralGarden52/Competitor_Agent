@@ -1,0 +1,1133 @@
+# 更新日志 | OfficeAI助手
+
+Title: 更新日志 | OfficeAI助手
+
+URL Source: https://www.office-ai.cn/static/introductions/officeai/update-log.html
+
+Markdown Content:
+# 更新日志 | OfficeAI助手
+
+# 更新日志
+
+Last modified: 25 五月 2026
+[[下载最新版]](https://www.office-ai.cn/static/introductions/officeai/smartdownload.html)
+
+## 0.7.2.7 📅2026.05.19[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-7-2026-05-19)
+
+*   修正翻译时部分含全角空格的段落显示"找不到匹配"的问题
+
+*   修正在低版本 Office 上加载 OfficeTab 时卡死的问题
+
+*   优化设置窗口行为，不再强制置顶
+
+*   修正"检查更新"在异常情况下误提示"已是最新版"的问题
+
+*   优化"检查更新"响应速度
+
+*   优化校对/润色，修订模式下的交互体验
+
+*   修复Word带表格翻译时偶发遗漏问题
+
+## 0.7.2.6 📅2026.05.09[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-6-2026-05-09)
+
+*   修正翻译时部分含全角空格的段落显示"找不到匹配"的问题
+
+*   修正在低版本 Office 上加载 OfficeTab 时卡死的问题
+
+*   优化设置窗口行为，不再强制置顶
+
+*   修正"检查更新"在异常情况下误提示"已是最新版"的问题
+
+*   优化"检查更新"响应速度
+
+## 0.7.2.5 📅2026.04.27[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-5-2026-04-27)
+
+*   office下多标签支持自定义Tab颜色
+
+*   增强Office下部分机器修复后还是不出现加载项的辅助修复
+
+*   修正VBA方式修改文档后，文档没保存直接退出的问题
+
+*   修正Deepseek v4的适配问题
+
+## 0.7.2.4 📅2026.04.25[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-4-2026-04-25)
+
+*   适配Deepseek v4 的api-key和云端支持
+
+*   多标签支持重命名
+
+*   修正并排对比右侧面板导致显示不全的问题
+
+*   增加积分说明规则
+
+## 0.7.2.3 📅2026.04.16[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-3-2026-04-16)
+
+*   修正Excel中选中部分区域翻译的BUG
+
+## 0.7.2.2 📅2026.04.15[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-2-2026-04-15)
+
+*   新增OfficeTab多标签页功能，支持拖拽排序、拖出独立窗口、拖入合并
+
+*   新增表格合并与拆分功能（4种合并 + 2种拆分模式）
+
+*   校对红绿模式新增右侧对照面板，支持点击定位到对应差异位置
+
+*   新增"当前文档转PNG"功能（工具箱）
+
+*   Markdown渲染支持复制JSON和VBA代码块
+
+*   修正英文系统中缺少图片映射导致报错的问题
+
+*   修正缓存升级包版本低于当前版本仍提示升级的问题
+
+*   修正输入法在右侧面板无法输入的问题
+
+*   优化排版表格处理逻辑，提升处理速度
+
+*   修正排版图片样式应用无效的问题，增加图片边框颜色设置
+
+*   修正无法选中表格中部分内容无法润色的问题
+
+## 0.7.2.1 📅2026.04.01[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-1-2026-04-01)
+
+*   支持Excel中的校对和翻译功能
+
+*   修正ExcelAI中无法使用AI导航功能的问题
+
+## 0.7.2.0 📅2026.03.27[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-0-2026-03-27)
+
+*   Office下实现类似chrome那种多Tab文档切换
+
+*   支持表格和图片的排版
+
+*   总结中的功能支持导出到左侧
+
+*   设置页面UI优化
+
+*   分片的UI增加计时
+
+*   翻译场景分片优化，提升翻译速度
+
+*   润色首次使用弹窗选择渲染模式
+
+## 0.7.1.5 📅2026.03.20[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-1-5-2026-03-20)
+
+*   修正同时打开两个文档，不能正常输入内容的问题
+
+*   修正校对和翻译场景下，输出token超限的问题
+
+*   修正在修订模式下，润色或校对可能导致错位的问题
+
+*   修正VBA重试机制的BUG
+
+*   优化排版逻辑代码
+
+*   优化设置页面
+
+*   自定义提示词模板由2k扩大到6k
+
+*   修正润色、翻译、校对在分片场景下不能弹出处理中断前内容的问题
+
+## 0.7.1.3 📅2026.03.14[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-1-3-2026-03-14)
+
+*   修正在wps特定场景下，导致右侧面板闪屏的问题
+
+*   word/wps文字默认聊天中支持校对/润色等快捷方式
+
+*   排版、翻译场景显示当前处理进度
+
+*   润色新版交互UI
+
+*   支持普通聊天中图片对话
+
+*   翻译、校对场景支持会话中断后继续原有任务
+
+*   修正校对中没有将错误的自动编号删除的问题
+
+*   修正在office2013可能导致崩溃的问题
+
+*   新增诊断日志功能
+
+*   VBA代码执行失败时会进行思考后多轮修正代码
+
+*   修正wps多文档切换时，右侧面板没同步的问题
+
+## 0.7.1.0 📅2026.03.05[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-1-0-2026-03-05)
+
+*   续写提取出为独立的智能体
+
+*   简化用户模型选择交互界面
+
+*   修正旧版本残留升级包导致，提醒升级的BUG
+
+*   VBA代码执行失败时会进行思考后多轮修正代码
+
+*   修正在win7的32位环境下安装失败的问题
+
+*   校对首次使用时让用户选择是使用红绿还是修订模式
+
+## 0.7.0.5 📅2026.02.28[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-0-5-2026-02-28)
+
+*   修正部分Office环境下word中无法打开右侧面板的问题
+
+*   修正在wps下翻译和校对功能无法分片的问题
+
+*   修正写作模板中点击没有反应的问题
+
+*   修正历史记录显示名称为空的问题（总结和续写功能不记录到历史记录中）
+
+*   免费额度用尽时可个人中心充值
+
+*   修复部分模型服务商（如：iflow.cn）无法调用工具的问题
+
+*   Word/Wps文字默认聊天中支持校对/润色等快捷方式
+
+*   API-KEY无效时，可切换到内置免费模型
+
+## 0.7.0 📅2026.02.13[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-0-2026-02-13)
+
+*   支持最新模型GLM5、Kimi K2.5、Minimax-M2.5、豆包seed1.8
+
+*   支持查看历史聊天记录
+
+*   框架性能优化，去除vsto的依赖，提升打开wps/office速度
+
+*   修正excel小工具加前后缀有时不生效的bug
+
+*   部分选中润色功能由原来的润色对应段落改成仅润色用户选中的内容
+
+*   为确保校对的完整性，校对选中部分时会对对应段落进行对齐后校对
+
+*   修正排版广场无法获取到模型名的BUG
+
+## 0.6.2 📅2026.01.24[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-6-2-2026-01-24)
+
+*   聊天面板中新增提示词润色功能
+
+*   排版广场支持搜索模板功能,优化排版广场UI
+
+*   增加排版attention注意事项设置入库
+
+*   模板生成一到九级标题，自动添加大纲目录级别，模板编辑添加也会自动增加大纲
+
+*   西文字体增加开关
+
+## 0.6.1 📅2026.01.12[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-6-1-2026-01-12)
+
+*   支持AI生成模板
+
+*   校对采用新技术方案，解决图片和文本混合一起时校对出错的问题
+
+*   写作模板支持多轮以及可以让大模型仅返回写作相关内容（不显示解释类文案）
+
+*   统一校对、润色和普通聊天时停止对话的交互界面
+
+*   修正翻译时，右侧面板不分行的问题
+
+*   修正超长文本导致校对、润色时假死的问题
+
+## 0.6.0 📅2025.12.15[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-6-0-2025-12-15)
+
+*   优化排版技术解决方案，解决模板样式丢失或无法刷新的问题
+
+*   排版模板支持导入导出
+
+*   支持普通段落、表格/单元格、选中部分等不同方式和混合内容的翻译
+
+*   修复程序支持'禁用所有有插件'选项开关的检测和修复
+
+*   修正自定义提示词输入框内容长时无法滚动的问题
+
+*   自动修正换行符问题(网页复制过来的换行符和文档中不一致)
+
+*   修正Offfice/wps版本语言是的繁、简、英之外的语言时，导致插件崩溃问题
+
+*   修正翻译场景无法使用api-key的问题
+
+*   个人版在设置窗口中加入积分管理功能
+
+## 0.5.9 📅2025.11.28[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-9-2025-11-28)
+
+*   排版支持模板手工编辑功能
+
+*   校对、润色、排版等所有场景都支持对话过程切换到其它文档
+
+*   校对场景新增校对选项配置（可配置是否要修改标点符号、公式、换行等）
+
+*   常驻入口显示当前版本更新日志(帮助菜单中，添加滚动条)
+
+*   修正检查升级时，数据目录没有权限导致无法更新的问题
+
+*   调整后台检测升级时机（打开文档几分钟后会检测升级）
+
+*   翻译做成独立的智能体
+
+*   修正校对、润色、翻译、排版中最后一次操作用户未确认后，无法继续后续操作交互问题
+
+*   翻译功能替换原文本时，将原有行的段落符号也删除
+
+*   修正导出到左侧时软换行导致翻译等功能异常的问题
+
+*   分片处理场景支持显示当前进度(交互优化,所有agent中均涉及)
+
+*   优化校对、润色、翻译场景新对话时的交互(点‘新对话’出导航菜单)
+
+*   增加排版模板导入功能
+
+*   去除多分片过程中提示‘没有找到需要“校对”的内容‘
+
+*   用户拒绝获取左侧文档时弹出用户取消操作提示
+
+*   修正模板编辑页码保存不了的问题
+
+*   解决思考过程显示很多换行的问题
+
+*   优化自定义提示词交互界面
+
+*   修正有些客户机器上paste异常的问题
+
+*   修正有智能体正在工作中时在其它面板输入框中聊天导致报错的问题
+
+## 0.5.8 📅2025.10.29[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-8-2025-10-29)
+
+*   写作智能体本地支持自定义模板的增加、修改和删除
+
+*   优化红绿模式下的回复性能
+
+*   翻译功能支持保留原文（即对照翻译）
+
+*   校对和润色功能支持保留修订痕迹功能
+
+*   优化多轮分片时的性能
+
+*   修正中英文标点符号转换问题
+
+## 0.5.7 📅2025.10.14[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-7-2025-10-14)
+
+*   校对场景支持用户根据自己的喜好决定是用红绿标注差异还是修订模式显示差异
+
+*   默认聊天场景下大模型回复由原来的仅显示部分字改成全部输出(过程中仅输出文本，最后一次全部渲染)
+
+*   校对、润色、排版、默认聊天、写作场景输出渲染性能优化
+
+*   修正在 office 环境下多次反复打开功能后出现多面板的问题
+
+*   修正用户未做操作打开文档后，关闭时变慢的问题
+
+*   排版场景下西文字体选择框将 Times New Roman 放在列表最前
+
+*   翻译、校对、润色、续写场景下弹出确认窗后，未操作立即切换其它功能时，提示用户先完成操作
+
+*   恢复 Excel 公式通功能
+
+*   修复校对和润色中大模型有时返回 Markdown 标记问题
+
+*   桌面释放修复程序以便用户遇到问题时可以快速的进行修复
+
+*   修正润色、校对场景下，大模型可能返回
+
+ 标识时处理不当的问题
+
+*   修正在特定版本的 wps 中弹出多个设置窗的问题
+
+*   修正在 WPS 下排版的特定 BUG
+
+*   重新设计软件的图标
+
+## 0.5.6 📅2025.9.15[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-6-2025-9-15)
+
+*   Word 里加入自定义快捷功能
+
+*   优化润色、校对交互界面
+
+*   排版支持长文本
+
+*   word 表格中支持仅选中部分进行翻译
+
+*   优化工具箱中中文单双引号转换工具的文案
+
+*   修复 word 工具箱中表格自适应内容执行后的文案不合适问题
+
+*   修正排版文档页码显示逻辑的 BUG
+
+*   修正点击排版样式编辑窗口被抢焦点窗口被档问题
+
+*   排版页码位置设置显示使用多语言方案
+
+*   修正域模板默认设置删除显示错误问题
+
+*   修正 wps 下域变量段落格式没有生效问题
+
+## 0.5.5 📅2025.8.22[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-5-2025-8-22)
+
+*   支持长文本和表格的润色
+
+*   支持大模型识图功能
+
+*   修正翻译功能多段时无法应用的问题
+
+*   修正校对时无法部分场景下无法应用的问题
+
+*   修正排版的一些问题
+
+*   修正 apikey 服务商保存时将 http 和 https 前缀丢失的问题
+
+## 0.5.4 📅2025.8.13[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-4-2025-8-13)
+
+*   校对、翻译、润色功能支持长文本的处理
+
+*   优化排版代码，重新开启一步 undo 工具，实际是使用两步还原方案
+
+*   优化 Office 下遍历段落慢问题
+
+*   自定义模式的 UI 优化：加案例、增加字数限制提示、添加公有角标
+
+*   将内容总结、会议纪要、周报助手整合成新的总结功能
+
+*   apikey 模式下服务商列表中新增“添加新服务商”条目
+
+*   apikey 模式下自定义（OpenAI 协议）中刷洗模型列表失败时自动修复成正确的 URL
+
+*   修复 Excel 工具箱中点击“提取/过滤”弹出的是快速插入图片功能的问题
+
+*   解决 Excel 中姓名对齐功能对不齐的问题
+
+*   修复 Excel 中数字/金额格式刷无法撤销问题
+
+*   Excel 工具箱中表格处理区分自适应窗口和自适应内容
+
+*   调整样式窗口，修正小数点输入不了问题
+
+*   修正 wps 无法删除段前幽灵字符问题
+
+*   修正样式面板没有加载多语言问题和适配英文展示问题
+
+*   知识库选择交互方案优化
+
+*   修复只安装 wps 情况下误报修复异常的 bug
+
+*   office 和 wps 同时安装的情况下，用 COM 接口对两者进行可用性检查
+
+*   增强 Office 安装状态检测
+
+## 0.5.3 📅2025.7.10[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-3-2025-7-10)
+
+*   增加 AI 导航页，支持自定义添加导航页
+
+*   个人版知识库支持
+
+*   Qwen3 增加支持可选推理模式
+
+*   排版支持西文字体
+
+*   排版支持大纲目录设置和应用
+
+*   修正 VBA 代码残留导致下一次任务无法执行的问题
+
+## 0.5.1 📅2025.6.30[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-1-2025-6-30)
+
+*   润色、校对、翻译等功能支持自定义提示词
+
+*   Excel 中重构聚光灯功能，可完美解决旧版本卡出不来的问题
+
+*   排版功能优化
+
+*   修正"停止对话"功能在未连接服务器时无法停止的问题
+
+*   修正新建会话后，重开旧的对话还在的问题
+
+## 0.5.0 📅2025.6.15[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-0-2025-6-15)
+
+*   重磅更新 AI 排版功能，支持多轮对话排版场景
+
+*   校对、润色功能重新设计
+
+*   排版增加历史备份管理
+
+*   整体交互界面优化
+
+*   翻译使用分段翻译功能
+
+*   修复校对时段落错位问题
+
+*   修正润色和校对中有时不生效的 BUG
+
+## 0.4.4 📅2025.6.4[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-4-2025-6-4)
+
+*   校对功能支持部分应用(WPS 环境下)
+
+*   续写功能支持撤销
+
+*   提升 AI 排版效果
+
+*   优化新增模型平台体验；
+
+*   修复刷新模型后变灰不能点击的 bug;
+
+*   修复新增模型平台后退出文档重新打开，新增平台看不到的 bug;
+
+*   修复选中 API key 模型后，再进入设置选中模型变成别的模型的 bug;
+
+*   减少 Word、Excel 提示加载慢的机率
+
+## 0.4.3 📅2025.5.23[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-3-2025-5-23)
+
+*   增加快速排版功能(增强排版功能)
+
+*   支持大表格处理
+
+*   解决 WPS/Office 安装慢的问题
+
+*   解决选中内容校对时数据错乱的问题
+
+*   优化 Excel 数据备份
+
+*   解决权限问题导致对话出错的问题
+
+## 0.4.2 📅2025.5.10[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-2-2025-5-10)
+
+*   重构整体框架，在 wps 下性能提升 1 倍左右
+
+*   修正在 word 下统计字数功能失效的问题
+
+*   修正部分机器上字体模糊的问题
+
+*   新增 apikey 模型平台：Anthropic、GoogleAI
+
+*   在 WORD 中支持 VBA 修改内容一键撤销
+
+*   修正 Win7 下部分机器下安装.net4.8 失败的问题
+
+*   修复生成的 vba 不会自动执行的 bug
+
+*   支持获取 qwen3 系列模型的思考过程
+
+*   使用 API-KEY 也支持 function-call 用于节约 Token 使用
+
+## 0.4.1 📅2025.4.24[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-1-2025-4-24)
+
+*   Excel 和 Word 更新到最新的交互界面
+
+*   EXCEL 中 VBA 支持完整撤销功能
+
+*   新增 APIKey 平台：OpenRouter
+
+*   更新完整的试用说明文档
+
+*   新增本地 LLM 平台：RWKV、Lmdeploy
+
+*   部分 apikey llm 平台开放刷新模型列表
+
+*   修正 Ollama 新版本心跳包未处理导致报错的问题
+
+*   优化顶部菜单
+
+## 0.4.0 📅2025.4.08[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-0-2025-4-08)
+
+*   Excel 开启深度联动功能，可以直接对表格数据进行分析、计算等
+
+*   HTML 分析结果支持直接在插件中显示和导出 PDF
+
+*   Excel 支持批量插入表格
+
+*   本地模型支持 VLLM
+
+*   修正 Office/WPS 部分机器下点击后没反应的问题
+
+*   修正 WPS 下安装后界面太小没法调的问题
+
+*   修正部分 Office 学生版中安装后看不到菜单的问题
+
+*   修正在 Office2010 中右侧面板打不开的问题
+
+## 0.3.20 📅2025.3.18[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-20-2025-3-18)
+
+*   自定义 API/本地模式下支持和 Word/WPS 左右联动
+
+*   支持自定义增加、删除和修改 API-KEY 模型及地址
+
+*   增强配置修复功能，检查数据目录权限
+
+*   修正 Excel 提取、过滤功能选中全列时导致卡死的问题
+
+*   修正在绿盾加密软件环境下导致程序无法启动的问题
+
+*   修正管理员权限问题导致程序崩溃的问题
+
+*   修正因权限问题导致"save message to db failed."的问题
+
+*   修正 Win7 下缺少系统补丁导致无法安装的问题
+
+## 0.3.19 📅2025.3.04[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-19-2025-3-04)
+
+*   支持移动云的 API-KEY 简化设置
+
+*   API-KEY 模式中支持自动化 WORD 和 Excel 可大幅度提升效果(服务器压力大需申请)
+
+*   修正在 Excel 设置时无法选择 API-KEY 的 BUG
+
+*   修正点登录没反应的问题
+
+## 0.3.18 📅2025.3.01[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-18-2025-3-01)
+
+*   修正 Ollama 和 lm studio 服务地址为内网时无法正常工作的问题
+
+*   修正之前设置过段间距后，再设置为 0 时不会清除上一次段间隔的问题
+
+*   支持 GorkV2 的 API-KEY 调用
+
+*   修正在 Excel 设置时跳屏的问题
+
+## 0.3.17 📅2025.2.25[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-17-2025-2-25)
+
+*   将本地服务器端直接整合到 OfficeAI 客户端中，不用再另外安装
+
+*   APIKEY 新增支持华为云、天翼云、豆包的 DeepseekR1 调用
+
+*   修正设置 apikey 时界面不更新的问题。
+
+*   登录失败时，显示错误日志
+
+## 0.3.16 📅2025.2.14[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-16-2025-2-14)
+
+*   本地部署支持阿里、腾讯 DEEPSEEK-R1 的 APIKEY 模式
+
+## 0.3.15 📅2025.2.12[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-15-2025-2-12)
+
+*   新增自定义流对话时长
+
+*   修正部分交互文案
+
+## 0.3.14 📅2025.2.9[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-14-2025-2-9)
+
+*   优化 DeepseekR1 的使用体验
+
+*   修正 API-KEY 模式下本地服务器没启动导致出错的问题
+
+*   修正 API-KEY 时厂商报错不显示的问题
+
+*   优化一些提示文案
+
+## 0.3.13 📅2025.2.8[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-13-2025-2-8)
+
+*   支持 Deepseek-R1 的思考链 UI 展示
+
+*   官网、API-KEY、本地部署均支持 DeepseekR1
+
+*   API-KEY 支持更多 Deepseek 镜像站点
+
+*   厂商服务器慢的文案优化
+
+*   修正一些 BUG
+
+## 0.3.12 📅2025.1.14[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-12-2025-1-14)
+
+*   一键排版功能支持红头文件的排版
+
+*   一键排版支持自定义添加排版规则和更多规则选项
+
+*   本地服务器端一些交互优化
+
+*   修正一些 BUG
+
+## 0.3.11 📅2024.12.30[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-11-2024-12-30)
+
+*   自动排版功能支持设置英文字体和段前后距离
+
+*   校对功能支持智能模式和仅纠正错别字两种模式
+
+*   翻译功能支持根据内容自动翻译成英文或中文模式、支持自定义翻译
+
+*   一键替换功能支持仅对选中内容进行替换
+
+*   LM Studio 支持自动获取模型列表
+
+*   修正 AI 排版和润色时存在图片+文本时，导致图片没对齐的问题
+
+*   修正同一文档中，同时打开多个聊天对话面板的问题
+
+*   修正未选中文本时将当前段落认为是选中文本的问题
+
+## 0.3.10 📅2024.11.28[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-10-2024-11-28)
+
+*   一键自动排版功能支持公文和普通文档排版
+
+*   自动手工配置排版规则
+
+*   修正一些 bug
+
+## 0.3.09 📅2024.11.12[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-09-2024-11-12)
+
+*   支持一键自动排版功能
+
+*   增强自定义大模型网址的兼容性处理
+
+*   修复程序支持繁体语言，修复程序交互优化
+
+*   再次增强 ExcelAI 对话能力(公式或呼叫功能支持多轮对话)
+
+*   修正校对功能在多余空行的情况下，导致校对功能错乱的问题
+
+*   修正右侧面板未打开时，手工点击打开面板无法打开的错误
+
+*   修正设置本地 API-KEY 等选项时，提示要下载本地服务器端的 BUG
+
+*   将右侧面板的字体大小由默认的 10 转成 12，以便查看
+
+*   修正 CDN 慢导致无法自动下载最新安装包的问题
+
+*   修复程序修正无法下载依赖包和修复过程中报错的问题
+
+*   修正 Excel 和 Word 会话记录串的 BUG
+
+*   修正拼音输入法输入回车英文单词时上屏变成直接发送的问题
+
+*   更新 Excel 示例文档
+
+*   主程序界面优化，以便联系
+
+*   更新说明增加更多示例链接
+
+## 0.3.08 📅2024.10.15[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-08-2024-10-15)
+
+*   ➕ 支持国内镜像 ChatGPT 网站模型的自动获取
+
+*   ✏️ 简化安装步骤
+
+*   ➕ 增加繁体中文的支持
+
+*   ➕ 增强 ExcelAI 对话能力
+
+*   ✏️ 更新 Excel 示例文档，以便使用
+
+*   ✏️ 修正本地服务器端代理问题
+
+## 0.3.07 📅2024.09.17[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-07-2024-09-17)
+
+*   ➕ 增加沉浸式内容校对和润色功能
+
+*   ➕ 增加右键与 AI 的交互
+
+*   ❌ 将公式通和普通聊天合并，简化操作
+
+*   ✏️ 修正多语言问题
+
+*   ✏️ 简化安装流程
+
+*   ✏️ 修正在 wps 上的一些交互问题
+
+*   ✏️ 修正特殊系统环境中安装后无法登录的问题
+
+## 0.3.06[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-06)
+
+*   ➕ 增加 wps 下安装完或过段时间 OfficeAI 菜单不见的修复程序
+
+*   ➕ 增加 OfficeAI 助手桌面主程序
+
+*   ✏️ 修正右侧面板设置了还会显示的 BUG
+
+## 0.3.05 📅2024.08.18[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-05-2024-08-18)
+
+*   ➕ 大幅度提升 AI 在 wps/word/excel 中的功能调用，提供大量函数功能调用
+
+*   ➕ 本机直连 ChatGPT 时支持自定义服务器网址
+
+*   ✏️ 修正聊天对话框中失去焦点的问题
+
+*   ✏️ 修正服务器识别 SUMIF、AVERAGEIF、COUNTIF 等公式时 range 参数不正确的问题
+
+*   ✏️ 修正安装时报 Microsoft.Office.BusinessApplications.Fba 错误导致安装失败的问题
+
+*   ✏️ 字体选择时支持显示中文字体名
+
+*   ✏️ 修正软件部分页面多语言问题
+
+*   ✏️ 本地服务器设置界面优化
+
+## 0.3.04 📅2024.07.29[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-04-2024-07-29)
+
+*   ➕ 修正 office 菜单和右侧菜单的设置功能不一致的问题
+
+*   ➕ 本机直连支持 ChatGPT-4o-mini
+
+*   ➕ 本地模型支持 llama3.1
+
+*   ➕ 修正图片文字(OCR)功能无法正常使用的 BUG
+
+## 0.3.03 📅2024.07.09[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-03-2024-07-09)
+
+*   ➕ 服务器性能大幅提升（速度提升 1-2 倍），基本做到秒回复
+
+*   ➕ 本地模型支持翻译、润色、总结等近 10 个功能
+
+*   ➕ 支持自动刷新 Ollama 本地已安装的模型
+
+*   ✏️ 修正在 excel 中提取身份证年龄、出生年月的 BUG
+
+## 0.3.02[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-02)
+
+*   ➕ 增加 Qwen2 本地模型的对话支持
+
+*   ➕ 修正无法通过 Ollama 使用本地模型的问题
+
+## 0.3.01 📅2024.05.30[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-01-2024-05-30)
+
+*   ➕ 本地服务器支持 chatgpt（gpt-4o、gpt4-turbo、gpt-3.5-turbo)、文心一言 4.0、阿里千问、Kimi、deepseek
+
+*   ➕ 增加自动升级功能，不用每次手工进行版本升级
+
+*   ✏️ 重新设计大模型设置页面，以便更好理解和设置
+
+*   ✏️ 客户端缓存加速，提升性能
+
+*   ✏️ 修正部分 bug
+
+## 0.3.0 📅2024.05.13[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-0-2024-05-13)
+
+*   ➕ 支持服务器端的本地部署,本地服务器支持的框架/厂商: Ollama(phi3、llama3、通义千问)、kimi、deepseek、LMStudio
+
+*   ➕ 公网支持模型切换，目前支持的模型厂商(文心一言、智谱、Kimi、deepseek）
+
+*   ➕ 公网或本地服务器支持自定义 API-KEY
+
+*   ✏️word 中长度限制由 4k 调整到 8k
+
+*   ✏️ 修正部分场景下网络连接失败的问题
+
+*   ✏️ 修正聊天到一半的时候提示对话失败的问题
+
+*   ✏️ 修正总是提示新功能弹窗的问题
+
+## 0.2.03 📅2024.04.19[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-03-2024-04-19)
+
+*   ➕ 支持根据自定义要求 AI 生成对应表格和数据
+
+*   ➕ 支持 AI 提取身份证信息如：性别、年龄、出生日期等
+
+*   ➕ 支持数字转人民币大写
+
+*   ➕AI 支持公式：VLookup、Median
+
+*   ✏️ 修正部分机器中重复登录的问题
+
+*   ✏️ 修正部分机器报 FBA 错误导致新版本安装不上的问题
+
+*   ✏️ 聚光灯添加开启、关闭按钮，以示区分状态
+
+*   ✏️ 修正大模型返回错误数据导致公式无效的问题
+
+*   ✏️WordAI 中复制到左侧的由原来的添加到文档尾部改成光标位置插入
+
+## 0.2.02 📅2024.04.12[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-02-2024-04-12)
+
+*   ➕ 支持对话时的聊天中断功能
+
+*   ➕ 支持自定义助手的字体（如改成宋体之类)
+
+*   ➕ 在公式通中支持直接问公式问题，AI 识别后自动执行
+
+*   ➕ 在普通聊天模式下使用【列名】方式也可以直接对话应用公式
+
+*   ➕ 普通聊天模式下支持分析后猜公式
+
+*   ➕ 聚光灯支持自定义颜色
+
+*   ✏️ 修正聚光灯选中多区域时，导致丢单元格颜色问题
+
+*   ✏️ 修正没法选择整列的问题
+
+*   ✏️ 修正身份证屏蔽位数的显示问题
+
+*   ✏️ 修正 excel 中撤回上一步数据量过大导致异常的问题
+
+*   ✏️ 修正卸载时 wps 报文件丢失的问题
+
+## 0.2.01 📅2024.03.25[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-01-2024-03-25)
+
+*   ➕ 支持批量插入图片、修改单元格大小的 AI 呼叫功能.
+
+*   ➕ 支持 SUM、AVERAGE、Count 等公式的 AI 呼叫，计算时直接输入范围解决数据比较多时鼠标拉范围不方便的问题。
+
+*   ➕ 支持将数据格式化成以万为单位、加元、加前后缀等
+
+*   ✏️ 修正 WordAI 中部分机器无法复制的问题
+
+*   ✏️ 修正特殊情况下导致每天都要登录的问题
+
+## 0.2.00 Beta[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-00-beta)
+
+*   ➕ 增加 ExcelAI 的支持
+
+*   ✏️ 修正个人设置问题导致软件无法正常使用的问题。
+
+*   ✏️ 优化替换功能
+
+## 0.1.14 📅2024.02.25[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-14-2024-02-25)
+
+*   ➕ 增加本地说明文档，以便遇到问题时辅助解决
+
+*   ➕ 支持直接将文本内容拖拽到聊天对话框
+
+*   ✏️ 修正在 Win11 下安装失败的问题
+
+*   ✏️ 修正 WPS 环境下提示出错的问题
+
+*   ✏️ 将复制信息成功消息窗改成文案提示，优化使用体验
+
+*   ✏️ 修正手工关闭右侧面板后点菜单面板不显示的问题
+
+*   ✏️ 修正插件菜单显示到其它菜单中的问题
+
+*   ✏️ 修正部分机器硬件加速导致字体模糊的问题
+
+*   ✏️ 优化登录失败时交互界面
+
+## 0.1.13 📅2024.01.29[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-13-2024-01-29)
+
+*   ➕ 支持 Wps 2023 最新版本
+
+*   ➕ 支持呼叫方式插入表格
+
+*   ➕ 支持撤消上一步操作
+
+*   ✏️ 修正关闭右侧面板后点菜单不会再打开面板的问题
+
+*   ✏️ 优化调整助手字体位置（之前太深了找不到)
+
+*   ✏️ 修正字体导致首次导出到 word 时出现乱码的情况
+
+*   ✏️ 优化菜单的界面
+
+*   ✏️ 解决字体发虚的问题
+
+## 0.1.12 📅2024.01.20[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-12-2024-01-20)
+
+*   ➕ 添加自定义页面字体大小
+
+*   ✏️ 服务器性能优化，提升并发对话能力
+
+*   ✏️ 优化错误时的提示
+
+*   ✏️ 解决部分 win7 系统中对话变乱码的问题
+
+*   ✏️ 启动时语言默认改成中文
+
+*   ✏️ 客户端增加内容长度限制，避免过长的内容导致 Token 超限导致错误
+
+*   ✏️ 修正部分机器上插件安装不上的问题。
+
+*   ✏️ 独立出设置页面
+
+## 0.1.11 📅2024.01.03[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-11-2024-01-03)
+
+*   ➕ 撰写页面支持多引擎切换
+
+*   ➕ 支持文生图功能
+
+*   ➕ 文生图支持导出到文件和导出到当前文档中
+
+*   ➕ 自由聊天模式下输入框支持智能功能提示
+
+*   ➕ 支持 excel 表格复制过来后自动调整大小(解决表格显示不全问题)
+
+*   ➕ 支持 AI 纠错/校对功能(解决 Word 中鸡肋的中文拼写检查问题)
+
+*   ✏️ 修复主程序界面优化
+
+## 0.1.10 📅2023.12.19[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-10-2023-12-19)
+
+*   ➕ 增加独立的撰写面板，并提供面板更方便内容创作。
+
+*   ✏️ 增强和 WORD 的左右互通功能。
+
+*   ✏️ 修改背景 word 指定默认去除弹窗提示。
+
+*   ➕ 增加敏感关键过滤，涉及隐私类关键字时，提示并取消对话。
+
+*   ✏️ 解决机器回复过程中滚动条不会跟着拉到最新文本的问题。
+
+## 0.1.9 📅2023.12.04[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-9-2023-12-04)
+
+*   ➕ 支持左右互通，不再需要手工复制内容到右边对话框中。如：文档内容帮我润色一下
+
+*   ➕ 会话内容和文档绑定，解决另存为文件后，对话丢失的问题。
+
+*   ➕ 增加修改颜色类事件时，可手工修正 AI 的回答
+
+*   ✏️ 减少一些弹窗提示
+
+*   ✏️ 更换到全新官网域名
+
+## 0.1.8 📅2023.11.27[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-8-2023-11-27)
+
+*   ➕ 新增将对话内容导出到左侧 word 文档中功能
+
+*   ➕ 增加重新登录功能
+
+*   ➕ 新增功能介绍
+
+*   ✏️ 减少功能调用弹窗
+
+*   ✏️ 修复登录过期导致无法聊天的问题
+
+*   ✏️ 修复每次重新打开文档后，无法记住历史聊天的问题。
+
+*   ✏️ 调整首页功能推荐卡片
+
+*   ✏️ 修正经常要重新登录的问题
+
+## 0.1.7 📅2023.11.18[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-7-2023-11-18)
+
+*   ➕ 将常用的一键删除空行、删除页眉等功能放到菜单中
+
+*   ➕ 添加表格的全选、删除表格后的空白页、给表格插入不变形的图片等(约 7 个功能）。
+
+*   ➕ 首页添加功能示例展示
+
+*   ✏️ 优化操作成功或失败的文案
+
+## 0.1.6 📅2023.11.09[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-6-2023-11-09)
+
+*   ➕ 支持直接对话方式执行相关 Word 操作
+
+*   ➕ 添加快捷标题功能，方便快速插入列表标题
+
+*   ➕ 添加修改背景颜色和背景图片指令(通过对话可调用此两项功能)
+
+*   ✏️ 修改上传附件的显示界面(改为显示缩略图和文字提示)
+
+*   ✏️ 解决启动时比较慢的问题
+
+*   ✏️ 解决非常见分辨率下界面排版无法手工调整的问题
+
+*   ✏️ 解决部分情况下内存过高的问题
+
+## 0.1.5 📅2023.10.30[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-5-2023-10-30)
+
+*   ➕ 支持自定义配置私有化服务器地址
+
+*   ➕ 新增菜单设置选项
+
+*   ✏️ 修正新版本更新后，旧配置也卸载的问题。
+
+*   ✏️ 修正在没有 vsto 支持库时，安装失败的问题。
+
+## 0.1.4 📅2023.10.15[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-4-2023-10-15)
+
+*   ➕ 新增图片转文字功能
+
+*   ➕ 增加产生错误时，重新对话功能
+
+*   ✏️ 使用全新的界面库
+
+*   ✏️ 界面支持多语言
+
+*   ✏️ 支持将渲染后的排版直接复制到 word 框中
+
+## 0.1.3 📅2023.10.10[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-3-2023-10-10)
+
+*   ✏️ 解决右侧内容复制到 word 中，格式丢失的问题
+
+*   ✏️ 解决输入框输入响应太慢的问题
+
+## 0.1.2 📅2023.10.07[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-2-2023-10-07)
+
+*   ➕ 添加菜单栏蒙层引导
+
+*   ➕ 将菜单栏的 AI 相关周报生成、文章润色等功能合并到右侧功能栏
+
+*   ✏️ 解决对话失败后，重复多条对话记录的问题
+
+*   ✏️ 解决长时间未登录，重新登录时失败的问题
+
+## 0.1.1 📅2023.09.30[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-1-2023-09-30)
+
+*   ✏️ 对话通信改成 SSE 响应流，改善使用体验
+
+*   ✏️ 改进对话模板，使响应更快
+
+*   ✏️ 改进客户端润色、文章续写的提示文案，以便知道是对哪些文字进行润色或续写
+
+*   ✏️ 解决 office365 下，工具栏无法正常工作的问题。
+
+## 0.1.0 📅2023.09.26[](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-0-2023-09-26)
+
+*   ➕ 支持在 word 中整理周报、生成文案、会议纪要、文章润色等功能
+
+*   ➕ 支持在 word 右侧进行自由对话
+
+*   [更新日志](https://www.office-ai.cn/static/introductions/officeai/update-log.html)
+*   [0.7.2.7 📅2026.05.19](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-7-2026-05-19)
+*   [0.7.2.6 📅2026.05.09](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-6-2026-05-09)
+*   [0.7.2.5 📅2026.04.27](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-5-2026-04-27)
+*   [0.7.2.4 📅2026.04.25](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-4-2026-04-25)
+*   [0.7.2.3 📅2026.04.16](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-3-2026-04-16)
+*   [0.7.2.2 📅2026.04.15](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-2-2026-04-15)
+*   [0.7.2.1 📅2026.04.01](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-1-2026-04-01)
+*   [0.7.2.0 📅2026.03.27](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-2-0-2026-03-27)
+*   [0.7.1.5 📅2026.03.20](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-1-5-2026-03-20)
+*   [0.7.1.3 📅2026.03.14](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-1-3-2026-03-14)
+*   [0.7.1.0 📅2026.03.05](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-1-0-2026-03-05)
+*   [0.7.0.5 📅2026.02.28](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-0-5-2026-02-28)
+*   [0.7.0 📅2026.02.13](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-7-0-2026-02-13)
+*   [0.6.2 📅2026.01.24](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-6-2-2026-01-24)
+*   [0.6.1 📅2026.01.12](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-6-1-2026-01-12)
+*   [0.6.0 📅2025.12.15](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-6-0-2025-12-15)
+*   [0.5.9 📅2025.11.28](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-9-2025-11-28)
+*   [0.5.8 📅2025.10.29](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-8-2025-10-29)
+*   [0.5.7 📅2025.10.14](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-7-2025-10-14)
+*   [0.5.6 📅2025.9.15](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-6-2025-9-15)
+*   [0.5.5 📅2025.8.22](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-5-2025-8-22)
+*   [0.5.4 📅2025.8.13](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-4-2025-8-13)
+*   [0.5.3 📅2025.7.10](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-3-2025-7-10)
+*   [0.5.1 📅2025.6.30](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-1-2025-6-30)
+*   [0.5.0 📅2025.6.15](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-5-0-2025-6-15)
+*   [0.4.4 📅2025.6.4](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-4-2025-6-4)
+*   [0.4.3 📅2025.5.23](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-3-2025-5-23)
+*   [0.4.2 📅2025.5.10](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-2-2025-5-10)
+*   [0.4.1 📅2025.4.24](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-1-2025-4-24)
+*   [0.4.0 📅2025.4.08](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-4-0-2025-4-08)
+*   [0.3.20 📅2025.3.18](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-20-2025-3-18)
+*   [0.3.19 📅2025.3.04](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-19-2025-3-04)
+*   [0.3.18 📅2025.3.01](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-18-2025-3-01)
+*   [0.3.17 📅2025.2.25](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-17-2025-2-25)
+*   [0.3.16 📅2025.2.14](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-16-2025-2-14)
+*   [0.3.15 📅2025.2.12](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-15-2025-2-12)
+*   [0.3.14 📅2025.2.9](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-14-2025-2-9)
+*   [0.3.13 📅2025.2.8](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-13-2025-2-8)
+*   [0.3.12 📅2025.1.14](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-12-2025-1-14)
+*   [0.3.11 📅2024.12.30](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-11-2024-12-30)
+*   [0.3.10 📅2024.11.28](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-10-2024-11-28)
+*   [0.3.09 📅2024.11.12](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-09-2024-11-12)
+*   [0.3.08 📅2024.10.15](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-08-2024-10-15)
+*   [0.3.07 📅2024.09.17](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-07-2024-09-17)
+*   [0.3.06](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-06)
+*   [0.3.05 📅2024.08.18](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-05-2024-08-18)
+*   [0.3.04 📅2024.07.29](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-04-2024-07-29)
+*   [0.3.03 📅2024.07.09](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-03-2024-07-09)
+*   [0.3.02](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-02)
+*   [0.3.01 📅2024.05.30](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-01-2024-05-30)
+*   [0.3.0 📅2024.05.13](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-3-0-2024-05-13)
+*   [0.2.03 📅2024.04.19](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-03-2024-04-19)
+*   [0.2.02 📅2024.04.12](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-02-2024-04-12)
+*   [0.2.01 📅2024.03.25](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-01-2024-03-25)
+*   [0.2.00 Beta](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-2-00-beta)
+*   [0.1.14 📅2024.02.25](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-14-2024-02-25)
+*   [0.1.13 📅2024.01.29](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-13-2024-01-29)
+*   [0.1.12 📅2024.01.20](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-12-2024-01-20)
+*   [0.1.11 📅2024.01.03](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-11-2024-01-03)
+*   [0.1.10 📅2023.12.19](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-10-2023-12-19)
+*   [0.1.9 📅2023.12.04](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-9-2023-12-04)
+*   [0.1.8 📅2023.11.27](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-8-2023-11-27)
+*   [0.1.7 📅2023.11.18](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-7-2023-11-18)
+*   [0.1.6 📅2023.11.09](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-6-2023-11-09)
+*   [0.1.5 📅2023.10.30](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-5-2023-10-30)
+*   [0.1.4 📅2023.10.15](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-4-2023-10-15)
+*   [0.1.3 📅2023.10.10](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-3-2023-10-10)
+*   [0.1.2 📅2023.10.07](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-2-2023-10-07)
+*   [0.1.1 📅2023.09.30](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-1-2023-09-30)
+*   [0.1.0 📅2023.09.26](https://www.office-ai.cn/static/introductions/officeai/update-log.html#0-1-0-2023-09-26)
+
+[获取二维码失败](https://www.office-ai.cn/static/introductions/officeai/invalid-qrcode.html)[联系我们](https://www.office-ai.cn/static/introductions/officeai/others.html)
+
+Powered by[JetBrains Writerside](https://lp.jetbrains.com/writerside/)

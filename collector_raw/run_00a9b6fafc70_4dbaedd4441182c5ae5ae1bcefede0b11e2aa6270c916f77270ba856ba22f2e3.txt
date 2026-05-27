@@ -1,0 +1,649 @@
+# 石墨博客_石墨文档官网
+
+Title: 石墨博客_石墨文档官网
+
+URL Source: https://shimo.im/blog
+
+Markdown Content:
+# 石墨博客_石墨文档官网
+
+## [](https://shimo.im/welcome)
+
+[石墨办公](https://shimo.im/firm)[个人版](https://shimo.im/personal)[模版库](https://shimo.im/templates?from=home)[解决方案](https://shimo.im/firm/samples)[私有化部署](https://shimo.im/firm/private)[定价](https://shimo.im/pricing)[下载](https://shimo.im/download)支持![Image 1](https://sops-cdn.shimodev.com/blog-fe-dev/_next/static/media/support-default-opaque.d3ca6861.png)
+
+[免费使用](https://shimo.im/registType?from=home)[立即登录](https://shimo.im/loginByPassword?from=home)
+
+石墨文档与 OpenHarmony 强强联合，按下国产化办公软件 “加速键”
+
+石墨文档鸿蒙云端一体版本全新上架，成为 OpenHarmony 官网首家上线的云端办公产品。
+
+[公司动态](https://shimo.im/blog/tags/company-news)
+
+2024-10-25
+
+*   全部
+*   ## [效率实践](https://shimo.im/blog/efficiency)
+
+*   ## [客户案例](https://shimo.im/blog/cases)
+
+*   ## [签约快讯](https://shimo.im/blog/signup_news)
+
+*   ## [产品上新](https://shimo.im/blog/product-updates)
+
+*   ## [进阶技巧](https://shimo.im/blog/skill)
+
+*   ## [公司动态](https://shimo.im/blog/company-news)
+
+*   ## [行业资讯](https://shimo.im/blog/news)
+
+*   ## [石墨公告](https://shimo.im/blog/notice)
+
+[识墨之旅｜那我问你，石墨表单有几种用法？ 用石墨表单，便捷收集信息，关联表格实时更新 [进阶技巧](https://shimo.im/blog/tags/skill) 2025-04-03](https://shimo.im/blog/articles/A7D2KAB4ACV4C.html)
+
+[该出发了！别忘了带上石墨文档！ 2025正式出发，和石墨文档一起前进！ [效率实践](https://shimo.im/blog/tags/efficiency) 2025-02-14](https://shimo.im/blog/articles/A6XPMNYJACV4C.html)
+
+[新年第一课！石墨功能拾遗，还有多少惊喜是你不知道的？ 石墨文档、表格功能拾遗，开启更高效的2025年！ [进阶技巧](https://shimo.im/blog/tags/skill) 2025-02-08](https://shimo.im/blog/articles/A6V5VP6XACV4C.html)
+
+[全球领先的消费电子和家电制造商，选择石墨文档中台！ 客户案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-12-27](https://shimo.im/blog/articles/A6K3L6NUACOGI.html)
+
+[年度总结｜用石墨文档，和2024来一场漂亮的告别演讲！ 年度总结是日常工作的缩影，涉及到内容生产、协作、管控、沉淀的全过程，而石墨文档可以对全流程进行赋能。快使用石墨文档，来一场对2024的告别演讲！ [效率实践](https://shimo.im/blog/tags/efficiency) 2024-12-19](https://shimo.im/blog/articles/A6IYSFSUACAIC.html)
+
+[幻灯片新体验｜辅助面板已上线，我们的行动会更加迅捷 快尝试使用「格式辅助面板」进行更高效便捷的幻灯片创作！ [产品上新](https://shimo.im/blog/tags/product-updates) 2024-12-12](https://shimo.im/blog/articles/A6G77LC6ACAIC.html)
+
+[智能清洁先锋企业，选择石墨私有部署！ 客户案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-12-05](https://shimo.im/blog/articles/A6FEXTPVACAIC.html)
+
+[游戏行业突围的 「秘密武器」是它？ 游戏行业解决方案 [客户案例](https://shimo.im/blog/tags/cases) 2024-11-28](https://shimo.im/blog/articles/A6DLDBQMACAIC.html)
+
+[家电行业的技术领航者，选择石墨文档中台！ 家电行业私有部署客户案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-11-22](https://shimo.im/blog/articles/A6BYUOGXACAIC.html)
+
+[试遍协同工具，教育科技独角兽公司选定石墨文档！ 教育行业私有部署客户案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-11-22](https://shimo.im/blog/articles/A6BYT3CLACAIC.html)
+
+[行业领先的上市电商平台，选择石墨文档中台！ 电商行业私有部署客户案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-11-22](https://shimo.im/blog/articles/A6BYRMD4ACAIC.html)
+
+[这家上市教育巨头，选择石墨私有化部署！ 教育行业私有部署案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-11-22](https://shimo.im/blog/articles/A6BYMUNMACAIC.html)
+
+[文档中台与企业云盘完美融合，助力某大型移动出行平台数字化跃升！ 文档中台与企业云盘场景案例 [客户案例](https://shimo.im/blog/tags/cases) 2024-11-22](https://shimo.im/blog/articles/A6BYLB6BACAIC.html)
+
+[签约快讯｜石墨文档与科大讯飞、东风商用车等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-22](https://shimo.im/blog/articles/A6BYH332ACAIC.html)
+
+[签约快讯｜石墨文档与小天才、九江银行等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-22](https://shimo.im/blog/articles/A6BYHLWYACAIC.html)
+
+[签约快讯｜石墨文档与OPPO、招商基金等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-22](https://shimo.im/blog/articles/A6BYHADGACAIC.html)
+
+[签约快讯｜石墨文档与云鲸智能、龙创悦动等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-22](https://shimo.im/blog/articles/A6BYGJYSACAIC.html)
+
+[签约快讯｜石墨文档与作业帮、微众银行等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-22](https://shimo.im/blog/articles/A6BYF3LTACAIC.html)
+
+[签约快讯｜石墨文档与猿辅导、天翼数字生活等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-22](https://shimo.im/blog/articles/A6BYFNCCACAIC.html)
+
+[签约快讯｜石墨文档与唯品会、武汉光讯科技等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-21](https://shimo.im/blog/articles/A6BSUGA6ACAIC.html)
+
+[喜讯 | 石墨文档与亿迅科技、天翼数字生活等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-21](https://shimo.im/blog/articles/A6BSTT73ACAIC.html)
+
+[喜讯 | 石墨文档与奥克斯集团、江苏红网等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-21](https://shimo.im/blog/articles/A6BSTGXMACAIC.html)
+
+[签约 | 石墨文档与网易有道、招商金科等知名企业完成签约！ 签约快讯 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-11-21](https://shimo.im/blog/articles/A6BSQ3DXACAIC.html)
+
+[石墨文档 x 会议系统，专业的 “会” 更好用！ 石墨文档中台集成到企业会议系统内，让会议更顺畅！ [客户案例](https://shimo.im/blog/tags/cases) 2024-11-15](https://shimo.im/blog/articles/A576T5E5ACAIC.html)
+
+[新功能｜应用表格「仪表盘」首秀时刻！ 石墨文档应用表格上线仪表盘，数据可视化！ [产品上新](https://shimo.im/blog/tags/product-updates) 2024-11-08](https://shimo.im/blog/articles/A56FJQKMACAIC.html)
+
+[石墨文档与 OpenHarmony 强强联合，按下国产化办公软件 “加速键” 石墨文档鸿蒙云端一体版本全新上架，成为 OpenHarmony 官网首家上线的云端办公产品。 [公司动态](https://shimo.im/blog/tags/company-news) 2024-10-25](https://shimo.im/blog/articles/A52R5SSLACAIC.html)
+
+[「上新」新模板，新入口，新体验！ 模板库上新，速来！ [产品上新](https://shimo.im/blog/tags/product-updates) 2024-08-02](https://shimo.im/blog/articles/A5E6XJ6ZACAIC.html)
+
+[「石墨学院」信息收集用石墨表单，很City！ 让我们一同探索石墨表单如何巧妙地将数据处理变得既炫酷又高效。 [进阶技巧](https://shimo.im/blog/tags/skill) 2024-07-26](https://shimo.im/blog/articles/A5DFCMFSACAIC.html)
+
+[喜讯｜石墨文档与达梦数据完成产品兼容性互认证！ 石墨文档 x 达梦数据库的组合在某电网客户已正式上线，支持上万用户稳定运行。 [公司动态](https://shimo.im/blog/tags/company-news) 2024-07-19](https://shimo.im/blog/articles/A5BLMAQBACAIC.html)
+
+[「客户端更新」万众期待的功能它来了！ 请到石墨文档官网下载专区获取最新版本！ [产品上新](https://shimo.im/blog/tags/product-updates) 2024-07-12](https://shimo.im/blog/articles/A47RXKGSACAIC.html)
+
+[石墨文档完成鸿蒙原生全量版本开发，共创办公软件新篇章! 石墨文档HarmonyOS NEXT 完成全量版本开发并上架HarmonyOS NEXT应用市场！ [公司动态](https://shimo.im/blog/tags/company-news) 2024-07-05](https://shimo.im/blog/articles/A45YJFGSACAIC.html)
+
+[石墨学院｜这些神仙好用功能硬控30秒！ 欢迎回到「石墨学院」为了助力墨粉们更加得心应手地使用石墨文档，我们特地重装上阵，带来了全新升级的学习体验。 [效率实践](https://shimo.im/blog/tags/efficiency) 2024-06-28](https://shimo.im/blog/articles/A435GYL5ACAIC.html)
+
+[618大促收官在即，这些经验值得码住！ 石墨文档服务众多电商行业客户，今天小墨将聚焦几个典型业务场景，来展示石墨文档如何协助商家提升工作效率，这些经验值得码住！ [进阶技巧](https://shimo.im/blog/tags/skill) 2024-06-21](https://shimo.im/blog/articles/A42E24XBACAIC.html)
+
+[「功能更新」标签功能上线，轻松高效管理文件！ 标签功能上线，它能让文件摆脱文件夹和团队空间的束缚，助力更高效地组织和检索文档，实现灵活分类和快速定位，提升工作效率。 [产品上新](https://shimo.im/blog/tags/product-updates) 2024-06-14](https://shimo.im/blog/articles/A4YJX2OAACAIC.html)
+
+[石墨「团队版」闪亮登场，高效协作新选择！ 适用于规模较小、对协作应用需求较高的初创团队或行动小组。 [产品上新](https://shimo.im/blog/tags/product-updates) 2024-06-07](https://shimo.im/blog/articles/A4WRRQLMACAIC.html)
+
+[石墨「文档中台」上线，为您的产品赋予文件预览和协同编辑超能力！ 石墨「文档中台」是将石墨在协同办公领域深耕多年所积累的文档在线预览、编辑、处理能力开放出来，为企业的数字化业务系统赋能，接入后的业务系统立即获得在线文档能力。 [产品上新](https://shimo.im/blog/tags/product-updates) 2024-10-25](https://shimo.im/blog/articles/A4UH5SI2ACAIC.html)
+
+[24年主线任务｜用石墨文档进入开挂模式 从工作到生活，如何用石墨文档布局并且有效执行？顺利进入开挂模式！希望这篇文章可以带给你一些启发～ [进阶技巧](https://shimo.im/blog/tags/skill) 2024-05-10](https://shimo.im/blog/articles/A4PK5UORACAIC.html)
+
+[十周年福利来袭，会员钜“石”惠！ 十周年福利来袭，会员钜“石”惠！ [产品上新](https://shimo.im/blog/tags/product-updates) 2024-05-10](https://shimo.im/blog/articles/A4PK43R5ACAIC.html)
+
+[石墨文档全系产品全面支持国产化！ 石墨文档作为国内领先的在线协作办公平台，积极响应国家号召，大力推进国产化适配工作，为用户提供更加优质、高效的服务。 [产品上新](https://shimo.im/blog/tags/product-updates) 2024-04-26](https://shimo.im/blog/articles/A4LXB32YACAIC.html)
+
+[石墨文档与跨越速运、信达澳亚基金完成签约！ 通过私有化部署的方式石墨文档为信达澳亚基金、长亮科技提升办公效率、管理数据资产。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-04-19](https://shimo.im/blog/articles/A4J6SM2RACFIK.html)
+
+[石墨文档与中国电信广东研究院、长亮科技完成签约！ 石墨文档与中国电信广东研究院、跨越速运完成签约，为企业数字化办公助力。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2024-04-19](https://shimo.im/blog/articles/A4J6RI43ACFIK.html)
+
+[石墨文档与华为签署深化鸿蒙生态合作协议 作为华为资深合作伙伴，石墨文档与华为签署鸿蒙生态深化合作协议，将与华为在技术创新、产业应用、商业合作等领域将开展全方位、深层次的合作，共同构建开放互信、利益共享的鸿蒙生态。 [客户案例](https://shimo.im/blog/tags/cases) 2024-04-19](https://shimo.im/blog/articles/A4J6PTSGACFIK.html)
+
+[当石墨文档遇上文石 BOOX 墨水平板：一种很新的办公方式诞生！ 墨水屏适配版石墨文档就是其中最受文石用户欢迎的在线办公软件之一，目前墨水屏版的石墨文档 APP 已经在文石 BOOX 应用市场上架，手里有 BOOX 设备的用户可以直接下载使用。 [客户案例](https://shimo.im/blog/tags/cases) 2024-04-19](https://shimo.im/blog/articles/A4J6OONTACFIK.html)
+
+[38妇女节｜不同阶段的“你”都应该闪闪发光！ 一起来看看，从职场小白到职场妈妈，石墨文档如何帮助女性轻松应对工作及生活的挑战？ [效率实践](https://shimo.im/blog/tags/efficiency) 2024-04-19](https://shimo.im/blog/articles/A4J6NOAQACFIK.html)
+
+[24年主线任务｜用石墨文档进入开挂模式 开启了崭新的 2024年，今年的计划制定了吗？是否已经启动了？ 作为一个热爱制定计划的 J 人小墨。当然要和大家分享宝藏工具「石墨文档」 [效率实践](https://shimo.im/blog/tags/efficiency) 2024-04-19](https://shimo.im/blog/articles/A4J6KQBVACFIK.html)
+
+[从头到尾 1 张表，协同统筹数百人，这真是项目管理天花板！ 通过石墨，项目负责人只需要一个空间和一张应用表格，就可以灵活高效地完成项目管理的全部工作。 [进阶技巧](https://shimo.im/blog/tags/skill) 2024-04-19](https://shimo.im/blog/articles/A4JWCKTZACFIK.html)
+
+[重磅推出｜石墨云Office私有部署版国产化适配全面升级 为实现高效的企业资源调配，以及规范化的数据信息管理，石墨文档成为驱动组织成长与管理优化的重要推动力。 [产品上新](https://shimo.im/blog/tags/product-updates) 2024-04-19](https://shimo.im/blog/articles/A4JWCDE4ACFIK.html)
+
+[一图搞懂石墨文档私有部署！ 选择石墨私有部署，轻松打造独立自主的文档协同管理平台，开启高效安全办公！ [效率实践](https://shimo.im/blog/tags/efficiency) 2024-05-29](https://shimo.im/blog/articles/A3JHRHOWACFIK.html)
+
+[签约 | 石墨文档与中国船舶集团、南方电网等知名企业完成签约！ 中国船舶集团第七O四研究所、中国南方电网、工大卫星、新华三半导体、盛天网络等知名企业与石墨文档完成签约。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2023-12-11](https://shimo.im/blog/articles/A3IPKFKTACFIK.html)
+
+[全面革新协同办公体验，石墨文档完成鸿蒙原生应用开发！ 鸿蒙原生版石墨文档 App 将具备高端精致、简单易用、自然流畅、原生智能、纯净安全等一系列优势，敬请期待！ [公司动态](https://shimo.im/blog/tags/company-news) 2023-11-23](https://shimo.im/blog/articles/A3D2VCJIACFIK.html)
+
+[软件合规 安全可控 | 石墨文档正版化解决方案 作为国内领先的国产云 Office 厂商， 石墨文档能够为党政机关、企事业单位提供客户端、SaaS 版、私有部署正版化授权服务。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-10-30](https://shimo.im/blog/articles/A24TVRHWACFIK.html)
+
+[千呼万唤，PDF 转 Word、Excel、PPT 功能终于来了！ 最近，石墨上线了全新的功能模块——工具箱，它就像机器猫的「神奇口袋」，在这里你可以率先实现 PDF 文件转换，未来还将拥有更多文件处理智能工具。 [产品上新](https://shimo.im/blog/tags/product-updates) 2023-12-14](https://shimo.im/blog/articles/A2ZAMXULACFIK.html)
+
+[集成赋能 | 一图搞懂石墨文档 SDK 当你的产品需要实现文档在线编辑预览时，除了自己开发一款云 Office ，还有另外的选择——石墨 SDK。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-10-12](https://shimo.im/blog/articles/A2TTG5Q4ACFIK.html)
+
+[企业文件安全管控并不难，做好 4 个环节筑起 “铜墙铁壁”！ 管控、预警、补救、追溯， 4 大环节构建文件全生命周期安全管控体系，确保企业数据资产安全可控。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-08-18](https://shimo.im/blog/articles/A2K3CBSMACFIK.html)
+
+[石墨文档与华为签署深化鸿蒙生态合作协议 石墨文档与华为签署鸿蒙生态深化合作协议，将与华为在技术创新、产业应用、商业合作等领域将开展全方位、深层次的合作。 [公司动态](https://shimo.im/blog/tags/company-news) 2023-08-09](https://shimo.im/blog/articles/A2IRN5CRACFIK.html)
+
+[5 小时变 10 分钟，用好石墨表格，数据处理真的很轻松！ 当表格上云，一切就都变得不一样了。数据收集时可以高效协同编辑，数据整理时可以多表联动互通，数据呈现时能够搭建动态可视化看板。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-07-27](https://shimo.im/blog/articles/A2FGXV4VACFIK.html)
+
+[用了这么多年石墨文档，竟然没发现这些神级功能? 石墨文档里藏着一些非常实用的功能，它们能提升效率，也常常给我们带来一些小惊喜。 [进阶技巧](https://shimo.im/blog/tags/skill) 2023-07-20](https://shimo.im/blog/articles/A2DMHR24ACFIK.html)
+
+[一个知识库管理百种药品资料，在恩威每个员工都成为了“医药专家”！ 云 Office 不仅是文档协同工具，它也是一款优秀的知识管理软件。 [客户案例](https://shimo.im/blog/tags/cases) 2023-06-29](https://shimo.im/blog/articles/AZ57BPPIACG7A.html)
+
+[OFD 阅读器、一键上云，石墨桌面客户端又有大动作！ 石墨桌面客户端的文件查看、编辑、管理能力，正在以肉眼可见的速度进化。 [产品上新](https://shimo.im/blog/tags/product-updates) 2023-06-29](https://shimo.im/blog/articles/AZ5GTZCYACG7A.html)
+
+[简单 4 步管好企业文件，“信息孤岛” 秒变 “知识大陆”！ 文件散乱、查找困难、协同低效、信息泄露……在企业文件管理中，你是不是也正在面临着以上难题？ [效率实践](https://shimo.im/blog/tags/efficiency) 2023-05-31](https://shimo.im/blog/articles/AZWQIZN5ACG7A.html)
+
+[为了点醒老板，我差点下一秒就离职！ 分享几个可以巧妙“管理”老板的小技巧，操作有风险，使用需谨慎！ [效率实践](https://shimo.im/blog/tags/efficiency) 2023-05-25](https://shimo.im/blog/articles/AZU65MPJACJZU.html)
+
+[泰酷辣，石墨表单支持关联应用表格啦！ 石墨表单又放大招，上线了关联应用表格功能。现在通过表单收集到的数据，能够实时同步到应用表格。 [产品上新](https://shimo.im/blog/tags/product-updates) 2023-05-25](https://shimo.im/blog/articles/AZU64EUVACJZU.html)
+
+[石墨文档 9 周年，相伴已久，始终如一 在中国基础软件的发展长河与崛起之路上，我们希望有石墨浓墨重彩的一笔。 [公司动态](https://shimo.im/blog/tags/company-news) 2023-05-06](https://shimo.im/blog/articles/AZQCHKCXACJZU.html)
+
+[石墨文档签约文心一言，中国云 Office 开启 AI 新时代 石墨文档将基于文心一言打造自己的AI办公助手，并嵌入相关的云协同办公产品套件。 [公司动态](https://shimo.im/blog/tags/company-news) 2023-10-12](https://shimo.im/blog/articles/AZNYHT7ZACJZU.html)
+
+[金三银四想跳槽？简历不对，功夫白费！ 如何打造一份“完美简历”，帮助自己在激烈的竞争中脱颖而出！ [效率实践](https://shimo.im/blog/tags/efficiency) 2023-03-21](https://shimo.im/blog/articles/AZEHJPT5ACJRO.html)
+
+[石墨荣获华为云、第一新声颁发的六项大奖 近日，石墨文档陆续斩获华为云云商店、第一新声颁发的六项大奖。 [公司动态](https://shimo.im/blog/tags/company-news) 2023-03-21](https://shimo.im/blog/articles/AZEHH3CNACJRO.html)
+
+[3 天开 27 场会议，这个国家级医药平台如何成为会议效率天花板？ 相信改变的力量，积极拥抱云协同，有时候向前一小步就能收获效率的飞跃。 [客户案例](https://shimo.im/blog/tags/cases) 2023-03-09](https://shimo.im/blog/articles/AZBEHZZ3ACKPO.html)
+
+[一图在手，效率我有！2023 企业效率作战地图全网首发！ 作战地图从核心办公场景入手，通过理论拆解、实操指南、模板护航，手把手帮助企业实现高效协同办公，从 0 到 1 打造真正的高效能团队。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-04-27](https://shimo.im/blog/articles/AY7CFZWKACFL4.html)
+
+[我用一个石墨独有难题，把 ChatGPT 整不会了！ 在 ChatGPT 的世界里，石墨文档到底是怎样的存在？ [效率实践](https://shimo.im/blog/tags/efficiency) 2023-02-16](https://shimo.im/blog/articles/AY3XFSPPACFL4.html)
+
+[像高启强一样做项目管理，我的效率开始「狂飙」！ 《狂飙》仅仅只是一部扫黑除恶爽剧吗？如果换个视角，我们会发现它也是一部项目管理实战教学剧。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-03-01](https://shimo.im/blog/articles/AYZ5QYJYACIAO.html)
+
+[不“躺平”也不“内卷”，这个春节假期如何休出“松弛感”？ 如何巧用石墨，打理好春节期间的生活、工作、学习，不躺平也不内卷，度过一个有松弛感的春节假期。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-02-09](https://shimo.im/blog/articles/AYZ5OCBYACIAO.html)
+
+[辛苦一年，别又输在年终总结上，这四招让你脱颖而出！ 年度总结涉及到内容生产、协作、管控、沉淀的全过程。使用石墨，年度总结这件事真的可以变得更高效、更轻松、更出彩。 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-06-29](https://shimo.im/blog/articles/AYZ5LWLEACIAO.html)
+
+[停机维护公告 因技术升级，我们将在 2022 年 12 月 31 日 22:00 至 2023 年 1 月 1 日 5:00 进行停机维护，届时无法使用石墨。请合理安排使用时间，给您带来的不便敬请谅解。 [石墨公告](https://shimo.im/blog/tags/notice) 2022-12-30](https://shimo.im/blog/articles/AYPLQYBRACBLI.html)
+
+[“突围”——2022 电商行业提效专场直播报名开启！ 存量竞争时代，电商“战役”分秒必争，效率制胜！12 月 1 日 19：30，石墨电商行业提效专场直播，助你 “效率加持 突出重围”！ [公司动态](https://shimo.im/blog/tags/company-news) 2022-11-17](https://shimo.im/blog/articles/AYEJ2B3XAAF2Y.html)
+
+[电商人的双十一，有人加班熬夜，有人轻松躺赢 今年的双十一，有的电商人依旧被效率困扰，加班熬夜，而有的电商团队却能有条不紊，轻松「躺赢」。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-12-30](https://shimo.im/blog/articles/AYDY6AZMAAF2Y.html)
+
+[你和电商高手间，也许只差了这 10 套宝藏模版！ 涵盖电商 10 大业务场景，100 余张实用电商模板，10 倍提升电商运营管理效率！ [效率实践](https://shimo.im/blog/tags/efficiency) 2023-02-09](https://shimo.im/blog/articles/AX65K6G7AAF2Y.html)
+
+[随时随地高效办公，石墨全新移动网页版发布！ 我们可以在任意移动设备上快速访问、创建、管理、分享自己的石墨文档，移动办公也高效！ [产品上新](https://shimo.im/blog/tags/product-updates) 2022-10-27](https://shimo.im/blog/articles/AX3J53WVAAF2Y.html)
+
+[协同文档选 SaaS 还是私有部署？看了这个漫画，总算搞明白了！ 什么是 SaaS？什么是私有部署？各有什么优势？协同文档私有部署厂商如何挑选？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-10-27](https://shimo.im/blog/articles/AXXUQGS3AAF2Y.html)
+
+[“B2B 企业节” C 位出道，制造业办公数字化转型看石墨 乘着企业节的东风，石墨文档也将走近中国更多的传统企业，帮助他们实现由传统办公向数字办公的升级，享受云端协同的高效。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-10-27](https://shimo.im/blog/articles/AXXN4V3CAAF2Y.html)
+
+[带你认识石墨文档 石墨文档是中国一款支持云端实时协作的企业办公服务软件，致力于通过 Office 上云的方式帮助企业和组织，提高基础办公效率，具有全员高效协同、数据安全管控、系统集成定制、轻型应用搭建等价值。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-28](https://shimo.im/blog/articles/AXXNNKDAAAF2Y.html)
+
+[石墨桌面客户端 3.0 发布，不，产品经理说是震撼发布！ 端云一体，不管离线在线，办公不「断电」！ [产品上新](https://shimo.im/blog/tags/product-updates) 2022-10-27](https://shimo.im/blog/articles/AXUCVUFLAAF2Y.html)
+
+[石墨亮相华为云“B2B 企业节”，全面助力企业降本增效 石墨文档亮相“828 B2B 企业节”，携手华为云帮助更多企业提升内外协作效率，实现降本增效，打造更加安全的数据管控能力。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-10-27](https://shimo.im/blog/articles/AXSJUXYWAAF2Y.html)
+
+[二十年“磨一剑”，“软件正版化”的前世今生与未来 作为国内领先的云 Office 厂商， 石墨能够为企业组织提供客户端产品、SaaS 版本、私有部署版本的正版化授权许可。 [行业资讯](https://shimo.im/blog/tags/news) 2022-10-27](https://shimo.im/blog/articles/AXSJTLGDAAF2Y.html)
+
+[粉丝千万、演讲刷屏、课程大卖，内容型团队的爆款密码找到了！ 石墨既能满足内容实时修改校对的需求，又能有效提升团队内外部的合作效率。 [客户案例](https://shimo.im/blog/tags/cases) 2022-10-27](https://shimo.im/blog/articles/AXSJR4NBAAF2Y.html)
+
+[一张表格管项目、管销售，这个机器人集团把协作“卷”出新高度 “我们使用石墨是一种缘分，也是一种必然。” [客户案例](https://shimo.im/blog/tags/cases) 2022-09-08](https://shimo.im/blog/articles/AXOUF6AUAAF2Y.html)
+
+[社恐人职场求生，太太太太太难了 让职场的沟通、协作更简单，希望大家可以在职场里游刃有余、如鱼得水！ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AXLCGEXTAAF2Y.html)
+
+[当探月遇见石墨，一场奇妙的「效率化学反应」发生了！ 办公、教学、培训全场景高效协同，当创新教育遇见创新办公，奇妙的化学反应就发生了。 [客户案例](https://shimo.im/blog/tags/cases) 2023-06-29](https://shimo.im/blog/articles/AXHNO4XPAAF2Y.html)
+
+[石墨文档 x 华为云会议，专业的“会”更好用 当 “华为云会议” 遇见 “石墨文档”，远程办公将会发生怎样的改变？ [公司动态](https://shimo.im/blog/tags/company-news) 2022-10-27](https://shimo.im/blog/articles/AXEDZATSAAZRM.html)
+
+[从头到尾 1 张表，协同统筹数百人，这真是项目管理天花板 一张表完成项目启动、跟踪、复盘全生命周期闭环管理。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AXEDX2PSAAZRM.html)
+
+[石墨这些功能，希望你永远用不上，但必要时真能「救命」 文件是企业的重要资产，管控和预警，可以防患于未然；补救与追溯，能够让损失减小到最低；私有部署则是从根本上提供的安全保障。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-09](https://shimo.im/blog/articles/AXCCBJXDAAZRM.html)
+
+[卖公司、搭进销存系统，他把石墨「玩」出新高度 4 年间，他养成了一些独特的“石墨习惯”，也有不少在石墨见证下的高光时刻，一起来看他的故事吧~ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AXCB7G7MAAZRM.html)
+
+[500 强企业 HR：自从用了石墨，我的生活和工作变得又酷又高效 招工面试、员工入职、工作交接、家校互动......这是一位 500 强企业 HR 的石墨故事。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AW56EVETAAZRM.html)
+
+[“我用 10 张表搞定了公司 618 大促 ” 电商人必读：教科书级的电商企业应对大促的最佳实践 [效率实践](https://shimo.im/blog/tags/efficiency) 2023-06-29](https://shimo.im/blog/articles/AW56BF6HAAZRM.html)
+
+[石墨学院开课啦！6月23日19:30直播间等你~ 干货多多~福利多多~ [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AW4UZ4CYAAZRM.html)
+
+[双厨狂喜！日食记 x 石墨文档，让创作像葱油拌面一样爽滑~ 用「表单+表格」搭建会员系统轻应用的最佳实践 [客户案例](https://shimo.im/blog/tags/cases) 2023-06-29](https://shimo.im/blog/articles/AW4UY3JZAAZRM.html)
+
+[石墨文档远程协作办公系统，完整的产品矩阵充分满足需求 石墨文档远程协作办公系统提供文档、表格、幻灯片、协作空间，以及思维导图、表单、白板等一系列产品与功能，完整的产品矩阵充分满足企业客户需求。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AW4EFG6YAAZRM.html)
+
+[多人编辑表格功能，轻松翻倍工作效率 当表格上云，我们甚至可以用在线表格搭建各类办公应用，完成复杂的任务管理、客户管理等工作。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-09](https://shimo.im/blog/articles/AW34CVCFAAZRM.html)
+
+[企业文档管理混乱？试试石墨文档企业安全管理系统吧！ 石墨文档提供基于存储基础上的文档安全管理服务，有效实现文档的强制集中、自动备份、版本管理、资源共享、多终端同步等诸多功能，具有存储容量大、高速、稳定、易用、易管、安全、便捷等特点。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AW3B4LO7AAZRM.html)
+
+[如何打造一份惊艳所有人的 618 购物清单？ 用石墨文档做购物清单，悄悄惊艳朋友圈 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AW23CJUQAAYZ6.html)
+
+[应用表格上新「说明」功能！愿世上再无因填表而痛苦的人 添加说明文字，表格信息传达更全面，填表更轻松~ [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-09](https://shimo.im/blog/articles/AW23BOLXAAYZ6.html)
+
+[石墨文档多人在线编辑excel，让企业进行数据处理更加便捷 石墨文档多人在线编辑excel提供合并工作表、自定义函数等丰富功能，让企业进行数据处理更加便捷。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AW223JAGAAYZ6.html)
+
+[石墨企业文档安全管理系统，为企业信息安全保驾护航 石墨文档无论是从信息的加密处理，还是企业信息管理权限的设置，都充分满足工作者对安全的需求，全方位多角度地为企业信息的安全保驾护航。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AW2RM4RNAAYZ6.html)
+
+[实现营销策划方案在线协作——石墨文档帮你搞定 石墨文档帮助市场营销人员实现营销策划方案在线协作，提升整体运转效率。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AW2JLX6DAAYZ6.html)
+
+[石墨多人协作编辑文档工具，四大优势助力办公高效率 石墨多终端、多人、多类型文件数据毫秒级实时协同，军事级文档安全控制体系设计，灵活多样的部署方式，开放合作的生态体系四大优势为每一位企业与个人用户带来安全与高效的全新办公体验。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AW2ANTU3ACUXI.html)
+
+[云办公，为各行各业赋能，各大行业的共同选择 石墨文档的云办公在互联网、教育、媒体、金融、房地产、电商和新零售等行业都得到应用，设计的场景解决方案覆盖企业全业务场景。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWZADA2TACUXI.html)
+
+[远程协作办公软件：石墨文档让“云办公”更自然 石墨文档将远程办公功能和协作办公功这两个功能集于一身，赋予文档、表格、幻灯片等常用功能多人协作的办公方式，激发团队精神，提高工作效率。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWYXYUSIACUXI.html)
+
+[巧用远程办公系统，即使在家也能完成工作任务！ 石墨文档将为企业的工作提供多方面的技术支持，从策划方案到具体落实，将复杂繁琐的工作变得更加简单轻松，保证信息快速共享、安全稳定。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWYQ4VMOACUXI.html)
+
+[职场人必会的10大实用功能，在石墨通通可以实现！ 职场人必会的石墨文档 10 大实用功能能够帮助大家在工作中摆脱不必要的麻烦、省去繁琐的操作，提高效率、轻松办公。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWYHJZDXACUXI.html)
+
+[石墨「营销策略七步法」，助你高效完成一场营销活动 石墨文档作为强大的在线文档协作系统，提高工作效率的同时也推进了活动营销项目的进展。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWXOVKSOACUXI.html)
+
+[推动企业向优发展的秘密武器：远程协作办公软件石墨文档 远程协作办公软件解决的不单单是常用办公软件能解决的问题，更将高效的项目管理协同演绎的淋漓尽致，在不断满足用户的实际需求同时，致力于为企业带来专业、科学的办公解决方案。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWXGLIZQACTNE.html)
+
+[对于学生来说，使用多人在线协作文档的优势是什么？ 在线协作文档的实时更新，历史修订记录查看等等功能，让它成为了云盘之外的能有效存放文档的最佳应用。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWW6ABEFACTNE.html)
+
+[这款好用的「多人在线协作文档」工具，让我工作变得更有效率 石墨多人在线协作文档，方便运营人员进行项目管理、团队协作、移动办公的流畅利器！ [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWWXDDDYACTNE.html)
+
+[企业文档协作工具，首推石墨文档！ 石墨文档能够根据企业需求提供定制化的私有部署解决方案，为客户搭建安全高效的实时协同办公平台，适用于数据安全要求高，需要对接企业应用或开发专属功能的中大型企业。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWWNPMMVACTNE.html)
+
+[5个远程办公管理心得，让居家办公生活更安心 经历过这两年，远程办公的普及度已经显著提高，企业只需做好以下 5 点，相信自然就会减少突发情况下，远程办公经常会遇到的一些措手不及。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWVXFQJ6ACTNE.html)
+
+[锁定单元格：将权限管理进行到底 合格的企业级 SaaS 软件一定要满足数据安全和权限管理两大要求，这样建立起来的运行机制才是安全的。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWVOAQFOACTNE.html)
+
+[石墨文档在线协作编辑，让工作更加easy 作为新式在线协作办公工具，石墨文档能够更快更及时地进行信息的交互，让工作更加简单轻松。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWVEKIXZACTNE.html)
+
+[真强大无惧翻车，石墨产品性能公开直播测评，预约围观！ 8周年个人纪念会员、限量版盲盒等超多福利等你来领！ [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AWU6AMCFACTNE.html)
+
+[《焦点访谈》报道 | 小区被封一个月，他们这样用石墨温暖守“沪” 志愿者团队运用石墨文档高效解决封控小区配药、团购等生活问题的最佳实践 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-09](https://shimo.im/blog/articles/AWU566N3ACTNE.html)
+
+[多人在线编辑office，用石墨文档更方便 石墨文档作为新式企业协同办公工具，支持多人同时在线编辑，能够更快更好地处理信息，实现信息共享零等待。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWU5P2KPACTNE.html)
+
+[石墨文档，新一代智能安全的企业内容管理平台 针对文件安全隐患的问题，石墨文档通过「事前预防」-「事中管控」-「事后追溯」三管齐下，由内而外阻断风险。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWUVJVK4ACRR6.html)
+
+[石墨文档远程协作办公系统，信息高效流转安全更有保障 石墨文档远程协作办公系统，支持多人实时协作办公、提高团队效率、数据安全可控，并支持多场景应用下的解决方案，让企业信息高效流转而且安全更有保障。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWT5KXP2ACRR6.html)
+
+[石墨文档温暖出品 |《疫情防控实用指南》 包含企业居家办公、社区&学校疫情防控解决方案与城市互助文档 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWTUGYB4ACRR6.html)
+
+[你对石墨的好奇心，90%在这里都能得到解答 石墨团队8周年首场直播精华回顾 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AWTUFRJLACRR6.html)
+
+[石墨文档远程办公解决方案，发挥私有化部署优势充分满足客户需求 通过石墨文档远程办公解决方案私有化部署将第三方软件直接部署在企业内网的本地服务器中，可以享受与原生软件无差别的使用体验，还能充分保证企业数据资产安全。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWTUCXATACRR6.html)
+
+[石墨文档远程协作办公软件，拥有众多优势表现更出色 石墨文档远程协作办公软件拥有多项出色的功能，直接满足企业三大诉求：内部信息的高效流转，成员间的高效协同、大规模数据的计算与安全，从而在协同办公方面体现出更出色的优势。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWTMTOSKACRR6.html)
+
+[石墨文档远程办公方案，多场景下显示高效便利优势 石墨文档远程办公方案能够协助企业进行跨部门协作、异地沟通等，在帮助企业高效办公方面体现了更多的优势。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWTDYMCRACRR6.html)
+
+[石墨文档在线办公系统，提升企业办公效率方面更显优势 在提升企业办公效率方面，以石墨文档为代表的优秀在线办公系统能起到非常好的作用，拥有较强的综合优势，成为很多知名企业的首选。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWS2EEORACRR6.html)
+
+[石墨文档多人协同办公，帮助电商客户提升跨部门协作效能 石墨文档多人协同办公系统从客户的实际需求出发，提供多项实用功能，帮助电商客户提升跨部门协作效能。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWSJ2VTRACRR6.html)
+
+[石墨文档 8 周年，无限可能在协作 8 年时间，石墨融入墨客的工作、学习、生活，在石墨他们创造了无限可能。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AWSCRJNEACRR6.html)
+
+[拒做职场「背锅侠」，少不了这个高效办公神器 对员工来说，安全管控是保障知识成果不被删改/剽窃的武器；于企业而言，安全管控是守护企业数据资产的第一道防线。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWSBLYCSACRR6.html)
+
+[求职季：石墨助你快速成长为「职场老鸟」 大多数情况下不是做的事有区别，而是工作方法不一样，导致工作状态和工作结果也有天差地别。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWQIYMXUACRR6.html)
+
+[疫情时代效率办公神器：关于在线协作文档你了解多少？ 大部分的企业不仅需要将大量本地存量的 Office 文件「云转化」，实现文件的云端集中管理和高效协同共享。石墨云office三件套能更好地满足他们对兼容性、产品性能、使用体验的需求。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWP7OINTACRR6.html)
+
+[HR：为什么你又累又忙，还效率低下？ 石墨在人力资源场景上的运用，涵盖入职、在职、离职全流程，让招聘、薪酬发放、离职交接等诸多办公流程，更加高效、便捷。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWPYT2HGACRR6.html)
+
+[石墨文档入选「北京市朝阳区未来独角兽企业榜单」 石墨文档获评未来独角兽企业，并入选「2021年朝阳区独角兽加速计划」。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AWPQ5FUHACRR6.html)
+
+[签约 | 石墨签约本源量子、山东民基，助力实现高效协同与数据沉淀 全站私有部署协助其搭建高效、安全、稳定的企业级实时协同办公平台。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-02](https://shimo.im/blog/articles/AWPQ35U3ACRR6.html)
+
+[「双减」下的一线教师如何进一步提升工作效率？ 学生要「双减」，教师也应「减负」。石墨文档能够深入到基础教育阶段教育教学的每一个环节，实现对教研教学的全面赋能，共同推动基础教育的 “提质增效”，减轻一线教师工作负担。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWPPHCJEACRR6.html)
+
+[信不信，你每天有1/3的时间都浪费在这里！ 消息太多减缓了你的工作节奏，不妨打开石墨文档开启另一种高效的办公方式。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWPICDN6ACRR6.html)
+
+[石墨文档，你真的只当它是个在线word？ 除了云同步功能，石墨文档最出色的就是多人协作。随着石墨文档地不断研发，目前的功能已经不断进行完善，成为功能强大的在线Office。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWO6LMIEACRR6.html)
+
+[班干部亲测：用它收集信息，效率提升10倍 催促同学、修改格式、汇总制表、反复确认带来的，可能是烦躁、愤怒的情绪，现在有一种更高效的方式进行信息搜集，那就是使用石墨文档。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWON5CT6ACRR6.html)
+
+[石墨文档五大硬核优势，为企业提供最佳的云端办公解决方案 作为一款可多人实时协作的云端 Office 工具，石墨文档拥有国内最完整的协同办公套件。石墨文档的五大硬核优势，为企业提供最佳的云端办公解决方案。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWOF3KFLACRR6.html)
+
+[签约 | 石墨签约曹操出行、吴江法院，私有部署护航企业高效安全协同 石墨文档与苏州市吴江区人民法院、上交所技术有限责任公司、曹操出行、镁伽科技等机构/企业完成签约。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-02](https://shimo.im/blog/articles/AWN65QMPACRR6.html)
+
+[应用表格上新日历视图！再也不用担心错过 deadline 还支持在手机端灵活编辑表格视图、看板视图、甘特视图和画廊视图~ [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-09](https://shimo.im/blog/articles/AWN64FCUACRR6.html)
+
+[传统制造业“课代表”，这家企业每台设备都有一张“维保身份证” 四大角度，深入解析制造业企业信息化办公实践 [客户案例](https://shimo.im/blog/tags/cases) 2023-06-29](https://shimo.im/blog/articles/AWN6XEKFACRR6.html)
+
+[石墨文档：联合办公空间里的「常住人口」 如果说联合办公空间为创业公司提供的是空间上的便利，那么石墨文档提供的则是高效办公的解决方案。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWN5MSFNACRR6.html)
+
+[「混合办公」成常态，哪款协同办公产品最适合你？ 随着疫情的影响，人们的办公方式也在悄然间发生变化，家和办公室的界限开始变得模糊。如何把这些孤岛连接起来，成为企业们的共同需求。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWNVKSWTACRR6.html)
+
+[在线文档产品那么多,为什么85万家企业只选择石墨文档? 不管外部环境如何变化，修炼内功永远都是正确的事情。选择一款合适的协同办公工具，做好组织内系统优化，才能节约成本，提升效能。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWNM4WJPABTK6.html)
+
+[电脑突然死机，文件没保存怎么办 通过第三方软件追回内容操作起来很麻烦，并且也不能保证内容全部追回。要避免此类状况发生，只要一款在线协同办公工具就够了。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWMWEA6NABTK6.html)
+
+[旅行途中有了石墨，再也不怕被领导call 石墨文档移动端网页不仅增加了能满足多种操作的工具栏，而且整体界面耳目一新，能满足常规的基础性办公场景需求。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWML5CUDABTK6.html)
+
+[3000 字实战干货 | TOP 电商企业都是如何进行团队协作的？ 头部电商企业的协作与管理经验分享，电商从业者请收藏！ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AWMFHI7KABTK6.html)
+
+[福利 | 石墨全部高级付费功能限时免费试用！ 顶配版石墨文档免费体验，每日限量 20 人，随时告罄！ [石墨公告](https://shimo.im/blog/tags/notice) 2022-09-09](https://shimo.im/blog/articles/AWMFDB2GABTK6.html)
+
+[「公有云」危？「私有云」贵？石墨私有化部署了解一下! 灵活的部署方式、高可用性能架构、融合已有系统、五重安全保障……石墨文档私有化部署适合对数据安全有严格要求、需要开发专属功能和对接已有系统、拥有自主服务器和技术人员的企业。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWMEA2ASABTK6.html)
+
+[「36kr测评」企业版石墨文档，究竟值不值得采购？ 企业对在线协作文档类的工具，已不再仅满足于简单的多人文档编辑，而是向高效协同办公和组织精细化管理发展的需求迈进，这是国内职场发展的一个细节缩影，更是整个人类世界精细化运作和分工的一个体现。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWL3RDBRABTK6.html)
+
+[投入了那么多，你还是不会做内容运营吗？ 很多公司在一开始制定品牌策略时的方向都是一味地追求数量和新鲜刺激的话题，但大部分文章却偏离了核心价值观。想要做好内容运营，不妨打开石墨文档开启另一种高效的办公方式。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWLTLSAFABTK6.html)
+
+[从这个销售案例，了解石墨表格使用全流程 传统数据收集的各个环节缺乏自始至终的协同性，且不免有人为干预因素，造成数据失真。石墨文档表格为您提供一套更加高效、自动化的数据收集方案。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWK2WEVUABTK6.html)
+
+[不知道如何应用石墨文档？这几家明星公司的典型方法值得借鉴 通过石墨文档，这些企业颠覆了传统办公模式，实现了高效协同办公，走在了同行业竞争对手的前列。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWKTYB2JABTK6.html)
+
+[职场办公图鉴 | 累坏你的不是工作，而是工作方式 选择一款优秀的协同办公工具，就能很大程度上让员工摆脱工作中的繁琐低效，也能够帮助企业提升效率节约成本。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWKKKDJWABTK6.html)
+
+[逼哭大学生的不是论文，而是没有与导师实现「高效协同」 许多毕业论文期间遇到的问题，根源在于是没能实现师生之间的「高效协同」，因此，一款功能强大的在线文档便成为毕业季学生实现「论文自由」的不二之选。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWJJFKYWABTK6.html)
+
+[企业文件全生命周期安全管控，看看石墨是如何做到的 石墨文档通过「事前预防」-「事中管控」-「事后追溯」，实现企业文件从创建、修改、传输，到存储、归档全生命周期的安全管控。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWJBHR47ABTK6.html)
+
+[石墨 x Canva | 用对工具，你也可以是 PPT 设计师 石墨幻灯片接入Canva，轻松解决 PPT 制作过程中的找模板难、图片美化难、创意输出难。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AWIZ3UDNABTK6.html)
+
+[拒绝低效知识管理，从选好一款优秀的知识管理软件开始 上云后的在线文档，不但可以解决文件集中管理难题，还可以进行文档协同编辑共享，更拥有强大的安全管控功能，能够全面提高企业的文档协作管理效率。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWIYZU6JABTK6.html)
+
+[「国家队」下场做智慧教育，教育机构该如何借助协同文档平台实现破局？ 在日常的教学任务中，教育机构仍会遇到团队内外部协作、课件归档、数据收集、在线作业等众多办公业务挑战，亟需在线开放的协同文档平台，提升教学质量。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWIQOVHJABTK6.html)
+
+[协同办公赛道日益拥挤，什么才是企业选型的最佳标准？ 连接、开放、融合和安全是企业协同软件选型的四个维度。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWIIG5U3ABTK6.html)
+
+[无缝流转：电商如何借助石墨打赢「数据争夺战」？ 石墨推出电商数据智流转解决方案，从电商选品，采购，运营，发货，客服，设计等多部门的数据联动，高频协同角度，为电商企业打造了一套好用、易用、实用的解决方案。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWIAINCGABTK6.html)
+
+[从纸笔到云端：走向协同高效的人口普查演进史 利用石墨进行高效准确的入户普查，可以为国家宏观决策提供可靠信息基础，更是现代国家获取人口资料、掌握国情国力的一种调查方法。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWH76ITDABTK6.html)
+
+[助力一线教师玩转教育信息化，石墨文档是个不错的选择 在信息技术与教育教学走向深度融合的教育信息化2.0时代，高效的协同办公软件更加适合基础教育阶段老师们的教学需求。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWHIRXIUABTK6.html)
+
+[合作第一年，石墨文档跻身「华为云千万俱乐部」 石墨文档获得华为云颁发的千万俱乐部奖，并成为 2021 年度华为云市场优秀合作伙伴。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AWHHMJUKABTK6.html)
+
+[难以置信，居家之后我的办公效率居然变高了 疫情「倒春寒」，上海、深圳多地开启居家办公，石墨可以如何帮助企业实现员工居家状态下的高效协同办公？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AWHHI43FABTK6.html)
+
+[同心战疫，共待花期：他们用互助文档凝聚防疫伟力 在以石墨文档、金山文档为代表的协同办公平台的支持下，一些城市相继建立起防疫互助文档，通过分享转发传递生的希望。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWHAHD3BABTK6.html)
+
+[「内附下载」企业文档库搭建实践白皮书发布 石墨推出企业文档库搭建实践白皮书，为高速成长的知识型、创新型企业提供开放的协同文档平台，做好数字化资产的归类、整理、复用、流转，从而大大提升企业的内在底蕴与核心竞争力。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWGWRIGDABTK6.html)
+
+[「极致协同」企业搭建统一文档管理平台的10个关键要素 越来越多的团队决策层开始意识到：做好数字化资产的归类、整理、复用、流转可以大大提升企业的内在底蕴，从而提升核心竞争力。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWGOU2CBABTK6.html)
+
+[最新版 Excel 都没有的 7 个功能，这个在线工具竟然轻松做到！ 微软 Excel 功能强大，但强大的副作用就是学习成本越来越高。石墨文档表格这7个贴心小功能，让你分分钟成为表格管理大师。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWGH5SZUABTK6.html)
+
+[石墨文档的企业高级版，到底「高级」在哪？ 离职员工账号交接、效能看板、操作日志、访问者水印、文件安全预警，石墨文档企业高级版特色功能非常适用于对组织管理、文件安全有较高要求的团队和企业。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWFNM2DIABTK6.html)
+
+[后疫情时代中国企业协同办公十大趋势 后疫情时代，协同办公已经成为了一种不可逆的办公趋势，同时整合多方资源，提升团队的协同效率变成了企业管理者的一个重要的运营战略目标。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWFFHNGTABTK6.html)
+
+[新冠卷土重来，这份协同抗疫实战指南请查收！ 石墨在抗疫支援中积累了丰富的经验，能够有效支撑抗疫工作高效、安全开展 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-09](https://shimo.im/blog/articles/AWE6VMNAABTK6.html)
+
+[石墨「双碳」纪事​ 无纸办公、远程办公、高效办公，石墨文档正在为企业实现「双碳」目标做出自己的贡献 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AWE6OLRWABTK6.html)
+
+[行业内卷，新零售如何借助数字化经营实现连锁门店协同管理？ 石墨从采购、库存、商品、门店、营销活动、人员管理等多个场景，为新零售品牌打造了一套好用、易用、实用的高效协作解决方案。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWE5NTJTABTK6.html)
+
+[「智能制造」火了，云端协同的数字工厂究竟长啥样？ 目前经济形势下，任何一家智能制造企业高层，都需要一场真正的数字化变革来提升企业内部效率，创造更多利润。而石墨所提供的，正是一种触手可及的变革方法论。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AWEV7ENFABTK6.html)
+
+[当代职场女性减负指南 3.8 妇女节，从「协同」出发，石墨可以为女性在家庭生活和职场工作中提供哪些切实的帮助？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AWC4XLFTABTK6.html)
+
+[月薪3K跟月薪3W的电商运营差距在哪里？ 电商多部门协同、多店铺数据管理与部门内部管理三个场景下使石墨办公的最佳实践 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-09](https://shimo.im/blog/articles/AV7ZXSQDABMYS.html)
+
+[把谷爱凌的时间管理用到工作中是种什么体验？ 手把手地教你怎么做好工作中的时间管理，石墨这么用，高效一整年！ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AV6A5LQFABMRQ.html)
+
+[用《开端》打开石墨，这次春节「循环」真不一样！ 以《开端》的方式打开这个春节假期，石墨应用表格可以怎么帮助我们把工作和生活安排得明明白白？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AV5F5XSLABM6Q.html)
+
+[疫情之下，企业做好这5点，远程办公不慌乱 做好这 5 点可以大大降低对远程办公的顾虑，即使隔离期间也不会影响多数员工的日常工作。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AVYLN6IIABNSA.html)
+
+[职场大猫初长成，你是狮型还是虎型人格？ 工作中，你更喜欢虎型石墨风？还是狮型石墨风呢？这个小习惯可以判断你的职场性格哦。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AVYLLEPTABNSA.html)
+
+[下一个十年，什么能激发企业的内生性进化？ 协同办公最近为何又站上风口？它解决企业的核心问题又有哪些？为何管理者可以借助协同办公激发企业的内生性进化？ [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AVYLJPJCABNSA.html)
+
+[数字时代，教育企业如何通过石墨打造高效能团队，实现精细化运营？ 教育行业的 “创新者” “先行者” 是如何通过石墨文档打造高效协同团队，实现精细化运营的？ [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AVYLGSWMABNSA.html)
+
+[什么是私有化部署？适合什么样的企业？一张图解答你所有的困惑！ 什么是私有化部署？私有化部署有什么优势？什么样的企业适合私有化部署？ [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AVYLFQ44ABNSA.html)
+
+[效率 x 安全，这才是企业级云 Office 该有的样子！ 云 Office 可以大大提升企业的协同运营效率，但对于数据安全、系统集成等需求，云 Office 能够交出怎样的答卷？ [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AVYLFANLABNSA.html)
+
+[在线文档很高效，但为什么企业办公开始钟爱云 Office？ 石墨的云 Office 三件套已经超越了简单的在线文档的范畴，它正在引领中国企业办公从在线文档走向云 Office 时代。 [行业资讯](https://shimo.im/blog/tags/news) 2022-09-02](https://shimo.im/blog/articles/AVYLAETJABNSA.html)
+
+[石墨文档入选「2021 数字经济产业 TOP100 榜单」 石墨办公入选「2021 数字经济产业 TOP100 榜单」，科技创新能力和企业服务能力得到专业机构认可。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AVYK6E73ABNSA.html)
+
+[2019 年最受欢迎的「在线协作文档」榜单揭晓 在线协作文档，谁最受欢迎？36 氪向 20 万名职场人发出调研邀约。在爱用榜 TOP30 榜单中，石墨文档脱颖而出，位居第一名。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-09](https://shimo.im/blog/articles/AVYK45DLABNSA.html)
+
+[石墨文档创始人吴冰、吴洁荣获第四届拉姆·查兰管理实践奖 10 月 30 日，石墨文档创始人吴冰、吴洁荣获第四届拉姆·查兰管理实践奖「创新创业实践奖」。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AVYK24ZDABNSA.html)
+
+[石墨创始人，高富帅双胞胎入选《财富》40 Under 40 榜单 《财富》(FORTUNE) 发布 2020 年「中国 40 位 40 岁以下的商界精英」榜单，石墨文档创始人兼 CEO 吴冰、吴洁入选。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AVYKXBYNABMPC.html)
+
+[一图看懂 2021「石墨办公」品牌发布会 12月1日，「重塑办公文档」2021石墨办公品牌发布会举行，石墨正式推出面向企业组织的全新ToB子品牌——石墨办公。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AVYKTTUDABMPC.html)
+
+[换领导后，竟然要求每天写日报，真的有必要吗？ 你是日报支持派还是反对派？日报除了满足领导的管控欲，对进度同步和业务推进真的有帮助吗？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-07](https://shimo.im/blog/articles/AVYJXAAZABMPC.html)
+
+[轻松搞定远程办公，石墨文档产研团队专属模板套件发布！ 覆盖日常办公、团队管理中的高频场景，石墨量身打造出产研团队远程办公模板套件。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-02](https://shimo.im/blog/articles/AVYJUQFRABMPC.html)
+
+[HR 必读 | 解锁协同办公新技能，工作从此无烦恼 石墨在人力资源场景上的运用，涵盖入职、在职、离职全流程，让招聘、薪酬发放、离职交接等诸多办公流程更加高效、便捷。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-02](https://shimo.im/blog/articles/AVYJQ7GRABMPC.html)
+
+[总担心企业文件泄露？99% 的管理者都应该开启这个新功能 石墨「文件预警」功能 ，帮助企业实时监控文件异常状态，提前预警，减少损失。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYJO7QJABMPC.html)
+
+[单元格更新自动提醒，石墨「关注选区」是项目管理利器 石墨表格现已支持关注选区功能，表格内容更新实时自动发送提醒，减少人员沟通成本。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYJN52GABMPC.html)
+
+[千人千面！协作空间权限体系升级，助力企业实现精细化管理 从千人一面到千人千面，权限体系升级后的团队空间能够助力企业用户实现文件、成员权限的精细化管理。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYJLKEAABMPC.html)
+
+[比 VLOOKUP 好用 10 倍？石墨表格超级查找函数 XLOOKUP 来了 石墨表格正式推出了 XLOOKUP 和 XMATCH 函数，成为国内首家支持该函数的在线表格。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYJJWEOABMPC.html)
+
+[为极致办公效率而生，石墨全新主站发布！ 石墨的新主站提供了全新的页面布局，在文件的创建、整理、检索等环节，都带来了极大的功能、性能与体验的提升。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYDUKCQABMPC.html)
+
+[石墨 SDK 云端版上线，快速为您的产品集成协同编辑能力 几行代码、简单配置就能将石墨强大的编辑器和协同能力集成到您的产品中，为您的用户带来流畅、高效的协作编辑体验。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYDSPYMABMPC.html)
+
+[石墨白板公测版上线，见字如面，让沟通更加准确高效！ 石墨白板让 “见字如面” 成为可能，多位成员围绕一个话题各抒己见，讨论思路与结果同步呈现。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYDRCHIABMPC.html)
+
+[3分钟搞定1000名员工信息统计，这样的「石墨表单」是数据收集管理利器！ 功能完备的石墨表单，将全面助力企业更高效地完成数据收集、管理与分析工作。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYDPEVVABMPC.html)
+
+[石墨思维导图公测版上线，让发散的思维更有条理 无需下载，简洁优美，实时保存，多端共享，分享协作便捷，这就是全新上线的石墨思维导图。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYDLBRZABMPC.html)
+
+[「石墨文字识别」小程序上线，不仅仅是传图识字那么简单 当「石墨文字识别」小程序出现以后，他们的工作生活慢慢发生了变化... [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-02](https://shimo.im/blog/articles/AVYDIUYWABMPC.html)
+
+[8 大场景，10 大功能，这才是在线表格的正确打开方式 在线表格，除了协同编辑，还能做些什么？ [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYDF7ODABMPC.html)
+
+[像微信群一样@别人，石墨的文档表格也可以 无论是石墨文档或是表格，都可以在文件任意位置输入「@」，提及相应的人或文件。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYDCQBOABMPC.html)
+
+[离职交接不再难，教你一键接管重要文件 员工离职恶意带走公司机密文件？石墨离职交接，一键禁用账号文件留下。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYDANKXABMPC.html)
+
+[7 个文档小技巧，轻松提升 80% 工作效率 划词评论、「@」文件人员、历史记录......石墨文档这几个功能简直太实用！ [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYC3FZFABMPC.html)
+
+[这 9 个进阶公式，记住一半你就是表格达人 想要成为数据达人，这一组石墨表格进阶公式你一定要了解并掌握。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCXVJWABMPC.html)
+
+[6 步速成，数据达人带你高效玩转石墨表格 石墨表格中隐藏着很多实用快捷功能，若能够熟练掌握，不少费时费力的操作实际上几秒钟就能轻松搞定。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCVQHPABMPC.html)
+
+[数据总被误删改？石墨表格的锁定单元格你早就该掌握 石墨表格提供了灵活多样的权限设置，在实现高效协同编辑的同时，又能充分确保数据安全可控。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCUR4JABMPC.html)
+
+[一份让 leader 满意的数据汇报表长什么样？ 一份让 leader 满意的数据汇报表应该简洁、直接，最好能直达数据重点。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCL2OUABMPC.html)
+
+[如何一秒找到关键数据，筛选视图帮你直达重点 「筛选视图」可以帮助多人协作时，各自建立筛选结果，拥有独立的视图界面。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCKVCXABMPC.html)
+
+[超简单的跨表格引用数据方法，再不会就是你的错了 IMPORTRANGE 函数就像钩子一样，可以从众多的表格链接中帮你获取到想要的数据，并且可以实时动态更新。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCIYVCABMPC.html)
+
+[原以为再也不想做数据整合，直到我学会这招1秒合并工作表 无论是一张表格中的不同 sheet，还是不同表格中的不同 sheet，石墨表格都可以将其一键汇总到一张总表中。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVYCG5M7ABMPC.html)
+
+[签约 | 佰才邦 x 石墨文档，助力打造 5G 领域国际创新企业 集团级一站式云端 Office 协作平台，助力佰才邦提升协同办公效率，搭建高效安全的文档协作共享机制。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-02](https://shimo.im/blog/articles/AVYBONOJABMPC.html)
+
+[2年100倍增长，西瓜创客是如何通过石墨文档进行管理和教学的？ 全公司 700 多人使用，石墨给西瓜创客的团队管理、日常教学以及客户管理带来了怎样的变化？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-02](https://shimo.im/blog/articles/AVYBKZQEABMPC.html)
+
+[在这家财经教育公司，新人入职的第一件事就是学习石墨 通过石墨，简七理财不仅实现了团队高效协作，更实现了知识的沉淀流转，为内容创新提供了源源不断的动力。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-02](https://shimo.im/blog/articles/AVYBEXOMABMPC.html)
+
+[诞生在美国硅谷，这家留学机构为什么放弃 Google 选择石墨？ 留学是一个值得深耕的行业，而公司内部的高效异地协作，也帮助了他们更好地服务异国学子 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-02](https://shimo.im/blog/articles/AVYBBRXXABMPC.html)
+
+[跨部门协作、异地沟通，这家出版社是如何走向高效办公之路的？ “我们当时比较了几家产品，无论从产品的完整性、安全性，还是与组织架构的打通上，石墨文档都比较打动我们。” [客户案例](https://shimo.im/blog/tags/cases) 2022-09-02](https://shimo.im/blog/articles/AVYA63IWABMPC.html)
+
+[这些常用的表格公式，90% 的人竟然都不知道 石墨表格中的 8 大常用公式，帮助你高效处理数据，成长为别人眼中的 “表格大神”。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVX3KXUHABMPC.html)
+
+[这 6 大图表，帮你轻松入门数据可视化 将数据更直观、清晰地呈现给人们眼前，就要借助数据可视化，帮助人们化繁为简。 [进阶技巧](https://shimo.im/blog/tags/skill) 2022-09-02](https://shimo.im/blog/articles/AVX3JETQABMPC.html)
+
+[石墨办公入选「2021ToB 行业年度榜单 · 产品价值榜」 石墨办公入选「2021ToB 行业年度榜单 · 产品价值榜」，科技创新能力和企业服务能力得到专业机构的认可。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-09](https://shimo.im/blog/articles/AVX2XQ5WABMPC.html)
+
+[亚布力对话石墨文档吴洁：在中国做一款世界级在线办公产品 石墨文档的初心是在中国做一款世界级的产品。七年已过，行至何处？ [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AVX2WLQZABMPC.html)
+
+[国产化云 Office 首家 | 石墨文档 App 入驻统信 UOS 操作系统 中国第一款云端 Office 办公软件石墨文档与统信 UOS 操作系统完成兼容性适配认证。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-09](https://shimo.im/blog/articles/AVX2UP6VABMPC.html)
+
+[信创产业的明日之星：石墨文档入选「2021 信创办公软件企业榜」 石墨文档入选 「2021 信创办公软件企业排行」，在 30 家供应商中名列第 7。 [公司动态](https://shimo.im/blog/tags/company-news) 2022-09-02](https://shimo.im/blog/articles/AVX2S5XLABMPC.html)
+
+[1 年业绩激增 700%，石墨文档销售团队的秘籍原来是这个 2019 年，石墨文档的销售业绩实现了 700% 的增长。除了过硬的产品实力外，销售团队的高效协同运转也至关重要。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-02](https://shimo.im/blog/articles/AVX2P57KABMPC.html)
+
+[企业如何做好任务管理？「任务管理三部曲」模板来了 覆盖工作中每日工作清单、阶段性任务、长期大型项目等任务管理场景，从几个人、几十人到几百人的团队都可使用。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-02](https://shimo.im/blog/articles/AVX2OTESABMPC.html)
+
+[速度转需 | 收好这 30 套表单模板，春节防疫高效不慌乱 @企业、学校、社区，春节特供版表单使用攻略请查收。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVX2LYPMABMPC.html)
+
+[挑战 1 小时搞定年度总结 如何通过石墨把做年度总结这件事变得更高效、更轻松？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVX2J6RQABMPC.html)
+
+[新品发布｜石墨「应用表格」在线求职 石墨正式推出新一代数据协同与项目管理工具——应用表格，帮助大家更加优雅高效地整合信息、管理任务。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-01](https://shimo.im/blog/articles/AVX2IEGZABMPC.html)
+
+[签约 | Moka x 石墨文档，全面升级数据资产管理和协同办公效率 Moka基于石墨文档搭建企业文档云端协同办公平台，集中管理企业文档数据，全面提升企业内文档协同、流转效率。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVX2GTXIABMPC.html)
+
+[签约 | 怪兽充电 x 石墨文档，有效优化企业内协同办公流程 怪兽充电正式与石墨文档完成签约，基于 SaaS 企业版搭建云端文档协同办公平台。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVX2FYKOABMPC.html)
+
+[签约 | 招商局集团 x石墨文档，云 Office 见证百年央企数字化办公升级 石墨文档以全站私有化部署模式嵌入由招商局集团数字化中心自主研发、倾力打造的招商局集团工作协同平台—招商随行（CMWorkLink）。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVX2EM7WABMPC.html)
+
+[签约 | 新东方在线 x 石墨文档，云 Office 激发教育行业在线生产力 创新式的即时通讯工具 + 石墨文档的企业协同管理方式，激发了员工的创造力，大大提升了工作效率。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVX2DP2AABMPC.html)
+
+[签约 | 北京机械设备研究所 x 石墨文档，多地协同办公模式升级 北京机械设备研究所是大型军工央企，石墨文档以全站私有化部署为其搭建了企业级实时协同办公平台。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVX2A656ABMPC.html)
+
+[签约 | 沃尔沃 x 石墨文档，搭建企业信息云端协同共享平台 基于石墨 SaaS 企业版，沃尔沃中国北方总部大大提升了企业内部协同办公效率，优化了企业内外部资料共享方式。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVXZ7JHIABMPC.html)
+
+[签约 | 龙湖集团 x 石墨文档，私有化部署保障万人级协作高效安全 石墨文档以私有化部署的方式，为龙湖集团量身打造项目文档协同系统，支撑龙湖集团万名成员跨地域、跨部门进行毫秒级的实时协作。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVXZ4RQBABMPC.html)
+
+[尝试国内外多款办公工具，猿辅导为什么最终选择石墨？ 猿辅导内部已经全面普及了石墨文档，成千数万名员工每天都在通过石墨文档展开高效、稳定、安全的协同办公。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVXZERU4ABMPC.html)
+
+[跨地域、多部门，同道大叔如何高效管控商务合同和财务收款？ 如今，互联网和自媒体公司跨地域工作的情况越来越常见。如何消除地域区隔所带来的信息鸿沟，就显得尤为重要。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVXZBJEBABMPC.html)
+
+[新世相的 10w+ 效率之路 当企业业务不断做大，规模不断扩张时，协同办公自然是个不能回避的话题。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVXY7B7LABMPC.html)
+
+[2043％ 增长，服务千万用户，风变科技以协同加速企业进化 通过对石墨文档的深度使用，风变科技在快速扩大团队的同时，也提高了企业内部的项目管理和团队协作效率。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVW2WLE5ABMPC.html)
+
+[一土教育 | 工作群+主文档，企业协同管理原来可以如此灵活高效！ 企业微信+石墨文档，一土教育打造了独特的企业协同管理方法，灵活高效，也激发了团队的创造力。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWBRVX2ABMME.html)
+
+[石墨文档企业高级版上线，史上功能更强大的企业级在线文档诞生！ 适用于对高效协同、组织管理、文件安全有更高要求的团队和企业。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-01](https://shimo.im/blog/articles/AVWB5GH3ABMME.html)
+
+[石墨文档私有化部署，助力企业搭建安全高效的实时协同办公平台 石墨文档正式推出私有化部署服务，全面助力企业搭建安全高效的实时协同办公平台。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-01](https://shimo.im/blog/articles/AVWB5UYWABMME.html)
+
+[签约 | 猿辅导 x 石墨文档，私有部署推动协同办公效率显著提升 通过石墨文档私有部署，猿辅导实现了企业办公的高效协同，同时也实现了企业内部知识资产的安全管理。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVWB6C7LABMME.html)
+
+[签约 | 音遇 x 石墨文档，全站私有部署保障协同办公安全稳定 石墨文档私有部署，助力音遇实现业务的高效协同运转和数据资产的安全规范管控。 [签约快讯](https://shimo.im/blog/tags/signup_news) 2022-09-01](https://shimo.im/blog/articles/AVWB6YDYABMME.html)
+
+[好物 | 石墨打破信息壁垒，提高跨部门协作效能 “石墨文档消除了信息的壁垒，很好的解决了统筹和协作的问题，让团队的力气能往一处使，保证了工作有条不紊的推进。” [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWB7BCOABMME.html)
+
+[驿氪 | 选择石墨，就是选择高效协作 3年内为300多家知名品牌提供零售升级解决方案，在驿氪快速成长的过程中，石墨作为团队协作工具发挥了重要的“助攻”作用。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCBFRMABMME.html)
+
+[跟谁学 | PM实时协作，项目管理从未如此简单 “一个协作文档或者表格就可以实时记录整个项目的进度，同时在零碎文字的录入和整理方面也非常方便。” [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCBPWNABMME.html)
+
+[多彩投 | 石墨文档+钉钉，互联网金融团队的工作利器 互金行业的多彩投，巧妙结合石墨文档和钉钉，便捷高效地完成活动策划、信息收集以及项目排期等工作。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCB2EFABMME.html)
+
+[独家揭秘 | GQ的爆款文章究竟是如何诞生的？ “石墨文档让记者/编辑感受到文字书写的乐趣，让传统媒体和新媒体的内容生产走向高效。” ——GQ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCCFVNABMME.html)
+
+[石墨2.0，让项目组协作井然有序 一次添加所有协作成员，一秒找到所需目标文档，一拖上传多种格式文件。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-01](https://shimo.im/blog/articles/AVWCCPVWABMME.html)
+
+[享物说不仅有彭于晏代言，还有石墨文档助力高效办公 1年积累4000万用户，国民男神彭于晏代言，石墨文档是如何助力享物说成为现象级互联网产品的？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCGSFJABMME.html)
+
+[喜茶 | 一个爆红茶饮店背后的办公修养 喜茶互联网团队高效配合，持续探索茶饮智能化的无限可能，石墨文档到底在其中发挥了什么样的作用？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCG4NMABMME.html)
+
+[石墨文档小程序上线，沟通与协作一气呵成 小程序来了！2200小时，石墨工程师打造了一款媲美APP的微信办公利器！带上石墨文档小程序，闯荡职场江湖。 [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-01](https://shimo.im/blog/articles/AVWCHITKABMME.html)
+
+[Hello，幻灯片。Hello，最完整的云端Office。 幻灯片C位出道！石墨，国内最完整的云端Office！ [产品上新](https://shimo.im/blog/tags/product-updates) 2022-09-01](https://shimo.im/blog/articles/AVWCHRZLABMME.html)
+
+[企业版价格调整公告 高效、完整、优美是我们不变的追求。我们在努力，只为您毫不费力。 [石墨公告](https://shimo.im/blog/tags/notice) 2022-09-09](https://shimo.im/blog/articles/AVWCH3WLABMME.html)
+
+[ABC 在线英语 | 颠覆传统办公模式，让工作更高效！ ABC 在线英语 | 颠覆传统办公模式，让工作更高效！ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCIIOJABMME.html)
+
+[婚礼猫 | 上线一款产品，只需遵循这五步 作为石墨文档的企业用户，和大家分享的是作为产品经理，是如何使用石墨文档撰写、共享和评审需求的。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCISOQABMME.html)
+
+[揭秘：石墨文档团队背后的协作故事！ 石墨文档作为一个效率生产工具，一直致力于改变每个人的工作方式。那么，大家一定很好奇我们团队的工作方式是怎样的？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWIZ3BAABMME.html)
+
+[界面正午 | 一日之计在正午，提高效率正当时 一个非虚构写作平台，每个人都是石墨文档的重度用户，Ta们是如何在石墨文档上进行协作的呢？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCI75KABMME.html)
+
+[北大附中 | 群策群力，打造新型教研教学方式 石墨文档让教学计划、会议、协作流程更加清晰简洁，也是加强教师之间和师生之间交流的纽带。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCJTX6ABMME.html)
+
+[如何更高效地写一份产品需求文档 使用石墨文档，多人实时协作，提升连接性和信息的同步性，让团队更方便查阅产品需求文档。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCJZX3ABMME.html)
+
+[黄油相机 | 图片社区的高效运营，拉近和用户的距离 黄油相机的运营团队，是如何在石墨文档上完成从排期到输出的？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCKDQSABMME.html)
+
+[把控项目进度，用石墨文档就够了 使用石墨文档和石墨表格，帮助你的企业或小组更效率的把控项目进度，从而提升创新性、连接性和信息的同步性。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCKF3RABMME.html)
+
+[特赞的设计大师如何用「 石墨文档 」采访 MUJI 的创始人？ 特赞的 PR 部门，需要内容编辑和协作的地方更多，他们是如何使用石墨文档提高效率的呢？ [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCJQOLABMME.html)
+
+[一个 200w 新媒体人都在使用的校稿方式 时间是媒体从业者的生命，【Word+IM+邮件】的传统校稿方法效率很低，石墨用户是如何审阅和校对稿件的呢？ [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCJFE2ABMME.html)
+
+[如何做一次简单高效的脑暴？秘诀在这里 用协作文档征集全员想法，让思路聚集在一张文档上，还可以在旁边划词评论。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCIYGNABMME.html)
+
+[你还在「穷忙」吗？何不试试极简主义 极简艺术放在职场里简单来说就是：尽量用最简单的方式完成一项任务。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCH7OSABMME.html)
+
+[这3个时间管理方法，让你的8小时≥别人的24小时 团队的效率提高离不开正确的个人时间管理方法，而繁忙的工作容易让人忽略时间管理的重要性。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCGKMLABMME.html)
+
+[路书 | 一场成功的产品发布会，一次高效的协作之旅 石墨文档助我们打了一场准备充分的战役，整场发布会的准备和执行简化了流程，节约了大量的沟通时间 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCFLKDABMME.html)
+
+[Flipboard | 揭秘中国版4.0 发布背后的协作流程 此次 Flipboard 中国版4.0上线，大部分工作都是借助于石墨文档的共享和协作来完成的 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCCM2JABMME.html)
+
+[中央财经大学 | 单打独斗不如合力协作 体育的协作精神也影响着我的生活和工作，2016年7月开始接触到石墨文档，开启了文档协作之旅。 [客户案例](https://shimo.im/blog/tags/cases) 2022-09-01](https://shimo.im/blog/articles/AVWCCAOBABMME.html)
+
+[石墨文档：云端上的会议白板 传统的会议白板存在一定的局限性，有一个云端上的会议白板可以很好地解决上面这些问题。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCBP5JABMME.html)
+
+[石墨助力，让你策划的市场活动更加完美 石墨文档将在策划阶段、准备阶段、外部合作阶段、总结阶段提供更加高效的方法，一起来看看吧。 [效率实践](https://shimo.im/blog/tags/efficiency) 2022-09-01](https://shimo.im/blog/articles/AVWCA66DABMME.html)
+
+#### 公有云服务咨询
+
+*   [400 666 9920 转 1](tel:400-666-9920)企业用户售前咨询
+*   [400 666 9920 转 3](tel:400-666-9920)SDK 业务咨询
+
+#### 私有部署服务咨询
+
+*   [400 666 9963](tel:400 666 9963)私有部署售前咨询
+
+#### ( 工作日 9:00 - 19:00 )
+
+#### 售后服务咨询
+
+*   [石墨售后服务咨询](https://shimo.sobot.com/chat/pc/v2/index.html?sysnum=99f41a92d15542b7a884c7e355359961&from=iframe&color=41464b&type=0&leave_msg_flag=true&feedback_flag=true)
+
+[](http://weibo.com/shimowendang)[](https://twitter.com/ShimoDocs)[](https://www.facebook.com/shimo.im)
+
+* * *
+
+#### 石墨产品
+
+*   [石墨办公](https://shimo.im/firm)
+*   [个人版](https://shimo.im/personal)
+*   [私有化部署](https://shimo.im/firm/private)
+*   [开发者](https://platform.shimo.im/)
+*   [钉钉版](https://h5.dingtalk.com/orgreg/isvIndex.html?qrCode=E7DB6709D3328D8D75DD1253A34D851CE5137E585AFC0E7FE0FFF492974E2EEDD77FE743C5D2F452BC90E73E1DEC08C6EFCEEFCE9FA82AAF2A166E926746E84038C1809A72199259635E803E96AD90F6&signature=fd4d8a3ba15d3c36c2dec0ebd952e59f462cfc91)
+*   [企业微信版](https://shimo.im/wework)
+*   [下载客户端](https://shimo.im/firm/download)
+
+#### 石墨服务
+
+*   [解决方案](https://shimo.im/firm/samples)
+*   [帮助中心](https://shimo.im/help)
+*   [更新日志](https://shimo.im/docs/WlArzbzMabtOm2A2)
+*   [网站地图](https://shimo.im/sitemap)
+*   [服务条款](https://shimo.im/agreements/service)
+*   [隐私政策](https://shimo.im/agreements/privacy)
+*   [行为规范](https://shimo.im/agreements/behavior)
+
+#### 公司
+
+*   [关于我们](https://shimo.im/about)
+*   [石墨公告](https://shimo.im/blog/tags/notice)
+*   [客户案例](https://shimo.im/blog/tags/cases)
+*   [石墨博客](https://shimo.im/blog)
+*   [技术博客](https://zhuanlan.zhihu.com/shimo)
+*   [媒体报道](https://shimo.im/media_reports)
+*   [公益计划](https://shimo.im/pricing#shimo_public)
+*   [加入我们](https://app.mokahr.com/apply/shimo)
+
+© 2014-2021 武汉初心科技有限公司[鄂公网安备 42018502003887 号](http://www.beian.gov.cn/portal/registerSystemInfo?spm=a313x.7781069.1998910419.37&recordcode=42018502003887)[鄂ICP备14013665号-2](https://beian.miit.gov.cn/)
+
+举报邮箱：contact@shimo.im[中央网信办违法和不良信息举报中心](https://www.12377.cn/?spm=zm1066-001.0.0.1.5WfWt5)电话：12377[![Image 2](https://assets.shimonote.com/static/lizard-service-homepage/assets/CAC.72da4709.png)](https://www.12377.cn/?spm=zm1066-001.0.0.1.5WfWt5)[![Image 3](https://assets.shimonote.com/static/lizard-service-homepage/assets/CACFraud.3c6d5271.png)](https://www.12377.cn/jbxzxq/zpljbxzxq.html)[![Image 4](https://assets.shimonote.com/static/lizard-service-homepage/assets/CACHistory.99d31704.png)](https://www.12377.cn/jbxzxq/64d38691937611ebb858c9da04cf59d3_web.html)

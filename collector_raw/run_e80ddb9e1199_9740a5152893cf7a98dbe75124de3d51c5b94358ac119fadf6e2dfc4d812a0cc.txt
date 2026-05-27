@@ -1,0 +1,429 @@
+# WPS AI 来了，比 ChatGPT 更适合办公，还更懂中文 | 爱范儿
+
+Title: 办公 AI 新选择
+
+URL Source: https://www.ifanr.com/app/1543596
+
+Published Time: 2023-04-18 11:40:35
+
+Markdown Content:
+# WPS AI 来了，比 ChatGPT 更适合办公，还更懂中文 | 爱范儿
+
+分类
+
+*   [AIGC](https://www.ifanr.com/category/aigc)
+*   [Cartoon Saloon](https://www.ifanr.com/category/cartoon-saloon)
+*   [CES 2018](https://www.ifanr.com/category/ces2018)
+*   [CES Asia](https://www.ifanr.com/category/cesaisa)
+*   [CES2019](https://www.ifanr.com/category/ces2019)
+*   [ifanQ](https://www.ifanr.com/category/ifanq)
+*   [ifanRank](https://www.ifanr.com/category/top-rank)
+*   [ifanrank](https://www.ifanr.com/category/ifanrank)
+*   [ifanRank](https://www.ifanr.com/category/top-rank/ifanrank-top-rank)
+*   [ifanRank 2018](https://www.ifanr.com/category/ifanrank-2018)
+*   [MindTalk](https://www.ifanr.com/category/mindtalk)
+*   [MWC 2018](https://www.ifanr.com/category/mwc-2018)
+*   [专访](https://www.ifanr.com/category/interviews)
+*   [产品](https://www.ifanr.com/category/product)
+*   [人物](https://www.ifanr.com/category/people)
+*   [公司](https://www.ifanr.com/category/business)
+*   [制糖工厂](https://www.ifanr.com/category/candysign)
+*   [商业](https://www.ifanr.com/category/%e5%95%86%e4%b8%9a)
+*   [图记](https://www.ifanr.com/category/%e5%9b%be%e8%ae%b0)
+*   [好莱坞](https://www.ifanr.com/category/%e5%a5%bd%e8%8e%b1%e5%9d%9e)
+*   [小程序](https://www.ifanr.com/category/%e5%b0%8f%e7%a8%8b%e5%ba%8f)
+*   [广告](https://www.ifanr.com/category/%e5%b9%bf%e5%91%8a)
+*   [文娱](https://www.ifanr.com/category/%e6%96%87%e5%a8%b1)
+*   [新创](https://www.ifanr.com/category/innovation)
+*   [新消费](https://www.ifanr.com/category/%e6%96%b0%e6%b6%88%e8%b4%b9)
+*   [早报](https://www.ifanr.com/category/ifanrnews)
+*   [模范评测](https://www.ifanr.com/category/evaluation)
+*   [汽车](https://www.ifanr.com/category/%e6%b1%bd%e8%bd%a6)
+*   [游戏](https://www.ifanr.com/category/game-special)
+*   [爱范儿](https://www.ifanr.com/category/ifanr)
+*   [特稿](https://www.ifanr.com/category/special)
+*   [生活](https://www.ifanr.com/category/life)
+*   [硬件](https://www.ifanr.com/category/%e7%a1%ac%e4%bb%b6)
+*   [糖纸](https://www.ifanr.com/category/tangzhi)
+*   [糖纸众测](https://www.ifanr.com/category/tangzhi-evaluation)
+*   [范评](https://www.ifanr.com/category/%e8%8c%83%e8%af%84)
+*   [董车会](https://www.ifanr.com/category/intelligentcar)
+*   [视频](https://www.ifanr.com/video)
+*   [设计](https://www.ifanr.com/category/%e8%ae%be%e8%ae%a1)
+*   [评测](https://www.ifanr.com/category/review)
+*   [软件](https://www.ifanr.com/category/%e8%bd%af%e4%bb%b6)
+*   [近未来](https://www.ifanr.com/category/future)
+
+[](https://x.com/ifanr)[](https://www.ifanr.com/weixin)[](http://weibo.com/ifanr)[](https://www.ifanr.com/feed)
+
+[商务合作](https://www.ifanr.com/adinfo)[内容投稿](https://www.ifanr.com/about/contribute/)
+
+[下载客户端](https://www.ifanr.com/ifanr-app-download/)
+
+![Image 1: 下载客户端](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/ifanr-app.png)![Image 2: 爱范儿 logo](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/ifanr/ifanr-nav-logo.svg)
+
+*   登录 
+*   注册 
+*   ![Image 3](https://www.ifanr.com/app/1543596)
+
+![Image 4](https://www.ifanr.com/app/1543596#)[](https://sso.ifanr.com/myaccount/)
+
+    *   [我的动态](https://sso.ifanr.com/myactivity/)
+    *   [消息中心](https://sso.ifanr.com/mymessage/)
+    *   [我的收藏](https://sso.ifanr.com/mycollection/)
+    *   [账户设置](https://sso.ifanr.com/myaccount/)
+
+[退出登录](https://sso.ifanr.com/logout/)
+
+[](javascript:;)
+
+[![Image 5: 爱范儿 LOGO](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/ifanr/ifanr-white-logo.svg)](https://www.ifanr.com/)
+*    媒体品牌 ![Image 6](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/navbar-arrow-dark.svg)![Image 7](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/qrcode/ifanr.png)爱范儿 关注明日产品的数字潮牌  ![Image 8](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/qrcode/appso.png)APPSO 先进工具，先知先行，AIGC 的灵感指南  ![Image 9](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/qrcode/dongchehui.png)董车会 造车新时代，明日出行家  ![Image 10](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/qrcode/coolbuy.png)玩物志 探索城市新生活方式，做你的明日生活指南    
+*   [知晓云](https://cloud.minapp.com/?utm_source=ifanr&utm_medium=navigation)
+*    制糖工厂 ![Image 11](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/navbar-arrow-dark.svg)![Image 12](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/navbar-candysign-logo.svg)扫描小程序码，了解更多![Image 13](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/navbar-candysign-arrow.svg) ![Image 14](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/qrcode/candysign.png)   
+
+热门搜索
+
+为您查询到  篇文章
+
+加载更多
+
+![Image 15](https://s3.ifanr.com/wp-content/uploads/2023/04/01-1.jpg!720)
+
+# WPS AI 来了，比 ChatGPT 更适合办公，还更懂中文
+
+[AppSo](https://www.ifanr.com/app/)
+2023-04-18 11:40
+
+-
+
+ 评论
+
+[](http://v.t.sina.com.cn/share/share.php?url=https://www.ifanr.com/app/1543596&title=WPS%20AI%20%E6%9D%A5%E4%BA%86%EF%BC%8C%E6%AF%94%20ChatGPT%20%E6%9B%B4%E9%80%82%E5%90%88%E5%8A%9E%E5%85%AC%EF%BC%8C%E8%BF%98%E6%9B%B4%E6%87%82%E4%B8%AD%E6%96%87)
+
+分享到微信
+
+使用微信扫码将网页分享到微信
+
+[](https://twitter.com/intent/tweet?button_hashtag=ifanr&text=WPS%20AI%20%E6%9D%A5%E4%BA%86%EF%BC%8C%E6%AF%94%20ChatGPT%20%E6%9B%B4%E9%80%82%E5%90%88%E5%8A%9E%E5%85%AC%EF%BC%8C%E8%BF%98%E6%9B%B4%E6%87%82%E4%B8%AD%E6%96%87&url=https://www.ifanr.com/app/1543596)[](https://www.linkedin.com/shareArticle?title=WPS%20AI%20%E6%9D%A5%E4%BA%86%EF%BC%8C%E6%AF%94%20ChatGPT%20%E6%9B%B4%E9%80%82%E5%90%88%E5%8A%9E%E5%85%AC%EF%BC%8C%E8%BF%98%E6%9B%B4%E6%87%82%E4%B8%AD%E6%96%87&url=https://www.ifanr.com/app/1543596&summary=&source=ifanr)
+
+当我拿到金山办公代号「WPS AI」 的内测资格时，嘴角不由得上扬了几度，脑海里缓慢的浮现出一句话：好耶，可以摸鱼了。
+
+体验一款可以提高写作效率的工具，不就相当于允许我长跑时骑自行车么？
+
+没错，这篇文章就是我「骑着自行车」完成的。
+
+![Image 16](https://s3.ifanr.com/wp-content/uploads/2023/04/1-3.jpeg!720)
+
+### 3 大场景，轻文档并不轻
+
+金山办公暂定代号「WPS AI」的生成式人工智能应用，率先登陆了在线协同编辑工具轻文档（kdocs.cn），在轻文档里按下「Ctrl+J」WPS AI 的对话框就出现在我们面前，闪烁的光标似乎在跟我对话：来吧，问点什么。
+
+紧接着我就输入了第一句话：我的名字是哈利·波特。
+
+![Image 17](https://s3.ifanr.com/wp-content/uploads/2023/04/2-2.gif)
+
+在童话世界里，可以交流的日记本需要强大的魔法，但现实生活中，它却只需要一个可以联网的浏览器。
+
+经过一段时间体验，我发现轻文档的「轻」并不是说它功能少，而是说它操作起来够简单。就连功能都不用去翻阅说明书，直接问它就有结果：
+
+![Image 18](https://s3.ifanr.com/wp-content/uploads/2023/04/3-5.jpg!720)
+
+简单总结一下，WPS AI 的功能主要分为三大类：知识分析、内容生成、文本处理。
+
+在体验这些功能的同时，我们还为 WPS AI 找来了 Notion AI 这个对手来进行比较，看看在中文办公领域，谁的体验更胜一筹。
+
+除了「Ctrl+J」，轻文档还将 WPS AI 加入了「/」的基础功能中，按下「/」，最上面就是 WPS AI 的入口，一定程度上降低了老用户的使用门槛。Notion 则将 AI 功能加入了空格键里，新建文档就可看到提醒。
+
+![Image 19](https://s3.ifanr.com/wp-content/uploads/2023/04/4.gif)
+
+▲ 轻文档里按下「/」出现的 WPS AI 入口
+
+不过在体验功能之前，我们其实已经可以看到 Notion AI 相比 WPS AI，对中文支持并不那么好，原生支持中文的 WPS AI 在国内使用要方便很多。
+
+![Image 20](https://s3.ifanr.com/wp-content/uploads/2023/04/5-7.jpg!720)
+
+*   知识分析
+
+首先是协同办公能力，先来小试牛刀，WPS AI 和 Notion AI 均内置了会议提纲的起草项，就用它们各写一份「产品需求评审会」的会议提纲看看。
+
+![Image 21](https://s3.ifanr.com/wp-content/uploads/2023/04/6-4.jpg!720)
+
+▲ WPS AI 创作的会议提纲
+
+WPS AI 模拟了一场从 10 时到 13:30 的产品需求评审会议，从会议目标、时间地点、参会人员到详细的议程安排，产品、研发、市场各部门都有明确的发言时间，根据实际情况填充调整内容就可以直接使用了。
+
+![Image 22](https://s3.ifanr.com/wp-content/uploads/2023/04/7-2.jpg!720)
+
+▲ Notion AI 创作的会议提纲
+
+相比之下，Notion AI 写的会议议程就简单很多，最基础的时间地点、参会人员都没有体现，想要直接拿来用是不可能的。
+
+接下来我们又测试了待办列表的生成能力，让 WPS AI 和 Notion AI 各生成一份「办公 AI 发布会」的待办列表。
+
+![Image 23](https://s3.ifanr.com/wp-content/uploads/2023/04/8-1.jpeg!720)
+
+▲ WPS AI 创作的待办列表
+
+![Image 24](https://s3.ifanr.com/wp-content/uploads/2023/04/9-3.jpg!720)
+
+▲ Notion AI 创作的待办列表
+
+可以看到在确定待办事项这件事上，WPS AI 和 Notion AI 第一次给出的列表差不太多，涵盖了一场发布会的大致流程。如果觉得这个流程不够细致，我们可以直接点击续写，然后 WPS AI 就会继续给出一场发布会当中需要注意的更多细节。
+
+最后，我们还对比了生成职位描述，Notion AI 同样爱说英文，WPS AI 则顺利完成了任务：
+
+![Image 25](https://s3.ifanr.com/wp-content/uploads/2023/04/10-3.jpg!720)
+
+▲ WPS AI 创作的职位描述
+
+![Image 26](https://s3.ifanr.com/wp-content/uploads/2023/04/11-3.jpg!720)
+
+▲ Notion AI 创作的职位描述
+
+WPS AI 还有一些特别的功能，比如 SWOT 分析，可以帮你快速了解项目的优劣势。
+
+![Image 27](https://s3.ifanr.com/wp-content/uploads/2023/04/12-3.jpg!720)
+
+在协作办公领域，WPS AI 借助自己优秀的本地化积累，不仅更懂中文，也更懂中国市场，生成的内容只需略微调整，就可以直接在工作中使用了。
+
+*   内容生成
+
+相比输出框架，我们更希望 AI 能直接帮我们写文章，特别是创意稿件、广告文案等追求速度或数量的内容，我们希望能使用 AI 更高效的完成工作。
+
+我们先用 WPS AI 完成一篇「Notion 推出 AI 工具」的新闻稿。
+
+![Image 28](https://s3.ifanr.com/wp-content/uploads/2023/04/13-3.jpg!720)
+
+接下来，我们又用 Notion AI 完成了一篇「金山轻文档推出 AI 工具」的新闻稿。
+
+![Image 29](https://s3.ifanr.com/wp-content/uploads/2023/04/14-2.jpg!720)
+
+虽然有点精神分裂的感觉，但是单从新闻稿的几个要素（时间、地点、人物（新闻主体）、事件），还是 WPS AI 更专业一些。
+
+如果说新闻稿考得是基础，那广告语就是创意了。这次我们换个题目，让 WPS AI 和 Notion AI 为「轻薄笔记本」写几句广告语。
+
+![Image 30](https://s3.ifanr.com/wp-content/uploads/2023/04/15-1.jpg!720)
+
+▲ WPS AI 创作的广告语
+
+![Image 31](https://s3.ifanr.com/wp-content/uploads/2023/04/16-1.jpg!720)
+
+▲ Notion AI 创作的广告语
+
+能让人记住的广告语，需要突出产品特色、创造新奇感，还需要多重复、简短易记。对比 WPS AI 和 Notion AI 创作的广告语，以我个人的文字趣味来说，WPS AI 的表现更胜一筹，其一是文字简洁流畅，甚至有些还能简单押韵；其二是广告文案类型多样，没有那种车轱辘话来回说的感觉。
+
+*   文本处理
+
+WPS AI 和 Notion AI 都有润色、修改病句、扩写等能力。我们先用一个简单的病句来测试下两者的优化能力：
+
+![Image 32](https://s3.ifanr.com/wp-content/uploads/2023/04/17-2.jpg!720)
+
+▲ WPS AI 改病句
+
+![Image 33](https://s3.ifanr.com/wp-content/uploads/2023/04/18-2.jpg!720)
+
+▲ Notion AI 改病句
+
+至少在中文领域，Notion AI「Fix spelling&grammar」能力，是比不上 WPS AI 改病句能力的。
+
+我们又给了两个工具提供了一段文案，让它们对内容进行扩写（Make longer）。
+
+![Image 34](https://s3.ifanr.com/wp-content/uploads/2023/04/19-1.jpg!720)
+
+▲ WPS AI 扩写
+
+![Image 35](https://s3.ifanr.com/wp-content/uploads/2023/04/20-2.jpg!720)
+
+▲ Notion AI 扩写
+
+WPS AI 和 Notion AI 的扩写效果都不错，Notion AI 更偏向对内容本身的扩充，而 WPS AI 则加入了一些「思考」，似乎理解了内容，对每句话都发表了「见解」。在扩充长度上就能看出来。
+
+虽然两者都可以对文案语气进行调整，不过效果都一般，特别是对一些比较专业的内容，再活泼也没有太大变化。
+
+作为一款来自中国的办公 AI，WPS AI 可以让内容变得古文风，我们将刚刚扩写的内容给它尝试，效果还是很有趣的。
+
+![Image 36](https://s3.ifanr.com/wp-content/uploads/2023/04/21-1.jpg!720)
+
+毋庸置疑，如果对于外企员工或者留学生等使用英语较多的群体，Notion AI 可以是打工人提效的首选工具，不过对于中文文档处理来说，WPS AI 表现出来的实用性，还要比 Notion AI 更胜一筹。
+
+### 用轻文档写轻文档，打动我的是 AI
+
+体验一番后，我反而在纷繁的功能中失了焦点，这个有点重的 WPS AI，想体验全面绝不是三两天能做到的。
+
+我决定问问轻文档，让它帮我头脑风暴：一款国内首个类 ChatGPT 式协同办公应用，该如何分享？
+
+![Image 37](https://s3.ifanr.com/wp-content/uploads/2023/04/22-2.jpg!720)
+
+对我来说，WPS AI 强大的文本生成能力非常亮眼，这是一个非常不错的切入点，但我依然点击了下方的「续写」，希望 WPS AI 给我更多选择。
+
+![Image 38](https://s3.ifanr.com/wp-content/uploads/2023/04/23-1.jpg!720)
+
+选定了文本生成能力这一角度后，我再次打开 WPS AI，希望它能帮我写一篇文章大纲：用实际案例分享 WPS AI 在文本生成方面强大的实力。
+
+![Image 39](https://s3.ifanr.com/wp-content/uploads/2023/04/24.jpg!720)
+
+WPS AI 创作的大纲足够全面，但依然需要我们去优化完善，我或许会将案例放在最前面吸引读者，再去分享 WPS AI 背后的技术原理，最后再展望文本生成的未来发展与挑战。但从 WPS AI 生成的这份大纲到我自己的想法成型，也不过 1 分钟时间。
+
+有了大纲，稿件还是要费点心思，都说万事开头难，所以我问出了下一个问题：一篇介绍 WPS AI 体验的文章要如何开头。
+
+![Image 40](https://s3.ifanr.com/wp-content/uploads/2023/04/25.jpg!720)
+
+好像有点生硬？全选文本，打开 WPS AI，将语言风格改的更口语化一些。
+
+![Image 41](https://s3.ifanr.com/wp-content/uploads/2023/04/26-1.gif)
+
+除了口语化，WPS AI 还可以把语气改的更加文艺、活泼或者古风，满足不同场景需求。
+
+接下来，我只需要根据大纲去准备案例，完善整篇文章即可。
+
+甚至，我连案例都不用自己准备。
+
+![Image 42](https://s3.ifanr.com/wp-content/uploads/2023/04/27-1.gif)
+
+### 专业的事，还是要交给专业的人去做
+
+> 是好事，AI 技术的应用可以给我们的工作和生活带来很多便利和创新。在办公领域，WPS AI可以帮助用户提高工作效率、减少人工干预、优化文档排版等方面的工作，有助于提高用户的满意度和工作效率。此外，WPS AI 还可以帮助企业和组织更好地管理和处理大量的文档数据，从而提高工作效率和质量。
+
+当我询问 WPS AI 的推出是好是坏时，它这样回复我。
+
+确实，现在谈 AI 和人类的替代关系或许有点远，但是谈提效正是时候，前面我们也说了，如果工作是一场长跑，AI 并不是和人类在同一个跑道竞技的对手，而是一辆可以上跑道的自行车，它更快也更省力，但依旧需要我们去蹬它。
+
+WPS AI 有些时候确实可以节省 90% 的精力和时间，比如帮行政小姐姐写一份「公司中秋礼品附带的卡片祝福词」，或者是「给公司年会想 10 个对仗的主题」，再或者是一份老板只会花 1 分钟看，但是自己写却需要半天的「个人月报」。
+
+而在有些领域，比如想一个营销策划简案的时候，它的作用就是变成提醒我，是不是有些地方我漏掉了，因为它思考得确实很全面。
+
+![Image 43](https://s3.ifanr.com/wp-content/uploads/2023/04/28.jpg!720)
+
+再比如我觉得它给我想的「脑洞大开的科幻电影故事梗概」的脑洞不是我想要的脑洞，我想要一个物理意义上的脑洞时，它也毫不留情地给电影角色开了个脑洞（物理意义上），并且所谓的头脑风暴甚至还有双关意思。
+
+现在涌现的 AI 工具，不是能须臾间就能取代人类的天顶星科技，也不是让办公室社畜一劳永逸一秒到达终点的瞬间传送法术，它现在是自行车，未来可能是汽车，高铁乃至飞机，或者宇宙飞船。
+
+WPS AI 亦是如此，它依旧是专注在文本文档处理的办公工具，只不过更智慧更自动。
+
+![Image 44](https://s3.ifanr.com/wp-content/uploads/2023/04/29.jpeg!720)
+
+但这不是一蹴而就的，很久以前，金山办公的 Slogan 就已经是「绽放智慧的力量 Inspire Wisdom」，这个智慧，是机器的智能，也是人类的才智，更是二者的交融。
+
+也正如很多金山办公用户所见，那些早已存在的翻译、校对、智能写作、数据分析等等功能，背后无不是 AI 能力在支撑。
+
+**金山办公 CEO 章庆元告诉我们，WPS AI 的大模型是由国内合作伙伴 MiniMax 提供的，更多功能还会在未来几周内陆续与大家见面，另外，他们也在努力推动 WPS AI 公测，让用户早日用到。**
+
+今天的 WPS AI 只不过是金山办公在 2023 年交出的第一份答卷，在 AIGC 领域发力，辅助编辑、改写、润色内容，在大模型技术的加持下，WPS AI 会提高阅读理解和问答能力，辅助用户阅读，WPS AI 还将「听懂」你说的话，用自然语言就能给它下命令、提要求。
+
+最后，借着这次内测体验 WPS AI 的机会，爱范儿&APPSO 也和金山办公副总裁姚冬交流了一下，一个关键问题是，现在很多人恐慌 AI 会取代人类的工作，作为 AI 工具提供方的金山办公，怎么看这种恐慌？
+
+姚冬说：
+
+> 今天的 AI 可以帮助人快速地完成一些事情就会取代人吗？不一定，我们作为一个办公软件，本身就是效率工具，我们这么多年来一直在提高人们工作的效率，但是没有因为办公软件的出现替代了人然后消灭了很多工作，没有，只是 AI 是进一步提高了这个效率，但它同时会创造出更多的需求，并且，所谓技术做的事情其实是人类并不太想做的事情，比如说耕种，人类并不喜欢面朝黄土背朝天，用机械化耕作就很好，然后，新科技会创造出很多新的东西，同样也会创造很多新的工作机会。
+
+对了，正如你所见，我并没有完全采纳 WPS AI 为我写的大纲，毕竟，WPS AI 很高效很聪明，但我也不想完全放弃思考，它的高效聪明，一定程度上，也需要用户保持思考。
+
+[AI](https://www.ifanr.com/tags/ai)[AI 办公](https://www.ifanr.com/tags/ai-%e5%8a%9e%e5%85%ac)[ChatGPT](https://www.ifanr.com/tags/chatgpt)[WPS AI](https://www.ifanr.com/tags/wps-ai)[金山办公](https://www.ifanr.com/tags/%e9%87%91%e5%b1%b1%e5%8a%9e%e5%85%ac)
+
+分享
+
+[分享到微博](http://v.t.sina.com.cn/share/share.php?url=https://www.ifanr.com/app/1543596&title=WPS%20AI%20%E6%9D%A5%E4%BA%86%EF%BC%8C%E6%AF%94%20ChatGPT%20%E6%9B%B4%E9%80%82%E5%90%88%E5%8A%9E%E5%85%AC%EF%BC%8C%E8%BF%98%E6%9B%B4%E6%87%82%E4%B8%AD%E6%96%87)[分享到Twitter](https://twitter.com/intent/tweet?button_hashtag=ifanr&text=WPS%20AI%20%E6%9D%A5%E4%BA%86%EF%BC%8C%E6%AF%94%20ChatGPT%20%E6%9B%B4%E9%80%82%E5%90%88%E5%8A%9E%E5%85%AC%EF%BC%8C%E8%BF%98%E6%9B%B4%E6%87%82%E4%B8%AD%E6%96%87&url=https://www.ifanr.com/app/1543596)[分享到LinkedIn](https://www.linkedin.com/shareArticle?title=WPS%20AI%20%E6%9D%A5%E4%BA%86%EF%BC%8C%E6%AF%94%20ChatGPT%20%E6%9B%B4%E9%80%82%E5%90%88%E5%8A%9E%E5%85%AC%EF%BC%8C%E8%BF%98%E6%9B%B4%E6%87%82%E4%B8%AD%E6%96%87&url=https://www.ifanr.com/app/1543596&summary=&source=ifanr)
+
+扫一扫分享到微信
+
+全部评论 (-)
+
+最热 最新
+
+![Image 45](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/default-avatar.jpg)
+
+[登录](https://www.ifanr.com/app/1543596)，参与讨论前请先登录
+
+- [x] 收到回复邮件通知我 发表评论
+
+评论在审核通过后将对所有人可见
+
+ 正在加载中 
+
+查看更多评论
+
+### 推荐文章
+
+[](https://www.ifanr.com/author/qiutong)
+
+[发邮件](mailto:qiutong@ifanr.com)
+
+[邱同](https://www.ifanr.com/author/qiutong)
+
+累计已发布 214 篇文章
+
+最近文章：
+
+[3i 智能净地站体验：清洁家电的第一性原理是什么](https://www.ifanr.com/1571737)[你每天用来打卡的钉钉，居然藏着「ChatGPT」「Midjourney」和「Notion」](https://www.ifanr.com/1558787)
+
+### 本篇来自栏目
+
+[解锁订阅模式，获得更多专属优质内容](https://www.ifanr.com/ifanr-app-download/)
+
+[下一篇 2023-05-04 20:35 ### 全面开放！微软 Bing Chat 人人可用，还要做搜索引擎的「App Store」](https://www.ifanr.com/app/1546152)
+
+[上一篇 2023-04-07 18:17 ### 首发评测丨阿里版 ChatGPT 来了！我们问了100多道题，它得了 90 分](https://www.ifanr.com/app/1542456)
+
+爱范儿，关注明日产品的数字潮牌
+
+[爱范儿](https://www.ifanr.com/)[AppSo](https://www.ifanr.com/app/)[董车会](https://www.ifanr.com/category/intelligentcar)[知晓程序](https://minapp.com/miniapp/)
+
+关于爱范儿
+
+[关于我们](https://www.ifanr.com/about/our-team/)[社区规则](https://www.ifanr.com/shequguize/)[隐私策略](https://www.ifanr.com/privacypolicy/)[加入我们](https://www.lagou.com/gongsi/j25623.html)[商务合作](https://www.ifanr.com/adinfo/)
+
+合作伙伴
+
+[](https://cloud.minapp.com/)[](https://aws.amazon.com/what-is-cloud-computing)
+
+[](https://weibo.com/u/1642720480?tabtype=feed)[](https://x.com/ifanr)[](https://www.xiaohongshu.com/user/profile/60dc0bae000000002002d9fd)[](https://space.bilibili.com/12351332?spm_id_from=333.337.0.0)[](https://www.douyin.com/user/MS4wLjABAAAAZY-Gty7wfG99FzGnseJLC4SlcBpJOSXNOaaj6Fz9QwQ)[](https://www.toutiao.com/c/user/token/MS4wLjABAAAAQkBPIHsXri8lTUIQNFb4uEaiM7YLWh-FdUCK7pb4FTg/?source=mine_profile)[](https://author.baidu.com/home?from=bjh_article&app_id=1543625795951172)[](https://www.youtube.com/@ifanrvideo6692)
+
+[粤ICP备18066688号-2](http://beian.miit.gov.cn/)[粤公网安备44010602006618号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44010602006618)
+
+版权所有 © 广州利沃致远投资管理合伙企业（有限合伙） 2008 - 2023。以商业目的使用爱范儿网站内容需获许可。非商业目的使用授权遵循 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)。
+
+All content is made available under the CC BY-NC 4.0 for non-commercial use. Commercial use of this content is prohibited without explicit permission.
+
+Designed by 
+
+if Design Studio.
+
+关注 if Design Studio.
+
+![Image 46: if Design Studio. 微信公众号](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/ifanr-desing-studio__qrcode.jpg)
+
+微信扫码关注公众号 if Design Studio.
+
+[](https://www.ifanr.com/about/contribute/)
+
+![Image 47](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/ifanr-app.png)
+
+爱范儿 App
+
+爱范儿,让未来触手可及
+
+爱范儿
+
+AppSo
+
+玩物志
+
+知晓云
+
+知晓程序
+
+![Image 48: Ifanr QR Code](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/ifanrqrcode.jpg)
+关注爱范儿微信号，连接热爱，关注这个时代最好的产品。
+
+![Image 49: AppSo QR Code](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/appsoqrcode.jpg)
+想让你的手机好用到哭？关注这个号就够了。
+
+![Image 50: CoolBuy QR Code](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/coolbuyqrcode.jpg)
+关注玩物志微信号，就是让你乱花钱。
+
+![Image 51: CoolBuy QR Code](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/zhixiaoyunqrcode.jpg)
+小程序开发快人一步。
+
+![Image 52: CoolBuy QR Code](https://images.ifanr.cn/wp-content/themes/ifanr-5.0-pc/static/images/minappqrcode.jpg)
+最好的微信新商业服务平台。

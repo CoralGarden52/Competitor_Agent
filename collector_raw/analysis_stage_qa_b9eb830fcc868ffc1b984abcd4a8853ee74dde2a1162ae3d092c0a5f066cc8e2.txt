@@ -1,0 +1,90 @@
+# 开放文档- 钉钉开放平台
+
+Title: 开放文档 - 钉钉开放平台
+
+URL Source: https://open.dingtalk.com/document
+
+Markdown Content:
+# 开放文档 - 钉钉开放平台
+
+![Image 1: 钉钉开放平台](https://gw.alicdn.com/imgextra/i1/O1CN01Flkd9L28UHshAeykK_!!6000000007935-2-tps-360-62.png)
+
+应用中心
+
+开发者文档
+
+开发助手![Image 2](https://gw.alicdn.com/imgextra/i1/O1CN01bmmsFS1K1gNjbWTrC_!!6000000001104-2-tps-144-48.png)
+
+开发者后台
+
+[登录](https://login.dingtalk.com/oauth2/auth?redirect_uri=https%3A%2F%2Fopen.dingtalk.com%2Fdingtalk_sso_call_back%3Fcontinue%3Dhttps%3A%2F%2Fopen.dingtalk.com%2Fdocument%2F&response_type=code&client_id=dingbakuoyxavyp5ruxw&scope=openid+corpid)
+
+文档中心
+
+｜
+
+应用开发
+
+开发指南
+
+服务端API
+
+客户端JSAPI
+
+事件订阅
+
+钉钉CLI
+
+平台服务 开发工具
+
+# 钉钉开发文档中心
+
+提供从API接口、开发指南到实战案例的全链路资源，助您高效构建智能协同应用，
+
+无缝融入钉钉生态
+
+[![Image 3](https://img.alicdn.com/imgextra/i2/O1CN018YwvKk2940ob5VUnR_!!6000000008013-55-tps-22-22.svg) ![Image 4](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 让 AI 真正帮你在钉钉里干活 DingTalk CLI 将钉钉能力封装为命令行接口，助AI安全操作钉钉，实现自动化工作流。](https://open.dingtalk.com/document/development/dingtalk-cli-performing-tasks-within)[![Image 5](https://img.alicdn.com/imgextra/i1/O1CN01B6bn1b20b8vJreXhj_!!6000000006867-55-tps-19-23.svg) ![Image 6](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 一键创建钉钉智能体应用 基于 OpenClaw、Hermes 等框架构建的 AI Agent 快速接入钉钉，与用户在钉钉中无缝交互。](https://open.dingtalk.com/document/development/create-dingtalk-intelligent-agent-application)[![Image 7](https://img.alicdn.com/imgextra/i4/O1CN01hveaOS1KvYiUuEWKu_!!6000000001226-55-tps-22-22.svg) ![Image 8](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 钉钉CLI许愿墙 是否希望自动化流程能直接联动钉钉，自动发消息、建待办、拉群聊？来许愿墙提出你的新能力需求！](https://docs.dingtalk.com/notable/share/form/v01eLbnj1bw1ELb0laN_dv19yqvsgs3oebp3pcjys_1qX0QQ0?spm=ding_open_doc.document.0.0.719c4dc7RG6vrg&source=link)
+
+## 开发指南
+
+从零构建到深度集成，一站式体验钉钉多样化能力
+
+![Image 9](https://img.alicdn.com/imgextra/i2/O1CN01F0euZx1UL3IwUPgx1_!!6000000002500-2-tps-512-512.png)
+
+### 了解基本流程
+
+[企业内部应用开发流程![Image 10](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 企业自主或授权打造专属应用，限组织内使用，安全高效响应个性化业务需求。](https://open.dingtalk.com/document/dingstart/org-learning-map)[MCP接入流程![Image 11](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 通过标准协议连接AI模型与企业数据，让钉钉AI助理调用私有数据构建智能应用。](https://open.dingtalk.com/document/aipass/mcp-square-introduction)[硬件接入流程![Image 12](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 智能硬件厂商接入钉钉生态，实现设备与通讯录、考勤互通，提供软硬一体解决方案。](https://open.dingtalk.com/document/development/sdk-overview)
+
+![Image 13](https://img.alicdn.com/imgextra/i3/O1CN010VIuSe1SikZA6XqSo_!!6000000002281-2-tps-512-512.png)
+
+### 体验开放能力
+
+[钉钉机器人![Image 14](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 支持群聊与自定义机器人，自动推送消息、关键词回复，提升沟通协作效率。](https://open.dingtalk.com/document/dingstart/robot-application-overview)[互动卡片![Image 15](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 业务数据以卡片嵌入聊天，支持消息流内审批填表，实现“消息即服务”交互。](https://open.dingtalk.com/document/development/card-template-building-and-publishing)[H5微应用![Image 16](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 用Web技术开发轻量应用，集成至工作台与聊天菜单，提供跨平台原生体验。](https://open.dingtalk.com/document/dingstart/configure-web-application)
+
+![Image 17](https://img.alicdn.com/imgextra/i3/O1CN01VlP0Lb1yr3S6X7aLG_!!6000000006631-2-tps-512-512.png)
+
+### 挖掘特色能力
+
+[AI表格![Image 18](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 在线表格集成AI能力，支持智能分析、公式生成与内容创作，提升数据管理效率。](https://open.dingtalk.com/document/development/data-structure)[链接平台![Image 19](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 打通内外部链接跳转，支持外部场景一键唤起钉钉直达页面，提升用户触达效率。](https://open.dingtalk.com/document/connection/what-is-a-connected-platform)[酷应用![Image 20](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) 将应用功能原子化融入群聊，让业务在沟通中自然发生，实现业务与协作融合。](https://open.dingtalk.com/document/dingstart/coolapp-overview)
+
+## 开放接口一览
+
+通过集成钉钉原子能力，企业更灵活定制应用，创造更加丰富的应用场景和用户体验
+
+[![Image 21](https://img.alicdn.com/imgextra/i4/O1CN01rDK5Ib1dRlebRTohC_!!6000000003733-2-tps-480-480.png) 通讯录管理 组织架构与成员信息管理](https://open.dingtalk.com/document/development/contacts-overview)[![Image 22](https://img.alicdn.com/imgextra/i3/O1CN01j36uWE1u1yoyF7ite_!!6000000005978-2-tps-144-144.png) 考勤 员工上下班打卡与考勤统计](https://open.dingtalk.com/document/development/attendance-overview)[![Image 23](https://img.alicdn.com/imgextra/i3/O1CN0148jhOb1vr6eKkp11D_!!6000000006225-2-tps-144-144.png) 日程 个人与团队日程安排管理](https://open.dingtalk.com/document/development/dingtalk-event-overview)[![Image 24](https://img.alicdn.com/imgextra/i3/O1CN01nrevKc23LyekHBlef_!!6000000007240-2-tps-240-240.png) 公告 企业内部通知与公告发布](https://open.dingtalk.com/document/development/blackboard-announcement-overview)[![Image 25](https://img.alicdn.com/imgextra/i4/O1CN01R17RNN1Qd8TmVMhq1_!!6000000001998-2-tps-144-144.png) 签到 外勤定位签到与轨迹记录](https://open.dingtalk.com/document/development/sign-check-overview)[![Image 26](https://img.alicdn.com/imgextra/i2/O1CN01owZrrz1uGB6D1e0yg_!!6000000006009-2-tps-144-144.png) 日志 员工工作汇报与总结提交](https://open.dingtalk.com/document/development/report-log-overview)[![Image 27](https://img.alicdn.com/imgextra/i3/O1CN01DUovAR1LEKxIXkbmC_!!6000000001267-2-tps-144-144.png) 宜搭 低代码应用搭建与管理平台](https://open.dingtalk.com/document/development/overview-yida)[![Image 28](https://img.alicdn.com/imgextra/i3/O1CN0163tK2C1IdZw6RYLit_!!6000000000916-2-tps-240-240.png) Agoal 企业目标设定与进度追踪](https://open.dingtalk.com/document/development/agoal-overview)[![Image 29](https://img.alicdn.com/imgextra/i2/O1CN0196zyof1FocdgOrSo8_!!6000000000534-2-tps-144-144.png) 音视频 在线会议与音视频通话服务](https://open.dingtalk.com/document/development/create-and-close-video-meetings)[![Image 30](https://img.alicdn.com/imgextra/i1/O1CN012zCAXf1tp9jPAifpU_!!6000000005950-2-tps-480-480.png) AI 表格 智能数据分析与表格处理](https://open.dingtalk.com/document/development/data-structure)[![Image 31](https://img.alicdn.com/imgextra/i3/O1CN01WjwkHW1KUXLgWAcVg_!!6000000001167-2-tps-144-144.png) OA 审批 企业各类流程在线审批](https://open.dingtalk.com/document/development/workflow-overview)[![Image 32](https://img.alicdn.com/imgextra/i1/O1CN01YO1QfZ1eH40rW4RDM_!!6000000003845-2-tps-144-144.png) 文档 团队文档协作与云盘存储](https://open.dingtalk.com/document/development/knowledge-base-overview)[![Image 33](https://img.alicdn.com/imgextra/i3/O1CN01b478eO1lnlbVJbmtr_!!6000000004864-2-tps-144-144.png) 即时通信 企业内部实时消息沟通](https://open.dingtalk.com/document/development/development-robot-overview)[![Image 34](https://img.alicdn.com/imgextra/i3/O1CN01Ep1U0t1fBr7pyfm9v_!!6000000003969-2-tps-144-144.png) 待办任务 个人待办事项集中管理](https://open.dingtalk.com/document/development/dingtalk-todo-task-overview)[![Image 35](https://img.alicdn.com/imgextra/i3/O1CN01i2OiWC1LbEl5w9USe_!!6000000001317-2-tps-240-240.png) 专属钉钉 企业定制化钉钉专属版本](https://open.dingtalk.com/document/development/dedicated-dingtalk-overview)[![Image 36](https://img.alicdn.com/imgextra/i1/O1CN01u4WD3l1TEoI5RigTA_!!6000000002351-2-tps-720-720.png) 应用管理 企业内部应用配置与管理](https://open.dingtalk.com/document/development/get-a-list-of-all-applications-inside-the-enterprise)[![Image 37](https://img.alicdn.com/imgextra/i4/O1CN01HADXP91e1UXxMHBDG_!!6000000003811-2-tps-480-480.png) 应用市场 第三方应用发现与安装](https://open.dingtalk.com/document/development/application-market-overview)[![Image 38](https://img.alicdn.com/imgextra/i2/O1CN01BlVVO31Z4Amqfh8Yj_!!6000000003140-2-tps-144-144.png) 智能人事 员工全生命周期人事管理](https://open.dingtalk.com/document/development/intelligent-personnel-call-description)[![Image 39](https://img.alicdn.com/imgextra/i4/O1CN01AzJGHj1J1qva6OYFM_!!6000000000969-2-tps-240-240.png) 智能招聘 企业招聘流程智能化管理](https://open.dingtalk.com/document/development/smart-recruitment-overview)[![Image 40](https://img.alicdn.com/imgextra/i1/O1CN01WkdP281y1IhG85p2y_!!6000000006518-2-tps-240-240.png) 智能填表 在线表单快速创建与收集](https://open.dingtalk.com/document/development/intelligent-form-filling-overview)
+
+![Image 41](https://img.alicdn.com/imgextra/i4/O1CN013vNoGU1kRUjBNYkL1_!!6000000004680-55-tps-85-83.svg)
+
+## 工具与资源
+
+汇聚多元工具与设计资源，助力企业高效集成钉钉能力
+
+[![Image 42](https://img.alicdn.com/imgextra/i4/O1CN01W7cNdh1KXHj1akYfw_!!6000000001173-55-tps-18-20.svg) ![Image 43](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) ## 小程序开发工具 具有代码编辑器、应用模拟器、真机预览、上传等功能，可帮助开发者提升钉钉小程序开发效率。](https://open.dingtalk.com/document/download/miniapp-tool)[![Image 44](https://img.alicdn.com/imgextra/i1/O1CN01nOdv641LB8BOlHdBv_!!6000000001260-55-tps-21-19.svg) ![Image 45](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) ## 前端API调试工具 钉钉开放平台提供的可视化微应用 JSAPI调用工具，方便开发者在线发起 API 调用。](https://open.dingtalk.com/document/download/jsapi-explorer)[![Image 46](https://img.alicdn.com/imgextra/i4/O1CN016Tmc6i1YcEcuaZheA_!!6000000003079-55-tps-20-16.svg) ![Image 47](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) ## 服务端API调试工具 可视化API在线调试，集成API总览、检索、文档、可视化调试、同步动态生成可执行SDK Demo代码。](https://open.dingtalk.com/document/download/api-explorer)[![Image 48](https://img.alicdn.com/imgextra/i4/O1CN01Dvs6UW1R9CCdbU192_!!6000000002068-55-tps-20-16.svg) ![Image 49](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) ## 微应用调试工具 提供RC版本钉钉、可视化的H5微应用两款调试工具，查看应用运行时的elements、console、network等信息。](https://open.dingtalk.com/document/download/micro-application-four-terminal-debugging-tool-web-edition)[![Image 50](https://img.alicdn.com/imgextra/i1/O1CN01wFNJMf1tIBDNQMXPQ_!!6000000005878-55-tps-21-21.svg) ![Image 51](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) ## 钉钉设计开放资源 这里汇总了在钉钉开发所需的设计资源，让你开发应用很简单。](https://open.dingtalk.com/document/design_latest)[![Image 52](https://img.alicdn.com/imgextra/i4/O1CN01BOpbFL1VgPO8qLtmL_!!6000000002682-55-tps-24-24.svg) ![Image 53](https://img.alicdn.com/imgextra/i3/O1CN01WCyDS71Y7Y5eKQ7US_!!6000000003012-55-tps-22-22.svg) ## D-Design 组件库 高效开放的研发体系、统一流畅的设计系统、多端一致的基础设施，帮助开发者快速构建钉应用。](https://ding.design/#/)
+
+[跳过](https://open.dingtalk.com/document)
+
+![Image 54](https://gw.alicdn.com/imgextra/i3/O1CN01SRl3IB24U3EpzpQ1l_!!6000000007393-2-tps-1024-492.png)钉钉开发助手，AI搭档一键编码。
+
+随时问答解决疑难，一键生成可运行代码，像专家一样辅助开发。
+
+去看看

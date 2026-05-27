@@ -1,0 +1,325 @@
+# 飞书完全集成方案 - 观远数据
+
+Title: 飞书完全集成方案 | 观远数据
+
+URL Source: https://docs.guandata.com/product/bi/6.0.0/427297404006432768
+
+Published Time: Thu, 21 May 2026 10:12:32 GMT
+
+Markdown Content:
+# 飞书完全集成方案 | 观远数据
+
+[跳到主要内容](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#__docusaurus_skipToContent_fallback)
+
+[![Image 1: logo.alt](https://docs.guandata.com/product/image/logo.png) **帮助中心**](https://www.guandata.com/help)[观远BI](https://docs.guandata.com/product/bi/6.0.0/)[ChatBI](https://docs.guandata.com/product/chatbi/update)[数据开发](https://docs.guandata.com/product/dataflow/dataflow-update)
+
+[观远社区](https://community.guandata.com/)
+
+[中文](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#)
+*   [中文](https://docs.guandata.com/product/bi/6.0.0/427297404006432768)
+*   [English](https://docs.guandata.com/product/en/bi/6.0.0/427297404006432768)
+
+[6.0.0](https://docs.guandata.com/product/bi/6.0.0/427297404006432768)
+*   [8.2.0](https://docs.guandata.com/product/bi/)
+*   [8.1.0](https://docs.guandata.com/product/bi/8.1.0/)
+*   [7.4.0](https://docs.guandata.com/product/bi/7.4.0/)
+*   [7.3.0](https://docs.guandata.com/product/bi/7.3.0/)
+*   [7.2.0](https://docs.guandata.com/product/bi/7.2.0/)
+*   [7.1.0](https://docs.guandata.com/product/bi/7.1.0/)
+*   [7.0.0](https://docs.guandata.com/product/bi/7.0.0/)
+*   [6.6.0](https://docs.guandata.com/product/bi/6.6.0/)
+*   [6.5.0](https://docs.guandata.com/product/bi/6.5.0/)
+*   [6.3.0](https://docs.guandata.com/product/bi/6.3.0/)
+*   [6.0.0](https://docs.guandata.com/product/bi/6.0.0/427297404006432768)
+
+*   [观远 BI](https://docs.guandata.com/product/bi/6.0.0/)
+*   [产品介绍](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [快速入门](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [产品更新日志](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [多源数据接入](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [数据准备](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [数据分析及可视化](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [订阅分发与预警](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [数据应用](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [移动端](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [表单填报](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [管理员设置（管理与运维）](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [开放与集成](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+    *   [开放与集成能力导航](https://docs.guandata.com/product/bi/6.0.0/427780454309953536)
+    *   [单点登录](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+    *   [常用办公OA集成方案](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+        *   [企业微信完全集成方案](https://docs.guandata.com/product/bi/6.0.0/427296873406005248)
+        *   [钉钉完全集成方案](https://docs.guandata.com/product/bi/6.0.0/427297194823909376)
+        *   [飞书完全集成方案](https://docs.guandata.com/product/bi/6.0.0/427297404006432768)
+        *   [云之家完全集成方案](https://docs.guandata.com/product/bi/6.0.0/427023693957300224)
+        *   [泛微OA集成方案](https://docs.guandata.com/product/bi/6.0.0/427297518984888320)
+        *   [Azure AD集成方案](https://docs.guandata.com/product/bi/6.0.0/427023123951386624)
+        *   [LDAP登录集成方案](https://docs.guandata.com/product/bi/6.0.0/ldap-configuration)
+
+    *   [Public API](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+    *   [插件管理](https://docs.guandata.com/product/bi/6.0.0/575594549863251968)
+    *   [更多集成与开放能力](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+    *   [集成案例与方案](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+
+*   [云巡检](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [技巧与最佳实践](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [常见问题](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#) 
+*   [报错说明](https://docs.guandata.com/product/bi/6.0.0/578494662956810240)
+
+此为 观远数据 **6.0.0** 版的文档，现已不再积极维护。
+
+最新的文档请参阅 **[最新版本](https://docs.guandata.com/product/bi/)** (8.2.0)。
+
+*   [](https://docs.guandata.com/product/)
+*   开放与集成
+*   常用办公OA集成方案
+*   飞书完全集成方案
+
+版本：6.0.0
+
+本页总览
+
+# 飞书完全集成方案
+
+## **1. 飞书完全集成方案概述**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#1-%E9%A3%9E%E4%B9%A6%E5%AE%8C%E5%85%A8%E9%9B%86%E6%88%90%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0 "1-飞书完全集成方案概述的直接链接")
+
+飞书是字节跳动旗下先进协作与管理平台。观远数据支持与云飞书的深度集成，通过飞书开放平台与观远数据管理员设置的简单操作，即可进行集成，打通两个平台的账号体系，进行便捷的数据分析与智能决策。
+
+## **2. 飞书完全集成价值**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#2-%E9%A3%9E%E4%B9%A6%E5%AE%8C%E5%85%A8%E9%9B%86%E6%88%90%E4%BB%B7%E5%80%BC "2-飞书完全集成价值的直接链接")
+
+观远数据支持与飞书的深度集成，可实现：
+
+*   观远平台成为飞书的内嵌应用；
+
+*   从飞书的应用里访问观远，免密登录（包括飞书的移动端和PC端）；
+
+*   观远Web端可用飞书扫码登录；
+
+*   订阅、预警消息推送至飞书，一键触达。
+
+## **3. 集成配置步骤**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#3-%E9%9B%86%E6%88%90%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4 "3-集成配置步骤的直接链接")
+
+### **3.1 “飞书开放平台-开发者后台”创建观远BI应用**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#31-%E9%A3%9E%E4%B9%A6%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91%E8%80%85%E5%90%8E%E5%8F%B0%E5%88%9B%E5%BB%BA%E8%A7%82%E8%BF%9CBI%E5%BA%94%E7%94%A8 "31-飞书开放平台-开发者后台创建观远BI应用的直接链接")
+
+注：飞书集成仅限私有化部署客户。SaaS环境（app.guandata.com) 由于飞书官方限制了单个IP只能被一个公司使用，暂不支持飞书集成。 观远分析云客户不受此影响。
+
+“飞书开放平台-开发者后台”在开发者后台页面点击创建应用（[https://open.feishu.cn/app](https://open.feishu.cn/app)）
+
+在飞书开发者后台，点击“创建应用”：
+
+![Image 2](https://docs.guandata.com/product/img/bi/20221114-image1(61).png)
+
+点击后，填写相关信息即可:
+
+![Image 3](https://docs.guandata.com/product/img/bi/20221114-image2(58).png)
+
+点击确定创建后，该应用会出现在企业自建应用列表中:
+
+![Image 4](https://docs.guandata.com/product/img/bi/20221114-image3(57).png)
+
+点击进入该应用，可获取App ID和App Secret，用于随后在观远管理后台进行配置。App ID与App Secret的获取入口：应用凭证与基础信息页面：
+
+![Image 5](https://docs.guandata.com/product/img/bi/20221114-image(752).png)
+
+### **3.2 “观远管理后台”填写飞书企业自建应用相关信息**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#32-%E8%A7%82%E8%BF%9C%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E5%A1%AB%E5%86%99%E9%A3%9E%E4%B9%A6%E4%BC%81%E4%B8%9A%E8%87%AA%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF "32-观远管理后台填写飞书企业自建应用相关信息的直接链接")
+
+配置入口：管理员设置—>系统集成—>飞书配置，填写信息包括App ID与App Secret（获取入口如步骤1所述），测试连接成功后完成配置：
+
+![Image 6](https://docs.guandata.com/product/img/bi/20221114-image(753).png)
+
+填写后，需要"启用"，才能正常进行飞书消息推送和免密/扫码登录；同时可获取回调域名以及桌面端主页与移动端主页链接，用于随后在企飞书开发者后台进行企业自建应用配置。（回调地址可从观远管理后台直接获取。私有化环境下，回调域名地址可在管理员设置->系统管理->高级设置中进行配置)
+
+![Image 7](https://docs.guandata.com/product/img/bi/20221114-image(754).png)
+
+### **3.3 “飞书开放平台-开发者后台”在观远BI应用中完成授权配置**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#33-%E9%A3%9E%E4%B9%A6%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91%E8%80%85%E5%90%8E%E5%8F%B0%E5%9C%A8%E8%A7%82%E8%BF%9CBI%E5%BA%94%E7%94%A8%E4%B8%AD%E5%AE%8C%E6%88%90%E6%8E%88%E6%9D%83%E9%85%8D%E7%BD%AE "33-飞书开放平台-开发者后台在观远BI应用中完成授权配置的直接链接")
+
+点击飞书右上角菜单栏，进入“管理后台”，如下图所示：
+
+![Image 8](https://docs.guandata.com/product/img/bi/20221114-image(755).png)
+
+点击应用，进入应用的设置页面，以下详细说明：
+
+a.“启用网页”及添加配置（SSO登录流程是基于网页能力实现的，所以要开启这个功能）：
+
+![Image 9: 1.png](https://docs.guandata.com/product/img/bi/1695349741703767.png)
+
+桌面端主页：在桌面端飞书工作台打开应用主页。（桌面端暂不支持调用 Native 能力）
+
+移动端主页：在移动端飞书工作台打开应用主页。
+
+b.“启用机器人”：机器人主要用于和用户进行会话。如果应用仅需要给用户发送通知，也需要开启机器人能力：
+
+![Image 10](https://docs.guandata.com/product/img/bi/20221114-image8(36).png)
+
+c.“配置重定向URL”，入口：安全设置 -> 添加“重定向URL”。（这个也是保证SSO登录流程能正常进行的基本配置，飞书接到登录请求后会重定向到我们的系统，流程才能往下走）：
+
+![Image 11](https://docs.guandata.com/product/img/bi/20221114-image9(33).png)
+
+**易忽略从而引起配置失败地方**：① https与http协议 —— 需要与实际使用的网址一致 ② URL 末尾的 /—— 需要保留
+
+d.“配置H5可信域名”：入口：安全设置->H5可信域名。添加URL：
+
+![Image 12: image.png](https://docs.guandata.com/product/img/bi/1701937713934026.png)
+
+回调域名地址查看入口：管理员设置->系统集成->飞书
+
+![Image 13: image.png](https://docs.guandata.com/product/img/bi/1701425483963298.png)
+
+e.“权限管理”：在开发者后台页面，点击左侧导航栏权限管理，进入权限管理页面。开启你的应用功能所需要的权限：
+
+![Image 14](https://docs.guandata.com/product/img/bi/20221114-image10(28).png)
+
+注意事项：扫描登录功能依赖 [获取用户userid] 权限，请务必申请。
+
+创建应用版本并且发布应用成功：
+
+![Image 15](https://docs.guandata.com/product/img/bi/20221114-image11(31).png)
+
+### **3.4【观远管理后台】用户属性中关联飞书账号**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#34%E8%A7%82%E8%BF%9C%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E7%94%A8%E6%88%B7%E5%B1%9E%E6%80%A7%E4%B8%AD%E5%85%B3%E8%81%94%E9%A3%9E%E4%B9%A6%E8%B4%A6%E5%8F%B7 "34观远管理后台用户属性中关联飞书账号的直接链接")
+
+飞书配置“启用”后，系统会自动添加一个用户基础属性——“飞书账号”。
+
+管理员可以给单个用户添加，也可以在“用户基础属性”中批量配置“飞书账号”。
+
+用户的飞书账号查看入口：“飞书管理后台”->成员与部门->点击某个用户查看详情：
+
+![Image 16](https://docs.guandata.com/product/img/bi/20221114-image12(23).png)
+
+飞书管理后台—成员与部门—批量导出：
+
+![Image 17](https://docs.guandata.com/product/img/bi/20221114-image13(26).png)
+
+### 3.5 免密登录到表单[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#35%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E5%88%B0%E8%A1%A8%E5%8D%95 "3.5 免密登录到表单的直接链接")
+
+如果需要免密登录到表单填报里，则需要在配置的链接里，host_url后加一个固定的路由（如下），再按照第三方集成要求添加其他参数。
+
+`?path_url=survey-engine/`
+
+详情请参考[《配置链接》](https://docs.guandata.com/product/bi/6.0.0/426383183475376128#53-%E9%85%8D%E7%BD%AE%E9%93%BE%E6%8E%A5)。
+
+例如：
+
+`https://app.mayidata.com?path_url=survey-engine%2Fm%2Fsurvey%2F4bd86aa5-89d3-4b72-8186-a06170cdddbd`
+
+**填报链接做免密登录链接拼接注意点：**
+
+（1）在survey-engine前要加指定参数 “path_url=”
+
+注：参数不能直接跟在“/”后面，只能跟在“?”后面
+
+（2）填报链接要做转码
+
+注：转码可以使用一些小工具，如：[https://www.bejson.com/enc/urlencode](https://www.bejson.com/enc/urlencode)
+
+举例：
+
+表单链接：
+
+[https://app.mayidata.com/survey-engine/survey/1b36b7ff-d470-475e-931f-df1ce53b3ed5](https://app.mayidata.com/survey-engine/survey/1b36b7ff-d470-475e-931f-df1ce53b3ed5)
+
+拼接后的免密登录链接：
+
+[https://app.mayidata.com?path_url=survey-engine%2Fsurvey%2F1b36b7ff-d470-475e-931f-df1ce53b3ed5&……(其他参数)](https://app.mayidata.com/?path_url=survey-engine%2Fsurvey%2F1b36b7ff-d470-475e-931f-df1ce53b3ed5&%E2%80%A6%E2%80%A6(%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0))
+
+## **4. 效果展示**[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#4-%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA "4-效果展示的直接链接")
+
+PC端登录页面出现飞书登录入口，点击后可进行扫码登录，若有登录飞书PC端即可通过授权进行免密登录：
+
+![Image 18](https://docs.guandata.com/product/img/bi/20221114-image14(21).png)
+
+飞书移动端以及PC端工作台中，可看到创建的应用，点击进入即可免密登录到观远平台H5界面。
+
+订阅、预警消息推送至飞书，在配置订阅、预警通知渠道时，可以选择“飞书”作为触达方式：
+
+![Image 19](https://docs.guandata.com/product/img/bi/20221114-image15(23).png)
+
+![Image 20](https://docs.guandata.com/product/img/bi/20221114-image(756).png)
+
+### 3.6 免密登录到应用[​](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#36-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E5%88%B0%E5%BA%94%E7%94%A8 "3.6 免密登录到应用的直接链接")
+
+如果需要从飞书工作台进入bi后，免密登录到某一个具体的应用里，则需要对飞书应用的主页地址进行调整，将path_url={应用地址除去BI域名部分}内容增加上去。bi后台默认的主页地址只能登录到应用主页面，不会进入到某一个具体的应用。
+
+以桌面端应用主页为例，移动端也是一样的方法，将对应的内容拼接到path_url后面。
+
+`bi后台自动生成的桌面端主页地址https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=https%3A%2F%2Fuat.guandata.com%2Fbi-test%2F%3Fprovider%3Dfeishu%26domain%3Dtesting%26path_url%3D&app_id=cli_a3023e14602a600b&state=pc`
+
+`想要免密登录的桌面端应用地址https://uat.guandata.com/bi-test/home/web-app/a0a4e3210ca504685bac55b1`
+
+则需要在桌面端主页地址path_url%3D后面拼接加密后的{应用地址除去BI域名部分}，即将[/bi-test/home/web-app/a0a4e4150ca504685bac55b1](https://uat.guandata.com/bi-test/home/web-app/a0a4e4150ca504685bac55b1)，加密后拼接到path_url%3D后，加密后的内容：%2Fbi-test%2Fhome%2Fweb-app%2Fa0a4e4150ca504685bac55b1，生成新的桌面端主页地址，替换到飞书后台的桌面端主页即可。
+
+`拼接后的桌面端主页地址https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=https%3A%2F%2Fuat.guandata.com%2Fbi-test%2F%3Fprovider%3Dfeishu%26domain%3Dtesting%26path_url%3D%2Fbi-test%2Fhome%2Fweb-app%2Fa0a4e3210ca504685bac55b1&app_id=cli_a3023e14602a600b&state=pc`
+
+报错详见[请求非法,请联系应用开发者](https://docs.guandata.com/product/bi/6.0.0/578494662956810240#%E8%AF%B7%E6%B1%82%E9%9D%9E%E6%B3%95%E8%AF%B7%E8%81%94%E7%B3%BB%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E8%80%85)
+
+在飞书管理员后台，将桌面端主页地址替换成拼接web-app之后的地址，即可实现免密登录后具体的桌面端应用。
+
+![Image 21: image.png](https://docs.guandata.com/product/img/bi/1703216776771169.png)
+
+**轻应用做免密登录链接拼接注意点：**
+
+（1）在path_url后要加应用地址除去BI域名部分，应用地址可以打开桌面端门户，预览点击需要跳转的应用，在浏览器中复制具体桌面端门户应用地址
+
+![Image 22: image.png](https://docs.guandata.com/product/img/bi/1703216818650979.png)
+
+![Image 23: image.png](https://docs.guandata.com/product/img/bi/1703216837350431.png)
+
+（2）桌面端门户地址要做转码
+
+需要转码的部分：{BI域名地址?}和{应用地址除去BI域名部分}
+
+注：转码可以使用一些小工具，如：[https://www.bejson.com/enc/urlenco](https://www.bejson.com/enc/urlencode)
+
+[上一页 钉钉完全集成方案](https://docs.guandata.com/product/bi/6.0.0/427297194823909376)[下一页 云之家完全集成方案](https://docs.guandata.com/product/bi/6.0.0/427023693957300224)
+
+*   本页导读
+*   [**1. 飞书完全集成方案概述**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#1-%E9%A3%9E%E4%B9%A6%E5%AE%8C%E5%85%A8%E9%9B%86%E6%88%90%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0)
+*   [**2. 飞书完全集成价值**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#2-%E9%A3%9E%E4%B9%A6%E5%AE%8C%E5%85%A8%E9%9B%86%E6%88%90%E4%BB%B7%E5%80%BC)
+*   [**3. 集成配置步骤**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#3-%E9%9B%86%E6%88%90%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4)
+    *   [**3.1 “飞书开放平台-开发者后台”创建观远BI应用**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#31-%E9%A3%9E%E4%B9%A6%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91%E8%80%85%E5%90%8E%E5%8F%B0%E5%88%9B%E5%BB%BA%E8%A7%82%E8%BF%9CBI%E5%BA%94%E7%94%A8)
+    *   [**3.2 “观远管理后台”填写飞书企业自建应用相关信息**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#32-%E8%A7%82%E8%BF%9C%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E5%A1%AB%E5%86%99%E9%A3%9E%E4%B9%A6%E4%BC%81%E4%B8%9A%E8%87%AA%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF)
+    *   [**3.3 “飞书开放平台-开发者后台”在观远BI应用中完成授权配置**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#33-%E9%A3%9E%E4%B9%A6%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91%E8%80%85%E5%90%8E%E5%8F%B0%E5%9C%A8%E8%A7%82%E8%BF%9CBI%E5%BA%94%E7%94%A8%E4%B8%AD%E5%AE%8C%E6%88%90%E6%8E%88%E6%9D%83%E9%85%8D%E7%BD%AE)
+    *   [**3.4【观远管理后台】用户属性中关联飞书账号**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#34%E8%A7%82%E8%BF%9C%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E7%94%A8%E6%88%B7%E5%B1%9E%E6%80%A7%E4%B8%AD%E5%85%B3%E8%81%94%E9%A3%9E%E4%B9%A6%E8%B4%A6%E5%8F%B7)
+    *   [3.5 免密登录到表单](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#35%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E5%88%B0%E8%A1%A8%E5%8D%95)
+
+*   [**4. 效果展示**](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#4-%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA)
+    *   [3.6 免密登录到应用](https://docs.guandata.com/product/bi/6.0.0/427297404006432768#36-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E5%88%B0%E5%BA%94%E7%94%A8)
+
+文档反馈
+
+![Image 24](https://guandata-official-website.oss-cn-hangzhou.aliyuncs.com/help-documents/img/robot.png)
+
+文档AI助手
+
+观远AI助手 关闭
+
+![Image 25](https://docs.guandata.com/product/img/bi/20221114-image1(61).png)
+
+![Image 26](https://docs.guandata.com/product/img/bi/20221114-image2(58).png)
+
+![Image 27](https://docs.guandata.com/product/img/bi/20221114-image3(57).png)
+
+![Image 28](https://docs.guandata.com/product/img/bi/20221114-image(752).png)
+
+![Image 29](https://docs.guandata.com/product/img/bi/20221114-image(753).png)
+
+![Image 30](https://docs.guandata.com/product/img/bi/20221114-image(754).png)
+
+![Image 31](https://docs.guandata.com/product/img/bi/20221114-image(755).png)
+
+![Image 32: 1.png](https://docs.guandata.com/product/img/bi/1695349741703767.png)
+
+![Image 33](https://docs.guandata.com/product/img/bi/20221114-image8(36).png)
+
+![Image 34](https://docs.guandata.com/product/img/bi/20221114-image9(33).png)
+
+![Image 35: image.png](https://docs.guandata.com/product/img/bi/1701937713934026.png)
+
+![Image 36: image.png](https://docs.guandata.com/product/img/bi/1701425483963298.png)
+
+![Image 37](https://docs.guandata.com/product/img/bi/20221114-image10(28).png)
+
+![Image 38](https://docs.guandata.com/product/img/bi/20221114-image11(31).png)
+
+![Image 39](https://docs.guandata.com/product/img/bi/20221114-image12(23).png)
+
+![Image 40](https://docs.guandata.com/product/img/bi/20221114-image13(26).png)

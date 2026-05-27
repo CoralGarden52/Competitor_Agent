@@ -1,0 +1,640 @@
+# 飞书体验分析 | 人人都是产品经理
+
+Title: 飞书体验分析 – 人人都是产品经理,
+
+URL Source: https://www.woshipm.com/evaluating/6118543.html
+
+Published Time: 2024-09-29T11:09:29
+
+Markdown Content:
+# 飞书体验分析 | 人人都是产品经理
+
+[![Image 1: 人人都是产品经理](https://image.woshipm.com/fp/images/logo.png)](https://www.woshipm.com/)
+*   [首页](https://www.woshipm.com/)
+*   [培训课程](javascript:;)[名师辅导课](https://www.qidianla.com/) [AI产品经理转岗特训营](https://ke.qidianla.com/courses/aipmtc) [BAT大厂产品运营体系课](https://vip.qidianla.com/studyClass.html) [B端C端全栈产品经理私教课](https://ke.qidianla.com/courses/bcpm) [查看更多](https://www.qidianla.com/)  [个人自学课](https://www.qidianla.com/) [互联网运营能力进阶](https://ke.qidianla.com/courses/iom) [业务产品经理能力进阶](https://ke.qidianla.com/courses/bupm) [电商产品经理从入门到进阶](https://ke.qidianla.com/courses/ecpm1) [查看更多](https://www.qidianla.com/)  [企业内训课](https://daxue.qidianla.com/) [数字化产品经理课](https://daxue.qidianla.com/) [商业化产品实战课](https://daxue.qidianla.com/) [数字化营销体系课](https://daxue.qidianla.com/)  [B端运营实战课](https://daxue.qidianla.com/) [私域流量实战课](https://daxue.qidianla.com/) [数据分析体系课](https://daxue.qidianla.com/)   [查看更多](https://daxue.qidianla.com/)    
+*   [分类浏览](javascript:;)[业界动态 30918篇文章](https://www.woshipm.com/category/it) [产品设计 19391篇文章](https://www.woshipm.com/category/pd) [产品运营 15246篇文章](https://www.woshipm.com/category/operate) [产品经理 9583篇文章](https://www.woshipm.com/category/pmd) [职场攻略 5375篇文章](https://www.woshipm.com/category/zhichang) [营销推广 4903篇文章](https://www.woshipm.com/category/marketing) [交互体验 3937篇文章](https://www.woshipm.com/category/ucd) [分析评测 3588篇文章](https://www.woshipm.com/category/evaluating) [创业学院 2256篇文章](https://www.woshipm.com/category/chuangye) [用户研究 1903篇文章](https://www.woshipm.com/category/user-research) [数据分析 1803篇文章](https://www.woshipm.com/category/data-analysis) [原型设计 1436篇文章](https://www.woshipm.com/category/rp)    
+*   [活动讲座](https://www.woshipm.com/category/active)
+*   [问答](https://wen.woshipm.com/)
+*   [企业培训](https://daxue.qidianla.com/)
+*   [AI社区](https://www.aixq.cc/)
+*   [图文](https://www.woshipm.com/story)
+*   [HarmonyOS](https://www.woshipm.com/harmony)
+
+[搜索](https://api.woshipm.com/search/list.html)
+
+APP
+
+![Image 2](https://image.woshipm.com/build/img/footer-appdownload.png)
+
+![Image 3](https://image.woshipm.com/VIP.svg)
+
+![Image 4](https://image.woshipm.com/2023/05/19/de725b98-f62f-11ed-adbb-00163e0b5ff3.png)起点课堂会员权益
+
+![Image 5](https://image.woshipm.com/2023/05/19/dfe517e2-f62d-11ed-bbb6-00163e0b5ff3.png)职业体系课特权
+
+![Image 6](https://image.woshipm.com/2023/05/19/ebb5071c-f62d-11ed-bbb6-00163e0b5ff3.png)线下行业大会特权
+
+![Image 7](https://image.woshipm.com/2023/05/19/c9756278-f62d-11ed-94e0-00163e0b5ff3.png)个人IP打造特权
+
+![Image 8](https://image.woshipm.com/2023/05/19/f64625a8-f62d-11ed-bbb6-00163e0b5ff3.png)30+门专项技能课
+
+![Image 9](https://image.woshipm.com/2023/05/19/0148a02a-f62e-11ed-96ae-00163e0b5ff3.png)1300+专题课程
+
+![Image 10](https://image.woshipm.com/2023/05/19/25fc8396-f62e-11ed-adbb-00163e0b5ff3.png)12场职场软技能直播
+
+![Image 11](https://image.woshipm.com/2023/05/19/1d4ecd4e-f62e-11ed-adbb-00163e0b5ff3.png)12场求职辅导直播
+
+![Image 12](https://image.woshipm.com/2023/05/19/30793c56-f62e-11ed-adbb-00163e0b5ff3.png)12场专业技能直播
+
+![Image 13](https://image.woshipm.com/2023/05/19/15fae604-f62e-11ed-bbb6-00163e0b5ff3.png)会员专属社群
+
+![Image 14](https://image.woshipm.com/2023/05/19/0e3283be-f62e-11ed-8df9-00163e0b5ff3.png)荣耀标识
+
+[开通会员](https://vip.qidianla.com/member.html)
+
+发布
+
+注册 | 登录 
+
+登录人人都是产品经理即可获得以下权益
+
+*    关注优质作者
+*    收藏优质内容
+*    查阅浏览足迹
+*    免费发布作品
+*    参与提问答疑
+*    交流互动学习
+
+ 立即登录 
+
+ 首次使用？ 
+
+ 点我注册 
+
+[![Image 15](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2022/12/30/60f20500-87fe-11ed-93e4-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+## 飞书体验分析
+
+[![Image 16](https://image.woshipm.com/wp-files/2020/11/P6rhcSTeLPnz96Jt9FXH.jpg!/both/72x72)](https://www.woshipm.com/u/90253)
+
+[WOWDesign](https://www.woshipm.com/u/90253)![Image 17](https://static.woshipm.com/tag/1122_1@2x.png)关注
+
+2024-09-29
+
+ 0 评论  7742 浏览  33 收藏 32 分钟
+
+[![Image 18: 🔗](https://s.w.org/images/core/emoji/16.0.1/svg/1f517.svg) B端产品经理两大难题：如何从市场，用户，业务等多个角度分析和设计产品？如何有效地管理和推进项目落地？](https://ke.qidianla.com/courses/bcpm)
+
+> 作为国内协同办公产品第一梯队的飞书，起表现和成绩都有口皆碑。这篇文章，我们从其演变过程和案例的角度，分析下这款产品的表现如何。
+
+![Image 19](https://image.woshipm.com/2023/04/17/44ecc6fa-dcf5-11ed-9781-00163e0b5ff3.png)
+
+## 一、背景介绍及分析方向
+
+### 1. 背景介绍
+
+当前企业管理SaaS产品正在蓬勃发展，为给行业提供更多借鉴与参考，现搜集国内企业协同办公产品的信息并做体验分析
+
+### 2. 分析方向
+
+1、产品演变过程的呈现和分析；
+
+2、产品在体验亮点上的借鉴和参考；
+
+## 二、竞品选择
+
+现国内企业协同办公产品中以钉钉、企业微信和飞书为第一梯队，本次竞品分析将从三个产品中选择其中之一
+
+![Image 20](https://image.woshipm.com/2024/09/23/f2fc85ea-7976-11ef-9e12-00163e0b5ff3.png)
+
+从发展史、客户人群、以及用户体验角度出发，飞书产品与智慧SaaS平台相似，故本次竞品分析将会选择飞书作为分析目标。
+
+## 三、飞书产品演变过程及分析
+
+![Image 21](https://image.woshipm.com/2024/09/23/9c4627f0-7977-11ef-abf0-00163e0b5ff3.png)
+
+从飞书功能上新以及产品定位的演变过程来看，可以将飞书产品的演变过程分成三个阶段：
+
+### 1. 第一阶段（2016年飞书成立-2020年）
+
+飞书首先是作为字节跳动内部的沟通和协作工具而开发的，并在2017年开始在内部全面推广使用，而直到了2019年才正式向国内市场推广，即飞书3.0版本，在这个版本中主要是推出飞书office的能力，围绕组织协同办公的需求，提供聊天、文档、视频会议等功能，主要解决“事”的问题，提高员工的工作效率，所以在这个阶段，**飞书的定位是“一款协同办公office”，适用于企业员工或个人**。
+
+**飞书的早期运营策略是抓住企业的关键人物（即大客户）**。作为飞书的背靠公司字节跳动是一家大型的中国互联网企业，这类企业的特征是人力成本高，利润或现金丰厚，员工属于高级人才，在企业内部拥有一定的话语权，而且对于产品体验要求较高，基于这些特征，飞书早期的运营策略则是瞄准了大客户营销的方向。
+
+但由于我国现阶段，类似字节跳动的顶尖企业，在所有公司的占比并不高，其中收益良好且稳定的更是凤毛麟角，收益低、人力成本也不贵的中小企业才是大多数，而同时飞书为了满足DAU的目标（2020年的年度目标是DAU达到200万），以及受疫情因素的影响，飞书尝试向中小型企业发力，**在2020年限时免费向企业开放使用飞书的套件**。但由于钉钉和企业微信在疫情初期时就有了相关的运营策略，而反观飞书的动作要稍晚于钉钉和企业微信，这也就导致了飞书免费开放时，市场上很大一部分的需求都已经被钉钉和企微承接完了，**飞书也错过了2020年初疫情期间爆发的企业远程办公需求，**同时也没达到200万DAU的目标，甚至相差甚远（截止至2021年飞书的MAU月活跃数仅仅只达到了0.04亿，与钉钉和企微相差甚远）
+
+![Image 22](https://image.woshipm.com/2024/09/23/bdc1c402-7977-11ef-8c74-00163e0b5ff3.png)
+
+### 2. 第二阶段（2021年-2022年飞书people上线）
+
+由于之前的失利，导致飞书的用户规模与钉钉和企业微信拉开了更大的差距，所以2021年后飞书将首要目标从用户活跃数转变成了**ARR（年度经常性收入）**，这一转变让飞书回归至**大客户的战略发展，围绕大客户的需求打磨产品：**
+
+*   2021年5月，飞书发布了4.0版本，在该版本中围绕“人、目标、信息”的组织三要素，推出了飞书知识库、飞书绩效、飞书招聘等新产品
+*   2021年11月，飞书发布了5.0版本，该版本包含了品牌logo、视觉体验的全面升级，以及飞书人事、飞书合同、飞书审批等新产品
+*   2022年5月，飞书people正式发布，飞书people集成打通了飞书OKR、人事、招聘、绩效等原本独立的人力模块，以“人才”为业务流程核心，实现从投递简历开始，包含招聘、评价、激励、培养的全周期管理。同时也因为打通了飞书office中日常办公的产品，如视频会议、日历等工具，实现“多方提效”的能力，也是主要的适用人群，即**HR、面试官、管理者、候选人**
+
+在这个阶段，飞书的定位从“一款协同办公office”演变成了“**组织管理工具**”
+
+相比起2020年200万的DAU目标，**2022年飞书的ARR（年度经常性收入）达到了1个亿美元**，较去年提升了2.7倍，钉钉也才在2023年3月末达到了1亿美元的ARR。
+
+说明：1亿美元的订阅收入在企业SaaS（Software as a Service）软件领域被视为一个重要的门槛
+
+### 3. 第三阶段（2023年-至今）
+
+飞书自从将首要目标改为ARR后，一路猛进，2023年发布6.0版本和恢复收费模式后，ARR达到了2亿美元（自称位居于国内行业第一)
+
+2023年飞书发布了6.0版本，同时推出了“**业务三件套**”，即**飞书多维表格、飞书应用引擎、飞书集成平台**，旨在帮助企业提升业务效率和敏捷性。在这一阶段使用群体则为**有企业管理需求的客户，包含各部门员工、管理者、决策者等，**除此之外，多维表格也是飞书为了挽留因限时免费吸引来的中小型企业而推出的产品。
+
+在这个阶段，飞书的定位从“组织管理工具”演变成了“**企业应用平台**”
+
+飞书具有较高的ARR，除了一方面是因为大客户的付费能力强于中小型企业外，另一方面在于**飞书的使用群体拓宽**了，虽然是大客户的战略模式，但飞书从第一阶段到第三阶段，除了功能上的拓展外，最为显著的是使用人群的拓展，**从一开始的企业普通员工的协同办公到企业各部门员工都可在各类业务场景中均可使用飞书进行办公**，这一明显的变化，也增强了飞书用户的粘性，对于ARR的提升也是具有较大的帮助（飞书的订阅收费模式是按人/年的方式，单个企业使用的人越多，收入越高）
+
+![Image 23](https://image.woshipm.com/2024/09/23/ed250844-7977-11ef-84c2-00163e0b5ff3.png)
+
+飞书的**转折点**是在于转变了年度目标，而**飞书people作为该阶段的第一款产品，且与智慧SaaS平台的功能相似，故将飞书people的产品（即飞书招聘和飞书绩效）作为重点体验对象**
+
+## 四、飞书people产品体验分析
+
+![Image 24](https://image.woshipm.com/2024/09/23/f805ed46-7977-11ef-abf0-00163e0b5ff3.png)
+
+飞书People 旨在打通组织内外围绕人的双循环：对外连通人才市场，招好人，对内识别人才并给予激励，用好人。用先进的人才管理工具帮助 HR 提升工作效率，帮助管理者提升管理能力。
+
+飞书People的用户主要是企业HR和企业管理者，从用户角色上看，与智慧SaaS平台是一致的。
+
+**下面主要从如何提升HR办事效率和如何解决管理者在人才绩效的问题两个方面进行分析：**
+
+## 五、如何提升HR办事效率
+
+![Image 25](https://image.woshipm.com/2024/09/23/0659c96c-7978-11ef-baf4-00163e0b5ff3.png)
+
+从HR在招聘环节的一般流程来看，其中大部分经精力耗费在面试前的简历筛选、约面和面试环节。
+
+每当发布一个职位后，HR会收到成百上千甚至更多的简历。逐一查看并筛选这些简历不仅耗时，还可能导致关键候选人的遗漏或误判，增加了招聘周期，降低了招聘效率，且可能影响招聘质量。
+
+当到筛选评估时，由于不同候选人的简历信息中工作经历、教育背景不了解时，增加了评估难度，需要耗费大量时间去查资料。
+
+当进入在预约面试时，HR需要与候选人和面试官多次沟通以确认面试时间，但候选人的回复可能不及时或频繁更改计划，增加了预约的复杂性和不确定性。延长了招聘流程，增加了HR的工作量，同时也可能影响到候选人的体验和对公司的第一印象。
+
+当招聘流程好不容易到面试环节，面试官需要反复切换查阅候选人简历，来进行面试评估，前面的面试评价查看也极不方便，如果是不成熟的面试官，面试能力有限，不能对候选人进行精准的全面评估，且在面试后对面试过程没有记录，增加了决策难度，可能导致对候选人的综合评估出现偏差，影响招聘决策的准确性。
+
+飞书通过对这些环节提供一些针对性的解决方案，如：**招聘助手，简历信息增强技术、自助约面功能、视频面试三合一工作台、工具融合与协作**，解决了HR在过程中这些痛点问题，极大的提高了人事在这些环节的工作效率。
+
+### 1. 招聘助手–解决管理多渠道人才管理问题
+
+**功能介绍**
+
+飞书招聘助手是一款专为HR设计的浏览器插件工具，旨在帮助管理多渠道人才、处理重复工作，并提升招聘效率。具有以下功能：
+
+*   **简历入库**：在不同的招聘渠道中，HR可以通过招聘助手插件将搜集到的候选人简历保存入库，避免多个系统反复切换，缩短简历入库的繁琐流程。
+*   **简历查重**：招聘助手可通过简历姓名、邮箱、电话号码等信息，自动检测并标识重复的简历，避免重复处理，节省HR的时间和精力。
+*   **直接安排面试：**在不同的招聘渠道中，如遇合适候选人，可直接通过招聘助手安排面试，方便快捷
+
+**优劣势分析：**
+
+优势：
+
+*   **多渠道人才管理：**插件支持从多个招聘渠道（如拉勾、猎聘、Boss直聘、58招聘等）快速导入简历，实现简历的集中管理和统一查看。
+*   **简历查重与筛选：**具备高精度模糊查重功能，如输入手机号，姓名等关键信息，系统会智能提示，避免重复简历的浪费，确保人才库的纯净度。
+*   **方便快捷：**招聘助手与会议系统打通，通过HR可以直接用招聘助手进行面试安排，无需从招聘网站和会议系统来回切换
+
+劣势：
+
+有一定的学习成本：对于初次使用飞书招聘助手的HR来说，可能需要一定的时间来熟悉系统的所有功能和操作流程，如在浏览器插件安装环节
+
+### 2. 信息增强技术–解决简历信息不熟悉问题
+
+**功能介绍**
+
+飞书招聘的简历信息增强功能利用先进的AI技术，对候选人的简历进行深度解析和智能处理。具体而言，该功能能够自动提取简历中的关键信息，如教育背景、工作经历、技能专长等，并以结构化的形式呈现出来。
+
+![Image 26](https://image.woshipm.com/2024/09/23/255ecfd8-7978-11ef-84c2-00163e0b5ff3.png)
+
+如图：当候选人的教育背景为国外大学时，如果HR不熟悉，通常需要借助其他工具来进行查询了解，要耗费大量时间，当有了信息增加技术时，HR只需要将鼠标移动到学校名称上，系统就会结构化的展示HR所需要的信息，如：学校中文名称，地址，排名等，极大的缩短了简历的评估时间。
+
+**优劣势分析**
+
+优势：
+
+*   **简历筛选和评估效率：**飞书招聘的简历信息增强功能通过自动化处理简历信息，大大提高了筛选效率，减少了HR的工作量。有了这个技术的加持，HR不会因为对简历内容不了解而错过优质候选人
+*   **操作简单：**在简历列表和详情中，需要简历增强技术解析的字段，系统会用虚线标识，只需要鼠标位置hower上去，即可看到结构化的信息，操作简单，易上手，无任何学习成本
+*   **简历筛选质量**：有了此项技术的加持，HR不会因为对简历内容不了解而错过优质候选人，提升了简历筛选质量
+
+劣势：
+
+*   **信息干扰：**如果简历上的内容全是是HR的已知信息，也会有大量虚线标识，容易误触，会形成信息干扰
+
+### 3. 自助约面–解决HR反复沟通确认的问题功能介绍
+
+![Image 27](https://image.woshipm.com/2024/09/23/4675a188-7978-11ef-baf4-00163e0b5ff3.png)
+
+飞书招聘的自助约面功能允许候选人在收到面试邀请后，根据个人时间安排自主选择面试时间。HR只需在飞书日历上选取面试官的空档时间，并通过短信或邮件形式通知候选人。候选人收到通知后，即可在提供的时间段内选择最适合自己的面试时间，该时间选择一旦确定，将自动同步到面试官和HR的飞书日历上。这一功能不仅简化了HR的工作流程，还提高了面试安排的灵活性和效率。
+
+**功能优劣势分析：**
+
+优势：
+
+*   **减轻约面的沟通成本**：飞书招聘的自助约面功能使得HR能够批量发送面试邀请，并让候选人自主选择时间，从而大大减轻了HR减轻约面的沟通成本
+*   **提高面试安排的灵活性：**候选人可以根据自己的实际情况和日程安排，在提供的时间段内选择最适合自己的面试时间，这增加了面试安排的灵活性，也提高了候选人的到面率。
+*   **加速招聘进程：**通过自助约面功能，HR能够更快地安排面试，缩短招聘周期。特别是在面对大量候选人时，这一功能能够显著加速招聘进程，帮助企业更快地找到合适的人才。
+*   **提升候选人的应聘体验：**候选人能够根据自己的日程安排选择面试时间，增强了其参与感和掌控感，从而提高了到面率。这种以候选人为中心的设计理念，有助于提升企业的雇主品牌形象，吸引更多优秀人才。
+
+劣势：
+
+**修改不够灵活：**候选人或面试官通过自助约面已经确定好面试时间，如遇特殊情况，再次修改时间还是需要再进行沟通，不够灵活。
+
+### 4. 视频面试三合一工作台—解决面试效率及准确度问题
+
+![Image 28](https://image.woshipm.com/2024/09/23/5514ad24-7978-11ef-84c2-00163e0b5ff3.png)
+
+**功能介绍**
+
+飞书招聘视频面试三合一工作台是一项创新且高效的功能，它主要集成了以下三个功能：
+
+1）视频面试：
+
+*   提供了高清、流畅、稳定的视频面试体验，候选人无需下载APP，即可通过网页端参与面试。
+*   面试官可以实时与候选人进行互动，观察候选人的表现，并作出初步判断。
+
+2）简历查询：
+
+*   面试官可以直接查看候选人的简历信息，无需在多个系统中切换。
+
+3）面评撰写：
+
+*   面试结束后，面试官可以立即在工作台中撰写面评，无需额外整理材料或切换工具。
+*   面评模板可根据企业需求自定义，帮助面试官更结构化地进行评价。
+*   面试过程中，系统会实时记录面试官和候选人的面试过程，形成结构化的面试记录文档，方便后续追述和对面试结果的判断。
+
+**优势分析：**
+
+*   **快捷高效：**面试官可以在面试过程中直接查看简历、记录面试评价，并在面试结束后立即撰写面评，减少了后续整理工作，快捷高效
+*   **提升了面试质量：**通过面试模版，面试官可以更全面地了解候选人，并作出更加精准的评价和决策。
+*   **提升面试者体验：**候选人无需下载额外的APP，通过网页端即可参与面试，也降低了参与门槛和复杂度。
+*   **为招聘决策提供依据：**面试过程中，系统会实时记录面试官和候选人的面试过程，形成结构化的面试记录文档，为招聘决策提供依据
+
+### 5. 工具融合与协作
+
+![Image 29](https://image.woshipm.com/2024/09/23/6f383806-7978-11ef-baf4-00163e0b5ff3.png)
+
+飞书招聘、飞书人事、飞书绩效等产品与飞书Office无缝衔接，通过日历、音视频会议、群聊等工具实现了高效协作和沟通。这种工具适配不仅提高了工作效率，还增强了团队成员之间的协作能力。
+
+例如：在招聘过程中，HR和面试官可以通过飞书日历预约面试时间，并通过飞书音视频会议进行远程面试。这样，即使面试官和候选人不在同一地点，也能轻松完成面试流程。同时，面试过程中的问题企业内部可以通过飞书群聊进行实时沟通，确保双方能够及时交流信息。
+
+优势分析：
+
+*   **无缝衔接与一体化体验：**飞书招聘、人事、绩效等产品与飞书Office套件高度集成，用户无需在多个系统间切换，大大提高了工作效率，统一的界面和操作流程降低了用户的学习成本，提升了使用体验。
+*   **数据整合：**这些产品能够收集并整合大量数据，为企业提供全面的分析报表，帮助管理者做出更科学的决策。
+*   **高效协作与沟通：**通过日历工具，用户可以轻松安排面试、会议等日程，并自动同步给相关人员，减少了沟通成本。
+
+### 6. 对智慧SaaS平台的启发
+
+通过对飞书的一些功能点的体验，飞书在提升HR工作效率上，主要有三种方式：**AI智能化辅助、效率工具、系统融合**，这些方式在相关产品的迭代发展中值得我们借鉴和学习
+
+**1）AI智能化应用：**飞书在这在AI应用方面，有一定的技术优势；而随着AI、大数据等技术的不断发展，越来越多的新技术被应用于招聘领域。**同类产品可以借鉴飞书及其他厂商的经验(如北森、猎聘薪班班等)，在招聘环节的各个场景中，引入AI技术工具来提高招聘效率和精准度。**
+
+![Image 30](https://image.woshipm.com/2024/09/23/7cf3296a-7978-11ef-84c2-00163e0b5ff3.png)
+
+北森在招聘环节的AI技术应用![Image 31: 👆](https://s.w.org/images/core/emoji/16.0.1/svg/1f446.svg)
+
+**2）提效工具能力：**同类产品后续可参考飞书提效工具的能力，如：自助约面助手、视频面试三合一面试工具。当前招聘环境中视频面试越来越成为主流，未来在产品迭代中可参照飞书增加面评、面试模版和面试记录的功能，以方便面试官查看历史面试记录和面试评价填写，帮助企业快速的筛选人才。
+
+**3）系统功能融合：**飞书招聘将招聘的全流程都做到了一体化和线上化，包括与飞书IM、飞书日历、音视频、会议室等功能的融合打通。这种无缝连接的方式，使得HR、用人部门与候选人能够在一个平台上实现紧密协作，提高了招聘流程的流畅性和效率。
+
+## 六、如何解决管理者在人才绩效的问题
+
+### 1. 企业老板绩效管理难题
+
+![Image 32](https://image.woshipm.com/2024/09/23/d5808078-7978-11ef-84c2-00163e0b5ff3.png)
+
+如何公平、公正地评估员工的工作绩效，并给予相应的奖励和激励，是企业老板需要解决的重要问题。然而，在实际操作中，往往存在绩效评估尺寸不一致、绩效结果不客观、反馈机制不健全等问题，导致员工对绩效管理产生不满和抵触情绪。针对这一企业内部管理问题，飞书绩效通过360评估、手松手紧、绩效校准等功能进行了有效解决。
+
+### 2. 360评估功能介绍–解决绩效评估公平公正的问题
+
+![Image 33](https://image.woshipm.com/2024/09/23/e1a6cd26-7978-11ef-baf4-00163e0b5ff3.png)
+
+飞书360度评估功能通过收集来自上级、下级、平级同事、内部支持部门、外部客户以及员工本人等多个维度的反馈信息，对员工进行全面、客观的绩效评估。这种评估方式有助于管理者更准确地了解员工的实际工作表现，为企业的绩效管理提供有力支持。
+
+![Image 34](https://image.woshipm.com/2024/09/23/eb852bc6-7978-11ef-baf4-00163e0b5ff3.png)
+
+**优劣势分析**
+
+优势：
+
+*   **提高评估结果的客观性：**相比传统的单一评估者模式，360评估减少了主观偏见对评估结果的影响。多个评估者的参与使得评估结果更加客观、公正，有助于减少评估过程中的争议和误解。
+*   **促进个人发展：**通过收集来自不同方面的反馈，被评估者可以清晰地认识到自己的优点和不足，从而有针对性地制定个人发展计划。这种自我认知的提升有助于促进员工的个人成长和职业发展。
+*   **强团队合作与沟通：**通过收集来自不同方面的反馈，被评估者可以清晰地认识到自己的优点和不足，从而有针对性地制定个人发展计划。这种自我认知的提升有助于促进员工的个人成长和职业发展
+
+劣势：
+
+*   **成本较高：**360度评估需要投入大量的人力、时间成本。每个评估者都需要花费时间和精力来完成评估问卷，而组织也需要投入资源来收集、整理和分析评估数据。增加了评估成本
+*   **影响团队和谐氛围**：根据市场反馈，360° 评估容易变成拉帮结派，员工只拉跟自己关系好的人对自己进行打分。
+
+### 3. 手松手紧功能–解决评估尺度不一致的问题
+
+**功能介绍**
+
+![Image 35](https://image.woshipm.com/2024/09/23/188946ac-7979-11ef-baf4-00163e0b5ff3.png)
+
+“手松手紧”功能是飞书绩效系统中的一项特色功能，为管理者提供评估人打分风格的直观参考。在飞书绩效系统中，每位评估人在对被评估人进行打分时，其打分结果会与系统的平均打分水平进行比较。如果评估人的打分明显高于或低于平均水平，系统就会给出相应的“手松”或“手紧”提示，并量化这种偏差的程度，如“手松+10%”或“手紧-5%”。以此来帮助管理者更准确地判断环评结果的可信度。
+
+在绩效评估过程中，由于评估人的视角、信息掌握程度以及评估尺度等因素的差异，难免会出现评估误差。而“手松手紧”功能则能有效减少这种误差，提高评估的准确性和公正性。
+
+**优劣势分析**
+
+优势
+
+*   **提高评估准确性：**通过“手松手紧”功能，管理者可以更加客观地了解每位评估人的打分情况，从而避免因评估人个人偏见导致的评估误差。
+*   **增强评估公正性：**该功能有助于管理者在全面了解评估信息的基础上，做出更加公正、合理的绩效评定决策。
+*   **辅助决策制定：**招聘团队可以利用“手松手紧”功能提供的数据，更全面地了解候选人的实际表现，从而做出更加科学合理的招聘决策。
+
+劣势：
+
+*   **可能增加评估复杂度**：引入“手松手紧”功能可能会增加评估过程的复杂度
+*   **可能解释和沟通成本**：当评估结果出现较大偏差时，管理者向被评估者解释评估结果，这可能会增加沟通成本。同时，如果被评估人对、结果有异议，也可能需要进一步的沟通和解释。
+
+### 4. 绩效校准–解决评估结果与实际差异的问题
+
+**功能介绍**
+
+![Image 36](https://image.woshipm.com/2024/09/23/27b44ff0-7979-11ef-baf4-00163e0b5ff3.png)
+
+绩效校准功能在飞书绩效系统中扮演着至关重要的角色。它允许管理者在绩效评估过程中，通过层层校对、横向跨团队比对等方式，对初步评定的绩效结果进行进一步的校准和调整。
+
+比如在绩效初步评估阶段，员工A被上级评定为“优秀”，但系统通过数据分析发现，员工A的某些绩效指标与同部门其他优秀员工相比存在明显差距。此时，绩效校准功能开始发挥作用；而这一功能确保了绩效结果能够如实反映组织和员工的价值贡献，从而提升了绩效评估的公正性和科学性。
+
+**功能优势**
+
+优势：
+
+*   **减少评估误差：**由于评估人视角、信息掌握程度及评估尺度等因素的差异，初步评定的绩效结果可能存在一定误差。绩效校准功能通过多轮次的审核和比对，有效减少了这些误差，提高了绩效结果的准确性。
+*   **提升评估公平性：**绩效校准不仅关注个体员工的绩效表现，还注重团队内部及跨团队之间的绩效平衡。通过横向比对和综合分析，管理者可以更加公平地为员工评定绩效结果，避免了因主观偏见或信息不对称导致的评估不公。
+*   **增强管理透明度：**绩效校准过程在飞书绩效系统中是透明可见的。管理者可以清晰地看到每位员工的绩效评定过程及调整依据，从而增强了管理的透明度和公信力
+
+劣势：
+
+**学习成本：**但对于一些初次使用的企业管理者来说，可能会因为功能过于复杂而增加学习成本。这可能导致在初期阶段，用户需要花费较多的时间和精力来熟悉和掌握系统。
+
+### 5. 启发
+
+飞书绩效采用360°评估+全面校准考核模式，使评估信息更全面、评估结果更客观。
+
+同时，飞书还提供了丰富的绩效数据分析功能，帮助企业管理者全面评估员工的工作表现，并发现团队的工作瓶颈和优势。在绩效功能模块中，后续可以参考更多的先进评估模型（如360°评估），以满足不同企业的个性化需求，增加产品在市场中的竞争力。
+
+作者：WOWdesign，研究设计价值最大化，涉及用户体验、品牌体验、空间体验。
+
+本文由人人都是产品经理合作媒体 @WOWdesign 授权发布，未经许可，禁止转载。
+
+题图来自Unsplash，基于 CC0 协议。
+
+该文观点仅代表作者本人，人人都是产品经理平台仅提供信息存储空间服务。
+
+ 赞赏 收藏 已收藏 33 点赞 已赞 18
+
+更多精彩内容，请关注人人都是产品经理微信公众号或下载App
+
+[![Image 37](https://image.woshipm.com/2024/07/10/37180e94-3e61-11ef-a88c-00163e142b65.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[体验分析](https://www.woshipm.com/tag/%e4%bd%93%e9%aa%8c%e5%88%86%e6%9e%90)[使用场景](https://www.woshipm.com/tag/%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af)[案例分析](https://www.woshipm.com/tag/%e6%a1%88%e4%be%8b%e5%88%86%e6%9e%90)[飞书](https://www.woshipm.com/tag/%e9%a3%9e%e4%b9%a6)
+
+[分享到微博](https://service.weibo.com/share/share.php?appkey=2775287854&title=%E9%A3%9E%E4%B9%A6%E4%BD%93%E9%AA%8C%E5%88%86%E6%9E%90&url=https://www.woshipm.com/evaluating/6118543.html&pic=https://image.woshipm.com/2023/04/17/44ecc6fa-dcf5-11ed-9781-00163e0b5ff3.png)
+
+微信扫一扫 
+
+![Image 38: 微信二维码](https://api.pwmqr.com/qrcode/create/?url=https://www.woshipm.com/evaluating/6118543.html)
+
+分享
+
+[![Image 39](https://image.woshipm.com/wp-files/2020/11/P6rhcSTeLPnz96Jt9FXH.jpg!/both/150x150)](https://www.woshipm.com/u/90253)
+
+[WOWDesign](https://www.woshipm.com/u/90253)![Image 40](https://static.woshipm.com/tag/1601_1@2x.png)![Image 41](https://static.woshipm.com/tag/1122_1@2x.png)关注
+
+专注B端金融用户体验设计
+
+34篇作品 386512总阅读量
+
+为你推荐
+
+[重回视野的中视频：一场行至中游的邂逅](https://www.woshipm.com/share/5909986.html "重回视野的中视频：一场行至中游的邂逅")
+
+09-26 2265 浏览
+
+[![Image 42: 重回视野的中视频：一场行至中游的邂逅](https://image.woshipm.com/2023/05/06/27281bf8-ec02-11ed-bbb6-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/share/5909986.html "重回视野的中视频：一场行至中游的邂逅")
+
+[爱奇艺究竟能不能做竖屏短剧？](https://www.woshipm.com/share/5889853.html "爱奇艺究竟能不能做竖屏短剧？")
+
+08-26 7927 浏览
+
+[![Image 43: 爱奇艺究竟能不能做竖屏短剧？](https://image.woshipm.com/2023/04/14/65c66c46-da8e-11ed-aeb8-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/share/5889853.html "爱奇艺究竟能不能做竖屏短剧？")
+
+[3个月成长日记：我如何实现超速提升？](https://ke.qidianla.com/courses/90pm)
+
+刚刚
+
+[![Image 44](https://image.woshipm.com/2023/08/02/27566cb8-3100-11ee-b3cb-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/90pm)
+
+[高客单价行业如何持续做线索量增长？](https://www.woshipm.com/marketing/5885070.html "高客单价行业如何持续做线索量增长？")
+
+08-14 5941 浏览
+
+[![Image 45: 高客单价行业如何持续做线索量增长？](https://image.woshipm.com/2023/04/14/89a386c0-da9e-11ed-aaf8-00163e0b5ff3.png!/both/120x80)](https://www.woshipm.com/marketing/5885070.html "高客单价行业如何持续做线索量增长？")
+
+[半年狂更481部，泼天富贵砸向微短剧](https://www.woshipm.com/it/5926506.html "半年狂更481部，泼天富贵砸向微短剧")
+
+10-24 2090 浏览
+
+[![Image 46: 半年狂更481部，泼天富贵砸向微短剧](https://image.woshipm.com/2023/04/13/9c3e2b88-d9df-11ed-bd5e-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/it/5926506.html "半年狂更481部，泼天富贵砸向微短剧")
+
+[打脸复盘 | 2022年营销趋势猜想](https://www.woshipm.com/marketing/5729376.html "打脸复盘 | 2022年营销趋势猜想")
+
+01-12 4952 浏览
+
+[![Image 47: 打脸复盘 | 2022年营销趋势猜想](https://image.woshipm.com/wp-files/2023/01/bE1hK6lFGJWeFtF22GYN.png!/both/120x80)](https://www.woshipm.com/marketing/5729376.html "打脸复盘 | 2022年营销趋势猜想")
+
+[![Image 48: 当AI能力不再是门槛，产品创新的下一战在“场景化落地” | 西安闭门会](https://image.yunyingpai.com/wp/2026/05/P2Slsmm4kYFnagr5dFEn.jpg!/both/240x168)](https://www.woshipm.com/event/6398512.html)
+
+[当AI能力不再是门槛，产品创新的下一战在“场景化落地” | 西安闭门会](https://www.woshipm.com/event/6398512.html)
+
+推荐
+
+评论
+
+评论请登录
+
+1.   目前还没评论，等你发挥！
+
+为你推荐
+
+[![Image 49](https://image.woshipm.com/2023/07/07/4732f132-1c97-11ee-94c6-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)需求难做，商业模式难找，我是如何做好B端产品经理的](https://ke.qidianla.com/courses/bcpm)
+
+*   [![Image 50: ChatGPT开启“阿拉丁时代”：七大创业方向、四种能力出让、三个商业变局、一个AI公式](https://image.woshipm.com/wp-files/2023/03/WnCEyNk1oBteo4uymUQE.jpg!/both/130x88)](https://www.woshipm.com/ai/5786605.html) [ChatGPT开启“阿拉丁时代”：七大创业方向、四种能力出让、三个商业变局、一个AI公式](https://www.woshipm.com/ai/5786605.html) 03-21 10129 浏览  
+*   [![Image 51: 2500字解析｜普通人成为个人IP的发展历程](https://image.woshipm.com/2023/04/13/a960d5c2-d9e9-11ed-bd74-00163e0b5ff3.jpg!/both/130x88)](https://www.woshipm.com/operate/5962047.html) [2500字解析｜普通人成为个人IP的发展历程](https://www.woshipm.com/operate/5962047.html) 12-19 4305 浏览  
+*   [![Image 52: To B 企业如何规划匹配业务的SEO资源投入？](https://image.woshipm.com/2023/04/14/a1a134d4-da9e-11ed-9b82-00163e0b5ff3.png!/both/130x88)](https://www.woshipm.com/marketing/5966936.html) [To B 企业如何规划匹配业务的SEO资源投入？](https://www.woshipm.com/marketing/5966936.html) 12-28 5035 浏览  
+
+推荐专题[更多专题](https://www.woshipm.com/topic-list)
+
+[_专题_![Image 53](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/08/02/b01a699a-3101-11ee-b550-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 18651人已学习 11篇文章](https://www.woshipm.com/topic/ipd)
+
+[什么是IPD开发流程？如何应用IPD开发流程？](https://www.woshipm.com/topic/ipd)
+
+采用IPD开发流程，在初期能把各种工作问题识别出来并扼杀在摇篮中。本专题的文章分享了什么是IPD开发流程？如何应用IPD开发流程？
+
+[_专题_![Image 54](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/07/17/2ae70178-2479-11ee-875d-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 16456人已学习 13篇文章](https://www.woshipm.com/topic/user-4)
+
+[如何做用户运营策略？](https://www.woshipm.com/topic/user-4)
+
+本专题的文章分析了用户运营策略的案例，为如何做用户运营策略提供了思路。
+
+[_专题_![Image 55](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/12/11/4e67ce02-9800-11ee-8fc4-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 15535人已学习 14篇文章](https://www.woshipm.com/topic/fp)
+
+[项目复盘](https://www.woshipm.com/topic/fp)
+
+在项目完结时，我们经常需要进行项目复盘。那么一个好的项目复盘是怎样的？
+
+[_专题_![Image 56](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2024/04/07/b232d032-f4a6-11ee-abf7-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 18833人已学习 13篇文章](https://www.woshipm.com/topic/xiaohongshu-2)
+
+[小红书流量密码](https://www.woshipm.com/topic/xiaohongshu-2)
+
+如果做小红书运营？本专题的文章分享了小红书流量密码。
+
+[_专题_![Image 57](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/08/09/fd15cd46-36a3-11ee-be05-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 17850人已学习 15篇文章](https://www.woshipm.com/topic/smart-hardware)
+
+[智能硬件产品经理入门篇](https://www.woshipm.com/topic/smart-hardware)
+
+智能硬件产品经理需要做什么工作内容呢？与互联网产品经理有什么区别呢？本专题为刚入行的智能硬件产品经理分享了入门指南。
+
+[_专题_![Image 58](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2024/03/25/3d2095c4-ea81-11ee-a013-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 14466人已学习 13篇文章](https://www.woshipm.com/topic/user-7)
+
+[如何做好新用户激活？](https://www.woshipm.com/topic/user-7)
+
+激活是指用户通过完成关键行为，真正成为产品的用户，而提升新用户激活则是留存用户的第一步。本专题的文章分享了如何做好新用户激活。
+
+社群
+
+[付费群](https://www.woshipm.com/evaluating/6118543.html) | [免费群](https://www.woshipm.com/evaluating/6118543.html)
+
+*   ![Image 59](https://image.woshipm.com/fp/images/a1.svg)AI产品经理交流群![Image 60](https://image.woshipm.com/wp-files/2024/04/6GgzZKB2vv6oJwWZrfvI.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/6118543.html)
+*   ![Image 61](https://image.woshipm.com/fp/images/a2.svg)AI工具共学交流群![Image 62](https://image.woshipm.com/wp-files/2024/06/koBjkl4OziVTXHx79TeG.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/6118543.html)
+*   ![Image 63](https://image.woshipm.com/fp/images/a3.svg)华为鸿蒙交流群![Image 64](https://image.woshipm.com/wp-files/2024/11/lfoTXWOHKfpeRunhi7Fk.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/6118543.html)
+*   ![Image 65](https://image.woshipm.com/fp/images/a4.svg)运营增长交流群![Image 66](https://image.yunyingpai.com/wp/2024/01/tz5fR0ocBXaqWOrMZHtV.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/6118543.html)
+*   ![Image 67](https://image.woshipm.com/fp/images/a5.svg)OPC一人公司交流群![Image 68](https://wework.qpic.cn/wwpic3az/765799_Bo4F-gUdR0e-V9f_1772098485/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/6118543.html)
+*   ![Image 69](https://image.woshipm.com/fp/images/a6.svg)OpenCalw&Hermes交流群![Image 70](https://wework.qpic.cn/wwpic3az/61131_STHVj2BZR56rLQW_1771995429/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/6118543.html)
+
+快讯
+
+[查看更多](https://www.woshipm.com/digest)
+
+[腾讯电脑管家入局Mac生态，首推AI Agent安全防护](https://www.woshipm.com/digest/495971)
+
+刚刚
+
+[亚马逊2025年在英投资达200亿美元](https://www.woshipm.com/digest/495979)
+
+刚刚
+
+[阿里员工十三薪并入年终奖](https://www.woshipm.com/digest/495989)
+
+刚刚
+
+热门文章
+
+*   [![Image 71: 2026重塑产品-商业篇：它如何创造和传递价值的？](https://image.woshipm.com/2026/05/27/0c2e33d8-596d-11f1-9542-00163e09d72f.png!/both/100x60)](https://www.woshipm.com/share/6403224.html "2026重塑产品-商业篇：它如何创造和传递价值的？") [2026重塑产品-商业篇：它如何创造和传递价值的？](https://www.woshipm.com/share/6403224.html "2026重塑产品-商业篇：它如何创造和传递价值的？") 05-27  
+*   [![Image 72: 企业可以这样落地 AI 能力（二）：技能蒸馏](https://image.woshipm.com/2023/04/14/85ddeba4-daa1-11ed-95a1-00163e0b5ff3.png!/both/100x60)](https://www.woshipm.com/ai/6400348.html "企业可以这样落地 AI 能力（二）：技能蒸馏") [企业可以这样落地 AI 能力（二）：技能蒸馏](https://www.woshipm.com/ai/6400348.html "企业可以这样落地 AI 能力（二）：技能蒸馏") 05-22  
+*   [![Image 73: 豆包月活3.45亿，却是最焦虑的那个](https://image.woshipm.com/2025/12/19/c9a14262-dc85-11f0-8f7d-00163e09d72f.png!/both/100x60)](https://www.woshipm.com/share/6397717.html "豆包月活3.45亿，却是最焦虑的那个") [豆包月活3.45亿，却是最焦虑的那个](https://www.woshipm.com/share/6397717.html "豆包月活3.45亿，却是最焦虑的那个") 05-18  
+*   [![Image 74: 不写PRD的第三周，我发现产品经理的活已经变了](https://image.woshipm.com/2023/04/13/b24d80e0-d9df-11ed-9d2f-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/share/6397938.html "不写PRD的第三周，我发现产品经理的活已经变了") [不写PRD的第三周，我发现产品经理的活已经变了](https://www.woshipm.com/share/6397938.html "不写PRD的第三周，我发现产品经理的活已经变了") 05-19  
+*   [![Image 75: 把脸借给AI短剧，我却拿不回来了](https://image.woshipm.com/2023/04/13/13569fa6-d9eb-11ed-889f-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6389471.html "把脸借给AI短剧，我却拿不回来了") [把脸借给AI短剧，我却拿不回来了](https://www.woshipm.com/ai/6389471.html "把脸借给AI短剧，我却拿不回来了") 05-07  
+*   [![Image 76: 什么叫AI原生组织？如何打造AI原生组织？](https://image.woshipm.com/wp-files/2026/04/FGtu51ChKL0U19W5vpVx.jpg!/both/100x60)](https://www.woshipm.com/ai/6398509.html "什么叫AI原生组织？如何打造AI原生组织？") [什么叫AI原生组织？如何打造AI原生组织？](https://www.woshipm.com/ai/6398509.html "什么叫AI原生组织？如何打造AI原生组织？") 05-19  
+
+![Image 77](https://image.woshipm.com/wp-files/2020/06/qgEa9DwE5Xshp2Q7EbAx.png)
+
+面试失败屡战屡败，如何确定自己是否适合做产品经理？
+
+共经历过三个公司的笔试和面试，携程、淘宝和58，前两家笔试过了第二轮面试没过，自我感觉是没准备好，5...
+
+![Image 78](https://static.woshipm.com/WX_U_202001_20200121114005_5237.jpg?imageView2/2/w/80/size-limit/5k!)![Image 79](https://static.woshipm.com/WX_U_201805_20180531185421_8464.jpg?imageView2/2/w/80/size-limit/5k!)![Image 80](https://image.woshipm.com//wp-files/2015/10/touxiang-5.jpg!avatar)56.8k 点击 23 回答
+
+[进入回答](https://wen.woshipm.com/question/detail/tm0jf.html?sf=wipm)
+
+[网易云为何选择在这个时间节点推出升级，打通多端会员？](https://wen.woshipm.com/question/detail/o98csf.html?sf=wipm)
+
+ 11.1k 点击 13 回答 
+
+[销售什么商品更适合使用直播营销？](https://wen.woshipm.com/question/detail/79juar.html?sf=wipm)
+
+ 33.6k 点击 18 回答 
+
+[88.1%的00后毕业生表示愿意加班，这反映了什么趋势？](https://wen.woshipm.com/question/detail/iosjqd.html?sf=wipm)
+
+ 27.2k 点击 36 回答 
+
+文章导航
+
+*   [一、背景介绍及分析方向](https://www.woshipm.com/evaluating/6118543.html#toc-1)
+*   [二、竞品选择](https://www.woshipm.com/evaluating/6118543.html#toc-2)
+*   [三、飞书产品演变过程及分析](https://www.woshipm.com/evaluating/6118543.html#toc-3)
+*   [四、飞书people产品体验分析](https://www.woshipm.com/evaluating/6118543.html#toc-4)
+*   [五、如何提升HR办事效率](https://www.woshipm.com/evaluating/6118543.html#toc-5)
+*   [六、如何解决管理者在人才绩效的问题](https://www.woshipm.com/evaluating/6118543.html#toc-6)
+
+关于
+
+ 人人都是产品经理（woshipm.com）是以产品经理、运营为核心的学习、交流、分享平台，集媒体、培训、社群为一体，全方位服务产品人和运营人，成立12年举办在线讲座1000+期，线下分享会500+场，产品经理大会、运营大会50+场，覆盖北上广深杭成都等20个城市，在行业有较高的影响力和知名度。平台聚集了众多BAT美团京东滴滴360小米网易等知名互联网公司产品总监和运营总监，他们在这里与你一起成长。 
+
+合作伙伴
+
+*   [![Image 81: 起点课堂](https://image.woshipm.com/wp-files/2021/10/zUwm4IYjmoiV63Kk9aKQ.png)](https://www.qidianla.com/?woshipm "起点课堂")
+*   [![Image 82](https://image.yunyingpai.com/wp/2021/12/wyRAfH2rXJha57p06bbQ.png)](https://36kr.com/)
+*   [![Image 83: 极验验证](https://image.woshipm.com/wp-files/2020/05/zHiqREB7rkGZsC6rFerJ.png)](https://www.geetest.com/?woshipm)
+*   [![Image 84: 致设计](https://image.woshipm.com/wp-files/2020/05/k7Gf25a7GdaoRNLLogCo.png)](https://www.zhisheji.com/?woshipm "致设计")
+*   [![Image 85: 保利威](https://image.woshipm.com/wp-files/2020/05/KZTBx2R2UyR2k96mHpa4.png)](https://www.polyv.net/?-cpjl)
+
+链接
+
+*   [隐私政策](https://www.woshipm.com/policy)
+*   [投稿须知](https://www.woshipm.com/it/1010671.html)
+*   [意见反馈](https://wen.woshipm.com/question/detail/omkf.html)
+*   [帮助中心](https://doc.weixin.qq.com/doc/w3_ALsAdwZgAO8uhueZ8ahRse75jgAJm?scode=AGsAywdaAA0wPabVgMAYgAZgbwAOM)
+
+![Image 86: 公众号](https://image.woshipm.com/wp-files/2020/06/cKMzCQWucvwdFhHVeoib.jpeg)
+公众号
+
+![Image 87: 视频号](https://image.woshipm.com/wp-files/2020/06/PAVQDSOr3b6NRnHyqAVy.jpeg)
+视频号
+
+*   友情链接
+*   [PM265](https://pm265.com/)
+*   [产品经理导航](https://www.pmbaobao.com/)
+*   [起点课堂](https://www.qidianla.com/)
+*   [猪八戒网](http://www.zbj.com/)
+*   [伙伴云表格](https://www.huoban.com/)
+*   [网易易盾](https://dun.163.com/)
+*   [个推](https://www.getui.com/cn/)
+*   [友盟+](https://www.umeng.com/)
+*   [创业邦](https://www.cyzone.cn/?woshipm)
+*   [AI学习社区](https://www.aixq.cc/ "学习AI第一站")
+*   [慕课网](https://www.imooc.com/ "慕课网")
+
+ 旗下品牌: [起点课堂](https://www.qidianla.com/) | [运营派](https://www.yunyingpai.com/) | [粮仓企微管家](https://www.liangcang.cc/)
+
+ ©2010-2024 - 人人都是产品经理 - [粤ICP备14037330号](https://beian.miit.gov.cn/)-[粤公网安备 44030502001309号](https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001309)
+
+[广播电视节目制作经营许可证（粤）字第03109号](https://static.qidianla.com/Audio-TVLicense.jpg)[增值电信业务经营许可证粤B2-20190788](https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyesearch.jsp?num=%E6%B7%B1%E5%9C%B3%E8%81%9A%E5%8A%9B%E5%88%9B%E6%83%B3%E4%BF%A1%E6%81%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&type=xuke) 版权所有 © 深圳聚力创想信息科技有限公司 
+
+[网站统计](http://tongji.baidu.com/hm-web/welcome/ico?s=b85cbcc76e92e3fd79be8f2fed0f504f)

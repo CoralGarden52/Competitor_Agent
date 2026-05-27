@@ -11,11 +11,13 @@ class ProviderRegistry:
     fetch_catalog: dict[str, FetchProvider]
     search_order: list[str]
     fetch_order: list[str]
+    strict_search_order: bool = True
 
     def ordered_search_providers(self) -> list[SearchProvider]:
         ordered = [self.search_catalog[name] for name in self.search_order if name in self.search_catalog]
-        seen = {provider.name() for provider in ordered}
-        ordered.extend(provider for name, provider in self.search_catalog.items() if name not in seen)
+        if not self.strict_search_order:
+            seen = {provider.name() for provider in ordered}
+            ordered.extend(provider for name, provider in self.search_catalog.items() if name not in seen)
         return ordered
 
     def ordered_fetch_providers(self) -> list[FetchProvider]:

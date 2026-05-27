@@ -1,0 +1,950 @@
+# 指南和教程 - 如何使用Notion？
+
+Title: 指南和教程 - 如何使用Notion？
+
+URL Source: https://www.notion.com/zh-cn/help/guides
+
+Markdown Content:
+# 指南和教程 - 如何使用Notion？
+
+See this page in your preferred language.[Change to English (US)→](https://www.notion.com/help/guides)
+
+[](https://www.notion.com/zh-cn/product)
+
+产品
+
+*   [Notion 你的 AI 工作空间](https://www.notion.com/zh-cn/product)
+
+*   [Notion 日历](https://www.notion.com/zh-cn/product/calendar)
+
+*   [Notion 邮箱](https://www.notion.com/zh-cn/product/mail)
+
+*   [Notion AI 办公 AI 工具](https://www.notion.com/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.com/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.com/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.com/zh-cn/product/enterprise-search)
+
+*   [知识库 集中管理你的知识](https://www.notion.com/zh-cn/product/wikis)
+
+*   [文档 简单而强大](https://www.notion.com/zh-cn/product/docs)
+
+*   [项目 管理任何项目](https://www.notion.com/zh-cn/product/projects)
+
+*   [连接 关联你的应用](https://www.notion.com/zh-cn/connections)
+
+*   [安全 安全且可扩展](https://www.notion.com/zh-cn/security)
+
+Merge cells in simple tables. [查看最新动态→](https://www.notion.com/zh-cn/releases)
+
+下载[Notion 应用→](https://www.notion.com/zh-cn/download)
+
+AI
+
+![Image 1](https://www.notion.com/_next/image?url=%2Ffront-static%2Fshared%2Fnavigation%2Fai_group.png&w=384&q=75)
+
+*   AI 功能
+
+*   [Notion AI 办公 AI 工具](https://www.notion.com/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.com/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.com/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.com/zh-cn/product/enterprise-search)
+
+*   探索用例
+
+*   [用于工作](https://www.notion.com/zh-cn/product/ai/use-cases?type=work)
+
+*   [用于生活](https://www.notion.com/zh-cn/product/ai/use-cases?type=life)
+
+解决方案
+
+*   团队
+
+*   [工程和产品](https://www.notion.com/zh-cn/product/notion-for-product-development)
+
+*   [设计](https://www.notion.com/zh-cn/product/notion-for-design)
+
+*   [市场营销](https://www.notion.com/zh-cn/templates/category/marketing)
+
+*   [IT](https://www.notion.com/zh-cn/templates/category/ticketing)
+
+*   公司规模
+
+*   [初创公司](https://www.notion.com/zh-cn/startups)
+
+*   [小型企业](https://www.notion.com/zh-cn/teams)
+
+*   [企业版](https://www.notion.com/zh-cn/enterprise)
+
+*   用例
+
+*   [教育](https://www.notion.com/zh-cn/product/notion-for-education)
+
+*   [个人](https://www.notion.com/zh-cn/personal)
+
+*   [专业](https://www.notion.com/zh-cn/use-case)
+
+*   [AI 用例](https://www.notion.com/zh-cn/product/ai/use-cases)
+
+资源
+
+*   浏览
+
+*   [模板](https://www.notion.com/zh-cn/templates)
+
+*   [顾问](https://www.notion.com/zh-cn/explore-consultants)
+
+*   [连接](https://www.notion.com/zh-cn/connections)
+
+*   探索
+
+*   [最近更新](https://www.notion.com/zh-cn/releases)
+
+*   [客户故事](https://www.notion.com/zh-cn/customers)
+
+*   [博客](https://www.notion.com/zh-cn/blog)
+
+*   [网络研讨会](https://www.notion.com/zh-cn/webinars)
+
+*   了解
+
+*   [开发者](https://developers.notion.com/)
+
+*   [学院](https://academy.notion.com/)
+
+*   [产品导览](https://www.notion.com/zh-cn/product/demos)
+
+*   [帮助](https://www.notion.com/zh-cn/help)
+
+[开发者](https://notion.dev/)[企业版](https://www.notion.com/zh-cn/enterprise)[价格](https://www.notion.com/zh-cn/pricing)[申请演示](https://www.notion.com/zh-cn/contact-sales)
+
+[免费获取 Notion](https://www.notion.com/signup?from=marketing&pathname=%2Fzh-cn%2Fhelp%2Fguides&tid=89cfdb493b9b43b4817665f1650d8fc3)[登录](https://www.notion.com/zh-cn/login?from=marketing&pathname=%2Fzh-cn%2Fhelp%2Fguides&tid=89cfdb493b9b43b4817665f1650d8fc3)
+
+1.   [帮助中心](https://www.notion.com/zh-cn/help)
+2.   [指南](https://www.notion.com/zh-cn/help/guides)
+
+# 指南
+
+提升你的技能，探索新的 Notion 使用方法。![Image 2](https://www.notion.com/_next/image?url=%2Ffront-static%2Fshared%2Fillustrations%2Fguides-badge-color-small.png&w=384&q=75)
+
+* * *
+
+[![Image 3: Formulas 2.0：如何在现有设置下使用 Notion 最新升级的函数](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1QYdyXxrkVkm3dIo1CxL0X%2F65cb76645026fe7390aea11372d58498%2Fformulas_existing_users__1_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/new-formulas-whats-changed "Formulas 2.0：如何在现有设置下使用 Notion 最新升级的函数")
+## [Formulas 2.0：如何在现有设置下使用 Notion 最新升级的函数](https://www.notion.com/zh-cn/help/guides/new-formulas-whats-changed)
+
+[如果你使用过 Notion 的函数，你可能好奇有哪些新变化。本使用手册详细介绍了函数的新变化及其对函数高阶用户的重要意义。](https://www.notion.com/zh-cn/help/guides/new-formulas-whats-changed "如果你使用过 Notion 的函数，你可能好奇有哪些新变化。本使用手册详细介绍了函数的新变化及其对函数高阶用户的重要意义。")
+
+8 分钟阅读
+
+[![Image 4: Notion 模板的终极使用手册](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7aC5jHtcjwxp8vmUnGFifh%2Fe8c07321f8708f3894d123c3b6f12db2%2Ftemplates-guide-thumb.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/the-ultimate-guide-to-notion-templates "Notion 模板的终极使用手册")
+## [Notion 模板的终极使用手册](https://www.notion.com/zh-cn/help/guides/the-ultimate-guide-to-notion-templates)
+
+[在本使用手册中，我们将详细介绍模板的用法，展示如何通过查找和使用模板来优化你的工作流程，以及如何自行创建模板。](https://www.notion.com/zh-cn/help/guides/the-ultimate-guide-to-notion-templates "在本使用手册中，我们将详细介绍模板的用法，展示如何通过查找和使用模板来优化你的工作流程，以及如何自行创建模板。 ")
+
+5 分钟阅读
+
+[![Image 5: 使用 Notion AI 写出更有文采、更加高效的笔记和文档](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2IyUDHkSHabgRc9KVYo5pI%2F055464ca9e45b13f48effb23443d41b6%2Fnotion-ai-for-docs.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/notion-ai-for-docs "使用 Notion AI 写出更有文采、更加高效的笔记和文档")
+## [使用 Notion AI 写出更有文采、更加高效的笔记和文档](https://www.notion.com/zh-cn/help/guides/notion-ai-for-docs)
+
+[利用 Notion AI 的强大功能来拓展思维、快捷办公并提升创造力。了解如何使用 Notion AI 转换文本、自动执行简单任务以及在互联工作空间内生成新内容。](https://www.notion.com/zh-cn/help/guides/notion-ai-for-docs "利用 Notion AI 的强大功能来拓展思维、快捷办公并提升创造力。了解如何使用 Notion AI 转换文本、自动执行简单任务以及在互联工作空间内生成新内容。")
+
+8 分钟阅读
+
+[![Image 6: 通过 Notion AI 扩大你的影响力](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4N8g1QtquIZnIZJJvatjD1%2Fb8872856448695d2c74e1a4851842fe4%2Fusing-notion-ai.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/using-notion-ai "通过 Notion AI 扩大你的影响力")
+## [通过 Notion AI 扩大你的影响力](https://www.notion.com/zh-cn/help/guides/using-notion-ai)
+
+[了解什么是人工智能，以及这项技术目前具有哪些功能和局限。](https://www.notion.com/zh-cn/help/guides/using-notion-ai "了解什么是人工智能，以及这项技术目前具有哪些功能和局限。 ")
+
+3 分钟阅读
+
+[![Image 7: 自动处理可重复数据库模板](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F29VQGbDg8UrLfrDodb3dt1%2F02e2fad528b92adabfd8a32983e3337d%2Fautomate-repetitive-work.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/automate-work-repeating-database-templates "自动处理可重复数据库模板")
+## [自动处理可重复数据库模板](https://www.notion.com/zh-cn/help/guides/automate-work-repeating-database-templates)
+
+[使用可重复数据库模板自动创建重复任务、会议记录和文档。现在，你可以比以往更轻松地更新待办清单日期、安排会议并定期生成各种内容。](https://www.notion.com/zh-cn/help/guides/automate-work-repeating-database-templates "使用可重复数据库模板自动创建重复任务、会议记录和文档。现在，你可以比以往更轻松地更新待办清单日期、安排会议并定期生成各种内容。")
+
+5 分钟阅读
+
+[![Image 8: Best practices for improving your Custom Agent](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5KQCXUWgDtvKIcWTcbZwUr%2Fd756fef856ed45a985cc125eda678a83%2FCustomAgents_Optimize_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/best-practices-for-improving-your-custom-agent "Best practices for improving your Custom Agent")
+## [Best practices for improving your Custom Agent](https://www.notion.com/zh-cn/help/guides/best-practices-for-improving-your-custom-agent)
+
+[Learn how to optimize your agent's model, triggers, scope, and instructions for efficient results and costs.](https://www.notion.com/zh-cn/help/guides/best-practices-for-improving-your-custom-agent "Learn how to optimize your agent's model, triggers, scope, and instructions for efficient results and costs.")
+
+6 分钟阅读
+
+[![Image 9: An admin’s guide to getting started with Custom Agents](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6bV5Pr6uVzMGtGoTnge0MA%2F60c910e5620501c6137356243be495c2%2FUBP_Thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/admin-guide-to-getting-started-with-custom-agents "An admin’s guide to getting started with Custom Agents")
+## [An admin’s guide to getting started with Custom Agents](https://www.notion.com/zh-cn/help/guides/admin-guide-to-getting-started-with-custom-agents)
+
+[Learn how to purchase credits, set credit limits, and monitor usage so your team can scale Custom Agents with confidence.](https://www.notion.com/zh-cn/help/guides/admin-guide-to-getting-started-with-custom-agents "Learn how to purchase credits, set credit limits, and monitor usage so your team can scale Custom Agents with confidence.")
+
+7 分钟阅读
+
+[![Image 10: Build your first Custom Agent](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5qrNef90tXKheBcd3qwv0Y%2F436b7349dd10ac6957180a53b507c6ce%2FCustom_agents_final_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/build-your-first-custom-agent "Build your first Custom Agent")
+## [Build your first Custom Agent](https://www.notion.com/zh-cn/help/guides/build-your-first-custom-agent)
+
+[Build Custom Agents that automate recurring workflows for your entire team. One person sets it up, everyone benefits from the work that happens automatically.](https://www.notion.com/zh-cn/help/guides/build-your-first-custom-agent "Build Custom Agents that automate recurring workflows for your entire team. One person sets it up, everyone benefits from the work that happens automatically.")
+
+10 分钟阅读
+
+[![Image 11: Manage your inbox and calendar automatically with Custom Agents](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F39lBsOl7hmmnhisTizMG31%2F0dff4aa96097cb5e5b6632e23041e291%2FMail_Cal_final_thubnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/manage-your-inbox-and-calendar-with-custom-agents "Manage your inbox and calendar automatically with Custom Agents")
+## [Manage your inbox and calendar automatically with Custom Agents](https://www.notion.com/zh-cn/help/guides/manage-your-inbox-and-calendar-with-custom-agents)
+
+[Custom Agents can manage your mail and calendar automatically, so you spend less time on coordination and more time on the work that matters.](https://www.notion.com/zh-cn/help/guides/manage-your-inbox-and-calendar-with-custom-agents "Custom Agents can manage your mail and calendar automatically, so you spend less time on coordination and more time on the work that matters.")
+
+8 分钟阅读
+
+[![Image 12: Connect Custom Agents to your tool stack with MCP integrations](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6uanKEVY0JXiuTc6yqEqcx%2F9d57d93cb63f5df48c4a5560f49a0012%2FMCP_final_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/connect-custom-agents-to-mcp-integrations "Connect Custom Agents to your tool stack with MCP integrations")
+## [Connect Custom Agents to your tool stack with MCP integrations](https://www.notion.com/zh-cn/help/guides/connect-custom-agents-to-mcp-integrations)
+
+[MCP lets Custom Agents securely connect to external tools, so you can bring live context into Notion and automate end-to-end workflows across your stack safely and with control.](https://www.notion.com/zh-cn/help/guides/connect-custom-agents-to-mcp-integrations "MCP lets Custom Agents securely connect to external tools, so you can bring live context into Notion and automate end-to-end workflows across your stack safely and with control.")
+
+10 分钟阅读
+
+[![Image 13: Get the most out of your Business trial with Notion AI](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6LdGy3kw0Xw93VQX8eKMtX%2F41813d970a554d7370deda930b3c214f%2FBusiness_Trials_Thumbnail_final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/get-the-most-out-of-your-business-trial-with-notion-ai "Get the most out of your Business trial with Notion AI")
+## [Get the most out of your Business trial with Notion AI](https://www.notion.com/zh-cn/help/guides/get-the-most-out-of-your-business-trial-with-notion-ai)
+
+[Start your Business trial and explore what’s possible with Notion AI. Connect your favorite tools, capture meetings automatically, and let your Personal Agent build end-to-end workflows — all in one place.](https://www.notion.com/zh-cn/help/guides/get-the-most-out-of-your-business-trial-with-notion-ai "Start your Business trial and explore what’s possible with Notion AI. Connect your favorite tools, capture meetings automatically, and let your Personal Agent build end-to-end workflows — all in one place.")
+
+5 分钟阅读
+
+[![Image 14: Get started with your Notion Agent](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2TVSXQtXFhrby7hklLrgXo%2Ffbe5eb66dd6991fcfce5ea5114920db3%2FAgent_Thumbnail_Final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/get-started-with-your-personal-agent-in-notion "Get started with your Notion Agent")
+## [Get started with your Notion Agent](https://www.notion.com/zh-cn/help/guides/get-started-with-your-personal-agent-in-notion)
+
+[Meet Notion Agent, your AI teammate that actually does the work for you. Your Agent handles complex, multi-step tasks—from building databases to updating content across your workspace—so you can focus on strategy instead of setup.](https://www.notion.com/zh-cn/help/guides/get-started-with-your-personal-agent-in-notion "Meet Notion Agent, your AI teammate that actually does the work for you. Your Agent handles complex, multi-step tasks—from building databases to updating content across your workspace—so you can focus on strategy instead of setup.")
+
+5 分钟阅读
+
+[![Image 15: Power your deep work using Research Mode in Notion](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5xkdngG79tMGDNjqUZDLkK%2F89e537d4de6f34aefbfa2d9b705478c0%2FResearch_Mode_thumbnail_final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/power-your-deep-work-using-research-mode-in-notion "Power your deep work using Research Mode in Notion")
+## [Power your deep work using Research Mode in Notion](https://www.notion.com/zh-cn/help/guides/power-your-deep-work-using-research-mode-in-notion)
+
+[Learn how to use Research Mode in Notion for deep research across your workspace, connected tools, and the web. Combine scattered data into clear, actionable briefs that support customer calls, product launches, and strategic decisions.](https://www.notion.com/zh-cn/help/guides/power-your-deep-work-using-research-mode-in-notion "Learn how to use Research Mode in Notion for deep research across your workspace, connected tools, and the web. Combine scattered data into clear, actionable briefs that support customer calls, product launches, and strategic decisions.")
+
+5 分钟阅读
+
+[![Image 16: Working offline in Notion—Everything you need to know](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4AP6paT7ve5x2dW0nSeFxF%2Fc06e99d905438e0255b93442ceb9be7f%2FOffline_mode_thumbnail_final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/working-offline-in-notion-everything-you-need-to-know "Working offline in Notion—Everything you need to know")
+## [Working offline in Notion—Everything you need to know](https://www.notion.com/zh-cn/help/guides/working-offline-in-notion-everything-you-need-to-know)
+
+[With Notion’s offline functionality, your most important pages stay accessible and editable—no internet required. Whether you’re flying, commuting through dead zones, or working from a café with spotty Wi‑Fi, your projects are always within reach, keeping you productive wherever you are.](https://www.notion.com/zh-cn/help/guides/working-offline-in-notion-everything-you-need-to-know "With Notion’s offline functionality, your most important pages stay accessible and editable—no internet required. Whether you’re flying, commuting through dead zones, or working from a café with spotty Wi‑Fi, your projects are always within reach, keeping you productive wherever you are.")
+
+5 分钟阅读
+
+[![Image 17: Is Notion's Business or Enterprise plan right for you?](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1UQ75CL69kganZXYU6FJYB%2F0e6805f8ee7f3340557f5ca5045da048%2FPricing_guide_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/is-notions-business-or-enterprise-plan-right-for-you "Is Notion's Business or Enterprise plan right for you?")
+## [Is Notion's Business or Enterprise plan right for you?](https://www.notion.com/zh-cn/help/guides/is-notions-business-or-enterprise-plan-right-for-you)
+
+[Bringing AI into daily workflows is one of the biggest challenges companies face. Our Business and Enterprise plans meet that head-on with powerful AI tools, custom workflows, and rock-solid security— all in one connected workspace. Find the plan that fits your team.](https://www.notion.com/zh-cn/help/guides/is-notions-business-or-enterprise-plan-right-for-you "Bringing AI into daily workflows is one of the biggest challenges companies face. Our Business and Enterprise plans meet that head-on with powerful AI tools, custom workflows, and rock-solid security— all in one connected workspace. Find the plan that fits your team.")
+
+8 分钟阅读
+
+[![Image 18: Preserve perfect meeting memory with AI Meeting Notes](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FZzgrY2T34GAGiUbBHAboe%2Fd449ea3097fe424a37ad7ff61fc2cfb2%2FAI_Meeting_Notes_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/preserve-perfect-meeting-memory-with-ai-meeting-notes "Preserve perfect meeting memory with AI Meeting Notes")
+## [Preserve perfect meeting memory with AI Meeting Notes](https://www.notion.com/zh-cn/help/guides/preserve-perfect-meeting-memory-with-ai-meeting-notes)
+
+[Meet Notion’s AI Meeting Notes, your intelligent meeting assistant. It transcribes your meetings and turns it into organized meeting summaries right in your workspace.](https://www.notion.com/zh-cn/help/guides/preserve-perfect-meeting-memory-with-ai-meeting-notes "Meet Notion’s AI Meeting Notes, your intelligent meeting assistant. It transcribes your meetings and turns it into organized meeting summaries right in your workspace. ")
+
+7 分钟阅读
+
+[![Image 19: Find answers and generate reports with enterprise search](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3sm5nruk7LbsigKCxXvrEy%2Fe599c2b2159c551f67998764b70d5ada%2FEnterprise_search_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/find-answers-and-generate-reports-with-enterprise-search "Find answers and generate reports with enterprise search")
+## [Find answers and generate reports with enterprise search](https://www.notion.com/zh-cn/help/guides/find-answers-and-generate-reports-with-enterprise-search)
+
+[Finding answers at work should be as simple as using your favorite search engine. With enterprise search, you can quickly find what you need using features like Research mode for in-depth reports and AI connectors that work seamlessly with your current systems.](https://www.notion.com/zh-cn/help/guides/find-answers-and-generate-reports-with-enterprise-search "Finding answers at work should be as simple as using your favorite search engine. With enterprise search, you can quickly find what you need using features like Research mode for in-depth reports and AI connectors that work seamlessly with your current systems.")
+
+7 分钟阅读
+
+[![Image 20: How to get better answers from Notion AI](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1C6dOLrh3OFQt1pkHN1E2i%2Fc0e96a424978d2bce100ce1bf70c8710%2FNotion_AI_Model_thumbnail_final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/how-to-get-better-answers-from-notion-ai "How to get better answers from Notion AI")
+## [How to get better answers from Notion AI](https://www.notion.com/zh-cn/help/guides/how-to-get-better-answers-from-notion-ai)
+
+[Instead of relying on basic keyword searches, learn how to provide rich context that helps Notion AI understand exactly what you're looking for, leading to more accurate and useful results.](https://www.notion.com/zh-cn/help/guides/how-to-get-better-answers-from-notion-ai "Instead of relying on basic keyword searches, learn how to provide rich context that helps Notion AI understand exactly what you're looking for, leading to more accurate and useful results. ")
+
+10 分钟阅读
+
+[![Image 21: Organize your inbox with Notion AI's auto labeling](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5auV6wYMqnclN8Hlia17Ee%2F1dedc0564a35fbf65e69926e23c266d3%2FAutoabel_Thumbnail_Final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/organize-your-inbox-with-notion-ai-auto-labeling "Organize your inbox with Notion AI's auto labeling")
+## [Organize your inbox with Notion AI's auto labeling](https://www.notion.com/zh-cn/help/guides/organize-your-inbox-with-notion-ai-auto-labeling)
+
+[Learn how Notion AI's auto labeling feature intelligently organizes your inbox for you. It labels and sorts emails as they arrive so you can focus on what matters most.](https://www.notion.com/zh-cn/help/guides/organize-your-inbox-with-notion-ai-auto-labeling "Learn how Notion AI's auto labeling feature intelligently organizes your inbox for you. It labels and sorts emails as they arrive so you can focus on what matters most. ")
+
+5 分钟阅读
+
+[![Image 22: Eliminate email busywork with Notion Mail best practices](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2NUWzLuHHOX7lpK5MBdmma%2Fd6ab929298e76d94d76640a2f1d9b3b4%2FInbox_Set_up_Thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/eliminate-email-busywork-with-notion-mail-best-practices "Eliminate email busywork with Notion Mail best practices")
+## [Eliminate email busywork with Notion Mail best practices](https://www.notion.com/zh-cn/help/guides/eliminate-email-busywork-with-notion-mail-best-practices)
+
+[Transform your inbox with expert tips from Notion consultants — learn to set up custom views, speed up responses, and master your email workflow.](https://www.notion.com/zh-cn/help/guides/eliminate-email-busywork-with-notion-mail-best-practices "Transform your inbox with expert tips from Notion consultants — learn to set up custom views, speed up responses, and master your email workflow.")
+
+8 分钟阅读
+
+[![Image 23: Verify knowledge your teammates can trust](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5bghQUvleH6u5eEH6fRsCg%2F9bad6a249f14930399168217243aadec%2FPage_verification_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/verify-knowledge-your-teammates-can-trust-with-page-verification "Verify knowledge your teammates can trust")
+## [Verify knowledge your teammates can trust](https://www.notion.com/zh-cn/help/guides/verify-knowledge-your-teammates-can-trust-with-page-verification)
+
+[Keep your pages up to date, help your team find the right information faster, and build confidence in every decision. With page verification in Notion, you can create clear sources of truth that your whole team can rely on.](https://www.notion.com/zh-cn/help/guides/verify-knowledge-your-teammates-can-trust-with-page-verification "Keep your pages up to date, help your team find the right information faster, and build confidence in every decision. With page verification in Notion, you can create clear sources of truth that your whole team can rely on. ")
+
+7 分钟阅读
+
+[![Image 24: Everything you need to know about setting up and managing an organization in Notion](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F70QPHz6bPb0swpbRwqdxCy%2Fc9d65e3a94be2b1328905b727ae20add%2FOrg_Console_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/everything-about-setting-up-and-managing-an-organization-in-notion "Everything you need to know about setting up and managing an organization in Notion")
+## [Everything you need to know about setting up and managing an organization in Notion](https://www.notion.com/zh-cn/help/guides/everything-about-setting-up-and-managing-an-organization-in-notion)
+
+[Level-up how you manage your company with Notion’s organization level controls. Learn how to configure your settings and permissions effectively for your entire organization in one central place to manage users, permissions, and security settings. Finally, a streamlined way to keep everything secure and in sync at scale.](https://www.notion.com/zh-cn/help/guides/everything-about-setting-up-and-managing-an-organization-in-notion "Level-up how you manage your company with Notion’s organization level controls. Learn how to configure your settings and permissions effectively for your entire organization in one central place to manage users, permissions, and security settings. Finally, a streamlined way to keep everything secure and in sync at scale.")
+
+12 分钟阅读
+
+[![Image 25: Getting started with Notion Mail](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2DyeBkMpOHXYfapfAVAGkD%2Fa4db930cb3b492e4ecfca03f4dc1aa7a%2FMail_thumbnail_final_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/getting-started-with-notion-mail "Getting started with Notion Mail")
+## [Getting started with Notion Mail](https://www.notion.com/zh-cn/help/guides/getting-started-with-notion-mail)
+
+[Your inbox, reimagined— where priorities stay clear, emails write themselves and scheduling is seamless. Tap into a smarter way to work.](https://www.notion.com/zh-cn/help/guides/getting-started-with-notion-mail "Your inbox, reimagined— where priorities stay clear, emails write themselves and scheduling is seamless. Tap into a smarter way to work.")
+
+10 分钟阅读
+
+[![Image 26: Bring your codebase into context with Notion's GitHub integration](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5WZTmEYZDnYmdEydStHWjo%2F2df5f08949f8ec85522de6ac2fd1f3d5%2FGithub_integration_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/bring-your-codebase-into-context-with-notions-github-integration "Bring your codebase into context with Notion's GitHub integration")
+## [Bring your codebase into context with Notion's GitHub integration](https://www.notion.com/zh-cn/help/guides/bring-your-codebase-into-context-with-notions-github-integration)
+
+[Learn how to seamlessly integrate GitHub with Notion to streamline your development workflow, enhance team collaboration, and keep your codebase and documentation in perfect sync.](https://www.notion.com/zh-cn/help/guides/bring-your-codebase-into-context-with-notions-github-integration "Learn how to seamlessly integrate GitHub with Notion to streamline your development workflow, enhance team collaboration, and keep your codebase and documentation in perfect sync.")
+
+10 分钟阅读
+
+[![Image 27: A simple CRM for strengthening client relationships and managing work](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F30np7uHUolglmlbVrM5T3E%2F41188ac340e9e9a7fdf623454cabaf7f%2FGolden_set_CRM_nontech_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/simple-crm-for-strengthening-client-relationships-and-managing-work "A simple CRM for strengthening client relationships and managing work")
+## [A simple CRM for strengthening client relationships and managing work](https://www.notion.com/zh-cn/help/guides/simple-crm-for-strengthening-client-relationships-and-managing-work)
+
+[Learn how to build a custom CRM that matches how you work and includes everything you need—from client details and portals to project management and revenue tracking.](https://www.notion.com/zh-cn/help/guides/simple-crm-for-strengthening-client-relationships-and-managing-work "Learn how to build a custom CRM that matches how you work and includes everything you need—from client details and portals to project management and revenue tracking.")
+
+8 分钟阅读
+
+[![Image 28: Organize, connect, and scale your Notion knowledge management system](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2d0TXIhryLRrX4Zbw2MFPM%2F24347d42e800919f717e5a217ff07ad6%2FGolden_set__knowledge_Manage_non_tech_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/organize-connect-and-scale-your-notion-knowledge-management-system "Organize, connect, and scale your Notion knowledge management system")
+## [Organize, connect, and scale your Notion knowledge management system](https://www.notion.com/zh-cn/help/guides/organize-connect-and-scale-your-notion-knowledge-management-system)
+
+[Transform scattered company information into an organized, accessible knowledge hub with Notion. Learn how to build a central company home, create dynamic databases for client and project management, and connect your team's knowledge seamlessly with their daily work.](https://www.notion.com/zh-cn/help/guides/organize-connect-and-scale-your-notion-knowledge-management-system "Transform scattered company information into an organized, accessible knowledge hub with Notion. Learn how to build a central company home, create dynamic databases for client and project management, and connect your team's knowledge seamlessly with their daily work.")
+
+7 分钟阅读
+
+[![Image 29: Manage client work in a flexible project tracker](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F01yp5JTt8IINiNkMGxMOBp%2F13bba9692b8e42c6c0ff961f434b0b68%2FGolden_set_project_management_tech_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/manage-client-work-in-a-flexible-project-tracker "Manage client work in a flexible project tracker")
+## [Manage client work in a flexible project tracker](https://www.notion.com/zh-cn/help/guides/manage-client-work-in-a-flexible-project-tracker)
+
+[Streamline your client project management with a customizable Notion workspace. Discover how to create flexible project trackers, automate workflows, and build client portals that enable seamless collaboration and efficient project delivery.](https://www.notion.com/zh-cn/help/guides/manage-client-work-in-a-flexible-project-tracker "Streamline your client project management with a customizable Notion workspace. Discover how to create flexible project trackers, automate workflows, and build client portals that enable seamless collaboration and efficient project delivery.")
+
+8 分钟阅读
+
+[![Image 30: Your centralized product development hub in Notion](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5CzJDaTWMlpKWd0MfpyFqf%2Fa0236f617db786a0d15b34074f5f2ca0%2FGolden_set_product_dev_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/your-centralized-product-development-hub-in-notion "Your centralized product development hub in Notion")
+## [Your centralized product development hub in Notion](https://www.notion.com/zh-cn/help/guides/your-centralized-product-development-hub-in-notion)
+
+[Stay on top of your work without the back-and-forth. Notion brings together your team's docs, tasks, and communications in one collaborative space — where work flows naturally.](https://www.notion.com/zh-cn/help/guides/your-centralized-product-development-hub-in-notion "Stay on top of your work without the back-and-forth. Notion brings together your team's docs, tasks, and communications in one collaborative space — where work flows naturally.")
+
+7 分钟阅读
+
+[![Image 31: Project management that evolves with your team](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6Uttj8uC9AWiDNsBBx0Nsm%2Fc38bcc11fda7fd914a08978e23a51601%2FGolden_set_project_management_tech_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/project-management-that-evolves-with-your-team "Project management that evolves with your team")
+## [Project management that evolves with your team](https://www.notion.com/zh-cn/help/guides/project-management-that-evolves-with-your-team)
+
+[Create customizable project management workflows in Notion - your all-in-one workspace for databases, tasks, and timelines. We'll walk you through building simple, powerful systems that help your team collaborate better.](https://www.notion.com/zh-cn/help/guides/project-management-that-evolves-with-your-team "Create customizable project management workflows in Notion - your all-in-one workspace for databases, tasks, and timelines. We'll walk you through building simple, powerful systems that help your team collaborate better.")
+
+8 分钟阅读
+
+[![Image 32: How tech startups build their company operating systems in Notion](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6a3CZsAxMOWIzCUzmIxOcp%2Fa91aa1f1b6ab8d50330a38367ad5d06a%2FGolden_set_company_OS_for_tech.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/how-tech-startups-build-their-company-operating-systems-in-notion "How tech startups build their company operating systems in Notion")
+## [How tech startups build their company operating systems in Notion](https://www.notion.com/zh-cn/help/guides/how-tech-startups-build-their-company-operating-systems-in-notion)
+
+[Learn how to build a truly scalable workspace in Notion. We'll show you how to create a company hub that helps your startup work smarter — from knowledge sharing to team collaboration to project planning.](https://www.notion.com/zh-cn/help/guides/how-tech-startups-build-their-company-operating-systems-in-notion "Learn how to build a truly scalable workspace in Notion. We'll show you how to create a company hub that helps your startup work smarter — from knowledge sharing to team collaboration to project planning. ")
+
+8 分钟阅读
+
+[![Image 33: Notify people instantly — with just a click of a button](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3zfMAAG09ReLV1Eu69kPcP%2F15e3b73b45c484b8c92d1a3e7dbe42bb%2FAutomations_buttons_thumbnails.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/notify-people-instantly-with-a-click-of-a-button "Notify people instantly — with just a click of a button")
+## [Notify people instantly — with just a click of a button](https://www.notion.com/zh-cn/help/guides/notify-people-instantly-with-a-click-of-a-button)
+
+[Send instant notifications to teams and stakeholders with a single button click — perfect for urgent alerts, incident response, and streamlined workflows.](https://www.notion.com/zh-cn/help/guides/notify-people-instantly-with-a-click-of-a-button "Send instant notifications to teams and stakeholders with a single button click — perfect for urgent alerts, incident response, and streamlined workflows.")
+
+4 分钟阅读
+
+[![Image 34: Share social media posts from Notion with webhook actions](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FdA5wpGiyDlRorxooBecpE%2F7e7a1e55c272488dd33c14e1c95a0654%2FAutomations_webhooks.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/share-social-media-posts-from-notion-with-webhook-actions "Share social media posts from Notion with webhook actions")
+## [Share social media posts from Notion with webhook actions](https://www.notion.com/zh-cn/help/guides/share-social-media-posts-from-notion-with-webhook-actions)
+
+[Learn how to automate your social media workflows by connecting Notion with your favorite platforms using webhook actions.](https://www.notion.com/zh-cn/help/guides/share-social-media-posts-from-notion-with-webhook-actions "Learn how to automate your social media workflows by connecting Notion with your favorite platforms using webhook actions.")
+
+4 分钟阅读
+
+[![Image 35: Unleashing collaboration with Notion's Jira connection](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7mHqppQIP5L1svOsCkzgo0%2Fec0a54254e6aeb700da4dcddee93a49f%2FJira_Sync_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/unleashing-collaboration-with-notions-jira-connection "Unleashing collaboration with Notion's Jira connection")
+## [Unleashing collaboration with Notion's Jira connection](https://www.notion.com/zh-cn/help/guides/unleashing-collaboration-with-notions-jira-connection)
+
+[Whether you need to streamline your Jira workflow or simplify project tracking for non-technical teams, integrating Jira with Notion offers a powerful and flexible solution. Here's everything you need to know about Jira sync.](https://www.notion.com/zh-cn/help/guides/unleashing-collaboration-with-notions-jira-connection "Whether you need to streamline your Jira workflow or simplify project tracking for non-technical teams, integrating Jira with Notion offers a powerful and flexible solution. Here's everything you need to know about Jira sync.")
+
+11 分钟阅读
+
+[![Image 36: Getting started as a template creator on Marketplace](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4zm1kZyNgtzQhBGaN7hZSV%2Fa86f9e0b4ac4101051b8b1e5d4290738%2FMarketplace_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/getting-started-as-a-template-creator-on-marketplace "Getting started as a template creator on Marketplace")
+## [Getting started as a template creator on Marketplace](https://www.notion.com/zh-cn/help/guides/getting-started-as-a-template-creator-on-marketplace)
+
+[Do you love creating awesome setups in Notion? This guide is for you. Learn the essentials of listing and selling your products on Marketplace. From setting up your creator profile and managing payments, to finding resources for further learning.](https://www.notion.com/zh-cn/help/guides/getting-started-as-a-template-creator-on-marketplace "Do you love creating awesome setups in Notion? This guide is for you. Learn the essentials of listing and selling your products on Marketplace. From setting up your creator profile and managing payments, to finding resources for further learning. ")
+
+7 分钟阅读
+
+[![Image 37: Use forms to collect, organize and act on responses right in your Notion workspace](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1qNyKyZTNDED8Rj6F6D4Yv%2F8caeb20cc76dfd6f573d7353c180853a%2FForms_thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/use-forms-to-collect-organize-and-act-on-responses-in-notion "Use forms to collect, organize and act on responses right in your Notion workspace")
+## [Use forms to collect, organize and act on responses right in your Notion workspace](https://www.notion.com/zh-cn/help/guides/use-forms-to-collect-organize-and-act-on-responses-in-notion)
+
+[Forms in Notion bridge the gap between your work and valuable feedback. They enable you to easily collect responses, streamline workflows, and quickly transform feedback into action items—all within your Notion workspace.](https://www.notion.com/zh-cn/help/guides/use-forms-to-collect-organize-and-act-on-responses-in-notion "Forms in Notion bridge the gap between your work and valuable feedback. They enable you to easily collect responses, streamline workflows, and quickly transform feedback into action items—all within your Notion workspace. ")
+
+8 分钟阅读
+
+[![Image 38: Build the perfect workflow with customizable layouts](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3dTr0rRQT616wY043DIO7Q%2Fbc88fa4d8474ebf1b6cef0662e0cf975%2FLayouts_Thumbanil.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/build-the-perfect-workflow-with-customizable-layouts "Build the perfect workflow with customizable layouts")
+## [Build the perfect workflow with customizable layouts](https://www.notion.com/zh-cn/help/guides/build-the-perfect-workflow-with-customizable-layouts)
+
+[Layouts unlock a whole new world of efficiency for structuring and sharing information through databases. Learn how to organize your database pages, create custom layouts, and boost productivity.](https://www.notion.com/zh-cn/help/guides/build-the-perfect-workflow-with-customizable-layouts "Layouts unlock a whole new world of efficiency for structuring and sharing information through databases. Learn how to organize your database pages, create custom layouts, and boost productivity. ")
+
+6 分钟阅读
+
+[![Image 39: Use AI connectors to access more of your team’s knowledge](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2Fy7qLkLmz8lXYXAwHHWE6i%2Ffdca6b651494fe983fd6548bc05b9d16%2FHero_Notion_AI_connector_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/use-ai-connectors-to-access-more-of-your-teams-knowledge "Use AI connectors to access more of your team’s knowledge")
+## [Use AI connectors to access more of your team’s knowledge](https://www.notion.com/zh-cn/help/guides/use-ai-connectors-to-access-more-of-your-teams-knowledge)
+
+[AI connectors let you find and create content using info from third-party apps (like Slack, JIRA and Google Drive) within Notion. Learn how they can boost your organization's efficiency, enhance overall productivity, and even reduce spend on AI tools.](https://www.notion.com/zh-cn/help/guides/use-ai-connectors-to-access-more-of-your-teams-knowledge "AI connectors let you  find and create content using info from third-party apps (like Slack, JIRA and Google Drive) within Notion. Learn how they can boost your organization's efficiency, enhance overall productivity, and even reduce spend on AI tools.")
+
+7 分钟阅读
+
+[![Image 40: Everything you can do with Notion AI](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3iccILRwvopIkoERn50WA8%2F8b659a44bc0ed257a3faa59d460501f2%2FHero_Screenshot_Final.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/everything-you-can-do-with-notion-ai "Everything you can do with Notion AI")
+## [Everything you can do with Notion AI](https://www.notion.com/zh-cn/help/guides/everything-you-can-do-with-notion-ai)
+
+[Meet Notion AI — a helpful assistant right inside your workspace. In this guide, we'll walk you through how Notion AI can help you discover answers, bring information together, and automate tedious tasks — giving you more time to focus on what really matters.](https://www.notion.com/zh-cn/help/guides/everything-you-can-do-with-notion-ai "Meet Notion AI — a helpful assistant right inside your  workspace. In this guide, we'll walk you through how Notion AI can help you discover answers, bring information together, and automate tedious tasks — giving you more time to focus on what really matters.")
+
+10 分钟阅读
+
+[![Image 41: Use Notion’s Data Retention settings to keep your team compliant & restore content](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F14mKPo92HgrM7HhDL0Nmms%2Ffefbb5cfcd90bdb1803c56fe57ddcc20%2FData_Retention_Thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/notions-data-retention-settings "Use Notion’s Data Retention settings to keep your team compliant & restore content")
+## [Use Notion’s Data Retention settings to keep your team compliant & restore content](https://www.notion.com/zh-cn/help/guides/notions-data-retention-settings)
+
+[Notion's custom data retention settings empower your team to effortlessly meet your company's compliance requirements. In this guide, we’ll show Enterprise workspace owners how to tailor data retention settings and recover deleted pages.](https://www.notion.com/zh-cn/help/guides/notions-data-retention-settings "Notion's custom data retention settings empower your team to effortlessly meet your company's compliance requirements. In this guide, we’ll show Enterprise workspace owners how to tailor data retention settings and recover deleted pages.")
+
+5 分钟阅读
+
+[![Image 42: Use charts to visualize data and track progress directly in Notion](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6zjhgMclwXMDlQk9Xmwq40%2Fe8e57b5d10476ebf73ac8426790fed0a%2FCharts_2__5_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/charts-visualize-data-track-progress-in-notion "Use charts to visualize data and track progress directly in Notion")
+## [Use charts to visualize data and track progress directly in Notion](https://www.notion.com/zh-cn/help/guides/charts-visualize-data-track-progress-in-notion)
+
+[Whether you need to track project timelines, analyze team performance, or simply make sense of large datasets, charts offer a solution that transforms your database pages into actionable information.](https://www.notion.com/zh-cn/help/guides/charts-visualize-data-track-progress-in-notion "Whether you need to track project timelines, analyze team performance, or simply make sense of large datasets, charts offer a solution that transforms your database pages into actionable information.")
+
+7 分钟阅读
+
+[![Image 43: Sprints, simplified with Notion’s sprint tracking system](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6upcnZ6NbGpcDdzSsJ9HLp%2F783002973f1d3d9aaec63f7a39f0183e%2FSprints.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/sprints-simplified-notions-sprint-tracking-system "Sprints, simplified with Notion’s sprint tracking system")
+## [Sprints, simplified with Notion’s sprint tracking system](https://www.notion.com/zh-cn/help/guides/sprints-simplified-notions-sprint-tracking-system)
+
+[Simplify sprint planning and execution so your team can solve issues and ship new features faster.](https://www.notion.com/zh-cn/help/guides/sprints-simplified-notions-sprint-tracking-system "Simplify sprint planning and execution so your team can solve issues and ship new features faster. ")
+
+5 分钟阅读
+
+[![Image 44: The ultimate guide to AI-powered knowledge hubs in Notion](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3S5iJtxzjiF5qAe3qTHOwB%2F64d6f89e78f9afc6d229f8b46170efc2%2FUltimate_knowledge_hub__1_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/ultimate-guide-to-ai-powered-knowledge-hubs-in-notion "The ultimate guide to AI-powered knowledge hubs in Notion")
+## [The ultimate guide to AI-powered knowledge hubs in Notion](https://www.notion.com/zh-cn/help/guides/ultimate-guide-to-ai-powered-knowledge-hubs-in-notion)
+
+[An AI-powered knowledge hub can save hours for your team every single day. Learn how to build, roll out, and maintain your AI-powered knowledge hub in Notion.](https://www.notion.com/zh-cn/help/guides/ultimate-guide-to-ai-powered-knowledge-hubs-in-notion "An AI-powered knowledge hub can save hours for your team every single day. Learn how to build, roll out, and maintain your AI-powered knowledge hub in Notion. ")
+
+17 分钟阅读
+
+[![Image 45: Use Notion AI to give teams perfect memory, and save time](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4qtiZchWYJxLAwbkjbYqOR%2F3899906c4f4623c9a60b7a390657f608%2FQ_A_knowledge_base.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/use-notion-ai-to-give-teams-perfect-memory-and-save-time "Use Notion AI to give teams perfect memory, and save time")
+## [Use Notion AI to give teams perfect memory, and save time](https://www.notion.com/zh-cn/help/guides/use-notion-ai-to-give-teams-perfect-memory-and-save-time)
+
+[Whether you're supporting customers, prospects, internal support requests, or even new hires, everyone needs access to the information in your wiki. Learn how Notion AI can help them team members find what they need faster.](https://www.notion.com/zh-cn/help/guides/use-notion-ai-to-give-teams-perfect-memory-and-save-time "Whether you're supporting customers, prospects, internal support requests, or even new hires, everyone needs access to the information in your wiki. Learn how Notion AI can help them team members find what they need faster. ")
+
+8 分钟阅读
+
+[![Image 46: Who should be a workspace member, and who should be a guest? ](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FVFsG6NPXrDd7SixvdxTyi%2F974ef78836c3d817afda916baae8cbf7%2FMembers_vs._guests.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/who-should-be-a-workspace-member-who-should-be-a-guest "Who should be a workspace member, and who should be a guest? ")
+## [Who should be a workspace member, and who should be a guest?](https://www.notion.com/zh-cn/help/guides/who-should-be-a-workspace-member-who-should-be-a-guest)
+
+[Understanding the difference between members and guests can help you become an effective steward of your company's knowledge and budget.](https://www.notion.com/zh-cn/help/guides/who-should-be-a-workspace-member-who-should-be-a-guest "Understanding the difference between members and guests can help you become an effective steward of your company's knowledge and budget.")
+
+6 分钟阅读
+
+[![Image 47: Using Notion for Product & Engineering OKRs](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3Xqznzve4jEEKlF4IMDaKA%2Ff5f1ecbbf6f33b033fa038810e893c08%2FHow_Q_A_finds_answers__2_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/using-notion-for-product-and-engineering-okrs "Using Notion for Product & Engineering OKRs")
+## [Using Notion for Product & Engineering OKRs](https://www.notion.com/zh-cn/help/guides/using-notion-for-product-and-engineering-okrs)
+
+[Notion is a connected workspace, powered by AI, that enables Product & Engineering teams to efficiently manage OKRs by integrating them with daily workflows. It provides a single source of truth for teams working towards the same goals, together.](https://www.notion.com/zh-cn/help/guides/using-notion-for-product-and-engineering-okrs "Notion is a connected workspace, powered by AI, that enables Product & Engineering teams to efficiently manage OKRs by integrating them with daily workflows. It provides a single source of truth for teams working towards the same goals, together.")
+
+5 分钟视频
+
+[![Image 48: Understanding how Q&A finds answers can help you get better results](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3ppjwVNw9uyV9cYaXeyRA6%2Fdf75d62cf72e8f3146770cb58d835ced%2FHow_Q_A_finds_answers__1_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/understanding-how-q-and-a-finds-answers-can-help-you-get-better-results "Understanding how Q&A finds answers can help you get better results")
+## [Understanding how Q&A finds answers can help you get better results](https://www.notion.com/zh-cn/help/guides/understanding-how-q-and-a-finds-answers-can-help-you-get-better-results)
+
+[Ask Notion Q&A any question, and it will provide an answer based on your workspace content. Learn how Notion Q&A works so you can get the best, most accurate results.](https://www.notion.com/zh-cn/help/guides/understanding-how-q-and-a-finds-answers-can-help-you-get-better-results "Ask Notion Q&A any question, and it will provide an answer based on your workspace content. Learn how Notion Q&A works so you can get the best, most accurate results.")
+
+5 分钟阅读
+
+[![Image 49: Give your to-dos a home with Task databases](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2D8hXMusrWHJ9pi09M2jiG%2F7a403db745d3e663b920eb101ca5174b%2FMyTasks_Thumbnail.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/give-your-to-dos-a-home-with-task-databases "Give your to-dos a home with Task databases")
+## [Give your to-dos a home with Task databases](https://www.notion.com/zh-cn/help/guides/give-your-to-dos-a-home-with-task-databases)
+
+[Learn how to set up, customize, and get the most out of My Tasks.](https://www.notion.com/zh-cn/help/guides/give-your-to-dos-a-home-with-task-databases "Learn how to set up, customize, and get the most out of My Tasks.")
+
+3 分钟阅读
+
+[![Image 50: Make work more efficient with database button properties](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F73wNAmOhNU80VnDaraSoJ%2F390eeeaf31f2580a9e59ba727b573e1b%2FDatabase_button_properties.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/make-work-more-efficient-database-button-property "Make work more efficient with database button properties")
+## [Make work more efficient with database button properties](https://www.notion.com/zh-cn/help/guides/make-work-more-efficient-database-button-property)
+
+[Learn how database button properties can speed up project management workflows like upvoting, escalations, and approvals. Plus, how to use Notion's suite of automation features in concert — including database button properties, database automations, and buttons.](https://www.notion.com/zh-cn/help/guides/make-work-more-efficient-database-button-property "Learn how database button properties can speed up project management workflows like upvoting, escalations, and approvals. Plus, how to use Notion's suite of automation features in concert — including database button properties, database automations, and buttons.")
+
+7 分钟阅读
+
+[![Image 51: Getting started with Notion Calendar](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4HqZuIyiyfrjIFtUiVjBJc%2F665c6cb93c57d197e836a00ee068e902%2FNotion_Calendar.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/getting-started-with-notion-calendar "Getting started with Notion Calendar")
+## [Getting started with Notion Calendar](https://www.notion.com/zh-cn/help/guides/getting-started-with-notion-calendar)
+
+[Get started with Notion calendar to manage your work and life. Learn how to connect your personal and work calendars, Notion databases, and more.](https://www.notion.com/zh-cn/help/guides/getting-started-with-notion-calendar "Get started with Notion calendar to manage your work and life. Learn how to connect your personal and work calendars, Notion databases, and more. ")
+
+6 分钟阅读
+
+[![Image 52: How tech teams can use Notion AI to boost productivity](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FNDl0utfwJvrGh4INrCrOz%2F22b2adf6837cd8a1a3edfa10fcb46126%2FAI_for_tech_teams.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/how-tech-teams-can-use-notion-ai-to-boost-productivity "How tech teams can use Notion AI to boost productivity")
+## [How tech teams can use Notion AI to boost productivity](https://www.notion.com/zh-cn/help/guides/how-tech-teams-can-use-notion-ai-to-boost-productivity)
+
+[No matter your role in tech, Notion AI can significantly enhance your productivity. By providing instant answers, generating or improving content, and summarizing databases, it allows you to focus more on the core tasks at hand.](https://www.notion.com/zh-cn/help/guides/how-tech-teams-can-use-notion-ai-to-boost-productivity "No matter your role in tech, Notion AI can significantly enhance your productivity. By providing instant answers, generating or improving content, and summarizing databases, it allows you to focus more on the core tasks at hand.")
+
+3 分钟视频
+
+[![Image 53: How marketing teams can use Notion AI to boost productivity](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7zEGk6iNt1NpAXXtf3xRdN%2F2b166852451265f8c492a24fd3958b97%2FAI_for_marketing.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/how-marketing-teams-can-use-notion-ai-to-boost-productivity "How marketing teams can use Notion AI to boost productivity")
+## [How marketing teams can use Notion AI to boost productivity](https://www.notion.com/zh-cn/help/guides/how-marketing-teams-can-use-notion-ai-to-boost-productivity)
+
+[Notion AI simplifies your work as a marketer by writing brand new pages for you, extracting key insights from database pages, and quickly showing you the information you need.](https://www.notion.com/zh-cn/help/guides/how-marketing-teams-can-use-notion-ai-to-boost-productivity "Notion AI simplifies your work as a marketer by writing brand new pages for you, extracting key insights from database pages, and quickly showing you the information you need.")
+
+3 分钟视频
+
+[![Image 54: Get answers about work content faster with Q&A ](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4vNtN3RuIX1yu6KLGIO2QE%2F508b470ad29ca22143e918813e0f14fc%2FQ_A_work-3__1_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/get-answers-about-content-faster-with-q-and-a "Get answers about work content faster with Q&A ")
+## [Get answers about work content faster with Q&A](https://www.notion.com/zh-cn/help/guides/get-answers-about-content-faster-with-q-and-a)
+
+[Learn how Q&A can answer questions to help you make sense of the information in your workspace, and explore how to get the most value from your Notion AI add-on.](https://www.notion.com/zh-cn/help/guides/get-answers-about-content-faster-with-q-and-a "Learn how Q&A can answer questions to help you make sense of the information in your workspace, and explore how to get the most value from your Notion AI add-on. ")
+
+10 分钟阅读
+
+[![Image 55: Unearth fresh insights from your personal knowledge library using Q&A](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FBdJ9H44wCkYkMx5HTbAom%2F5fa09d8955399e7b1e927bb91cbd0fa7%2Ffinal_-_Q_A_personal__1_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/unearth-fresh-insights-from-your-personal-knowledge-library-using-q-and-a "Unearth fresh insights from your personal knowledge library using Q&A")
+## [Unearth fresh insights from your personal knowledge library using Q&A](https://www.notion.com/zh-cn/help/guides/unearth-fresh-insights-from-your-personal-knowledge-library-using-q-and-a)
+
+[Explore ways to use Q&A to glean insights from your personal notes, research, and more — all you have to do is ask.](https://www.notion.com/zh-cn/help/guides/unearth-fresh-insights-from-your-personal-knowledge-library-using-q-and-a "Explore ways to use Q&A to glean insights from your personal notes, research, and more — all you have to do is ask. ")
+
+10 分钟阅读
+
+[![Image 56: Notion Enterprise security provisions ](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7ifHPa5kBcKmVZ5nEm6Pbh%2F96b84491c7a1d5f227d574a30f5fd9f8%2Fenterprise_security__1_.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/notion-enterprise-security-provisions "Notion Enterprise security provisions ")
+## [Notion Enterprise security provisions](https://www.notion.com/zh-cn/help/guides/notion-enterprise-security-provisions)
+
+[Discover how Notion's security and compliance features for Enterprise plans work together to protect your company's most valuable property — your data.](https://www.notion.com/zh-cn/help/guides/notion-enterprise-security-provisions "Discover how Notion's security and compliance features for Enterprise plans work together to protect your company's most valuable property — your data. ")
+
+8 分钟阅读
+
+[![Image 57: 5 steps to adopt Notion for your entire organization](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6j9hm3YUm18ADQgiY8w76y%2F7ef7d106b5d1e52598239f60e85ba1f4%2Fchange_management.png&w=3840&q=75)](https://www.notion.com/zh-cn/help/guides/5-steps-to-adopt-notion-for-your-entire-organization "5 steps to adopt Notion for your entire organization")
+## [5 steps to adopt Notion for your entire organization](https://www.notion.com/zh-cn/help/guides/5-steps-to-adopt-notion-for-your-entire-organization)
+
+[Your team is ready to start using Notion more broadly to unlock the value of a connected workspace — here’s what you need to do to get there.](https://www.notion.com/zh-cn/help/guides/5-steps-to-adopt-notion-for-your-entire-organization "Your team is ready to start using Notion more broadly to unlock the value of a connected workspace — here’s what you need to do to get there.")
+
+10 分钟阅读
+
+*   [帮助文档](https://www.notion.com/zh-cn/help/reference)
+    *   入门
+        *   [工作区简介](https://www.notion.com/zh-cn/help/intro-to-workspaces)
+        *   [从这里开始](https://www.notion.com/zh-cn/help/start-here)
+        *   [什么是区块？](https://www.notion.com/zh-cn/help/what-is-a-block)
+        *   [Create a page](https://www.notion.com/zh-cn/help/create-your-first-page)
+        *   [创建子页面](https://www.notion.com/zh-cn/help/create-a-subpage)
+        *   [什么是数据库？](https://www.notion.com/zh-cn/help/what-is-a-database)
+        *   [创建数据库](https://www.notion.com/zh-cn/help/create-a-database)
+        *   [开始使用模板](https://www.notion.com/zh-cn/help/start-with-a-template)
+        *   [共享你的工作](https://www.notion.com/zh-cn/help/share-your-work)
+        *   [与他人协作](https://www.notion.com/zh-cn/help/collaborate-with-people)
+        *   [Badges & certifications](https://www.notion.com/zh-cn/help/badges-and-certifications)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/new-to-notion)
+
+    *   Sidebar navigation
+        *   [使用侧边栏导航](https://www.notion.com/zh-cn/help/navigate-with-the-sidebar)
+        *   [Manage your Library](https://www.notion.com/zh-cn/help/manage-your-library)
+        *   [使用快速查找进行搜索](https://www.notion.com/zh-cn/help/search)
+        *   [Home & My tasks](https://www.notion.com/zh-cn/help/home-and-my-tasks)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/sidebar-navigation)
+
+    *   工作空间和侧边栏
+        *   [创建、删除和切换工作区](https://www.notion.com/zh-cn/help/create-delete-and-switch-workspaces)
+        *   [Create, join & leave teamspaces](https://www.notion.com/zh-cn/help/browse-join-and-create-teamspaces)
+        *   [工作区设置和安全](https://www.notion.com/zh-cn/help/workspace-settings)
+        *   [移动工作区](https://www.notion.com/zh-cn/help/workspaces-on-mobile)
+        *   [Delete a workspace](https://www.notion.com/zh-cn/help/delete-a-workspace)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/meet-your-workspace)
+
+    *   Settings & preferences
+        *   [Account settings & preferences](https://www.notion.com/zh-cn/help/account-settings)
+        *   [通知设置](https://www.notion.com/zh-cn/help/notification-settings)
+        *   [Two-step verification](https://www.notion.com/zh-cn/help/two-step-verification)
+        *   [HIPAA configuration](https://www.notion.com/zh-cn/help/hipaa)
+        *   [数据访问同意](https://www.notion.com/zh-cn/help/data-access-consent)
+        *   [删除您的整个帐户](https://www.notion.com/zh-cn/help/delete-your-account)
+        *   [Log in & out](https://www.notion.com/zh-cn/help/log-in-and-out)
+        *   [Passkeys](https://www.notion.com/zh-cn/help/passkeys)
+        *   [Change your language](https://www.notion.com/zh-cn/help/change-your-language)
+        *   [Notion Faces](https://www.notion.com/zh-cn/help/notion-faces)
+        *   [Secondary emails](https://www.notion.com/zh-cn/help/secondary-emails)
+        *   [Manage your Mail & Calendar settings](https://www.notion.com/zh-cn/help/manage-email-and-calendar-settings)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/account-settings-and-privacy)
+
+    *   页面和区块
+        *   [写作和编辑基础](https://www.notion.com/zh-cn/help/writing-and-editing-basics)
+        *   [列、标题和分隔符](https://www.notion.com/zh-cn/help/columns-headings-and-dividers)
+        *   [自定义和样式您的内容](https://www.notion.com/zh-cn/help/customize-and-style-your-content)
+        *   [Images, files & media](https://www.notion.com/zh-cn/help/images-files-and-media)
+        *   [创建链接和反向链接](https://www.notion.com/zh-cn/help/create-links-and-backlinks)
+        *   [Wikis & verified pages](https://www.notion.com/zh-cn/help/wikis-and-verified-pages)
+        *   [Move & duplicate content](https://www.notion.com/zh-cn/help/transfer-content-to-another-account)
+        *   [复制、删除和恢复内容](https://www.notion.com/zh-cn/help/duplicate-delete-and-restore-content)
+        *   [同步块（测试版）](https://www.notion.com/zh-cn/help/synced-blocks)
+        *   [Code blocks](https://www.notion.com/zh-cn/help/code-blocks)
+        *   [数学方程式](https://www.notion.com/zh-cn/help/math-equations)
+        *   [键盘快捷键](https://www.notion.com/zh-cn/help/keyboard-shortcuts)
+        *   [Use pages offline](https://www.notion.com/zh-cn/help/use-pages-offline)
+        *   [重复的公共页面](https://www.notion.com/zh-cn/help/duplicate-public-pages)
+        *   [Archive pages](https://www.notion.com/zh-cn/help/archive-pages)
+        *   [Presentation mode](https://www.notion.com/zh-cn/help/presentation-mode)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/write-edit-and-customize)
+
+    *   数据库
+        *   [Intro to formulas](https://www.notion.com/zh-cn/help/formulas)
+        *   [Intro to databases](https://www.notion.com/zh-cn/help/intro-to-databases)
+        *   [Formula syntax & functions](https://www.notion.com/zh-cn/help/formula-syntax)
+        *   [Database properties](https://www.notion.com/zh-cn/help/database-properties)
+        *   [关系和汇总](https://www.notion.com/zh-cn/help/relations-and-rollups)
+        *   [Database settings](https://www.notion.com/zh-cn/help/customize-your-database)
+        *   [数据库模板](https://www.notion.com/zh-cn/help/database-templates)
+        *   [Sub-items & dependencies](https://www.notion.com/zh-cn/help/tasks-and-dependencies)
+        *   [Task databases & sprints](https://www.notion.com/zh-cn/help/sprints)
+        *   [链接数据库](https://www.notion.com/zh-cn/help/data-sources-and-linked-databases)
+        *   [Optimize database load times & performance](https://www.notion.com/zh-cn/help/optimize-database-load-times-and-performance)
+        *   [Unique ID](https://www.notion.com/zh-cn/help/unique-id)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/databases)
+
+    *   Database views
+        *   [Views, filters, sorts & groups](https://www.notion.com/zh-cn/help/views-filters-and-sorts)
+        *   [表](https://www.notion.com/zh-cn/help/tables)
+        *   [板](https://www.notion.com/zh-cn/help/boards)
+        *   [时间线](https://www.notion.com/zh-cn/help/timelines)
+        *   [日历](https://www.notion.com/zh-cn/help/calendars)
+        *   [列表](https://www.notion.com/zh-cn/help/lists)
+        *   [Dashboards view](https://www.notion.com/zh-cn/help/dashboards)
+        *   [Gallery view](https://www.notion.com/zh-cn/help/galleries)
+        *   [Chart view](https://www.notion.com/zh-cn/help/charts)
+        *   [Layouts](https://www.notion.com/zh-cn/help/layouts)
+        *   [Feed view](https://www.notion.com/zh-cn/help/feeds)
+        *   [Map view](https://www.notion.com/zh-cn/help/maps)
+        *   [Forms](https://www.notion.com/zh-cn/help/forms)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/database-views)
+
+    *   共享和协作
+        *   [共享和权限](https://www.notion.com/zh-cn/help/sharing-and-permissions)
+        *   [添加成员、管理员、访客和群组](https://www.notion.com/zh-cn/help/add-members-admins-guests-and-groups)
+        *   [在工作空间内协作](https://www.notion.com/zh-cn/help/collaborate-within-a-workspace)
+        *   [更新和通知](https://www.notion.com/zh-cn/help/updates-and-notifications)
+        *   [评论、提及和提醒](https://www.notion.com/zh-cn/help/comments-mentions-and-reminders)
+        *   [Reminders](https://www.notion.com/zh-cn/help/reminders)
+        *   [Suggested edits](https://www.notion.com/zh-cn/help/suggested-edits)
+        *   [Page analytics](https://www.notion.com/zh-cn/help/page-analytics)
+        *   [Intro to teamspaces](https://www.notion.com/zh-cn/help/intro-to-teamspaces)
+        *   [People profiles](https://www.notion.com/zh-cn/help/people-profiles)
+        *   [People Directory](https://www.notion.com/zh-cn/help/people-directory)
+        *   [Create & manage groups](https://www.notion.com/zh-cn/help/create-and-manage-groups)
+        *   [Who’s who in a workspace](https://www.notion.com/zh-cn/help/whos-who-in-a-workspace)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/sharing-and-collaboration)
+
+    *   Notion 网站
+        *   [公共页面和网络发布](https://www.notion.com/zh-cn/help/public-pages-and-web-publishing)
+        *   [Edit & customize your Notion Sites](https://www.notion.com/zh-cn/help/edit-and-customize-your-notion-sites)
+        *   [Manage your Notion Sites](https://www.notion.com/zh-cn/help/manage-your-notion-sites)
+        *   [Connect a custom domain with Notion Sites](https://www.notion.com/zh-cn/help/connect-a-custom-domain-with-notion-sites)
+        *   [Notion Sites availability & pricing](https://www.notion.com/zh-cn/help/notion-sites-availability-and-pricing)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-sites)
+
+    *   数据和集成
+        *   [将数据导入 Notion](https://www.notion.com/zh-cn/help/import-data-into-notion)
+        *   [导出您的内容](https://www.notion.com/zh-cn/help/export-your-content)
+        *   [备份您的数据](https://www.notion.com/zh-cn/help/back-up-your-data)
+        *   [Import from Asana](https://www.notion.com/zh-cn/help/asana)
+        *   [Import from Confluence](https://www.notion.com/zh-cn/help/import-from-confluence)
+        *   [Import from Monday.com](https://www.notion.com/zh-cn/help/monday)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/import-export-and-integrate)
+
+    *   Connections
+        *   [与 Slack 集成](https://www.notion.com/zh-cn/help/embed-and-connect-other-apps)
+        *   [Add & manage connections](https://www.notion.com/zh-cn/help/add-and-manage-connections-with-the-api)
+        *   [Notion API connections](https://www.notion.com/zh-cn/help/create-integrations-with-the-notion-api)
+        *   [Link previews](https://www.notion.com/zh-cn/help/link-previews)
+        *   [Synced databases](https://www.notion.com/zh-cn/help/synced-databases)
+        *   [Connected properties](https://www.notion.com/zh-cn/help/connected-properties)
+        *   [Connect GitHub](https://www.notion.com/zh-cn/help/github)
+        *   [Integrate Slack](https://www.notion.com/zh-cn/help/slack)
+        *   [Connect Jira](https://www.notion.com/zh-cn/help/jira)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/connections)
+
+    *   Automations
+        *   [模板按钮](https://www.notion.com/zh-cn/help/buttons)
+        *   [Database buttons](https://www.notion.com/zh-cn/help/database-buttons)
+        *   [Database automations](https://www.notion.com/zh-cn/help/database-automations)
+        *   [Webhook actions](https://www.notion.com/zh-cn/help/webhook-actions)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/automations)
+
+    *   Notion AI
+        *   [What is Notion AI?](https://www.notion.com/zh-cn/help/notion-ai-faqs)
+        *   [Notion Agent](https://www.notion.com/zh-cn/help/notion-agent)
+        *   [Notion AI for databases](https://www.notion.com/zh-cn/help/autofill)
+        *   [AI Meeting Notes (beta)](https://www.notion.com/zh-cn/help/ai-meeting-notes)
+        *   [Enterprise Search](https://www.notion.com/zh-cn/help/enterprise-search)
+        *   [Notion MCP](https://www.notion.com/zh-cn/help/notion-mcp)
+        *   [Research Mode](https://www.notion.com/zh-cn/help/research-mode)
+        *   [Review & approve plans before Notion AI runs](https://www.notion.com/zh-cn/help/review-and-approve-plans-before-notion-ai-runs)
+        *   [Instructions for Notion Agent](https://www.notion.com/zh-cn/help/instructions-for-notion-agent)
+        *   [Skills for Notion Agent](https://www.notion.com/zh-cn/help/skills-for-notion-agent)
+        *   [Create & edit images with Notion AI](https://www.notion.com/zh-cn/help/create-and-edit-images-with-notion-ai)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-ai)
+
+    *   Notion AI Connectors
+        *   [Notion AI Connectors](https://www.notion.com/zh-cn/help/notion-ai-connectors)
+        *   [GitHub AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connector-for-github)
+        *   [Google Drive AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connectors-for-google-drive)
+        *   [Jira AI Connector (beta)](https://www.notion.com/zh-cn/help/jira-ai-connector)
+        *   [Linear AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connector-for-linear)
+        *   [Microsoft Teams AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connector-for-microsoft-teams)
+        *   [Microsoft SharePoint & OneDrive AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connector-for-microsoft-sharepoint-and-onedrive)
+        *   [Slack AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connectors-for-slack)
+        *   [Google Calendar AI Connector](https://www.notion.com/zh-cn/help/google-calendar-ai-connector)
+        *   [Gmail AI Connector](https://www.notion.com/zh-cn/help/notion-ai-connector-for-gmail)
+        *   [Salesforce AI Connector (beta)](https://www.notion.com/zh-cn/help/salesforce-ai-connector)
+        *   [Microsoft Outlook AI Connector](https://www.notion.com/zh-cn/help/microsoft-outlook-ai-connector)
+        *   [Notion Calendar AI Connector (beta)](https://www.notion.com/zh-cn/help/notion-calendar-ai-connector)
+        *   [Notion Mail AI Connector (beta)](https://www.notion.com/zh-cn/help/notion-mail-ai-connector)
+        *   [Asana AI Connector](https://www.notion.com/zh-cn/help/asana-ai-connector)
+        *   [Box AI Connector](https://www.notion.com/zh-cn/help/box-ai-connector)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-ai-connectors)
+
+    *   Custom Agents
+        *   [Custom Agents](https://www.notion.com/zh-cn/help/custom-agents)
+        *   [Best practices for creating and optimizing a Custom Agent](https://www.notion.com/zh-cn/help/best-practices-for-creating-and-optimizing-a-custom-agent)
+        *   [Buy & track Notion credits for Custom Agents](https://www.notion.com/zh-cn/help/custom-agent-pricing)
+        *   [MCP connections for Custom Agents](https://www.notion.com/zh-cn/help/mcp-connections-for-custom-agents)
+        *   [Connect Mail to Custom Agents](https://www.notion.com/zh-cn/help/connect-mail-to-custom-agents)
+        *   [Connect Calendar to Custom Agents](https://www.notion.com/zh-cn/help/connect-calendar-to-custom-agents)
+        *   [Custom Agents sharing and permissions](https://www.notion.com/zh-cn/help/custom-agents-sharing-and-permissions)
+        *   [Mobile Custom Agents](https://www.notion.com/zh-cn/help/mobile-custom-agents)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/custom-agents)
+
+    *   Administer your workspace
+        *   [SAML SSO 配置](https://www.notion.com/zh-cn/help/saml-sso-configuration)
+        *   [Set up Identity Provider (IdP) for SAML SSO](https://www.notion.com/zh-cn/help/set-up-identity-provider-for-saml-sso)
+        *   [Manage your Enterprise workspace](https://www.notion.com/zh-cn/help/enterprise-admins)
+        *   [Domain management](https://www.notion.com/zh-cn/help/domain-management)
+        *   [Provision users & groups with SCIM](https://www.notion.com/zh-cn/help/provision-users-and-groups-with-scim)
+        *   [Set up Identity Provider (IdP) for SCIM](https://www.notion.com/zh-cn/help/set-up-identity-provider-for-scim)
+        *   [Content search](https://www.notion.com/zh-cn/help/admin-content-search)
+        *   [Transfer content from a deprovisioned user](https://www.notion.com/zh-cn/help/transfer-content-deprovisioned-user)
+        *   [Audit log](https://www.notion.com/zh-cn/help/audit-log)
+        *   [Workspace analytics](https://www.notion.com/zh-cn/help/workspace-analytics)
+        *   [Add security & compliance connections](https://www.notion.com/zh-cn/help/add-security-and-compliance-integrations)
+        *   [Managed users](https://www.notion.com/zh-cn/help/managed-users-dashboard)
+        *   [Enterprise connection settings](https://www.notion.com/zh-cn/help/enterprise-connection-settings)
+        *   [Custom data retention settings](https://www.notion.com/zh-cn/help/custom-data-retention-settings)
+        *   [Deploy Notion for macOS](https://www.notion.com/zh-cn/help/deploy-notion-for-macos)
+        *   [Deploy Notion for Windows](https://www.notion.com/zh-cn/help/deploy-notion-for-windows)
+        *   [Manage teamspaces](https://www.notion.com/zh-cn/help/manage-teamspaces)
+        *   [Network control](https://www.notion.com/zh-cn/help/network-control)
+        *   [IP address restrictions](https://www.notion.com/zh-cn/help/ip-address-restrictions)
+        *   [Set up Microsoft Intune with Notion (iOS and Android)](https://www.notion.com/zh-cn/help/set-up-microsoft-intune-with-notion-ios-and-android)
+        *   [Legal holds](https://www.notion.com/zh-cn/help/legal-holds)
+        *   [Organization level controls](https://www.notion.com/zh-cn/help/organization-level-controls)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/enterprise-admin)
+
+    *   Privacy & security
+        *   [安全与隐私](https://www.notion.com/zh-cn/help/security-and-privacy)
+        *   [Privacy practices](https://www.notion.com/zh-cn/help/privacy)
+        *   [概念上的 GDPR](https://www.notion.com/zh-cn/help/gdpr-at-notion)
+        *   [Custom Agents security features](https://www.notion.com/zh-cn/help/custom-agents-security-features)
+        *   [Security best practices for Agent connections](https://www.notion.com/zh-cn/help/security-best-practices-for-agent-connections)
+        *   [Notion IP addresses & domains](https://www.notion.com/zh-cn/help/allowlist-ip)
+        *   [Data accessible by your workspace owner](https://www.notion.com/zh-cn/help/data-accessible-by-your-workspace-owner)
+        *   [Report inappropriate content](https://www.notion.com/zh-cn/help/report-inappropriate-content)
+        *   [Data residency for Notion](https://www.notion.com/zh-cn/help/data-residency)
+        *   [Shared Responsibilities Model](https://www.notion.com/zh-cn/help/shared-responsibilities-model)
+        *   [How to protect yourself from malvertising](https://www.notion.com/zh-cn/help/how-to-protect-yourself-from-malvertising)
+        *   [How Notion 3.0 protects against prompt injection risks](https://www.notion.com/zh-cn/help/how-notion-protects-against-prompt-injection-risks)
+        *   [Dormant account policy](https://www.notion.com/zh-cn/help/dormant-account-policy)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/security-and-privacy)
+
+    *   Notion AI security
+        *   [Notion AI security & privacy practices](https://www.notion.com/zh-cn/help/notion-ai-security-practices)
+        *   [Notion’s commitment to AI safety](https://www.notion.com/zh-cn/help/ai-safety)
+        *   [Enterprise Search security & privacy practices](https://www.notion.com/zh-cn/help/enterprise-search-security-and-privacy-practices)
+        *   [Notion AI complimentary responses](https://www.notion.com/zh-cn/help/complimentary-ai-responses)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-ai-security)
+
+    *   Notion on desktop, web, & mobile
+        *   [Notion 桌面版](https://www.notion.com/zh-cn/help/notion-for-desktop)
+        *   [Notion for web](https://www.notion.com/zh-cn/help/notion-for-web)
+        *   [手机的概念](https://www.notion.com/zh-cn/help/notion-for-mobile)
+        *   [System requirements for Notion](https://www.notion.com/zh-cn/help/system-requirements-for-notion)
+        *   [Notion beta program](https://www.notion.com/zh-cn/help/notion-for-mobile-beta-version)
+        *   [Mobile widgets](https://www.notion.com/zh-cn/help/mobile-widgets)
+        *   [网页剪辑器](https://www.notion.com/zh-cn/help/web-clipper)
+        *   [Notion New Tab extension](https://www.notion.com/zh-cn/help/notion-new-tab-extension)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-apps)
+
+    *   Notion Mail
+        *   [Get started with Notion Mail](https://www.notion.com/zh-cn/help/get-started-with-notion-mail)
+        *   [Navigate your inbox](https://www.notion.com/zh-cn/help/navigate-your-inbox)
+        *   [Compose an email](https://www.notion.com/zh-cn/help/compose-an-email)
+        *   [Views, groups, filters & properties](https://www.notion.com/zh-cn/help/views-groups-filters-and-properties)
+        *   [Schedule meetings with Notion Mail](https://www.notion.com/zh-cn/help/schedule-meetings-with-notion-mail)
+        *   [Use Notion AI with Notion Mail](https://www.notion.com/zh-cn/help/use-notion-ai-with-notion-mail)
+        *   [Notion Mail settings](https://www.notion.com/zh-cn/help/notion-mail-settings)
+        *   [Notion Mail keyboard shortcuts](https://www.notion.com/zh-cn/help/notion-mail-keyboard-shortcuts)
+        *   [Customize notifications in Notion Mail](https://www.notion.com/zh-cn/help/customize-notifications-in-notion-mail)
+        *   [Notion Mail security practices](https://www.notion.com/zh-cn/help/notion-mail-security-practices)
+        *   [Notion Mail for mobile](https://www.notion.com/zh-cn/help/notion-mail-for-mobile)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-mail)
+
+    *   Notion Calendar
+        *   [Create a Notion Calendar account](https://www.notion.com/zh-cn/help/create-a-notion-calendar-account)
+        *   [Manage your calendars & events](https://www.notion.com/zh-cn/help/manage-your-calendars-and-events)
+        *   [Scheduling & availability](https://www.notion.com/zh-cn/help/availability-blocking-and-time-zones)
+        *   [Blocking](https://www.notion.com/zh-cn/help/blocking)
+        *   [Time zones](https://www.notion.com/zh-cn/help/time-zones)
+        *   [Manage your linked Notion account](https://www.notion.com/zh-cn/help/manage-your-google-and-notion-calendar-accounts)
+        *   [Notion Calendar settings](https://www.notion.com/zh-cn/help/notion-calendar-settings)
+        *   [Notion Calendar connections & API](https://www.notion.com/zh-cn/help/notion-calendar-connections)
+        *   [Use Notion Calendar with Notion](https://www.notion.com/zh-cn/help/use-notion-calendar-with-notion)
+        *   [Notion Calendar for teams](https://www.notion.com/zh-cn/help/notion-calendar-for-teams)
+        *   [Notion Calendar keyboard shortcuts](https://www.notion.com/zh-cn/help/notion-calendar-keyboard-shortcuts)
+        *   [Notion Calendar apps](https://www.notion.com/zh-cn/help/notion-calendar-apps)
+        *   [Notion Calendar security practices](https://www.notion.com/zh-cn/help/notion-calendar-security-practices)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/notion-calendar)
+
+    *   Marketplace & templates
+        *   [Finding templates on Marketplace](https://www.notion.com/zh-cn/help/finding-templates-on-marketplace)
+        *   [Selling templates on Marketplace](https://www.notion.com/zh-cn/help/selling-on-marketplace)
+        *   [Getting featured in Marketplace](https://www.notion.com/zh-cn/help/getting-featured-in-the-template-gallery)
+        *   [Marketplace guidelines & terms](https://www.notion.com/zh-cn/help/template-gallery-guidelines-and-terms)
+        *   [Become a Notion Solutions Partner](https://www.notion.com/zh-cn/help/become-a-notion-partner)
+        *   [Offering services on Marketplace](https://www.notion.com/zh-cn/help/offering-services-on-marketplace)
+        *   [Finding services on Marketplace](https://www.notion.com/zh-cn/help/finding-services-on-marketplace)
+        *   [Template localization on Marketplace](https://www.notion.com/zh-cn/help/template-localization-on-marketplace)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/template-gallery)
+
+    *   Plans & billing
+        *   [计划和定价](https://www.notion.com/zh-cn/help/upgrade-or-downgrade-your-plan)
+        *   [Billing](https://www.notion.com/zh-cn/help/billing)
+        *   [How adding & removing members impacts billing](https://www.notion.com/zh-cn/help/members-and-billing)
+        *   [Invoices](https://www.notion.com/zh-cn/help/invoices)
+        *   [Payment methods](https://www.notion.com/zh-cn/help/payment-methods)
+        *   [Refunds](https://www.notion.com/zh-cn/help/refunds)
+        *   [学生和老师的概念](https://www.notion.com/zh-cn/help/notion-for-education)
+        *   [Notion for startups](https://www.notion.com/zh-cn/help/notion-for-startups)
+        *   [Notion for creators](https://www.notion.com/zh-cn/help/notion-for-creators)
+        *   [Paid plan trials](https://www.notion.com/zh-cn/help/paid-plan-trials)
+        *   [Understanding block usage](https://www.notion.com/zh-cn/help/understanding-block-usage)
+        *   [What happens when I downgrade my plan?](https://www.notion.com/zh-cn/help/plan-downgrade)
+        *   [Sales tax](https://www.notion.com/zh-cn/help/sales-tax)
+        *   [Can’t upgrade to the Plus Plan for students and educators](https://www.notion.com/zh-cn/help/cant-upgrade-to-the-plus-plan-for-education)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/plans-billing-and-payment)
+
+    *   Troubleshoot
+        *   [重置观念](https://www.notion.com/zh-cn/help/reset-notion)
+        *   [I can't log in](https://www.notion.com/zh-cn/help/cant-log-in)
+        *   [I can’t access Notion](https://www.notion.com/zh-cn/help/cant-access-notion)
+        *   [Common formula errors](https://www.notion.com/zh-cn/help/common-formula-errors)
+        *   [I can't access my own page](https://www.notion.com/zh-cn/help/cant-access-my-own-page)
+        *   [I can’t upload or view a file](https://www.notion.com/zh-cn/help/cant-upload-or-view-a-file)
+        *   [Common Notion errors](https://www.notion.com/zh-cn/help/notion-error-messages)
+        *   [Record HAR files for troubleshooting](https://www.notion.com/zh-cn/help/record-har-files-for-troubleshooting)
+        *   [Can’t log into Notion Mail](https://www.notion.com/zh-cn/help/cant-log-into-notion-mail)
+        *   [Common Jira Sync issues](https://www.notion.com/zh-cn/help/common-jira-sync-issues)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/troubleshooting)
+
+    *   Explore developer tools
+        *   [What is the Notion Developer Platform?](https://www.notion.com/zh-cn/help/what-is-the-notion-developer-platform)
+        *   [Run custom code with Workers (beta)](https://www.notion.com/zh-cn/help/run-custom-code-with-workers)
+        *   [Use Notion from your terminal with Notion CLI](https://www.notion.com/zh-cn/help/use-notion-from-your-terminal-with-notion-cli)
+        *   [Understand pricing for Workers (beta)](https://www.notion.com/zh-cn/help/understand-pricing-for-workers)
+        *   [查看全部](https://www.notion.com/zh-cn/help/category/developer-platform)
+
+*   [使用手册](https://www.notion.com/zh-cn/help/guides)
+    *   按应用场景浏览
+        *   [Notion AI](https://www.notion.com/zh-cn/help/guides/category/ai)
+        *   [文档](https://www.notion.com/zh-cn/help/guides/category/documentation)
+        *   [笔记](https://www.notion.com/zh-cn/help/guides/category/notes)
+        *   [项目管理](https://www.notion.com/zh-cn/help/guides/category/project-management)
+        *   [Wiki](https://www.notion.com/zh-cn/help/guides/category/wiki)
+        *   [Product](https://www.notion.com/zh-cn/help/guides/category/product)
+        *   [Engineering](https://www.notion.com/zh-cn/help/guides/category/engineering)
+        *   [Design](https://www.notion.com/zh-cn/help/guides/category/design)
+        *   [HR & people](https://www.notion.com/zh-cn/help/guides/category/hr-and-people)
+        *   [市场营销](https://www.notion.com/zh-cn/help/guides/category/marketing)
+        *   [个人](https://www.notion.com/zh-cn/help/guides/category/personal)
+        *   [Enterprise](https://www.notion.com/zh-cn/help/guides/category/enterprise)
+        *   [启动](https://www.notion.com/zh-cn/help/guides/category/startup)
+        *   [Demo](https://www.notion.com/zh-cn/help/guides/category/demo)
+        *   [模板库](https://www.notion.com/zh-cn/help/guides/category/template-gallery)
+        *   [Automations](https://www.notion.com/zh-cn/help/guides/category/automations)
+
+*   与 Notion 一起成长
+
+*   [Notion 学院](https://academy.notion.com/)
+
+*   API
+
+*   [创建集成](https://developers.notion.com/)
+
+*   支持
+
+*   与我们交谈
+*   [加入我们的社区](https://www.notion.so/notion/04f306fbf59a413fae15f42e2a1ab029)
+*   [查找顾问](https://www.notion.so/consulting-partners)
+
+[](https://www.notion.com/zh-cn/product)
+
+*   [](https://www.instagram.com/notionhq/)
+*   [](https://twitter.com/NotionHQ)
+*   [](https://www.linkedin.com/company/notionhq/)
+*   [](https://www.facebook.com/NotionHQ/)
+*   [](https://www.youtube.com/channel/UCoSvlWS5XcwaSzIcbuJ-Ysg)
+
+简体中文
+
+*   [English (US) 英语（美国）](https://www.notion.com/en-US/help/guides)
+*   [English (UK) 英语（英国）](https://www.notion.com/en-GB/help/guides)
+*   [العربية 阿拉伯语](https://www.notion.com/ar/help/guides)
+*   [Dansk 丹麦语](https://www.notion.com/da/help/guides)
+*   [Deutsch 德语](https://www.notion.com/de/help/guides)
+*   [Français (France) 法语（法国）](https://www.notion.com/fr/help/guides)
+*   [繁體中文 繁体中文](https://www.notion.com/zh-TW/help/guides)
+*   [Suomi 芬兰语](https://www.notion.com/fi/help/guides)
+*   [한국어 韩语](https://www.notion.com/ko/help/guides)
+*   [Nederlands 荷兰语](https://www.notion.com/nl/help/guides)
+*   [简体中文 简体中文](https://www.notion.com/zh-CN/help/guides)
+*   [Norsk 挪威语](https://www.notion.com/nb/help/guides)
+*   [Português (Brasil) 葡萄牙语（巴西）](https://www.notion.com/pt/help/guides)
+*   [日本語 日语](https://www.notion.com/ja/help/guides)
+*   [Svenska 瑞典语](https://www.notion.com/sv/help/guides)
+*   [ภาษาไทย 泰语](https://www.notion.com/th/help/guides)
+*   [Español (Latinoamérica) 西班牙语（拉丁美洲）](https://www.notion.com/es/help/guides)
+*   [Español (España) 西班牙语（西班牙）](https://www.notion.com/es-ES/help/guides)
+*   [עברית 希伯来语](https://www.notion.com/he/help/guides)
+*   [Italiano 意大利语](https://www.notion.com/it/help/guides)
+*   [Bahasa Indonesia 印度尼西亚语](https://www.notion.com/id/help/guides)
+*   [Tiếng Việt 越南语](https://www.notion.com/vi/help/guides)
+
+请勿出售或分享我的个人信息 Cookie 设置
+
+© 2026 Notion Labs, Inc.
+
+*   公司
+*   [关于我们](https://www.notion.com/zh-cn/about)
+*   [工作机会](https://www.notion.com/zh-cn/careers)
+*   [安全](https://www.notion.com/zh-cn/security)
+*   [状态](https://www.notion-status.com/)
+*   [条款和隐私](https://www.notion.so/28ffdd083dc3473e9c2da6ec011b58ac)
+*   [你的隐私权](https://www.notion.com/trust/privacy-policy#california)
+
+*   下载
+*   [iOS & Android](https://www.notion.com/zh-cn/mobile)
+*   [Mac & Windows](https://www.notion.com/zh-cn/desktop)
+*   [邮箱](https://www.notion.com/zh-cn/product/mail/download)
+*   [日历](https://www.notion.com/zh-cn/product/calendar/download)
+*   [网页剪裁器](https://www.notion.com/zh-cn/web-clipper)
+
+*   资源
+*   [帮助中心](https://www.notion.com/zh-cn/help)
+*   [价格](https://www.notion.com/zh-cn/pricing)
+*   [博客](https://www.notion.com/zh-cn/blog)
+*   [社区](https://www.notion.com/community)
+*   [连接](https://www.notion.com/zh-cn/connections)
+*   [模板](https://www.notion.com/zh-cn/templates)
+*   [合作伙伴项目](https://www.notion.com/zh-cn/partners)
+
+*   Notion适用于
+*   [企业](https://www.notion.com/zh-cn/enterprise)
+*   [中小型团队](https://www.notion.com/zh-cn/teams)
+*   [个人](https://www.notion.com/zh-cn/personal)
+*   [探索更多→](https://www.notion.com/zh-cn/explore)
+
+![Image 58](https://t.co/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=f8c9b7e3-b1c6-4b9e-a97d-ae207d379fc5&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=ff6cb211-1b93-48dd-b2cc-1c40abcced70&pt=%E6%8C%87%E5%8D%97%E5%92%8C%E6%95%99%E7%A8%8B%20-%20%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Notion%EF%BC%9F&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fhelp%2Fguides&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779880662110.539435665481966529&txn_id=ofilm&type=javascript&version=2.3.53)![Image 59](https://analytics.twitter.com/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=f8c9b7e3-b1c6-4b9e-a97d-ae207d379fc5&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=ff6cb211-1b93-48dd-b2cc-1c40abcced70&pt=%E6%8C%87%E5%8D%97%E5%92%8C%E6%95%99%E7%A8%8B%20-%20%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Notion%EF%BC%9F&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fhelp%2Fguides&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779880662110.539435665481966529&txn_id=ofilm&type=javascript&version=2.3.53)![Image 60](https://verifi.pdscrb.com/tag?action=view&user_id=3488f428-90e1-7044-33f0-052cafff1a22&advertiser=notion&referrer=_&session_referrer=_&session_landing_url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fhelp%2Fguides&device_id=pscrb_641e0339-86df-47b9-86cd-91d5df6993c7&first_visited_at=1779880662133&stid=&ipv4=34.34.253.127&url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fhelp%2Fguides&event_url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fhelp%2Fguides&source=js-tag+v1.1.0&cachebust=1779880662386)

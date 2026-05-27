@@ -1,0 +1,134 @@
+# 飞书智能伙伴 - 飞书 AI 助手 AI 工具 - 布忑狗 | 布忑狗
+
+Title: 飞书智能伙伴 - 飞书 AI 助手 AI 工具 - 布忑狗
+
+URL Source: https://aibotgo.net/navigate/feishu-ai
+
+Markdown Content:
+# 飞书智能伙伴 - 飞书 AI 助手 AI 工具 - 布忑狗 | 布忑狗
+
+[![Image 1: 布忑狗](https://aibotgo.net/logo-cn-dark.svg)![Image 2: 布忑狗](https://aibotgo.net/logo-cn.svg)](https://aibotgo.net/)
+
+[首页](https://aibotgo.net/)[导航](https://aibotgo.net/navigate)[博客](https://aibotgo.net/blog)[关于](https://aibotgo.net/about)
+
+[首页](https://aibotgo.net/)[导航](https://aibotgo.net/navigate)[博客](https://aibotgo.net/blog)[关于](https://aibotgo.net/about)
+
+[首页](https://aibotgo.net/)[工具库](https://aibotgo.net/navigate)办公 飞书智能伙伴
+
+![Image 3: 飞书智能伙伴](https://aibotgo.net/favicons/feishu-ai.png)
+
+📊
+
+# 飞书智能伙伴
+
+飞书 AI 助手
+
+📊 办公 🆓 免费增值 ★★★★☆
+
+[访问官网](https://www.feishu.cn/)
+
+✓优点
+
+*   与飞书生态无缝集成
+*   会议纪要非常实用
+*   AI 数据分析能力独特
+*   知识库问答质量好
+
+!缺点
+
+*   高级 AI 功能需付费
+*   用户数据限制在飞书内
+*   离线环境中无法使用
+
+✦核心功能
+
+*   AI 会议纪要生成
+*   AI 文档写作和编辑
+*   AI 消息总结与智能回复
+*   AI 表格分析（花式提数）
+*   AI 知识库问答
+*   AI 日历和日程管理
+
+## 简介
+
+飞书智能伙伴是字节跳动旗下的企业协作平台飞书内置的 AI 助手能力。与钉钉 AI 类似，飞书智能伙伴将大语言模型能力深度集成到飞书的各个功能模块中，包括文档、会议、消息、表格、知识库和日历等。飞书智能伙伴基于字节跳动的自研大模型（豆包大模型），针对办公场景进行了专门的优化。
+
+飞书智能伙伴的一大亮点是”AI 花式提数”——在飞书多维表格中，用户可以用自然语言描述数据分析需求，AI 自动完成数据的汇总、筛选、排序和可视化，大幅降低了数据分析的技术门槛。飞书智能伙伴的 AI 会议纪要也被用户广泛认可，能自动区分发言人并生成结构化的会议要点，其质量在同类产品中表现突出。飞书的 AI 能力目前以免费为主，高级功能需付费解锁。
+
+## 核心功能
+
+*   **AI 会议纪要（飞书妙记）**：飞书视频会议自动录制、转写并生成 AI 纪要。AI 自动区分发言人、提取关键决策和待办事项，生成结构清晰的会议记录。即使未参会也可快速了解会议内容。
+*   **AI 文档写作（飞书文档）**：在飞书文档中集成 AI 写作能力，支持从大纲生成文章、续写、改写、润色、翻译和多语言等操作。可以基于会议纪要自动生成项目报告。
+*   **AI 消息总结**：在繁忙的飞书群聊中，AI 可以一键总结未读消息的要点，帮助用户快速了解核心讨论内容。支持智能回复建议。
+*   **AI 花式提数（飞书表格）**：在飞书多维表格中，用自然语言描述数据分析需求，AI 自动生成对应的视图、筛选条件和汇总结果。如”帮我统计上个月各团队的完成任务数并按降序排列”。
+*   **AI 知识库问答**：将企业内部的文档、流程、FAQ 等导入飞书知识库，员工可以通过自然语言提问，AI 从知识库中检索并生成基于企业资料的精准回答。
+*   **AI 日历和日程**：通过自然语言描述（如”帮我安排下周三下午 2 点的团队周会，邀请项目组全体成员”），AI 自动在飞书日历中创建日程。
+
+## 价格
+
+*   **免费版**：AI 会议纪要（妙记）免费使用，AI 写作基础功能免费，AI 消息摘要免费。
+*   **飞书标准版**：￥20/人/月，包含 AI 花式提数、AI 知识库等高级 AI 能力。
+*   **飞书企业版**：￥65/人/月，全部 AI 功能无限使用，专属知识库，企业级数据安全。
+*   **飞书旗舰版**：￥120/人/月，私有化部署选项，专属 AI 模型调优，高级支持。
+
+## 优缺点
+
+*   **优点**：与飞书生态无缝集成，所有 AI 功能嵌入日常办公流程中；AI 会议纪要在同类产品中质量领先，自动识别发言人和结构化输出；AI 花式提数能力独特，让多维表格的使用门槛大幅降低；文档和表格的 AI 辅助功能实用性强。
+*   **缺点**：核心 AI 能力部分需要付费版解锁，免费版功能有限；AI 能力深度绑定飞书生态，在飞书之外无法使用；离线或网络不稳定的场景中 AI 功能不可用。
+
+## 适合人群
+
+飞书智能伙伴最适合已经使用飞书作为企业协作平台的组织。对需要进行大量会议记录和分析的管理者来说，AI 会议纪要是最具价值的功能。对于需要频繁分析多维表格数据的运营和财务人员，AI 花式提数可以大幅提升效率。文档编辑频繁的团队也可以从 AI 写作辅助中获益。
+
+## 使用技巧
+
+*   使用飞书妙记时，确保在会议前开启”自动录制”，会议结束后 AI 会自动生成带发言人标记的会议纪要，无需手动操作。
+*   在多维表格中使用 AI 花式提数时，描述需求越具体越好，如”统计 2026 年 Q1 各团队的销售订单数，按每月的销售总额降序排列并生成柱状图”。
+*   将常用文档、标准操作流程和 FAQ 导入飞书知识库，团队成员可以直接向 AI 提问”我们公司的请假流程是什么”等，获取标准化的企业级回答。
+
+## 更多工具
+
+[![Image 4: Beautiful.ai](https://aibotgo.net/favicons/beautifulai.png) 📊 Beautiful.ai Beautiful.ai是AI驱动的演示文稿设计工具，自动应用设计规则生成美观的PPT，专注'智能排版'，让用户只需关注内容，设计交给AI。](https://aibotgo.net/navigate/beautifulai)[![Image 5: 钉钉 AI](https://aibotgo.net/favicons/dingtalk-ai.png) 📊 钉钉 AI 钉钉 AI 助手](https://aibotgo.net/navigate/dingtalk-ai)[![Image 6: Gamma](https://aibotgo.net/favicons/gamma.png) 📊 Gamma Gamma是创新的AI演示文稿生成工具，输入主题即可生成精美的PPT，支持多种主题风格，可以用于商业演示、教育培训等场景。](https://aibotgo.net/navigate/gamma)
+
+### 基本信息
+
+网站[www.feishu.cn](https://www.feishu.cn/)收录时间 2026/04/26 价格 免费增值
+
+### 分类
+
+[📊 办公](https://aibotgo.net/navigate?category=%E5%8A%9E%E5%85%AC)
+
+### 标签
+
+[办公](https://aibotgo.net/navigate?tag=%E5%8A%9E%E5%85%AC)[AI助手](https://aibotgo.net/navigate?tag=AI%E5%8A%A9%E6%89%8B)[飞书](https://aibotgo.net/navigate?tag=%E9%A3%9E%E4%B9%A6)[字节跳动](https://aibotgo.net/navigate?tag=%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8)
+
+### 评分
+
+★★★★☆
+
+[![Image 7: 布忑狗](https://aibotgo.net/logo-cn-dark.svg)![Image 8: 布忑狗](https://aibotgo.net/logo-cn.svg)](https://aibotgo.net/)
+布忑狗帮你精选 AI 工具，涵盖写作、编程、绘图、视频等场景。
+
+#### 导航
+
+*   [AI 工具库](https://aibotgo.net/navigate)
+*   [写作工具](https://aibotgo.net/navigate?category=%E5%86%99%E4%BD%9C)
+*   [绘图工具](https://aibotgo.net/navigate?category=AI+%E7%BB%98%E5%9B%BE)
+*   [编程工具](https://aibotgo.net/navigate?category=AI+%E7%BC%96%E7%A8%8B)
+
+#### 资源
+
+*   [最新文章](https://aibotgo.net/blog)
+*   [深度评测](https://aibotgo.net/blog)
+*   [搜索](https://aibotgo.net/search)
+
+#### 关于
+
+*   [关于布忑狗](https://aibotgo.net/about)
+
+#### 法律
+
+*   隐私政策
+*   服务条款
+
+© 2026 布忑狗 — AI 工具导航与资源

@@ -1,0 +1,549 @@
+# 昆仑万维天工AIOffice与WPS全面对比分析 - 财富号
+
+Title: 昆仑万维天工AIOffice与WPS全面对比分析_财富号_东方财富网
+
+URL Source: https://caifuhao.eastmoney.com/news/20251028153950282669290
+
+Markdown Content:
+# 昆仑万维天工AIOffice与WPS全面对比分析_财富号_东方财富网
+
+*   [财经](http://finance.eastmoney.com/ "财经")
+*   [焦点](http://finance.eastmoney.com/yaowen.html "焦点")
+*   [股票](http://stock.eastmoney.com/ "股票")
+*   [新股](http://stock.eastmoney.com/newstock.html "新股")
+*   [期指](http://stock.eastmoney.com/gzqh.html "期指")
+*   [期权](http://option.eastmoney.com/ "期权")
+*   [行情](http://quote.eastmoney.com/flash/sz300059.html "行情")
+*   [数据](http://data.eastmoney.com/ "数据")
+*   [全球](http://stock.eastmoney.com/global.html "全球")
+*   [美股](http://stock.eastmoney.com/america.html "美股")
+*   [港股](http://hk.eastmoney.com/ "港股")
+*   [期货](http://futures.eastmoney.com/ "期货")
+*   [外汇](http://forex.eastmoney.com/ "外汇")
+*   [银行](http://bank.eastmoney.com/ "银行")
+*   [基金](http://www.1234567.com.cn/ "基金")
+*   [理财](http://money.eastmoney.com/ "理财")
+*   [债券](http://bond.eastmoney.com/ "债券")
+*   [直播](https://roadshow.eastmoney.com/ "直播")
+*   [股吧](http://guba.eastmoney.com/ "股吧")
+*   [基金吧](http://guba.eastmoney.com/jj.html "基金吧")
+*   [博客](http://blog.eastmoney.com/ "博客")
+*   [财富号](http://caifuhao.eastmoney.com/ "财富号")
+*   [搜索](http://so.eastmoney.com/ "搜索")
+
+行情中心
+
+[指数](http://quote.eastmoney.com/center/hszs.html "指数")[期指](http://quote.eastmoney.com/center/gridlist.html#futures_cffex "期指")[期权](http://quote.eastmoney.com/center/qqsc.html "期权")[个股](http://quote.eastmoney.com/ "个股")[板块](http://quote.eastmoney.com/center/hsbk.html "板块")[排行](http://quote.eastmoney.com/center/gridlist.html#hs_a_board "排行")[新股](http://quote.eastmoney.com/center/gridlist.html#newshares "新股")[基金](http://quote.eastmoney.com/center/jjsc.html "基金")[港股](http://quote.eastmoney.com/center/ggsc.html "港股")[美股](http://quote.eastmoney.com/center/mgsc.html "美股")[期货](http://quote.eastmoney.com/center/futures.html "期货")[外汇](http://quote.eastmoney.com/center/whsc.html "外汇")[黄金](http://quote.eastmoney.com/center/hjsc.html "黄金")[自选股](http://quote.eastmoney.com/zixuan/ "自选股")[自选基金](http://favor.fund.eastmoney.com/ "自选基金")
+
+0
+
+数据中心
+
+[资金流向](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_01_0 "资金流向")[主力排名](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_02_0 "主力排名")[板块资金](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_03_0 "板块资金")[个股研报](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_04_0 "个股研报")[新股申购](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_05_0 "新股申购")[转债申购](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_06_0 "转债申购")[北交所申购](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_07_0 "北交所申购")[AH股比价](http://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_08_0 "AH股比价")[年报大全](https://data.eastmoney.com/bbsj/ "年报大全")[融资融券](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_10_0 "融资融券")[龙虎榜](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_11_0 "龙虎榜")[限售解禁](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_12_0 "限售解禁")[IPO审核](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_13_0 "IPO审核")[大宗交易](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_14_0 "大宗交易")[估值分析](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_dhl_03_01_15_0 "估值分析")
+
+[](https://www.eastmoney.com/)
+
+[首页](https://www.eastmoney.com/)>[社区](https://guba.eastmoney.com/?tab=3&jump=1)>正文
+
+# 昆仑万维天工AIOffice与WPS全面对比分析
+
+[知士问答](https://i.eastmoney.com/5611094024747170) 2025年10月28日 15:39  广东 [返回 财富号评论吧>](http://guba.eastmoney.com/list,cfhpl.html)
+
+_分享到：_[](http://gb.eastmoney.com/share.aspx?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91 "分享到股吧")[](http://service.weibo.com/share/share.php?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91&searchPic=false&pic=https%3A%2F%2Fcmsjs.eastmoney.com%2Fcommon%2Fweixin-share.png "分享到新浪微博")[](http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91&desc=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%E6%9D%A5%E8%87%AA%E8%83%BD%E6%BA%90%E7%9A%84%E9%9D%A9%E5%91%BD%E7%9A%84%E9%9B%AA%E7%90%83%E4%B8%93%E6%A0%8F%E6%97%B6%E9%9A%94%E5%8D%81%E5%B9%B4%EF%BC%8CA%E8%82%A1%E5%86%8D%E4%B8%8A4000%E7%82%B9%E3%80%82%E4%BB%8A%E5%B9%B4%E8%B4%A6%E6%88%B7%E7%BF%BB%E5%80%8D%E7%9A%84%E6%95%A3%E6%88%B7%E4%B8%8D%E5%B0%91%EF%BC%8C%E9%83%BD%E8%80%83%E8%99%91%E6%8D%A2%E6%96%B0%E8%BD%A6%E4%BA%86%E5%90%A7%EF%BC%81%E6%97%A9%E4%B8%8A%E9%80%81%E5%AD%A9%E5%AD%90%E4%B8%8A%E5%AD%A6%EF%BC%8C%E5%87%86%E5%A4%87%E5%81%9C%E8%BD%A6%E6%97%B6%EF%BC%8C%E5%89%8D%E9%9D%A2%E5%81%9C%E4%BA%86%E4%B8%89%E8%BE%86%E8%BD%A6%EF%BC%8C%E4%BB%A4%E6%88%91%E6%83%8A%E5%A5%87%E7%9A%84%E6%98%AF%EF%BC%8C%E4%B8%89%E8%BE%86%E9%83%BD%E6%98%AF%E9%97%AE%E7%95%8C%E3%80%82%E7%9C%8B%E6%9D%A5%EF%BC%8C%E5%9B%BD%E4%BA%A7%E9%AB%98%E7%AB%AF%E8%B1%AA%E5%8D%8E%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%B4%9B%E8%B5%B7%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%EF%BC%81%E5%9D%87%E4%BB%B7%E5%9B%9B%E4%BA%94%E5%8D%81%E4%B8%87%E7%9A%84M8%E3%80%81M9%EF%BC%8C%E6%88%90%E4%B8%BA%E5%AF%8C%E5%95%86%E9%AB%98%E7%9F%A5%E4%BB%AC%E7%9A%84%E6%8D%A2%E8%BD%A6%E9%A6%96%E9%80%89%EF%BC%81%E4%BB%8A%E5%A4%A9%E9%87%91%E5%B1%B1%E5%8A%9E%E5%85%AC%E6%9A%B4%E6%B6%A8%EF%BC%8C%E6%88%91%E4%BB%98%E8%B4%B9%E5%9C%A8%E5%A4%A9%E5%B7%A5%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E8%AE%A9%E4%BB%96%E5%87%BA%E4%B8%80%E4%BB%BD%E3%80%8A%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%E3%80%8B%E4%BB%A5%E4%B8%8B%E6%98%AF%E5%85%A8%E9%83%A8%E5%86%85%E5%AE%B9%EF%BC%9A2025%E5%B9%B4%EF%BC%8C%E5%8A%9E%E5%85%AC%E8%BD%AF%E4%BB%B6%E9%A2%86%E5%9F%9F%E8%BF%8E%E6%9D%A5%E6%96%B0%E5%8F%98%E9%9D%A9%E3%80%82%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%8F%91%E5%B8%83%E7%9A%84%E2%80%9C%E5%A4%A9%E5%B7%A5%E8%B6%85%E7%BA%A7%E6%99%BA%E8%83%BD%E4%BD%93&pics=https%3A%2F%2Fcmsjs.eastmoney.com%2Fcommon%2Fweixin-share.png "分享到QQ空间")
+
+点赞 21
+
+[评论 6](https://caifuhao.eastmoney.com/news/20251028153950282669290#comment)
+
+收藏
+
+[大](javascript:;)[中](javascript:;)[小](javascript:;)
+
+[在东方财富看资讯行情，选东方财富证券一站式开户交易>>](https://acttg.eastmoney.com/pub/webtg_hskh_act_zixun_01_01_01_0)
+
+昆仑万维天工AI Office与WPS全面对比分析
+
+来自能源的革命的雪球专栏
+
+时隔十年，A股再上4000点。今年账户翻倍的散户不少，都考虑换新车了吧！
+
+![Image 1](https://gbres.dfcfw.com/Files/iimage/20251028/40657BAFB0A108429C3A4E438A955AD6_w800h1453.jpg)
+
+早上送孩子上学，准备停车时，前面停了三辆车，令我惊奇的是，三辆都是问界。
+
+![Image 2](https://gbres.dfcfw.com/Files/iimage/20251028/7A897C39729CF5F5C7570FDC2352BB6F_w800h209.jpg)
+
+看来，国产高端豪华智能汽车崛起势不可挡！均价四五十万的M8、M9，成为富商高知们的换车首选！
+
+今天金山办公暴涨，我付费在天工做了一个项目，让他出一份《昆仑万维天工AI Office与WPS全面对比分析》
+
+![Image 3](https://gbres.dfcfw.com/Files/iimage/20251028/A55351DD7B7850E40709E34D0D13CC04_w800h383.jpg)
+
+以下是全部内容：
+
+2025年，办公软件领域迎来新变革。昆仑万维发布的“天工超级智能体”（Skywork Super Agents）被称为“AI版Office”，标志着AI办公智能体时代的到来。与此同时，金山办公的WPS Office凭借6亿级月活用户稳居国内市场首位。本文将从**产品定位与功能、用户规模与市场份额、技术深度与AI能力、用户体验与使用成本、商业化模式与生态系统、未来发展潜力与挑战**六个维度，对天工AI Office和WPS进行全方位对比分析，并通过数据图表和表格总结核心指标，最后给出结论。
+
+产品定位与功能对比
+
+**天工AI Office（Skywork）：** 天工超级智能体定位为全新一代AI办公智能体，旨在通过AI自动完成文档、演示文稿、表格等办公任务。它由**3个专家智能体+1个通用智能体**组成：专家智能体分别擅长**文档、PPT、表格**三类内容的深度生成，通用智能体则覆盖网页、播客、音视频等多模态创作。其核心功能是“**深度研究（Deep Research）**”，能让AI自主检索分析海量资料，然后一键生成专业报告、幻灯片和数据表格。例如，用户只需提供需求，天工即可产出包含详实数据和引用来源的行业研究报告或精美PPT。官方称其Deep Research能力媲美OpenAI同类功能，且成本仅为后者的40%。除了Office文档，天工还支持生成网页、播客脚本甚至音视频内容，实现“一站式”多模态内容生产。总体而言，天工定位为**办公场景的AI助手**，用AI深度研究能力替代传统Office软件的繁琐操作。
+
+**金山WPS Office：** WPS是一款成熟的传统办公软件套件，包含文字处理（WPS文字）、表格（WPS表格）、演示（WPS演示）等模块，功能上与微软Office类似。其定位是**通用办公平台**，强调兼容Office格式、多端同步和丰富的模板库，满足用户日常文档编辑、表格计算、幻灯片制作等需求。近年来WPS也引入AI功能（如“WPS AI助手”），在文档中提供智能写作辅助、数据分析建议等。但总体来说，WPS的核心仍是**用户手动编辑+AI辅助**的模式，用户需要自行完成大部分内容创作，AI仅作为提效工具。与天工不同，WPS不具备自动检索全网资料生成报告的“深度研究”能力，更多是在用户已有文档或数据基础上提供润色和分析建议。
+
+**功能对比小结：** 天工AI Office聚焦**AI自动生成**，通过Deep Research实现从无到有的内容生产，可视为对传统Office的颠覆式替代。WPS则是**功能完备的办公套件**，覆盖各种办公场景但以用户手动制作为主，AI功能处于辅助地位。简单来说，天工更像一个智能助理，而WPS更像一个工具集合。两者定位不同：前者追求**“让AI深度研究，一键生成”**，后者强调**“用户主导，AI辅助”**。
+
+用户规模与市场份额
+
+**WPS的用户基础：** WPS经过多年发展，拥有庞大的用户规模。截至2024年底，WPS Office全球月活跃设备数已达**6.32亿**。其中，中国市场是WPS的基本盘，国内个人用户月活约**5.08亿**（PC端2.23亿+移动端2.85亿）。WPS在国内政企市场也有极高渗透率，服务超过**1.7万家**政府及企业客户，包括97家央企和135家世界500强企业。据统计，WPS占据中国办公软件市场约**90%**的份额，在国内Windows平台的覆盖率已非常接近微软Office。这意味着在中国，每10个办公用户中就有9个在使用WPS或Office，而WPS用户数已与Office旗鼓相当甚至略高。
+
+![Image 4](https://gbres.dfcfw.com/Files/iimage/20251028/C56C7A20DFA6B18EB5394FC7E05FDCD9_w800h475.jpg)
+
+在全球市场，WPS的份额也在提升，特别是在新兴市场。例如在东南亚，WPS市场占有率约**12%**，排名第三。不过在欧美成熟市场，WPS影响力仍然有限，市场份额不足**2%**。总体而言，WPS凭借国内用户优势，已成为全球第二大办公软件厂商，仅次于微软。
+
+![Image 5](https://gbres.dfcfw.com/Files/iimage/20251028/665DBF2D6AF30D6FEEE39A51DCCFF03E_w800h470.jpg)
+
+**天工AI Office的用户基础：** 相比之下，天工超级智能体作为2025年5月才发布的新产品，目前用户规模仍在起步阶段。昆仑万维官方尚未公布天工AI的具体用户数据。但可以推测，其初始用户主要来自对AI办公感兴趣的尝鲜者和部分企业客户试点。由于发布时间短，天工尚未积累起WPS那样庞大的用户群。不过，天工采取了全球同步上线策略（提供中、英等多语言界面），目标直指国际市场。从发展潜力看，若天工能证明其价值，有望吸引部分寻求效率提升的职场人士和中小企业用户。但短期内，其用户数和市场占有率远无法与WPS相提并论。
+
+**市场份额与格局：** 当前办公软件市场格局中，**微软Office**（含Word、Excel等）仍占据主导地位，在全球范围内拥有约**41%**的市场份额。**WPS Office**凭借在中国及新兴市场的优势，市场份额约**25%**，位居第二。其余份额由LibreOffice、Google Docs等瓜分。**天工AI Office**作为新进入者，目前市场份额几乎可以忽略不计，尚未跻身主要玩家行列。不过，天工的出现标志着AI办公新赛道的开辟，可能在未来形成**“传统Office软件+AI办公智能体”**双轨竞争的新格局。
+
+**小结：** WPS拥有**海量用户和高市场占有率**，在中国办公市场居于垄断地位。天工AI Office则是**后起之秀**，用户规模和份额暂时很小，但作为AI办公新物种，未来增长潜力值得关注。
+
+技术深度与AI能力
+
+**天工的AI技术深度：** 天工超级智能体的核心卖点在于其强大的**Deep Research深度研究能力**。昆仑万维声称天工的Deep Research能力达到全球领先水平，在权威评测中排名**第一**。这一能力使天工能自动检索互联网及内部资料，进行深度分析推理，然后生成高质量内容。例如，在生成专业报告时，天工会自动引用权威数据并附上来源，让内容更具可信度。相比之下，传统办公软件和一般AI助手缺乏这种自主调研和引用能力。天工还内置了**多模态生成**技术，可根据文本生成图片、图表，甚至语音讲解和视频短片。这些技术深度使天工能够胜任从文字到音视频的一站式内容创作。
+
+![Image 6](https://gbres.dfcfw.com/Files/iimage/20251028/8CEE7032FC4D839B507081C6A71BD9A3_w800h508.jpg)
+
+此外，天工背后依托昆仑万维自研的大语言模型和Agent框架，实现了一定程度的**自主任务分解**和**多Agent协作**。总体而言，天工在AI技术的**深度和广度**上都有突出表现：既有深入的语义理解与推理能力，又覆盖了文字、表格、演示、多媒体等多方面生成能力。
+
+**WPS的AI技术深度：** WPS在AI方面的布局相对谨慎。它主要通过与国内大模型提供方合作，为现有产品增加AI功能。例如，WPS接入了百度文心一言等模型，推出了**WPS AI助手**，可以在文档中根据上下文自动续写、润色文字，在表格中根据数据生成分析结论等。WPS还开发了**AI表格分析**功能，支持用自然语言提问并让AI分析表格数据、生成可视化图表。这些功能表明WPS具备一定的**自然语言处理**和**数据分析**AI能力，但总体来看仍属于**单点工具**性质，尚未形成类似天工那样的自主智能体。WPS AI目前**不具备联网搜索**功能，无法像天工那样主动获取外部信息来生成内容。它的AI更多局限在用户提供的文档和数据范围内进行辅助，缺乏深度推理和跨文档综合的能力。此外，WPS在多模态生成方面也刚起步，仅支持简单的图文混排和图表生成，远不及天工那样可以自动生成视频、音频等内容。
+
+**AI能力对比：** 在**内容生成深度**上，天工凭借Deep Research能够产出**专家级**的报告和方案；WPS AI则更多是**辅助润色**现有内容，难以独立完成复杂报告。在**多模态**方面，天工支持文字、表格、演示、网页、播客、音视频的全栈生成；WPS主要处理文字和表格，多模态能力有限。在**自主程度**上，天工的Agent可以自主检索、分析、决策，完成从0到1的任务；WPS AI则需要用户一步步引导，自主性较弱。可以说，天工代表了**“生成式AI深度应用”**，而WPS仍处于**“办公软件+AI插件”**的阶段。
+
+**技术优势与劣势：** 天工的优势在于**AI原生设计**，技术深度领先，能大幅提升复杂任务的效率。劣势是新技术可能存在**准确性和可控性**风险，例如AI生成内容的可靠性、版权问题等，需要时间验证。WPS的优势在于**技术成熟稳定**，其文档处理引擎经过多年打磨，对格式兼容和细节处理非常到位，用户可以完全掌控文档内容。同时WPS背靠金山多年研发积累，在**安全合规**方面也有优势（满足政府和企业的信息安全要求）。WPS的劣势在于**AI创新不足**，目前的AI功能相对基础，与国际领先的Copilot等存在差距，在面对天工这类AI原生产品时可能显得保守。
+
+用户体验与使用成本
+
+**用户体验对比：** 在用户体验上，天工和WPS代表了两种不同范式。**天工AI Office**追求的是**极简高效**：用户只需用自然语言描述需求，AI便自动完成大部分工作。这种“一句话生成”的体验对于经常需要撰写报告、制作PPT的用户来说非常具有吸引力。天工还支持多模态输出，用户可以一次性获得文字报告、幻灯片、表格甚至视频，大大减少在不同软件间切换的麻烦。不过，由于天工是全新产品，界面和操作逻辑与传统Office不同，用户需要一定时间适应“与AI对话”的工作方式。此外，AI生成内容可能不完全符合预期，用户需要花时间审阅修改，这也是新体验中的挑战。
+
+**金山WPS**则提供了**熟悉且可控**的用户体验。WPS的界面布局和操作与微软Office类似，中国用户经过多年使用已经非常熟悉。这种**低学习成本**是WPS的一大优势，用户几乎无需额外培训即可上手。WPS还内置了丰富的模板和素材库，方便用户快速制作简历、报表、PPT等。同时，WPS支持**多端同步**（PC、手机、平板）和**协同编辑**，用户体验比较完善。在AI功能方面，WPS AI以插件形式出现，例如在文档右上角有一个AI助手按钮，用户点击后输入指令即可获得建议。这种设计保持了用户对内容的**完全掌控**，用户可以选择接受或忽略AI建议。因此WPS的体验特点是**稳健、可控**，用户始终主导内容创作流程。
+
+**使用成本对比：** 在经济成本上，两者差异明显。**WPS Office**对个人用户提供**免费版**，包含基本的文档编辑功能。但免费版有广告且部分高级功能受限，用户若需无广告、云空间、高级模板等服务，可购买**会员订阅**（月费约十几元人民币）。企业用户则需购买授权或订阅WPS商业版，费用根据用户数和功能不同而定。总体而言，WPS的使用门槛较低，个人用户几乎可以零成本开始使用，高级功能通过付费解锁，性价比高。
+
+**天工AI Office**目前采用**订阅制**收费模式，提供基础免费额度和高级订阅。据昆仑万维介绍，天工超级智能体的使用成本仅为OpenAI同类服务的40%。假设OpenAI相关服务每月费用为$50，那么天工可能在$20左右，折合人民币约**150元**以内。当然，具体定价需以官方公布为准。但可以预见，作为AI驱动的产品，天工**不会免费**提供深度功能，用户需要为AI算力和模型服务付费。如果按年订阅，预计年费可能在千元级别。对于个人用户来说，这一成本高于WPS会员；但对于企业用户，若AI能大幅提升效率，可能物有所值。此外，天工的使用还涉及**时间成本**：用户需要学会如何与AI沟通、提出清晰的需求，以及校对修改AI输出，这些都需要一定投入。而WPS由于界面直观，用户几乎无需额外学习成本即可高效使用。
+
+**用户评价与口碑：** 目前WPS在用户中的口碑总体不错，被视为国产办公软件的骄傲。尤其在国内，WPS因兼容Office、支持国产操作系统和软硬件，而受到政府、企业和学生群体的广泛好评。当然也有部分用户吐槽WPS广告较多（免费版）以及某些高级功能需要会员，但整体满意度较高。天工AI Office作为新发布的产品，用户评价还在形成中。从初期体验反馈看，不少职场人士对其AI生成能力感到惊喜，认为**“用AI写报告做PPT，效率提升显著”**。但也有用户表示生成内容有时不够精准，需要人工调整，而且对网络和算力有一定要求。此外，一些用户担心AI生成内容的**版权和真实性**问题，这也是天工需要持续改进的地方。
+
+**小结：** WPS提供**低成本、易上手**的用户体验，符合大多数用户的使用习惯。天工则带来**高效率、智能化**的新体验，但用户需要付出一定学习和经济成本来适应和使用。在用户体验方面，两者各有优势：WPS胜在**稳健可靠、学习成本低**，天工胜在**智能高效、解放生产力**。
+
+商业化模式与生态系统
+
+**WPS的商业化模式：** 金山办公的WPS Office采用**多元盈利模式**，包括个人订阅、企业授权和广告等。个人用户方面，WPS通过**免费+增值**策略获取大量用户，再将其中一部分转化为付费会员。据金山办公2024年年报，WPS个人业务全年收入**32.83亿元**人民币，同比增长18%，主要来自会员订阅和增值服务。企业用户方面，WPS提供企业版授权和定制解决方案，为政企客户提供本地化部署、专属支持等服务，这部分收入占比也逐年提高。此外，WPS在免费版中嵌入广告（如启动页广告、会员推荐等），也是收入来源之一。总体而言，WPS的商业模式已经非常成熟，**用户规模大、付费转化率稳步提升**，盈利能力较强。2024年金山办公实现净利润约16.45亿元。
+
+![Image 7](https://gbres.dfcfw.com/Files/iimage/20251028/B8E320A250FE8BAFBBD896A6D58323AB_w800h493.jpg)
+
+**生态系统方面**，WPS经过多年经营构建了自己的**办公生态**。一方面，WPS与硬件厂商、操作系统厂商合作紧密，适配国产CPU和操作系统，在政府“信创”工程中扮演重要角色。另一方面，WPS打造了**应用平台和插件生态**，允许第三方开发者为WPS开发模板、插件和云服务。例如，用户可以在WPS应用市场中下载简历模板、表单插件等。此外，WPS积极布局**协同办公**领域，推出了轻维表、金山表单、金山日历等产品，与WPS Office形成协同办公套件，增强用户黏性。WPS还与腾讯、阿里等互联网公司合作，将其文档能力嵌入到企业微信、钉钉等平台中。总体来看，WPS已形成**“办公软件+云服务+生态插件”**的完整生态体系，在国内具有很强的生态壁垒。
+
+**天工AI Office的商业化模式：** 昆仑万维的天工超级智能体作为AI服务，采用**订阅制**的互联网服务模式。用户需注册账号并登录云端使用，根据使用量或套餐订阅付费。这种模式类似于软件即服务（SaaS），昆仑万维通过提供AI算力和模型服务来收费。由于天工定位为全球产品，其定价可能采用美元计价面向海外用户，同时提供人民币定价给国内用户。昆仑万维在发布会上强调天工的成本优势（为OpenAI的40%），暗示其订阅价格可能比国外同类产品更具竞争力。未来，天工可能推出**个人版**和**企业版**不同套餐：个人版面向职场人士和学生，提供基本的文档、PPT生成功能；企业版则针对企业客户，提供更高并发、数据私有部署、定制模型等增值服务。此外，昆仑万维可能探索**按次计费**或**API接口收费**等模式，将天工的AI能力开放给第三方应用使用。目前昆仑万维尚未披露天工的详细营收数据，但可以预见，作为公司“All in AI”战略的重要产品，天工将承载昆仑万维未来增长的重任，其商业化成功与否直接关系公司业绩。
+
+**生态系统方面**，天工AI Office目前的生态还处于起步阶段。作为一款云端AI应用，天工本身没有像WPS那样的本地插件体系。但昆仑万维可能通过**开放API**的方式，吸引开发者将天工的AI能力集成到其他软件中。例如，第三方办公软件或协同平台可以调用天工的API来获得文档生成功能。此外，天工可能与其他AI服务形成联动生态，比如与昆仑万维旗下的AI绘画、AI音乐产品结合，为用户提供一站式内容创作解决方案。在硬件和系统适配方面，天工作为Web应用，对用户端环境要求不高，只需浏览器即可使用，这反而使其生态门槛更低。但另一方面，天工缺少像WPS那样与操作系统深度绑定的优势，在政企市场的准入上可能需要额外努力（例如通过与国内云厂商合作部署私有云版本等）。
+
+**对比与分析：** 在商业化上，WPS已经**验证了商业模式**，收入稳定且盈利能力强。天工则属于**创新业务**，需要时间培育市场，短期可能投入大于产出。昆仑万维在2023年曾因All in AI导致亏损扩大，可见AI业务前期研发和运营成本很高。不过，如果天工能快速获取用户并实现规模效应，其订阅模式有潜力带来持续现金流。在生态上，WPS拥有**深厚的本土生态**和用户习惯壁垒，这是天工难以在短期内撼动的。但天工背靠昆仑万维的全球化资源，有望在海外市场构建新的生态。例如，通过与国际云服务、办公平台合作，将天工嵌入其中，从而绕过传统Office生态的封锁。总体而言，WPS的生态**重本地、重关系**，天工的生态**重云端、重技术**，两者路径不同。
+
+未来发展潜力与挑战
+
+**WPS的未来展望：** 作为国内办公软件龙头，WPS未来的发展潜力在于**巩固本土优势并拓展海外**。一方面，在国内WPS将继续受益于**国产替代**趋势和庞大的用户基础。政府和企业的信息化投入、信创政策支持，都将为WPS带来稳定的政企客户增长。同时，WPS个人用户市场也有提升空间，例如通过更好的AI功能吸引更多付费用户。另一方面，WPS正积极开拓海外市场，尤其是新兴国家。在东南亚、中东等地，WPS已经取得一定成绩（如东南亚占有率12%），未来有望进一步提高份额。WPS计划通过**本地化运营**和**性价比策略**来对抗微软Office在海外的垄断。此外，在技术上WPS将持续增强**AI能力**，可能推出更智能的WPS AI 2.0版本，缩小与国际先进水平的差距。WPS还可能探索**行业解决方案**，针对教育、金融等领域推出定制化的办公套件，形成差异化竞争力。
+
+**WPS面临的挑战：** 首先是**国际市场的激烈竞争**。微软Office在欧美拥有极高的用户黏性和生态优势，WPS要在这些市场取得突破非常困难。此外，谷歌Docs等免费在线办公套件也在侵蚀市场份额。WPS在海外面临品牌认知度不足、渠道薄弱等问题。其次，**技术壁垒**也是挑战之一。虽然WPS在文档格式兼容上已接近Office，但在底层核心技术（如复杂公式计算、高级排版引擎）上与微软仍有差距。另外，在AI领域，WPS需要持续投入研发，否则可能被后来的AI办公产品超越。第三，**用户需求变化**带来的挑战。年轻一代用户越来越习惯云端协作和移动办公，WPS需要不断优化产品以适应这些趋势，同时保持对传统桌面用户的吸引力。最后，**商业合规和安全**也是WPS在海外拓展中需要注意的问题，必须符合当地的数据隐私和安全法规。
+
+**天工AI Office的未来展望：** 作为AI办公新物种，天工的未来潜力在于**重新定义办公方式**。如果Deep Research等AI技术进一步成熟，天工有望承担更多办公场景中的核心工作，例如自动撰写会议记录、生成项目方案、进行数据分析并给出决策建议等。这将极大提高知识工作者的效率，甚至催生新的职业形态。天工背靠昆仑万维的AI布局，未来可能接入更强大的大模型，具备更强的推理和学习能力。同时，天工可以通过**用户反馈**不断优化生成效果，变得更加“聪明”和“懂用户”。在商业化上，若天工能证明ROI（投资回报），企业客户可能大规模采用，将其作为员工标配工具，从而带来爆发式增长。此外，天工的多模态能力使其有潜力拓展到**内容创作**领域，与Adobe等创意软件竞争，这也是一片广阔市场。
+
+**天工面临的挑战：** 首先是**技术可靠性**挑战。AI生成内容的准确性、一致性需要持续改进，否则用户难以完全信赖。如何避免AI“幻觉”（hallucination）、确保引用资料的真实可靠，是天工必须解决的问题。其次，**用户接受度**也是挑战。许多职场人士习惯了传统办公软件，对完全由AI生成内容可能心存疑虑，担心失去对内容的控制或出现不可预料的错误。天工需要通过大量成功案例和教育来改变用户观念。第三，**竞争加剧**。AI办公赛道正变得拥挤，不仅有微软、谷歌等巨头推出的Copilot、Duet等AI助手，国内也有百度、阿里、腾讯等在研发类似的智能办公产品。天工作为后来者，需要在技术或价格上保持明显优势才能脱颖而出。第四，**成本与盈利**压力。大模型的算力成本高昂，虽然昆仑万维声称成本只有OpenAI的40%，但随着用户增长，如何控制单位成本、实现盈利平衡是考验。如果无法扩大用户规模，高研发投入可能难以为继。最后，**数据安全与合规**也是企业用户关注的重点，天工需要提供本地化部署或数据加密等方案来赢得政企客户的信任。
+
+**综合潜力评估：** WPS胜在**根基深厚**，未来更可能稳步增长，在巩固国内的同时逐步蚕食海外市场份额。其挑战主要来自外部竞争和自身创新压力，但凭借现有优势，WPS在相当长时间内仍将是国内办公软件的主导者。天工则代表**未来方向**，如果AI技术取得突破，它有潜力实现跨越式发展，甚至部分取代传统办公软件的功能。然而，天工目前尚处早期，其未来高度取决于技术落地效果和市场接受程度。在可预见的几年内，**WPS和天工可能呈现共存互补**的局面：WPS满足广泛的日常办公需求，天工在特定专业场景提供AI增强。但长远看，如果AI办公智能体证明了价值，不排除出现“**办公软件AI化**”的大趋势，届时天工这类产品可能主导市场，WPS也需转型以融入这一潮流。
+
+综合评估与结论
+
+通过以上对比可以看出，**昆仑万维天工AI Office**和**金山WPS Office**各有千秋，分别代表了办公软件的两种发展路径：
+
+**产品形态：** 天工是革命性的AI智能体，以AI自动生成为核心，颠覆传统Office的操作模式；WPS是成熟的办公套件，功能全面但以用户手动制作为主，AI仅为辅助工具。
+
+**用户规模：** WPS拥有数亿级用户和高市场占有率，在中国办公市场居于绝对领先地位；天工刚起步，用户基数小，全球市场份额可以忽略不计，需要时间积累用户。
+
+**技术能力：** 天工在AI深度上领先，具备自主检索和多模态生成能力，能高效完成复杂任务；WPS技术成熟稳健，文档处理精度高，但AI功能相对基础，缺乏深度研究能力。
+
+**用户体验：** WPS符合用户使用习惯，学习成本低，可控性强；天工提供全新的智能体验，大幅提升效率，但用户需要适应与AI协作，且对结果需进行校验。
+
+**使用成本：** WPS个人免费、企业授权费用适中，总体成本较低；天工作为AI服务需订阅付费，目前成本高于WPS，对个人用户来说门槛较高。
+
+**商业模式：** WPS盈利模式成熟，多元收入来源保障了公司业绩增长；天工采用订阅模式，尚处市场培育期，短期盈利压力大，但长期想象空间大。
+
+**生态系统：** WPS构建了本土完善的办公生态，与软硬件和服务深度融合；天工生态刚起步，主要通过云端API开放，未来生态走向取决于与其他平台的合作。
+
+**未来前景：** WPS未来将在稳固国内的同时开拓海外，稳步进化；天工承载AI办公变革希望，潜力巨大但挑战重重，其成败取决于技术突破和用户接受度。
+
+**核心指标对比表：**
+
+![Image 8](https://gbres.dfcfw.com/Files/iimage/20251028/279DB8CC9AF90D6551379644DE72E39A_w800h1071.jpg)
+
+**结论：** 目前来看，**金山WPS Office在综合实力上仍领先于昆仑万维天工AI Office**。WPS凭借庞大的用户群、成熟的产品功能和稳定的商业模式，在可预见的未来仍将是办公软件市场的主导者之一。天工AI Office作为新生力量，展现了AI技术在办公领域的巨大潜力，在特定场景下能够显著提高效率。但要全面超越WPS，天工还需克服用户规模、生态体系和商业变现等多重挑战。短期内，两者更可能是**互补关系**：WPS满足通用办公需求，天工提供AI增强方案。长远而言，如果AI办公智能体技术取得突破并被广泛接受，办公软件行业格局可能被重塑，届时天工这类产品有机会后来居上。但在2025年的时间点，断言“天工AI Office能否超越WPS”为时尚早。我们更可能看到的是**“传统办公软件+AI智能体”双轨并进**的局面——WPS等传统厂商加速AI化，天工等新兴AI办公产品不断完善。最终谁能主导未来，将取决于技术落地效果、用户体验提升以及商业策略的成功与否。可以确定的是，**AI正在为办公软件行业带来前所未有的变革**，无论是WPS还是天工，都在这场变革中扮演着重要角色，并将共同推动办公效率进入新的时代。[$金山办公(SH688111)$](https://quote.eastmoney.com/unify/r/1.688111)[$昆仑万维(SZ300418)$](https://quote.eastmoney.com/unify/r/0.300418)[$赛力斯(SH601127)$](https://quote.eastmoney.com/unify/r/1.601127)
+
+大家觉得上面的报告怎么样？够不够专业！
+
+作者：能源的革命
+
+来源：雪球
+
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+风险提示：本文所提到的观点仅代表个人的意见，所涉及标的不作推荐，据此买卖，风险自负。
+
+[恭喜解锁12个月手机L2专属领取资格，立即领取>>](https://acttg.eastmoney.com/pub/webtg_hskh_act_zixun_01_01_01_0)
+
+追加内容
+本文作者可以追加内容哦 !
+
+_分享到：_[](http://gb.eastmoney.com/share.aspx?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91 "分享到股吧")[](http://service.weibo.com/share/share.php?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91&searchPic=false&pic=https%3A%2F%2Fcmsjs.eastmoney.com%2Fcommon%2Fweixin-share.png "分享到新浪微博")[](http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91&desc=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%E6%9D%A5%E8%87%AA%E8%83%BD%E6%BA%90%E7%9A%84%E9%9D%A9%E5%91%BD%E7%9A%84%E9%9B%AA%E7%90%83%E4%B8%93%E6%A0%8F%E6%97%B6%E9%9A%94%E5%8D%81%E5%B9%B4%EF%BC%8CA%E8%82%A1%E5%86%8D%E4%B8%8A4000%E7%82%B9%E3%80%82%E4%BB%8A%E5%B9%B4%E8%B4%A6%E6%88%B7%E7%BF%BB%E5%80%8D%E7%9A%84%E6%95%A3%E6%88%B7%E4%B8%8D%E5%B0%91%EF%BC%8C%E9%83%BD%E8%80%83%E8%99%91%E6%8D%A2%E6%96%B0%E8%BD%A6%E4%BA%86%E5%90%A7%EF%BC%81%E6%97%A9%E4%B8%8A%E9%80%81%E5%AD%A9%E5%AD%90%E4%B8%8A%E5%AD%A6%EF%BC%8C%E5%87%86%E5%A4%87%E5%81%9C%E8%BD%A6%E6%97%B6%EF%BC%8C%E5%89%8D%E9%9D%A2%E5%81%9C%E4%BA%86%E4%B8%89%E8%BE%86%E8%BD%A6%EF%BC%8C%E4%BB%A4%E6%88%91%E6%83%8A%E5%A5%87%E7%9A%84%E6%98%AF%EF%BC%8C%E4%B8%89%E8%BE%86%E9%83%BD%E6%98%AF%E9%97%AE%E7%95%8C%E3%80%82%E7%9C%8B%E6%9D%A5%EF%BC%8C%E5%9B%BD%E4%BA%A7%E9%AB%98%E7%AB%AF%E8%B1%AA%E5%8D%8E%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%B4%9B%E8%B5%B7%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%EF%BC%81%E5%9D%87%E4%BB%B7%E5%9B%9B%E4%BA%94%E5%8D%81%E4%B8%87%E7%9A%84M8%E3%80%81M9%EF%BC%8C%E6%88%90%E4%B8%BA%E5%AF%8C%E5%95%86%E9%AB%98%E7%9F%A5%E4%BB%AC%E7%9A%84%E6%8D%A2%E8%BD%A6%E9%A6%96%E9%80%89%EF%BC%81%E4%BB%8A%E5%A4%A9%E9%87%91%E5%B1%B1%E5%8A%9E%E5%85%AC%E6%9A%B4%E6%B6%A8%EF%BC%8C%E6%88%91%E4%BB%98%E8%B4%B9%E5%9C%A8%E5%A4%A9%E5%B7%A5%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E8%AE%A9%E4%BB%96%E5%87%BA%E4%B8%80%E4%BB%BD%E3%80%8A%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%E3%80%8B%E4%BB%A5%E4%B8%8B%E6%98%AF%E5%85%A8%E9%83%A8%E5%86%85%E5%AE%B9%EF%BC%9A2025%E5%B9%B4%EF%BC%8C%E5%8A%9E%E5%85%AC%E8%BD%AF%E4%BB%B6%E9%A2%86%E5%9F%9F%E8%BF%8E%E6%9D%A5%E6%96%B0%E5%8F%98%E9%9D%A9%E3%80%82%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%8F%91%E5%B8%83%E7%9A%84%E2%80%9C%E5%A4%A9%E5%B7%A5%E8%B6%85%E7%BA%A7%E6%99%BA%E8%83%BD%E4%BD%93&pics=https%3A%2F%2Fcmsjs.eastmoney.com%2Fcommon%2Fweixin-share.png "分享到QQ空间")
+
+[举报](https://help.eastmoney.com/report_center.html?reportType=3&systype=2&id=20251028153950282669290)
+
+**郑重声明：**用户在社区发表的所有信息将由本网站记录保存，仅代表作者个人观点，与本网站立场无关，不对您构成任何投资建议，据此操作风险自担。**请勿相信代客理财、免费荐股和炒股培训等宣传内容，远离非法证券活动。请勿添加发言用户的手机号码、公众号、微博、微信及QQ等信息，谨防上当受骗！**
+
+网友评论
+
+[已有 6 人评论，共 2987 人参与讨论](https://guba.eastmoney.com/news,cfhpl,1616581295.html)
+
+还可输入 字
+
+![Image 9](https://avator.eastmoney.com/qface)
+
+[登录](javascript:;)|[注册](https://passport2.eastmoney.com/pub/reg)
+
+[](javascript:;)[](javascript:;)
+
+清除
+
+提交评论
+
+ 郑重声明： 1.根据《证券法》规定，禁止编造、传播虚假信息或者误导性信息，扰乱证券市场；2.用户在本社区发表的所有资料、言论等仅代表个人观点，与本网站立场无关，不对您构成任何投资建议。用户应基于自己的独立判断，自行决定证券投资并承担相应风险。 [《东方财富社区管理规定》](https://guba.eastmoney.com/gltl.aspx)
+
+热门评论[查看全部评论](https://guba.eastmoney.com/news,cfhpl,1616581295.html)
+
+全部评论(6)只看作者
+
+最新 最热 最早
+
+[![Image 10](https://avator.eastmoney.com/qface/6598094231535594/50)](https://i.eastmoney.com/6598094231535594)
+
+[零下壹度017D9](https://i.eastmoney.com/6598094231535594)
+
+2025-10-28 20:59:07 来自 广东
+
+炒股就是炒未来啊，潜力巨大 
+
+炒股就是炒未来啊，潜力巨大 
+
+置顶 删除[举报](https://help.eastmoney.com/report_center.html?reportType=2&title=%E7%82%92%E8%82%A1%E5%B0%B1%E6%98%AF%E7%82%92%E6%9C%AA%E6%9D%A5%E5%95%8A%EF%BC%8C%E6%BD%9C%E5%8A%9B%E5%B7%A8%E5%A4%A7&nickName=%E9%9B%B6%E4%B8%8B%E5%A3%B9%E5%BA%A6017D9&gubaCode=undefined&id=1616581295&uid=6598094231535594&systype=1&replyid=9787497877)评论 1
+
+ 还有 条回复， [点击查看全部](javascript:;)
+
+[![Image 11](https://avator.eastmoney.com/qface/4833346518441890/50)](https://i.eastmoney.com/4833346518441890)
+
+[股友91d8E03392](https://i.eastmoney.com/4833346518441890)
+
+2025-10-28 20:21:53 来自 北京
+
+软文一篇，你让天工出一份对比分析，已经失去了客观性 
+
+软文一篇，你让天工出一份对比分析，已经失去了客观性 
+
+置顶 删除[举报](https://help.eastmoney.com/report_center.html?reportType=2&title=%E8%BD%AF%E6%96%87%E4%B8%80%E7%AF%87%EF%BC%8C%E4%BD%A0%E8%AE%A9%E5%A4%A9%E5%B7%A5%E5%87%BA%E4%B8%80%E4%BB%BD%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%EF%BC%8C%E5%B7%B2%E7%BB%8F%E5%A4%B1%E5%8E%BB%E4%BA%86%E5%AE%A2%E8%A7%82%E6%80%A7&nickName=%E8%82%A1%E5%8F%8B91d8E03392&gubaCode=undefined&id=1616581295&uid=4833346518441890&systype=1&replyid=9787477143)评论 1
+
+ 还有 条回复， [点击查看全部](javascript:;)
+
+[![Image 12](https://avator.eastmoney.com/qface/1204094293350360/50)](https://i.eastmoney.com/1204094293350360)
+
+[c3273981429363834](https://i.eastmoney.com/1204094293350360)
+
+2025-10-28 20:07:44 来自 四川
+
+说了半天，万维到底是行还是不行？ 
+
+说了半天，万维到底是行还是不行？ 
+
+置顶 删除[举报](https://help.eastmoney.com/report_center.html?reportType=2&title=%E8%AF%B4%E4%BA%86%E5%8D%8A%E5%A4%A9%EF%BC%8C%E4%B8%87%E7%BB%B4%E5%88%B0%E5%BA%95%E6%98%AF%E8%A1%8C%E8%BF%98%E6%98%AF%E4%B8%8D%E8%A1%8C%EF%BC%9F&nickName=c3273981429363834&gubaCode=undefined&id=1616581295&uid=1204094293350360&systype=1&replyid=9787468628)评论 点赞
+
+ 还有 条回复， [点击查看全部](javascript:;)
+
+[![Image 13](https://avator.eastmoney.com/qface/5909013781511578/50)](https://i.eastmoney.com/5909013781511578)
+
+[知行合一XZJ](https://i.eastmoney.com/5909013781511578)
+
+2025-10-28 16:31:49 来自 福建
+
+以前要整理这样的文章至少两天，现在几分钟就搞定，果然科技改变生活啊。 
+
+以前要整理这样的文章至少两天，现在几分钟就搞定，果然科技改变生活啊。 
+
+置顶 删除[举报](https://help.eastmoney.com/report_center.html?reportType=2&title=%E4%BB%A5%E5%89%8D%E8%A6%81%E6%95%B4%E7%90%86%E8%BF%99%E6%A0%B7%E7%9A%84%E6%96%87%E7%AB%A0%E8%87%B3%E5%B0%91%E4%B8%A4%E5%A4%A9%EF%BC%8C%E7%8E%B0%E5%9C%A8%E5%87%A0%E5%88%86%E9%92%9F%E5%B0%B1%E6%90%9E%E5%AE%9A%EF%BC%8C%E6%9E%9C%E7%84%B6%E7%A7%91%E6%8A%80%E6%94%B9%E5%8F%98&nickName=%E7%9F%A5%E8%A1%8C%E5%90%88%E4%B8%80XZJ&gubaCode=undefined&id=1616581295&uid=5909013781511578&systype=1&replyid=9787340516)评论 1
+
+ 还有 条回复， [点击查看全部](javascript:;)
+
+[![Image 14](https://avator.eastmoney.com/qface/5250112837916322/50)](https://i.eastmoney.com/5250112837916322)
+
+[simonx123](https://i.eastmoney.com/5250112837916322)
+
+2025-10-28 16:05:24 来自 江苏
+
+不看长文，只看结论：目前来看，金山WPS Office在综合实力上仍领先于昆仑万维天工AI Office。有点意思，用词“仍领先于”，感觉快被追上了，这词用的，你不知道差距有多大吗？倒过头来看全文的兴趣顿失。 
+
+不看长文，只看结论：目前来看，金山WPS Office在综合实力上仍领先于昆仑万维天工AI Office。有点意思，用词“仍领先于”，感觉快被追上了，这词用的，你不知道差距有多大吗？倒过头来看全文的兴趣顿失。 
+
+置顶 删除[举报](https://help.eastmoney.com/report_center.html?reportType=2&title=%E4%B8%8D%E7%9C%8B%E9%95%BF%E6%96%87%EF%BC%8C%E5%8F%AA%E7%9C%8B%E7%BB%93%E8%AE%BA%EF%BC%9A%E7%9B%AE%E5%89%8D%E6%9D%A5%E7%9C%8B%EF%BC%8C%E9%87%91%E5%B1%B1WPS%20Office%E5%9C%A8%E7%BB%BC%E5%90%88&nickName=simonx123&gubaCode=undefined&id=1616581295&uid=5250112837916322&systype=1&replyid=9787324525)评论 点赞
+
+[超越自己0328](https://i.eastmoney.com/1799185611083348):任何新的东西超越旧的东西，都是从仍然领先于，完成超越的。 等到时候实现超越了，你感兴趣了再卖给你![Image 15: [呲牙]](https://gbfek.dfcfw.com/face/emot_default_28x28/emot21.png)任何新的东西超越旧的东西，都是从仍然领先于，完成超越的。 等到时候实现超越了，你感兴趣了再卖给你![Image 16: [呲牙]](https://gbfek.dfcfw.com/face/emot_default_28x28/emot21.png)
+
+2025-10-28 19:36:52 来自 广东
+
+删除[举报](https://help.eastmoney.com/report_center.html?reportType=2&title=&nickName=%E8%B6%85%E8%B6%8A%E8%87%AA%E5%B7%B10328&gubaCode=undefined&id=1616581295&uid=1799185611083348&systype=1&replyid=9787449821)评论 点赞
+
+ 还有 0 条回复， [点击查看全部](javascript:;)
+
+加载更多
+
+[查看全部评论](https://guba.eastmoney.com/news,cfhpl,1616581295.html)
+
+[![Image 17](https://avator.eastmoney.com/qface/5611094024747170/360)](https://i.eastmoney.com/5611094024747170)
+
+[知士问答](https://i.eastmoney.com/5611094024747170)
+
+关注
+
+这个人很懒，什么都没有留下
+
+[更多文章](https://i.eastmoney.com/5611094024747170)[](https://i.eastmoney.com/5611094024747170)
+
+*   [何利扬：赛力斯机器人小赛正式上岗](https://caifuhao.eastmoney.com/news/20260527193613657992640)
+*   [物理AI与自动驾驶迎来发展风口，赛力斯最值钱的资产是10%引望股权](https://caifuhao.eastmoney.com/news/20260527141242017229730)
+*   [鸿蒙智行近五周订单量近20万台，今年累计订单316650台](https://caifuhao.eastmoney.com/news/20260527110422307257370)
+*   [鸿蒙智行近五周订单量累计同比增速166.49%](https://caifuhao.eastmoney.com/news/20260527110333679139860)
+*   [难走的路，才是国产高端豪车的上坡路](https://caifuhao.eastmoney.com/news/20260526153534541190460)
+
+[沪深股市](http://quote.eastmoney.com/center/)[](http://quote.eastmoney.com/center/)
+
+*   上证指数
+*   4093.73
+*   -51.64
+*   -1.25%
+
+[![Image 18](https://webquotepic.eastmoney.com/GetPic.aspx?nid=1.000001&imageType=rtop&token=e1fc716525030b5517f9968fe65eb25d&timespan=0.6740885447721223)](https://quote.eastmoney.com/zs000001.html)
+
+*   深证成指
+*   15736.47
+*   -139.69
+*   -0.88%
+
+[![Image 19](https://webquotepic.eastmoney.com/GetPic.aspx?nid=0.399001&imageType=rtop&token=e1fc716525030b5517f9968fe65eb25d&timespan=0.6740885447721223)](https://quote.eastmoney.com/zs399001.html)
+
+*   创业板指
+*   4045.77
+*   2.70
+*   0.07%
+
+[![Image 20](https://webquotepic.eastmoney.com/GetPic.aspx?nid=0.399006&imageType=rtop&token=e1fc716525030b5517f9968fe65eb25d&timespan=0.6740885447721223)](https://quote.eastmoney.com/zs399006.html)
+
+[投资组合](http://group.eastmoney.com/index.html)
+
+[--](https://caifuhao.eastmoney.com/news/20251028153950282669290#)
+
+总收益 20日收益 日收益
+------
+
+最新操作
+--[-](https://caifuhao.eastmoney.com/news/20251028153950282669290#)
+
+历史收益率走势(%)
+
+ Chart 
+
+[自选股](http://i.eastmoney.com/)
+
+代码 名称 最新价 涨跌幅
+[查看更多](http://iguba.eastmoney.com/5611094024747170)
+
+浪客视频
+
+[-](https://caifuhao.eastmoney.com/news/20251028153950282669290#)
+
+[](https://caifuhao.eastmoney.com/news/20251028153950282669290#comment)
+
+_分享到：_[](http://gb.eastmoney.com/share.aspx?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91 "分享到股吧")[](http://service.weibo.com/share/share.php?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91&searchPic=false&pic=https%3A%2F%2Fcmsjs.eastmoney.com%2Fcommon%2Fweixin-share.png "分享到新浪微博")[](http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https%3A%2F%2Fcaifuhao.eastmoney.com%2Fnews%2F20251028153950282669290&title=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90_%E8%B4%A2%E5%AF%8C%E5%8F%B7_%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C%E7%BD%91&desc=%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%E6%9D%A5%E8%87%AA%E8%83%BD%E6%BA%90%E7%9A%84%E9%9D%A9%E5%91%BD%E7%9A%84%E9%9B%AA%E7%90%83%E4%B8%93%E6%A0%8F%E6%97%B6%E9%9A%94%E5%8D%81%E5%B9%B4%EF%BC%8CA%E8%82%A1%E5%86%8D%E4%B8%8A4000%E7%82%B9%E3%80%82%E4%BB%8A%E5%B9%B4%E8%B4%A6%E6%88%B7%E7%BF%BB%E5%80%8D%E7%9A%84%E6%95%A3%E6%88%B7%E4%B8%8D%E5%B0%91%EF%BC%8C%E9%83%BD%E8%80%83%E8%99%91%E6%8D%A2%E6%96%B0%E8%BD%A6%E4%BA%86%E5%90%A7%EF%BC%81%E6%97%A9%E4%B8%8A%E9%80%81%E5%AD%A9%E5%AD%90%E4%B8%8A%E5%AD%A6%EF%BC%8C%E5%87%86%E5%A4%87%E5%81%9C%E8%BD%A6%E6%97%B6%EF%BC%8C%E5%89%8D%E9%9D%A2%E5%81%9C%E4%BA%86%E4%B8%89%E8%BE%86%E8%BD%A6%EF%BC%8C%E4%BB%A4%E6%88%91%E6%83%8A%E5%A5%87%E7%9A%84%E6%98%AF%EF%BC%8C%E4%B8%89%E8%BE%86%E9%83%BD%E6%98%AF%E9%97%AE%E7%95%8C%E3%80%82%E7%9C%8B%E6%9D%A5%EF%BC%8C%E5%9B%BD%E4%BA%A7%E9%AB%98%E7%AB%AF%E8%B1%AA%E5%8D%8E%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%B4%9B%E8%B5%B7%E5%8A%BF%E4%B8%8D%E5%8F%AF%E6%8C%A1%EF%BC%81%E5%9D%87%E4%BB%B7%E5%9B%9B%E4%BA%94%E5%8D%81%E4%B8%87%E7%9A%84M8%E3%80%81M9%EF%BC%8C%E6%88%90%E4%B8%BA%E5%AF%8C%E5%95%86%E9%AB%98%E7%9F%A5%E4%BB%AC%E7%9A%84%E6%8D%A2%E8%BD%A6%E9%A6%96%E9%80%89%EF%BC%81%E4%BB%8A%E5%A4%A9%E9%87%91%E5%B1%B1%E5%8A%9E%E5%85%AC%E6%9A%B4%E6%B6%A8%EF%BC%8C%E6%88%91%E4%BB%98%E8%B4%B9%E5%9C%A8%E5%A4%A9%E5%B7%A5%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E8%AE%A9%E4%BB%96%E5%87%BA%E4%B8%80%E4%BB%BD%E3%80%8A%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%A4%A9%E5%B7%A5AIOffice%E4%B8%8EWPS%E5%85%A8%E9%9D%A2%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%E3%80%8B%E4%BB%A5%E4%B8%8B%E6%98%AF%E5%85%A8%E9%83%A8%E5%86%85%E5%AE%B9%EF%BC%9A2025%E5%B9%B4%EF%BC%8C%E5%8A%9E%E5%85%AC%E8%BD%AF%E4%BB%B6%E9%A2%86%E5%9F%9F%E8%BF%8E%E6%9D%A5%E6%96%B0%E5%8F%98%E9%9D%A9%E3%80%82%E6%98%86%E4%BB%91%E4%B8%87%E7%BB%B4%E5%8F%91%E5%B8%83%E7%9A%84%E2%80%9C%E5%A4%A9%E5%B7%A5%E8%B6%85%E7%BA%A7%E6%99%BA%E8%83%BD%E4%BD%93&pics=https%3A%2F%2Fcmsjs.eastmoney.com%2Fcommon%2Fweixin-share.png "分享到QQ空间")
+
+![Image 21](https://gbapi.eastmoney.com/shareopt/web/web_click.gif?id=20251028153950282669290&type=20&version=200&product=EastMoney&plat=Web&deviceid=caifuhao)
+
+ 郑重声明：东方财富网发布此信息的目的在于传播更多信息，与本站立场无关。东方财富网不保证该信息（包括但不限于文字、视频、音频、数据及图表）全部或者部分内容的准确性、真实性、完整性、有效性、及时性、原创性等。相关信息并未经过本网站证实，不对您构成任何投资建议，据此操作，风险自担。 
+
+[东方财富](http://acttg.eastmoney.com/pub/web_dfcfsy_dbtg_wzl_01_01_01_1)
+
+[](http://acttg.eastmoney.com/pub/web_app_dcsy_2wm_01_01_01_0)
+
+扫一扫下载APP 
+
+东方财富产品
+
+*   [东方财富免费版](https://acttg.eastmoney.com/pub/pctg_hskh_act_dfcfwmfb_01_01_01_0)
+*   [东方财富Level-2](https://acttg.eastmoney.com/pub/pctg_hskh_act_dfcfwl2_01_01_01_0)
+*   [东方财富策略版](https://www.dfcfw.com/CLB/)
+*   [妙想投研助理](https://acttg.eastmoney.com/pub/web_dfcfsy_wzl_bottom_02_02_04_1)
+*   [Choice金融终端](https://choice.eastmoney.com/terminal?adid=web_choice_dcsy_website_02_01_01_0)
+
+证券交易
+
+*   [东方财富证券开户](https://acttg.eastmoney.com/pub/web_kh_dcsy_dbtkwzl_01_01_01_0)
+*   [东方财富在线交易](https://jywg.18.cn/Trade/Buy)
+*   [东方财富证券交易](https://acttg.eastmoney.com/pub/pctg_hskh_act_dfcfzqjy_01_01_01_0)
+
+关注东方财富
+
+*   [东方财富网微博](http://weibo.com/dfcfw)
+*   [东方财富网微信](javascript:;)
+*   [意见与建议](http://corp.eastmoney.com/Lianxi_liuyan.asp)
+
+[天天基金](http://acttg.eastmoney.com/pub/web_ttjjsy_dbtg_wzl_01_01_01_1)
+
+[](http://js1.eastmoney.com/tg.aspx?ID=4672)
+
+扫一扫下载APP 
+
+基金交易
+
+*   [基金开户](https://trade6.1234567.com.cn/reg/step1)
+*   [基金交易](https://trade.1234567.com.cn/login)
+*   [活期宝](http://huoqibao.1234567.com.cn/)
+*   [基金产品](http://fund.eastmoney.com/trade/default.html)
+*   [稳健理财](http://fund.eastmoney.com/gslc/)
+
+关注天天基金
+
+*   [天天基金网微博](http://weibo.com/ttfund)
+*   [天天基金网微信](javascript:;)
+
+[东方财富期货](https://qs.dfcfw.com/1605)
+
+[](http://acttg.eastmoney.com/pub/web_kh_dcsy_dibudfcfqh_01_01_01_1)
+
+扫一扫下载APP 
+
+期货交易
+
+*   [期货手机开户](https://qs.dfcfw.com/1606)
+*   [期货电脑开户](https://qs.dfcfw.com/1607)
+*   [期货官方网站](https://qs.dfcfw.com/1608)
+
+信息网络传播视听节目许可证：0908328号 经营证券期货业务许可证编号：913101046312860336 违法和不良信息举报:021-61278686 举报邮箱：[jubao@eastmoney.com](mailto:jubao@eastmoney.com)
+
+沪ICP证:沪B2-20070217 [网站备案号:沪ICP备05006054号-11](https://beian.miit.gov.cn/)[沪公网安备 31010402000120号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402000120) 版权所有:东方财富网 意见与建议:4000300059/952500
+
+[关于我们](http://about.eastmoney.com/)[可持续发展](https://about.eastmoney.com/about/sdindex)[广告服务](http://emhd2.eastmoney.com/market)[供应商平台](https://srm.eastmoney.com/official-site/)[联系我们](http://about.eastmoney.com/home/contact)[诚聘英才](https://zhaopin.eastmoney.com/)[法律声明](http://about.eastmoney.com/home/legal)[隐私保护](http://about.eastmoney.com/home/conceal)[征稿启事](http://about.eastmoney.com/home/parper)[友情链接](http://about.eastmoney.com/home/links)
+
+![Image 22: 亲爱的市民朋友，上海警方反诈劝阻电
+话“962110”系专门针对避免您财产被
+骗受损而设，请您一旦收到来电，立即
+接听。](https://g1.dfcfw.com/g3/201905/20190531140719.png)[](http://www.shjbzx.cn/ "上海违法和违规信息举报中心")[](http://www.12377.cn/ "中国互联网违法和不良信息举报中心")
+
+[行情](javascript:;)[](https://corp.eastmoney.com/Lianxi_liuyan.asp "意见反馈")[](javascript:; "回到顶部")查询
+
+[网站首页](http://www.eastmoney.com/)[加收藏](javascript:;)
+
+[移动客户端](http://js5.eastmoney.com/tg.aspx?ID=431)
+*   [东方财富手机版](https://marketing.dfcfs.com/views/aghdhtml/activity3.html)
+*   [天天基金手机版](http://js1.eastmoney.com/tg.aspx?ID=3120)
+
+[东方财富](https://acttg.eastmoney.com/pub/pctg_hskh_act_wysfpcb_01_01_01_0)
+*   [东方财富桌面版](https://acttg.eastmoney.com/pub/pctg_hskh_act_wysfpcb_01_01_01_0)
+*   [东方财富专业版](https://acttg.eastmoney.com/pub/pctg_hskh_act_wysfzyb_01_01_01_0)
+*   [东方财富增值版](https://www.dfcfw.com/cpmm/TYB.html)
+
+[天天基金网](http://fund.eastmoney.com/)
+*   [基金交易](https://trade.1234567.com.cn/login)
+*   [活期宝](http://huoqibao.1234567.com.cn/)
+*   [自选基金](http://favor.fund.eastmoney.com/)
+*   [基金净值](http://fund.eastmoney.com/fund.html)
+*   [基金排行](http://fund.eastmoney.com/data/fundranking.html)
+*   [基金评级](http://fund.eastmoney.com/data/fundrating.html)
+*   [基金定投](http://fund.eastmoney.com/dingtou/)
+*   [基金超市](http://fund.eastmoney.com/tradeindex.html)
+*   [基金导购](http://fund.eastmoney.com/daogou/)
+
+[东方财富证券](http://acttg.eastmoney.com/pub/web_kh_dcsy_jycdl_01_01_01_1)
+*   [证券交易](https://jywg.18.cn/Login?el=1&clear=&returl=%2fTrade%2fBuy)
+*   [惊喜佣金开户](https://zqhd.18.cn/index.html?tz=web_kh_cgds_khewmsms_01_01_01_0)
+*   [手机开户](https://zqhd.18.cn/index.html?ad_id=web_kh_dcsy_jysjkh_01_01_01_0)
+*   [证券交易客户端](https://acttg.eastmoney.com/pub/pctg_hskh_act_wysfzqjy_01_01_01_0)
+*   [营业部网点](https://store.18.cn/)
+
+[东方财富期货](http://www.eastmoneyfutures.com/)
+*   [电脑开户](https://qs.dfcfw.com/1586)
+*   [手机开户](https://qs.dfcfw.com/1587)
+*   [预约开户](https://qs.dfcfw.com/1588)
+*   [开户帮助](https://qs.dfcfw.com/1589)
+*   [PC版](https://qs.dfcfw.com/1590)
+*   [Android版](https://qs.dfcfw.com/1591)
+*   [iPhone版](https://qs.dfcfw.com/1592)
+
+[妙想](https://acttg.eastmoney.com/pub/web_dfcfsy_dbtg_01_05_01_01_1)
+*   [妙想投研助理](https://acttg.eastmoney.com/pub/web_dfcfsy_dbtg_top_05_02_02_1)
+*   [妙想APP](https://acttg.eastmoney.com/pub/web_dfcfqhsy_dbtg_top_05_03_03_1)
+
+[Choice数据](http://js5.eastmoney.com/tg.aspx?ID=789)
+*   [Choice金融终端](https://choice.eastmoney.com/terminal?adid=web_choice_dcsy_website_01_01_01_0)
+*   [Choice数据服务](https://choice.eastmoney.com/dataservice?adid=web_choice_dcsy_website_01_01_01_0)
+*   [Choice数据API](https://quantapi.eastmoney.com/?adid=web_choice_dcsy_website_01_01_01_0)
+*   [Choice数据APP](https://choice.eastmoney.com/choiceapp?adid=web_choice_dcsy_website_01_01_01_0)
+
+[股吧](http://guba.eastmoney.com/)
+*   [我的股吧](https://i.eastmoney.com/)
+*   [热门主题](http://guba.eastmoney.com/remenba.aspx?type=2)
+*   [热门个股](http://guba.eastmoney.com/remenba.aspx?type=1)
+*   [热门话题](http://gubatopic.eastmoney.com/)
+*   [问董秘](http://guba.eastmoney.com/qa/qa_list.aspx)
+
+[登录](https://passport2.eastmoney.com/pub/login?backurl=https%3A//caifuhao.eastmoney.com/news/20251028153950282669290)
+
+[我的菜单](http://i.eastmoney.com/)
+*   [自选股](http://quote.eastmoney.com/zixuan/?from=home)
+*   [创作中心](https://mycaifuhao.eastmoney.com/)
+*   [个人主页](http://i.eastmoney.com/)
+*   [投资组合](http://group.eastmoney.com/mygroup.html)
+
+[证券交易](https://jy.xzsec.com/Trade/Buy)
+*   [在线交易](https://jywg.18.cn/Login?el=1&clear=&returl=%2fTrade%2fBuy)
+*   [惊喜佣金开户](https://zqhd.18.cn/index.html?ad_id=web_kh_dcsy_jyagkh_01_01_01_0)
+*   [手机开户](https://zqhd.18.cn/index.html?ad_id=web_kh_dcsy_jysjkh_01_01_01_0)
+*   [资金持仓](https://jywg.18.cn/Login?el=1&clear=&returl=%2fSearch%2fPosition)
+*   [交易查询](https://jywg.18.cn/Login?el=1&clear=&returl=%2fSearch%2fOrders)
+*   [融资融券](https://jywg.18.cn/Login?el=1&clear=&returl=%2fMarginSearch%2fMyAssets)
+*   [新股申购](https://jywg.18.cn/Login?el=1&clear=&returl=%2fTrade%2fNewBuy)
+*   [天天宝](https://jywg.18.cn/Login?el=1&clear=&returl=%2fSchroederFund%2fIndex)
+*   [港股通](https://jywg.18.cn/Login?el=1&clear=&returl=%2fHKTrade%2fHKBuy)
+*   [交易客户端](https://acttg.eastmoney.com/pub/pctg_hskh_act_wysfjykhd_01_01_01_0)
+
+[基金交易](https://trade.1234567.com.cn/Login)
+*   [我的资产](https://trade.1234567.com.cn/MyAssets/Default)
+*   [活期宝](https://trade.1234567.com.cn/xjb/index)
+*   [指数宝](https://trade.1234567.com.cn/zsb/default)
+*   [买基金](https://trade.1234567.com.cn/FundtradePage/default2)
+*   [卖基金](https://trade.1234567.com.cn/login?direct_url=/FundtradePage/redemption)
+*   [基金定投](https://trade.1234567.com.cn/Investment/default)
+*   [免费开户](https://trade.1234567.com.cn/reg/)
+*   [手机客户端](http://fundact.eastmoney.com/app/)
+
+![Image 23](https://caifuhao.eastmoney.com/news/20251028153950282669290)
+
+*   ![Image 24](https://gbres.dfcfw.com/Files/iimage/20251028/40657BAFB0A108429C3A4E438A955AD6_w800h1453.jpg)
+*   ![Image 25](https://gbres.dfcfw.com/Files/iimage/20251028/7A897C39729CF5F5C7570FDC2352BB6F_w800h209.jpg)
+*   ![Image 26](https://gbres.dfcfw.com/Files/iimage/20251028/A55351DD7B7850E40709E34D0D13CC04_w800h383.jpg)
+*   ![Image 27](https://gbres.dfcfw.com/Files/iimage/20251028/C56C7A20DFA6B18EB5394FC7E05FDCD9_w800h475.jpg)
+*   ![Image 28](https://gbres.dfcfw.com/Files/iimage/20251028/665DBF2D6AF30D6FEEE39A51DCCFF03E_w800h470.jpg)
+*   ![Image 29](https://gbres.dfcfw.com/Files/iimage/20251028/8CEE7032FC4D839B507081C6A71BD9A3_w800h508.jpg)
+*   ![Image 30](https://gbres.dfcfw.com/Files/iimage/20251028/B8E320A250FE8BAFBBD896A6D58323AB_w800h493.jpg)
+*   ![Image 31](https://gbres.dfcfw.com/Files/iimage/20251028/279DB8CC9AF90D6551379644DE72E39A_w800h1071.jpg)

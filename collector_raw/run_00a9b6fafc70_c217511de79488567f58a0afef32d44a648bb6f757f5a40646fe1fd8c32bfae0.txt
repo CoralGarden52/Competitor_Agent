@@ -1,0 +1,568 @@
+# 类似于语雀、石墨文档私有化部署开源代替品，你尝试了吗？又帮资本家老板省钱了，找到语雀、石墨文档私有化部署开源代替品。 相 - 掘金
+
+Title: 类似于语雀、石墨文档私有化部署开源代替品，你尝试了吗？
+
+URL Source: https://juejin.cn/post/7038885638279692295
+
+Published Time: 2021-12-07T09:11:33+00:00
+
+Markdown Content:
+# 类似于语雀、石墨文档私有化部署开源代替品，你尝试了吗？又帮资本家老板省钱了，找到语雀、石墨文档私有化部署开源代替品。 相 - 掘金
+
+[![Image 1: 稀土掘金](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg)![Image 2: 稀土掘金](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/6c61ae65d1c41ae8221a670fa32d05aa.svg)](https://juejin.cn/post/7038885638279692295)
+*   首页 
+    *   [首页](https://juejin.cn/)
+    *   [沸点](https://juejin.cn/pins)
+    *   [课程](https://juejin.cn/course)
+    *   [数据标注 HOT](https://aidp.juejin.cn/)
+    *   [AI Coding](https://aicoding.juejin.cn/)
+    *   [更多](javascript:void(0);)
+        *   [直播](https://juejin.cn/live)
+        *   [活动](https://juejin.cn/events/all)
+        *   [APP](https://juejin.cn/app?utm_source=jj_nav)
+        *   [插件](https://juejin.cn/extension?utm_source=jj_nav)
+
+    *   [直播](https://juejin.cn/live)
+    *   [活动](https://juejin.cn/events/all)
+    *   [APP](https://juejin.cn/app?utm_source=jj_nav)
+    *   [插件](https://juejin.cn/extension?utm_source=jj_nav)
+
+    *           *    搜索历史 清空    
+        *   
+ 创作者中心 
+
+ 
+
+            *    写文章 
+            *    发沸点 
+            *    写笔记 
+            *    写代码 
+            *    草稿箱 
+
+创作灵感 查看更多 
+
+    *    登录   注册  ## 首次登录 / 注册免费领取 登录 / 注册   
+
+# 类似于语雀、石墨文档私有化部署开源代替品，你尝试了吗？
+
+[软件部长](https://juejin.cn/user/3721201061205117/posts)
+
+ 2021-12-07  3,563  阅读5分钟 
+
+关注
+
+又帮资本家老板省钱了，找到语雀、石墨文档私有化部署开源代替品。
+
+相信很多朋友都用语雀和石墨来写文档。石墨文档的在线编辑协同不错，不过基于可控性考虑，公司不能将文档放在Saas上。语雀对于很多人来说的优势是SaaS化的公有云在线云产品、用户所创作的所有内容都存储在语雀的服务器上，不过也正是另一部分用户眼中的劣势。那么有没有什么类似于语雀和石墨效果的在线office编辑协同软件或方案，支持私有化部署，性价比又比较高的？
+
+下面给大家推荐一款可私有化部署在任何计算机上的开源的在线文档系统——无忧·企业在线文档。
+
+# 项目介绍
+
+**基础说明：**
+
+*   无忧企业文档主要服务客群为企业用户，解决企业内部文档编辑、知识沉淀、知识协同等痛点。
+*   项目主要采用Java开发，基础框架采用JVS（spring cloud+Vue）
+
+**适用场景**
+
+适用于个人、团队、企业使用，提供云笔记、个人知识沉淀、在线产品手册、团队内部知识库、在线电子教程等功能。
+
+支持SaaS模式，支持私有化部署场景。
+
+# 产品特点
+
+无忧企业文档：
+
+*   企业内部在线文档化管理，解决企业文档碎片化痛点，让文档管理轻松高效
+*   提供私有化部署，并支持SaaS模式与PaaS模式，满足不同场景需求。私有的才是安全的
+*   无限制使用，没有人员数量、部署方式的限制
+*   支持全代码开放，支持二次开发，可扩展更多应用
+
+超级富文本，让文档表达更加简单通透，让操作更加简单易用：
+
+*   简单，富文本编辑，去除传统office中复杂的编辑操作
+*   丰富，表达方式，文本中嵌入多种，脑图、画图、图表、外部服务等内容进行表达
+*   扩展，三方形态接入方式（图片保存+编辑跳转方式，ifram模式，实现万物皆可引用，在文档打开的时候，直接刷新一次外部调用的图片）
+*   记录，生命痕迹，编辑、阅读、分享、记录。
+*   模板，多种文档记录模板，快速高效
+*   搜索，支持强大的文库搜索引擎，轻松查找任何文档，任何内容
+
+企业文档协同，让文档流转变得非常简单，让团队协作成为助力：
+
+*   协作，团队化管理文档，引入团队或者个人成为文档的成员
+*   开放，简单直接共享，共享开关，网络直接可以访问
+*   交流，通过“@”的方式可以形成交流的点，通过评论，对文档进行评价
+*   权限，文档权限化管理，：删除、编辑、共享设置
+
+# 功能介绍
+
+**基础能力：**
+
+*   多模式用户登录，微信登陆、账号密码登录
+*   采用前台应用+后台管理的模式
+*   具备后台组织管理、用户账号密码管理、角色权限管理
+*   基础框架采用JVS（spring cloud alibaba的衍生版本）的微服务框架
+*   内容划分：采用分类、聚合等方式，形成文档集或者知识库
+*   支持本地化部署；权限化管理，有效的信息分级控制
+*   B/S模式，不依赖与客户端，数据私有云或者公有云存储
+*   能对分享的范围进行控制，可以对分享的时间有效性、支持密码、内部账号等
+*   无人数限制，支持商用、支持内部自用，使用成本低
+*   代码支持完全开源，容易扩展，采用Java语言开发，提供便捷的二开技术支持
+*   基础框架支持微服务，支持海量并发
+*   支持多租户，支持云台运营场景
+
+**文集（知识库）管理**
+
+*   全站智能搜索引擎，支持文档级、内容级检索
+*   文集的增删改查
+*   文静的团队成员协作（可查看、可编辑）
+*   文集的目录结构化管理
+*   文集的基础介绍
+*   知识库的参与协作人员
+*   支持多种角色协同（成员、管理者、所有者）
+
+**个人文档管理：**
+
+*   支持富文本（类word）、在线表格（类Excel）、脑图（类Xmind）、流程图（类Viso）
+*   文档的增删改查、文档在线编辑
+
+**富文本编辑：**
+
+*   文本大纲，小标题导航
+*   支持所见即所得
+*   支持表格
+*   支持图片、表格、三方应用、音频、视频、等富文本表达插件
+*   支持预览、全屏、打印等扩展组件
+*   支持代码块、引用
+*   支持源代码查看
+
+# 使用与部署
+
+演示地址：
+
+[knowledge.bctools.cn/](https://link.juejin.cn/?target=http%3A%2F%2Fknowledge.bctools.cn%2F "http://knowledge.bctools.cn/")
+
+试用账号：微信扫码即可登陆，如需要账号密码试用，请二维码联系我们
+
+安装服务：将提供一键部署模式（12月中旬），目前找我们部署即可。
+
+开源地址：
+
+[gitee.com/software-mi…](https://link.juejin.cn/?target=https%3A%2F%2Fgitee.com%2Fsoftware-minister%2Fjvs-knowledge-ui "https://gitee.com/software-minister/jvs-knowledge-ui")
+
+[github.com/RKQF-JVS/jv…](https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2FRKQF-JVS%2Fjvs-knowledge-ui "https://github.com/RKQF-JVS/jvs-knowledge-ui")
+
+部分截图：
+
+![Image 3](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/630fbbe91c0d454e8077af755ca5fe7b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+![Image 4](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ead9fa2276934fef82a374314fcf45a8~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+![Image 5](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2cd6ec543c4345458629dc2ae2a00b4b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+![Image 6](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e871fe716fad4b0e87647aaf69c91d2a~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
+
+# 技术栈说明
+
+JVS+VUE
+
+*   spring cloud alibaba
+*   VUE+Element UI
+
+# 使用与授权
+
+无忧企业文档采用100%开源模式，在合规备案情况下，支持自用与商用，商用提供100%源代码。
+
+# 版本规划：
+
+V1.5
+
+*   支持多人在线同时协同编辑
+*   优化画图功能
+*   文档知识库分享
+*   模板管理
+*   接入WPS
+
+标签：
+
+[GitHub](https://juejin.cn/tag/GitHub)[Java](https://juejin.cn/tag/Java)[微服务](https://juejin.cn/tag/%E5%BE%AE%E6%9C%8D%E5%8A%A1)
+
+评论 4
+
+![Image 7: avatar](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/58aaf1326ac763d8a1054056f3b7f2ef.svg)
+
+0/ 1000
+
+ 标点符号、链接等不计算在有效字数内 
+
+ ⌘ + Enter 
+
+ 发送 
+
+登录 / 注册 即可发布评论！
+
+ 最热 
+
+ 最新 
+
+[![Image 8: jakelom的头像](https://p26-passport.byteacctimg.com/img/user-avatar/d8bc7351ac3c93b11cd3146be24a0cba~100x100.awebp)](https://juejin.cn/user/3255026875638231/robots)
+
+[jakelom](https://juejin.cn/user/3255026875638231)
+
+ PHP @哪都桶私有公司 
+
+商用多少钱
+
+ 8月前 
+
+ 点赞 
+
+ 1 
+
+*    屏蔽作者：jakelom  
+*   举报 
+
+[![Image 9: 软件部长的头像](https://p6-passport.byteacctimg.com/img/user-avatar/6d0e63fb8675ca9ff20bc6a98831edeb~50x50.awebp)](https://juejin.cn/user/3721201061205117)
+
+[软件部长](https://juejin.cn/user/3721201061205117)
+
+ 作者 
+
+:
+
+开源是免费的，商用几千块钱永久使用
+
+ 7月前 
+
+ 点赞 
+
+ 回复 
+
+*    屏蔽作者：软件部长  
+*   举报 
+
+[![Image 10: biubiubiu7374的头像](https://p9-passport.byteacctimg.com/img/user-avatar/1843b5af77ba0357a5bdc2b096113464~100x100.awebp)](https://juejin.cn/user/4336129591742686/robots)
+
+[biubiubiu7374](https://juejin.cn/user/4336129591742686)
+
+git链接不存在呀
+
+ 4年前 
+
+ 点赞 
+
+ 1 
+
+*    屏蔽作者：biubiubiu7374  
+*   举报 
+
+[![Image 11: 软件部长的头像](https://p6-passport.byteacctimg.com/img/user-avatar/6d0e63fb8675ca9ff20bc6a98831edeb~50x50.awebp)](https://juejin.cn/user/3721201061205117)
+
+[软件部长](https://juejin.cn/user/3721201061205117)
+
+ 作者 
+
+:
+
+[![Image 12](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/3f843e8626a3844c624fb596dddd9674.svg)gitee.com](https://link.juejin.cn/?target=https%3A%2F%2Fgitee.com%2Fsoftware-minister%2Fjvs-knowledge-ui "https://gitee.com/software-minister/jvs-knowledge-ui")
+
+ 4年前 
+
+ 点赞 
+
+ 回复 
+
+*    屏蔽作者：软件部长  
+*   举报 
+
+![Image 13](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/c12d6646efb2245fa4e88f0e1a9565b7.svg) 4 
+
+![Image 14](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/336af4d1fafabcca3b770c8ad7a50781.svg) 4 
+
+![Image 15](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/3d482c7a948bac826e155953b2a28a9e.svg) 收藏 
+
+加个关注，精彩更新不错过~
+
+![Image 16: avatar](https://p6-passport.byteacctimg.com/img/user-avatar/6d0e63fb8675ca9ff20bc6a98831edeb~40x40.awebp)
+
+ 关注 
+
+[![Image 17: avatar](https://p6-passport.byteacctimg.com/img/user-avatar/6d0e63fb8675ca9ff20bc6a98831edeb~100x100.awebp) 软件部长 ![Image 18: 创作等级LV.5](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8584543d8535435a9d74c1fbf7901ac7~tplv-k3u1fbpfcp-jj:0:0:0:0:q75.avis) 程序员-产品经理 @软开企服 优秀作者](https://juejin.cn/user/3721201061205117/posts)
+
+[885 文章](https://juejin.cn/user/3721201061205117/posts)[174k 阅读](https://juejin.cn/user/3721201061205117/posts)[45 粉丝](https://juejin.cn/user/3721201061205117/followers)
+
+加个关注，精彩更新不错过~
+
+ 关注 
+
+ 已关注 
+
+[私信](https://juejin.cn/notification/im?participantId=3721201061205117)
+
+目录
+
+收起
+
+*   [项目介绍](https://juejin.cn/post/7038885638279692295#heading-0 "项目介绍") 
+*   [产品特点](https://juejin.cn/post/7038885638279692295#heading-1 "产品特点") 
+*   [功能介绍](https://juejin.cn/post/7038885638279692295#heading-2 "功能介绍") 
+*   [使用与部署](https://juejin.cn/post/7038885638279692295#heading-3 "使用与部署") 
+*   [技术栈说明](https://juejin.cn/post/7038885638279692295#heading-4 "技术栈说明") 
+*   [使用与授权](https://juejin.cn/post/7038885638279692295#heading-5 "使用与授权") 
+*   [版本规划：](https://juejin.cn/post/7038885638279692295#heading-6 "版本规划：") 
+
+精选内容
+
+[Axios 上传大文件崩溃：鸿蒙 RNOH 下 XHR 返回空响应头引发的"假失败" 皮蛋小精灵 · 349阅读 · 1点赞](https://juejin.cn/post/7644117243853209610 "Axios 上传大文件崩溃：鸿蒙 RNOH 下 XHR 返回空响应头引发的\"假失败\"")[React Native 列表分页实战：下拉刷新与上拉加载的工程化方案 皮蛋小精灵 · 49阅读 · 0点赞](https://juejin.cn/post/7643821395647021083 "React Native 列表分页实战：下拉刷新与上拉加载的工程化方案")[脱离 Tab 栏的艺术：React Native 全屏子页面的导航架构实践 皮蛋小精灵 · 70阅读 · 0点赞](https://juejin.cn/post/7644105103490531378 "脱离 Tab 栏的艺术：React Native 全屏子页面的导航架构实践")[React Native 新架构落地鸿蒙：跨三端政务级应用的工程实践与深度复盘 皮蛋小精灵 · 72阅读 · 0点赞](https://juejin.cn/post/7643863484802924570 "React Native 新架构落地鸿蒙：跨三端政务级应用的工程实践与深度复盘")[为什么我推荐使用 Termius：现代 SSH 工具的完整体验 excel · 65阅读 · 0点赞](https://juejin.cn/post/7644105103489925170 "为什么我推荐使用 Termius：现代 SSH 工具的完整体验")
+
+找对属于你的技术圈子
+
+回复「进群」加入官方微信群
+
+![Image 19](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/img/qr-code.4e391ff.png)
+
+为你推荐
+
+*   
+[还在用微软office，3款神仙软件你确定不试试？](https://juejin.cn/post/7069674319600680991 "还在用微软office，3款神仙软件你确定不试试？") [线上办公好用的文档协作软件你都知道吗？现在的很多神仙软件在随时记录编辑的同时还可以一键分享，非常适合做知识库的使用。且具有评论和加密功能，支持大文件，本次给大家带来的多款云文档软件实际评测从多个维度进](https://juejin.cn/post/7069674319600680991) 
+
+    *   [软件部长](https://juejin.cn/user/3721201061205117) 
+    *    4年前  
+    *   216
+    *     点赞 
+    *    评论 
+
+[开源](https://juejin.cn/tag/%E5%BC%80%E6%BA%90 "开源")
+
+![Image 20: 还在用微软office，3款神仙软件你确定不试试？](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f4db289a0a734b26bd00564a17c795b5~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[知识管理协同工具，你在使用石墨笔记、语雀、Baklib还是什么？](https://juejin.cn/post/7233208763922268216 "知识管理协同工具，你在使用石墨笔记、语雀、Baklib还是什么？") [在互联网时代，人们的工作和生活越来越依赖于电脑和网络。对于工作和学习，人们需要管理自己的知识，以便更高效地完成任务和取得成果。为此，出现了许多在线知识管理工具，如石墨笔记、语雀、Obsidian和Ba](https://juejin.cn/post/7233208763922268216) 
+
+    *   [Baklib帮助文档](https://juejin.cn/user/4297327668364967) 
+    *    3年前  
+    *   278
+    *     点赞 
+    *    评论 
+
+[数据库](https://juejin.cn/tag/%E6%95%B0%E6%8D%AE%E5%BA%93 "数据库")
+
+![Image 21: 知识管理协同工具，你在使用石墨笔记、语雀、Baklib还是什么？](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/797b38076ed9480f801bebb2e258e01a~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[让我抛弃语雀、石墨文档，转战Baklib的理由到底是什么](https://juejin.cn/post/7235860148961902629 "让我抛弃语雀、石墨文档，转战Baklib的理由到底是什么") [Baklib是一款新兴的在线文档协作工具，相比于目前市场上的语雀、石墨文档等产品，它具有以下几个值得用户转战的优势。 Baklib是一款简单好用的知识管理软件，适用于企业搭建在线帮助文档/知识库。它提](https://juejin.cn/post/7235860148961902629) 
+
+    *   [Baklib帮助文档](https://juejin.cn/user/4297327668364967) 
+    *    3年前  
+    *   715
+    *     点赞 
+    *    评论 
+
+[数据库](https://juejin.cn/tag/%E6%95%B0%E6%8D%AE%E5%BA%93 "数据库")
+
+![Image 22: 让我抛弃语雀、石墨文档，转战Baklib的理由到底是什么](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7b4847b2db144105845c46b15358aa12~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[在线协作文档综合评测：Notion、FlowUs、Wolai、飞书、语雀、微软 Office、谷歌文档、金山文档、腾讯文档、石墨文档、Dropbox Paper](https://juejin.cn/post/7113533126520864798 "在线协作文档综合评测：Notion、FlowUs、Wolai、飞书、语雀、微软 Office、谷歌文档、金山文档、腾讯文档、石墨文档、Dropbox Paper") [如今，在线协作文档已经成为效率办公的必备产品。然而，面临各种各样的在线文档产品，应该如何选择呢？ 事实上，在线协作办公产品，虽然产品众多。但是发展路径主要有三种： 以谷歌文档为代表的轻量级云端 Off](https://juejin.cn/post/7113533126520864798) 
+
+    *   [数字花园的呓语](https://juejin.cn/user/1165932710340024) 
+    *    3年前  
+    *   2.6k
+    *     1 
+    *    评论 
+
+[产品](https://juejin.cn/tag/%E4%BA%A7%E5%93%81 "产品")
+
+![Image 23: 在线协作文档综合评测：Notion、FlowUs、Wolai、飞书、语雀、微软 Office、谷歌文档、金山文档、腾讯文档、石墨文档、Dropbox Paper](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b98c282e980142738ccaee115ad52ab2~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[某雀服务器崩溃，引发数据安全性讨论，应该选择私有化部署吗？](https://juejin.cn/post/7293173973356789772 "某雀服务器崩溃，引发数据安全性讨论，应该选择私有化部署吗？") [随着云计算技术的飞速发展，越来越多的企业和个人选择将数据存储于云端。然而，云服务的稳定性和数据安全性问题也成为了用户关注的焦点。昨天下午，语雀服务器崩溃事件引起了广泛关注。这一事件再次凸显了私有化的重](https://juejin.cn/post/7293173973356789772) 
+
+    *   [软件部长](https://juejin.cn/user/3721201061205117) 
+    *    2年前  
+    *   267
+    *     点赞 
+    *    评论 
+
+[开源](https://juejin.cn/tag/%E5%BC%80%E6%BA%90 "开源")[Java](https://juejin.cn/tag/Java "Java")[产品](https://juejin.cn/tag/%E4%BA%A7%E5%93%81 "产品")
+
+*   
+[云知识库软件的推荐清单，你看看你喜欢哪一个？](https://juejin.cn/post/7264609364672299064 "云知识库软件的推荐清单，你看看你喜欢哪一个？") [在选择云知识库软件时，有很多因素需要考虑，如功能、易用性、可定制性、安全性、价格等。下面是一些我喜欢的云知识库软件推荐清单： Confluence： Confluence是一款由Atlassian开发](https://juejin.cn/post/7264609364672299064) 
+
+    *   [Baklib帮助文档](https://juejin.cn/user/4297327668364967) 
+    *    2年前  
+    *   190
+    *     点赞 
+    *    评论 
+
+[数据库](https://juejin.cn/tag/%E6%95%B0%E6%8D%AE%E5%BA%93 "数据库")
+
+![Image 24: 云知识库软件的推荐清单，你看看你喜欢哪一个？](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/30fe9f4c168d4cfe8e45b88f49dfba54~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[企业智能知识管理在线工具语雀、helplook、石墨文档、Baklib怎么样？](https://juejin.cn/post/7273088535799578676 "企业智能知识管理在线工具语雀、helplook、石墨文档、Baklib怎么样？") [语雀、helplook、石墨文档和Baklib都是企业智能知识管理的在线工具，它们都提供了一系列功能来帮助企业管理和共享知识。下面我将对这些工具进行详细的介绍和评价。 语雀： 语雀是一款功能强大的在线](https://juejin.cn/post/7273088535799578676) 
+
+    *   [Baklib帮助文档](https://juejin.cn/user/4297327668364967) 
+    *    2年前  
+    *   200
+    *     点赞 
+    *    评论 
+
+[数据库](https://juejin.cn/tag/%E6%95%B0%E6%8D%AE%E5%BA%93 "数据库")
+
+![Image 25: 企业智能知识管理在线工具语雀、helplook、石墨文档、Baklib怎么样？](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0057fcf61478402f957b5c468398110d~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis#?w=808&h=618&s=37460&e=png&b=ffffff)
+
+*   
+[支付宝办公神器语雀上线“空间”功能，8大实用指南快速上手！](https://juejin.cn/post/6844903832380506120 "支付宝办公神器语雀上线“空间”功能，8大实用指南快速上手！") [近日，蚂蚁金服旗下知识创作与分享工具语雀发布“空间功能”，上周我们对这一办公室神器进行了介绍。（详情请戳：阿里员工都在用的知识管理工具，究竟有何特别？） 总体而言，语雀支持在线文档编写、多人协作、灵活的团队管理和金融级安全存储的基础上，新增“空间”功能，助力企业知识管理，帮助企…](https://juejin.cn/post/6844903832380506120) 
+
+    *   [蚂蚁数字科技](https://juejin.cn/user/3245414056467304) 
+    *    7年前  
+    *   2.1k
+    *     点赞 
+    *    评论 
+
+[支付宝](https://juejin.cn/tag/%E6%94%AF%E4%BB%98%E5%AE%9D "支付宝")
+
+*   
+[无需开发部署，秒建优雅的开源项目文档，这个工具用起来贼爽！](https://juejin.cn/post/7012789548358828045 "无需开发部署，秒建优雅的开源项目文档，这个工具用起来贼爽！") [之前介绍过几款搭建开源项目文档的工具，最近又发现一款开箱即用的开源项目文档生成工具，体验了一把，非常不错，推荐给大家！](https://juejin.cn/post/7012789548358828045) 
+
+    *   [MacroZheng](https://juejin.cn/user/958429871749192) 
+    *    4年前  
+    *   3.9k
+    *     9 
+    *    评论 
+
+[Java](https://juejin.cn/tag/Java "Java")[后端](https://juejin.cn/tag/%E5%90%8E%E7%AB%AF "后端")
+
+![Image 26: 无需开发部署，秒建优雅的开源项目文档，这个工具用起来贼爽！](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/91568d0183e544cfa16af791df96e395~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[一个工具两个方法，搞定程序员时间管理](https://juejin.cn/post/6937864389374509087 "一个工具两个方法，搞定程序员时间管理") [经过我两个星期的亲身实践，今天推荐给大家一个工具，两个方法，借助语雀文档，既能帮助我们管理每日计划，还顺带能做好知识管理，如果深谙其精髓还能帮你更加自律。 人做任何事情需要有理由，拿学习来说，学习带来的长期受益是有目共睹的，但没有人会为了半年后的一次面试，或长期的技术提升，在当…](https://juejin.cn/post/6937864389374509087) 
+
+    *   [Orime小猪](https://juejin.cn/user/2928754708978551) 
+    *    5年前  
+    *   4.5k
+    *     22 
+    *    6 
+
+[前端](https://juejin.cn/tag/%E5%89%8D%E7%AB%AF "前端")
+
+*   
+[金山文档有什么替代品](https://juejin.cn/post/7229535834999668797 "金山文档有什么替代品") [最近好多朋友都在问我，哪些办公软件可以替代掉金山文档，也就是我们常说的WPS office，为什么会有这么多朋友问呢？我总结了一下，大致就是WPS的广告太多，以及可能会造成的数据泄露，文件限制等问题，](https://juejin.cn/post/7229535834999668797) 
+
+    *   [用户316122957749](https://juejin.cn/user/1086765325621128) 
+    *    3年前  
+    *   715
+    *     1 
+    *    评论 
+
+[前端](https://juejin.cn/tag/%E5%89%8D%E7%AB%AF "前端")[后端](https://juejin.cn/tag/%E5%90%8E%E7%AB%AF "后端")
+
+*   
+[产品故事：语雀两度生死局](https://juejin.cn/post/7205777393452564540 "产品故事：语雀两度生死局") [语雀是一款文档和知识库产品，2016 年从一个技术团队支付宝体验技术部生长出来，2021 年蚂蚁成立了智能协同事业部，重点产品即为语雀，以独立 BU 运作，算是完成了“成人礼”。我们和玉伯聊了聊语雀](https://juejin.cn/post/7205777393452564540) 
+
+    *   [极客时间App](https://juejin.cn/user/22415170344503) 
+    *    3年前  
+    *   1.5k
+    *     点赞 
+    *    评论 
+
+[Go](https://juejin.cn/tag/Go "Go")
+
+*   
+[企业在线制作帮助中心，选择：语雀、石墨、Baklib哪个好？](https://juejin.cn/post/7231804508082536507 "企业在线制作帮助中心，选择：语雀、石墨、Baklib哪个好？") [在当今互联网时代，越来越多的企业开始将帮助中心建设在线化。在线帮助中心的好处不仅可以提高用户的使用体验，也可以提高企业的工作效率。然而，选择一个合适的在线制作帮助中心工具却并不是一件容易的事情。在众多](https://juejin.cn/post/7231804508082536507) 
+
+    *   [Baklib帮助文档](https://juejin.cn/user/4297327668364967) 
+    *    3年前  
+    *   84
+    *     点赞 
+    *    评论 
+
+[数据库](https://juejin.cn/tag/%E6%95%B0%E6%8D%AE%E5%BA%93 "数据库")
+
+![Image 27: 企业在线制作帮助中心，选择：语雀、石墨、Baklib哪个好？](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c91960230b4a42fc916b23431fc0cc6b~tplv-k3u1fbpfcp-jj:108:72:0:0:q75.avis)
+
+*   
+[开发在线文档时，这个技术难点你解决了吗？](https://juejin.cn/post/6990189754352402440 "开发在线文档时，这个技术难点你解决了吗？") [“时势造英雄”，是亘古不变的真理。在当前的时代背景下，在线文档可以称得上是这样的“英雄”。 自 2020 年新冠疫情爆发以来，远程办公彻底颠覆了传统的企业管理模式，在线文档作为远程办公软件的重要组成部](https://juejin.cn/post/6990189754352402440) 
+
+    *   [葡萄城技术团队](https://juejin.cn/user/3227821868332765) 
+    *    4年前  
+    *   1.4k
+    *     7 
+    *    评论 
+
+[前端](https://juejin.cn/tag/%E5%89%8D%E7%AB%AF "前端")[程序员](https://juejin.cn/tag/%E7%A8%8B%E5%BA%8F%E5%91%98 "程序员")
+
+*   
+[谁懂啊，语雀故障的那7个小时我是怎么熬过来的](https://juejin.cn/post/7294085118914117672 "谁懂啊，语雀故障的那7个小时我是怎么熬过来的") [引言 大家好，我是小❤。 语雀发生严重故障 最近语雀的这波 P0 级故障想必大家都有所耳闻，作为阿里旗下的产品，下线超过了 7 个多小时，下线期间，语雀的笔记、离线同步完全不可用。 对比曾经腾讯的企微](https://juejin.cn/post/7294085118914117672) 
+
+    *   [xin猿意码](https://juejin.cn/user/2428138083064077) 
+    *    2年前  
+    *   3.1k
+    *     5 
+    *    16 
+
+[后端](https://juejin.cn/tag/%E5%90%8E%E7%AB%AF "后端")
+
+收藏成功！
+
+ 已添加到「」， 点击更改
+
+*   微信![Image 28](https://juejin.cn/post/7038885638279692295)微信扫码分享 
+*   新浪微博
+*   QQ
+
+![Image 29: image](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/img/cartoon.31472f0.png)
+
+AI代码助手上线啦
+
+选中代码，体验AI替你一键快速解读代码
+
+立即体验
+
+ APP内打开 
+
+*   ![Image 30: 下载掘金APP](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2ad212d53ccd44569d10317171664bae~tplv-k3u1fbpfcp-jj:90:0:0:0:q75.avis)下载APP   [下载APP](https://juejin.cn/post/7038885638279692295)
+*   ![Image 31: 微信扫一扫](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9f4933cc8fdb411cba89904f14a3ec0a~tplv-k3u1fbpfcp-jj:90:0:0:0:q75.avis)微信扫一扫   [微信公众号](https://juejin.cn/post/7038885638279692295)
+*   [新浪微博](https://weibo.com/xitucircle)
+
+![Image 32](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/8867e249c23a7c0ea596c139befc04d7.svg)
+
+温馨提示
+
+当前操作失败，如有疑问，可点击申诉
+
+前往申诉 我知道了
+
+![Image 33](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/img/MaskGroup.13dfc4f.png)选择你感兴趣的技术方向
+
+ 后端 
+
+ 前端 
+
+ Android 
+
+ iOS 
+
+ 人工智能 
+
+ 开发工具 
+
+ 代码人生 
+
+ 阅读 
+
+跳过
+
+上一步
+
+ 至少选择1个分类 
+
+ 沉浸阅读 
+
+确定屏蔽该用户
+
+ 屏蔽后，对方将不能关注你、与你产生任何互动，无法查看你的主页 
+
+取消 确定

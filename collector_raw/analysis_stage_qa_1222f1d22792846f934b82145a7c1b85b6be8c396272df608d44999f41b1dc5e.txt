@@ -1,0 +1,288 @@
+# 2025年5月13日 – Notion 2.51：AI 速记、企业搜索等
+
+Title: 2025年5月13日 – Notion 2.51：AI 速记、企业搜索等
+
+URL Source: https://www.notion.com/zh-cn/releases/2025-05-13
+
+Markdown Content:
+# 2025年5月13日 – Notion 2.51：AI 速记、企业搜索等
+
+See this page in your preferred language.[Change to English (US)→](https://www.notion.com/releases/2025-05-13)
+
+[](https://www.notion.com/zh-cn/product)
+
+产品
+
+*   [Notion 你的 AI 工作空间](https://www.notion.com/zh-cn/product)
+
+*   [Notion 日历](https://www.notion.com/zh-cn/product/calendar)
+
+*   [Notion 邮箱](https://www.notion.com/zh-cn/product/mail)
+
+*   [Notion AI 办公 AI 工具](https://www.notion.com/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.com/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.com/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.com/zh-cn/product/enterprise-search)
+
+*   [知识库 集中管理你的知识](https://www.notion.com/zh-cn/product/wikis)
+
+*   [文档 简单而强大](https://www.notion.com/zh-cn/product/docs)
+
+*   [项目 管理任何项目](https://www.notion.com/zh-cn/product/projects)
+
+*   [连接 关联你的应用](https://www.notion.com/zh-cn/connections)
+
+*   [安全 安全且可扩展](https://www.notion.com/zh-cn/security)
+
+Merge cells in simple tables. [查看最新动态→](https://www.notion.com/zh-cn/releases)
+
+下载[Notion 应用→](https://www.notion.com/zh-cn/download)
+
+AI
+
+![Image 1](https://www.notion.com/_next/image?url=%2Ffront-static%2Fshared%2Fnavigation%2Fai_group.png&w=384&q=75)
+
+*   AI 功能
+
+*   [Notion AI 办公 AI 工具](https://www.notion.com/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.com/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.com/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.com/zh-cn/product/enterprise-search)
+
+*   探索用例
+
+*   [用于工作](https://www.notion.com/zh-cn/product/ai/use-cases?type=work)
+
+*   [用于生活](https://www.notion.com/zh-cn/product/ai/use-cases?type=life)
+
+解决方案
+
+*   团队
+
+*   [工程和产品](https://www.notion.com/zh-cn/product/notion-for-product-development)
+
+*   [设计](https://www.notion.com/zh-cn/product/notion-for-design)
+
+*   [市场营销](https://www.notion.com/zh-cn/templates/category/marketing)
+
+*   [IT](https://www.notion.com/zh-cn/templates/category/ticketing)
+
+*   公司规模
+
+*   [初创公司](https://www.notion.com/zh-cn/startups)
+
+*   [小型企业](https://www.notion.com/zh-cn/teams)
+
+*   [企业版](https://www.notion.com/zh-cn/enterprise)
+
+*   用例
+
+*   [教育](https://www.notion.com/zh-cn/product/notion-for-education)
+
+*   [个人](https://www.notion.com/zh-cn/personal)
+
+*   [专业](https://www.notion.com/zh-cn/use-case)
+
+*   [AI 用例](https://www.notion.com/zh-cn/product/ai/use-cases)
+
+资源
+
+*   浏览
+
+*   [模板](https://www.notion.com/zh-cn/templates)
+
+*   [顾问](https://www.notion.com/zh-cn/explore-consultants)
+
+*   [连接](https://www.notion.com/zh-cn/connections)
+
+*   探索
+
+*   [最近更新](https://www.notion.com/zh-cn/releases)
+
+*   [客户故事](https://www.notion.com/zh-cn/customers)
+
+*   [博客](https://www.notion.com/zh-cn/blog)
+
+*   [网络研讨会](https://www.notion.com/zh-cn/webinars)
+
+*   了解
+
+*   [开发者](https://developers.notion.com/)
+
+*   [学院](https://academy.notion.com/)
+
+*   [产品导览](https://www.notion.com/zh-cn/product/demos)
+
+*   [帮助](https://www.notion.com/zh-cn/help)
+
+[开发者](https://notion.dev/)[企业版](https://www.notion.com/zh-cn/enterprise)[价格](https://www.notion.com/zh-cn/pricing)[申请演示](https://www.notion.com/zh-cn/contact-sales)
+
+[免费获取 Notion](https://www.notion.com/signup?from=marketing&pathname=%2Fzh-cn%2Freleases%2F2025-05-13&tid=fc3f57d3dc8a4c1da7ff40451a171b78)[登录](https://www.notion.com/zh-cn/login?from=marketing&pathname=%2Fzh-cn%2Freleases%2F2025-05-13&tid=fc3f57d3dc8a4c1da7ff40451a171b78)
+
+[版本](https://www.notion.com/zh-cn/releases) / 2025年5月13日 2.51
+
+# Notion 2.51：AI 速记、企业搜索等
+
+### 使用 AI 速记，让我们为你记录会议
+
+全新区块 AI 速记能够完美捕捉和总结你的对话。如果你使用 Notion日历，可以将 AI 速记自动添加到每次会议中。[免费试用！](https://www.notion.so/?target=create_meeting_note)
+
+![Image 2: AI 速记](https://images.ctfassets.net/spoqsaf9291f/16utq4qAjrn9mrYiy5NRF8/12fdf31c003763a2d3b19a60eebf686e/Notion_AIFW_WhatsNew_AIMeetingNotes_1200x900_v002.gif)
+
+### 企业搜索，一搜全有
+
+全新的统一搜索体验，让你不再浪费时间在工作工具中寻找答案。企业搜索可在 Notion 和其他工具中快速查找答案和摘要（不仅仅是链接！）。
+
+![Image 3: 搜索](https://images.ctfassets.net/spoqsaf9291f/A4CFFNwAPg1WAih3oQQtk/3700e753e0e0701e9fbe916a4c867bbb/Notion_AIFW_WhatsNew_EnterpriseSearch_1200x900_v004.gif)
+
+### 搜索 _更多_ 工具…
+
+现在你搜索时，Notion AI 可以直接在 Microsoft（Teams、SharePoint、OneDrive）中进行搜索，Gmail 和 Linear 将在未来几周内推出，Zendesk、Salesforce 和 Box 也即将内测！这些新的连接器将加入现有的 Slack、Google Drive、GitHub 和 Jira 集成。你可以在新的商业版中使用。
+
+![Image 4: 更多](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5Dtr2kjPnIbJcdW98OAT2r%2Fa042a7023eef2d074c599cd2ac838183%2Fimage__76_.png&w=3840&q=75)
+
+### …甚至 PDF 文件！
+
+所有上传到 Notion 工作空间的 PDF 都将自动可搜索！无需再通过 PDF 手动解析所需信息，为你节省大量时间。
+
+![Image 5: PDF](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FNm6gmTlTArdgrwXwl72uo%2F1ab0993f8c65142ce9d4f9ce59461e65%2Fpdf__2_.png&w=3840&q=75)
+
+### 探究模式可在几分钟内起草详细文档
+
+探究模式可节省 _数天_ 的时间。通过分析你的所有信息源（工作空间和关联工具）_以及_ 网络，为你和你的团队起草详细、完善的文档。只需几分钟即可撰写项目更新、研究报告和最佳实践指南。你可以把它当作你的个人分析师！
+
+![Image 6: 探究](https://images.ctfassets.net/spoqsaf9291f/6zq9pLQcNMxlfoASkDpNjh/7cfe6f19e440486f76986cca77cb8720/Notion_AIFW_WhatsNew_Research_1200x900_v004.gif)
+
+### 欢迎来到你全新的 AI 主页
+
+简单轻松地向 Notion AI 提问、使用探究模式或构建自定义工作流程。只需前往侧边栏，然后点击“`主页`”选项卡即可。
+
+![Image 7: aihome](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2O3yTWHXfVphxYEpQ3Iq8y%2F2df97f87e536ab8bde5214ddeec4f198%2Fimage__77_.png&w=3840&q=75)
+
+### 与最新的 AI 模型对话
+
+无需在应用程序之间切换或单独订阅：你可以在 Notion 中与顶级模型聊天。这非常适合在不需要工作空间背景信息的情况下进行快速头脑风暴。更多模型即将推出！
+
+![Image 8: 对话](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4pyVR2OqMIEG2BHIfLJdfX%2Fbf7d5c3a8c3bf79e816319edce22ff79%2Fimage__78_.png&w=3840&q=75)
+
+### 全新方案，AI 一体化定价
+
+我们简化了 Notion 的定价方案。商业版和企业版现在包含可无限使用的 Notion AI（包括企业搜索、研究模式和 AI 会议笔记）。你可以用最优惠的价格获得所有最佳的 AI 工具。
+
+![Image 9: 方案](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5HxpoMlaWVkLtyBxdwKeAt%2Fa12f160dac353ff27f15049d763a6a98%2Fimage__79_.png&w=3840&q=75)
+
+### 升级内容多多！
+
+除了 _AI_，我们还推出了多项功能和体验优化更新。强大，而不失简洁！
+
+![Image 10: 升级](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5TLC74iNuwdA6rSkIwoksR%2F24200f4d99af2c9b995264ac598bb9d9%2F2.51.png&w=3840&q=75)
+
+### 顶级团队之选 Notion AI
+
+*   **OpenAI** 工程部： “曾经需要数小时调试的问题，现在只需要问问 Notion AI，几分钟就能解决。”→ [点击此处观看](https://www.notion.com/customers/openai) 
+*   **Ramp**（首席产品官）：“有了 Notion，Ramp 的每个人都拥有一个 AI 助手。” 
+*   **Harvey**（首席执行官）：“如果你真的想成为一支以 AI 为先的团队，那么 Notion AI 就是不二之选。” 
+*   **Planful**（GTM Enablement）：“Notion AI 就像我们团队中多了一名始终在线的顶尖人才，利用我们集体的专业知识帮助销售代表找到最佳答案。” 
+
+## 近期版本
+
+[所有版本→](https://www.notion.com/zh-cn/releases)
+
+[](https://www.notion.com/zh-cn/releases/2026-05-26)
+
+![Image 11: Merge cells in simple tables](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4EuTg3AlokPBWOqowgiSPV%2F7584171709029faac1bec5b323f9541d%2Fmerge_cells_release_note_cover.png&w=3840&q=75)
+
+2026年5月26日
+
+### Merge cells in simple tables
+
+[](https://www.notion.com/zh-cn/releases/2026-05-13)
+
+![Image 12: 3.5: Notion Developer Platform](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2Wt8WlPDbDEVmJTOLxEkVV%2F275bbf258e7ec0c680a4cfb54b1472f5%2F3_5_thumb.png&w=3840&q=75)
+
+2026年5月13日
+
+### 3.5: Notion Developer Platform
+
+[](https://www.notion.com/zh-cn/releases/2026-05-07)
+
+![Image 13: Plan Mode](https://www.notion.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6KD5C0F0A6o90Xm6pUbk1M%2F3e8e8cffac77b4b17544e92b45b83d56%2FPlan_mode_thumb_v4.png&w=3840&q=75)
+
+2026年5月7日
+
+### Plan Mode
+
+[](https://www.notion.com/zh-cn/product)
+
+*   [](https://www.instagram.com/notionhq/)
+*   [](https://twitter.com/NotionHQ)
+*   [](https://www.linkedin.com/company/notionhq/)
+*   [](https://www.facebook.com/NotionHQ/)
+*   [](https://www.youtube.com/channel/UCoSvlWS5XcwaSzIcbuJ-Ysg)
+
+简体中文
+
+*   [English (US) 英语（美国）](https://www.notion.com/en-US/releases/2025-05-13)
+*   [English (UK) 英语（英国）](https://www.notion.com/en-GB/releases/2025-05-13)
+*   [العربية 阿拉伯语](https://www.notion.com/ar/releases/2025-05-13)
+*   [Dansk 丹麦语](https://www.notion.com/da/releases/2025-05-13)
+*   [Deutsch 德语](https://www.notion.com/de/releases/2025-05-13)
+*   [Français (France) 法语（法国）](https://www.notion.com/fr/releases/2025-05-13)
+*   [繁體中文 繁体中文](https://www.notion.com/zh-TW/releases/2025-05-13)
+*   [Suomi 芬兰语](https://www.notion.com/fi/releases/2025-05-13)
+*   [한국어 韩语](https://www.notion.com/ko/releases/2025-05-13)
+*   [Nederlands 荷兰语](https://www.notion.com/nl/releases/2025-05-13)
+*   [简体中文 简体中文](https://www.notion.com/zh-CN/releases/2025-05-13)
+*   [Norsk 挪威语](https://www.notion.com/nb/releases/2025-05-13)
+*   [Português (Brasil) 葡萄牙语（巴西）](https://www.notion.com/pt/releases/2025-05-13)
+*   [日本語 日语](https://www.notion.com/ja/releases/2025-05-13)
+*   [Svenska 瑞典语](https://www.notion.com/sv/releases/2025-05-13)
+*   [ภาษาไทย 泰语](https://www.notion.com/th/releases/2025-05-13)
+*   [Español (Latinoamérica) 西班牙语（拉丁美洲）](https://www.notion.com/es/releases/2025-05-13)
+*   [Español (España) 西班牙语（西班牙）](https://www.notion.com/es-ES/releases/2025-05-13)
+*   [עברית 希伯来语](https://www.notion.com/he/releases/2025-05-13)
+*   [Italiano 意大利语](https://www.notion.com/it/releases/2025-05-13)
+*   [Bahasa Indonesia 印度尼西亚语](https://www.notion.com/id/releases/2025-05-13)
+*   [Tiếng Việt 越南语](https://www.notion.com/vi/releases/2025-05-13)
+
+请勿出售或分享我的个人信息 Cookie 设置
+
+© 2026 Notion Labs, Inc.
+
+*   公司
+*   [关于我们](https://www.notion.com/zh-cn/about)
+*   [工作机会](https://www.notion.com/zh-cn/careers)
+*   [安全](https://www.notion.com/zh-cn/security)
+*   [状态](https://www.notion-status.com/)
+*   [条款和隐私](https://www.notion.so/28ffdd083dc3473e9c2da6ec011b58ac)
+*   [你的隐私权](https://www.notion.com/trust/privacy-policy#california)
+
+*   下载
+*   [iOS & Android](https://www.notion.com/zh-cn/mobile)
+*   [Mac & Windows](https://www.notion.com/zh-cn/desktop)
+*   [邮箱](https://www.notion.com/zh-cn/product/mail/download)
+*   [日历](https://www.notion.com/zh-cn/product/calendar/download)
+*   [网页剪裁器](https://www.notion.com/zh-cn/web-clipper)
+
+*   资源
+*   [帮助中心](https://www.notion.com/zh-cn/help)
+*   [价格](https://www.notion.com/zh-cn/pricing)
+*   [博客](https://www.notion.com/zh-cn/blog)
+*   [社区](https://www.notion.com/community)
+*   [连接](https://www.notion.com/zh-cn/connections)
+*   [模板](https://www.notion.com/zh-cn/templates)
+*   [合作伙伴项目](https://www.notion.com/zh-cn/partners)
+
+*   Notion适用于
+*   [企业](https://www.notion.com/zh-cn/enterprise)
+*   [中小型团队](https://www.notion.com/zh-cn/teams)
+*   [个人](https://www.notion.com/zh-cn/personal)
+*   [探索更多→](https://www.notion.com/zh-cn/explore)
+
+![Image 14](https://t.co/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=39b2b807-b69c-4774-9327-a8d3caf50bdd&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=c41e589c-d539-4849-b0b6-42aad42bc524&pt=2025%E5%B9%B45%E6%9C%8813%E6%97%A5%20%E2%80%93%20Notion%202.51%EF%BC%9AAI%20%E9%80%9F%E8%AE%B0%E3%80%81%E4%BC%81%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%AD%89&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Freleases%2F2025-05-13&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779880651174.597287600803792069&txn_id=ofilm&type=javascript&version=2.3.53)![Image 15](https://analytics.twitter.com/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=39b2b807-b69c-4774-9327-a8d3caf50bdd&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=c41e589c-d539-4849-b0b6-42aad42bc524&pt=2025%E5%B9%B45%E6%9C%8813%E6%97%A5%20%E2%80%93%20Notion%202.51%EF%BC%9AAI%20%E9%80%9F%E8%AE%B0%E3%80%81%E4%BC%81%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%AD%89&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Freleases%2F2025-05-13&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779880651174.597287600803792069&txn_id=ofilm&type=javascript&version=2.3.53)![Image 16](https://verifi.pdscrb.com/tag?action=view&user_id=3488f428-90e1-7044-33f0-052cafff1a22&advertiser=notion&referrer=_&session_referrer=_&session_landing_url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Freleases%2F2025-05-13&device_id=pscrb_3e55b863-18bf-450d-dcdd-881a76bf59b4&first_visited_at=1779880651436&stid=&ipv4=34.34.253.199&url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Freleases%2F2025-05-13&event_url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Freleases%2F2025-05-13&source=js-tag+v1.1.0&cachebust=1779880651665)

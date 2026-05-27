@@ -1,0 +1,21 @@
+# 一直强调协作的石墨文档，这次想让你专心写作-品玩
+
+Title: 405
+
+URL Source: https://www.pingwest.com/a/196377
+
+Warning: Target URL returned error 405: Not Allowed
+Warning: This page maybe not yet fully loaded, consider explicitly specify a timeout.
+
+Markdown Content:
+# 405
+
+Sorry, your request has been blocked as it may cause potential threats to the server's security.
+
+Current URL: **https://www.pingwest.com/a/196377**
+
+Request Time: **2026-05-27 12:21:50**
+
+Your Request ID is: **2760776317798845103492158eef57**
+
+![Image 1](https://g.alicdn.com/sd-base/static/1.0.5/image/405.png)

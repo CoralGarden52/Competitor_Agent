@@ -1,0 +1,316 @@
+# 快速上手飞书集成平台
+
+# 快速上手飞书集成平台
+![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d3859633b9c64b969e91c8dec24c9a37~tplv-jbbdkfciu3-image:0:0.image)
+
+[![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/268ec674a56a4510889f7f5ca14f1ba1~tplv-jbbdkfciu3-image:0:0.image)](https://www.feishu.cn/)[帮助中心](https://www.feishu.cn/hc/zh-CN)
+
+新手入门
+
+使用飞书
+
+更多资源
+
+[智能助手](https://www.feishu.cn/hc/zh-CN/chat?referrer=/hc/zh-CN/articles/424209443897-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E9%A3%9E%E4%B9%A6%E9%9B%86%E6%88%90%E5%B9%B3%E5%8F%B0)
+
+帮助中心智能助手上线
+
+我能为你解答飞书使用的问题，快来问问我吧！
+
+[Video 1](https://sf3-scmcdn-cn.feishucdn.com/obj/tos-cn-v-826391/a98e49e90ff14c989f2fc3dd7006f9d4)
+
+00:00
+
+ 点击按住可拖动视频 
+
+我知道了
+
+[去试试](https://www.feishu.cn/hc/zh-CN/chat?from=guide_popup&referrer=/hc/zh-CN/articles/424209443897-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E9%A3%9E%E4%B9%A6%E9%9B%86%E6%88%90%E5%B9%B3%E5%8F%B0)
+
+[登录](https://login.feishu.cn/suite/passport/page/login/?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F424209443897-%25E5%25BF%25AB%25E9%2580%259F%25E4%25B8%258A%25E6%2589%258B%25E9%25A3%259E%25E4%25B9%25A6%25E9%259B%2586%25E6%2588%2590%25E5%25B9%25B3%25E5%258F%25B0)
+
+*   [飞书项目](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7101257884301901825) 
+    *   [快速了解飞书项目](https://www.feishu.cn/hc/zh-CN/articles/383808395295 "快速了解飞书项目")
+    *   [飞书项目核心功能](https://www.feishu.cn/hc/zh-CN/articles/810923508490 "飞书项目核心功能")
+
+*   [飞书开放平台](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572205293569) 
+    *   [飞书开放平台介绍](https://www.feishu.cn/hc/zh-CN/articles/950476906644 "飞书开放平台介绍")
+    *   [推荐用哪些浏览器访问开放平台？](https://www.feishu.cn/hc/zh-CN/articles/505592575838 "推荐用哪些浏览器访问开放平台？")
+
+*   [飞书集成平台](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7110097751471636482) 
+    *   [快速上手飞书集成平台](https://www.feishu.cn/hc/zh-CN/articles/424209443897 "快速上手飞书集成平台")
+
+*   [飞书 aPaaS](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7371019862384689155) 
+    *   [快速上手飞书 aPaaS](https://www.feishu.cn/hc/zh-CN/articles/500581248684 "快速上手飞书 aPaaS ")
+
+*   [集成方案](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960954795196776450) 
+    *   [在飞书中展示 HR 系统的请假记录](https://www.feishu.cn/hc/zh-CN/articles/289986864222 "在飞书中展示 HR 系统的请假记录")
+
+*   [迁移指南](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960954571975852034) 
+    *   [在飞书实现快速迁移、高效集成](https://www.feishu.cn/hc/zh-CN/articles/087437483313 "在飞书实现快速迁移、高效集成")
+
+[开发与集成](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6953829267746619394)
+
+[飞书集成平台](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7110097751471636482)
+
+快速上手飞书集成平台
+
+# 快速上手飞书集成平台
+
+本文阅读时长：9 分钟
+
+本功能适用[版本说明](https://www.feishu.cn/service)
+
+基础版
+
+免费
+
+商业版
+
+标准
+
+![Image 3](blob:http://localhost/73b0de5065169787da4d4270665471f2)
+
+专业
+
+![Image 4](blob:http://localhost/73b0de5065169787da4d4270665471f2)
+
+旗舰
+
+![Image 5](blob:http://localhost/73b0de5065169787da4d4270665471f2)
+
+企业版
+
+标准
+
+![Image 6](blob:http://localhost/73b0de5065169787da4d4270665471f2)
+
+专业
+
+![Image 7](blob:http://localhost/73b0de5065169787da4d4270665471f2)
+
+旗舰
+
+![Image 8](blob:http://localhost/73b0de5065169787da4d4270665471f2)
+
+如需咨询，请[联系客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D45)。
+
+​
+
+[Video 2](https://sf3-scmcdn-cn.feishucdn.com/obj/tos-cn-v-826391/oMNSENED2PfAbgzTNoj2mePELkF5B9CdH8BTtg)
+
+不支持的音频/视频格式 请试试 刷新
+
+播放
+
+00:00/00:00 直播
+
+00:00
+
+ 进入全屏 
+
+1x
+
+*   0.5x
+*   0.75x
+*   1x
+*   1.5x
+*   2x
+
+ 点击按住可拖动视频 
+
+​​
+
+一、简介 ​
+
+​
+
+🔖
+
+说明：本文仅包含“飞书集成平台”的概览信息，具体信息请参考[飞书集成平台帮助文档](https://anycross.feishu.cn/documentation/platform/overview)。​
+
+​
+
+在企业日常运营中，往往同时使用多套业务系统，如飞书、ERP、CRM、人力管理系统、BPM 等。但这些系统之间相互独立，功能割裂，数据孤岛现象严重，业务流程难以协同，效率难以提升。​
+
+[飞书集成平台](https://anycross.feishu.cn/)正是为了解决这一痛点而生。它帮助企业高效打通各类内部系统与第三方工具，实现信息无缝流动和业务流程自动化，大幅提升整体运营效率。不同版本的权益见下表：​
+
+​
+
+[版本说明](https://www.feishu.cn/service)​基础版​商业版​​​企业版​​​
+​免费​标准​专业​旗舰​标准​专业​旗舰​
+单点登录应用数量 ​不支持​不支持​20 个 ​无限制 ​20 个 ​无限制 ​无限制 ​
+自定义身份源配置 ​不支持​不支持​
+
+​不支持​
+
+​支持​不支持 ​支持​支持 ​
+自定义连接器​不支持 ​不支持 ​支持 ​支持​支持​支持​支持​
+工作流每月运行次数 ​不支持 ​500 次/月​50 万次/月 ​
+
+​200 万次/月 ​50 万次/月 ​
+
+​200 万次/月 ​200 万次/月 ​
+本地数据代理服务 ​不支持 ​不支持​支持​支持 ​
+
+​支持​支持 ​支持​
+
+​
+
+二、说明​
+
+业务集成：串联业务系统​
+
+借助飞书集成平台，你可以通过可视化的工作流设计、丰富的连接器以及海量模板，快速打通各类应用系统。​
+
+可视化工作流设计​
+
+无需编写代码，用户只需通过拖拉拽即可构建清晰的业务逻辑流程，同时支持复杂数据的提取、转换与处理，让业务流程自动化触手可及，具体信息请参考[集成平台工作流搭建](https://anycross.feishu.cn/documentation/platform/using-the-workflow-editor)。​
+
+​
+
+250px|700px|reset
+
+![Image 9](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/1317f3c8b19c4ed09a024024d86c5d14~tplv-jbbdkfciu3-image:0:0.image)​​
+
+丰富的连接器生态​
+
+内置 130+ 应用连接器，全面覆盖飞书生态应用以及主流三方系统的 API 接口，帮助企业快速实现系统间的数据互通与集成。​
+
+​
+
+250px|700px|reset
+
+![Image 10](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/dea866239f23422eb6ffac5e0c80bd03~tplv-jbbdkfciu3-image:0:0.image)​​
+
+海量模板资源，开箱即用​
+
+提供超过 260 套实用模板与集成方案，涵盖常见业务场景，助力企业快速搭建流程、缩短上线周期，降低使用门槛。​
+
+​
+
+250px|700px|reset
+
+![Image 11](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c1712ad06a2a413781bc1b07f3ade04c~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 12](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/e289f7ba44a64d28bbb6d04270d9ae49~tplv-jbbdkfciu3-image:0:0.image)​​
+
+身份集成：单次登录，处处通行​
+
+在企业日常运作中，员工往往需要频繁在多个业务系统之间切换，每个系统都有独立的账号密码，不仅使用繁琐，管理成本高，还存在较大的安全风险。为了解决这一问题，飞书集成平台提供了完善的身份集成能力，帮助企业打通身份体系，提升使用体验与信息安全性。​
+
+*   [自定义身份源](https://anycross.feishu.cn/documentation/platform/configure-idp#%E4%B8%80%E3%80%81%E5%8A%9F%E8%83%BD%E7%AE%80%E4%BB%8B)：对接企业统一身份系统​
+
+许多企业内部已搭建统一身份认证系统（Identity Provider，IdP），用于集中管理各业务系统的登录权限。飞书支持主流协议（如 SAML、OIDC）对接企业 IdP，企业可灵活选择登录方式，实现员工使用工号、邮箱或手机号等企业账号直接登录飞书，无需额外注册，大幅提升身份管理的一致性与安全性。​
+
+*   [单点登录](https://anycross.feishu.cn/documentation/platform/configure-sso)：一处登录，处处通行​
+
+通过集成飞书的应用单点登录（SSO）能力，员工在登录飞书后，无需再次输入账号密码即可访问所有接入的企业应用系统，真正实现“登录一次，畅通所有”。这不仅极大简化了登录流程，提升了使用效率，也有效降低了因多个账号密码带来的泄密与管理风险。​
+
+​
+
+250px|700px|reset
+
+![Image 13](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c939f0a84fa94437b6bbc58ea13d36e6~tplv-jbbdkfciu3-image:0:0.image)​​
+
+自建连接器与本地代理 ：自研系统和内网应用无缝上飞书​
+
+通过[自建连接器](https://anycross.feishu.cn/documentation/platform/connector-devkit-overview)，企业可以将自研系统的 API 封装为标准连接器，实现统一管理与复用。同时，封装后的连接器也可被 AI 等智能工具直接调用，推动业务流程的自动化与智能化升级。​
+
+许多企业级应用（如 OA 系统、数据库系统）通常采用内网部署，并通过防火墙与公网隔离，以确保数据的隐私性与安全性。​
+
+为满足这类“跨网络环境集成”的需求，飞书集成平台提供了[本地代理服务](https://anycross.feishu.cn/documentation/platform/on-prem-intro#%E4%B8%80%E3%80%81%E5%8A%9F%E8%83%BD%E7%AE%80%E4%BB%8B)模块。企业只需在内网中部署一台服务器并安装主机代理程序，即可在飞书集成平台与企业内网之间建立一条安全、稳定的通信通道，实现内外网系统的顺畅集成。​
+
+​
+
+250px|700px|reset
+
+![Image 14](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/236ffa1b5c734a9e88def45ab2a15cca~tplv-jbbdkfciu3-image:0:0.image)​​
+
+MCP 服务：让 AI 真正接入业务​
+
+MCP（Model Context Protocol）是一种通用标准协议，让不同的 AI 模型可以以相同标准、高效地调用各种各样的系统接口。​
+
+集成平台的 [MCP 服务](https://anycross.feishu.cn/mcp-server/list)可以将连接器、工作流配置为工具，AI 模型在调度集成平台 MCP 工具的时候，本质上是在调用一次连接器运行，或触发一次工作流运行。​
+
+​
+
+250px|700px|reset
+
+![Image 15](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/fbf0a7a45e4545a8bfd95db1ca9ccd59~tplv-jbbdkfciu3-image:0:0.image)​​
+
+三、了解更多​
+
+*   [飞书集成平台帮助中心](https://anycross.feishu.cn/documentation/platform/overview)​
+
+*   [飞书集成平台模板中心](https://anycross.feishu.cn/documentation/template/all)​
+
+*   [飞书集成平台解决方案中心](https://anycross.feishu.cn/solutions)​
+
+*   [飞行社：集成平台视频课](https://www.feishu.cn/community/course?id=7449268296478539780)​
+
+*   [飞书集成平台交流社群](https://go.feishu-pre.net/join-chat/b47r89c0-625d-4bfe-946b-24dea5dc3e78)​
+
+作者：飞书帮助中心
+
+最后更新于2025/07/21
+
+本文是否对你有帮助
+
+提交成功，感谢你的反馈！
+
+未能解决你的问题？请联系[在线客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)
+
+本篇目录
+
+1.   [一、简介 ​](javascript:;)
+2.   [二、说明​](javascript:;)
+3.   [业务集成：串联业务系统​](javascript:;)
+4.   [身份集成：单次登录，处处通行​](javascript:;)
+5.   [自建连接器与本地代理 ：自研系统和内网应用无缝上飞书​](javascript:;)
+6.   [MCP 服务：让 AI 真正接入业务​](javascript:;)
+7.   [三、了解更多​](javascript:;)
+
+1
+
+*   [飞书项目](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7101257884301901825) 
+    *   [快速了解飞书项目](https://www.feishu.cn/hc/zh-CN/articles/383808395295 "快速了解飞书项目")
+    *   [飞书项目核心功能](https://www.feishu.cn/hc/zh-CN/articles/810923508490 "飞书项目核心功能")
+
+*   [飞书开放平台](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474572205293569) 
+    *   [飞书开放平台介绍](https://www.feishu.cn/hc/zh-CN/articles/950476906644 "飞书开放平台介绍")
+    *   [推荐用哪些浏览器访问开放平台？](https://www.feishu.cn/hc/zh-CN/articles/505592575838 "推荐用哪些浏览器访问开放平台？")
+
+*   [飞书集成平台](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7110097751471636482) 
+    *   [快速上手飞书集成平台](https://www.feishu.cn/hc/zh-CN/articles/424209443897 "快速上手飞书集成平台")
+
+*   [飞书 aPaaS](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7371019862384689155) 
+    *   [快速上手飞书 aPaaS](https://www.feishu.cn/hc/zh-CN/articles/500581248684 "快速上手飞书 aPaaS ")
+
+*   [集成方案](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960954795196776450) 
+    *   [在飞书中展示 HR 系统的请假记录](https://www.feishu.cn/hc/zh-CN/articles/289986864222 "在飞书中展示 HR 系统的请假记录")
+
+*   [迁移指南](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6960954571975852034) 
+    *   [在飞书实现快速迁移、高效集成](https://www.feishu.cn/hc/zh-CN/articles/087437483313 "在飞书实现快速迁移、高效集成")
+
+简体中文
+
+English
+
+[![Image 16](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ec090d13c05142508f47228ec31aef55~tplv-jbbdkfciu3-image:0:0.image)](javascript:void(0);)[](https://weibo.com/u/7223713567)[](https://www.zhihu.com/org/fei-shu-27-96/activities)[](https://www.toutiao.com/c/user/3073831497904140/)[![Image 17: social](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d58453d89da34a179ac64a94d4c136f5~tplv-jbbdkfciu3-image:0:0.image)](https://web.okjike.com/u/b02229cb-9242-4a7f-9ec7-8a8cacb2142c)
+
+Copyright © 2024 北京飞书科技有限公司[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 18](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image) 京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+rangeDom
+
+购买咨询
+
+一对一专业企业顾问
+
+工作日 09:00 - 18:00 在线服务
+
+[预约顾问 免费获取专属服务 填写表单享功能配置等服务](https://www.feishu.cn/salessupport?from=helpcenter_hover)
+
+![Image 19](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=6b8e07f9-5fa6-4127-b68b-0ec2e4389a14&bo=1&sid=5002547054b311f1848d6be1f5128f55&vid=5002847054b311f18814f957966874b0&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E9%A3%9E%E4%B9%A6%E9%9B%86%E6%88%90%E5%B9%B3%E5%8F%B0&kw=%E9%9B%86%E6%88%90%E5%B9%B3%E5%8F%B0,anycross,%E9%9B%86%E6%88%90%E5%8F%B0%E6%98%AF%E4%BB%80%E4%B9%88&p=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F424209443897-%25E5%25BF%25AB%25E9%2580%259F%25E4%25B8%258A%25E6%2589%258B%25E9%25A3%259E%25E4%25B9%25A6%25E9%259B%2586%25E6%2588%2590%25E5%25B9%25B3%25E5%258F%25B0&r=&lt=5056&evt=pageLoad&sv=2&cdb=AQAQ&rn=761386)

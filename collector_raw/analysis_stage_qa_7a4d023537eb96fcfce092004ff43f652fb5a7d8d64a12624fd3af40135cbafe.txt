@@ -1,0 +1,170 @@
+# 飞书CLI开源首月星标破万：100+新能力清单，工作场景全覆盖 - Lark
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/eff71c9398c04ebd8452d748646fc1e8.png~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/64ca2fdf9b7449d2b785d9b166b97c52.png~tplv-jbbdkfciu3-png:0:0.png)
+![]()
+![]()
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c573590de32d4c50b0ab0751c18c6f9e.png~tplv-jbbdkfciu3-png:0:0.png)
+![]()
+![]()
+![]()
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/dc6c3a7d133b4fcbb39d6397de6b833a~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/66d86be0453146ebae1c45aa9042b51a.png~tplv-jbbdkfciu3-png:0:0.png)
+
+# 飞书CLI开源首月星标破万：100+新能力清单，工作场景全覆盖
+
+2026-5-13
+
+阅读时间：4分钟
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/71e32cea51b443e99971a12a981ba819.png~tplv-jbbdkfciu3-png:0:0.png)
+
+|  |  |
+| --- | --- |
+| 能力分类​ | 具体支持​ |
+| 消息发送​ | 文字、图片、文件、录音、视频；生成消息链接一键跳转原文​ |
+| 群管理​ | 建群（群主直接是你）、拉人进群、踢人出群、改群名群描述​ |
+| 消息互动​ | 给消息加表情回复；批量获取消息详情（一次拉几十条）​ |
+| 消息监听​ | 实时监听新消息，有人发消息立刻响应，不用轮询​ |
+
+|  |  |
+| --- | --- |
+| 能力分类​ | 具体支持​ |
+| 云文档​ | 起草修改、Markdown转格式、按章节/关键词精准编辑、截图直接粘贴、文件插入任意位置、自动授权​ |
+| PPT​ | 42套官方模板、精确修改单个元素、本地图片直接插入​ |
+| 电子表格​ | 单元格读写、增删行列、合并拆分、查找替换、样式设置、下拉选项批量管理​ |
+| 多维表格​ | 批量写入更新、导出备份、生成表单、管理自动化流程、Markdown格式输出​ |
+| 画板​ | 生成可编辑架构图/流程图、导出为图片或Mermaid/PlantUML代码​ |
+
+|  |  |
+| --- | --- |
+| 能力分类​ | 具体支持​ |
+| 妙记处理​ | 读取逐字稿提取决策和待办、汇总所有纪要生成周报、任意音视频转妙记、提取总结/待办/章节、下载音视频​ |
+| 日历管理​ | 查询参会者日历推荐时段、建会议、改日程（标题/时间/描述/参会人）、搜索空会议室、生成日程分享链接​ |
+
+|  |  |
+| --- | --- |
+| 能力分类​ | 具体支持​ |
+| 邮件​ | 扫描分类摘要、起草回复、引用本地图片、请求已读回执、定时发送、24小时撤回、个性化签名、别名身份发送、管理收信规则、实时监听新邮件​ |
+| 审批​ | 查询、同意、拒绝、转交、撤回、抄送；催办未处理审批、加签、退回​ |
+| 任务​ | 自动识别待办建任务、设置父子关系和分组、订阅变更、上传附件​ |
+| OKR​ | 读取管理OKR、更新进展记录​ |
+| 考勤​ | 查询迟到/缺卡/加班记录​ |
+
+|  |  |
+| --- | --- |
+| 搜索对象​ | 筛选条件​ |
+| 聊天记录​ | 关键词、发件人、时间范围、@对象​ |
+| 云文档​ | 「我创建的/我编辑的/我浏览的/我评论的」、关键词、编辑时间、创建人​ |
+| 会议录制​ | 关键词、参与人、时间​ |
+| 邮件​ | 翻页浏览摘要列表​ |
+| 通讯录​ | 姓名、邮箱、「聊过天的人」、外部联系人等标签​ |
+
+|  |  |
+| --- | --- |
+| 能力​ | 说明​ |
+| Agent @ Agent​ | 多个专业Agent分工接力，协作过程对人可见​ |
+| Bot身份识别​ | Agent能识别群里其他Bot的身份和名字，支持多Agent调度​ |
+
+|  |  |
+| --- | --- |
+| 能力分类​ | 具体支持​ |
+| 文件管理​ | 上传下载（超20MB自动分片）、自动识别扩展名、导入导出和格式转换、批量统一文件名、创建快捷方式​ |
+| 同步与整理​ | 本地文件夹和云空间双向同步（push/pull/status）、一键清理废弃文件​ |
+| 知识库​ | 创建整理节点、批量添加移除成员、创建后自动授权​ |
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/8787fc8ab21c4522b40fe72f59098414.png~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/541c0692624a4ba1a9aff1726a80857e.png~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/68c67ca8d3d9404ea3d077c0b07afdfd.png~tplv-jbbdkfciu3-png:0:0.png)
+
+字节跳动旗下 AI 工作平台
+
+关联文章推荐
+
+优质内容，精华实践
+
+飞书知识问答
+
+飞书智能会议纪要
+
+飞书多维表格
+
+飞书 aily
+
+飞书妙搭
+
+最懂企业知识 AI 有问必答
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/659c7c85aa214b9ca1f247d0b983098a.png~tplv-jbbdkfciu3-png:0:0.png)
+
+🔍
+
+如何有效管理每日任务？
+
+💰
+
+五险一金的缴纳标准是什么?
+
+🔥
+
+飞书知识问答是什么？
+
+💻
+
+如何用AI提高我的工作效率？
+
+✍🏻
+
+怎样高效整理工作笔记？
+
+## 先进团队，先用飞书
+
+飞书产品
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b239a42da6ad40639f4776ff177ea099.png~tplv-jbbdkfciu3-png:0:0.png)
+
+解决方案
+
+定价
+
+探索飞书
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/4af13479d9a24627a9e704bf552694ec~tplv-jbbdkfciu3-png:0:0.png)
+
+合作与支持
+
+法律与合规
+
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/23bf12cd5f9a41cabfc9e0bd6aab952a~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/e0559a31d508475ebde9cabd69bd998a~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/1be78938fdc841ad8c328972f3c98979~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/0eb79e8dbcb5438fb404fd443abedb32~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b5c4da0e582546d8ab884277fd89968a~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/18df0239e059412985b3fbe01a2345c4~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/35a534f82f7a451bb36d6a5eec2f0ba1~tplv-jbbdkfciu3-png:0:0.png)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image)
+![](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/68c67ca8d3d9404ea3d077c0b07afdfd.png~tplv-jbbdkfciu3-png:0:0.png)
+
+字节跳动旗下 AI 工作平台
+
+一对一专业企业顾问
+
+工作日 8:00 - 19:00 在线服务
+
+购买飞书
+
+400-0682-666
+
+工作日 9:00-19:00 在线
+
+使用咨询
+
+实时解答使用问题
+
+工作日 8:00 - 19:00 在线服务
+
+电话联系
+
+400-0682-666
+
+工作日 9:00-19:00 在线

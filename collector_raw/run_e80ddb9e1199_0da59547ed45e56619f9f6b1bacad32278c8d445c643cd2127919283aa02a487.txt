@@ -1,0 +1,267 @@
+# 想聊一下WPS与Office兼容性的经验 - 超理论坛
+
+Title: 想聊一下WPS与Office兼容性的经验 - 超理论坛
+
+URL Source: https://chaoli.club/index.php/6922
+
+Markdown Content:
+# 想聊一下WPS与Office兼容性的经验 - 超理论坛
+
+# [超理论坛](https://chaoli.club/index.php/)
+
+*   [注册](https://chaoli.club/index.php/user/join?return=6922)
+*   [登录](https://chaoli.club/index.php/user/login?return=6922)
+*   [发表帖子](https://chaoli.club/index.php/conversation/start)
+
+[只看楼主](https://chaoli.club/index.php/6922?see_lz=1)[回复](https://chaoli.club/index.php/user/login?return=6922/#reply)
+*   [一楼](https://chaoli.club/index.php/6922/0)
+*   [2021](https://chaoli.club/index.php/6922/2021/1)
+    *   [十一月](https://chaoli.club/index.php/6922/2021/11)
+    *   [十二月](https://chaoli.club/index.php/6922/2021/12)
+
+*   [最新](https://chaoli.club/index.php/6922/last)
+
+# 想聊一下WPS与Office兼容性的经验
+
+*       1.   [技术](https://chaoli.club/index.php/conversations/tech "有问题为什么不先问问神奇海螺呢？")
+
+1.   4年前 [![Image 1](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+1楼 [2021年11月16日](https://chaoli.club/index.php/conversation/post/66015 "2021-11-16 20:18:49")   本人在办公室从事文字处理工作2年，高强度使用WPS，也带着用office，我简单梳理一下我这两年遇到的兼容性问题。
+
+超理吧有很多人是有数学公式输入求的，这个我不深入研究了，我主要还是探讨一下正常的文档办公场景。
+
+1.有人吐槽WPS写文章，插入的图片用Word打开，排版会发生变化，所以尽量用Word写。
+
+我讲一下我的经验，一般来说，插入的图片用默认的格式，不去改版式，两边正常兼容，不兼容的情形主要是采用了浮动版式，这样一来，图片的“相对位置”就没有办法固定了。有什么绝佳的兼容方法呢？插入一个表格，然后图片放在表格里 ，这样图片的相对位置就固定了。
+
+2.Word中的邮件合并功能可以直接读Excel的xls文档作为数据库，但WPS得用WPS的格式et作为数据库，两者不兼容。
+
+3.在Excel中，如果使用超规格的字号（72号为界限），超过72号的字体继续放大，在WPS中是无法识别的，仅仅能识别72号。反之亦然。 在Excel中用这么大的字有什么用呢？打姓名牌用的。这个比Word好用一些。这个超规格内容在Word中也有体现，我设置页边距为0.5，然后让图片尽量在Word中展开，这样的“极限”类型的文档两边显示不一致。
+
+4.在Excel中的缩放打印，和WPS也是不兼容的。
+
+5.超10万行的表格不兼容。这个10万行是我的经验结论，不是绝对分界线。正常我处理的是6万行数据，两边正常兼容。但是后来处理了30万行数据时，差异就来了。一个csv格式的表格，Excel可以慢慢读出来，但是WPS直接卡壳，实在是都不出来。但是，Excel读出来后，另存为一份xlsx文件后，WPS就可以读了。但反转又来了，如果WPS此时编辑过，Excel也读不出来，变成WPS独享的表格了。
+
+总的来说，文档处理中，不兼容的场景主要是一些很极限的场景，比如100m大小的xlsx文档，满是图片但又自由移动的图片docx文档。
+
+最后再讲一下我使用哪些功能。
+
+Excel表格方面，函数主要是正常的加减乘除，vlookup，mid，mod，if，iferror，countifs，sum，avg，concentrate，&，text，datedif，len，left，right，主要是一些逻辑、文本、日期时间、查找引用类函数。
+
+Word中主要是用字体、段落、编号、页边距、分页、页眉页脚、修订、比较、文章结构图等功能。文字编辑上，WPS比office要更适合中国人办公习惯，office的编号让我非常痛苦，写论文的那种1.\1.1\1.1.1，还有缩进问题。用一、（一）、1. （1）这种在Word上实在是麻烦，改设置教程也不清晰，我摸索了很久才弄明白。
+
+最后来一组自问自答
+
+问：为什么用WPS？
+
+答：因为office的自动保存功能需要联网，断网下自动保存一塌糊涂。WPS可以在断网下进行自动保存。
+
+问：你遇到过WPS闪退问题吗？
+
+答：除非是打开超大的xlsx表格，其他情况并没有明显遇到过。我自认为可能跟内存大小有关系，小内存电脑卡的时候会清退软件。
+
+问：你怎么看WPS有广告，office没有广告？
+
+答：如果都不花钱，没有广告的office除了学生版本，那自然是破解版本，同理，你也可以装破解WPS。如果是正版，那WPS花钱开会员也没有广告。当然，office有合购方法，折合价格比WPS便宜。     
+2.   [![Image 2](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+2楼 [2021年11月16日](https://chaoli.club/index.php/conversation/post/66016 "2021-11-16 20:45:27")   在打印一些特殊长度的长方形进行裁剪时，WPS比Word好用不少。这里我遇到的情况是打印一些插入固定框的纸张，比如每周工作进度，需要控制文本内容大小，打印出来的结果要和框对得上。亦或是打印材料盒子的封面、侧面插纸。
+
+补充说明一下，WPS可以显示厘米这个单位，Excel行高我印象里只有磅，不能调，Word里面默认也是磅，但是可以删除自己输入厘米。
+
+补充的第二个知识点，WPS输入XX厘米行高，列宽时候，打印出来的结果，有上限。
+
+行高我印象里是409磅，合并单元格没有办法解决问题，但不合并，中间横线不显示可以解决。
+
+列宽方面，也是有单个列宽上限，我忘记多少了，但是可以合并单元格解决。
+
+补充的第三个知识点，虽然输入的是厘米，实际打印出来会小个几毫米，要自己再表格上根据经验拉一下。     
+3.   [![Image 3](https://chaoli.club/uploads/avatars/avatar_2832.1426476054.jpg)](https://chaoli.club/index.php/member/2832) ### [幻の上帝](https://chaoli.club/index.php/member/2832 "查看 幻の上帝 的个人资料")
+
+3楼 [2021年11月29日](https://chaoli.club/index.php/conversation/post/66137 "2021-11-29 15:17:13")   热知识：WPS Office 也是 Office （正论
+
+单说 WPS 总是习惯性当作 WPS 97/2000 或者更早的 DOS 版本……     
+4.   
+[![Image 4](https://chaoli.club/uploads/avatars/avatar_2832.1426476054.jpg)](https://chaoli.club/index.php/member/2832) 
+
+### [幻の上帝](https://chaoli.club/index.php/member/2832 "查看 幻の上帝 的个人资料")
+
+4楼 [2021年11月29日](https://chaoli.club/index.php/conversation/post/66138 "2021-11-29 15:44:44") 4年前 由 [幻の上帝](https://chaoli.club/index.php/member/2832) 重新编辑  
+
+几点感想：
+
+    1.   MS Word 前几年不时遇到几个很头疼的问题：模板坏掉，整个文档列表项缩进很多地方变黑块。WPS 文字没遇到过类似的问题。（也许就是这几年都用得少了）。
+    2.   1202 了，Excel 能打开同名工作簿了吗（
+    3.   XLSX 之类的互操作问题可以算 ISO/IEC 29500 的符合性问题，不只是具体实现之间不兼容。
+    4.   至于 CSV 辣么简单的格式都能卡就是实现叒鸡。
+    5.   WPS 原生文档基于微软过气格式 Composite Document File V2 ，倒是 MS Office 现在都不认了……
+    6.   应用闪退那就是 bug 。真要挂了，也得通知用户在界面上好歹留个尸体。要是操作系统闷声不响杀进程，那是系统 bug ，至少有用户界面的前台应用就不应该突然挂掉，干掉也同样应该要告诉用户挂了。
+
+对 Windows 来说，整个系统不存在内存不足闪退问题，因为内存真不足整个 Win32 界面首先会出毛病，GDI 抽风原生控件没字，注销都救不了的那种。
+
+Linux 内核 OOM 倒是可能随机乱杀进程，但那时候基本 DE/WM 也挂得差不多了。
+
+搞笑的是 MS Office 的几个应用（另外还有 Visual Studio ）我都遇过“内存不足”的报错弹框（对话框里面就一个“内存不足。”，然后一个确认键，什么上下文信息都没有），然后可能还会有可视的界面异常（某些地方缺字）以及无法撤销编辑无法保存等，但实际上系统内存多得很（也不是进程地址空间的问题）。如果是内存碎片太多导致分配失败那是实现辣鸡，而且也不应该报这样的错；这种乱报错也明显是 bug 。估计不是对象池实现辣鸡就是八成是哪的 COM 调用抽风了。
+
+5.   [![Image 5](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+5楼 [2021年12月1日](https://chaoli.club/index.php/conversation/post/66170 "2021-12-01 20:00:42")   > [](https://chaoli.club/index.php/conversation/post/66138)[@幻の上帝](https://chaoli.club/index.php/member/name/%E5%B9%BB%E3%81%AE%E4%B8%8A%E5%B8%9D) 除非是打开超大的xlsx表格，其他情况并没有明显遇到过。我自认为可能跟内存大小有关系，小内存电脑卡的时候会清退软件。
+
+闪退是，表格闪退连累文字闪退。那会是用wps打开30万行的大表格卡死了， 一并工作的文字也关了     
+6.   [![Image 6](https://chaoli.club/uploads/avatars/avatar_2832.1426476054.jpg)](https://chaoli.club/index.php/member/2832) ### [幻の上帝](https://chaoli.club/index.php/member/2832 "查看 幻の上帝 的个人资料")
+
+6楼 [2021年12月4日](https://chaoli.club/index.php/conversation/post/66205 "2021-12-04 10:15:32")   > [](https://chaoli.club/index.php/conversation/post/66170)[@风见野](https://chaoli.club/index.php/member/name/%E9%A3%8E%E8%A7%81%E9%87%8E) 闪退是，表格闪退连累文字闪退。那会是用wps打开30万行的大表格卡死了， 一并工作的文字也关了
+
+那看来更加是 bug 了，有莫名其妙的后台 IPC 。     
+7.   [![Image 7](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+7楼 [2021年12月19日](https://chaoli.club/index.php/conversation/post/66326 "2021-12-19 00:10:33")   > [](https://chaoli.club/index.php/conversation/post/66205)[@幻の上帝](https://chaoli.club/index.php/member/name/%E5%B9%BB%E3%81%AE%E4%B8%8A%E5%B8%9D) 那看来更加是 bug 了，有莫名其妙的后台 IPC 。
+
+> [](https://chaoli.club/index.php/conversation/post/66205)[@幻の上帝](https://chaoli.club/index.php/member/name/%E5%B9%BB%E3%81%AE%E4%B8%8A%E5%B8%9D) 那看来更加是 bug 了，有莫名其妙的后台 IPC 。
+
+意外得知，Windows上的WPS是32位的，这样就打不开4G大型文档了。office应该是64位的     
+8.   [![Image 8](https://chaoli.club/uploads/avatars/avatar_8713.2020-02-03T0947.jpg)](https://chaoli.club/index.php/member/8713) ### [Tridu33](https://chaoli.club/index.php/member/8713 "查看 Tridu33 的个人资料")
+
+8楼 [2021年12月21日](https://chaoli.club/index.php/conversation/post/66342 "2021-12-21 11:27:47")   wps要怎么编辑word下输入的latex格式的公式?我实验室电脑没有正版word,用wps无法复制公式的latex文本，而word直接可以公式转变为latex格式文本     
+9.   [![Image 9](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+9楼 [2021年12月22日](https://chaoli.club/index.php/conversation/post/66363 "2021-12-22 23:02:13")   > [](https://chaoli.club/index.php/conversation/post/66342)[@Tridu33](https://chaoli.club/index.php/member/name/Tridu33) wps要怎么编辑word下输入的latex格式的公式?我实验室电脑没有正版word,用wps无法复制公式的latex文本，而word直接可以公式转变为latex格式文本
+
+/:( 我前面也讲了，我写的心得体会主要是办公文档处理，需要写公式的wps对latex就没有进行有效兼容     
+10.   [![Image 10](https://chaoli.club/uploads/avatars/avatar_103.1443883736.jpg)](https://chaoli.club/index.php/member/103) ### [laserdog](https://chaoli.club/index.php/member/103 "查看 laserdog 的个人资料")
+
+10楼 [2021年12月23日](https://chaoli.club/index.php/conversation/post/66364 "2021-12-23 00:37:57")物理版主 4年前 由 [laserdog](https://chaoli.club/index.php/member/103) 重新编辑  我能问一下这么大量的非学术（无公式）文档的应用场景是？     
+11.   [![Image 11](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+11楼 [2021年12月23日](https://chaoli.club/index.php/conversation/post/66375 "2021-12-23 20:36:21") 4年前 由 [风见野](https://chaoli.club/index.php/member/8199) 重新编辑  > [](https://chaoli.club/index.php/conversation/post/66364)[@laserdog](https://chaoli.club/index.php/member/name/laserdog) 我能问一下这么大量的非学术（无公式）文档的应用场景是？
+
+公文写作、草拟通知，转发通知等文字+图片应用。
+
+填报表，把Excel当word进行文字输入再打印。
+
+职务之便可以统计全市数据，用Excel进行一些简单的分析。文本量再大下去我感觉我就没办法了。     
+12.   [![Image 12](https://chaoli.club/uploads/avatars/avatar_11108.2021-11-04T0328.jpg)](https://chaoli.club/index.php/member/11108) ### [Arink](https://chaoli.club/index.php/member/11108 "查看 Arink 的个人资料")
+
+12楼 [2021年12月26日](https://chaoli.club/index.php/conversation/post/66403 "2021-12-26 08:39:15")   MS Office 可以通过 [E5 开发者](https://developer.microsoft.com/zh-cn/microsoft-365/dev-program) 正版~~白嫖~~，Office 365 全套全家桶含 Onedrive 5TB 免费空间，~~通过 [E5 自动续订程序](https://e5.qyi.io/) 持续白嫖~~
+
+不过还是要提醒一下，这是一种对 E5 许可证的滥用行为，可能会被微软随时收回许可证，生产环境等稳定性要求高的环境还是别用了。
+
+另外的，个人感觉 `Ctrl + S` 在编辑文稿 / 代码，基本上都是本能了，个人感觉影响不大。
+
+比起满是广告和推销加载慢累赘多的毒瘤 WPS，选择使用 MS Office 甚至是用 Mac 办公套件都比 WPS 要好的多的多的多。
+
+并且个人感觉 Office 自动保存的功能并不鸡肋，主要是 MS 为了推销他家的 Onedrive，Office 中自动保存 `AutoSave` 是需要联网和同步的，但是其实普遍认知中的 自动保存 名字是 `AutoRecover`，仍然会按照设定的时间间隔自动在本地离线保存副本。 Abstractness is the price of generality. Blog: sdl.moe    
+13.   [![Image 13](https://chaoli.club/uploads/avatars/avatar_8199.2019-03-08T2140.png)](https://chaoli.club/index.php/member/8199) ### [风见野](https://chaoli.club/index.php/member/8199 "查看 风见野 的个人资料")
+
+13楼 [2021年12月26日](https://chaoli.club/index.php/conversation/post/66411 "2021-12-26 17:26:25") 4年前 由 [风见野](https://chaoli.club/index.php/member/8199) 重新编辑  > [](https://chaoli.club/index.php/conversation/post/66403)[@Arink](https://chaoli.club/index.php/member/name/Arink) MS Office 可以通过 [E5 开发者](https://developer.microsoft.com/zh-cn/microsoft-365/dev-program) 正版~~白嫖~~，Office 365 全套全家桶含 Onedrive 5TB 免费空间，~~通过 [E5 自动续订程序](https://e5.qyi.io/) 持续白嫖~~
+> 
+> 不过还是要提醒一下，这是一种对 E5 许可证的滥用行为，可能会被微软随时收回许可证，生产环境等稳定性要求高的环境还是别用了。
+> 
+> 
+> 另外的，个人感觉 `Ctrl + S` 在编辑文稿 / 代码，基本上都是本能了，个人感觉影响不大。
+> 
+> 比起满是广告和推销加载慢累赘多的毒瘤 WPS，选择使用 MS Office 甚至是用 Mac 办公套件都比 WPS 要好的多的多的多。
+> 
+> 并且个人感觉 Office 自动保存的功能并不鸡肋，主要是 MS 为了推销他家的 Onedrive，Office 中自动保存 `AutoSave` 是需要联网和同步的，但是其实普遍认知中的 自动保存 名字是 `AutoRecover`，仍然会按照设定的时间间隔自动在本地离线保存副本。
+
+那我简单解释一下，你可能对WPS有一些固有偏见。既然office可以用盗版，那WPS为什么不用企业破解版呢，特别是政府版本，直接安装就行，功能全，根本无广告和推销，保留云服务（不过不开会员体积有限），像我这样的轻量文档编辑，软件打开速度还快（当然，如果xls表格太复杂，体积极大，wps确实无能为力）
+
+AutoRecover我有空再研究一下，我平时上班工作的是内网     
+14.   [![Image 14](https://chaoli.club/uploads/avatars/avatar_8371.2020-03-30T0912.jpg)](https://chaoli.club/index.php/member/8371) ### [Microraptor](https://chaoli.club/index.php/member/8371 "查看 Microraptor 的个人资料")
+
+14楼 [2021年12月26日](https://chaoli.club/index.php/conversation/post/66414 "2021-12-26 21:34:06")   wps的linux版本倒是没有广告和后台，也不要钱。算是linux下为数不多我比较喜欢的非开源软件，使用体验远好于LibreOffice和FreeOffice这几个。
+
+有些时候不得不用office三件套的时候就打开wps, 还是能碰到不少兼容问题的（调一调也能用，但是格式总有点小问题，每次都要手动调）。（linux版本甚至都还没有完全兼容windows上wps的功能和格式，很多功能还没迁移到linux上去）最近更新的wps是重构了的，好多老的功能而没了（比如pdf的一些功能）。至于输入公式，我一般不在wps或者word里面干这种事，wps的数学公式极其难用对我也没啥影响。
+
+只有实在不想调兼容格式的时候才会用wine跑一个word临时用一下。
+
+不过我大多数时候都在用markdown写文档，偶尔用latex对付一下期刊论文这些。
+
+我觉得大多数的文档可以考虑直接换成类似markdown这种语法和功能非常简陋的格式，这样也不用累死累活去兼容，能看到段落和内容就够了。浪费太多时间在格式和兼容上面很没意思。 十年粉蠹生画梁    
+15.   [![Image 15](https://chaoli.club/uploads/avatars/avatar_11108.2021-11-04T0328.jpg)](https://chaoli.club/index.php/member/11108) ### [Arink](https://chaoli.club/index.php/member/11108 "查看 Arink 的个人资料")
+
+15楼 [2021年12月27日](https://chaoli.club/index.php/conversation/post/66415 "2021-12-27 00:55:15")   > [](https://chaoli.club/index.php/conversation/post/66411)[@风见野](https://chaoli.club/index.php/member/name/%E9%A3%8E%E8%A7%81%E9%87%8E) 那我简单解释一下，你可能对WPS有一些固有偏见。既然office可以用盗版，那WPS为什么不用企业破解版呢，特别是政府版本，直接安装就行，功能全，根本无广告和推销，保留云服务（不过不开会员体积有限），像我这样的轻量文档编辑，软件打开速度还快（当然，如果xls表格太复杂，体积极大，wps确实无能为力）
+> 
+> 
+> AutoRecover我有空再研究一下，我平时上班工作的是内网
+
+Office 是官方白嫖的一种方式，不属于盗版，我也不在政务工作，最常使用的是 Mac。 Abstractness is the price of generality. Blog: sdl.moe    
+
+[登录](https://chaoli.club/index.php/user/login?return=6922)后才能发言
+
+*   友情链接：[MathJax](https://www.mathjax.org/)｜[小时百科](https://wuli.wiki/)
+*   Powered by [esoTalk](https://github.com/esotalk/esoTalk)
+*   欢迎新用户：[LLCMZ-](https://chaoli.club/index.php/member/16664)
+
+*   [](javascript:StyleSwitcher.change())
+*   [](https://chaoli.club/index.php/6922#)
+
+*   [default](https://chaoli.club/index.php/6922)
+*   [asnowwolf](https://chaoli.club/index.php/6922)
+*   [asnowwolf2](https://chaoli.club/index.php/6922)
+
+*   [](javascript:EmoticonAdv.insertSmiley('/:)') "/:)")
+*   [](javascript:EmoticonAdv.insertSmiley('/:D') "/:D")
+*   [](javascript:EmoticonAdv.insertSmiley('/^b^') "/^b^")
+*   [](javascript:EmoticonAdv.insertSmiley('/o.o') "/o.o")
+*   [](javascript:EmoticonAdv.insertSmiley('/xx') "/xx")
+*   [](javascript:EmoticonAdv.insertSmiley('/#') "/#")
+*   [](javascript:EmoticonAdv.insertSmiley('/))') "/))")
+*   [](javascript:EmoticonAdv.insertSmiley('/--') "/--")
+*   [](javascript:EmoticonAdv.insertSmiley('/TT') "/TT")
+*   [](javascript:EmoticonAdv.insertSmiley('/==') "/==")
+*   [](javascript:EmoticonAdv.insertSmiley('/.**') "/.**")
+*   [](javascript:EmoticonAdv.insertSmiley('/:(') "/:(")
+*   [](javascript:EmoticonAdv.insertSmiley('/vv') "/vv")
+*   [](javascript:EmoticonAdv.insertSmiley('/$$') "/$$")
+*   [](javascript:EmoticonAdv.insertSmiley('/??') "/??")
+*   [](javascript:EmoticonAdv.insertSmiley('/:/') "/:/")
+*   [](javascript:EmoticonAdv.insertSmiley('/xo') "/xo")
+*   [](javascript:EmoticonAdv.insertSmiley('/o0') "/o0")
+*   [](javascript:EmoticonAdv.insertSmiley('/><') "/><")
+*   [](javascript:EmoticonAdv.insertSmiley('/love') "/love")
+*   [](javascript:EmoticonAdv.insertSmiley('/...') "/...")
+*   [](javascript:EmoticonAdv.insertSmiley('/XD') "/XD")
+*   [](javascript:EmoticonAdv.insertSmiley('/ii') "/ii")
+*   [](javascript:EmoticonAdv.insertSmiley('/^^') "/^^")
+*   [](javascript:EmoticonAdv.insertSmiley('/<<') "/<<")
+*   [](javascript:EmoticonAdv.insertSmiley('/>.') "/>.")
+*   [](javascript:EmoticonAdv.insertSmiley('/-_-') "/-_-")
+*   [](javascript:EmoticonAdv.insertSmiley('/0o0') "/0o0")
+*   [](javascript:EmoticonAdv.insertSmiley('/zz') "/zz")
+*   [](javascript:EmoticonAdv.insertSmiley('/O!O') "/O!O")
+*   [](javascript:EmoticonAdv.insertSmiley('/##') "/##")
+*   [](javascript:EmoticonAdv.insertSmiley('/:O') "/:O")
+*   [](javascript:EmoticonAdv.insertSmiley('/<') "/<")
+*   [](javascript:EmoticonAdv.insertSmiley('/heart') "/heart")
+*   [](javascript:EmoticonAdv.insertSmiley('/break') "/break")
+*   [](javascript:EmoticonAdv.insertSmiley('/rose') "/rose")
+*   [](javascript:EmoticonAdv.insertSmiley('/gift') "/gift")
+*   [](javascript:EmoticonAdv.insertSmiley('/bow') "/bow")
+*   [](javascript:EmoticonAdv.insertSmiley('/moon') "/moon")
+*   [](javascript:EmoticonAdv.insertSmiley('/sun') "/sun")
+*   [](javascript:EmoticonAdv.insertSmiley('/coin') "/coin")
+*   [](javascript:EmoticonAdv.insertSmiley('/bulb') "/bulb")
+*   [](javascript:EmoticonAdv.insertSmiley('/tea') "/tea")
+*   [](javascript:EmoticonAdv.insertSmiley('/cake') "/cake")
+*   [](javascript:EmoticonAdv.insertSmiley('/music') "/music")
+*   [](javascript:EmoticonAdv.insertSmiley('/rock') "/rock")
+*   [](javascript:EmoticonAdv.insertSmiley('/v') "/v")
+*   [](javascript:EmoticonAdv.insertSmiley('/good') "/good")
+*   [](javascript:EmoticonAdv.insertSmiley('/bad') "/bad")
+*   [](javascript:EmoticonAdv.insertSmiley('/ok') "/ok")
+
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf-laugh') "/asnowwolf-laugh")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf-worry') "/asnowwolf-worry")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf-shock') "/asnowwolf-shock")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf-amused') "/asnowwolf-amused")
+
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-poker-face') "/asnowwolf2-poker-face")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-smile') "/asnowwolf2-smile")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-angry') "/asnowwolf2-angry")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-shy') "/asnowwolf2-shy")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-amused') "/asnowwolf2-amused")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-hurry') "/asnowwolf2-hurry")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-shock') "/asnowwolf2-shock")
+*   [](javascript:EmoticonAdv.insertSmiley('/asnowwolf2-tear') "/asnowwolf2-tear")

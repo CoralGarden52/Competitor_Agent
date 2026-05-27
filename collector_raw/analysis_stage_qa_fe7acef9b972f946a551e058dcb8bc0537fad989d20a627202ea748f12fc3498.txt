@@ -1,0 +1,333 @@
+# AI 办公生产力怎么选?TicNote AI录音卡、飞书与Get笔记客观横评 - 知乎
+
+Title: AI 办公生产力怎么选？TicNote AI录音卡、飞书与Get笔记客观横评
+
+URL Source: https://zhuanlan.zhihu.com/p/2023695948182766263
+
+Markdown Content:
+# AI 办公生产力怎么选？TicNote AI录音卡、飞书与Get笔记客观横评 - 知乎
+[![Image 1](https://zhuanlan.zhihu.com/p/2023695948182766263)](javascript:void(0))
+
+[](https://www.zhihu.com/)
+
+[关注](https://www.zhihu.com/signin?next=%2Ffollow)[推荐](https://www.zhihu.com/signin?next=%2F)[热榜](https://www.zhihu.com/signin?next=%2Fhot)[专栏](https://www.zhihu.com/signin?next=%2Fcolumn-square)[圈子 New](https://www.zhihu.com/signin?next=%2Fring-feeds)[付费咨询](https://www.zhihu.com/consult)[知学堂](https://www.zhihu.com/education/learning)
+
+​ 
+
+[直答](https://zhida.zhihu.com/)
+
+切换模式
+
+登录/注册
+
+AI 办公生产力怎么选？TicNote AI录音卡、飞书与Get笔记客观横评
+
+切换模式
+
+# AI 办公生产力怎么选？TicNote AI录音卡、飞书与Get笔记客观横评
+
+[![Image 2: 多啦的口袋](https://pica.zhimg.com/v2-4e97272372f77da36adc99e69453a8cf_l.jpg?source=172ae18b)](https://www.zhihu.com/people/li-ming-yu-67-21-90)
+
+[多啦的口袋](https://www.zhihu.com/people/li-ming-yu-67-21-90)
+
+互联网、技术控、生活好物、家电数码，要啥有啥！
+
+26 人赞同了该文章
+
+​
+
+目录
+
+在快节奏的职场环境中，每天应对大量跨部门会议和需求对接已成为常态。在这些动辄涉及多条业务线、信息量极大的会议中，如何完整、准确地保留原始沟通细节，成为了项目顺利推进的关键，
+
+传统的录音笔形态过于显眼，容易在会议中造成沟通阻碍，会后整理也是苦差事；而使用手机录音，则极易被突如其来的来电或信息中断。为了解决这一痛点，主打隐形、便携的“[AI 录音卡](https://zhida.zhihu.com/search?content_id=272546695&content_type=Article&match_order=1&q=AI+%E5%BD%95%E9%9F%B3%E5%8D%A1&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNTAwNDksInEiOiJBSSDlvZXpn7PljaEiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzI1NDY2OTUsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.rFY5DzgKEx44b226kjzK52Rb1DcxKTF06pIp5kV5ZeM&zhida_source=entity)”应运而生，并逐渐成为不可或缺的生产力工具。
+
+![Image 3](https://pic1.zhimg.com/v2-0a22c4c818d9350c14a6aa8c6c4e8ea2_1440w.jpg)
+
+从左到右依次为得到GetSeed AI录音卡、飞书x[安克录音豆](https://zhida.zhihu.com/search?content_id=272546695&content_type=Article&match_order=1&q=%E5%AE%89%E5%85%8B%E5%BD%95%E9%9F%B3%E8%B1%86&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNTAwNDksInEiOiLlronlhYvlvZXpn7PosYYiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzI1NDY2OTUsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.SJVpmaeWLTVPLU50a3cHw3Tx9LZsHz0B-mCHe_uAhg8&zhida_source=entity)、出门问问TicNote AI录音卡
+
+今天，我就来客观对比一下市面上热度最高的三款产品——飞书x安克录音豆、[Get 笔记](https://zhida.zhihu.com/search?content_id=272546695&content_type=Article&match_order=1&q=Get+%E7%AC%94%E8%AE%B0&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNTAwNDksInEiOiJHZXQg56yU6K6wIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjcyNTQ2Njk1LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.8OcMSG88Qr0ttz8N6SaFUi-fnzCuxKxDvDCaP2uaBVk&zhida_source=entity)与 TicNote AI录音卡，从硬件采集、AI 权益到云端协作体验等方面出发，进行一次真实的职场工作流横评。
+
+## **一、 硬件形态与基础采集：谁才是真正不掉链子的“物理外挂”？**
+
+作为收集信息的首道关卡，硬件的美观、便携以及脱离手机后的独立战斗力，直接决定了这款工具的使用频率。
+
+**安克录音豆：极致轻盈的“生态配件”** 用安克录音豆最大的感受就是得小心翼翼，机身本体实在太小了，一不留神就容易弄丢。它的单机续航有 8 小时，日常使用还算ok，要是遇到那种半天起步的马拉松式长会，就必须得随身带着充电舱才踏实。拿在手里的第一感觉就是轻。10g 的机身几乎感觉不到存在，它更像是飞书深度用户的一个外设，可以佩戴在身上。实测中非常适合快节奏的碎片化沟通。
+
+![Image 4](https://pic2.zhimg.com/v2-aa7b981689e8336717fe6586194e7a51_1440w.jpg)
+
+**Get 笔记：极简纤薄的“数字便签”** 它的厚度控制得不错，仅有 3.1mm。外壳的质感非常符合它的“人设”——学生党或终身学习者的数字化笔记本。实测在阶梯教室或讲座现场，这种如名片般的厚度插在书里里或贴在手机背面非常低调，能让你专心听课而不被笨重的设备分心。实测发现它对单向收音（如老师讲课、个人备忘）优化得不错，但在面对多人激烈讨论的职场混响环境时，对声音的解析稍显吃力。
+
+**[TicNote AI 录音卡](https://zhida.zhihu.com/search?content_id=272546695&content_type=Article&match_order=1&q=TicNote+AI+%E5%BD%95%E9%9F%B3%E5%8D%A1&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNTAwNDksInEiOiJUaWNOb3RlIEFJIOW9lemfs-WNoSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI3MjU0NjY5NSwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.pPa1erRC-oQ7ZDhhSEx6jOO4GEgMH1svsMlIFbbQqXc&zhida_source=entity)： AI 时代的“全能记录官”**TicNote 走的是稳重路线。**商务版 3mm** 极度隐形（还有**青春版 5.8mm** 握感扎实）。它全系都支持离线独立一键录音。
+
+![Image 5](https://pic3.zhimg.com/v2-2f1935f9e80ef3c76892407173c2e568_1440w.jpg)
+
+实测中，我最常切换的是它的**听筒与扬声器模式**：
+
+接听线上视频会议或突如其来的商业电话时，磁吸在手机背面开启听筒录制，能精准捕捉对方的每一句需求；
+
+![Image 6](https://picx.zhimg.com/v2-aa06fc15755c3987ebcc0d302f2beefb_1440w.jpg)
+
+转头进入线下圆桌会，直接往桌中心一摆，**10 米远场拾音**能把全场的发言人声全部录下来。这种“线上线下通杀”的灵活性，确实更适合处理复杂的商务局。
+
+出门问问录音笔悦享版经典灰 录音转文字 录音卡智能降噪
+
+## **二、 App AI 权益和基础能力：谁在玩套路，谁在真给力？**
+
+录音结束后的那几分钟，才是 AI 硬件真正拉开身位的时刻。市面上不少产品爱在“免费转录时长”上做文章，但真正用起来你才会发现，AI 总结、问答这些核心功能，往往藏在二次计费的门槛后面。
+
+**安克录音豆 / Get 笔记：不同程度的“生态壁垒”**
+
+**咱们先说说安克录音豆。**
+
+![Image 7](https://pic2.zhimg.com/v2-802b9134c16af366259722a1637d6849_1440w.jpg)
+
+实测安克录音豆时，我发现它是个典型的“飞书外挂”，但是它的佩戴方式决定了，如果你和我一样佩戴在领口上，说话声音又比较大，那么会导致麦克风在录制其它参会方声音时，收音效果稍微有些差异。如果你本身就是飞书深度用户，那体验非常丝滑；
+
+![Image 8](https://picx.zhimg.com/v2-5ccb16a4ff08f474a8715ffd2856e3d5_1440w.jpg)
+
+但对于生态外用户需要注意，出厂赠送 6 个月体验期，之后每月转写时长为 300 分钟；AI 问答、自动纪要等核心能力需额外购买年费会员（约 700 元）。如果日常会议较多，300 分钟的月度额度可能需要精打细算。
+
+**再来看 Get 笔记，**它依赖“得到”App 的内部生态，整体调性更适合单纯听课的学习型用户。
+
+![Image 9](https://pic3.zhimg.com/v2-eacdc56dcc68b2b608621fcf99caf928_1440w.jpg)
+
+实际使用中发现，免费版提供基础录音和转写功能，AI 问答、多端实时同步等能力需升级 Pro 会员解锁；如果能将核心 AI 能力免费开放，对生产力用户会更友好。
+
+![Image 10](https://pic3.zhimg.com/v2-b90153f36b404d942f801857669170e4_1440w.jpg)
+
+**TicNote AI 录音卡：不做数学题，权益够透明**
+
+![Image 11](https://pic1.zhimg.com/v2-fbca3f39750d10b04be207d7951cc846_1440w.jpg)
+
+相比之下，TicNote AI 录音卡的做法就实在多了，主打一个不做数学题、权益绝对透明。
+
+![Image 12](https://pic2.zhimg.com/v2-946851cccfe55843901f562fe2d10e2b_1440w.jpg)
+
+实测下来，它直接给了长达三年的权限有效期，而且每月 600 分钟的全功能额度里没有任何二次计费。这 600 分钟的全功能额度含金量很高，足够你每个月顺畅地产出 60 篇图文纪要、进行 600 次深度的 AI 问答、捕捉 60 次点亮思维的顿悟时刻，甚至还能自动生成 60 个方便通勤收听的 AI 播客。这相当于把核心的 AI 能力毫无保留地全量开放给你了。
+
+其配套的 TicNote App 几乎就是一个移动端的“智囊团”：
+
+首先像是拥有了一个速记助理和同期翻译，转写准确率达 98%。最硬核的是它支持多种语种及方言的会后翻译（实时转写40种语言，实时翻译17种语言）。实测对接海外客户时，它能快速把外语录音转成结构清晰的中文，沟通压力瞬间归零。
+
+![Image 13](https://picx.zhimg.com/v2-a3f73f4bc2c73936a35015964694e1e5_1440w.jpg)
+
+它还能实现图文联动的现场还原”，在会议中拍下的 PPT 或名片，能直接插入对应的时间节点。配合声纹标记，即便现场有五六个人七嘴八舌，AI 也能精准标记出谁说了哪句话。
+
+最后不得不提的是Shadow AI 个人工具集，它是目前我见过功能分发更细致的 AI 助手。内置 60+ 种模板，秒出总结只是基本功，真正带感的是它的高阶功能：
+
+深度研究这块，像资深分析师，能够自动研读内容并产出专业报告。顿悟时刻则可以从冗长的谈话中精准捞出那些灵光一现的洞察。
+
+AI 播客是我最爱的设计。回公司的通勤路上，直接把刚才的会谈当成播客听一遍，重点就在耳边，知识沉淀感极强。
+
+## **三、 核心分水岭：[TicNote Cloud](https://zhida.zhihu.com/search?content_id=272546695&content_type=Article&match_order=1&q=TicNote+Cloud&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNTAwNDksInEiOiJUaWNOb3RlIENsb3VkIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjcyNTQ2Njk1LCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.VlNcGjvBTV4XSmm3UD6faxheZ3t8PUtwB3fUQ3GJ6IU&zhida_source=entity) 的「团队×Agent」协作模式**
+
+但真正让它拉开身位并重构工作流的，是它那套由硬件、App 和 Web 端组成的生态铁三角，三端实时联动做到了真正的无缝衔接。
+
+实测中，这也是安克录音豆和 Get 笔记的局限所在。
+
+![Image 14](https://pic2.zhimg.com/v2-8917b8b2ed1c631a4c4b2c994f33c4e1_1440w.jpg)
+
+安克录音豆的工作流基本被深度锁死在飞书生态里，跨平台导出需通过网页版飞书妙记手动下载，云空间上限 100GB；对于非飞书团队，文件流转需要多几步操作。
+
+![Image 15](https://picx.zhimg.com/v2-5be0bd6ab21e8c40238ffc87b33ea4fd_1440w.jpg)
+
+而 Get 笔记则把绝大多数的交互留在了手机端，Web 端交互则相对单薄，等你坐在电脑前想要搞多端实时同步或者深度共享协作时，会发现自己被挡在了 Pro 会员的付费门槛之外。
+
+如果你的录音卡只连着手机 App，那它也就是个单机版的效率工具。TicNote 真正展现降维打击能力的时刻，是你打开电脑浏览器、登录 TicNote Cloud 网页端的那一秒。
+
+![Image 16](https://pic4.zhimg.com/v2-70ab1f47586ad506cc47703ce021b531_1440w.jpg)
+
+这套由 Shadow 2.0 驱动的 AI 原生文档协作系统，不再是简单地把 AI 当作聊天框，而是把它深度嵌入到了文件系统里，彻底重构了职场人原本割裂细碎的工作流。
+
+在网页端的左侧导航栏里，App 采集的所有录音和笔记都会实时落进“个人知识库”。在这个阶段，数据是私密的，你可以放心的点击"ask shadow "选项，而在它在邀请团队成员，转换为共享知识库的时候，成员也能同步共享。
+
+![Image 17](https://pic3.zhimg.com/v2-cb08be022a641d078a0335d8341272a8_1440w.jpg)
+
+比如在处理那些还没公开的敏感数据时，你可以让它针对多场访谈整理一下，或者跨文件帮你理出那些容易遗漏的细节。这种私下处理，能帮你把原本模糊的思路，在正式共享给团队前就打磨得足够清晰。
+
+![Image 18](https://picx.zhimg.com/v2-2f9eee6c0e6362c37f55b2b343dc0947_1440w.jpg)
+
+一旦你确认了信息准确性，只需一键邀请团队成员加入，项目文件就会流转到“共享知识库”。这时候，协作真正开始。研发、法务、运营等所有相关人员都汇聚在同一个网页空间里，面对的是同一份未经主观篡改的原始录音切片和转写记录。大家可以直接在右侧的“讨论区”针对具体的文本节点进行讨论，或者在获取对应权限后，向右侧的“Shadow Agent”发起追问。这个 AI 伙伴会实时感知项目的最新进展，把原本散落在不同脑袋里的沟通碎片，沉淀为团队共享的唯一信息源头，那种因为信息不对称导致的内耗和甩锅借口，在这一层就被彻底消灭了。
+
+![Image 19](https://pic1.zhimg.com/v2-284a18e200d528d1ed8d28aee1051cd8_1440w.jpg)
+
+到了交付成果的时候，Shadow AI 2.0 展现出的自主执行能力简直是效率杀手锏。你只需要给 Shadow Agent 下个指令：“帮我根据这几天的会议记录，整理出一份橙色配色的 HTML 格式报告。”它就能立刻执行并生成一个图文并茂的可视化落地页：
+
+[](https://link.zhihu.com/?target=https%3A//www.ticnote.cn/zh/shareDetail/zPc4Ep3RFXjC6K6k)
+
+这种直接分发专业链接的姿态，比在微信群甩一堆杂乱的截图要专业得多。
+
+**购买建议**
+
+综合来看，选择哪款产品取决于你的使用场景诉求：
+
+![Image 20](https://pic4.zhimg.com/v2-e2512b0e2a68918a1f830e8d43d68fa9_1440w.jpg)
+
+如果你所在的公司早就把办公系统全盘绑定在了飞书上，那你其实没必要纠结，安克录音豆那个极其轻巧的机身绝对是你每天高频沟通时非常顺手的生态内配件；
+
+或者说你现在的身份是学生或者是得到生态的忠实粉丝，买设备的初衷就是为了得到知识生态内部的各种精进，梳理一下成体系的知识点，那 Get 笔记那种偏向终身学习的设计基因，绝对能满足你的需求。
+
+但咱客观来说，如果你每天要面对的是那种高压的职场连轴转会议，既需要跨平台流转文件，又极其反感各种隐藏的二次收费套路，甚至还要深度联系整个团队一起做项目复盘，那 TicNote AI 录音卡确实是目前综合体感最好的选择。
+
+从支持双模式录音的 **TicNote AI 录音卡**，到专攻移动通话的 **TicNote Pods 录音耳机**，配合 App 的即时复盘与 **TicNote Cloud** 网页端的团队共享——这种打破“单机”局限的**全生态闭环**，才是真正的生产力跃升。
+
+凭借在 AI 语音与硬件工程领域深耕十年的底蕴，出门问问让 Shadow AI 在复杂降噪与语义理解上展现出一种更懂职场的“熟稔感”。正如“学习强国”AI频道在最近的AI录音卡横测《国产大模型加持下，AI录音设备能否成为每个人的“随身智库”？》中所评价的：**作为国内首款Agentic A录音设备，TicNote 真正打破了“信息孤岛”，实现了从个人记录到团队知识资产沉淀的无缝衔接。**在全链路协作面前，单纯的“录音笔”时代已成过去。把琐碎留给 AI，把决策留给团队，这不仅是效率的跃升，更是一笔能够构建“持续增值知识资产”的长期投资，稳赚不赔~
+
+出门问问录音笔悦享版经典灰 录音转文字 录音卡智能降噪
+
+编辑于 2026-05-06 09:22・辽宁
+
+[![Image 21: 图片](https://picx.zhimg.com/v2-79bd78471b01c32562b368e0dc29306f_bh.webp?source=d6434cab) 告别“文档焦虑”！千问让处理变得超轻松～ 文本、PDF、PPT、表格、图片…50+格式一键导入，千问AI自动翻译、总结、生成脑图，结果可导出。查看详情 文本、PDF、PPT、表格、图片…50+格式一键导入，千问AI自动翻译、总结、生成脑图，结果可导出。 查看详情 ![Image 22: 用户头像](https://pic1.zhimg.com/v2-25d9de2e2b8d4971d2c24574387ab4c0_xl.webp?source=d6434cab) 千问 的广告](https://www.qianwen.com/?ch=webtongyi@gp_zhztzhihugpwebty01_normal2_39&from=zhihu&aid=755269&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D74c9675d-dc93-41e6-a50e-72b5c6a9e6ba%26os%3D3%26zid%3D1629%26zaid%3D3745686%26zcid%3D3736406%26cid%3D3736406%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D755269%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MUdBZcPC1XVnUfO1UvKX1-AycSWDRxAVxzCnkAemJwfBdqUgdmehYEK1wjXH5qZiJQb1cJ2zUlxWaytg%3D%3D&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F148.0.0.0+Safari%2F537.36&os=3&campaignId=2743635&adgroupId=3745686&creativeId=3736406&accountId=755269&ip=2600:1900:0:4005::1600&ipv6=2600:1900:0:4005::1600&spu=biz%3D0%26ci%3D3736406%26si%3D616d983f-afb7-4845-a041-3f77b602d41d%26ts%3D1779877251%26zid%3D1629)
+
+​赞同 26​​5 条评论​27 ​2 
+
+​分享
+
+​申请转载​
+
+​
+
+![Image 23](https://pic1.zhimg.com/v2-d41c2ceaed8f51999522f903672a521f_l.jpeg)
+
+未登录用户
+
+5 条评论
+
+默认
+
+最新
+
+评论内容由作者筛选后展示
+
+[![Image 24: 你家的小可爱](https://picx.zhimg.com/v2-6df29b58fe90700ca235c5eb0dd7a8ca_l.jpg?source=06d4cd63)](https://www.zhihu.com/people/c8e1aec0a6b3ef07b2be6d5242dc55e9)
+
+[你家的小可爱](https://www.zhihu.com/people/c8e1aec0a6b3ef07b2be6d5242dc55e9)
+
+Get笔记免费版卡脖子是真的，我之前下载试了下，基础转写还行，一点AI问答就弹付费，直接卸了
+
+04-15 · 山西
+
+​回复​1
+
+[![Image 25: 江江爱科技生活](https://picx.zhimg.com/v2-3628aea3a219d0290ac69ccab8a57693_l.jpg?source=06d4cd63)](https://www.zhihu.com/people/e0ca48358936cb71636e24b479b6e7cd)
+
+[江江爱科技生活](https://www.zhihu.com/people/e0ca48358936cb71636e24b479b6e7cd)
+
+想问下博主，TicNote那个听筒模式录通话，对方知道你在录吗？
+
+04-16 · 四川
+
+​回复​喜欢
+
+[![Image 26: 程序与数码](https://pica.zhimg.com/v2-a22c594f73f8f3dd06be56ca72d7a7c4_l.jpg?source=06d4cd63)](https://www.zhihu.com/people/81c7d0f3268975850cc5a35494b3bb4d)
+
+[程序与数码](https://www.zhihu.com/people/81c7d0f3268975850cc5a35494b3bb4d)
+
+​![Image 27](https://picx.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c)
+
+作为产品经理 每天至少三个需求评审 看完准备入一个 主要看中不绑生态这点 我们公司用企微的
+
+04-16 · 河北
+
+​回复​喜欢
+
+[![Image 28: 正直数科](https://pica.zhimg.com/v2-84b8661b2e6351bb2ee29a06ad3c80b3_l.jpg?source=06d4cd63)](https://www.zhihu.com/people/7890f9c62f4e81fd7d1697c6d30db8ff)
+
+[正直数科](https://www.zhihu.com/people/7890f9c62f4e81fd7d1697c6d30db8ff)
+
+TicNote三年权益不用续费这个太关键了。之前买过某款产品，用了半年突然告诉你会员到期核心功能全锁，感觉被割了一刀![Image 29: [捂脸]](https://pic1.zhimg.com/v2-b62e608e405aeb33cd52830218f561ea.png)
+
+04-15 · 河南
+
+​回复​喜欢
+
+[![Image 30: 199南](https://pic1.zhimg.com/v2-1a7d49cbd98600b25cccff855021b0f1_l.jpg?source=06d4cd63)](https://www.zhihu.com/people/a04daa0427184ad97dea8a19a8a2648e)
+
+[199南](https://www.zhihu.com/people/a04daa0427184ad97dea8a19a8a2648e)
+
+安克录音豆那个佩戴问题说到点上了 夹领口自己声音盖过别人的 这设计思路就有点反直觉
+
+04-15 · 江西
+
+​回复​喜欢
+
+[](https://zhuanlan.zhihu.com/p/2023695948182766263)
+
+关于作者
+
+[![Image 31: 多啦的口袋](https://pica.zhimg.com/v2-4e97272372f77da36adc99e69453a8cf_l.jpg?source=172ae18b)](https://www.zhihu.com/people/li-ming-yu-67-21-90)
+
+[多啦的口袋](https://www.zhihu.com/people/li-ming-yu-67-21-90)
+
+互联网、技术控、生活好物、家电数码，要啥有啥！
+
+[回答](https://www.zhihu.com/people/li-ming-yu-67-21-90/answers)[文章](https://www.zhihu.com/people/li-ming-yu-67-21-90/posts)[关注者](https://www.zhihu.com/people/li-ming-yu-67-21-90/followers)
+
+​关注他​发私信
+
+大家都在搜
+
+换一换
+
+[王鹤棣 沈月 505 万](https://www.zhihu.com/search?q=%E7%8E%8B%E9%B9%A4%E6%A3%A3+%E6%B2%88%E6%9C%88&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[华为发表半导体领域新定律 371 万](https://www.zhihu.com/search?q=%E5%8D%8E%E4%B8%BA%E5%8F%91%E8%A1%A8%E5%8D%8A%E5%AF%BC%E4%BD%93%E9%A2%86%E5%9F%9F%E6%96%B0%E5%AE%9A%E5%BE%8B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[雷军回应武契奇说买不起小米汽车 317 万](https://www.zhihu.com/search?q=%E9%9B%B7%E5%86%9B%E5%9B%9E%E5%BA%94%E6%AD%A6%E5%A5%91%E5%A5%87%E8%AF%B4%E4%B9%B0%E4%B8%8D%E8%B5%B7%E5%B0%8F%E7%B1%B3%E6%B1%BD%E8%BD%A6&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[杨梅收购商跑光价格从20元跌到8毛 314 万](https://www.zhihu.com/search?q=%E6%9D%A8%E6%A2%85%E6%94%B6%E8%B4%AD%E5%95%86%E8%B7%91%E5%85%89%E4%BB%B7%E6%A0%BC%E4%BB%8E20%E5%85%83%E8%B7%8C%E5%88%B08%E6%AF%9B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[新华社评「耿同学」打假 311 万](https://www.zhihu.com/search?q=%E6%96%B0%E5%8D%8E%E7%A4%BE%E8%AF%84%E3%80%8C%E8%80%BF%E5%90%8C%E5%AD%A6%E3%80%8D%E6%89%93%E5%81%87&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[深圳南坪快速路大火 310 万](https://www.zhihu.com/search?q=%E6%B7%B1%E5%9C%B3%E5%8D%97%E5%9D%AA%E5%BF%AB%E9%80%9F%E8%B7%AF%E5%A4%A7%E7%81%AB&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)新
+
+[救灾女干部戴耳环遭网暴 310 万](https://www.zhihu.com/search?q=%E6%95%91%E7%81%BE%E5%A5%B3%E5%B9%B2%E9%83%A8%E6%88%B4%E8%80%B3%E7%8E%AF%E9%81%AD%E7%BD%91%E6%9A%B4&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[前三体 CEO 许垚投毒被执行死刑 301 万](https://www.zhihu.com/search?q=%E5%89%8D%E4%B8%89%E4%BD%93+CEO+%E8%AE%B8%E5%9E%9A%E6%8A%95%E6%AF%92%E8%A2%AB%E6%89%A7%E8%A1%8C%E6%AD%BB%E5%88%91&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[盒马粉木耳包装惹争议 299 万](https://www.zhihu.com/search?q=%E7%9B%92%E9%A9%AC%E7%B2%89%E6%9C%A8%E8%80%B3%E5%8C%85%E8%A3%85%E6%83%B9%E4%BA%89%E8%AE%AE&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[曝庾澄庆被换了6首歌 277 万](https://www.zhihu.com/search?q=%E6%9B%9D%E5%BA%BE%E6%BE%84%E5%BA%86%E8%A2%AB%E6%8D%A2%E4%BA%866%E9%A6%96%E6%AD%8C&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[广告 ![Image 32: 广告](https://pic1.zhimg.com/v2-0086ed548b40575e515cb83168da3a2f_720w.webp?source=d6434cab)](https://www.doubao.com/chat/?channel=dbweb_zhihu_xxl_pc_cpc_ty_ppt_pptsc_507&source=dbweb_zhihu_xxl_pc_cpc_ty_ppt_pptsc_507&keywordid=3734746&ad_platform_id=zhihu_feed_lead&ug_callback_url=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D69850eef-7a32-4ea8-b891-5d6248221615%26os%3D3%26zid%3D6001%26zaid%3D3744304%26zcid%3D3734746%26cid%3D3734746%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MUdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1c3BbJ_27DPjg%3D%3D&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D69850eef-7a32-4ea8-b891-5d6248221615%26os%3D3%26zid%3D6001%26zaid%3D3744304%26zcid%3D3734746%26cid%3D3734746%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MUdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1c3BbJ_27DPjg%3D%3D&ug_semver=v1.0.0&spu=biz%3D0%26ci%3D3734746%26si%3Db4a44f82-8557-4e58-8ddb-af1b6c242166%26ts%3D1779877252%26zid%3D6001)
+
+### 推荐阅读
+
+[![Image 33: 来谈谈声音卡的工作原理吧](https://picx.zhimg.com/v2-088d1595fa79c0274a69e3fcfb731a32_250x0.jpg?source=172ae18b) # 来谈谈声音卡的工作原理吧 华志健au...发表于音频砖家](https://zhuanlan.zhihu.com/p/62935945)[![Image 34: DAC音频解码器有哪些作用，你知道吗？](https://pica.zhimg.com/v2-0f2244223892cdff7698f88e34c75152_250x0.jpg?source=172ae18b) # DAC音频解码器有哪些作用，你知道吗？ 双木三林J...发表于DAC解码](https://zhuanlan.zhihu.com/p/75278613)# [MIDIPLUS声卡系列认识与评测 MIDIPLUS系列声卡产自中国台湾省，主要型号有studio m 2 s 4pro valve等多种型号，根据用途和作用不一样，选择适合自己的类型。下面就以MIDIPLUS声卡studio m pro型号来了解一下它的功能和… 天韵音频 发表于midip...](https://zhuanlan.zhihu.com/p/364120527)[![Image 35: 基础科普：声卡究竟是做什么用的？](https://pica.zhimg.com/v2-2dceb3e1194d50014d304858f7c52e6d_250x0.jpg?source=172ae18b) # 基础科普：声卡究竟是做什么用的？ 米饭星 发表于每日星选](https://zhuanlan.zhihu.com/p/37385446)
+
+_想来知乎工作？请发送邮件到 jobs@zhihu.com_
+
+打开知乎App
+
+在「我的页」右上角打开扫一扫
+
+![Image 36](https://picx.zhimg.com/v2-9e41ea16bdfbe9cf4896617ecad5b4ca.png)
+
+其他扫码方式：微信
+
+下载知乎App
+
+无障碍模式
+
+验证码登录
+
+密码登录
+
+[开通机构号](https://zhuanlan.zhihu.com/org/signup)
+
+中国 +86
+
+获取短信验证码
+
+获取语音验证码
+
+登录/注册
+
+其他方式登录
+
+未注册手机验证后自动登录，注册即代表同意[《知乎协议》](https://www.zhihu.com/term/zhihu-terms)[《隐私保护指引》](https://www.zhihu.com/term/privacy)
+
+扫码下载知乎 App
+
+关闭二维码

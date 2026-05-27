@@ -1,0 +1,810 @@
+# 飞书，见证B 端陷阱- 少数派
+
+Title: 飞书，见证 B 端陷阱 - 少数派
+
+URL Source: https://sspai.com/post/82238
+
+Published Time: 2023-08-20T11:09:34.000Z
+
+Markdown Content:
+# 飞书，见证 B 端陷阱 - 少数派
+
+[](https://sspai.com/)
+
+[共创](https://sspai.com/create)
+
+[PRIME](https://sspai.com/prime)
+
+[Matrix](https://sspai.com/matrix)
+
+[栏目](https://sspai.com/series)
+
+Pi Store
+
+ 无需申请，自由写作 
+
+任何用户都可使用写作功能。成功发布 3 篇符合基本规则的内容，可成为正式作者。[了解更多](https://manual.sspai.com/guide/init/)
+
+共创 PRIME Matrix 栏目 Pi Store
+
+![Image 1](https://cdnfile.sspai.com/2023/08/20/dc2988690c4151d49ef095c075bf907f.png?imageMogr2/auto-orient/format/webp/ignore-error/1)[![Image 2: Matrix精选](https://cdn-static.sspai.com/ui/tags/matrix.png)](javascript:;)
+
+飞书，见证 B 端陷阱
+
+主作者
+
+[![Image 3: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[![Image 4](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注
+
+养鳖大亨
+
+少数派作者
+
+ 02年求职产品小白 
+
+[养鳖大亨 [![Image 5](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注 养鳖大亨 少数派作者 02年求职产品小白](https://sspai.com/u/7pqzx1cg/updates)
+
+联合作者
+
+[![Image 6: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[![Image 7](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注
+
+养鳖大亨
+
+少数派作者
+
+ 02年求职产品小白 
+
+[养鳖大亨 [![Image 8](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注 养鳖大亨 少数派作者 02年求职产品小白](https://sspai.com/u/7pqzx1cg/updates)
+
+2023/08/20 11:09
+
+**Matrix 首页推荐**
+
+[Matrix](https://sspai.com/matrix)是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。
+
+文章代表作者个人观点，少数派仅对标题和排版略作修改。
+
+* * *
+
+22 年底我在字节的飞书做 KA 的 CSM 实习生，那是我实习以来身边优秀同事数量最多、也是在飞书发展拐点时期，见证了年前还在扩招、年后就调整业务岗位的飞书。而老板对招聘者的青睐也很明显，整个大部门校招 HC 屈指可数，但从不同传统行业挖了很多人来（零售、地产、游戏、制造等）。
+
+同时，也在我加入为之工作室不久，内部就开始做工具统一化，并选定飞书为办公协同工具，那时起，我也开始挖掘飞书的功能。除此之外，在学校时受一位研究生导师邀请，为他的研究生团队撰写使用说明和推广方案，让我更加熟悉了飞书的功能逻辑。
+
+可以说，我不仅是飞书的用户，也参与了飞书扩张的浪潮。
+
+在面试的时候，很多面试官听到我在飞书做 CSM 都会好奇。如果业务做效能工具，大概率会问字节是怎么靠飞书提高生产力的？如果业务是做 SaaS，大概率会问飞书是怎么拓客/从企微钉钉手中抢走客户的？如果行业是 to C 的，大概率会从功能上问飞书与其他竞品的体验优势……
+
+圈子里有句话问「从字节离职后，对这个公司印象最深的是什么？」答案是飞书。
+
+作为旁观者和亲历者，讲述一下我自己的理解和思考，希望对读者有所启发。
+
+## 顶峰时期到初见败退
+
+2017 年起，朝夕日历创始人程昊、黑帕云创始人陈金洲，ONES（合并前 Tower）创始人沈学良加入字节，共同填补 B 端市场空缺。
+
+2022 年营收规模超 10 亿，钉钉在 20 年实现这个目标；员工数量超 8000 人，同时期钉钉 1500，企业数百人。2022 年 8 月底，字节董事长张利东说，飞书有大机会，而且是和 TikTok、电商并列提及，「但这仅仅是机会，要怎么抓住，挑战还非常大」。
+
+2022 年 11 月，协同办公工具，钉钉月活用户 2.5 亿、企微 1.1 亿、飞书 930 万；理想汽车创始人李想公开推荐飞书，拉上小鹏、蔚来入驻。小米、民生银行入驻飞书。元气森林 6 月建厂，形成行业标杆案例。
+
+2022 年末，飞书裁员 1000 人；2023 年，至少 4 位挖来的创始人离开；
+
+> 飞书优秀的人确实很多，团队的中高层履历都很光鲜，但就目前的产品能力和综合势能来说，还不需要到这么多的高手进来的程度。」一位飞书员工如此评价。
+
+2023 年初，CSM（客户成功经理）团队转型，从价值拓客，到行业拓客。前期的飞书，通过拿下很多大客户作为标杆客户，抢夺了很多资源；在形成「三足鼎立」的时刻，飞书更希望在行业中沉淀自己的独特打法（阿里钉钉在政企这条路线有很深的护城河）。于是在 22 年年度 OKR review 上，飞书宣读了改革政策，所有 CSM 按照行业领域划分小组，走售后+咨询+运营+客户成功的路线。我就在其中一个小组。
+
+## 分析思考：为什么飞书「叫好不叫座」？
+
+企业微信 钉钉 飞书
+背书 腾讯 阿里巴巴 字节跳动
+优势 与微信的强连接
+
+帮助产品营销和客户精准运营 云钉一体：平台具备很强的兼容性和生态 先进理念，产品体验
+特点 业务增长 强管理 创新探索
+劣势 功能单一，交互成本高，场景少 强管理造成的交互复杂，过度捆绑用户信息 过于注重体验细节，产品定位和发展立不住脚
+
+### 陷阱一：入局时期
+
+2015 年钉钉开始在国内企业协同探索；2016 年腾讯推出企业微信 1.0；2019 年，字节才将飞书对外开放。
+
+疫情时期，国内卷起了居家办公、线上教学浪潮，这时候是最大的企业效率工具增长点，而此时飞书刚转入国内战场，还没有站稳脚跟，错失了机会点。
+
+疫情时期，钉钉抓住了在线教育机会，企业微信用 9 个月时间用户规模从 6000 万到 2.5 亿，Lark（飞书海外版）转战飞书（国内版）时，错过了疫情时期居家办公的增长机会。
+
+### 陷阱二：市场难点
+
+B 端市场中，谁拿到了大客户，谁就是赢家。大客户的付费意愿强、单次付费利润高，同时能拉动 DAU，在裂变上也能实现领头羊效应（比如理想创始人拉上蔚来、小鹏入驻飞书）。
+
+大客户也有缺点，那就是私有化部署。大客户为了保证数据安全，都会选择私有化部署。在 B 端实习这么长时间也能发现，私有云的需求是最难搞的，是一种随叫随到、单向输出、交付困难的畸形市场。除此之外，私有化部署 ROI 很低，在产品层面，功能也很难复用。
+
+### 陷阱三：to B or not to B
+
+从概念上，to B 就是 to Business。和 to C 最显著的差异是，to C 用户觉得好用，就会有付费意愿，通过运营引导，能够很快实现转化；to B 的使用者是一个企业的员工，但最终决定付费意愿的往往是管理者和老板。
+
+对于管理者和老板，他们考虑的因素不单单是「用户体验」好。他们会关注整体的 ROI，要想把产品卖给这些群体，要考虑的需求就不是那么简单了。在降本增效的口号下，如果迁移工具的收益能够覆盖工具本身的成本，我相信大部分精明的老板都会同意付费。
+
+如果还有一点更重要的，那么就是，企业愿意花成本做生产工具的迁移，而不是把这笔钱省下来干别的，这一定是产品能够把当下的燃眉之急解决。
+
+比如当时某客户的合伙人分拆，带领各自的业务创建团队，整个公司处于不稳定状态，那么当下最迫切的需求就是让这些团队能够稳定下来实现业务和商业闭环，在产品体验上下功夫完全就是本末倒置了。
+
+> 一位企业 COO 曾说：企业愿意花钱的，一定是跟业务匹配度高的，满足这几个预期：第一是立马提高业绩，第二是安全合规不得不买，第三是有增值服务。效率协同，一定是排在最后一位的。
+
+我翻看其它 CSM 留下的经验分享中，有这么一句话对我印象非常深刻：「跟老板谈理念，跟管理者谈效益，跟员工谈体验」。这句话就很好的说明，B 端的客需是多么的复杂，想要拿下客户订单，难度不亚于把一款产品卖给不同的用户群体。
+
+### 陷阱四：文化理念差异
+
+飞书最大的最成功的客户就是字节跳动，飞书也被称为「抖音背后的高效生产线」，字节公司把 OKR 这条理念贯彻得也很彻底。但想要把这种理念推广出去，仍存在很大的困难，卖点无法解决需求。
+
+很多企业不是高管制定 O，下层承接 KR 并拆分自己的 O 和 KR，往往是高管从下层的 O 中选择一个认为收益率最高的作为整个公司的 O。「飞书很先进，但绝大部分企业都不先进。或者说，先进并不是企业采纳的优先级。」
+
+### 陷阱五：互联网离职率
+
+「越老越吃香」「35 失业危机」两段话反应了两种不同的员工发展路径，在很多国央企、制造业上，往往丰富的经验是一个人最强的竞争力。但在互联网行业，跳槽、离职等非常频繁，缺点就在如果一个业务的周期很长，那么就很可能因为「换了个人」导致整条线不稳定。
+
+这一点在飞书销售团队上有体现，飞书销售团队平均在职时间不长，经常在长周期竞标环节中换人，对签单影响很大。
+
+### 陷阱六：要人还是要钱
+
+2020 年飞书总裁张楠宣称，飞书面向全国小企业和组织免费使用三年，不限规模和使用时长。大量中小企业使用飞书，体验飞书带来的高生产力。2023 年 2 月，飞书调整收费模式，ARR 达一亿美元，但也意味着很多「白嫖」飞书的用户付费意愿还没形成，不得不转战企微和钉钉。
+
+虽然部分功能收费，但是基础服务仍然是免费的，仍有很多 100 人以内的团队使用飞书免费版，这些人成为了飞书的「潜在高价值用户」，但付费能带来的除了服务、安全效益，实在没什么理由让这些企业主付费，转化难度很高。
+
+钉钉和飞书一样都属亏损状态，但前者属于用户规模庞大，在服务器层面上的亏损，是战略性亏损。但飞书的亏损属于在人力、研发，包括市场层面上的投入亏损。「这两方面的亏损是截然不同的，现在钉钉已经在全面开启商业化了，我觉得（亏损）可能这一两年就会有变化，毕竟本身客户体量在那儿。但飞书还不一定。
+
+## 个人总结
+
+飞书对我来说是一款好产品，我能通过调研和分析学到很多产品的交互、逻辑方法，在设计产品时节省了很多成本。飞书的经验都是值得其它同在 B 端行业公司学习和复盘的，战术上的勤奋不能用来弥补战略上的懒惰。B 端行业难啃，但未来发展潜力巨大，引无数英雄尽折腰，也希望更多人能够重视 B 端行业，提供更多价值。
+
+实习的那段经历也是喜忧参半、值得回味，遇到很多优秀的同事，包括但不限于清北毕业生、曾在咨询、四大、VC 公司工作的、曾在硅谷工作的......但也后悔没有多向他们学一些内容。在这里，出身是多么的不值钱，因为总有更厉害的人与你做同事。Stay foolish. Stay hungry.
+
+本文数据来源于网络，思考结合了个人经历。
+
+> 下载少数派[客户端](https://sspai.com/page/client)、关注[少数派小红书](https://sspai.com/link?target=https%3A%2F%2Fwww.xiaohongshu.com%2Fuser%2Fprofile%2F63f5d65d000000001001d8d4)，感受精彩数字生活 🍃
+
+> 实用、好用的[正版软件](https://sspai.com/mall)，少数派为你呈现 🚀
+
+[](https://sspai.com/s/JYjP)
+
+155
+
+56
+
+[](https://service.weibo.com/share/share.php?url=https%3A%2F%2Fsspai.com%2Fpost%2F82238?ref=weibo&title=%E3%80%90%E9%A3%9E%E4%B9%A6%EF%BC%8C%E8%A7%81%E8%AF%81%20B%20%E7%AB%AF%E9%99%B7%E9%98%B1%E3%80%91%E9%A3%9E%E4%B9%A6%E5%AF%B9%E6%88%91%E6%9D%A5%E8%AF%B4%E6%98%AF%E4%B8%80%E6%AC%BE%E5%A5%BD%E4%BA%A7%E5%93%81%EF%BC%8C%E4%BD%86%E5%AE%83%E5%8F%AF%E8%83%BD%E8%A6%81%E6%8C%A3%E6%89%8E%E6%9B%B4%E4%B9%85%E3%80%82%EF%BC%88%E6%9D%A5%E8%87%AA%20%40%E5%B0%91%E6%95%B0%E6%B4%BEsspai%EF%BC%89%E5%85%A8%E6%96%87%EF%BC%9A&pic=https%3A%2F%2Frssfile.sspai.com%2F2023%2F08%2F20%2Fdc2988690c4151d49ef095c075bf907f.png%3FimageMogr2%2Fauto-orient%2Fignore-error%2F1&appkey=3196502474#)
+
+扫码分享
+
+目录 3
+
+*   顶峰时期到初见败退 
+*   分析思考：为什么飞书「叫好不叫座」？ 
+    *   陷阱一：入局时期 
+    *   陷阱二：市场难点 
+    *   陷阱三：to B or not to B 
+    *   陷阱四：文化理念差异 
+    *   陷阱五：互联网离职率 
+    *   陷阱六：要人还是要钱 
+
+*   个人总结 
+
+ 讨论 
+
+我来说一句
+
+发布
+
+发表评论
+
+发布
+
+ 本文责编：@ [北鸮](https://sspai.com/u/thebaldingken)
+
+© 本文著作权归作者所有，并授权少数派独家使用，未经少数派许可，不得转载使用。
+
+[#热门文章](https://sspai.com/tag/%E7%83%AD%E9%97%A8%E6%96%87%E7%AB%A0)
+
+[#Matrix首页推荐](https://sspai.com/tag/Matrix%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90)
+
+[#观点](https://sspai.com/tag/%E8%A7%82%E7%82%B9)
+
+155
+
+[![Image 9: 未来的蜥蜴](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/ow11yui4/updates)
+
+[![Image 10: Leo_Z](https://cdnfile.sspai.com/2023/12/29/avatar/213f41d29835f7e0a051cb99a98206f8.jpeg?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/5kcmliy3/updates)
+
+[![Image 11: 猫痴渔](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/a4tkq33m/updates)
+
+[![Image 12: NIII](https://cdnfile.sspai.com/2023/07/25/d8a01dd1c5f7157f3fc6ff7ce5fe6c9c.jpeg?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/9jzisker/updates)
+
+[![Image 13: 少数派95546132](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/xrtv11s4/updates)
+
+[未来的蜥蜴](https://sspai.com/u/ow11yui4/updates)、[Leo_Z](https://sspai.com/u/5kcmliy3/updates)、[猫痴渔](https://sspai.com/u/a4tkq33m/updates)等 155 人为本文章充电
+
+[](https://service.weibo.com/share/share.php?url=https%3A%2F%2Fsspai.com%2Fpost%2F82238?ref=weibo&title=%E3%80%90%E9%A3%9E%E4%B9%A6%EF%BC%8C%E8%A7%81%E8%AF%81%20B%20%E7%AB%AF%E9%99%B7%E9%98%B1%E3%80%91%E9%A3%9E%E4%B9%A6%E5%AF%B9%E6%88%91%E6%9D%A5%E8%AF%B4%E6%98%AF%E4%B8%80%E6%AC%BE%E5%A5%BD%E4%BA%A7%E5%93%81%EF%BC%8C%E4%BD%86%E5%AE%83%E5%8F%AF%E8%83%BD%E8%A6%81%E6%8C%A3%E6%89%8E%E6%9B%B4%E4%B9%85%E3%80%82%EF%BC%88%E6%9D%A5%E8%87%AA%20%40%E5%B0%91%E6%95%B0%E6%B4%BEsspai%EF%BC%89%E5%85%A8%E6%96%87%EF%BC%9A&pic=https%3A%2F%2Frssfile.sspai.com%2F2023%2F08%2F20%2Fdc2988690c4151d49ef095c075bf907f.png%3FimageMogr2%2Fauto-orient%2Fignore-error%2F1&appkey=3196502474#)
+
+扫码分享
+
+[](http://www.instapaper.com/hello2?url=https%3A%2F%2Fsspai.com%2Fpost%2F82238&title=%E9%A3%9E%E4%B9%A6%EF%BC%8C%E8%A7%81%E8%AF%81%20B%20%E7%AB%AF%E9%99%B7%E9%98%B1&description=%E9%A3%9E%E4%B9%A6%E5%AF%B9%E6%88%91%E6%9D%A5%E8%AF%B4%E6%98%AF%E4%B8%80%E6%AC%BE%E5%A5%BD%E4%BA%A7%E5%93%81%EF%BC%8C%E4%BD%86%E5%AE%83%E5%8F%AF%E8%83%BD%E8%A6%81%E6%8C%A3%E6%89%8E%E6%9B%B4%E4%B9%85%E3%80%82)
+
+ 举报本文章 
+
+[![Image 14: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[养鳖大亨](https://sspai.com/u/7pqzx1cg/updates)
+
+ 02年求职产品小白 
+
+ 关注 
+
+[![Image 15](https://cdnfile.sspai.com/2026/4/20/article/58ebfc3b-9842-4396-582f-9064dd396775.png?imageMogr2/auto-orient/thumbnail/!1096x252r/gravity/center/crop/1096x252/format/webp/ignore-error/1)](https://sspai.com/a/n66bWn)
+
+ 全部评论(56) 
+
+热门排序
+
+![Image 16](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)
+
+请在 登录 后评论...
+
+[![Image 17: Meggie](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/w3zegay5/updates)
+
+[![Image 18](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/w3zegay5)关注
+
+Meggie
+
+[Meggie [![Image 19](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/w3zegay5)关注 Meggie](https://sspai.com/u/w3zegay5/updates)
+
+2023/08/24 04:28
+
+一位企业COO曾说：企业愿意花钱的，一定是跟业务匹配度高的，满足这几个预期：第一是立马提高业绩，第二是安全合规不得不买，第三是有增值服务。效率协同，一定是排在最后一位的 说的很有道理，我们公司500人，领导绝不会在提高效率协同这块给外面的公司付一毛钱。公司里倒是养了一个4人的研发小团队开发内部网站，这个网站超级难用，平时...展开
+
+3 31 0 举报 2023/08/24 04:28
+
+[![Image 20: Meggie](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/utpvswsa/updates)
+
+[![Image 21](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/utpvswsa)关注
+
+胡兵
+
+[胡兵 [![Image 22](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/utpvswsa)关注 胡兵](https://sspai.com/u/utpvswsa/updates)
+
+2023/08/30 14:32
+
+这里“有增值服务”是什么意思呢？不太理解，能不能展开说一下？
+
+1 0 举报 2023/08/30 14:32
+
+[![Image 23: kokdemo](https://cdnfile.sspai.com/2022/04/09/b6a4bbd45eb420afef50d4551415bb35.jpg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/kokdemo/updates)
+
+[![Image 24](https://cdnfile.sspai.com/2022/04/09/b6a4bbd45eb420afef50d4551415bb35.jpg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/kokdemo)关注
+
+kokdemo
+
+少数派作者
+
+[kokdemo [![Image 25](https://cdnfile.sspai.com/2022/04/09/b6a4bbd45eb420afef50d4551415bb35.jpg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/kokdemo)关注 kokdemo 少数派作者](https://sspai.com/u/kokdemo/updates)
+
+2023/09/14 02:26
+
+能省则省没毛病
+
+2 0 举报 2023/09/14 02:26
+
+[![Image 26: LLLLLu](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/d6448rqr/updates)
+
+[![Image 27](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/d6448rqr)关注
+
+LLLLLu
+
+[LLLLLu [![Image 28](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/d6448rqr)关注 LLLLLu](https://sspai.com/u/d6448rqr/updates)
+
+回复
+
+[胡兵 [![Image 29](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/utpvswsa)关注 胡兵](https://sspai.com/u/utpvswsa/updates)
+
+2023/09/17 17:18
+
+举个不存在的例子：企业花钱接入飞书，这时候增值服务可能是，飞书团队每个季度能提供一次OKR咨询服务、或人效咨询服务，帮助公司分析、拆解当前OKR或人效等方面存在的问题，提供专业建议。这种类似QBR（季度运营复盘）的专业咨询服务就属于增值服务，通常是付费的，在一些SaaS产品中，产品提供方可能会视情况赠送给客户若干次QBR服务。
+
+4 0 举报 2023/09/17 17:18
+
+[![Image 30: 一成](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/ezhou/updates)
+
+[![Image 31](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ezhou)关注
+
+白马
+
+[白马 [![Image 32](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ezhou)关注 白马](https://sspai.com/u/ezhou/updates)
+
+2023/08/21 10:34
+
+少数派，2023年1月新版会员社区上线，2023年5月14日飞书会员话题群停用。
+
+6 19 2 举报 2023/08/21 10:34
+
+[![Image 33: 少数派_1063411](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/k7spw4tj/updates)
+
+[![Image 34](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/k7spw4tj)关注
+
+少数派_1063411
+
+[少数派_1063411 [![Image 35](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/k7spw4tj)关注 少数派_1063411](https://sspai.com/u/k7spw4tj/updates)
+
+2023/08/22 11:46
+
+为啥，可以详谈么
+
+0 0 举报 2023/08/22 11:46
+
+[![Image 36: 一成](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/ezhou/updates)
+
+[![Image 37](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ezhou)关注
+
+白马
+
+[白马 [![Image 38](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ezhou)关注 白马](https://sspai.com/u/ezhou/updates)
+
+回复
+
+[少数派_1063411 [![Image 39](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/k7spw4tj)关注 少数派_1063411](https://sspai.com/u/k7spw4tj/updates)
+
+2023/08/22 12:52
+
+飞书2023年升级，商业标准版50元/人/月。
+
+7 0 举报 2023/08/22 12:52
+
+[![Image 40: _山药](https://cdnfile.sspai.com/2021/12/08/57fd4a78205e767b6508ecf2d6dc2f65.jpg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/shanyao/updates)
+
+[![Image 41](https://cdnfile.sspai.com/2021/12/08/57fd4a78205e767b6508ecf2d6dc2f65.jpg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/shanyao)关注
+
+_山药
+
+[_山药 [![Image 42](https://cdnfile.sspai.com/2021/12/08/57fd4a78205e767b6508ecf2d6dc2f65.jpg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/shanyao)关注 _山药](https://sspai.com/u/shanyao/updates)
+
+2023/09/13 07:38
+
+每个人都应该有飞书个人账户/打开白嫖思路
+
+0 0 举报 2023/09/13 07:38
+
+[![Image 43: minideerx](https://cdnfile.sspai.com/2022/04/01/avatar/a0d92329a3fae566c223ca481d6927ca.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/0bp8h0l6/updates)
+
+[![Image 44](https://cdnfile.sspai.com/2022/04/01/avatar/a0d92329a3fae566c223ca481d6927ca.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/0bp8h0l6)关注
+
+minideerx
+
+少数派作者
+
+[minideerx [![Image 45](https://cdnfile.sspai.com/2022/04/01/avatar/a0d92329a3fae566c223ca481d6927ca.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/0bp8h0l6)关注 minideerx 少数派作者](https://sspai.com/u/0bp8h0l6/updates)
+
+回复
+
+[白马 [![Image 46](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ezhou)关注 白马](https://sspai.com/u/ezhou/updates)
+
+2023/09/13 08:15
+
+那少数派是用不起的，prime会员年费最高也才365元，还不够飞书费用（50*12）
+
+9 0 举报 2023/09/13 08:15
+
+[![Image 47: aumarsdu](https://cdnfile.sspai.com/2024/06/24/avatar/b67cf6b2f89dcc2b0f0c1fd1e55af169.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/umd2vtmh/updates)
+
+[![Image 48](https://cdnfile.sspai.com/2024/06/24/avatar/b67cf6b2f89dcc2b0f0c1fd1e55af169.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/umd2vtmh)关注
+
+aumarsdu
+
+[aumarsdu [![Image 49](https://cdnfile.sspai.com/2024/06/24/avatar/b67cf6b2f89dcc2b0f0c1fd1e55af169.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/umd2vtmh)关注 aumarsdu](https://sspai.com/u/umd2vtmh/updates)
+
+回复
+
+[minideerx [![Image 50](https://cdnfile.sspai.com/2022/04/01/avatar/a0d92329a3fae566c223ca481d6927ca.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/0bp8h0l6)关注 minideerx 少数派作者](https://sspai.com/u/0bp8h0l6/updates)
+
+2023/09/14 09:34
+
+这是两个逻辑，收费针对的是企业内部，如果我们作为外部用户加入群聊，企业是不需要为这个付费的
+
+3 0 举报 2023/09/14 09:34
+
+[![Image 51: 然后喵](https://cdnfile.sspai.com/2022/05/24/avatar/27298a6a57e828aa4a0f4ea2fa576cb8.jpeg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/lvgoodi/updates)
+
+[![Image 52](https://cdnfile.sspai.com/2022/05/24/avatar/27298a6a57e828aa4a0f4ea2fa576cb8.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/lvgoodi)关注
+
+然后喵
+
+[然后喵 [![Image 53](https://cdnfile.sspai.com/2022/05/24/avatar/27298a6a57e828aa4a0f4ea2fa576cb8.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/lvgoodi)关注 然后喵](https://sspai.com/u/lvgoodi/updates)
+
+回复
+
+[aumarsdu [![Image 54](https://cdnfile.sspai.com/2024/06/24/avatar/b67cf6b2f89dcc2b0f0c1fd1e55af169.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/umd2vtmh)关注 aumarsdu](https://sspai.com/u/umd2vtmh/updates)
+
+2023/10/12 10:20
+
+公司从原来企微转到飞书用了一年半，然后今天涨价又转去钉钉了，关键是文档全在飞书还得转移
+
+0 0 举报 2023/10/12 10:20
+
+[![Image 55: 脑机接口蜗牛](https://cdnfile.sspai.com/2023/10/20/627aa2a876b35d1c54eed7f95d87c776.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/t0dxijpo/updates)
+
+[![Image 56](https://cdnfile.sspai.com/2023/10/20/627aa2a876b35d1c54eed7f95d87c776.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/t0dxijpo)关注
+
+脑机接口蜗牛
+
+[脑机接口蜗牛 [![Image 57](https://cdnfile.sspai.com/2023/10/20/627aa2a876b35d1c54eed7f95d87c776.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/t0dxijpo)关注 脑机接口蜗牛](https://sspai.com/u/t0dxijpo/updates)
+
+2023/09/06 11:52
+
+很不错的文章，里面提到「飞书很先进，但是大部分企业不先进」这句话很感触
+
+1 16 0 举报 2023/09/06 11:52
+
+[![Image 58: 春日里的粉雪](https://cdnfile.sspai.com/2022/04/06/avatar/c2be550a7d63545184205f5c0b2f591a.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/xlqvtqhz/updates)
+
+[![Image 59](https://cdnfile.sspai.com/2022/04/06/avatar/c2be550a7d63545184205f5c0b2f591a.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/xlqvtqhz)关注
+
+春日里的粉雪
+
+少数派作者
+
+[春日里的粉雪 [![Image 60](https://cdnfile.sspai.com/2022/04/06/avatar/c2be550a7d63545184205f5c0b2f591a.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/xlqvtqhz)关注 春日里的粉雪 少数派作者](https://sspai.com/u/xlqvtqhz/updates)
+
+2023/09/14 04:10
+
+确实，不先进的企业认同不了飞书的理念，而这包括一大批头部。
+
+3 0 举报 2023/09/14 04:10
+
+[![Image 61: 一只被掐死的猫](https://cdnfile.sspai.com/2022/05/11/avatar/5689ce24b33ede96c4b27859310936dc.jpeg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/rz8kvozw/updates)
+
+[![Image 62](https://cdnfile.sspai.com/2022/05/11/avatar/5689ce24b33ede96c4b27859310936dc.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/rz8kvozw)关注
+
+一只被掐死的猫
+
+[一只被掐死的猫 [![Image 63](https://cdnfile.sspai.com/2022/05/11/avatar/5689ce24b33ede96c4b27859310936dc.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/rz8kvozw)关注 一只被掐死的猫](https://sspai.com/u/rz8kvozw/updates)
+
+2023/08/25 18:03
+
+总结就是 1. 飞书入局晚，有竞品，而且竞品都有相关业务，竞品不同的产品线，整体上可以形成联动，行成收益和亏损上的覆盖，飞书没有这个优势。2. b端市场的先发争夺点在大客户，但是呢，大客户要求高，满足他们需求不好搞，回报率差，没什么赚头。中小客户呢，主要考虑的点又不在协同上，替代方案有很多，有很多更重要的事情去做。3. ...展开
+
+1 10 0 举报 2023/08/25 18:03
+
+[![Image 64: SongWang](https://cdnfile.sspai.com/2024/12/03/3af939dd15521392a700bad4dd11e167.JPG?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/rwl1ow3r/updates)
+
+[![Image 65](https://cdnfile.sspai.com/2024/12/03/3af939dd15521392a700bad4dd11e167.JPG?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/rwl1ow3r)关注
+
+SongWang
+
+[SongWang [![Image 66](https://cdnfile.sspai.com/2024/12/03/3af939dd15521392a700bad4dd11e167.JPG?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/rwl1ow3r)关注 SongWang](https://sspai.com/u/rwl1ow3r/updates)
+
+2023/08/29 10:11
+
+我之前看过一个不一样的分析逻辑，飞书专注小客户是因为中大客户其实数量有限，而且迁移动作需有一定成本的，愿意做迁移的都很有限，而飞书的逻辑就是未来的中大型企业一定是从当前的中小企业来的，大型企业的管理理念难培养，中小企业的管理理念可以从初创时就开始培养，堵的就是以后这批会发展起来的中小企业。这个模式逻辑的缺点就是周期太长...展开
+
+6 0 举报 2023/08/29 10:11
+
+[![Image 67: 一成](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/YiCheng/updates)
+
+[![Image 68](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/YiCheng)关注
+
+一成
+
+[一成 [![Image 69](https://cdnfile.sspai.com/ui/otter_avatar_placeholder.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/YiCheng)关注 一成](https://sspai.com/u/YiCheng/updates)
+
+2023/09/14 02:45
+
+很不错的文章，简短但有深度，文中很多观点颇有感触：“私有化部署 ROI 很低，在产品层面，功能也很难复用”；“往往是高管从下层的 O 中选择一个认为收益率最高的作为整个公司的 O”“飞书很先进，但绝大部分企业都不先进”“「跟老板谈理念，跟管理者谈效益，跟员工谈体验」。这句话就很好的说明，B 端的客需是多么的复杂，想要拿下客户订单，难度不亚于把一款产品卖给不同的用户群体。”
+
+1 7 0 举报 2023/09/14 02:45
+
+[![Image 70: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[![Image 71](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注
+
+养鳖大亨
+
+少数派作者
+
+[养鳖大亨 [![Image 72](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注 养鳖大亨 少数派作者](https://sspai.com/u/7pqzx1cg/updates)
+
+2023/09/20 02:47
+
+谢谢
+
+0 0 举报 2023/09/20 02:47
+
+[![Image 73: 广场光头强](https://cdnfile.sspai.com/2023/07/04/6861b51d1761bc45297c0dec8df9c993.jpeg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/qzz2zji9/updates)
+
+[![Image 74](https://cdnfile.sspai.com/2023/07/04/6861b51d1761bc45297c0dec8df9c993.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/qzz2zji9)关注
+
+广场光头强
+
+[广场光头强 [![Image 75](https://cdnfile.sspai.com/2023/07/04/6861b51d1761bc45297c0dec8df9c993.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/qzz2zji9)关注 广场光头强](https://sspai.com/u/qzz2zji9/updates)
+
+2023/09/13 08:51
+
+据说一个开发负责一个按钮
+
+0 7 0 举报 2023/09/13 08:51
+
+[![Image 76: Meggie](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/leototocn/updates)
+
+[![Image 77](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/leototocn)关注
+
+kainchenhn
+
+[kainchenhn [![Image 78](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/leototocn)关注 kainchenhn](https://sspai.com/u/leototocn/updates)
+
+2023/09/13 16:36
+
+飞书以前有接触过，为了让团队用上飞书，与飞书交流了2年，换了几茬市场人员，依然谈不拢，领导层高自尊不愿与放下尊贵的身姿去拥抱市场，非要走资本主义路线，拒绝私有部署，直接导致大行业进不去，小市场不愿做，加上定价离谱，自然要下坡。
+
+0 5 0 举报 2023/09/13 16:36
+
+[![Image 79: Bais](https://cdnfile.sspai.com/2023/09/15/avatar/d7c91af953db5da61b350be955ee80ed.jpeg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/ustich30/updates)
+
+[![Image 80](https://cdnfile.sspai.com/2023/09/15/avatar/d7c91af953db5da61b350be955ee80ed.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ustich30)关注
+
+Bais
+
+[Bais [![Image 81](https://cdnfile.sspai.com/2023/09/15/avatar/d7c91af953db5da61b350be955ee80ed.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/ustich30)关注 Bais](https://sspai.com/u/ustich30/updates)
+
+2023/09/13 10:49
+
+飞书的付费策略如果是基础版+定制付费就好了...现在的定价逻辑，例如说，我只需要知识库和妙记容量，但也需要为其他用不到的功能付费，就缺乏动力
+
+0 5 0 举报 2023/09/13 10:49
+
+[![Image 82: WWW100CC](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/m4qz2ie1/updates)
+
+[![Image 83](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/m4qz2ie1)关注
+
+WWW100CC
+
+[WWW100CC [![Image 84](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/m4qz2ie1)关注 WWW100CC](https://sspai.com/u/m4qz2ie1/updates)
+
+2023/08/21 10:40
+
+希望飞书可以继续前行，挺好用的。数字资源迁移成本太大，真希望他可以活下去
+
+0 4 0 举报 2023/08/21 10:40
+
+[![Image 85: 康佳辉](https://cdnfile.sspai.com/2022/06/17/avatar/5a483b5f7f2a12ac658fb07068662936.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/me6efbgr/updates)
+
+[![Image 86](https://cdnfile.sspai.com/2022/06/17/avatar/5a483b5f7f2a12ac658fb07068662936.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/me6efbgr)关注
+
+康佳辉
+
+[康佳辉 [![Image 87](https://cdnfile.sspai.com/2022/06/17/avatar/5a483b5f7f2a12ac658fb07068662936.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/me6efbgr)关注 康佳辉](https://sspai.com/u/me6efbgr/updates)
+
+2023/09/07 00:15
+
+新型传销吗？现在连我们村的宝妈都在微信朋友圈天天发飞书
+
+0 3 0 举报 2023/09/07 00:15
+
+[![Image 88: 少年派少年](https://cdnfile.sspai.com/2024/01/29/9fa576d7b68426be4c783e51b55d1ba2.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/3a8xd0k9/updates)
+
+[![Image 89](https://cdnfile.sspai.com/2024/01/29/9fa576d7b68426be4c783e51b55d1ba2.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/3a8xd0k9)关注
+
+少年派少年
+
+新手上路
+
+[少年派少年 [![Image 90](https://cdnfile.sspai.com/2024/01/29/9fa576d7b68426be4c783e51b55d1ba2.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/3a8xd0k9)关注 少年派少年 新手上路](https://sspai.com/u/3a8xd0k9/updates)
+
+2023/09/19 09:22
+
+写的不错，能读的出来，这是真正意义上面，在经历里面提炼和分析的文章，22年实习，23年就有文章了，反观自己工作几年，辗转几家公司，好像也写不出个啥总结。在浏览评论时候，突然觉得 写分析文章，或者总结类型文章 和 写简历也有相似地方，当然文章和简历是大不同的东西，但是实质上，都是通过文字表达传达最重要的最想表达信息，既要简短，又要有概括性，让人读完这100字的段落产生共鸣。
+
+1 2 0 举报 2023/09/19 09:22
+
+[![Image 91: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[![Image 92](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注
+
+养鳖大亨
+
+少数派作者
+
+[养鳖大亨 [![Image 93](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注 养鳖大亨 少数派作者](https://sspai.com/u/7pqzx1cg/updates)
+
+2023/09/20 02:40
+
+谢谢你
+
+1 0 举报 2023/09/20 02:40
+
+[![Image 94: 少数派38555857](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/j6rtfnet/updates)
+
+[![Image 95](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/j6rtfnet)关注
+
+少数派38555857
+
+[少数派38555857 [![Image 96](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/j6rtfnet)关注 少数派38555857](https://sspai.com/u/j6rtfnet/updates)
+
+2023/09/16 01:25
+
+飞书是我用过最好用的办公协同类软件，没有之一；
+
+0 2 0 举报 2023/09/16 01:25
+
+[![Image 97: 闲情偶拾](https://cdnfile.sspai.com/2022/04/02/7e016c0d2c68bac6a85737fe2e677d77.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/s18fbhcc/updates)
+
+[![Image 98](https://cdnfile.sspai.com/2022/04/02/7e016c0d2c68bac6a85737fe2e677d77.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/s18fbhcc)关注
+
+闲情偶拾
+
+[闲情偶拾 [![Image 99](https://cdnfile.sspai.com/2022/04/02/7e016c0d2c68bac6a85737fe2e677d77.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/s18fbhcc)关注 闲情偶拾](https://sspai.com/u/s18fbhcc/updates)
+
+2023/09/15 01:35
+
+前一段时间B站影视飓风TIM说起来管理的问题，感觉注重OKR的公司，飞书确实可以解决很多问题！
+
+1 2 0 举报 2023/09/15 01:35
+
+[![Image 100: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[![Image 101](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注
+
+养鳖大亨
+
+少数派作者
+
+[养鳖大亨 [![Image 102](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注 养鳖大亨 少数派作者](https://sspai.com/u/7pqzx1cg/updates)
+
+2023/09/20 02:42
+
+我是做产品的，我有些时候觉得OKR和古典产品经理相违背，OKR在很多公司变成了上层决策下层执行的关系，但很多上层老板对用户需求并不清楚，再加上大环境不好，能活下来的产品经理往往是for老板，而不是for用户。有点可惜又可悲
+
+0 0 举报 2023/09/20 02:42
+
+[![Image 103: 不过是雨天](https://cdnfile.sspai.com/2022/09/20/ae33dc731dda91c58726edaaa879759f.jpg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/9phjxkh9/updates)
+
+[![Image 104](https://cdnfile.sspai.com/2022/09/20/ae33dc731dda91c58726edaaa879759f.jpg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/9phjxkh9)关注
+
+不过是雨天
+
+[不过是雨天 [![Image 105](https://cdnfile.sspai.com/2022/09/20/ae33dc731dda91c58726edaaa879759f.jpg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/9phjxkh9)关注 不过是雨天](https://sspai.com/u/9phjxkh9/updates)
+
+2023/08/21 09:50
+
+写的蛮好的，这个之前刘飞也分析过
+
+0 2 0 举报 2023/08/21 09:50
+
+[![Image 106: 中阳](https://cdnfile.sspai.com/2022/04/02/avatar/c1255301489df02ec3adf5064da4baf4.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/mountainwolf/updates)
+
+[![Image 107](https://cdnfile.sspai.com/2022/04/02/avatar/c1255301489df02ec3adf5064da4baf4.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/mountainwolf)关注
+
+中阳
+
+[中阳 [![Image 108](https://cdnfile.sspai.com/2022/04/02/avatar/c1255301489df02ec3adf5064da4baf4.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/mountainwolf)关注 中阳](https://sspai.com/u/mountainwolf/updates)
+
+2023/09/15 01:21
+
+飞书是挺好用的，to B to C都行，to C的话相比notion除了网络之外，优势不大，但我认为飞书可能瞧不上c端这点钱。
+
+0 1 0 举报 2023/09/15 01:21
+
+[![Image 109: ylya](https://cdnfile.sspai.com/2021/11/17/avatar/222b2e5482fd900cf845f33b36900205?imageMogr2/auto-orient/quality/90/ignore-error/1)](https://sspai.com/u/pybb9wda/updates)
+
+[![Image 110](https://cdnfile.sspai.com/2021/11/17/avatar/222b2e5482fd900cf845f33b36900205?imageMogr2/auto-orient/quality/90/ignore-error/1)](https://sspai.com/u/pybb9wda)关注
+
+ylya
+
+[ylya [![Image 111](https://cdnfile.sspai.com/2021/11/17/avatar/222b2e5482fd900cf845f33b36900205?imageMogr2/auto-orient/quality/90/ignore-error/1)](https://sspai.com/u/pybb9wda)关注 ylya](https://sspai.com/u/pybb9wda/updates)
+
+2023/09/14 09:30
+
+普通的企业用不到，用得到的企业不普通，悬在空中落不了地有啥用呢
+
+0 1 0 举报 2023/09/14 09:30
+
+[![Image 112: paulpao](https://cdnfile.sspai.com/2022/08/01/avatar/ebee0bf2f59eca5eccf3d91b11e885f1.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/paulpao/updates)
+
+[![Image 113](https://cdnfile.sspai.com/2022/08/01/avatar/ebee0bf2f59eca5eccf3d91b11e885f1.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/paulpao)关注
+
+paulpao
+
+[paulpao [![Image 114](https://cdnfile.sspai.com/2022/08/01/avatar/ebee0bf2f59eca5eccf3d91b11e885f1.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/paulpao)关注 paulpao](https://sspai.com/u/paulpao/updates)
+
+2023/09/14 08:03
+
+也在从事to B的业务，深感生存不易，文中的很多金句深以为然。但反思一下，反而这种难搞定，门槛高，见效慢成为了行业护城河，或者说是个围城...
+
+1 1 0 举报 2023/09/14 08:03
+
+[![Image 115: 养鳖大亨](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg/updates)
+
+[![Image 116](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注
+
+养鳖大亨
+
+少数派作者
+
+[养鳖大亨 [![Image 117](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/7pqzx1cg)关注 养鳖大亨 少数派作者](https://sspai.com/u/7pqzx1cg/updates)
+
+2023/09/20 02:47
+
+后来去了腾讯云实习，发现腾讯云难以变现和惯用C端思路有关系，重体验而非重商业。也许高层有高层的决策。目前来看，B端业务就像做生意，用高性价比直击痛点，做好客户体系；C端业务更像做服务，服务好增量存量用户，再从第三方收费
+
+0 0 举报 2023/09/20 02:47
+
+[![Image 118: 然后喵](https://cdnfile.sspai.com/2022/05/24/avatar/27298a6a57e828aa4a0f4ea2fa576cb8.jpeg?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/lvgoodi/updates)
+
+[![Image 119](https://cdnfile.sspai.com/2022/05/24/avatar/27298a6a57e828aa4a0f4ea2fa576cb8.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/lvgoodi)关注
+
+然后喵
+
+[然后喵 [![Image 120](https://cdnfile.sspai.com/2022/05/24/avatar/27298a6a57e828aa4a0f4ea2fa576cb8.jpeg?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/lvgoodi)关注 然后喵](https://sspai.com/u/lvgoodi/updates)
+
+2023/09/14 02:04
+
+最后不都得看老板的意思吗，老板想要钉钉强管理谁还能拦着
+
+0 1 0 举报 2023/09/14 02:04
+
+[![Image 121: WWW100CC](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/m4qz2ie1/updates)
+
+[![Image 122](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/m4qz2ie1)关注
+
+WWW100CC
+
+[WWW100CC [![Image 123](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png)](https://sspai.com/u/m4qz2ie1)关注 WWW100CC](https://sspai.com/u/m4qz2ie1/updates)
+
+2023/08/24 07:48
+
+当然，如果只是纯写作和内容生产，不用做协同办公，语雀也很好用，它的付费模式也可以接受，创始人说让语雀可以坚挺103年存活，这辈子也够了。
+
+0 1 0 举报 2023/08/24 07:48
+
+[![Image 124: Meggie](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!80x80r/gravity/center/crop/80x80/format/webp/ignore-error/1)](https://sspai.com/u/w3zegay5/updates)
+
+[![Image 125](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/w3zegay5)关注
+
+Meggie
+
+[Meggie [![Image 126](https://cdn-static.sspai.com/ui/otter_avatar_placeholder_240511.png?imageMogr2/auto-orient/thumbnail/!100x100r/gravity/center/crop/100x100/format/webp/ignore-error/1)](https://sspai.com/u/w3zegay5)关注 Meggie](https://sspai.com/u/w3zegay5/updates)
+
+2023/08/24 04:28
+
+一位企业COO曾说：企业愿意花钱的，一定是跟业务匹配度高的，满足这几个预期：第一是立马提高业绩，第二是安全合规不得不买，第三是有增值服务。效率协同，一定是排在最后一位的 说的很有道理，我们公司500人，领导绝不会在提高效率协同这块给外面的公司付一毛钱。公司里倒是养了一个4人的研发小团队开发内部网站，这个网站超级难用，平时...展开
+
+0 1 0 举报 2023/08/24 04:28
+
+ 更多 
+
+关联阅读
+
+[杀死你的不是它：聊聊我们的 AI 的焦虑 [![Image 127: LOSSES](https://cdnfile.sspai.com/2023/02/13/13cc982f2a97e1c02451adf28f303c1c.png?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/losses) [LOSSES](https://sspai.com/u/losses) 03/07 ![Image 128: Matrix精选](https://cdn-static.sspai.com/ui/tags/matrix.png)Matrix精选 ![Image 129: 杀死你的不是它：聊聊我们的 AI 的焦虑](https://cdnfile.sspai.com/2026/03/07/6e06490d67d414998a18d49c12386940.jpg?imageMogr2/auto-orient/thumbnail/!228x172r/gravity/center/crop/228x172/format/webp/ignore-error/1)](https://sspai.com/post/106923)[观点 | 赛车游戏没落了吗？ [![Image 130: 黑狗布雷特](https://cdnfile.sspai.com/2022/03/20/7192f29922f35cccca6e62faac67591f.jpg?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/bradliu) [黑狗布雷特](https://sspai.com/u/bradliu) 2025/08/27 ![Image 131: Matrix精选](https://cdn-static.sspai.com/ui/tags/matrix.png)Matrix精选 ![Image 132: 观点 | 赛车游戏没落了吗？](https://cdnfile.sspai.com/2025/08/27/5cf0772f696ea70c0d5e47d391d933ce.jpg?imageMogr2/auto-orient/thumbnail/!228x172r/gravity/center/crop/228x172/format/webp/ignore-error/1)](https://sspai.com/post/102137)[为什么我觉得好的东西，媒体评测却给了低分？ [![Image 133: Leobai](https://cdnfile.sspai.com/2025/11/17/avatar/2aa6381af9a2fc66562c972caef18c2c.png?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/3ki91emb) [Leobai](https://sspai.com/u/3ki91emb) 05/14 ![Image 134: Matrix精选](https://cdn-static.sspai.com/ui/tags/matrix.png)Matrix精选 ![Image 135: 为什么我觉得好的东西，媒体评测却给了低分？](https://cdnfile.sspai.com/2026/05/14/97a33d9b6a1ed0eca3a9946e153266da.png?imageMogr2/auto-orient/thumbnail/!228x172r/gravity/center/crop/228x172/format/webp/ignore-error/1)](https://sspai.com/post/109777)[你真的需要墨水屏设备吗？ [![Image 136: 知道分子吴先先](https://cdnfile.sspai.com/2025/10/29/7c47eec8ae62827bd8f105bbc9f72171.JPG?imageMogr2/auto-orient/thumbnail/!32x32r/gravity/center/crop/32x32/format/webp/ignore-error/1)](https://sspai.com/u/hahad) [知道分子吴先先](https://sspai.com/u/hahad) 05/12 ![Image 137: Matrix精选](https://cdn-static.sspai.com/ui/tags/matrix.png)Matrix精选 ![Image 138: 你真的需要墨水屏设备吗？](https://cdnfile.sspai.com/2026/05/09/0217917ea54799ec11492c2c65f33e1d.jpg?imageMogr2/auto-orient/thumbnail/!228x172r/gravity/center/crop/228x172/format/webp/ignore-error/1)](https://sspai.com/post/109550)
+
+![Image 139](https://cdn-static.sspai.com/ui/logo/logo_sspai_icon.png)
+
+App 内打开
+
+ 请绑定手机号码 
+
+ 取消 
+
+ 前往绑定 
+
+[](https://sspai.com/)
+
+[](https://weibo.com/sspaime?is_hot=1)[关注公众号 sspaime ![Image 140](https://cdn-static.sspai.com/ui/gzh_qrcode_home.png)](https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU4Mjg3MDAyMQ==&subscene=0#wechat_redirect)[](https://www.xiaohongshu.com/user/profile/63f5d65d000000001001d8d4)[](https://sspai.com/feed)
+
+[下载 App](https://sspai.com/page/client)[联系我们](mailto:contact@sspai.com)[商务合作](https://sspai.com/page/bussiness)[关于我们](https://sspai.com/page/about-us)[用户协议](https://sspai.com/page/agreement)
+
+© 2013-2026 深圳市烧麦网络科技有限公司 - 少数派[粤ICP备09128966号-4](https://beian.miit.gov.cn/) | [粤B2-20211534](https://dxzhgl.miit.gov.cn/)
+
+ 确定
+
+*   联系客服
+*   [发送邮件](mailto:contact@sspai.com)
+*   [商务合作](https://sspai.com/page/bussiness)
+*   [少数派 App](https://sspai.com/page/client)
+
+请用微信手机端扫码咨询客服
+
+![Image 141](https://cdn-static.sspai.com/ui/qrcode_service.png)

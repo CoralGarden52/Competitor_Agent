@@ -14,9 +14,15 @@ class CollectorAgent:
         self.store = store
         self.config = get_config()
 
-    def run(self, state: RunState) -> CollectOutput:
+    def run(
+        self,
+        state: RunState,
+        *,
+        target_competitors: list[str] | None = None,
+        field_query_overrides: dict[str, list[str]] | None = None,
+    ) -> CollectOutput:
         out = CollectOutput()
-        active_competitors = state.planned_competitors or state.competitors
+        active_competitors = target_competitors or state.planned_competitors or state.competitors
         
         if not active_competitors:
             return out
@@ -32,6 +38,7 @@ class CollectorAgent:
                 competitor=competitor,
                 schema_plan=state.analysis_schema_plan,
                 per_field_limit=self.config.collector_per_field_limit,
+                field_query_overrides=field_query_overrides,
             )
             
             elapsed = __import__('time').time() - start

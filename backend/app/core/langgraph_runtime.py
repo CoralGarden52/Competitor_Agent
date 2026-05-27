@@ -4,7 +4,7 @@ from typing import Any, TypedDict
 
 from langgraph.graph import END, StateGraph
 
-from app.core.models import QAResult, RunState
+from app.core.models import RunState, StageName
 
 
 class GraphExecState(TypedDict):
@@ -32,19 +32,17 @@ class WorkflowLangGraphRuntime:
         graph.add_edge('plan', 'collect')
         graph.add_edge('collect', 'normalize')
         graph.add_edge('normalize', 'analyze')
-        graph.add_edge('analyze', 'draft')
-        graph.add_edge('draft', 'qa')
+        graph.add_edge('analyze', 'qa')
         graph.add_conditional_edges(
             'qa',
             self._route_after_qa,
             {
-                'finalize': 'finalize',
+                'proceed_draft': 'draft',
                 'rework_collect': 'collect',
-                'rework_analyze': 'analyze',
-                'rework_draft': 'draft',
                 'fail': END,
             },
         )
+        graph.add_edge('draft', 'finalize')
         graph.add_edge('finalize', END)
         return graph.compile()
 
@@ -130,28 +128,25 @@ class WorkflowLangGraphRuntime:
         def run_qa(s: RunState):
             qa = self.service._qa(s)
             state['qa_output'] = qa.model_dump()
-            decision = self.service.orchestrator.route(qa_result=qa, iteration=s.attempt)
-            if decision.action == 'retry':
-                s.attempt += 1
-                qa_result = QAResult(passed=qa.passed, issues=qa.issues, target_agent=qa.target_agent)
-                self.service._apply_rework_ticket(s, qa_result)
-                if decision.route_back_stage is not None:
-                    if decision.route_back_stage.value == 'collect':
-                        state['route_action'] = 'rework_collect'
-                    elif decision.route_back_stage.value == 'analyze':
-                        state['route_action'] = 'rework_analyze'
-                    else:
-                        state['route_action'] = 'rework_draft'
-                else:
-                    state['route_action'] = 'rework_draft'
-            elif decision.action == 'fail':
-                s.status = 'failed'
-                state['route_action'] = 'fail'
-            else:
-                state['route_action'] = 'finalize'
+            if qa.passed:
+                state['route_action'] = 'proceed_draft'
+                return
+            # single recollect round only
+            if s.attempt <= 1 and qa.target_agent == 'Collect':
+                self.service._apply_rework_ticket(s, qa)
+                state['route_action'] = 'rework_collect'
+                return
+            # after one recollect attempt, continue to draft with qa warning in events
+            self.service._save_and_event(
+                s,
+                StageName.qa,
+                'qa.recollect.skipped',
+                {'reason': 'max_single_recollect_reached', 'attempt': s.attempt},
+            )
+            state['route_action'] = 'proceed_draft'
 
         self._trace('qa', run_state, run_qa)
-        return {'run_state': run_state, 'qa_output': state.get('qa_output'), 'route_action': state.get('route_action', 'finalize')}
+        return {'run_state': run_state, 'qa_output': state.get('qa_output'), 'route_action': state.get('route_action', 'proceed_draft')}
 
     def _node_finalize(self, state: GraphExecState) -> GraphExecState:
         run_state = state['run_state']
@@ -166,4 +161,4 @@ class WorkflowLangGraphRuntime:
 
     @staticmethod
     def _route_after_qa(state: GraphExecState) -> str:
-        return state.get('route_action', 'finalize')
+        return state.get('route_action', 'proceed_draft')

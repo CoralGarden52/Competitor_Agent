@@ -46,6 +46,7 @@ class AppConfig(BaseSettings):
     collector_provider_timeout_sec: int = Field(default=12, ge=3, le=600)
     collector_provider_retry: int = Field(default=1, ge=0, le=3)
     collector_search_order: str = 'tavily,qianfan,serper,exa,firecrawl_search,zhihu_official'
+    collector_search_order_strict: bool = True
     collector_fetch_order: str = 'jina,firecrawl_fetch,tavily_extract'
     collector_cache_enabled: bool = True
     collector_cache_ttl_days: int = Field(default=30, ge=1, le=365)

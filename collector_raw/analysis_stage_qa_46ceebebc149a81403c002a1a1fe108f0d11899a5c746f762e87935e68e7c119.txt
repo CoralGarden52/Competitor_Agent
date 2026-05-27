@@ -1,0 +1,661 @@
+# 自定义导航栏
+
+Title: 自定义导航栏
+
+URL Source: https://www.feishu.cn/hc/zh-CN/articles/549435754694-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%BC%E8%88%AA%E6%A0%8F
+
+Markdown Content:
+# 自定义导航栏
+![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d3859633b9c64b969e91c8dec24c9a37~tplv-jbbdkfciu3-image:0:0.image)
+
+[![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/268ec674a56a4510889f7f5ca14f1ba1~tplv-jbbdkfciu3-image:0:0.image)](https://www.feishu.cn/)[帮助中心](https://www.feishu.cn/hc/zh-CN)
+
+新手入门
+
+使用飞书
+
+更多资源
+
+[智能助手](https://www.feishu.cn/hc/zh-CN/chat?referrer=/hc/zh-CN/articles/549435754694-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%BC%E8%88%AA%E6%A0%8F)
+
+帮助中心智能助手上线
+
+我能为你解答飞书使用的问题，快来问问我吧！
+
+[Video 1](https://sf3-scmcdn-cn.feishucdn.com/obj/tos-cn-v-826391/a98e49e90ff14c989f2fc3dd7006f9d4)
+
+00:00
+
+ 点击按住可拖动视频 
+
+我知道了
+
+[去试试](https://www.feishu.cn/hc/zh-CN/chat?from=guide_popup&referrer=/hc/zh-CN/articles/549435754694-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%BC%E8%88%AA%E6%A0%8F)
+
+[登录](https://login.feishu.cn/suite/passport/page/login/?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F549435754694-%25E8%2587%25AA%25E5%25AE%259A%25E4%25B9%2589%25E5%25AF%25BC%25E8%2588%25AA%25E6%25A0%258F)
+
+*   [注册登录](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571488100379) 
+    *   [下载和安装飞书客户端](https://www.feishu.cn/hc/zh-CN/articles/360025035993 "下载和安装飞书客户端")
+    *   [注册账号](https://www.feishu.cn/hc/zh-CN/articles/360045688853 "注册账号")
+    *   [登录和退出登录账号](https://www.feishu.cn/hc/zh-CN/articles/303520488692 "登录和退出登录账号")
+    *   [使用飞书企业邮箱登录账号](https://www.feishu.cn/hc/zh-CN/articles/872623127788 "使用飞书企业邮箱登录账号")
+    *   [激活账号](https://www.feishu.cn/hc/zh-CN/articles/360045214714 "激活账号")
+    *   [在飞书中登录更多账号](https://www.feishu.cn/hc/zh-CN/articles/259637325656 "在飞书中登录更多账号")
+    *   [在浏览器中授权登录账号](https://www.feishu.cn/hc/zh-CN/articles/636273193426 "在浏览器中授权登录账号")
+    *   [切换账号](https://www.feishu.cn/hc/zh-CN/articles/360043506013 "切换账号")
+    *   [找回账号](https://www.feishu.cn/hc/zh-CN/articles/360049067617 "找回账号")
+    *   [下载飞书后无法登录怎么办？](https://www.feishu.cn/hc/zh-CN/articles/360049067738 "下载飞书后无法登录怎么办？")
+    *   [飞书 Windows 版本安装或启动失败怎么办？](https://www.feishu.cn/hc/zh-CN/articles/360043226713 "飞书 Windows 版本安装或启动失败怎么办？")
+    *   [注册或登录账号时收不到验证码怎么办？](https://www.feishu.cn/hc/zh-CN/articles/922992241575 "注册或登录账号时收不到验证码怎么办？")
+    *   [在 Windows 中使用飞书时提示运行内存不足怎么办？](https://www.feishu.cn/hc/zh-CN/articles/525328373196 "在 Windows 中使用飞书时提示运行内存不足怎么办？")
+    *   [在 Windows 中打开客户端时提示数据目录权限异常怎么办？](https://www.feishu.cn/hc/zh-CN/articles/027244803995 "在 Windows 中打开客户端时提示数据目录权限异常怎么办？")
+    *   [在 Windows 中使用飞书时提示系统虚拟内存不足怎么办？](https://www.feishu.cn/hc/zh-CN/articles/699850300382 "在 Windows 中使用飞书时提示系统虚拟内存不足怎么办？")
+    *   [在 Windows 中使用飞书时出现白屏或卡顿等现象怎么办？](https://www.feishu.cn/hc/zh-CN/articles/413916844794 "在 Windows 中使用飞书时出现白屏或卡顿等现象怎么办？")
+
+*   [邀请与加入](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571492311042) 
+    *   [创建企业](https://www.feishu.cn/hc/zh-CN/articles/360043741453 "创建企业")
+    *   [加入企业](https://www.feishu.cn/hc/zh-CN/articles/360043496893 "加入企业")
+    *   [使用企业二维码加入企业](https://www.feishu.cn/hc/zh-CN/articles/360040932014 "使用企业二维码加入企业")
+    *   [使用企业邀请码加入企业](https://www.feishu.cn/hc/zh-CN/articles/360040931334 "使用企业邀请码加入企业")
+    *   [企业成员邀请内部其他成员加入企业](https://www.feishu.cn/hc/zh-CN/articles/360049067836 "企业成员邀请内部其他成员加入企业")
+    *   [退出企业](https://www.feishu.cn/hc/zh-CN/articles/360043495733 "退出企业")
+
+*   [外部联系人](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571504844801) 
+    *   [添加或删除外部联系人](https://www.feishu.cn/hc/zh-CN/articles/360043505973 "添加或删除外部联系人")
+    *   [星标联系人](https://www.feishu.cn/hc/zh-CN/articles/370278739280 "星标联系人")
+
+*   [账号管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571509121051) 
+    *   [快速了解账号安全中心](https://www.feishu.cn/hc/zh-CN/articles/381170146224 "快速了解账号安全中心")
+    *   [提升账号安全体检分](https://www.feishu.cn/hc/zh-CN/articles/675329765758 "提升账号安全体检分")
+    *   [设置或修改登录方式和联系方式](https://www.feishu.cn/hc/zh-CN/articles/360049067557 "设置或修改登录方式和联系方式")
+    *   [修改、重置登录密码](https://www.feishu.cn/hc/zh-CN/articles/360049067504 "修改、重置登录密码")
+    *   [使用通行密钥](https://www.feishu.cn/hc/zh-CN/articles/996633321134 "使用通行密钥")
+    *   [启用动态口令](https://www.feishu.cn/hc/zh-CN/articles/983674949767 "启用动态口令")
+    *   [设置或修改备用验证方式](https://www.feishu.cn/hc/zh-CN/articles/201014089220 "设置或修改备用验证方式")
+    *   [设置或修改安全密码](https://www.feishu.cn/hc/zh-CN/articles/575653586486 "设置或修改安全密码")
+    *   [使用锁屏保护](https://www.feishu.cn/hc/zh-CN/articles/936548866628 "使用锁屏保护")
+    *   [启用两步验证](https://www.feishu.cn/hc/zh-CN/articles/835193808723 "启用两步验证")
+    *   [管理登录设备](https://www.feishu.cn/hc/zh-CN/articles/520261095216 "管理登录设备")
+    *   [管理应用授权](https://www.feishu.cn/hc/zh-CN/articles/127420464016 "管理应用授权")
+    *   [提交账号申诉](https://www.feishu.cn/hc/zh-CN/articles/170957163321 "提交账号申诉")
+    *   [自助解除账号封禁](https://www.feishu.cn/hc/zh-CN/articles/044670038157 "自助解除账号封禁")
+    *   [注销账号](https://www.feishu.cn/hc/zh-CN/articles/360049067831 "注销账号")
+
+*   [偏好设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571513315356) 
+    *   [修改名字、头像和个性签名](https://www.feishu.cn/hc/zh-CN/articles/360045333114 "修改名字、头像和个性签名")
+    *   [设置个人状态](https://www.feishu.cn/hc/zh-CN/articles/628211611250 "设置个人状态")
+    *   [使用个人名片功能](https://www.feishu.cn/hc/zh-CN/articles/352212339442 "使用个人名片功能")
+    *   [分享个人名片及二维码与链接](https://www.feishu.cn/hc/zh-CN/articles/939270497933 "分享个人名片及二维码与链接")
+    *   [佩戴企业勋章](https://www.feishu.cn/hc/zh-CN/articles/187098316579 "佩戴企业勋章")
+    *   [查看其他成员的手机号](https://www.feishu.cn/hc/zh-CN/articles/197758501122 "查看其他成员的手机号")
+    *   [设置对外展示时区](https://www.feishu.cn/hc/zh-CN/articles/697331934037 "设置对外展示时区")
+    *   [使用桌面端快捷键](https://www.feishu.cn/hc/zh-CN/articles/894529368028 "使用桌面端快捷键")
+    *   [更换主题模式和主题色](https://www.feishu.cn/hc/zh-CN/articles/784578188399 "更换主题模式和主题色")
+    *   [调整显示语言](https://www.feishu.cn/hc/zh-CN/articles/360045748353 "调整显示语言")
+    *   [使用桌面端窗口缩放功能](https://www.feishu.cn/hc/zh-CN/articles/461795918574 "使用桌面端窗口缩放功能")
+    *   [调整移动端字体大小](https://www.feishu.cn/hc/zh-CN/articles/360049068035 "调整移动端字体大小")
+    *   [设置消息通知](https://www.feishu.cn/hc/zh-CN/articles/111093338362 "设置消息通知")
+    *   [在移动端使用飞书桌面小组件](https://www.feishu.cn/hc/zh-CN/articles/031796699668 "在移动端使用飞书桌面小组件")
+    *   [在移动端使用扫一扫功能](https://www.feishu.cn/hc/zh-CN/articles/611976503372 "在移动端使用扫一扫功能")
+    *   [使用 iPad 多窗口功能](https://www.feishu.cn/hc/zh-CN/articles/525304478840 "使用 iPad 多窗口功能")
+    *   [使用智能补全](https://www.feishu.cn/hc/zh-CN/articles/360049067455 "使用智能补全")
+    *   [使用智能纠错](https://www.feishu.cn/hc/zh-CN/articles/360043910114 "使用智能纠错")
+    *   [允许其他用户搜到自己常见问题](https://www.feishu.cn/hc/zh-CN/articles/360043506033 "允许其他用户搜到自己常见问题")
+    *   [清理缓存和系统重置常见问题](https://www.feishu.cn/hc/zh-CN/articles/399507903065 "清理缓存和系统重置常见问题")
+    *   [安卓设备收不到新消息通知怎么办？](https://www.feishu.cn/hc/zh-CN/articles/360025451293 "安卓设备收不到新消息通知怎么办？")
+    *   [重置数据失败怎么办？](https://www.feishu.cn/hc/zh-CN/articles/885232563698 "重置数据失败怎么办？")
+    *   [在安卓折叠屏手机上调整屏幕布局](https://www.feishu.cn/hc/zh-CN/articles/596791212564 "在安卓折叠屏手机上调整屏幕布局")
+
+*   [系统与版本](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571521687579) 
+    *   [使用飞书的硬件要求](https://www.feishu.cn/hc/zh-CN/articles/360049067467 "使用飞书的硬件要求")
+    *   [企业内网环境中使用飞书](https://www.feishu.cn/hc/zh-CN/articles/360049067748 "企业内网环境中使用飞书")
+    *   [配置企业内网防火墙域名和 IP 白名单](https://www.feishu.cn/hc/zh-CN/articles/360044683233 "配置企业内网防火墙域名和 IP 白名单")
+    *   [设置网络系统代理模式](https://www.feishu.cn/hc/zh-CN/articles/360047817054 "设置网络系统代理模式")
+    *   [检查代理设置](https://www.feishu.cn/hc/zh-CN/articles/360047600034 "检查代理设置")
+    *   [使用 MSI 文件批量部署飞书客户端](https://www.feishu.cn/hc/zh-CN/articles/360049067543 "使用 MSI 文件批量部署飞书客户端")
+    *   [将飞书添加到杀毒软件白名单](https://www.feishu.cn/hc/zh-CN/articles/808650135488 "将飞书添加到杀毒软件白名单")
+    *   [使用飞书网页版](https://www.feishu.cn/hc/zh-CN/articles/360040080753 "使用飞书网页版")
+    *   [将系统浏览器设置为飞书网页版支持的浏览器](https://www.feishu.cn/hc/zh-CN/articles/360049067759 "将系统浏览器设置为飞书网页版支持的浏览器")
+    *   [查看或升级飞书版本](https://www.feishu.cn/hc/zh-CN/articles/360043828013 "查看或升级飞书版本")
+    *   [Mac App Store 版本上架常见问题](https://www.feishu.cn/hc/zh-CN/articles/017796660957 "Mac App Store 版本上架常见问题")
+    *   [飞书内存占用及卡顿常见问题](https://www.feishu.cn/hc/zh-CN/articles/360039160114 "飞书内存占用及卡顿常见问题")
+    *   [在 Windows 中使用飞书时提示资源文件被占用怎么办？](https://www.feishu.cn/hc/zh-CN/articles/275220871425 "在 Windows 中使用飞书时提示资源文件被占用怎么办？")
+    *   [使用 Windows 版 AHA 电脑医生](https://www.feishu.cn/hc/zh-CN/articles/294755026335 "使用 Windows 版 AHA 电脑医生")
+
+*   [导航与搜索](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7321373858194292738) 
+    *   [自定义导航栏](https://www.feishu.cn/hc/zh-CN/articles/549435754694 "自定义导航栏")
+    *   [查看桌面端历史记录](https://www.feishu.cn/hc/zh-CN/articles/955968064674 "查看桌面端历史记录")
+    *   [使用搜索功能](https://www.feishu.cn/hc/zh-CN/articles/360025112714 "使用搜索功能")
+    *   [使用搜索连接器接入企业数据](https://www.feishu.cn/hc/zh-CN/articles/890683596529 "使用搜索连接器接入企业数据")
+    *   [高级搜索语法](https://www.feishu.cn/hc/zh-CN/articles/956339790002 "高级搜索语法")
+
+*   [更新日志](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7225931699035701276) 
+    *   [账号与设置功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067476 "账号与设置功能更新日志")
+
+[账号与设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571483906050)
+
+[导航与搜索](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7321373858194292738)
+
+自定义导航栏
+
+# 自定义导航栏
+
+本文阅读时长：17 分钟
+
+桌面端
+
+手机端
+
+平板端
+
+更多
+
+​
+
+[Video 2](https://sf3-scmcdn-cn.feishucdn.com/obj/tos-cn-v-826391/oIjCABDOtKnq9LgoLbjdeEMAbdDjelIm4VIRZG)
+
+不支持的音频/视频格式 请试试 刷新
+
+播放
+
+00:00/00:00 直播
+
+00:00
+
+ 进入全屏 
+
+1x
+
+*   0.5x
+*   0.75x
+*   1x
+*   1.5x
+*   2x
+
+ 点击按住可拖动视频 
+
+​​
+
+一、功能简介​
+
+​
+
+🔖
+
+版本要求： 飞书 V7.13 及以上版本​
+
+​
+
+你可以自定义飞书桌面端导航栏，更便捷地打开你需要的页面及应用：​
+
+*   直接浏览：你可在桌面端内直接打开文档、多维表格等页面或业务应用，无需跳转到浏览器。​
+
+*   自主设置：你可拖拽调整导航栏中的应用顺序，固定常用的应用，收起不常用的应用。​
+
+*   分组管理：你可对导航栏中的应用进行自定义分组管理，让导航栏更清晰。​
+
+*   切换视图：你可通过收起或展开导航栏自由切换导航栏视图。​
+
+二、操作流程​
+
+在桌面端内打开页面及应用​
+
+你可通过以下 2 种方式，在桌面端内直接打开页面及应用：​
+
+方式 1：在会话中点击页面或应用链接。​
+
+​
+
+250px|700px|reset
+
+![Image 3](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/22596698d4204d7f8f83f05466138888~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 4](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/274aa9d9ef20445bad6593b2549ad1df~tplv-jbbdkfciu3-image:0:0.image)​​
+
+方式 2：在搜索结果页中，点击页面或应用。​
+
+​
+
+250px|700px|reset
+
+![Image 5](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/84f6692f05b04cce96eab582fa28b1e3~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 6](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/40b4793c7f7e44b3bec300bc06edec78~tplv-jbbdkfciu3-image:0:0.image)​​
+
+注：飞书桌面端默认在桌面端内打开链接。如果要更改为默认在浏览器打开链接，可点击个人头像，选择 设置>效率，在 链接打开方式 下拉选项中，选择 优先在浏览器打开。​
+
+自定义导航栏临时区域​
+
+在桌面端内打开的页面及应用会以标签页形式集中展示在导航栏下半部分的临时区域内。​
+
+​
+
+250px|700px|reset
+
+![Image 7](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ebe3a29cb05d4af18fac05218eb74e82~tplv-jbbdkfciu3-image:0:0.image)​​
+
+你可对临时区域中的标签页进行关闭、排序及固定操作。​
+
+*   关闭：鼠标悬停于标签页上，点击标签页后的 ​关闭，或右键点击标签页 >关闭。​
+
+​
+
+250px|700px|reset
+
+![Image 8](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/181207ecaff54978b641ed10fe81091f~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 9](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/619771dfc1b147fea0605832f73b62ca~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   排序：按住并拖拽临时区域内的标签页。​
+
+​
+
+250px|700px|reset
+
+![Image 10](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/8811c186937e41df91435f0a6320f131~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   固定：可将标签页拖拽至固定区域，快速固定常用标签页；当不再需要固定标签页时，可将其拖拽回临时区域。​
+
+​
+
+250px|700px|reset
+
+![Image 11](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c4ca6c726a7340dc88091cd883d68cab~tplv-jbbdkfciu3-image:0:0.image)​​
+
+另外，也可以通过右键点击标签页 >固定，将标签页添加到固定区域底部。​
+
+​
+
+250px|700px|reset
+
+![Image 12](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/37946843aa104a76b023aa12f189e45b~tplv-jbbdkfciu3-image:0:0.image)​​
+
+自定义导航栏固定区域​
+
+你可对固定区域中的应用及标签页进行排序，将其移除，或收起至 更多 分组中。​
+
+*   排序：拖拽应用或标签页，调整它们在固定区域内的展示顺序。​
+
+​
+
+250px|700px|reset
+
+![Image 13](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/a99dcbc595ce49a4a8325a0acdde91d5~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   取消固定：在不再需要的应用或标签页上点击右键 >取消固定。​
+
+注：管理员配置的应用以及部分官方应用不支持取消固定。​
+
+​
+
+250px|700px|reset
+
+![Image 14](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/299db9014dfc4fb1aef5f29d40900dbe~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   调整 更多 分组：你可以点击展开 更多 分组，将其中的常用应用拖拽至固定区域，将其他不常用的应用拖拽至 更多 中。​
+
+​
+
+250px|700px|reset
+
+![Image 15](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/4ffb0e13e89a4fada24a1c0a47633743~tplv-jbbdkfciu3-image:0:0.image)​​
+
+使用导航栏分组功能​
+
+1.   新建分组​
+
+在任意标签页上点击右键 >移动到分组>​新分组，可创建一个名称为 分组 1 的新分组，标签页会被自动移动到分组内。​
+
+​
+
+250px|700px|reset
+
+![Image 16](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/910d4eb130a64fc0848f7bb7c4c359d3~tplv-jbbdkfciu3-image:0:0.image)​​
+
+你可右键点击分组 >重命名，修改分组名称。​
+
+​
+
+250px|700px|reset
+
+![Image 17](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/aea09fce5268427bb41795bbf7d0ff62~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 18](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c4b4d55277b544e1abd4c01574f46990~tplv-jbbdkfciu3-image:0:0.image)​​
+
+1.   分组整理标签页​
+
+如需将标签页移动至某个分组内，你可直接将标签页拖拽到分组上并松开。​
+
+​
+
+250px|700px|reset
+
+![Image 19](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/76ce04f087104efdbff0401dcc1da8aa~tplv-jbbdkfciu3-image:0:0.image)​​
+
+你也可右键点击标签页 >移动到分组，再选择需移动到的分组。​
+
+​
+
+250px|700px|reset
+
+![Image 20](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/61cf2265d2e448d59f37309de49e5663~tplv-jbbdkfciu3-image:0:0.image)​​
+
+1.   管理分组​
+
+你可通过排序、解散、删除 3 种操作管理分组。​
+
+*   排序：将分组拖拽至导航栏中的任意位置后松开。​
+
+​
+
+250px|700px|reset
+
+![Image 21](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/995fc7e4e7e8424a80cc9ae49b6895e2~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   解散分组：右键点击分组 >解散分组，则分组中的标签页会回到该分组原先在导航栏中所在的位置。​
+
+​
+
+250px|700px|reset
+
+![Image 22](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/e32460bc691d4e05aea30cc35149167d~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 23](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/23bdf004a6524747bcdbfe45ccb70894~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   删除分组：右键点击分组 >删除分组，随后在弹窗中确认 删除。删除后，分组中的标签页将从导航栏移除，不支持移除的标签页仍将保留。​
+
+注：管理员配置的应用以及部分官方应用不支持从固定区域中移除。​
+
+​
+
+250px|700px|reset
+
+![Image 24](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b8740949519a49b8a13eb6b70b17832b~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 25](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/fd628498d6b9438887c1514e600963c5~tplv-jbbdkfciu3-image:0:0.image)​​
+
+切换导航栏视图​
+
+桌面端导航栏默认为展开状态。如果需要收起导航栏，你可采用以下 2 种方式：​
+
+方式 1：在导航栏任意位置点击右键 >收起导航栏；再次点击右键 >展开导航栏，可重新展开。​
+
+​
+
+250px|700px|reset
+
+![Image 26](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/5d34d54f6d594262a15f272264bb9cae~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 27](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/4695165ae6124ac0877a16ca6eb587bf~tplv-jbbdkfciu3-image:0:0.image)​​
+
+方式 2：将鼠标悬停至导航栏与应用界面分界线处向左拖拽；向右拖拽可重新展开。​
+
+​
+
+250px|700px|reset
+
+![Image 28](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/9f3e76cf8f584838b885e5978299b246~tplv-jbbdkfciu3-image:0:0.image)​​
+
+导航栏收起时，你还可以在任意位置点击右键 >隐藏名称，隐藏所有应用名称。如需显示应用名称，点击右键 >显示名称。​
+
+​
+
+250px|700px|reset
+
+![Image 29](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/94cb3e7cd08a48678fb5b2ab36932fa5~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 30](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c0f7c47a50034562b35d85c51068a78b~tplv-jbbdkfciu3-image:0:0.image)​​
+
+重命名标签页​
+
+​
+
+🔖
+
+说明：应用类标签页不支持重命名。​
+
+​
+
+你可根据需要对桌面端内打开的标签页（如文档、表格、多维表格、任务清单或网页链接）进行重命名，使它们在导航栏上更易于查找。​
+
+1.   右键点击标签页，选择 重命名。​
+
+1.   输入新的名称后，点击导航栏任意位置即可生效。重命名仅对导航栏上展示的标签页有效，不会更改原链接名称。​
+
+​
+
+250px|700px|reset
+
+![Image 31](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/a921e22c61024e729c31423c4915eb18~tplv-jbbdkfciu3-image:0:0.image)​​
+
+250px|700px|reset
+
+![Image 32](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/e486d1925f5e48de89fd94b01c9d74dd~tplv-jbbdkfciu3-image:0:0.image)​​
+
+三、常见问题​
+
+问：为什么我在导航栏上看不到某个功能的入口？
+
+答：​
+
+*   可能是由于企业管理员没有将功能配置在导航栏上，或是企业管理员没有为你启用这个功能，你可[联系管理员](https://www.feishu.cn/hc/zh-CN/articles/360049067822-%E7%AE%A1%E7%90%86%E5%91%98%E5%92%8C%E7%AE%A1%E7%90%86%E5%91%98%E8%A7%92%E8%89%B2%E4%BB%8B%E7%BB%8D#tabs0|lineguid-Y7FNY)进行确认。​
+
+*   如果确认企业管理员已经完成了相关配置，还是无法在导航栏上看到某功能入口，你可[获取最新飞书配置](https://www.feishu.cn/hc/zh-CN/articles/360039160114-%E9%A3%9E%E4%B9%A6%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%8F%8A%E5%8D%A1%E9%A1%BF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98#tabs0|lineguid-mcf4T)，将飞书升级到最新版本后再次查看。​
+
+问：哪些类型的页面支持在飞书桌面端内直接打开？
+
+答：文档、表格、多维表格、妙记、云盘等页面可在桌面端内直接打开。​
+
+问：导航栏中最多支持固定多少个标签页？
+
+答：最多支持固定 200 个标签页。​
+
+问：在飞书桌面端内打开了多个标签页，是否可以快速关闭其他不需要的标签页？
+
+答：可以。在需要保留的标签页上点击右键 >关闭其他标签页，可关闭不再需要的标签页。​
+
+​
+
+250px|700px|reset
+
+![Image 33](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/a96501086b5d444bb243ba22e91b36f7~tplv-jbbdkfciu3-image:0:0.image)​​
+
+问：为什么有些应用无法从导航栏固定区域中移除？
+
+答：管理员配置的固定应用无法从固定区域中移除。​
+
+问：不想默认在飞书桌面端中打开文档、网页等链接，是否可以设置在浏览器中打开？
+
+答：可以。找到个人头像，点击后选择 设置>效率，在 链接打开方式 下，选择 优先在浏览器打开。​
+
+​
+
+250px|700px|reset
+
+![Image 34](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/2fea3762ef1c4989b913358f3750f2a8~tplv-jbbdkfciu3-image:0:0.image)​​
+
+问：在飞书桌面端导航栏内进行了自定义操作，是否会同步到移动端设备？
+
+答：在固定区域内的自定义操作可以同步到桌面端其他设备，临时区域内的操作不会同步到桌面端其他设备；自定义操作不会同步到移动端设备。​
+
+问：为什么最近打开的文档不显示在导航栏的临时区域了？
+
+答：可能是因为你设置了优先在浏览器中打开文档，在浏览器中打开的文档将不会显示在导航栏的临时区域。如需修改，请在桌面端点击个人头像，点击 设置>效率，在“链接打开方式”中选择 优先在飞书导航栏打开。 ​
+
+作者：飞书帮助中心
+
+最后更新于2025/02/06
+
+本文是否对你有帮助
+
+有帮助
+
+无帮助
+
+提交成功，感谢你的反馈！
+
+未能解决你的问题？请联系[在线客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)
+
+本篇目录
+
+1.   [一、功能简介​](javascript:;)
+2.   [二、操作流程​](javascript:;)
+3.   [在桌面端内打开页面及应用​](javascript:;)
+4.   [自定义导航栏临时区域​](javascript:;)
+5.   [自定义导航栏固定区域​](javascript:;)
+6.   [使用导航栏分组功能​](javascript:;)
+7.   [切换导航栏视图​](javascript:;)
+8.   [重命名标签页​](javascript:;)
+9.   [三、常见问题​](javascript:;)
+
+2
+
+*   [注册登录](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571488100379) 
+    *   [下载和安装飞书客户端](https://www.feishu.cn/hc/zh-CN/articles/360025035993 "下载和安装飞书客户端")
+    *   [注册账号](https://www.feishu.cn/hc/zh-CN/articles/360045688853 "注册账号")
+    *   [登录和退出登录账号](https://www.feishu.cn/hc/zh-CN/articles/303520488692 "登录和退出登录账号")
+    *   [使用飞书企业邮箱登录账号](https://www.feishu.cn/hc/zh-CN/articles/872623127788 "使用飞书企业邮箱登录账号")
+    *   [激活账号](https://www.feishu.cn/hc/zh-CN/articles/360045214714 "激活账号")
+    *   [在飞书中登录更多账号](https://www.feishu.cn/hc/zh-CN/articles/259637325656 "在飞书中登录更多账号")
+    *   [在浏览器中授权登录账号](https://www.feishu.cn/hc/zh-CN/articles/636273193426 "在浏览器中授权登录账号")
+    *   [切换账号](https://www.feishu.cn/hc/zh-CN/articles/360043506013 "切换账号")
+    *   [找回账号](https://www.feishu.cn/hc/zh-CN/articles/360049067617 "找回账号")
+    *   [下载飞书后无法登录怎么办？](https://www.feishu.cn/hc/zh-CN/articles/360049067738 "下载飞书后无法登录怎么办？")
+    *   [飞书 Windows 版本安装或启动失败怎么办？](https://www.feishu.cn/hc/zh-CN/articles/360043226713 "飞书 Windows 版本安装或启动失败怎么办？")
+    *   [注册或登录账号时收不到验证码怎么办？](https://www.feishu.cn/hc/zh-CN/articles/922992241575 "注册或登录账号时收不到验证码怎么办？")
+    *   [在 Windows 中使用飞书时提示运行内存不足怎么办？](https://www.feishu.cn/hc/zh-CN/articles/525328373196 "在 Windows 中使用飞书时提示运行内存不足怎么办？")
+    *   [在 Windows 中打开客户端时提示数据目录权限异常怎么办？](https://www.feishu.cn/hc/zh-CN/articles/027244803995 "在 Windows 中打开客户端时提示数据目录权限异常怎么办？")
+    *   [在 Windows 中使用飞书时提示系统虚拟内存不足怎么办？](https://www.feishu.cn/hc/zh-CN/articles/699850300382 "在 Windows 中使用飞书时提示系统虚拟内存不足怎么办？")
+    *   [在 Windows 中使用飞书时出现白屏或卡顿等现象怎么办？](https://www.feishu.cn/hc/zh-CN/articles/413916844794 "在 Windows 中使用飞书时出现白屏或卡顿等现象怎么办？")
+
+*   [邀请与加入](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571492311042) 
+    *   [创建企业](https://www.feishu.cn/hc/zh-CN/articles/360043741453 "创建企业")
+    *   [加入企业](https://www.feishu.cn/hc/zh-CN/articles/360043496893 "加入企业")
+    *   [使用企业二维码加入企业](https://www.feishu.cn/hc/zh-CN/articles/360040932014 "使用企业二维码加入企业")
+    *   [使用企业邀请码加入企业](https://www.feishu.cn/hc/zh-CN/articles/360040931334 "使用企业邀请码加入企业")
+    *   [企业成员邀请内部其他成员加入企业](https://www.feishu.cn/hc/zh-CN/articles/360049067836 "企业成员邀请内部其他成员加入企业")
+    *   [退出企业](https://www.feishu.cn/hc/zh-CN/articles/360043495733 "退出企业")
+
+*   [外部联系人](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571504844801) 
+    *   [添加或删除外部联系人](https://www.feishu.cn/hc/zh-CN/articles/360043505973 "添加或删除外部联系人")
+    *   [星标联系人](https://www.feishu.cn/hc/zh-CN/articles/370278739280 "星标联系人")
+
+*   [账号管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571509121051) 
+    *   [快速了解账号安全中心](https://www.feishu.cn/hc/zh-CN/articles/381170146224 "快速了解账号安全中心")
+    *   [提升账号安全体检分](https://www.feishu.cn/hc/zh-CN/articles/675329765758 "提升账号安全体检分")
+    *   [设置或修改登录方式和联系方式](https://www.feishu.cn/hc/zh-CN/articles/360049067557 "设置或修改登录方式和联系方式")
+    *   [修改、重置登录密码](https://www.feishu.cn/hc/zh-CN/articles/360049067504 "修改、重置登录密码")
+    *   [使用通行密钥](https://www.feishu.cn/hc/zh-CN/articles/996633321134 "使用通行密钥")
+    *   [启用动态口令](https://www.feishu.cn/hc/zh-CN/articles/983674949767 "启用动态口令")
+    *   [设置或修改备用验证方式](https://www.feishu.cn/hc/zh-CN/articles/201014089220 "设置或修改备用验证方式")
+    *   [设置或修改安全密码](https://www.feishu.cn/hc/zh-CN/articles/575653586486 "设置或修改安全密码")
+    *   [使用锁屏保护](https://www.feishu.cn/hc/zh-CN/articles/936548866628 "使用锁屏保护")
+    *   [启用两步验证](https://www.feishu.cn/hc/zh-CN/articles/835193808723 "启用两步验证")
+    *   [管理登录设备](https://www.feishu.cn/hc/zh-CN/articles/520261095216 "管理登录设备")
+    *   [管理应用授权](https://www.feishu.cn/hc/zh-CN/articles/127420464016 "管理应用授权")
+    *   [提交账号申诉](https://www.feishu.cn/hc/zh-CN/articles/170957163321 "提交账号申诉")
+    *   [自助解除账号封禁](https://www.feishu.cn/hc/zh-CN/articles/044670038157 "自助解除账号封禁")
+    *   [注销账号](https://www.feishu.cn/hc/zh-CN/articles/360049067831 "注销账号")
+
+*   [偏好设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571513315356) 
+    *   [修改名字、头像和个性签名](https://www.feishu.cn/hc/zh-CN/articles/360045333114 "修改名字、头像和个性签名")
+    *   [设置个人状态](https://www.feishu.cn/hc/zh-CN/articles/628211611250 "设置个人状态")
+    *   [使用个人名片功能](https://www.feishu.cn/hc/zh-CN/articles/352212339442 "使用个人名片功能")
+    *   [分享个人名片及二维码与链接](https://www.feishu.cn/hc/zh-CN/articles/939270497933 "分享个人名片及二维码与链接")
+    *   [佩戴企业勋章](https://www.feishu.cn/hc/zh-CN/articles/187098316579 "佩戴企业勋章")
+    *   [查看其他成员的手机号](https://www.feishu.cn/hc/zh-CN/articles/197758501122 "查看其他成员的手机号")
+    *   [设置对外展示时区](https://www.feishu.cn/hc/zh-CN/articles/697331934037 "设置对外展示时区")
+    *   [使用桌面端快捷键](https://www.feishu.cn/hc/zh-CN/articles/894529368028 "使用桌面端快捷键")
+    *   [更换主题模式和主题色](https://www.feishu.cn/hc/zh-CN/articles/784578188399 "更换主题模式和主题色")
+    *   [调整显示语言](https://www.feishu.cn/hc/zh-CN/articles/360045748353 "调整显示语言")
+    *   [使用桌面端窗口缩放功能](https://www.feishu.cn/hc/zh-CN/articles/461795918574 "使用桌面端窗口缩放功能")
+    *   [调整移动端字体大小](https://www.feishu.cn/hc/zh-CN/articles/360049068035 "调整移动端字体大小")
+    *   [设置消息通知](https://www.feishu.cn/hc/zh-CN/articles/111093338362 "设置消息通知")
+    *   [在移动端使用飞书桌面小组件](https://www.feishu.cn/hc/zh-CN/articles/031796699668 "在移动端使用飞书桌面小组件")
+    *   [在移动端使用扫一扫功能](https://www.feishu.cn/hc/zh-CN/articles/611976503372 "在移动端使用扫一扫功能")
+    *   [使用 iPad 多窗口功能](https://www.feishu.cn/hc/zh-CN/articles/525304478840 "使用 iPad 多窗口功能")
+    *   [使用智能补全](https://www.feishu.cn/hc/zh-CN/articles/360049067455 "使用智能补全")
+    *   [使用智能纠错](https://www.feishu.cn/hc/zh-CN/articles/360043910114 "使用智能纠错")
+    *   [允许其他用户搜到自己常见问题](https://www.feishu.cn/hc/zh-CN/articles/360043506033 "允许其他用户搜到自己常见问题")
+    *   [清理缓存和系统重置常见问题](https://www.feishu.cn/hc/zh-CN/articles/399507903065 "清理缓存和系统重置常见问题")
+    *   [安卓设备收不到新消息通知怎么办？](https://www.feishu.cn/hc/zh-CN/articles/360025451293 "安卓设备收不到新消息通知怎么办？")
+    *   [重置数据失败怎么办？](https://www.feishu.cn/hc/zh-CN/articles/885232563698 "重置数据失败怎么办？")
+    *   [在安卓折叠屏手机上调整屏幕布局](https://www.feishu.cn/hc/zh-CN/articles/596791212564 "在安卓折叠屏手机上调整屏幕布局")
+
+*   [系统与版本](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571521687579) 
+    *   [使用飞书的硬件要求](https://www.feishu.cn/hc/zh-CN/articles/360049067467 "使用飞书的硬件要求")
+    *   [企业内网环境中使用飞书](https://www.feishu.cn/hc/zh-CN/articles/360049067748 "企业内网环境中使用飞书")
+    *   [配置企业内网防火墙域名和 IP 白名单](https://www.feishu.cn/hc/zh-CN/articles/360044683233 "配置企业内网防火墙域名和 IP 白名单")
+    *   [设置网络系统代理模式](https://www.feishu.cn/hc/zh-CN/articles/360047817054 "设置网络系统代理模式")
+    *   [检查代理设置](https://www.feishu.cn/hc/zh-CN/articles/360047600034 "检查代理设置")
+    *   [使用 MSI 文件批量部署飞书客户端](https://www.feishu.cn/hc/zh-CN/articles/360049067543 "使用 MSI 文件批量部署飞书客户端")
+    *   [将飞书添加到杀毒软件白名单](https://www.feishu.cn/hc/zh-CN/articles/808650135488 "将飞书添加到杀毒软件白名单")
+    *   [使用飞书网页版](https://www.feishu.cn/hc/zh-CN/articles/360040080753 "使用飞书网页版")
+    *   [将系统浏览器设置为飞书网页版支持的浏览器](https://www.feishu.cn/hc/zh-CN/articles/360049067759 "将系统浏览器设置为飞书网页版支持的浏览器")
+    *   [查看或升级飞书版本](https://www.feishu.cn/hc/zh-CN/articles/360043828013 "查看或升级飞书版本")
+    *   [Mac App Store 版本上架常见问题](https://www.feishu.cn/hc/zh-CN/articles/017796660957 "Mac App Store 版本上架常见问题")
+    *   [飞书内存占用及卡顿常见问题](https://www.feishu.cn/hc/zh-CN/articles/360039160114 "飞书内存占用及卡顿常见问题")
+    *   [在 Windows 中使用飞书时提示资源文件被占用怎么办？](https://www.feishu.cn/hc/zh-CN/articles/275220871425 "在 Windows 中使用飞书时提示资源文件被占用怎么办？")
+    *   [使用 Windows 版 AHA 电脑医生](https://www.feishu.cn/hc/zh-CN/articles/294755026335 "使用 Windows 版 AHA 电脑医生")
+
+*   [导航与搜索](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7321373858194292738) 
+    *   [自定义导航栏](https://www.feishu.cn/hc/zh-CN/articles/549435754694 "自定义导航栏")
+    *   [查看桌面端历史记录](https://www.feishu.cn/hc/zh-CN/articles/955968064674 "查看桌面端历史记录")
+    *   [使用搜索功能](https://www.feishu.cn/hc/zh-CN/articles/360025112714 "使用搜索功能")
+    *   [使用搜索连接器接入企业数据](https://www.feishu.cn/hc/zh-CN/articles/890683596529 "使用搜索连接器接入企业数据")
+    *   [高级搜索语法](https://www.feishu.cn/hc/zh-CN/articles/956339790002 "高级搜索语法")
+
+*   [更新日志](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7225931699035701276) 
+    *   [账号与设置功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067476 "账号与设置功能更新日志")
+
+简体中文
+
+English
+
+[![Image 35](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ec090d13c05142508f47228ec31aef55~tplv-jbbdkfciu3-image:0:0.image)](javascript:void(0);)[](https://weibo.com/u/7223713567)[](https://www.zhihu.com/org/fei-shu-27-96/activities)[](https://www.toutiao.com/c/user/3073831497904140/)[![Image 36: social](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d58453d89da34a179ac64a94d4c136f5~tplv-jbbdkfciu3-image:0:0.image)](https://web.okjike.com/u/b02229cb-9242-4a7f-9ec7-8a8cacb2142c)
+
+Copyright © 2024 北京飞书科技有限公司[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 37](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image) 京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+购买咨询
+
+一对一专业企业顾问
+
+工作日 09:00 - 18:00 在线服务
+
+[预约顾问 免费获取专属服务 填写表单享功能配置等服务](https://www.feishu.cn/salessupport?from=helpcenter_hover)
+
+![Image 38](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=f5e130ab-9459-41d6-a8de-6ca240ff2227&bo=1&sid=a0f00f0059be11f19d47c99b86ae0db6&vid=a0f01d2059be11f1b3694be195453131&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%BC%E8%88%AA%E6%A0%8F&kw=%E5%AF%BC%E8%88%AA%E6%A0%8F,%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%86%85%E6%89%93%E5%BC%80%E6%96%87%E6%A1%A3,%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%86%85%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8,%E5%9B%BA%E5%AE%9A%E5%BA%94%E7%94%A8,%E7%A7%BB%E9%99%A4%E5%BA%94%E7%94%A8,%E6%B7%BB%E5%8A%A0%E5%BA%94%E7%94%A8,%E5%AF%BC%E8%88%AA%E6%A0%8F%E8%A7%86%E5%9B%BE,%E6%89%8B%E6%9C%BA,iPad&p=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F549435754694-%25E8%2587%25AA%25E5%25AE%259A%25E4%25B9%2589%25E5%25AF%25BC%25E8%2588%25AA%25E6%25A0%258F&r=&lt=3898&evt=pageLoad&sv=2&cdb=AQAQ&rn=988747)

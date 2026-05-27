@@ -1,0 +1,237 @@
+# 石墨文档——云端office办公软件_社群运营百科
+
+Title: 石墨文档——云端office办公软件_社群运营百科
+
+URL Source: https://www.ishequn.net/article/225
+
+Markdown Content:
+# 石墨文档——云端office办公软件_社群运营百科
+
+[![Image 1: 社群运营百科](https://www.ishequn.net/static/img/logo.png)](https://www.ishequn.net/)
+## 文档工具
+
+1.   [社群运营百科](https://www.ishequn.net/)
+2.   [文档工具](https://www.ishequn.net/list/13)
+3.   石墨文档——云端office办公软件
+
+*   #### [![Image 2: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 文档工具概述](https://www.ishequn.net/article/225#collapseOne185) 
+
+    *   [文档工具有哪些类型？](https://www.ishequn.net/article/186)
+    *   [PDF文档工具概述](https://www.ishequn.net/article/198)
+    *   [在线文档工具简要概述](https://www.ishequn.net/article/205)
+
+*   #### [![Image 3: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 文档扫描工具](https://www.ishequn.net/article/225#collapseOne188) 
+
+    *   [腾讯智能扫描——腾讯文档出品的扫描工具测评](https://www.ishequn.net/article/189)
+    *   [扫描全能王——全能扫描神器](https://www.ishequn.net/article/193)
+    *   [扫描宝——印象笔记口袋扫描仪](https://www.ishequn.net/article/229)
+
+*   #### [![Image 4: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 文档格式转化工具](https://www.ishequn.net/article/225#collapseOne191) 
+
+    *   [迅捷PDF转换器——“万能文档转化利器”](https://www.ishequn.net/article/192)
+
+*   #### [![Image 5: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 在线文档工具](https://www.ishequn.net/article/225#collapseOne223) 
+
+    *   [腾讯文档——在线文档工具](https://www.ishequn.net/article/224)
+    *   [石墨文档——云端office办公软件](https://www.ishequn.net/article/225)
+    *   [幕布——极简大纲笔记，一键生成思维导图](https://www.ishequn.net/article/235)
+
+# 石墨文档——云端office办公软件
+
+2022-02-22 16:21·社群运营百科
+
+### 运营人都在关注的公众号，干货满满，助你从小白变大神
+
+运营人的知识专区，定期分享运营工具、运营技巧、运营知识等干货！
+
+*   海量运营资料，免费领取  更多运营工具，免费使用  
+*   获客实战技巧，直接套用
+
+![Image 6: 迅课运营社](https://www.ishequn.net/static/img/xkyunyingshe.png)
+
+扫码领取海量干货
+
+石墨文档是中国首款支持多人实时协同的云端 Office 办公软件。
+
+目前分为个人版和企业版。
+
+![Image 7: 图片1.png](https://ixunke-static.cdn.ixunke.com/images/2022-02-22/1645517785dIux.png)
+
+## 一、使用渠道
+
+电脑端：客户端、网页端
+
+手机端：APP、小程序
+
+## 二、功能介绍
+
+## （一）八大产品套件
+
+文档、表格、幻灯片、传统文档、表单、思维导图、白班、团队空间
+
+### （1）石墨文档
+
+多人在线协作办公，避免多次发送传输的繁琐；
+
+多端同步，不受场景的限制；
+
+文档中可插入各种附件，支持预览；
+
+### （2）石墨表格
+
+兼容Excel，格式不混乱，导入导出顺畅；
+
+六大公式类别，400+函数，公式函数基本覆盖；
+
+支持不同协作者开放可编辑/可查看的权限；
+
+支持独立视图；
+
+### （3）石墨幻灯片
+
+兼容PowerPoint；
+
+主题模板、动画样式、形状样式丰富多彩；
+
+可在任意位置批注评论；
+
+自动保存历史版本，支持回溯；
+
+可配合激光笔和计时器使用；
+
+### （4）传统文档
+
+高度兼容Word/WPS本地文件格式，还能精准还原源文件格式，像合同、标书等复杂排版的场景是非常适合的；
+
+可多人多端协同创作、历史版本回溯对比、修订模式辅助审阅；
+
+### （5）石墨表单
+
+石墨表单的数据可视化与分析功能可以让信息收集、管理与分析更加的灵活便捷；
+
+同时可与表格互联、互通；
+
+### （6）石墨思维导图
+
+支持多人协作；
+
+多端同步且可以实时存储，在修改过程中能实时看到其他协作者的标记；
+
+### （7）石墨白板
+
+使用白板可以进行头脑风暴等，不仅能还原线下的团队讨论场景，还能让讨论思路与结果同步呈现；
+
+### （8）石墨文档团队空间
+
+支持所有格式文件的上传下载，以及Office、PDF、Markdown等多种格式文件的在线预览；
+
+可实现灵活、细化的权限控制；更具备空间公告、团队动态等功能。
+
+## （二）企业版专属功能
+
+### （1）组织架构管理
+
+企业管理员可以管理员工账号，设置添加、移除、禁用等；
+
+也可以通过设置权限对组织架构进行管理；
+
+### （2）效能可视化管理
+
+通过石墨的效能看板，管理员可以对公司/部门/个人的情况和信息进行管理，比如：用石墨的情况、公司热门文件、历史累计文件数/协作数等；
+
+### （3）离职员工帐号交接
+
+企业管理者可对离职员工的账号进行禁用，或者是发起文件交接等，从而保证文件的归属性；
+
+### （4）内容外泄预防
+
+管理员可设置文档是否可以导出、打印、下载、复制或者是否添加水印，从而有效的预防和降低公司文件泄露的风险；
+
+### （5）文件异常预警
+
+石墨的文件安全预警功能，可以帮助企业的管理者实时监控文件异常状态。比如出现某些异常行为，如大量的复制、导出、下载等行为，这种时候企业管理者就会收到系统自动发送的提醒邮件，从而避免企业文件或者数据的泄露。
+
+## 三、使用体验
+
+（1）页面极简，略带禅意。页面整体以青灰白色调为主，简单且安静，可以让用户更专注于工作本身；
+
+（2）对于公司员工，石墨文档的产品支持多人协作共享，没有时间、地点、设备的限制，随时随地都可以办公。
+
+（3）对于企业管理者，从员工管理，部门管理，到项目进行、活动策划、数据整理、活动复盘等，将文件实施集中化管理，分层分级精细管理，不仅大大节省了企业管理者的时间，通过通过权限设置、定位追溯，也保证了企业资产的安全性。
+
+（4）目前石墨文档部分免费功能调整为只有会员付费后方可使用，对于部分老用户来说，无疑体验感会下降。
+
+![Image 8: 百科网站文章末尾.png](https://ixunke-static.cdn.ixunke.com/images/2022-02-22/1645517854EdoZ.png)
+
+### 运营人都在关注的公众号，干货满满，助你从小白变大神
+
+运营人的知识专区，定期分享运营工具、运营技巧、运营知识等干货！
+
+*   海量运营资料，免费领取  更多运营工具，免费使用  
+*   获客实战技巧，直接套用
+
+![Image 9: 迅课运营社](https://www.ishequn.net/static/img/xkyunyingshe.png)
+
+扫码领取海量干货
+
+2022-02-22 16:21 更新
+
+5616
+
+[上一篇 腾讯文档——在线文档工具](https://www.ishequn.net/article/224)[下一篇 幕布——极简大纲笔记，一键生成思维导图](https://www.ishequn.net/article/235)
+
+推荐阅读
+
+[基础认知|社群生命周期](https://www.ishequn.net/article/108)[私域的社群运营常见场景的通用话术模板 真正想要做好一个社群，不仅体现在日常的运营流程上，还包括运营的各场景话术，才能向客户体现出运营人员的专业，传递出品牌价值。](https://www.ishequn.net/article/255)[IP即流量：教育类个人IP如何定位？](https://www.ishequn.net/article/163)
+
+*   一、使用渠道
+*   二、功能介绍
+*   （一）八大产品套件
+*   （二）企业版专属功能
+*   三、使用体验
+
+ 迅课运营社 
+
+![Image 10: 迅课运营社](https://www.ishequn.net/static/img/xkyunyingshe.png)
+
+ 运营人的知识专区
+
+海量干货扫码领取 
+
+目录
+
+*   ![Image 11: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 
+
+#### [文档工具概述](https://www.ishequn.net/article/225#collapseTwo185) 
+
+    *   [文档工具有哪些类型？](https://www.ishequn.net/article/186)
+    *   [PDF文档工具概述](https://www.ishequn.net/article/198)
+    *   [在线文档工具简要概述](https://www.ishequn.net/article/205)
+
+*   ![Image 12: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 
+
+#### [文档扫描工具](https://www.ishequn.net/article/225#collapseTwo188) 
+
+    *   [腾讯智能扫描——腾讯文档出品的扫描工具测评](https://www.ishequn.net/article/189)
+    *   [扫描全能王——全能扫描神器](https://www.ishequn.net/article/193)
+    *   [扫描宝——印象笔记口袋扫描仪](https://www.ishequn.net/article/229)
+
+*   ![Image 13: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 
+
+#### [文档格式转化工具](https://www.ishequn.net/article/225#collapseTwo191) 
+
+    *   [迅捷PDF转换器——“万能文档转化利器”](https://www.ishequn.net/article/192)
+
+*   ![Image 14: 在线文档工具](https://www.ishequn.net/static/img/catalogue.png) 
+
+#### [在线文档工具](https://www.ishequn.net/article/225#collapseTwo223) 
+
+    *   [腾讯文档——在线文档工具](https://www.ishequn.net/article/224)
+    *   [石墨文档——云端office办公软件](https://www.ishequn.net/article/225)
+    *   [幕布——极简大纲笔记，一键生成思维导图](https://www.ishequn.net/article/235)
+
+![Image 15: 迅课运营社](https://www.ishequn.net/static/img/xkyunyingshe.png)
+
+扫码关注公众号
+
+Copyright © 2021-2022 社群运营百科[豫ICP备18002941号-4](http://beian.miit.gov.cn/)

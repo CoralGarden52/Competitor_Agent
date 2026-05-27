@@ -27,6 +27,7 @@ class CollectorPipeline:
             fetch_catalog=build_fetch_provider_catalog(config),
             search_order=config.collector_search_order_list,
             fetch_order=config.collector_fetch_order_list,
+            strict_search_order=config.collector_search_order_strict,
         )
 
     def provider_health(self) -> dict:
@@ -48,9 +49,15 @@ class CollectorPipeline:
         max_urls: int | None = None,
         schema_plan: list[AnalysisSchemaField] | list[dict] | None = None,
         per_field_limit: int = 3,
+        field_query_overrides: dict[str, list[str]] | None = None,
     ) -> CollectorOutput:
         output = CollectorOutput()
-        fields = self._resolve_schema_fields(competitor=competitor, industry=industry, schema_plan=schema_plan)
+        fields = self._resolve_schema_fields(
+            competitor=competitor,
+            industry=industry,
+            schema_plan=schema_plan,
+            field_query_overrides=field_query_overrides,
+        )
         candidate_rows: list[dict] = []
         fallback_trace: list[dict] = []
         max_items = max_urls if max_urls is not None and max_urls > 0 else None
@@ -209,7 +216,14 @@ class CollectorPipeline:
         output.provider_events.append({'event_type': 'collector.fallback.trace', 'fallback_trace': fallback_trace})
         return output
 
-    def _resolve_schema_fields(self, *, competitor: str, industry: str, schema_plan: list[AnalysisSchemaField] | list[dict] | None) -> list[dict]:
+    def _resolve_schema_fields(
+        self,
+        *,
+        competitor: str,
+        industry: str,
+        schema_plan: list[AnalysisSchemaField] | list[dict] | None,
+        field_query_overrides: dict[str, list[str]] | None = None,
+    ) -> list[dict]:
         if not schema_plan:
             return [
                 {'field_name': '默认', 'queries': build_queries(competitor, industry), 'recommended_sources': ['public_web']},
@@ -227,7 +241,12 @@ class CollectorPipeline:
                 continue
             templates = raw_item.get('query_templates', [])
             sources = raw_item.get('recommended_sources', ['public_web'])
-            queries = [qt.format(product=competitor) for qt in templates]
+            override_key = f'{competitor}::{field_name}'
+            override_queries = (field_query_overrides or {}).get(override_key, [])
+            if override_queries:
+                queries = [str(q).strip() for q in override_queries if str(q).strip()][:4]
+            else:
+                queries = [qt.format(product=competitor) for qt in templates]
             output.append({'field_name': field_name, 'queries': queries, 'recommended_sources': sources})
         return output
 

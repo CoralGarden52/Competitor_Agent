@@ -1,0 +1,233 @@
+# WPS+博客-提供海量企业云办公资讯
+
+Title: WPS+博客-提供海量企业云办公资讯
+
+URL Source: https://plus.wps.cn/blog/p106834.html
+
+Markdown Content:
+# WPS+博客-提供海量企业云办公资讯
+
+[![Image 1: WPS+](https://plus.wps.cn/blog/wp-content/uploads/2019/05/cropped-WPS-%E5%AE%98%E6%96%B9logo.jpg)](https://plus.wps.cn/sign-up?utm_source=blog&utm_medium=logo)
+
+*   [博客首页](https://plus.wps.cn/blog/)
+*   [WPS教程](https://plus.wps.cn/blog/?slug=jiaocheng)
+*   [WPS 365技巧](https://plus.wps.cn/blog/?slug=digitalworkskill)
+*   [客户案例](https://plus.wps.cn/blog/?slug=cases)
+*   [资讯中心](https://plus.wps.cn/blog/?slug=news)
+*   [注册WPS 365](https://plus.wps.cn/unifiedRegister?utm_campaign=blog&utm_medium=guidecreate&utm_source=blog)
+
+[导航](https://plus.wps.cn/blog/p106834.html#)
+*   [博客首页](https://plus.wps.cn/blog/)
+*   [WPS教程](https://plus.wps.cn/blog/?slug=jiaocheng)
+*   [WPS 365技巧](https://plus.wps.cn/blog/?slug=digitalworkskill)
+*   [客户案例](https://plus.wps.cn/blog/?slug=cases)
+*   [资讯中心](https://plus.wps.cn/blog/?slug=news)
+*   [注册WPS 365](https://plus.wps.cn/unifiedRegister?utm_campaign=blog&utm_medium=guidecreate&utm_source=blog)
+
+您的位置[首页](https://plus.wps.cn/blog/)[资讯中心](https://plus.wps.cn/blog/?slug=news)
+
+# AI 办公工具的安装方式在变，WPS AI 走的是哪条路？
+
+ 发布于 2026年05月21日 阅读(37)[](https://plus.wps.cn/blog/p106834.html# "分享到新浪微博")[](https://plus.wps.cn/blog/p106834.html# "分享到微信")[](https://plus.wps.cn/blog/p106834.html# "分享给QQ好友")[](https://plus.wps.cn/blog/p106834.html# "分享到QQ空间")
+
+**从独立安装到云端集成，AI 办公工具的部署方式经历了不小的变化。这篇文章聊聊 WPS AI 在安装和部署上的设计思路，以及这对用户体验意味着什么。**
+
+## AI 办公工具的部署方式演进
+
+**第一代：独立安装**
+
+早期的 AI 写作工具、AI 翻译工具大多是独立软件或浏览器插件。用户需要单独下载、安装、配置，然后再和办公软件配合使用。流程长、上手慢、体验割裂。
+
+**第二代：插件嵌入**
+
+一些 AI 工具开始以插件形式嵌入 Office 或 WPS，用户安装插件后在办公软件内直接调用 AI 功能。比独立安装好，但仍需要额外安装和配置。
+
+**第三代：原生集成（WPS AI 的路线）**
+
+WPS AI 选择了原生集成的方式——AI 能力直接内置在 WPS Office 客户端中，用户下载安装 WPS 后就能直接使用 AI 功能，不需要任何额外操作。
+
+这种方式的优点很明显：
+
+*   **零额外安装**：下载 WPS 就有了，不需要再装别的
+*   **界面统一**：AI 功能在原生界面中，操作路径一致
+*   **数据互通**：AI 直接访问文档内容，不需要复制粘贴
+*   **维护简单**：WPS 更新时 AI 功能自动更新，不需要单独维护
+
+## WPS AI 的云端架构
+
+WPS AI 的 AI 模型运行在云端，客户端负责调用和展示。这种架构的好处是：
+
+*   **不需要本地 GPU**：AI 推理在云端完成，对电脑硬件没有额外要求
+*   **模型持续更新**：用户不需要手动更新 AI 模型，云端自动迭代
+*   **多端一致**：Windows、Mac、Web 端使用同一个云端模型，体验一致
+
+这也意味着用户需要联网才能使用 AI 功能，但这对大多数办公场景来说不是问题。
+
+## 企业级部署的变化
+
+对于企业用户，WPS 365 提供了更灵活的部署方式：
+
+| 部署方式 | 适用场景 | 说明 |
+| --- | --- | --- |
+| 公有云（默认） | 中小企业 | 员工自行下载客户端，登录企业账号即可 |
+| 私有化部署 | 大型企业/政府 | AI 模型和数据部署在企业自有服务器 |
+| 内网分发 | 有内网管理的企业 | 管理员统一下发安装包，员工在内网安装 |
+
+公有云部署最简单，员工个人下载安装就行。私有化部署适合对数据安全有特殊要求的大型企业和政府机构，WPS 365 支持信创环境部署。
+
+## 未来趋势
+
+AI 办公工具的部署方式会继续向两个方向演进：
+
+**1. 更轻量化**：Web 端的 AI 办公能力会越来越强，用户可能只需要打开浏览器就能使用全部 AI 功能，连客户端都不用下载。
+
+**2. 更智能化**：AI 的部署会从"用户主动安装"变为"按需自动启用"。当系统检测到你在做某类工作时，自动推荐相关的 AI 能力。
+
+WPS AI 目前的原生集成路线已经走在了前面——下载 WPS 就有了 AI，用户甚至不需要意识到自己"安装"了 AI 工具。
+
+## 常见问题
+
+**问：WPS AI 以后会完全变成在线版吗？**
+
+答：短期内不会。WPS Office 客户端仍然是核心载体，在线版作为补充。客户端在性能、离线编辑、本地文件处理等方面仍有优势。
+
+**问：私有化部署的 AI 模型和公有云一样吗？**
+
+答：功能和效果基本一致，但私有化部署的模型更新频率可能低于公有云版本。企业可以根据需要选择更新节奏。
+
+**问：企业统一部署 WPS AI 难吗？**
+
+答：不难。WPS 365 企业版支持管理员后台统一管理和分发，IT 部门可以通过后台推送安装包、配置权限策略。大部分企业半天就能完成全员部署。
+
+注：部分内容由 AI 匹配目标关键词，结合WPS 365 官方知识库智能生成，如有疑问或者建议可以 [联系我们](https://plus.wps.cn/fab/sem_collect/?utm_source=blog&utm_medium=content)
+
+## 热门文章
+
+## 1[怎样删除WPS文字中多余的空白页](https://plus.wps.cn/blog/p1576.html)
+
+阅读(384726)
+
+## 2[怎样快速为WPS文档增加目录](https://plus.wps.cn/blog/p1569.html)
+
+阅读(173175)
+
+## 3[WPS如何启用宏](https://plus.wps.cn/blog/p1489.html)
+
+阅读(147090)
+
+## 4[如何在 Excel 里插入“是否”的下拉选项框](https://plus.wps.cn/blog/p68308.html)
+
+阅读(136529)
+
+## 5[WPS里怎么插入视频](https://plus.wps.cn/blog/p63793.html)
+
+阅读(131021)
+
+搜索
+
+## 近期文章
+
+*   [WPS AI升级了什么？来看看最近都加了哪些能力](https://plus.wps.cn/blog/p107073.html)
+*   [WPS AI到底能帮什么忙？6个真实办公场景实测](https://plus.wps.cn/blog/p107078.html)
+*   [WPS AI怎么用？一步步教你从零上手](https://plus.wps.cn/blog/p107085.html)
+*   [企业想统一用AI办公工具，WPS AI怎么落地？](https://plus.wps.cn/blog/p107086.html)
+*   [WPS AI不是单打独斗——文字、表格、演示、PDF怎么配合用](https://plus.wps.cn/blog/p107087.html)
+
+[![Image 2](https://plus.wps.cn/blog/wp-content/uploads/2023/04/xiezuo20230423-160916.png)](https://plus.wps.cn/unifiedRegister?utm_medium=bottombutton&utm_source=blog)
+
+## 标签
+
+[Excel表格 (881)](https://plus.wps.cn/blog/?tag=excelbiaoge)[word文字 (517)](https://plus.wps.cn/blog/?tag=wordwenzi)[WPS技巧 (314)](https://plus.wps.cn/blog/?tag=wpsjiqiao)[WPS表格 (278)](https://plus.wps.cn/blog/?tag=wpsbiaoge)[WPS办公 (242)](https://plus.wps.cn/blog/?tag=wpsbangong)[PPT演示 (215)](https://plus.wps.cn/blog/?tag=pptyanshi)[WPS文字 (154)](https://plus.wps.cn/blog/?tag=wpswenzi)[办公技巧 (139)](https://plus.wps.cn/blog/?tag=%25e5%258a%259e%25e5%2585%25ac%25e6%258a%2580%25e5%25b7%25a7)[Excel (104)](https://plus.wps.cn/blog/?tag=excel)[表格技巧 (78)](https://plus.wps.cn/blog/?tag=%25e8%25a1%25a8%25e6%25a0%25bc%25e6%258a%2580%25e5%25b7%25a7)[WPS (56)](https://plus.wps.cn/blog/?tag=wps)[word文档 (54)](https://plus.wps.cn/blog/?tag=wordwendang)[PPT演示技巧 (51)](https://plus.wps.cn/blog/?tag=ppt)[WPS小技巧 (50)](https://plus.wps.cn/blog/?tag=wpsxiaojiqiao)[WPS文档 (38)](https://plus.wps.cn/blog/?tag=wpswendang)[Word (29)](https://plus.wps.cn/blog/?tag=word)[演示技巧 (25)](https://plus.wps.cn/blog/?tag=%25e6%25bc%2594%25e7%25a4%25ba%25e6%258a%2580%25e5%25b7%25a7)[小技巧 (23)](https://plus.wps.cn/blog/?tag=%25e5%25b0%258f%25e6%258a%2580%25e5%25b7%25a7)
+
+WPS 365：多人协作编辑、大容量云盘、文档安全管控、一站式AI办公平台
+
+免费注册 WPS 365
+
+## 联系我们获取更多资料
+
+专业的顾问团队为您提供一对一解决方案
+
+[开始使用](https://plus.wps.cn/sign-up?utm_source=blog&utm_medium=bottom)[联系我们](https://plus.wps.cn/fab/sem_collect/?utm_source=blog&utm_medium=bottom)
+
+产品定价
+
+*   [WPS 365 体验版](https://365.wps.cn/price "WPS 365 体验版")
+*   [WPS 365 商业协作版](https://365.wps.cn/price "WPS 365 商业协作版")
+*   [WPS 365 商业高级版](https://365.wps.cn/price "WPS 365 商业高级版")
+*   [WPS 365 商业旗舰版](https://365.wps.cn/price "WPS 365 商业旗舰版")
+
+解决方案
+
+[国产化办公](https://365.wps.cn/solution/migration)
+
+[教育行业](https://365.wps.cn/edu/home?chn=wps365_officialweb_pc_bar)
+
+[高端制造](https://365.wps.cn/solution/manufacture)
+
+[泛互联网](https://365.wps.cn/solution/internet)
+
+[金融行业](https://365.wps.cn/solution/finance)
+
+[医疗行业](https://365.wps.cn/solution/medical)
+
+[政务行业](https://365.wps.cn/solution/gov)
+
+[消费零售](https://365.wps.cn/case?id=729&tag=7160)
+
+[商业服务](https://365.wps.cn/case?id=729&tag=7161)
+
+[中小企业](https://365.wps.cn/solution)
+
+服务与支持
+
+[帮助中心](https://365.wps.cn/help)
+
+[资讯中心](https://plus.wps.cn/blog/?slug=news)
+
+[下载中心](https://365.wps.cn/download365)
+
+[服务协议](https://privacy.wps.cn/policies/agreements/wps365)
+
+[开放能力](https://open.wps.cn/)
+
+[实施部署](https://ep.wps.cn/)
+
+[信创办公](https://ep.wps.cn/)
+
+[授权认证](https://365.wps.cn/authentication)
+
+[安全白皮书](https://365.kdocs.cn/l/cmbYWqWZEXX9)
+
+[成为合作伙伴](https://365.wps.cn/partner)
+
+联系我们
+
+客服电话
+
+400-677-5005
+
+扫码咨询企业顾问
+
+![Image 3: 联系客服二维码](https://qn.cache.wpscdn.cn/encs/plus/img/qrcode-company-wechat.016314c.png)
+
+[预约演示](https://plus.wps.cn/fab/sem_collect/?utm_source=blog&utm_medium=right_contact_block)
+
+© 2008-2026 Kingsoft Office Software, Inc. All Rights Reserved.
+
+![Image 4](https://qn.cache.wpscdn.cn/encs/plus/img/police.3f97021.png)粤公网安备44049102496073号[粤ICP备13015957号](https://beian.miit.gov.cn/)[营业执照](https://365.kdocs.cn/l/cgacTqqBFMx2)
+
+官方举报电话 (含互联网算法推荐举报):4006775005
+
+预约演示
+
+联系我们
+
+扫码联系客服
+
+![Image 5](https://vasvip-pub.wpscdn.cn/prod/AI_SEO/cms-seo-erweima/cms.jpeg)
+
+购买咨询：
+
+021-80206993
+
+[](https://plus.wps.cn/blog/p106834.html#top "返回顶部")

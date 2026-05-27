@@ -1,0 +1,304 @@
+# 欢迎使用「飞书 aily」：企业级智能体开发平台，定制你的AI专属工作助手 - 飞书官网
+
+Title: 欢迎使用「飞书 aily」：企业级智能体开发平台，定制你的AI专属工作助手 - 飞书官网
+
+URL Source: https://www.feishu.cn/content/3d5z9ttt
+
+Markdown Content:
+# 欢迎使用「飞书 aily」：企业级智能体开发平台，定制你的AI专属工作助手 - 飞书官网
+
+[![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/eff71c9398c04ebd8452d748646fc1e8.png~tplv-jbbdkfciu3-png:0:0.png)![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/64ca2fdf9b7449d2b785d9b166b97c52.png~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/content)
+
+[热门推荐](https://www.feishu.cn/hot)![Image 3](https://www.feishu.cn/content/3d5z9ttt)
+
+[案例与方案](https://www.feishu.cn/content/3d5z9ttt)![Image 4](https://www.feishu.cn/content/3d5z9ttt)
+
+[产品功能](https://www.feishu.cn/content/3d5z9ttt)![Image 5](https://www.feishu.cn/content/3d5z9ttt)
+
+[飞书 AI](https://www.feishu.cn/content/3d5z9ttt)![Image 6](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b1cf45b283ab4076909e1b723560a88c.png~tplv-jbbdkfciu3-png:0:0.png)
+
+[合作与支持](https://www.feishu.cn/content/3d5z9ttt)![Image 7](https://www.feishu.cn/content/3d5z9ttt)
+
+[飞行社](https://www.feishu.cn/community?from=feishu_website_header)![Image 8](https://www.feishu.cn/content/3d5z9ttt)
+
+[定价](https://www.feishu.cn/service?from=feishu_website_header)
+
+[![Image 9](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/dc6c3a7d133b4fcbb39d6397de6b833a~tplv-jbbdkfciu3-png:0:0.png)![Image 10](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/66d86be0453146ebae1c45aa9042b51a.png~tplv-jbbdkfciu3-png:0:0.png)](tel:400-0682-666)
+
+[下载飞书](https://www.feishu.cn/download)
+
+[联系销售](https://www.feishu.cn/landing/feishu_contact_sales?tracking_code=701TL00001EjHx2YAF&from=top_bar_contact_sales)[登录/注册](https://www.feishu.cn/content/3d5z9ttt)
+
+[博客中心](https://www.feishu.cn/content)
+
+[AI应用](https://www.feishu.cn/content/topic/ai-application)
+
+欢迎使用「飞书 aily」：企业级智能体开发平台，定制你的AI专属工作助手 - 飞书官网
+
+飞书aily
+
+# 欢迎使用「飞书 aily」：企业级智能体开发平台，定制你的AI专属工作助手
+
+2024-12-23
+
+2344
+
+阅读时间：2分钟
+
+![Image 11](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/32a13b92bf6346f9b251394c88aec6e9.png~tplv-jbbdkfciu3-png:0:0.png)
+
+一、应用场景​
+
+二、核心功能与优势​
+
+「[飞书智能伙伴创建平台](https://aily.feishu.cn/universal/landing?utm_from=SEO_Blog)」（飞书 aily）是一款全新的企业级智能体平台，围绕着大语言模型（LLM）提供 AI 技能编排、知识数据处理、效果调优和持续运营能力，让用户可以高效的开发出专业的企业级智能应用，并一键发布到飞书、Web 等多个渠道，与企业业务系统深度集成，提升企业内部业务流转和客户服务效率。 ​
+
+一、应用场景 ​
+
+通过 Aily 我们不仅能搭建智能办公助理提升工作效率，更能够帮助企业使用大模型在智能客服、智能质检与告警、智能信息检索和智能业务系统等场景下发挥更大的价值。 ​
+
+​
+
+250px|700px|reset
+
+![Image 12](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c3ffe04d88f44e639ec568bc758be3e6~tplv-jbbdkfciu3-image:0:0.image)​​
+
+智能客服｜学习企业内外知识，发布到飞书、服务台和客服系统，服务企业员工和外部客户​
+
+1.   知识维护更便捷：通过飞书文档和表格在线维护知识，也支持 20 多种不同数据源和文件类型导入 ​
+
+1.   智能问答更准确：智能数据预处理和灵活的问答规则配置，让回复更精准 ​
+
+1.   多渠道使用：可以发布到飞书机器人、服务台和企业自建网站和客服系统来服务企业客户 ​
+
+​
+
+📚
+
+更多解决方案资料 ​
+
+[飞书服务台 AI 化：可调优的智能服务中心，智能客服不再“傻乎乎”](https://www.feishu.cn/content/gttlj94q)​
+
+[AI 运营助手：24 小时在线，随时 Standby](https://www.feishu.cn/content/24c5dqnk)​
+
+​
+
+智能质检与告警｜从海量数据中发现人类难以察觉的潜在关联与问题，提升产品服务质量​
+
+1.   多模态内容理解：能够理解文字、图片和数据，识别复杂的故障模式和异常行为。 ​
+
+1.   执行过程自动化：可对海量数据进行全自动智能分析，并通过飞书及时通知预警。 ​
+
+1.   规则灵活可定制：灵活编排 AI 工作流以适配不同业务场景的不同质检规则。 ​
+
+​
+
+📚
+
+更多解决方案资料 ​
+
+[AI 工单质检：永不疲倦、铁面无私的智能质检员](https://www.feishu.cn/content/608t60kx)​
+
+​
+
+智能信息检索分析｜从海量的信息与数据中快速检索并提炼有价值的知识，提升使用效率，挖掘数据价值​
+
+1.   多维度知识与数据：结合企业协同知识与业务系统数据进行多源信息检索。 ​
+
+1.   展示更灵活：aily 提供开放 API 与丰富的视图层组件，改造现有系统的搜索体验。 ​
+
+​
+
+📚
+
+更多解决方案资料 ​
+
+[用 AI 改善搜索体验：所问即所得，提高搜索效率并给予用户更加个性化的搜索体验](https://www.feishu.cn/content/zmibi9hl)​
+
+​
+
+智能业务系统｜与飞书低代码平台深度集成，打造企业业务系统智能化时代升级的最佳实践​
+
+1.   业务系统在哪里，智能化就在哪里 ​
+
+1.   与飞书低代码应用数据互通互联 ​
+
+通过 Aily，让大模型在企业场景中更好落地。​
+
+​
+
+250px|700px|reset
+
+![Image 13](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/fd54bd8191294a70866de83f27a9091e~tplv-jbbdkfciu3-image:0:0.image)​​
+
+二、核心功能与优势 ​
+
+​
+
+250px|700px|reset
+
+![Image 14](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/525d45cf5490423fbdd5297798a3c7da~tplv-jbbdkfciu3-image:0:0.image)​​
+
+深度优化 AI 知识及数据应用效果，让 AI 更懂你的业务上下文​
+
+*   丰富的数据源接入：支持飞书文档、多维表格、数据库等多种数据接入，并提供企业级的权限管控。 ​
+
+*   智能的数据预处理：结合大模型能力，提供数据打标、智能切片等便利的预处理流程，让模型更好的消费知识和数据。 ​
+
+*   灵活的调优及效果保障：提供全链路的评测反馈机制，配备专业的术语库和调优台，内置多种召回排序策略，确保问答效果符合企业生产标准。 ​
+
+提供强大的流程引擎和规划能力，让 AI 与业务流更贴合​
+
+*   Agent 智能规划和执行：利用大模型强大的规划能力，调度上百个企业服务连接器与飞书协同套件完成任务。 ​
+
+*   强大的流程引擎：支持工作流可视化编排大模型，编排组合大模型调用、工作流白盒化，为企业复杂场景提供更稳定、可靠的结果。 ​
+
+*   单节点效果优化：针对生成式 AI 提供引导式编写、多模型评测、辅助调优、结果评测，确保单节点效果的可控。 ​
+
+支持多渠道发布、强大的开放能力，让 AI 融入你的业务现场​
+
+*   多渠道一键部署：AI 应用可快速部署到飞书 IM、服务台，或嵌入官网官网、客服系统中，满足内部业务协同、知识问答、外部上下游协作、客户服务等多场景。 ​
+
+*   更多开放能力：提供多轮对话、图片问答、技能调用、知识创建等多种开放能力，支持将 AI 能力嵌入企业存量系统中，升级企业业务流程。 ​
+
+预约飞书企业效能顾问 深度诊断企业痛点，定制专属 AI 办公方案
+
+[联系我们![Image 15](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/8787fc8ab21c4522b40fe72f59098414.png~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/salessupport?utm_from=SEO_blog_%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%E3%80%8C%E9%A3%9E%E4%B9%A6%E6%99%BA%E8%83%BD%E4%BC%99%E4%BC%B4%E5%88%9B%E5%BB%BA%E5%B9%B3%E5%8F%B0Aily%E3%80%8D)
+
+[立即试用](https://www.feishu.cn/accounts/page/ug_register?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fugregister%2Fauthorization%3Ftimeout%3D10%26terminalType%3D2&tenant_type=3&template_id=7262656438152708100&from=%E5%AE%98%E7%BD%91%E6%B3%A8%E5%86%8C%E6%97%97%E8%88%B0%E7%89%88%E8%AF%95%E7%94%A8&utm_from=SEO_blog_%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%E3%80%8C%E9%A3%9E%E4%B9%A6%E6%99%BA%E8%83%BD%E4%BC%99%E4%BC%B4%E5%88%9B%E5%BB%BA%E5%B9%B3%E5%8F%B0Aily%E3%80%8D)
+
+![Image 16](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/541c0692624a4ba1a9aff1726a80857e.png~tplv-jbbdkfciu3-png:0:0.png)
+
+![Image 17](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/68c67ca8d3d9404ea3d077c0b07afdfd.png~tplv-jbbdkfciu3-png:0:0.png)
+字节跳动旗下 AI 工作平台
+
+[体验飞书aily](https://aily.feishu.cn/bot?open-from=seo_blog&utm_from=SEO_blog_3d5z9ttt)
+
+关联文章推荐
+
+优质内容，精华实践
+
+[飞书智能会议助手：AI 助力全流程，提升会议效率与体验](https://www.feishu.cn/content/feishu-zhineng-huiyi-zhushou-tigao-jilu)
+
+[2025年AI生产力工具与DeepSeek协同解决方案](https://www.feishu.cn/content/2025-ai-productivity-tools-deepseek-lark-integration)
+
+[SRM系统怎么选？飞书轻量化解决方案：既能敏捷开发，也能集成打通现有SRM！](https://www.feishu.cn/content/article/7585133861630217419)
+
+[飞书AI知识库：支持问答的AI知识库，打造真正可用的第二大脑 - 飞书官网](https://www.feishu.cn/content/article/7594770730974252246)
+
+[如何让企业的隐性经验变成人人可用的知识？飞书知识问答助力打造企业智库！ - 飞书官网](https://www.feishu.cn/content/article/7576220782670466238)
+
+飞书知识问答
+
+[](https://www.feishu.cn/product/AI-Application-Maturity-Model)
+
+飞书智能会议纪要
+
+[](https://www.feishu.cn/product/AI-Application-Maturity-Model)
+
+飞书多维表格
+
+飞书 aily
+
+[](https://www.feishu.cn/product/AI-Application-Maturity-Model)
+
+飞书妙搭
+
+[](https://www.feishu.cn/product/AI-Application-Maturity-Model)
+
+最懂企业知识 AI 有问必答
+
+![Image 18](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/659c7c85aa214b9ca1f247d0b983098a.png~tplv-jbbdkfciu3-png:0:0.png)
+
+🔍
+
+如何有效管理每日任务？
+
+💰
+
+五险一金的缴纳标准是什么?
+
+🔥
+
+飞书知识问答是什么？
+
+💻
+
+如何用AI提高我的工作效率？
+
+✍🏻
+
+怎样高效整理工作笔记？
+
+[立即体验](https://ask.feishu.cn/)[预约演示](https://www.feishu.cn/landing/feishu_future_ai_2025?tracking_code=701TL00000ohplgYAA)
+
+## 先进团队，先用飞书
+
+欢迎联系我们，飞书效能顾问将为您提供全力支持
+
+分享先进工作方式
+
+输送行业最佳实践
+
+全面协助组织提效
+
+[联系我们](https://www.feishu.cn/salessupport?utm_from=SEO_blog&from=bottom_banner)[下载飞书](https://www.feishu.cn/download?from=bottom_banner&utm_from=SEO_blog)
+
+飞书产品
+
+[飞书 aily![Image 19](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b239a42da6ad40639f4776ff177ea099.png~tplv-jbbdkfciu3-png:0:0.png)](https://aily.feishu.cn/universal/landing?from=feishu_home_nav)[多维表格](https://www.feishu.cn/product/base)[飞书项目](https://project.feishu.cn/home)[即时消息](https://www.feishu.cn/product/messenger)[文档](https://www.feishu.cn/product/docs)[视频会议](https://www.feishu.cn/product/video)[妙记](https://www.feishu.cn/product/minutes)[知识库](https://www.feishu.cn/product/wiki)
+
+解决方案
+
+[制造](https://www.feishu.cn/industry_solutions/manufacturing)[消费品](https://www.feishu.cn/industry_solutions/consumption)[零售](https://www.feishu.cn/industry_solutions/retail)[金融](https://www.feishu.cn/industry_solutions/finance)[餐饮](https://www.feishu.cn/industry_solutions/catering)[医疗](https://www.feishu.cn/industry_solutions/healthcare)[企业服务](https://www.feishu.cn/industry_solutions/saas)[汽车](https://www.feishu.cn/industry_solutions/automobile)
+
+定价
+
+[版本对比](https://www.feishu.cn/service?from=feishu_website_footer)[购买咨询](javascript:;)
+
+探索飞书
+
+[加入我们](https://www.feishu.cn/jobs?_tracking=feishu_from_feishushouye)[关于飞书](https://www.feishu.cn/about)[博客中心](https://www.feishu.cn/content)[飞书研习社](https://www.feishu.cn/research)[飞书认证官](https://www.feishu.cn/certification)[公益计划](https://www.feishu.cn/charity)[生态快讯](https://www.feishu.cn/partnernews)[飞行社![Image 20](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/4af13479d9a24627a9e704bf552694ec~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/community?from=feishu_website_footer)
+
+合作与支持
+
+[帮助中心](https://www.feishu.cn/hc)[开放平台](https://open.feishu.cn/)[应用目录](https://app.feishu.cn/)[合作伙伴](https://www.feishu.cn/partners)[联系我们](https://www.feishu.cn/contact)[更新日志](https://www.feishu.cn/hc/zh-CN/articles/360043073734)[管理后台](https://www.feishu.cn/admin)[友情链接](https://www.feishu.cn/friend_links)[举报与反馈](https://www.feishu.cn/complaint)
+
+法律与合规
+
+[服务协议](https://www.feishu.cn/terms)[隐私政策](https://www.feishu.cn/privacy)[平台行为守则](https://www.feishu.cn/privacy-code-of-conduct)[安全合规](https://www.feishu.cn/security)
+
+[下载飞书](https://www.feishu.cn/download)[联系顾问](https://www.feishu.cn/salessupport?from=feishu_website_footer)
+
+[![Image 21](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/23bf12cd5f9a41cabfc9e0bd6aab952a~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/)[![Image 22](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/e0559a31d508475ebde9cabd69bd998a~tplv-jbbdkfciu3-png:0:0.png)](javascript:;)[![Image 23](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/1be78938fdc841ad8c328972f3c98979~tplv-jbbdkfciu3-png:0:0.png)](https://weibo.com/u/7223713567)[![Image 24](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/0eb79e8dbcb5438fb404fd443abedb32~tplv-jbbdkfciu3-png:0:0.png)](https://www.zhihu.com/org/fei-shu-27-96/activities)[![Image 25](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b5c4da0e582546d8ab884277fd89968a~tplv-jbbdkfciu3-png:0:0.png)](https://www.toutiao.com/c/user/3073831497904140/)[![Image 26](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/18df0239e059412985b3fbe01a2345c4~tplv-jbbdkfciu3-png:0:0.png)](https://www.xiaohongshu.com/user/profile/62f09aef000000001f0076d3?xhsshare=CopyLink&appuid=5571317c3f95a333d87b579b&apptime=1675018819)[![Image 27](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/35a534f82f7a451bb36d6a5eec2f0ba1~tplv-jbbdkfciu3-png:0:0.png)](https://space.bilibili.com/1880331212)
+
+反馈给飞书 CEO：[ceo@feishu.cn](mailto:ceo@feishu.cn)
+
+[Copyright © 2026 北京飞书科技有限公司](javascript:;)[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 28](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image)京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+更改地区-undefined
+
+[博客中心](https://www.feishu.cn/content)
+
+标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+
+![Image 29](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/68c67ca8d3d9404ea3d077c0b07afdfd.png~tplv-jbbdkfciu3-png:0:0.png)
+字节跳动旗下 AI 工作平台
+
+[体验飞书aily](https://aily.feishu.cn/bot?open-from=seo_blog&utm_from=SEO_blog_3d5z9ttt)
+
+[联系我们](https://www.feishu.cn/salessupport?utm_from=SEO_blog_%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%E3%80%8C%E9%A3%9E%E4%B9%A6%E6%99%BA%E8%83%BD%E4%BC%99%E4%BC%B4%E5%88%9B%E5%BB%BA%E5%B9%B3%E5%8F%B0Aily%E3%80%8D&from=undefined)[立即试用](https://www.feishu.cn/accounts/page/ug_register?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fugregister%2Fauthorization%3Ftimeout%3D10%26terminalType%3D2&tenant_type=3&template_id=7262656438152708100&from=%E5%AE%98%E7%BD%91%E6%B3%A8%E5%86%8C%E6%97%97%E8%88%B0%E7%89%88%E8%AF%95%E7%94%A8&utm_from=SEO_blog_%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%E3%80%8C%E9%A3%9E%E4%B9%A6%E6%99%BA%E8%83%BD%E4%BC%99%E4%BC%B4%E5%88%9B%E5%BB%BA%E5%B9%B3%E5%8F%B0Aily%E3%80%8D)
+
+购买咨询
+
+一对一专业企业顾问
+
+工作日 8:00 - 19:00 在线服务
+
+[购买飞书 400-0682-666 工作日 9:00-19:00 在线](https://www.feishu.cn/content/3d5z9ttt)
+
+[使用咨询 实时解答使用问题 工作日 8:00 - 19:00 在线服务](https://login.feishu.cn/suite/passport/page/login/?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2F&template_id=7159153320657698818)[电话联系 400-0682-666 工作日 9:00-19:00 在线](tel:400-0682-666)
+
+rangeDom
+
+![Image 30](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=0f239fa2-2dfe-4288-8f50-46ad22c216ec&bo=1&sid=901079d059c611f1b9acd3a17cc8b388&vid=9010892059c611f196cdc388bf2d7848&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%E3%80%8C%E9%A3%9E%E4%B9%A6%20aily%E3%80%8D%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E6%99%BA%E8%83%BD%E4%BD%93%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0%EF%BC%8C%E5%AE%9A%E5%88%B6%E4%BD%A0%E7%9A%84AI%E4%B8%93%E5%B1%9E%E5%B7%A5%E4%BD%9C%E5%8A%A9%E6%89%8B%20-%20%E9%A3%9E%E4%B9%A6%E5%AE%98%E7%BD%91&kw=%E9%A3%9E%E4%B9%A6aily,aily,ai%E6%99%BA%E8%83%BD%E4%BD%93,%E4%BC%81%E4%B8%9A%E6%99%BA%E8%83%BD%E4%BD%93,%E5%B7%A5%E4%BD%9C%E5%8A%A9%E6%89%8B&p=https%3A%2F%2Fwww.feishu.cn%2Fcontent%2F3d5z9ttt&r=&lt=3617&evt=pageLoad&sv=2&cdb=AQAQ&rn=722432)

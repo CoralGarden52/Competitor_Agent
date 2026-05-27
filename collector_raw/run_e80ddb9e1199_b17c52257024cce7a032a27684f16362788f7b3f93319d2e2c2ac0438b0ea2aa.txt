@@ -1,0 +1,860 @@
+# Changelog - Feishu Open Platform - 飞书文档
+
+Title: Changelog - Feishu Open Platform
+
+URL Source: https://open.larkoffice.com/changelog
+
+Published Time: Wed, 27 May 2026 11:23:48 GMT
+
+Markdown Content:
+# Changelog - Feishu Open Platform
+
+[![Image 1: lark](https://lf-package-cn.feishucdn.com/obj/feishu-static/lark/open/doc/frontend/images/903e9787438e93aec1e412c4b284ca31.svg)](https://open.feishu.cn/?lang=en-US)
+
+*   [Customer Stories](https://open.feishu.cn/solutions?lang=en-US)  
+*   [App Directory](https://app.feishu.cn/?lang=en-US)  
+*   [Documentation](https://open.larkoffice.com/document)  
+*   [AI Assistant](https://open.feishu.cn/app/ai/playground?from=nav&lang=en-US)  
+*   [Changelog](https://open.larkoffice.com/changelog)  
+
+*   [Developer Console](https://open.feishu.cn/app?lang=en-US)  
+
+Login
+
+[Changelog](https://open.larkoffice.com/changelog)
+
+Filters
+
+Importance
+
+- [x] Important - [x] Breaking change 
+
+Capability types
+
+- [x] 
+
+AI
+
+ - [x] 
+
+Server-side services
+
+ - [x] 
+
+Gadgets
+
+ - [x] 
+
+Web apps
+
+ - [x] 
+
+Bots
+
+ - [x] 
+
+Extensions
+
+ - [x] 
+
+Tools
+
+ - [x] 
+
+Others
+
+ - [x] 
+
+Platform Updates
+
+ 
+
+Business domain
+
+- [x] Event Subscription - [x] Contacts - [x] Messenger - [x] Card - [x] Docs - [x] Base - [x] Approval - [x] Calendar - [x] Rooms - [x] Video Conferencing - [x] Email - [x] Help Desk - [x] App information - [x] OKR - [x] Admin - [x] Identity Authentication - [x] AI - [x] Attendance - [x] Company Information - [x] Tasks - [x] Smart Access Control - [x] ByteDance Open Ecosystem - [x] Feishu Spend - [x] Master Data Management - [x] Lingo - [x] Personal Settings - [x] Minutes - [x] Hire - [x] Feishu CoreHR Business edition - [x] Feishu CoreHR Standard edition - [x] Subscriptions 
+
+View More
+
+Recent important updates
+
+You can subscribe to the Changelog to receive update notifications in Feishu Subscribe now
+
+Important**Lark CLI is now open source**
+
+Empower your workflow with the open-source Lark CLI. Access and manage 12 business domains — including IM, Drive, Base, Calendar, and Meetings — directly from your agents.
+
+Licensed under MIT. Get started with a single command:
+
+`npx @larksuite/cli@latest install`
+
+[**Get started**](https://www.feishu.cn/feishu-cli) | [**GitHub**](https://github.com/larksuite/cli) | [**Feature wishlist**](https://bytedance.larkoffice.com/share/base/form/shrcnFYECazRm9hPygXwLkEhmKf?prefill_%E6%A8%A1%E5%9D%97=CLI)
+
+May 24, 2026
+
+AI
+
+### What's new in Lark CLI this week (May 18–22)
+
+> Lark CLI agents picked up a new batch of capabilities this week. Update to the latest version to try them out.
+
+Get started with one command: `lark-cli update`
+
+* * *
+
+**Markdown files: in-place edits, version diffs, direct-to-Wiki creation**
+
+*   **Patch a section in place** (`markdown +patch`): Update one section without overwriting the rest of the file.
+*   **Diff two versions** (`markdown +diff`): Compare two cloud versions, or compare a cloud version against a local `.md` file.
+*   **Create directly under a Wiki node** (`markdown +create --wiki-token`): Skip the old "create in Drive, then move" two-step.
+
+**Drive: manage files like Git**
+
+*   **Two-way sync** (`drive +sync`): Local edits upload to Drive automatically; remote edits download back to local. No more manual upload and download.
+*   **Full version history** (`drive +version-*`): List, download, restore, and delete versions — four actions in one place.
+*   **Inspect a document link** (`drive +inspect`): Pass any Lark Doc or Wiki link; the agent returns the file type, title, and canonical address. Wiki links auto-resolve to the underlying document.
+
+**Base: batch attachments and form auto-fill**
+
+*   **Batch upload, download, and delete attachments** (`base +record-*-attachment`): Up to 50 files per call, 2 GB each. Files larger than 20 MB chunk automatically.
+*   **Fetch form fields and submit in one step** (`base +form-*`): The agent reads form fields, fills them in, and submits. Attachments upload automatically.
+
+**Wiki: node lifecycle plus new spaces**
+
+*   **Create, list, and delete nodes** (`wiki nodes create/list` + `wiki +node-delete`): Reorganize a Wiki at scale — group topics, restructure the node tree, and clean up obsolete pages.
+*   **Create a new Wiki space** (`wiki spaces create`): Spin up a fresh workspace for a new project in one command.
+
+**Mail drafts: priority visible at a glance**
+
+*   **See draft priority on read**: When the agent reads a draft, it sees the priority flag — no more accidentally sending an "Urgent" draft as a normal email, or vice versa.
+
+**Want to try it?** Start with one command: `npx @larksuite/cli@latest install`
+
+**Learn more**: [**Get started**](https://www.feishu.cn/feishu-cli) | [**GitHub**](https://github.com/larksuite/cli) | [**Feature wishlist**](https://bytedance.larkoffice.com/share/base/form/shrcnFYECazRm9hPygXwLkEhmKf?prefill_%E6%A8%A1%E5%9D%97=CLI)
+
+May 16, 2026
+
+AI
+
+### What's new in Lark CLI this week (May 9–15)?
+
+We've shipped 6 more versions (v1.0.27 → v1.0.32) in just one week. Here's what your agents can now do — update to the latest version to try them.
+
+Get started with a single command: `lark-cli update`
+
+**I. Easier Wiki management for agents**
+
+v1.0.32 introduces three node-management actions in Lark Wiki:
+
+1.   Agents can **list all Wiki spaces accessible to the current account** — useful for scoping cross-space operations.
+2.   Agents can **list child nodes under a specified space or node** — pair with search to locate target nodes.
+3.   Agents can **copy a single Wiki node to a target location** — supports specifying a new title in the request.
+
+Agents now have the core actions they need inside Wiki.
+
+**II. IM upgrades — chat structure, bookmarks, and finding groups**
+
+Three improvements that bring agents closer to behaving like real teammates in chats.
+
+1.   **Agents can create topic chats directly** — previously agents could only create normal group chats; now topic chats are a single command away.
+2.   **Agents can bookmark messages or threads** — view bookmarked items and remove bookmarks — useful for saving important messages for later review.
+3.   **Agents can filter out muted chats** when searching or listing groups — find what you need without scrolling past hundreds of muted ones.
+
+**III. Drive sync gets a smart mode**
+
+For scheduled large-directory syncs and archiving CI artifacts to Drive, two improvements landed this week:
+
+1.   **Drive sync now supports a smart mode** that uses modification time to automatically skip unchanged files — large batch syncs of thousands of files run significantly faster.
+2.   **Agents can choose how to handle name conflicts when syncing Drive**: fail with a notice, keep the newest, or keep the oldest — conflicts no longer block sync.
+
+**IV. Approvals: add approver and send back for revision**
+
+Agents used to be limited to approve / reject / transfer. A commonly requested actions is now available:
+
+1.   **Agents can add approvers and send approval tasks back for revision** — multi-step enterprise approval flows now run end-to-end through agents.
+
+Use cases: mid-flow correction of multi-approver chains, send-back-for-revision scenarios.
+
+**Want to try it?** Start with one command: `npx @larksuite/cli@latest install`
+
+**Learn more**: [**Get started**](https://www.feishu.cn/feishu-cli) | [**GitHub**](https://github.com/larksuite/cli) | [**Feature wishlist**](https://bytedance.larkoffice.com/share/base/form/shrcnFYECazRm9hPygXwLkEhmKf?prefill_%E6%A8%A1%E5%9D%97=CLI)
+
+May 7, 2026
+
+AI
+
+### What new things can your agent do with Lark CLI this past month?
+
+One month after Lark CLI went open source, more than 100 new capabilities are now available — all live. To try them, update your Lark CLI to the latest version. [Get started](https://open.larkoffice.com/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu)
+
+### I. Agents collaborating in Lark
+
+One agent doesn't have to do everything. Specialized agents can hand off work to each other in a group chat — and you can watch, step in, interrupt, or course-correct anytime.
+
+1.   **Agents can @ other agents and invoke them directly — the basic channel for multi-agent collaboration is now in place.**
+2.   Agents can recognize other bots' names and identities in a group — groundwork for multi-agent coordination.
+
+See the [Lark Agent @ Agent setup guide](https://open.larkoffice.com/document/mcp_open_tools/integrating-agents-with-feishu/agent-at-agent-for-complex-tasks) for details.
+
+### II. Agents send and receive messages like a person
+
+Ask your agent to send a message, and it acts on your behalf — the sender shows your name, the message belongs to you, and permissions follow you. Add or remove group members without switching back and forth between Lark and the agent.
+
+1.   Agents can send messages **as you** — coworkers see your name, not a bot avatar.
+2.   Agents can send images, files, audio, and video as you — not just text.
+3.   Agents can create groups as you — you become the owner directly, no manual transfer needed.
+4.   Agents can add or remove group members in one step — no digging through group settings.
+5.   Agents can react with emoji — quick acknowledgments, thanks, or agreement in one tap.
+6.   Agents can update group names and descriptions — handy when a project gets renamed.
+7.   Agents can fetch message details in bulk (including sender and thread info) — pull dozens at once.
+8.   Agents can listen for new messages in real time — respond the moment a message arrives, no polling.
+9.   Agents can generate message links — jump straight to the original message.
+
+### III. Agents produce real work — docs, slides, sheets, whiteboards
+
+Ask your agent to "draft a project plan" and you'll find a Lark Cloud Doc already created, formatted, and permissioned — ready to open and edit. The same goes for slides, sheets, and whiteboards.
+
+**Cloud Docs**
+
+1.   Agents can draft and edit Lark Cloud Docs — write in Markdown, and it converts to Lark format automatically.
+2.   Agents can replace by section, search by keyword, or insert by paragraph — precise edits without rewriting the whole doc.
+3.   Agents can paste screenshots from the clipboard directly into a doc — no need to save locally first.
+4.   Agents can insert images and files **anywhere in a doc** — not just at the end.
+5.   Agents can upload media files of any size — large videos work too, with automatic chunked upload.
+6.   Docs created by your agent open right away — permissions are granted automatically.
+7.   Agents can preview images and media inside a doc — take a look before deciding what to change.
+8.   When inserting files, agents support three display styles — card, preview, or inline.
+9.   **Agents × document comments** — agents can comment on docs, sheets, slides, and Base tables, and respond when you @-mention them in a comment. Your agent can review, suggest, and respond like a teammate.
+
+**Whiteboard**
+
+1.   Agents can generate editable architecture and flow diagrams right inside a doc — live diagrams, not screenshots, so you can drag and edit.
+2.   Agents can export whiteboards as images or Mermaid/PlantUML code — embed them wherever you like.
+3.   Agents can drop images onto a whiteboard — screenshots and photos go straight in.
+
+**Slides**
+
+1.   **Agents have 42 official slide templates covering 8 scenarios** — no more plain black-on-white decks.
+2.   Agents can edit a single element in a slide — change a title without redoing the whole page.
+3.   Agents can drop local images straight into a slide — no need to upload to Drive first.
+
+**Base**
+
+1.   Agents can write or update records in bulk — load hundreds of rows at once.
+2.   Agents can return only the fields you need — saves tokens and keeps results readable.
+3.   Agents can lay out dashboards and add Markdown notes — team-ready reports come together in one step.
+4.   Agents can download attachments in bulk — no clicking through them one by one.
+5.   Agents can export a Base to a `.base` file for backup, and import it back — **move data without losing anything.**
+6.   Agents can generate share links for records, one at a time or in bulk.
+7.   Bases created or copied by your agent are ready to use right away — permissions are set automatically.
+8.   Agents can build a form with questions in one step — event signups, user feedback, satisfaction surveys, ready as soon as you ask.
+9.   Agents can return Base data in Markdown — easier for LLMs to read.
+10.   Agents can manage Base workflows — notify and update automatically when records change.
+
+**Sheets**
+
+1.   Agents can read, write, and append cells — Excel-style operations on Lark Sheets in one step.
+2.   Agents can insert images into cells — quick visualization without extra steps.
+3.   Agents can place floating images anywhere in a sheet — not tied to a single cell.
+4.   Agents can add or delete rows and columns, merge or split cells, find and replace, and apply styles — everyday sheet operations covered.
+5.   Agents can manage dropdown options in bulk — no adding dozens one at a time.
+6.   Agents can manage worksheets — create, copy, delete, and rename in one command.
+
+**Drive**
+
+1.   Agents can upload and download files, create folders, and set permissions — Drive management in one command.
+2.   Agents can upload files of **any size** — files over 20MB use chunked upload automatically.
+3.   Agents detect file extensions when downloading — files open directly, no manual renaming.
+4.   Agents can import, export, convert, and move files in one step — no chaining three separate operations.
+5.   Agents can rename files in bulk and create shortcuts — good news for anyone who likes a tidy Drive.
+6.   Agents can clean up unused files in one go — no manual review.
+7.   **Agents can sync between local folders and Drive in both directions** (push / pull / status) — manage docs the same way Git manages code.
+8.   Agents can create, download, and edit Markdown files in Drive — plain-text workflows fit right in.
+9.   Agents can upload directly to a Wiki node — files are filed in place, no manual move.
+10.   Agents can request access from a doc's owner — let the agent handle permissions for you.
+
+**Wiki**
+
+1.   Agents can read Wikis and create or reorganize nodes — Wiki maintenance runs on its own.
+2.   Agents can create and delete Wiki spaces — new team? Set up a Wiki in one sentence.
+3.   Agents can add or remove Wiki members in bulk — no click-by-click onboarding.
+4.   Agents automatically have permission to Wiki nodes they create — you won't end up locked out of what you just made.
+
+### IV. Agents help you run meetings — from attendance to notes to follow-ups
+
+After a one-hour meeting, open Lark and the notes are written, action items are created, and next week's follow-up is already on the calendar.
+
+**Minutes / Video Conferencing**
+
+1.   Agents can read Minutes transcripts and pull out decisions and action items — no more manual writeup.
+2.   Agents can summarize all your meeting notes into a structured weekly report in one command — ten meetings a week, no problem.
+3.   **Agents can turn any audio or video file into a Minutes record** — voice recorders, Zoom, phone recordings, not just Lark meetings.
+4.   Agents can pull AI-generated artifacts from Minutes — summaries, action items, and chapters, ready to use.
+5.   Agents can download Minutes audio and video in one step.
+6.   Agents can find the Minutes record from a calendar event or meeting ID — no scrolling through the Minutes list.
+
+**Calendar**
+
+1.   **Agents can check everyone's calendar, factor in time zones, recommend time slots, and schedule the meeting in one step** — when no one's free, they suggest the slot most likely to work and explain why.
+2.   Agents can update events — title, time, description, attendees, and meeting rooms — without recreating them.
+3.   Agents can search events and check multiple meeting rooms at once — find an open room without clicking through them one by one.
+4.   Agents can get event share links — external attendees can join with one click.
+5.   Agents can generate a daily summary of your schedule and open tasks — open it in the morning and know what's on for today.
+
+### V. Agents handle your day-to-day — mail, approvals, tasks, OKRs, attendance — no app needed
+
+Your mail, approvals, tasks, OKRs, and attendance live in different places in Lark. Ask your agent in one sentence — it sends mail, approves requests, creates tasks, and checks attendance, without you opening any app.
+
+**Mail**
+
+1.   Agents can scan unread mail, group and summarize it, and draft replies — start your day without going email by email.
+2.   When agents reference a local image in a draft, it uploads automatically.
+3.   Agents can request a read receipt when sending mail.
+4.   Agents can send mail with large attachments — tens of megabytes work fine.
+5.   Agents can manage mail templates — weekly reports and notifications don't need rewriting every time.
+6.   Agents can share mail to group chats or DMs — sync important mail to a chat with one tap.
+7.   Agents can attach a calendar invite to outgoing mail — send the invite and the email together.
+8.   Agents can schedule mail for later — draft it, set a time, send automatically.
+9.   Agents can recall sent mail within 24 hours — there's still time to fix a mistake.
+10.   Agents can use personalized mail signatures — different signatures for different contexts.
+11.   Agents can send from an alias — works for shared mailboxes or mailing groups.
+12.   Agents can manage incoming mail rules — set them up once, mail sorts itself.
+13.   Agents can listen for new mail in real time — get notified the moment something important arrives.
+14.   Agents can read full mail threads — see the entire back-and-forth in one shot.
+
+**Approvals**
+
+1.   **Agents handle approvals six ways in one command** — query, approve, reject, transfer, withdraw, and cc.
+2.   Agents can nudge pending approvals and review your own request history.
+
+**Tasks**
+
+1.   **Tasks can be assigned to AI agents** — your agent isn't just a tool, it's a teammate.
+2.   Agents can pick up action items from Minutes or chat and create tasks — things mentioned in conversation don't get lost.
+3.   Agents can search tasks, set parent-child relationships, group them, and subscribe to updates — the full toolkit for task management.
+4.   Agents can add tasks to specific sections in a list — kept organized.
+5.   Agents can upload attachments to tasks — finished work goes straight on the task.
+
+**OKR**
+
+1.   Agents can read and manage your OKRs — check goal progress without opening the OKR page.
+2.   Agents can create, view, update, and delete OKR progress entries — weekly OKR updates without manual entry.
+
+**Attendance**
+
+1.   Agents can pull your lateness, missed clock-ins, and overtime records in one command — end-of-month review without opening the app.
+
+### VI. Agents help you find things
+
+Cross-domain search — docs, mail, and people, all easy to locate.
+
+1.   Agents can search chat history — filter by keyword, sender, time range, or who was @-mentioned, even in long chats.
+2.   Agents can find docs by what **you created, edited, viewed, or commented on** — no need to remember when or what kind.
+3.   Agents can search Cloud Docs by keyword, edit time, or creator — fast even with thousands of docs.
+4.   Agents support advanced search filters for docs — pinpoint what you need without sifting through results.
+5.   Agents can search meeting recordings by keyword, attendees, or time — easy to find the right one even with hundreds.
+6.   Agents can page through summary lists of mail — scan hundreds quickly.
+7.   Agents can look up coworkers by name or email — multiple lookups in parallel.
+8.   Agents can filter Contacts with criteria like "people you've chatted with" or "external contacts" — find the right person quickly.
+
+### VII. Bring an agent to Lark — one command, 15 business domains ready
+
+One command installs the CLI, creates the app, and handles authorization. Your agent gets every capability above right away — no doc reading, no webhook setup, no permission requests.
+
+1.   MIT open source. Install with `npx @larksuite/cli@latest install` — **no build step, no environment setup.**
+2.   **One-step install across platforms** — macOS, Linux, and Windows supported.
+3.   **`lark-cli update`** updates the CLI in one command, with verification and rollback — revert in seconds if something breaks.
+4.   The CLI checks for new versions on startup and tells you — no quietly running an outdated build.
+5.   Add `--jq` to any command to extract just the fields you want — saves tokens, gives LLMs clean structured data.
+6.   Real-time event subscriptions over WebSocket — respond to messages, calendar changes, and doc updates as they happen.
+7.   **`lark-cli schema`** shows the parameters and permissions for any Lark API — no doc-switching during development.
+8.   Companion **AI Agent Skills** library (`npx skills add larksuite/cli`) — wrap common operations as Skills, callable directly from AI coding tools like Claude Code.
+
+### VIII. Agents in Lark run with safety built in
+
+**Available through the open-source CLI**
+
+1.   **Strict mode**: agent bot / user identity can be configured at a fine grain — no overreach, each identity does only what it's meant to.
+2.   Files created by your agent are automatically permissioned for you — no more "I asked the agent to create it but I can't access it."
+
+**Platform-level security and governance**
+
+These apply when agents run within Lark's hosted pipeline. Some capabilities are available in commercial editions or specific deployment setups.
+
+1.   Agent content goes through baseline safety checks — prompt injection protection and sensitive data redaction help keep AI-generated content in bounds.
+2.   Agent behavior is monitored for risk — the platform watches key calls for risk and anomalies, helping prevent abuse.
+3.   Agents access your resources within your own permissions — they can't see anything you can't see.
+4.   Key agent actions are logged for audit — searchable trails make after-the-fact review possible.
+5.   OAuth Device Flow + keyless app creation — secure onboarding without managing secrets.
+
+### Get started
+
+**Want to try it?** Start with one command: `npx @larksuite/cli@latest install`
+
+**Learn more**: [**Get started**](https://www.feishu.cn/feishu-cli) | [**GitHub**](https://github.com/larksuite/cli) | [**Feature wishlist**](https://bytedance.larkoffice.com/share/base/form/shrcnFYECazRm9hPygXwLkEhmKf?prefill_%E6%A8%A1%E5%9D%97=CLI)
+
+April 28, 2026
+
+Server-side services
+
+Breaking change**Feishu CoreHR Business edition**
+
+*   **Upgraded custom organization、position API and job required validation logic**
+
+    *   **Affected APIs：**[Create custom organization](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/create)、[Create position](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/create)、[Create job](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create)
+    *   **What's updated：** Fixed an inconsistency between the API's required-field validation and the required fields shown on the UI.
+    *   **Impact：** After this fix, the API will strictly validate all fields marked as **Required** on the **Create Custom Organization Form**、**Create Position Form** and **Create Job Form**. If any of these required fields are missing in the request, the call will be blocked and an error will be returned.
+    *   **Key dates：**
+        *   Gradual rollout starts: May 18, 2026 19:00 (GMT+8)
+        *   Full rollout ends: June 16, 2026 19:00 (GMT+8)
+
+    *   **Developer recommendation：** Review your current integration before the rollout begins and ensure all required fields configured in your business settings are included in requests to avoid call failures.
+
+*   **Upgraded company API required validation logic**
+
+    *   **Affected APIs：**[Create company](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create), [Update company](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/patch)
+    *   **What's updated：** Fixed an inconsistency between the API's required-field validation and the required fields shown on the UI.
+    *   **Impact：** After this fix, the API will strictly validate all fields marked as **Required** on the **Create Company Form** and **Edit Company Form**. If any of these required fields are missing in the request, the call will be blocked and an error will be returned.
+    *   **Key dates：**
+        *   Gradual rollout starts: May 25, 2026 19:00 (GMT+8)
+        *   Full rollout ends: June 23, 2026 19:00 (GMT+8)
+
+    *   **Developer recommendation：** Review your current integration before the rollout begins and ensure all required fields configured in your business settings are included in requests to avoid call failures.
+
+*   **Upgraded API validation error messages to clearly identify invalid input fields**
+    *   [Create company](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create)
+    *   [Update company](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/patch)
+    *   [Enable/Disable company](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/active)
+    *   [Delete company](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/delete)
+
+March 27, 2026
+
+Tools
+
+Important**📢 Lark CLI is now open source**
+
+Lark CLI is now open source
+
+Manage 12 core Lark capabilities—from Base and Docs to Calendar and IM—with a single command. Empower your scripts and AI agents to interact with Lark as effortlessly as they handle local files.
+
+Released under the MIT license. Install with npm:
+
+`npx @larksuite/cli@latest install`
+
+[**Get started**](https://www.feishu.cn/feishu-cli) | [**GitHub**](https://github.com/larksuite/cli) | [**Feature wishlist**](https://bytedance.larkoffice.com/share/base/form/shrcnFYECazRm9hPygXwLkEhmKf?prefill_%E6%A8%A1%E5%9D%97=CLI)
+
+March 18, 2026
+
+Server-side services
+
+Breaking change**Feishu CoreHR Business edition**
+
+*   **Upgraded department API required validation logic**
+    *   **Affected API：**[Create department](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create)
+    *   **What’s updated：** Fixed an inconsistency between the API’s required-field validation and the required fields shown on the UI.
+    *   **Impact：** After this fix, the API will strictly validate all fields marked as **Required** on **CoreHR > Settings > Organization Configuration > Department Field Configuration**. If any of these required fields are missing in the request, the call will be blocked and an error will be returned.
+    *   **Developer recommendation：** Review your current integration and ensure all required fields configured in your business settings are included in requests to avoid call failures.
+
+**Feishu CoreHR Business edition**
+
+*   Optimized API validation error messages to clearly indicate which input fields are invalid
+    *   [Create department](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create)
+    *   [Update department V2](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/patch)
+    *   [Deprecated Version-Update department](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/patch)
+
+*   Fixed the issue where updating a deactivated department would re-enable it due to the creation of a new version
+    *   [Update department V2](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/patch)
+    *   [Deprecated Version-Update department](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/patch)
+
+September 25, 2025
+
+Server-side services
+
+**Feishu CoreHR Business edition**
+
+*   Added API related to basic compensation configuration, which supports querying basic salary related configuration data such as compensation component, compensation metric, compensation plan and compensation reason.
+
+    *   [Batch query compensation component type](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)
+    *   [Batch query compensation component](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)
+    *   [Batch query compensation metric](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+    *   [Batch query compensation plan](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)
+    *   [Batch query reason for compensation setting and adjustment](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+
+*   Added compensation standard related API to support matching compensation standard data applicable to employees.
+
+    *   [Get employee salary standards](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/compensation_standard/match)
+
+*   Added compensation profile related APIs and events to support querying, creating, and updating compensation profile data, as well as subscribing to compensation profile change events.
+
+    *   [Create compensation archives](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/create)
+    *   [Batch query compensation profile](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/query)
+    *   [Compensation archive changed](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/events/changed)
+
+*   Added API related to social security basic configuration, which supports querying social security insurance type configuration and social insurance plan data.
+
+    *   [Get all social insurance types](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)
+    *   [Batch query social insurance plans based on plan ID and effective date](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)
+    *   [Query the insurance plans by page according to the effective date](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/list)
+
+*   Added APIs related to social security files and increase and decrease records, which support querying employee insurance files and increase and decrease records data.
+
+    *   [Batch obtain social security increase and decrease records by employee ID](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive_adjust_record/query)
+    *   [Batch obtain employee insurance files](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive/query)
+
+*   Added APIs related to one-time payment and recurring payment records, which support querying, creating, updating, and deleting one-time payment and recurring payment records.
+
+    *   [Batch create one-time payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/batch_create)
+    *   [Batch update one-time payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/batch_update)
+    *   [Query one-time payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query)
+    *   [Query one-time payment details](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query_detail)
+    *   [Batch delete one-time payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/batch_remove)
+    *   [Query recurring payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/query)
+    *   [Batch update recurring payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/batch_update)
+    *   [Batch delete recurring payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/batch_remove)
+    *   [Create recurring payment records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/recurring_payment/batch_create)
+
+*   Added Payroll-related basic configuration API, which supports querying acct items, cost plans, paygroups, and datasource configuration information.
+
+    *   [batch query acct item](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)
+    *   [Get Cost Plans](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_plan/list)
+    *   [list paygroups](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)
+    *   [list datasource configs](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list)
+
+*   Added datasource related APIs, support querying datasource configuration information, and support creating, updating, and querying external datasource records.
+
+    *   [save datasource records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource_record/save)
+    *   [query datasource records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource_record/query)
+
+*   Added cost report API to support querying cost report summary data.
+
+    *   [Batch Get Cost Reports](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_report/list)
+
+*   Added API related to payment activities, which supports querying the list of payment activities, sealing payment activities and subscribing to payment activity change events, and querying the list of payment activity details.
+
+    *   [query detailed list of payment activities](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity_detail/list)
+    *   [query the payment details list](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_detail/query)
+    *   [archive payment activity](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/archive)
+    *   [query the list of payment activities](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)
+    *   [payment activity status changed](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/events/status_changed)
+    *   [payment activity approved](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/events/approved)
+
+If you find any errors or unclear parts in the document description during use, you are welcome to provide feedback to us via the "Word-selection Feedback" method mentioned in the Overview section of the Feishu Open Platform.
+
+August 11, 2025
+
+Others
+
+**Card**
+
+*   Added the [audio component](https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/audio), which supports rendering audio players in multiple styles within cards.
+*   Added [markdown audio syntax](https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/rich-text), which supports embedding audio players in a card’s markdown component.
+
+August 4, 2025
+
+Server-side services
+
+**Feishu CoreHR Business edition**
+
+*   Update the [Create job family](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)interface to support the [selectable] field of Job Family。
+*   Update the [Update job family](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/patch)interface，to support the [selectable] field of Job Family。
+*   Update the [Query a single job family](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)interface，to support the [selectable] field of Job Family。
+*   Update the [Query the job family information of tenant](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)interface，to support the [selectable] field of Job Family。
+*   Update the [Get job family information in batches according to conditions](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)interface，to support the [selectable] field of Job Family。
+
+July 13, 2025
+
+Server-side services
+
+June 29, 2025
+
+Server-side services
+
+**Hire**
+
+*   Update the [Get Talent Details](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get) API to obtain the details of the resume attachment list associated with the talent, including the attachment ID, name, MIME type, and create time
+*   Update the [Get information on recruitment needs](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id) and [Get job requirement list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list) interfaces to obtain the position ID and employment job ID associated with the recruitment requirement
+*   Update the [Get Offer Information](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer) and [Get Offer Details](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get) interfaces to obtain the position ID, job level ID, and general attachment ID list associated with the offer
+*   Update the [Get a list of written exams](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/test/search) interface to obtain the talent ID and job ID associated with the written exam
+*   Update the [Update talent onboarding status](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch) interface to support the updating talent onboarding status operations of restoring to "To be onboarded", withdrawing overboard, and withdrawing conversion
+*   Fixed all data format exceptions related to the int-type timestamp field in the interface return value during the use of the Java SDK. Please download the latest version of the Java SDK for use. For details, see [Java SDK guide](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/java-sdk-guide/preparations).
+
+May 15, 2025
+
+Server-side services
+
+**Feishu CoreHR Business edition**
+
+*   Updated the [Write Approval Result](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) API to support writing more information for business trip records, including departure location, destination location, transportation, trip type, and trip remarks.
+*   Updated the [Get Approval Data](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) API to support querying more information for business trip approval data, including departure location, destination location, transportation, trip type, and trip remarks.
+
+May 7, 2025
+
+Platform Updates
+
+Important Feishu OpenAPI MCP tools are now available, enabling rapid integration of AI agents with Feishu's open capabilities. This allows for agent driven automated scenarios such as cloud document processing, conversation management, and calendar scheduling. For more details, refer to the [MCP Integration Guide](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/mcp_introduction).
+
+March 26, 2025
+
+Server-side services
+
+**Feishu CoreHR Business edition**
+
+**New APIs**
+
+*   Added incremental query APIs for organizational management and position/job management, enabling retrieval of change data within specified time periods:[query recent change location](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/query_recent_change),[query recent change cost center](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/query_recent_change),[query recent change job family](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/query_recent_change),[query recent change job level](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/query_recent_change),[query recent change job grade](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query_recent_change),[query recent change job](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/query_recent_change)
+
+*   Added APIs for workforce planning detail data management, supporting querying, updating workforce planning details, and centralized data entry:[batch create/update detail rows](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan_detail_row/batchSave),[batch delete detail rows](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan_detail_row/batchDelete),[batch create/update reporting rows](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/report_detail_row/batchSave),[batch delete reporting rows](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/report_detail_row/batchDelete),[batch create/update detail rows](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan_detail_row/batchSave)
+
+*   Added [create department event V2](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/events/created) and [update department V2](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/events/updated) APIs. These ensure ordered triggering of hierarchical events during batch department creation or adjustments, enabling users with strict sequential requirements to subscribe to these events for integration.
+
+**Optimizations**
+
+*   Improved latency in the [get parent department info](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents). Changes to department full-path hierarchies after organizational adjustments are now reflected with sub-second latency.
+
+*   The [create cost center](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/create) now returns a version_id field.
+
+*   The [batch query job family information by ids](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get) now includes a description field, enhancing integration capabilities for users.
+
+January 5, 2025
+
+Gadgets
+
+Important The [Gadget](https://open.larkoffice.com/document/uYjL24iN/uQTM5UjL0ETO14CNxkTN/overview) feature is being deprecated on the Open Platform. We recommend developers transition to [Web Apps](https://open.larkoffice.com/document/uYjL24iN/uMTMuMTMuMTM/introduction) for new projects.
+
+From January 13 to February 15, we'll be phasing out the ability to create new Gadgets for organizations that have not previously developed them.
+
+Organizations with existing Gadgets can continue to create and develop them without changes.
+
+January 1, 2025
+
+Others
+
+Important**Card**
+
+Release [version 2.0](https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-breaking-changes-release-notes), which provides a richer set of card capabilities and supports building them in the [Feishu Cardkit](https://open.feishu.cn/cardkit?from=open_docs_changelog):
+
+*   Support streaming output capability adapted to large model AI scenarios. Supports continuous updating in a real-time or quasi-real-time manner through the streaming update API, so as to realize the effect of gradual generation of AI and gradual rendering of cards. Streaming update usage can refer to [Streaming Update OpenAPI Calling Guide](https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/streaming-updates-openapi-overview#39ee4e65).
+
+*   Support for richer rich text syntax features. The [rich text](https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/rich-text) component now supports syntax for multi-level headings, in-line codes, tables, numeric corners, quotes, and more.
+
+![Image 2](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/b7d1a8dc8dddd17b7b9d1e7876db9953_qvsI10AEwr.png?height=1846&lazyload=true&maxWidth=600&width=3002)  
+*   More flexible layout capabilities. A series of layout properties including alignment direction, horizontal/vertical spacing, inner/outer margins, etc. have been added uniformly to all types of components.
+
+![Image 3](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/eddd1e2adb070b00a52121cb2215211f_0fxpKiXi7g.png?height=1838&lazyload=true&maxWidth=600&width=2988)  
+*   Easier multi-language configuration method. Feishu Cardkit supports configuring different languages on the component properties to improve the efficiency of building multi-language cards.
+
+![Image 4](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/3ad2432eafb8d1dc6d2046e51a82988c_F8kkJtoaQg.png?height=1840&lazyload=true&maxWidth=600&width=2992)  
+
+December 16, 2024
+
+Server-side services
+
+**Feishu CoreHR Business edition**
+
+Process Management Document Optimization
+
+*   Added [Process access guide](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/access-guide) to facilitate users' quicker access.
+*   Added [Process FAQs](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/frequently-asked-questions) to help users quickly solve some common problems during the access process.
+*   Migrated business types into the access guide document, making the document more focused and reducing users' understanding burden.
+*   Migrated [Get process form data](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-form_variable_data/get) to the "Workflow Instance" directory.
+
+November 28, 2024
+
+Server-side services
+
+Important**Hire**
+
+OpenAPI openness is one of the important directions of Feishu Recruitment. In the past few months, Feishu Recruitment has focused on the construction of OpenAPI, including opening more OpenAPIs, upgrading or fixing existing OpenAPIs, and improving OpenAPI documentation.
+
+### I. Open more Open APIs
+
+#### Talent/Candidate
+
+1.   Add an interface"[Operate Talent Tag](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/tag)". Through this interface, labels of specified talents can be added or modified.
+2.   Add an interface "[Delete Note](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/delete)", through this interface, tags on specified talents can be deleted.
+3.   New "[Get talent tag info list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_tag/list)" interface is added. The interface can be used to query all tag information.
+4.   New "[Add/remove talents from the talent pool in batches](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/batch_change_talent_pool)" interface is added to support batch adding/removing talents to/from the talent pool.
+5.   New interfaces "[Add talents to folder](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/add_to_folder)" and "[Remove talent from specified folder](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/remove_to_folder)" are added to support batch adding/removing of talents to/from the talent folder.
+6.   Add a "[Add/remove block list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_blocklist/change_talent_block)" interface to support blocking/unblocking talents.
+
+#### Application process
+
+1.   Add a "[Recover Application](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/recover)" interface to support restoring archived applications to their state before archiving.
+2.   The new aggregated interface "[Get application detail](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get_detail)" can return application basic information, job information, talent information, evaluation information, interview information, offer information, entry-transfer-departure information , etc. according to the "application ID", and can return information according to permission control.
+3.   The new aggregated interface "[Get job details](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get_detail)" can return basic job information, job personnel information, associated recruitment list, job address information, job tags, store information, etc. according to "job ID".
+
+#### Basic information
+
+1.   A new "[Query address list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)" interface is added. Administrative division information can be queried through this interface.
+2.   Add the "[Get address list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)" interface. The specific address information can be queried through the interface.
+
+#### Internal referral
+
+New interfaces "[Activate referral account](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/enable)" and "[Query referral account](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/get_account_assets)" are added to support enabling and querying accounts.
+
+#### Agency
+
+1.   The new interfaces "[Search supplier list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/batch_query)" and "[Query the headhunting list of suppliers](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/get_agency_account)" support obtaining all agency suppliers and the list of agency accounts under the suppliers.
+2.   Add the "[Disable/undisable headhunting under headhunting supplier](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/operate_agency_account)" interface to support disabling or canceling the disabling of specific headhunters.
+
+#### External information
+
+1.   New interfaces "[Create external Offer](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/create)", "[Query external offer list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/batch_query)", "[Update external offer](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/update)", and "[Delete external offer](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/delete)" are added to fully support the import, modification, query, and deletion of external Offer information.
+2.   New interfaces "[Update external interview](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/update)", "[Delete external interview](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/delete)", and "[Query external interview](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/batch_query)" are added to fully support the import, modification, query, and deletion of external interview information.
+3.   New interfaces "[Update external background](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/update)", "[Query external background](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)", and "[Delete external background](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/delete)" are added to fully support the import, modification, query, and deletion of external background check information.
+
+### II. Upgrade/Fix OpenAPI
+
+#### Talent/Candidate
+
+*   The interface of "[Get talent details](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)" adds the return of label information, block information, note information, etc. of talents.
+*   The "[Create node](https://open.larkoffice.com/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create)" and "[Update note](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch)" interfaces support mentioning other users in the note.
+
+#### Position/Recruitment Requirements
+
+*   The interface of "[Get job requirement list](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)" adds the return of the creation time of recruitment demands.
+*   The interface of “[Get job information](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)”、[Search Job Requirement Info](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id) adds the return of job label information.
+
+#### Application process
+
+*   The "[Create offer](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/create)" interface can support not passing in the offer schema id and automatically create an Offer according to the latest schema id.
+*   The interfaces "[Get offer information](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)" and "[Get offer details](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)" newly add the return of recruitment requirements, associated positions, and Offer sending records.
+*   “[Get onboard information by application ID](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application)”, “[Get onboard information by employee ID](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get)” newly added to return associated recruitment requirement information.
+
+#### Internal referral
+
+The interfaces of "[Register Referral Account for External System](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)", "[Disable Referral Account for External System](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/deactivate)", "[Withdraw Balance from Referral Account in Full Amount](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)", and the event of "[Referral Account Balance Change](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update)" add support for cash rewards on the basis of originally only supporting point rewards.
+
+November 13, 2024
+
+Server-side services
+
+Important**Event Subscription**
+
+On December 12th, three new egress IPs (101.126.59.7, 101.126.59.8, and 101.126.59.9) will be added for **event and callback subscription** while the original egress IPs remain unchanged. Developers who have already configured security groups should update their security group policies in advance to include the new egress IPs to avoid event callbacks being blocked by the firewall.
+
+October 27, 2024
+
+Platform Updates
+
+Important API Call Quota Adjusted for Custom Apps in Feishu Basic Free Plan. Starting **December 3, 2024**, the total API calls made by all custom apps within a single organization on the Feishu Basic Free plan will be adjusted to **10,000 calls per month**. This limit will be reset on the 1st of every month. Refer to the [Notice](https://open.larkoffice.com/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/custom-app-api-call-limit) for more information.
+
+September 11, 2024
+
+Server-side services
+
+**Feishu CoreHR Business edition**
+
+**New APIs**
+
+Added work calendar-related APIs to support querying work calendar information and details of each date in the work calendar.[Get Work Calendar](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar), [Get Work Calendar ID by Applicable Conditions](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/calendar_by_scope), [Get Work Calendar Date Details](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar_date).
+
+July 29, 2024
+
+Server-side services
+
+**Messenger**
+
+We would like to inform you that starting from Sept 30, 2024, we will no longer accept requests for the "Read private messages sent to the bot (im:message.p2p_msg)", "Read group chat messages mentioning the bot (im:message.group_at_msg)", "Update the information of groups created by the app (im:message.groups)" and "Read group information (im:chat.group_info:readonly)" permissions. This change will not affect applications that have already been granted these permission points. For details, see [update notes](https://open.larkoffice.com/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/message-and-group-scope-removed)。
+
+March 24, 2024
+
+Server-side services
+
+**Messenger**
+
+*   Explore our latest API enhancements for [feed](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/overview), allowing you to showcase richer content in message cards within the feed list. Customize tags, buttons, temporary pinning, and more to effortlessly communicate important information (available on Feishu V7.6 and higher).
+
+Extensions
+
+*   Introducing [Search Component](https://open.larkoffice.com/document/uYjL24iN/uQDO3YjL0gzN24CN4cjN/selector), designed to streamline your search process for people, groups, documents, and more. Search by keywords, view results from different data types, and personalize your experience with dark mode and multi-language support.
+
+March 17, 2024
+
+Server-side services
+
+**Hire**
+
+*   Updated API for [creating job](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create) by adding definitions for the enumerated items under the "Highlights" field. For details, read [Enum Constants for Hire](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum).
+
+March 10, 2024
+
+Server-side services
+
+**Docs**
+
+*   Updated API for [getting all nodes](https://open.larkoffice.com/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/list) to include support for retrieving board nodes, making it easier for business systems to access board node data.
+
+**AI**
+
+*   Released API for [extracting resume data](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/resume/parse), to retrieve structured information like name, birth date, and work experience from local resume files uploaded by users.
+
+March 3, 2024
+
+Tools
+
+*   Easily subscribe to event callbacks using [WebSocket persistent connection mode](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/event-subscription-guide/long-connection-mode), making event reception available on any internet-connected device without the need for a public network address configuration.
+*   Discover the revamped Feishu Cards featuring a range of component styles, simplified development experience, and the ability to create cards for link preview. [Try Now](https://open.feishu.cn/cardkit)
+
+February 18, 2024
+
+Server-side services
+
+**Video Conferencing**
+
+*   Updated API for [getting alert records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/alert/list) to include new fields such as "alert rule ID," "meeting room ID triggering alert rule," and "host Mac address triggering alert rule". These additions make it easier for users to differentiate alert rules and related device information.
+
+February 4, 2024
+
+Server-side services
+
+**Docs**
+
+*   Docs-related APIs now support new features for boards, such as the ability to insert empty boards using the [block creation](https://open.larkoffice.com/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create) API, and the ability to query information about boards using the [block content](https://open.larkoffice.com/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get) API.
+
+January 28, 2024
+
+Server-side services
+
+**Base**
+
+*   Released [search records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search) API, aligning capabilities with the [List records](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list) API. This adjustment includes structured filtering parameters and standardizes response data. The enhancement mainly benefits scenarios involving bulk record retrieval, improving performance in the retrieval of complex formulas.
+
+January 21, 2024
+
+Server-side services
+
+**App information**
+
+*   Released API for [enabling/disabling apps](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-management/update), allowing developers to automatically enable or disable custom and store apps installed within a organization.
+
+**Hire**
+
+*   Updated [APIs](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create) to include support for "employee type", "job level", and "job family" ID systems from "Contacts". Developers can access the information using the query parameters - employee_type_id_type, job_level_id_type, and job_family_id_type, with the choice of using either "Contacts" or "HR Management Platform" ID types.
+
+January 14, 2024
+
+Server-side services
+
+**Card**
+
+*   Enhanced [markdown card component](https://open.larkoffice.com/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN) to support ordered/unordered lists and code block syntax. Developers can now use standard markdown syntax to create more visually appealing lists and code blocks.
+
+**Base**
+
+*   Updated APIs for [retrieving](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/get) and [updating views](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/patch), specifically by modifying the fieldType parameter in the filter condition of the return value to align with the actual return value type.
+
+**OKR**
+
+*   Released [OKR-related](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr-guide) APIs, enabling developers to create OKR cycles, access OKR lists, and retrieve OKR review information.
+
+Need help with a problem?
+
+Submit feedback
+
+Feedback
+
+OnCall
+
+Collapse
+
+Expand

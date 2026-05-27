@@ -1,0 +1,232 @@
+# 实战应用WPS WebOffice开放平台服务概述 根据公司的业务需要，主要功能是在线编辑文档，前端的小伙伴进行的技术调 - 掘金
+
+Title: 实战应用WPS WebOffice开放平台服务
+
+URL Source: https://juejin.cn/post/7429326461226172456
+
+Published Time: 2024-10-24T21:56:48+08:00
+
+Markdown Content:
+# 实战应用WPS WebOffice开放平台服务概述 根据公司的业务需要，主要功能是在线编辑文档，前端的小伙伴进行的技术调 - 掘金
+
+[![Image 1: 稀土掘金](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg)![Image 2: 稀土掘金](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/6c61ae65d1c41ae8221a670fa32d05aa.svg)](https://juejin.cn/post/7429326461226172456)
+*   首页 
+    *   [首页](https://juejin.cn/)
+    *   [沸点](https://juejin.cn/pins)
+    *   [课程](https://juejin.cn/course)
+    *   [数据标注 HOT](https://aidp.juejin.cn/)
+    *   [AI Coding](https://aicoding.juejin.cn/)
+    *   [更多](javascript:void(0);)
+        *   [直播](https://juejin.cn/live)
+        *   [活动](https://juejin.cn/events/all)
+        *   [APP](https://juejin.cn/app?utm_source=jj_nav)
+        *   [插件](https://juejin.cn/extension?utm_source=jj_nav)
+
+    *   [直播](https://juejin.cn/live)
+    *   [活动](https://juejin.cn/events/all)
+    *   [APP](https://juejin.cn/app?utm_source=jj_nav)
+    *   [插件](https://juejin.cn/extension?utm_source=jj_nav)
+
+    *           *    搜索历史 清空    
+        *   
+ 创作者中心 
+
+ 
+
+            *    写文章 
+            *    发沸点 
+            *    写笔记 
+            *    写代码 
+            *    草稿箱 
+
+创作灵感 查看更多 
+
+    *    登录   注册  ## 首次登录 / 注册免费领取 登录 / 注册   
+
+# 实战应用WPS WebOffice开放平台服务
+
+[stark张宇](https://juejin.cn/user/1983974643871069/posts)
+
+ 2024-10-24  1,533  阅读1分钟 
+
+## 概述
+
+根据公司的业务需要，主要功能是在线编辑文档，前端的小伙伴进行的技术调研，接入的是WPS WebOffice，这里只阐述技术介入的步骤、流程和遇到的坑进行的一些总结。
+
+### 实践
+
+#### WPS WebOffice 开放平台进行认证
+
+在开始之前，需要在WPS WebOffice 开放平台进行注册和认证，添加应用，申请成功后如下图所示：
+
+![Image 3: WechatIMG74.jpg](https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/60053090379f43d8b0b0f4e386ec8029~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgc3RhcmvlvKDlroc=:q75.awebp?rk3s=f64ab15b&x-expires=1779960813&x-signature=LvsfO2bv2eanw9UZfIDzvVNpRps%3D)
+
+#### 开发和接入
+
+在开始编写代码之前，有三个关键概念要提前了解 webClient（前端客户端）、 WpsServers（Wps服务）、CrmServers(服务端)，请求流程: **前端客户端请求Wps服务，Wps服务请求服务端，进行通知、回调操作。**
+
+具体实现，图中左侧是我们具体业务逻辑，右侧是Wps服务请求我们的服务端：
+
+![Image 4: 66666.png](https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/95a4bf05de324dd693f8b308fb176858~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgc3RhcmvlvKDlroc=:q75.awebp?rk3s=f64ab15b&x-expires=1779960813&x-signature=3shxAThPNjyWBjrfGXxdp2bvGKw%3D)
+
+**1.配置路由:WPS WebOffice**
+
+开放平台url都是官方定义好的，用路径拼接好的，服务端需要定义一个`全局${file_id}`来进行通信,强烈推荐在服务端配置自定义路由，这样的实现简单便捷，也可以在Nginx使用重定向进行解决,参数通过截取Url得到。
+
+php
+
+复制代码
+
+```php
+/** wps 在线文档自定义路由 */
+$route['v3/3rd/files/(:any)'] = 'wps/test/files/$1/$2/$3';
+$route['v3/3rd/users'] = 'wps/test/users';
+$route['v3/3rd/notify'] = 'wps/test/notify';
+```
+
+**2.预览**
+
+在前端预览的时候，Wps服务文件信息、文件权限、文件下载地址、用户信息4个接口，返回格式要和文档上的一致，不然会产生权限不足的错误，查找起来也是很困难，在这里也说一下接口说明：
+
+shell
+
+复制代码
+
+```shell
+120.92.55.139 - - [24/Oct/2024:07:23:57 +0800] "GET /v3/3rd/users?user_ids=45 HTTP/1.1" 200 89 "-" "Go-http-client/1.1"
+120.92.55.139 - - [24/Oct/2024:07:23:57 +0800] "GET /v3/3rd/files/HT4319/permission HTTP/1.1" 200 131 "-" "Go-http-client/1.1"
+120.92.55.139 - - [24/Oct/2024:07:24:08 +0800] "GET /v3/3rd/files/HT4319 HTTP/1.1" 200 177 "-" "Go-http-client/1.1"
+120.92.55.139 - - [24/Oct/2024:07:24:08 +0800] "GET /v3/3rd/files/HT4319/download HTTP/1.1" 200 137 "-" "Go-http-client/1.1"
+```
+
+*   /v3/3rd/users ：获取用户信息接口，用于在线文件操作中的显示和记录。
+*   /v3/3rd/files/HT4319/permission : 获取当前文件可以操作的权限
+*   /v3/3rd/files/HT4319 ：获取文件的基本信息、创建文件用户、大小等等
+*   /v3/3rd/files/HT4319/download：最容易出错的是这个接口，这个接口中要返回的是文档可以下载的url路径，Wps服务要来这里获取文件数据流。
+
+**3.保存**
+
+在操作的过程中，每保存一次文件，他就会请求URL一次，我们使用的这个版本用的是三阶段提交，具体阐述如下：
+
+shell
+
+复制代码
+
+```shell
+120.92.55.139 - - [24/Oct/2024:07:37:56 +0800] "GET /v3/3rd/files/HT4319/upload/prepare HTTP/1.1" 200 86 "-" "Go-http-client/1.1"
+120.92.55.139 - - [24/Oct/2024:07:37:56 +0800] "POST /v3/3rd/files/HT4319/upload/address HTTP/1.1" 200 186 "-" "Go-http-client/1.1"
+120.92.55.139 - - [24/Oct/2024:07:37:56 +0800] "GET /v3/3rd/files/HT4319/permission HTTP/1.1" 200 131 "-" "Go-http-client/1.1"
+120.92.55.139 - - [24/Oct/2024:07:37:56 +0800] "POST /v3/3rd/files/HT4319/upload/complete HTTP/1.1" 200 179 "-" "Go-http-client/1.1"
+```
+
+*   /v3/3rd/files/HT4319/upload/prepare : 这个接口的作用是Wps服务与本地服务端协商摘要算法,有 `md5 sha1 sha256`三个选项，多接口的交互需要保持一致。
+*   /v3/3rd/files/HT4319/upload/address : 这个接口的作用是在编辑的过程中，告诉Wps服务保存文件的Api，Wps服务以文件流的形式来进行请求
+*   /v3/3rd/files/HT4319/upload/complete：Wps服务保存完成后，回调这个接口
+
+以我的`/v3/3rd/files/HT4319/upload/address`接口为例,返回的完整Json结构,作用是在文件在线编辑的过程中去同步请求url的指定接口。
+
+JavaScript
+
+复制代码
+
+```JavaScript
+{
+    "code": 0,
+    "data": {
+        "method": "PUT",
+        "url": "https://www.stark.com/api/laborcontract_wps/save_wps",
+        "params": {
+            "file_id": "HT4308",
+            "name": ""
+        }
+    },
+    "message": ""
+}
+```
+
+有两个注意的点，**开发过程中，最大的难点就在这里了。** 1、save_wps接收的参数是通过upload/address params 传递的，我的`$this->posts`是参数数组 2、接收到的文件流，重写到指定地址，覆盖之前的文件地址 `$savePath`
+
+php
+
+复制代码
+
+```php
+public function save_wps()
+{
+    #接收参数
+    $file_id = isset($this->posts['file_id']) ? $this->posts['file_id'] : '';
+    
+    //接收文件流，覆盖文件
+    $stream = file_get_contents('php://input');
+    file_put_contents($savePath, $con);
+}
+```
+
+**4.其他**
+
+文档重命名、水印、用户列表、会话通知其他接口就比较简单，不在这里一一赘述了，如果有需要的可以私信我，给我留言。
+
+标签：
+
+[后端](https://juejin.cn/tag/%E5%90%8E%E7%AB%AF)
+
+![Image 5](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/c12d6646efb2245fa4e88f0e1a9565b7.svg)
+
+![Image 6](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/336af4d1fafabcca3b770c8ad7a50781.svg)
+
+![Image 7](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/3d482c7a948bac826e155953b2a28a9e.svg)
+
+加个关注，精彩更新不错过~
+
+![Image 8: avatar](https://p6-passport.byteacctimg.com/img/user-avatar/a529c11721fcfea8278453ae8acb3f04~40x40.awebp)
+
+ 关注 
+
+[![Image 9: avatar](https://p6-passport.byteacctimg.com/img/user-avatar/a529c11721fcfea8278453ae8acb3f04~100x100.awebp) stark张宇 ![Image 10: 创作等级LV.5](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8584543d8535435a9d74c1fbf7901ac7~tplv-k3u1fbpfcp-jj:0:0:0:0:q75.avis) 后端高级工程师 @长佩文学](https://juejin.cn/user/1983974643871069/posts)
+
+[129 文章](https://juejin.cn/user/1983974643871069/posts)[105k 阅读](https://juejin.cn/user/1983974643871069/posts)[208 粉丝](https://juejin.cn/user/1983974643871069/followers)
+
+加个关注，精彩更新不错过~
+
+ 关注 
+
+ 已关注 
+
+[私信](https://juejin.cn/notification/im?participantId=1983974643871069)
+
+目录
+
+收起
+
+*   [概述](https://juejin.cn/post/7429326461226172456#heading-0 "概述") 
+    *   [实践](https://juejin.cn/post/7429326461226172456#heading-1 "实践") 
+        *   [WPS WebOffice 开放平台进行认证](https://juejin.cn/post/7429326461226172456#heading-2 "WPS WebOffice 开放平台进行认证") 
+        *   [开发和接入](https://juejin.cn/post/7429326461226172456#heading-3 "开发和接入") 
+
+找对属于你的技术圈子
+
+回复「进群」加入官方微信群
+
+![Image 11](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/img/qr-code.4e391ff.png)
+
+ APP内打开 
+
+*   ![Image 12: 下载掘金APP](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2ad212d53ccd44569d10317171664bae~tplv-k3u1fbpfcp-jj:90:0:0:0:q75.avis)下载APP   [下载APP](https://juejin.cn/post/7429326461226172456)
+*   ![Image 13: 微信扫一扫](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9f4933cc8fdb411cba89904f14a3ec0a~tplv-k3u1fbpfcp-jj:90:0:0:0:q75.avis)微信扫一扫   [微信公众号](https://juejin.cn/post/7429326461226172456)
+*   [新浪微博](https://weibo.com/xitucircle)
+
+![Image 14](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/img/MaskGroup.13dfc4f.png)选择你感兴趣的技术方向
+
+跳过
+
+上一步
+
+ 至少选择1个分类 
+
+![Image 15](https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/8867e249c23a7c0ea596c139befc04d7.svg)
+
+温馨提示
+
+当前操作失败，如有疑问，可点击申诉
+
+前往申诉 我知道了

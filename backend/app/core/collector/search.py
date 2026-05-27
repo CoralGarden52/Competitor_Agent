@@ -23,6 +23,16 @@ def search_with_fallback(
     
     providers = registry.ordered_search_providers()
     strict_allowlist = bool(provider_allowlist)
+    if not providers:
+        trace.append(
+            {
+                'provider': 'registry',
+                'status': 'no_provider',
+                'errors': ['no_search_provider_configured'],
+            }
+        )
+        fallback_trace.extend(trace)
+        return [], trace
     if strict_allowlist:
         allowed = {str(name).strip() for name in provider_allowlist if str(name).strip()}
         providers = [provider for provider in providers if provider.name() in allowed]

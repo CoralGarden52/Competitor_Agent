@@ -1,0 +1,292 @@
+# Notion Pricing History: Free to $10/mo (2015-2025)
+
+Title: Notion Pricing History: How a Free Tool Became a $10/Month SaaS (2015-2025)
+
+URL Source: https://www.saaspricepulse.com/blog/notion-pricing-history
+
+Published Time: 2025-12-26T00:00:00Z
+
+Markdown Content:
+# Notion Pricing History: Free to $10/mo (2015-2025)
+
+[![Image 1: SaaS Price Pulse - Track SaaS Pricing Changes & Get Alerts](https://www.saaspricepulse.com/_next/image?url=%2Fimages%2Flogo-header.webp&w=384&q=75)](https://www.saaspricepulse.com/)[Home](https://www.saaspricepulse.com/)[Directory](https://www.saaspricepulse.com/directory)[Compare](https://www.saaspricepulse.com/compare)[Blog](https://www.saaspricepulse.com/blog)[Changes](https://www.saaspricepulse.com/pricing-changes)[Reports](https://www.saaspricepulse.com/reports)
+
+[Login](https://www.saaspricepulse.com/login)[Sign Up](https://www.saaspricepulse.com/signup)
+
+[Home](https://www.saaspricepulse.com/)/[Blog](https://www.saaspricepulse.com/blog)/Notion Pricing History: How a Free Tool Became a $10/Month SaaS (2015-2025)
+
+![Image 2: Notion Pricing History: How a Free Tool Became a $10/Month SaaS (2015-2025)](https://www.saaspricepulse.com/_next/image?url=%2Fimages%2Fblog%2Fnotion-pricing-history-cover.webp&w=3840&q=75)
+
+Data Journalism 12 min read
+
+# Notion Pricing History: How a Free Tool Became a $10/Month SaaS (2015-2025)
+
+Complete timeline of Notion pricing changes from 2015-2025. See when prices increased, why, and how it impacts your budget.
+
+SaaS Price Pulse Research December 26, 2025
+
+#pricing-history#notion#saas-pricing#timeline
+
+# Notion Pricing History: How a Free Tool Became a $10/Month Powerhouse (2015-2025)
+
+**✅ Prices verified: December 31, 2025**
+
+Notion started as a free productivity tool in 2015. A decade later, the paid Plus plan costs **$10/month**. This 10-year journey reveals a fascinating story about SaaS pricing strategy, market validation, and how companies monetize free products.
+
+In this article, we've analyzed **40+ Notion pricing snapshots from 2015-2025** to create the most comprehensive pricing history timeline on the internet. You'll see exactly when Notion raised prices, by how much, and what changed each time.
+
+## 📊 Quick Summary: Notion's Pricing Evolution
+
+| Period | Strategy | Price Point | Key Change |
+| --- | --- | --- | --- |
+| 2015-2018 | **Free Only** | $0 | No paid tier existed - pure freemium play |
+| 2018-2021 | **Birth of Paid** | $4 - $8/mo | Introduced Personal, Pro tiers (invite-only beta) |
+| 2021-2023 | **Growth Phase** | $4 - $10/mo | Public launch, Team plan added, prices held |
+| 2023-2025 | **AI Era** | $10 - $20/mo | AI features introduced, Business raised $15→$20 (Jun 2025) |
+
+## 📅 Complete Notion Pricing Timeline (2015-2025)
+
+### Phase 1: The Free Era (2015-2018)
+
+**Notion launched as a completely free product.** Ivan Zhao (founder) bootstrapped the tool with no revenue, building features incrementally and gathering user feedback. During this 3-year period, Notion established market-product fit with productivity teams, students, and entrepreneurs.
+
+**Price:** Free forever (no paid tier)
+
+**User Impact:** Zero cost barrier to entry. This free model created the network effect that would later make paying customers easier to acquire (they already had Notion installed and had built significant databases within it).
+
+### Phase 2: The Birth of Paid (2018-2021)
+
+**Notion launched paid tiers: $4 and $8 per month.** The pricing was invite-only for beta users, and the rollout was gradual. This was a critical moment - would users pay for something they'd been using free?
+
+**Pricing Structure (2018-2021):**
+
+*   **Free:** Unlimited personal boards and pages
+*   **Personal ($4/mo):** 1 file upload per month, integrations
+*   **Pro ($8/mo):** Unlimited file uploads, guest access, integrations
+*   **Team (Contact Sales):** For enterprise customers
+
+**User Impact:** Many power users considered the $4-8 tier worth it for integrations and file uploads alone. The low price point built habit and converted free users to paid customers.
+
+### Phase 3: Public Launch & Price Stability (2021-2023)
+
+**Notion publicly launched paid plans in 2021 with prices UNCHANGED at $4 and $8/month.** This was unusual - most SaaS companies raise prices after successful launches. Instead, Notion kept pricing stable for 2+ years while:
+
+*   Growing user base from 100K to 10M+ users
+*   Scaling infrastructure globally
+*   Building enterprise features (SSO, audit logs, etc.)
+
+**Pricing Structure (2021-2023):**
+
+*   **Free:** Unlimited personal workspace
+*   **Plus ($10/mo):** File uploads, shared workspace for teams
+*   **Business ($20/mo):** Advanced sharing, admin tools
+*   **Enterprise (Custom):** For large organizations
+
+**Strategic Note:** Notion **rebranded "Personal" to "Plus"** and increased price from $4 → $10 in this phase. A silent 150% increase disguised as a plan rebranding. Users who noticed complained; those who didn't noticed when their subscription renewed.
+
+**User Impact:** Power users suddenly faced 2.5x monthly cost. Some switched to competing tools; others reluctantly accepted the price increase given lock-in from existing Notion databases.
+
+### Phase 4: AI Era & Business Price Increase (2023-2025)
+
+**Notion introduced AI features and raised the Business plan price in June 2025.** This was a strategic move to monetize AI capabilities while maintaining accessible entry-level pricing:
+
+**Pricing Structure (2024-May 2025):**
+
+*   **Free:** Unlimited personal workspace (limited to 10 guests)
+*   **Plus ($10/mo):** File uploads, workspace sharing, 100 guests
+*   **Business ($15/mo):** SAML SSO, advanced page analytics, 250 guests
+*   **Enterprise (Custom):** SCIM, audit logs, dedicated support
+
+**Pricing Structure (June 2025+):**
+
+*   **Free:** Unlimited personal workspace (limited to 10 guests)
+*   **Plus ($10/mo):** Unchanged from previous period
+*   **Business ($20/mo):** 33% increase from $15 → $20
+*   **Enterprise (Custom):** SSO, audit logs, dedicated support
+
+**Notion AI Add-on:** AI features cost an additional $8/user/month (annual) or $10/month (monthly). Users wanting full AI capabilities pay:
+
+*   Base plan: $10/mo (Plus)
+*   AI add-on: +$8/mo (annual)
+*   **Total: $18/mo for one seat with AI**
+
+**User Impact:** Business users saw a significant $5/month increase per seat in June 2025. A team of 10 Business users now pays $200/month (up from $150/month).
+
+## 💰 How Much Did Notion Raise Prices?
+
+**Official story from Notion:** "We've added more value with AI and advanced features."
+
+**The data:**
+
+| Plan | 2018 Price | 2025 Price | Increase | % Change |
+| --- | --- | --- | --- | --- |
+| **Personal/Plus** | $4/mo | $10/mo (base) + $8/mo (AI) | +$14/mo | **+350%** with AI |
+| **Pro/Business** | $8/mo | $20/mo (Jun 2025) | +$12/mo | **+150%** |
+
+**Key Insight:** Notion increased Business plan from $15 → $20 in June 2025 (33% increase). The Plus plan has remained stable at $10/month since 2021.
+
+## 🤔 Why Did Notion Raise Prices?
+
+### Reason 1: Investor Pressure
+
+Notion raised $275M in Series C funding at a $10B valuation in 2022. Investors expect ROI. Raising prices is the fastest path to profitability without cutting costs.
+
+### Reason 2: AI Became Competitive Advantage
+
+In 2023, ChatGPT launched and every SaaS added AI. Notion positioned "Notion AI" as its premium differentiator, justifying the $10/month add-on.
+
+### Reason 3: Market Maturity
+
+Notion went from startup → $10B unicorn. With 10M+ users, it could afford to lose some to price sensitivity. The remaining users were committed enough to pay 3-5x more.
+
+### Reason 4: Escape the "Budget SaaS" Category
+
+At $4/month, Notion competed with free tools (Evernote, OneNote). Higher prices repositioned it as "enterprise-grade productivity" to justify the cost.
+
+## 👥 Who Was Most Affected by the June 2025 Increase?
+
+**Business plan users saw the biggest impact (33% increase):**
+
+| Team Size | Before Jun 2025 | After Jun 2025 | Monthly Increase |
+| --- | --- | --- | --- |
+| Solo (Plus) | $10/mo | $10/mo | No change |
+| 5-person Business | $75/mo | $100/mo | +$25/mo |
+| 50-person Business | $750/mo | $1,000/mo | +$250/mo |
+
+**Key Insight:** Plus plan users ($10/mo) were unaffected. The June 2025 increase specifically targeted Business plan users, suggesting Notion is focusing on enterprise monetization while keeping entry-level pricing competitive.
+
+## 📈 Visual Price Timeline
+
+#### 📈 Notion Pricing History
+
+[View details →](https://www.saaspricepulse.com/tools/notion)
+
+Prices normalized to monthly • Data from SaaS Price Pulse
+
+_This chart shows Notion's actual pricing history from 2018-2025. Notice the sharp increase in 2023 when AI features were introduced._
+
+## 🔄 How Notion Compares to Alternatives
+
+**Similar all-in-one workspace tools in 2025:**
+
+| Tool | Base Plan | AI Features | Total w/ AI |
+| --- | --- | --- | --- |
+| **Notion** | $10/mo | +$8/mo (annual) | $18/mo |
+| **Coda** | $10/mo | Included | $10/mo |
+| **Monday.com** | $9/mo | Included | $9/mo |
+| **Obsidian** | $0 (self-hosted) | Via plugins | $0-50/mo |
+| **Asana** | $10.99/mo | Included (AI Assistant) | $10.99/mo |
+
+**Verdict:** Notion's $18/month with AI is competitive with Coda and Asana. The June 2025 Business increase to $20/mo mainly impacts growing teams.
+
+## ❓ FAQ: Notion Pricing Questions
+
+### Did Notion announce the price increase?
+
+Notion announced the AI add-on ($10/month) in early 2023. However, the rebranding of "Personal" → "Plus" and price increase from $4 → $10 in 2021 was not heavily publicized. Many users discovered it only when their subscription renewed.
+
+### Can I keep the old $4/month plan?
+
+No. Notion automatically migrated all $4 "Personal" plans to the new $10 "Plus" plan in 2021. There is no legacy pricing available.
+
+### Is Notion AI worth $8/month?
+
+Depends on your use case (AI is $8/mo annual, $10/mo monthly):
+
+*   ✅ Worth it if: You use AI for writing summaries, brainstorming, content creation (saves hours/week)
+*   ❌ Not worth it if: You rarely use the AI features or prefer ChatGPT/Claude directly
+
+### Did Notion lose users because of price increases?
+
+Notion doesn't publish user metrics anymore, but anecdotal evidence (Reddit, ProductHunt) suggests teams started migrating to Coda and Obsidian after 2023. However, Notion's lock-in effect is strong - existing Notion users are unlikely to migrate due to switching costs.
+
+### What's Notion's next pricing move?
+
+We predict either:
+
+*   **Scenario A:** Focus on Enterprise ($100K+/year contracts) - highest margin
+*   **Scenario B:** Release a budget tier ($5-8/mo) to compete with Obsidian/Logseq - unlikely given margins
+*   **Scenario C:** Bundle more AI features to justify $12+ base price
+
+## 💡 Key Takeaways
+
+1.   **Free-to-Paid Transition Was Gradual:** Notion waited 3+ years before launching paid plans, building trust first
+2.   **Plus Plan Stable at $10:** The entry-level Plus plan has remained at $10/month since 2021, showing Notion's commitment to accessible pricing
+3.   **Business Plan Increase (June 2025):** The significant change was Business: $15 → $20/month (33% increase), targeting growing teams
+4.   **AI Add-on is Optional:** At $8/month (annual), Notion AI is competitively priced vs ChatGPT Plus ($20/month)
+5.   **Team Pricing Scales:** A 10-person Business team now pays $200/month (up from $150/month pre-June 2025)
+
+## 📋 Methodology
+
+This pricing history was compiled using **40+ Notion pricing snapshots from Archive.org (2015-2025)**, official Notion pricing pages, and community discussions from ProductHunt, Reddit, and Hacker News.
+
+**Data sources:**
+
+*   Archive.org Wayback Machine snapshots of notion.so/pricing
+*   Official Notion blog archives
+*   User feedback from ProductHunt (pricing discussion threads)
+*   Financial reports mentioning pricing strategy
+
+**Confidence Level:** High (95%+) - pricing data directly from Notion's official pages
+
+## 📊 Track Notion Pricing Changes Automatically
+
+Want to monitor when Notion raises prices next? Set up an automatic monitor and get instant alerts whenever pricing changes.
+
+[Add Notion to Monitor](https://www.saaspricepulse.com/dashboard?add-monitor=notion)
+
+We automatically crawl Notion's pricing page daily. When prices change, you'll get instant notification so you can make budget adjustments before they surprise you.
+
+### Share this article
+
+[Share on Twitter](https://twitter.com/intent/tweet?text=Notion%20Pricing%20History%3A%20How%20a%20Free%20Tool%20Became%20a%20%2410%2FMonth%20SaaS%20(2015-2025)&url=https%3A%2F%2Fwww.saaspricepulse.com%2Fblog%2Fnotion-pricing-history)[Share on LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.saaspricepulse.com%2Fblog%2Fnotion-pricing-history)
+
+### Start Tracking SaaS Pricing Today
+
+Never miss a competitor pricing change. Get instant alerts and stay ahead.
+
+[Start Tracking Free →](https://www.saaspricepulse.com/dashboard)
+
+[← Back to Blog](https://www.saaspricepulse.com/blog)
+
+[SaaS Price Pulse](https://www.saaspricepulse.com/)
+Track pricing changes across 260+ SaaS tools. Get alerts when competitors change prices.
+
+[](https://twitter.com/saaspricepulse)[](https://linkedin.com/company/saaspricepulse)[](https://github.com/thanhnhattran/saas-price-tracker)[](mailto:hello@saaspricepulse.com)
+
+### Product
+
+*   [SaaS Directory](https://www.saaspricepulse.com/directory)
+*   [Compare Tools](https://www.saaspricepulse.com/compare)
+*   [Price Changes](https://www.saaspricepulse.com/changes)
+*   [Dashboard](https://www.saaspricepulse.com/dashboard)
+
+### Resources
+
+*   [Help Center](https://www.saaspricepulse.com/help)
+*   [Blog](https://www.saaspricepulse.com/blog)
+*   [Changelog](https://www.saaspricepulse.com/changelog)
+
+### Company
+
+*   [About Us](https://www.saaspricepulse.com/about)
+*   [Privacy Policy](https://www.saaspricepulse.com/privacy)
+*   [Terms of Service](https://www.saaspricepulse.com/terms)
+*   [Contact](mailto:hello@saaspricepulse.com)
+
+### Developers
+
+*   [API Waitlist New](https://www.saaspricepulse.com/api-waitlist)
+*   [GitHub](https://github.com/thanhnhattran/saas-price-tracker)
+
+### Stay updated
+
+Get notified about major SaaS pricing changes and new features.
+
+Subscribe
+
+© 2026 SaaS Price Pulse. All rights reserved.
+
+[Privacy](https://www.saaspricepulse.com/privacy)[Terms](https://www.saaspricepulse.com/terms)[Status](https://status.saaspricepulse.com/)
+
+💬$0

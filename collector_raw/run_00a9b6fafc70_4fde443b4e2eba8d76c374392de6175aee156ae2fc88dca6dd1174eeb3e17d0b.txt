@@ -1,0 +1,1076 @@
+# 飞书定价版本介绍
+
+Title: 飞书定价版本介绍
+
+URL Source: https://www.feishu.cn/hc/zh-CN/articles/360049067600-%E9%A3%9E%E4%B9%A6%E5%AE%9A%E4%BB%B7%E7%89%88%E6%9C%AC%E4%BB%8B%E7%BB%8D
+
+Markdown Content:
+# 飞书定价版本介绍
+![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d3859633b9c64b969e91c8dec24c9a37~tplv-jbbdkfciu3-image:0:0.image)
+
+[![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/268ec674a56a4510889f7f5ca14f1ba1~tplv-jbbdkfciu3-image:0:0.image)](https://www.feishu.cn/)[帮助中心](https://www.feishu.cn/hc/zh-CN)
+
+新手入门
+
+使用飞书
+
+更多资源
+
+[智能助手](https://www.feishu.cn/hc/zh-CN/chat?referrer=/hc/zh-CN/articles/360049067600-%E9%A3%9E%E4%B9%A6%E5%AE%9A%E4%BB%B7%E7%89%88%E6%9C%AC%E4%BB%8B%E7%BB%8D)
+
+帮助中心智能助手上线
+
+我能为你解答飞书使用的问题，快来问问我吧！
+
+[Video 1](https://sf3-scmcdn-cn.feishucdn.com/obj/tos-cn-v-826391/a98e49e90ff14c989f2fc3dd7006f9d4)
+
+00:00
+
+ 点击按住可拖动视频 
+
+我知道了
+
+[去试试](https://www.feishu.cn/hc/zh-CN/chat?from=guide_popup&referrer=/hc/zh-CN/articles/360049067600-%E9%A3%9E%E4%B9%A6%E5%AE%9A%E4%BB%B7%E7%89%88%E6%9C%AC%E4%BB%8B%E7%BB%8D)
+
+[登录](https://login.feishu.cn/suite/passport/page/login/?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F360049067600-%25E9%25A3%259E%25E4%25B9%25A6%25E5%25AE%259A%25E4%25BB%25B7%25E7%2589%2588%25E6%259C%25AC%25E4%25BB%258B%25E7%25BB%258D)
+
+*   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7016631252413415426) 
+    *   [管理员登录飞书管理后台](https://www.feishu.cn/hc/zh-CN/articles/876813189909 "管理员登录飞书管理后台")
+    *   [管理员快速上手飞书管理后台](https://www.feishu.cn/hc/zh-CN/articles/360044088133 "管理员快速上手飞书管理后台")
+    *   [管理员快速认识安全功能](https://www.feishu.cn/hc/zh-CN/articles/650237282537 "管理员快速认识安全功能")
+    *   [管理员快速认识合规功能](https://www.feishu.cn/hc/zh-CN/articles/597393220813 "管理员快速认识合规功能")
+
+*   [飞书认证](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7264866935623024641) 
+    *   [飞书认证介绍](https://www.feishu.cn/hc/zh-CN/articles/360034114413 "飞书认证介绍")
+    *   [管理员进行团队认证](https://www.feishu.cn/hc/zh-CN/articles/921811047812 "管理员进行团队认证")
+    *   [团队认证所需材料与信息填写说明](https://www.feishu.cn/hc/zh-CN/articles/402720579736 "团队认证所需材料与信息填写说明")
+    *   [管理员进行企业法人认证](https://www.feishu.cn/hc/zh-CN/articles/318449169648 "管理员进行企业法人认证")
+    *   [企业法人认证填写要求](https://www.feishu.cn/hc/zh-CN/articles/390098904273 "企业法人认证填写要求")
+    *   [管理员进行加盖公章授权书认证](https://www.feishu.cn/hc/zh-CN/articles/256314588871 "管理员进行加盖公章授权书认证")
+    *   [加盖公章授权书认证填写要求](https://www.feishu.cn/hc/zh-CN/articles/696013578195 "加盖公章授权书认证填写要求")
+    *   [飞书认证企业名称命名规则](https://www.feishu.cn/hc/zh-CN/articles/624838781642 "飞书认证企业名称命名规则")
+    *   [管理员进行飞书认证年审](https://www.feishu.cn/hc/zh-CN/articles/648477241047 "管理员进行飞书认证年审")
+    *   [管理员更新认证信息](https://www.feishu.cn/hc/zh-CN/articles/165064206937 "管理员更新认证信息")
+    *   [企业变更认证主体说明](https://www.feishu.cn/hc/zh-CN/articles/742675570657 "企业变更认证主体说明")
+
+*   [组织架构管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571152523266) 
+    *   [成员管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170974844279390209) 
+        *   [管理员邀请成员加入企业](https://www.feishu.cn/hc/zh-CN/articles/578016169187 "管理员邀请成员加入企业")
+        *   [管理员在添加成员时分配席位](https://www.feishu.cn/hc/zh-CN/articles/329867155184 "管理员在添加成员时分配席位")
+        *   [管理员自定义人员类型](https://www.feishu.cn/hc/zh-CN/articles/360049067516 "管理员自定义人员类型")
+        *   [管理员修改成员信息](https://www.feishu.cn/hc/zh-CN/articles/360043261194 "管理员修改成员信息")
+        *   [管理员重置成员登录密码](https://www.feishu.cn/hc/zh-CN/articles/142941765253 "管理员重置成员登录密码")
+        *   [管理员修改成员登录手机号和登录邮箱](https://www.feishu.cn/hc/zh-CN/articles/283439237594 "管理员修改成员登录手机号和登录邮箱")
+        *   [管理员暂停成员账号](https://www.feishu.cn/hc/zh-CN/articles/360041605594 "管理员暂停成员账号")
+        *   [管理员操作成员离职及转移资源](https://www.feishu.cn/hc/zh-CN/articles/360043223853 "管理员操作成员离职及转移资源")
+        *   [管理员将成员状态更新为待离职](https://www.feishu.cn/hc/zh-CN/articles/703612138512 "管理员将成员状态更新为待离职")
+        *   [企业创建人注销账号](https://www.feishu.cn/hc/zh-CN/articles/360038770054 "企业创建人注销账号")
+
+    *   [部门管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571156717595) 
+        *   [管理员创建并管理部门](https://www.feishu.cn/hc/zh-CN/articles/360033588234 "管理员创建并管理部门")
+        *   [管理员设置企业和部门负责人](https://www.feishu.cn/hc/zh-CN/articles/360044810913 "管理员设置企业和部门负责人")
+        *   [管理员调整成员在部门中的展示顺序](https://www.feishu.cn/hc/zh-CN/articles/277835673804 "管理员调整成员在部门中的展示顺序")
+
+    *   [角色管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336890078339301404) 
+        *   [管理员设置企业内审批角色](https://www.feishu.cn/hc/zh-CN/articles/360043815453 "管理员设置企业内审批角色")
+
+    *   [单位与用户组管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170981444918116380) 
+        *   [管理员管理用户组](https://www.feishu.cn/hc/zh-CN/articles/360049067479 "管理员管理用户组")
+        *   [管理员设置动态用户组](https://www.feishu.cn/hc/zh-CN/articles/360049067874 "管理员设置动态用户组")
+        *   [管理员进行单位管理](https://www.feishu.cn/hc/zh-CN/articles/333548009177 "管理员进行单位管理")
+
+    *   [成员字段管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571165122562) 
+        *   [管理员进行字段管理](https://www.feishu.cn/hc/zh-CN/articles/973209819304 "管理员进行字段管理")
+        *   [管理员设置成员展示字段](https://www.feishu.cn/hc/zh-CN/articles/360049067669 "管理员设置成员展示字段")
+        *   [管理员设置成员搜索匹配字段](https://www.feishu.cn/hc/zh-CN/articles/393027020588 "管理员设置成员搜索匹配字段")
+        *   [管理员为成员设置分机号](https://www.feishu.cn/hc/zh-CN/articles/823883903976 "管理员为成员设置分机号")
+
+    *   [组织架构管理常见问题](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336893286252134428) 
+        *   [企业管理后台组织架构数量上限说明](https://www.feishu.cn/hc/zh-CN/articles/650990574301 "企业管理后台组织架构数量上限说明")
+        *   [管理员为成员变更部门](https://www.feishu.cn/hc/zh-CN/articles/360044811133 "管理员为成员变更部门")
+        *   [管理员恢复误操作离职的成员](https://www.feishu.cn/hc/zh-CN/articles/447505786347 "管理员恢复误操作离职的成员")
+        *   [管理员邀请成员加入指定部门](https://www.feishu.cn/hc/zh-CN/articles/933084936146 "管理员邀请成员加入指定部门")
+        *   [管理员提醒成员激活账号或加入企业](https://www.feishu.cn/hc/zh-CN/articles/360043261094 "管理员提醒成员激活账号或加入企业")
+        *   [管理员调整邀请成员加入的有效期](https://www.feishu.cn/hc/zh-CN/articles/360049067843 "管理员调整邀请成员加入的有效期")
+        *   [管理员开启非管理员邀请成员的权限](https://www.feishu.cn/hc/zh-CN/articles/360043486213 "管理员开启非管理员邀请成员的权限")
+        *   [管理员自定义成员列表的展示列](https://www.feishu.cn/hc/zh-CN/articles/360046655473 "管理员自定义成员列表的展示列")
+        *   [管理员允许成员自行修改信息](https://www.feishu.cn/hc/zh-CN/articles/360042994534 "管理员允许成员自行修改信息")
+        *   [管理员为成员设置多语种姓名](https://www.feishu.cn/hc/zh-CN/articles/360043486453 "管理员为成员设置多语种姓名")
+        *   [管理员设置成员别名](https://www.feishu.cn/hc/zh-CN/articles/961542027123 "管理员设置成员别名")
+        *   [管理员更改部门群群主](https://www.feishu.cn/hc/zh-CN/articles/360043964034 "管理员更改部门群群主")
+        *   [管理员批量导出组织架构信息](https://www.feishu.cn/hc/zh-CN/articles/360049067524 "管理员批量导出组织架构信息")
+
+*   [关联组织管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6984683455900663836) 
+    *   [关联组织介绍](https://www.feishu.cn/hc/zh-CN/articles/657083794612 "关联组织介绍")
+    *   [管理员配置关联组织](https://www.feishu.cn/hc/zh-CN/articles/583042385085 "管理员配置关联组织")
+    *   [管理员配置跨境关联组织](https://www.feishu.cn/hc/zh-CN/articles/818324991938 "管理员配置跨境关联组织")
+    *   [成员使用关联组织功能](https://www.feishu.cn/hc/zh-CN/articles/637087506262 "成员使用关联组织功能")
+
+*   [功能管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571181899803) 
+    *   [搜索管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336906281112551426) 
+        *   [管理员设置搜索内容官方认证](https://www.feishu.cn/hc/zh-CN/articles/417716996390 "管理员设置搜索内容官方认证")
+
+    *   [即时消息管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336913605708840962) 
+        *   [管理员清理聊天文件](https://www.feishu.cn/hc/zh-CN/articles/543307987013 "管理员清理聊天文件")
+        *   [管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183 "管理员设置撤回和编辑消息权限")
+        *   [管理员配置超大群](https://www.feishu.cn/hc/zh-CN/articles/154855394756 "管理员配置超大群")
+        *   [管理员设置群成员人数上限](https://www.feishu.cn/hc/zh-CN/articles/001739931634 "管理员设置群成员人数上限")
+        *   [管理员管控公开群权限](https://www.feishu.cn/hc/zh-CN/articles/847237870238 "管理员管控公开群权限")
+        *   [管理员设置导出群成员信息权限](https://www.feishu.cn/hc/zh-CN/articles/330845767295 "管理员设置导出群成员信息权限")
+
+    *   [公司圈管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099504697744031746) 
+        *   [管理员管理公司圈](https://www.feishu.cn/hc/zh-CN/articles/863081922016 "管理员管理公司圈")
+        *   [管理员管理公司圈版块](https://www.feishu.cn/hc/zh-CN/articles/962834352633 "管理员管理公司圈版块")
+        *   [管理员规划公司圈版块](https://www.feishu.cn/hc/zh-CN/articles/416479245302 "管理员规划公司圈版块")
+        *   [管理员设置在工作台展示公司圈小组件](https://www.feishu.cn/hc/zh-CN/articles/457987106891 "管理员设置在工作台展示公司圈小组件")
+        *   [管理员用订阅号推送公司圈内容](https://www.feishu.cn/hc/zh-CN/articles/056937286452 "管理员用订阅号推送公司圈内容")
+        *   [管理员设置和监控公司圈敏感词](https://www.feishu.cn/hc/zh-CN/articles/081028667505 "管理员设置和监控公司圈敏感词")
+        *   [管理员查看公司圈活跃成员](https://www.feishu.cn/hc/zh-CN/articles/913698150605 "管理员查看公司圈活跃成员")
+        *   [管理员使用公司圈官方号](https://www.feishu.cn/hc/zh-CN/articles/814183151336 "管理员使用公司圈官方号")
+        *   [管理员设置公司圈展示字段](https://www.feishu.cn/hc/zh-CN/articles/835922753667 "管理员设置公司圈展示字段")
+        *   [公司圈公约模板](https://www.feishu.cn/hc/zh-CN/articles/440655848029 "公司圈公约模板")
+
+    *   [云文档管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571219664897) 
+        *   [管理企业云文档文件](https://www.feishu.cn/hc/zh-CN/articles/360047526413 "管理企业云文档文件")
+        *   [管理员设置云文档存储用量上限](https://www.feishu.cn/hc/zh-CN/articles/591189075011 "管理员设置云文档存储用量上限")
+        *   [Google Drive 迁移到飞书云文档](https://www.feishu.cn/hc/zh-CN/articles/178259973139 "Google Drive 迁移到飞书云文档")
+        *   [云文档迁移错误码说明](https://www.feishu.cn/hc/zh-CN/articles/648495108541 "云文档迁移错误码说明")
+
+    *   [企业知识库管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336906055932182556) 
+        *   [管理企业知识库](https://www.feishu.cn/hc/zh-CN/articles/400603380471 "管理企业知识库")
+        *   [添加知识库功能管理员](https://www.feishu.cn/hc/zh-CN/articles/312388487450 "添加知识库功能管理员")
+        *   [设置知识库首页公告](https://www.feishu.cn/hc/zh-CN/articles/993994646120 "设置知识库首页公告")
+        *   [管理员设置知识库分类](https://www.feishu.cn/hc/zh-CN/articles/549145148620 "管理员设置知识库分类")
+        *   [查看企业知识库使用数据](https://www.feishu.cn/hc/zh-CN/articles/219849558386 "查看企业知识库使用数据")
+        *   [Confluence Cloud 空间迁移到飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/305632216372 "Confluence Cloud 空间迁移到飞书知识库")
+        *   [Confluence Server 空间迁移到飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/482328884433 "Confluence Server 空间迁移到飞书知识库")
+
+    *   [多维表格管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7571717960612449466) 
+        *   [管理员设置多维表格应用机器人权限](https://www.feishu.cn/hc/zh-CN/articles/853519297905 "管理员设置多维表格应用机器人权限 ")
+        *   [管理员配置多维表格流程预警和自动关停策略](https://www.feishu.cn/hc/zh-CN/articles/211437598760 "管理员配置多维表格流程预警和自动关停策略")
+
+    *   [视频会议管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571186143259) 
+        *   [管理员进行视频会议设置](https://www.feishu.cn/hc/zh-CN/articles/360049067828 "管理员进行视频会议设置")
+        *   [管理员查看会议管理数据](https://www.feishu.cn/hc/zh-CN/articles/360049067547 "管理员查看会议管理数据")
+        *   [管理员管理录制文件（妙记）](https://www.feishu.cn/hc/zh-CN/articles/823897737029 "管理员管理录制文件（妙记）")
+        *   [管理员查看视频会议使用数据](https://www.feishu.cn/hc/zh-CN/articles/360049067848 "管理员查看视频会议使用数据")
+        *   [管理员设置参会人数据导出](https://www.feishu.cn/hc/zh-CN/articles/869888847709 "管理员设置参会人数据导出")
+        *   [设置管理员视频会议管理权限](https://www.feishu.cn/hc/zh-CN/articles/451456782924 "设置管理员视频会议管理权限")
+        *   [管理员管理会议流媒体](https://www.feishu.cn/hc/zh-CN/articles/236180365184 "管理员管理会议流媒体")
+        *   [管理员设置电话入会](https://www.feishu.cn/hc/zh-CN/articles/360049067850 "管理员设置电话入会")
+        *   [管理员查看办公电话通话明细](https://www.feishu.cn/hc/zh-CN/articles/039722680839 "管理员查看办公电话通话明细")
+        *   [管理员查看电话服务数据](https://www.feishu.cn/hc/zh-CN/articles/317802785587 "管理员查看电话服务数据")
+        *   [管理员设置企业办公电话权限及配额](https://www.feishu.cn/hc/zh-CN/articles/188172683591 "管理员设置企业办公电话权限及配额")
+        *   [管理员设置电话服务用量预警](https://www.feishu.cn/hc/zh-CN/articles/321685958563 "管理员设置电话服务用量预警")
+        *   [管理员设置高清视频会议用量扩容包使用限额](https://www.feishu.cn/hc/zh-CN/articles/029426532325 "管理员设置高清视频会议用量扩容包使用限额")
+
+    *   [会议室管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571190304796) 
+        *   [管理员设置会议室预定管理员](https://www.feishu.cn/hc/zh-CN/articles/077303185145 "管理员设置会议室预定管理员")
+        *   [设置管理员会议室管理权限](https://www.feishu.cn/hc/zh-CN/articles/440836839853 "设置管理员会议室管理权限")
+        *   [管理员添加、编辑、删除会议室](https://www.feishu.cn/hc/zh-CN/articles/360049068040 "管理员添加、编辑、删除会议室")
+        *   [管理员设置会议室的可预定时间](https://www.feishu.cn/hc/zh-CN/articles/360049068029 "管理员设置会议室的可预定时间")
+        *   [管理员设置会议室签到时间](https://www.feishu.cn/hc/zh-CN/articles/728881777746 "管理员设置会议室签到时间")
+        *   [管理员设置会议室二维码签到](https://www.feishu.cn/hc/zh-CN/articles/382008151878 "管理员设置会议室二维码签到")
+        *   [管理员设置会议室级联](https://www.feishu.cn/hc/zh-CN/articles/711448960756 "管理员设置会议室级联")
+        *   [管理员设置会议室的可预定范围](https://www.feishu.cn/hc/zh-CN/articles/360049068033 "管理员设置会议室的可预定范围")
+        *   [设置会议室预定表单](https://www.feishu.cn/hc/zh-CN/articles/416287050743 "设置会议室预定表单")
+        *   [管理员设置会议室审批](https://www.feishu.cn/hc/zh-CN/articles/360049067453 "管理员设置会议室审批")
+        *   [管理员设置会议室禁用](https://www.feishu.cn/hc/zh-CN/articles/360049068034 "管理员设置会议室禁用")
+        *   [管理员设置会议室抢占](https://www.feishu.cn/hc/zh-CN/articles/101182428249 "管理员设置会议室抢占")
+        *   [管理员设置会议室请求现场服务](https://www.feishu.cn/hc/zh-CN/articles/743264586124 "管理员设置会议室请求现场服务")
+        *   [管理员设置会议室摄像头自动取景](https://www.feishu.cn/hc/zh-CN/articles/133027926038 "管理员设置会议室摄像头自动取景")
+        *   [管理员设置会议室屏幕顺序及默认视图](https://www.feishu.cn/hc/zh-CN/articles/380437380871 "管理员设置会议室屏幕顺序及默认视图")
+        *   [管理员设置飞书会议室软件开机自启动及窗口始终展示在最前端](https://www.feishu.cn/hc/zh-CN/articles/800427226284 "管理员设置飞书会议室软件开机自启动及窗口始终展示在最前端")
+        *   [管理员使用会议室设备告警中心](https://www.feishu.cn/hc/zh-CN/articles/767917049218 "管理员使用会议室设备告警中心")
+        *   [管理员安装飞书会议室告警助手](https://www.feishu.cn/hc/zh-CN/articles/171574794281 "管理员安装飞书会议室告警助手")
+        *   [管理员使用飞书会议室告警助手](https://www.feishu.cn/hc/zh-CN/articles/108849193903 "管理员使用飞书会议室告警助手")
+        *   [管理员管理会议室许可授权](https://www.feishu.cn/hc/zh-CN/articles/499167307439 "管理员管理会议室许可授权")
+        *   [管理员管理和维护会议室设备](https://www.feishu.cn/hc/zh-CN/articles/232398251993 "管理员管理和维护会议室设备")
+        *   [管理员配置会议室小程序](https://www.feishu.cn/hc/zh-CN/articles/485897707301 "管理员配置会议室小程序")
+        *   [管理员导出会议室数据](https://www.feishu.cn/hc/zh-CN/articles/978338949556 "管理员导出会议室数据")
+
+    *   [企业邮箱管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571211309084) 
+        *   [入门指南](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799367444480002) 
+            *   [飞书邮箱管理员使用手册](https://www.feishu.cn/hc/zh-CN/articles/207987789616 "飞书邮箱管理员使用手册")
+            *   [在飞书上使用邮箱的 4 种方案](https://www.feishu.cn/hc/zh-CN/articles/670282738496 "在飞书上使用邮箱的 4 种方案")
+            *   [启用新的飞书邮箱服务](https://www.feishu.cn/hc/zh-CN/articles/791791470063 "启用新的飞书邮箱服务")
+            *   [发信限制规则介绍](https://www.feishu.cn/hc/zh-CN/articles/329462350714 "发信限制规则介绍")
+            *   [企业邮箱管理功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/853447936583 "企业邮箱管理功能更新日志")
+
+        *   [邮箱搬家](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799511359438850) 
+            *   [第三方邮箱迁移至飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/815511323958 "第三方邮箱迁移至飞书邮箱")
+            *   [腾讯企业邮箱迁移到飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/353943398340 "腾讯企业邮箱迁移到飞书邮箱")
+            *   [阿里企业邮箱迁移到飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/673894994112 "阿里企业邮箱迁移到飞书邮箱")
+            *   [网易企业邮箱迁移到飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/865748886465 "网易企业邮箱迁移到飞书邮箱")
+            *   [管理员将 Microsoft 365 或本地部署 Exchange 邮箱迁移至飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/669274915245 "管理员将 Microsoft 365 或本地部署 Exchange 邮箱迁移至飞书邮箱")
+            *   [为 Outlook 邮箱搬家配置授权账号（Microsoft 365 版本）](https://www.feishu.cn/hc/zh-CN/articles/683979331615 "为 Outlook 邮箱搬家配置授权账号（Microsoft 365 版本）")
+            *   [为 Outlook 邮箱搬家配置授权账号（本地部署 Exchange 版本）](https://www.feishu.cn/hc/zh-CN/articles/891249638716 "为 Outlook 邮箱搬家配置授权账号（本地部署 Exchange 版本）")
+            *   [邮箱迁移过程中业务系统 SMTP 更换指南](https://www.feishu.cn/hc/zh-CN/articles/221905160046 "邮箱迁移过程中业务系统 SMTP 更换指南")
+            *   [第三方邮箱 IMAP/SMTP 地址和端口](https://www.feishu.cn/hc/zh-CN/articles/360049067809 "第三方邮箱 IMAP/SMTP 地址和端口")
+            *   [管理员在不同域名之间进行邮箱搬家](https://www.feishu.cn/hc/zh-CN/articles/521680521891 "管理员在不同域名之间进行邮箱搬家")
+            *   [在邮箱搬家时开启 Office 365 的基本身份验证](https://www.feishu.cn/hc/zh-CN/articles/090523342992 "在邮箱搬家时开启 Office 365 的基本身份验证")
+            *   [在 Microsoft Azure 后台配置全局管理员账号](https://www.feishu.cn/hc/zh-CN/articles/017691978165 "在 Microsoft Azure 后台配置全局管理员账号")
+            *   [邮箱搬家验证失败怎么办？](https://www.feishu.cn/hc/zh-CN/articles/615095823061 "邮箱搬家验证失败怎么办？")
+            *   [企业邮箱搬家漏掉部分成员、邮件怎么办？](https://www.feishu.cn/hc/zh-CN/articles/033997299851 "企业邮箱搬家漏掉部分成员、邮件怎么办？")
+            *   [邮箱搬家常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067810 "邮箱搬家常见问题")
+
+        *   [域名管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799670432661506) 
+            *   [管理员管理邮箱域名常见问题](https://www.feishu.cn/hc/zh-CN/articles/360048318654 "管理员管理邮箱域名常见问题")
+            *   [管理员进行 DNS 配置](https://www.feishu.cn/hc/zh-CN/articles/360049067888 "管理员进行 DNS 配置")
+            *   [管理员在火山引擎上调整 DNS 配置](https://www.feishu.cn/hc/zh-CN/articles/706206993931 "管理员在火山引擎上调整 DNS 配置")
+            *   [管理员在阿里云上调整 DNS 设置](https://www.feishu.cn/hc/zh-CN/articles/360049067803 "管理员在阿里云上调整 DNS 设置")
+            *   [管理员在 DNSpod 上调整 DNS 设置](https://www.feishu.cn/hc/zh-CN/articles/360049067806 "管理员在 DNSpod 上调整 DNS 设置")
+            *   [管理员如何在华为云上调整 DNS 设置？](https://www.feishu.cn/hc/zh-CN/articles/360049067805 "管理员如何在华为云上调整 DNS 设置？")
+            *   [管理员在 GoDaddy 上调整 DNS 配置](https://www.feishu.cn/hc/zh-CN/articles/360049067804 "管理员在 GoDaddy 上调整 DNS 配置")
+            *   [管理员配置包含多个服务器地址的 SPF 记录](https://www.feishu.cn/hc/zh-CN/articles/786646942518 "管理员配置包含多个服务器地址的 SPF 记录")
+            *   [管理员在腾讯企业邮箱替换域名](https://www.feishu.cn/hc/zh-CN/articles/065370624239 "管理员在腾讯企业邮箱替换域名")
+            *   [管理员在网易企业邮箱替换域名](https://www.feishu.cn/hc/zh-CN/articles/263741961949 "管理员在网易企业邮箱替换域名")
+            *   [管理员管理邮箱域名别名](https://www.feishu.cn/hc/zh-CN/articles/360049067556 "管理员管理邮箱域名别名")
+            *   [管理员删除邮箱域名常见问题](https://www.feishu.cn/hc/zh-CN/articles/035842079774 "管理员删除邮箱域名常见问题")
+
+        *   [成员邮箱管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799806664015874) 
+            *   [管理员配置成员的企业邮箱地址](https://www.feishu.cn/hc/zh-CN/articles/360049066573 "管理员配置成员的企业邮箱地址")
+            *   [管理员修改成员的企业邮箱地址](https://www.feishu.cn/hc/zh-CN/articles/360049067887 "管理员修改成员的企业邮箱地址")
+            *   [管理员为成员添加企业邮箱别名](https://www.feishu.cn/hc/zh-CN/articles/360049067882 "管理员为成员添加企业邮箱别名")
+            *   [管理员在数据报表中查看成员邮箱使用情况](https://www.feishu.cn/hc/zh-CN/articles/326206253328 "管理员在数据报表中查看成员邮箱使用情况")
+            *   [管理员转移离职成员的邮件](https://www.feishu.cn/hc/zh-CN/articles/715885646166 "管理员转移离职成员的邮件")
+            *   [分配企业邮箱时，提示与登录账号冲突怎么办？](https://www.feishu.cn/hc/zh-CN/articles/541206204028 "分配企业邮箱时，提示与登录账号冲突怎么办？")
+
+        *   [邮件组管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800006459293698) 
+            *   [管理员创建邮件组](https://www.feishu.cn/hc/zh-CN/articles/360049067762 "管理员创建邮件组")
+            *   [管理员批量导入和导出邮件组信息](https://www.feishu.cn/hc/zh-CN/articles/439095566469 "管理员批量导入和导出邮件组信息")
+            *   [管理员开启邮件组审核](https://www.feishu.cn/hc/zh-CN/articles/538434075934 "管理员开启邮件组审核")
+            *   [添加邮件组管理员](https://www.feishu.cn/hc/zh-CN/articles/091327310378 "添加邮件组管理员")
+
+        *   [公共邮箱管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800144074424348) 
+            *   [管理员创建公共邮箱收发邮件](https://www.feishu.cn/hc/zh-CN/articles/360049067763 "管理员创建公共邮箱收发邮件")
+            *   [管理员批量导入和导出公共邮箱](https://www.feishu.cn/hc/zh-CN/articles/848431381615 "管理员批量导入和导出公共邮箱")
+            *   [管理员添加公共邮箱或邮件组别名](https://www.feishu.cn/hc/zh-CN/articles/776540664224 "管理员添加公共邮箱或邮件组别名")
+            *   [管理员删除公共邮箱和释放邮箱地址](https://www.feishu.cn/hc/zh-CN/articles/913177236113 "管理员删除公共邮箱和释放邮箱地址")
+
+        *   [邮箱管理工具](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7062292591676489730) 
+            *   [管理员配置邮件自动转发](https://www.feishu.cn/hc/zh-CN/articles/779711637362 "管理员配置邮件自动转发")
+            *   [管理员开启第三方邮箱客户端登录设置](https://www.feishu.cn/hc/zh-CN/articles/360049068017 "管理员开启第三方邮箱客户端登录设置")
+            *   [管理员开启邮件导出功能](https://www.feishu.cn/hc/zh-CN/articles/843529814310 "管理员开启邮件导出功能")
+            *   [管理员使用邮件缓存功能](https://www.feishu.cn/hc/zh-CN/articles/986545044270 "管理员使用邮件缓存功能")
+            *   [管理员限制成员外发邮件](https://www.feishu.cn/hc/zh-CN/articles/324731948494 "管理员限制成员外发邮件")
+            *   [管理员设置邮件大规模发送提醒](https://www.feishu.cn/hc/zh-CN/articles/108643021511 "管理员设置邮件大规模发送提醒")
+            *   [管理员配置企业签名模板](https://www.feishu.cn/hc/zh-CN/articles/101200248115 "管理员配置企业签名模板")
+            *   [管理员设置企业注脚](https://www.feishu.cn/hc/zh-CN/articles/791695586813 "管理员设置企业注脚")
+            *   [管理员查询邮件收发记录](https://www.feishu.cn/hc/zh-CN/articles/426445859340 "管理员查询邮件收发记录")
+            *   [管理员进行邮件数据管理](https://www.feishu.cn/hc/zh-CN/articles/959599040579 "管理员进行邮件数据管理")
+            *   [成员的飞书邮箱无法接收邮件怎么办？](https://www.feishu.cn/hc/zh-CN/articles/875569252485 "成员的飞书邮箱无法接收邮件怎么办？")
+
+        *   [安全与反垃圾](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800429043777538) 
+            *   [管理员使用邮箱黑名单功能](https://www.feishu.cn/hc/zh-CN/articles/735661419187 "管理员使用邮箱黑名单功能")
+            *   [管理员使用邮箱白名单功能](https://www.feishu.cn/hc/zh-CN/articles/183125916507 "管理员使用邮箱白名单功能")
+            *   [邮箱黑白名单支持的 IP、IP 段和通配符](https://www.feishu.cn/hc/zh-CN/articles/610191072259 "邮箱黑白名单支持的 IP、IP 段和通配符")
+            *   [管理员解决白名单添加地址或域名后不生效问题](https://www.feishu.cn/hc/zh-CN/articles/722313545908 "管理员解决白名单添加地址或域名后不生效问题")
+            *   [管理员配置防钓鱼伪造策略](https://www.feishu.cn/hc/zh-CN/articles/297362727231 "管理员配置防钓鱼伪造策略")
+            *   [管理员为域名配置 DKIM](https://www.feishu.cn/hc/zh-CN/articles/386580981044 "管理员为域名配置 DKIM ")
+            *   [管理员为域名配置 DMARC](https://www.feishu.cn/hc/zh-CN/articles/726331581389 "管理员为域名配置 DMARC")
+            *   [管理员设置外部邮件警示](https://www.feishu.cn/hc/zh-CN/articles/594706998335 "管理员设置外部邮件警示")
+            *   [管理员设置邮件保护规则](https://www.feishu.cn/hc/zh-CN/articles/360049067936 "管理员设置邮件保护规则")
+            *   [管理员设置邮件流规则](https://www.feishu.cn/hc/zh-CN/articles/279210016072 "管理员设置邮件流规则")
+            *   [飞书邮箱隔离区](https://www.feishu.cn/hc/zh-CN/articles/929580888148 "飞书邮箱隔离区")
+            *   [管理员管理隔离区](https://www.feishu.cn/hc/zh-CN/articles/037052327149 "管理员管理隔离区")
+            *   [管理员审核隔离区邮件](https://www.feishu.cn/hc/zh-CN/articles/516258884180 "管理员审核隔离区邮件")
+
+        *   [邮箱数据合规](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800285946675201) 
+            *   [管理员设置邮件路由入站网关](https://www.feishu.cn/hc/zh-CN/articles/403047075069 "管理员设置邮件路由入站网关")
+            *   [管理员设置邮件路由出站网关](https://www.feishu.cn/hc/zh-CN/articles/877212879302 "管理员设置邮件路由出站网关")
+
+    *   [日历管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571232247810) 
+        *   [管理员设置日历权限](https://www.feishu.cn/hc/zh-CN/articles/316811644508 "管理员设置日历权限")
+        *   [管理员设置日程人数管控](https://www.feishu.cn/hc/zh-CN/articles/357160205487 "管理员设置日程人数管控")
+        *   [管理员创建并管理全员日历](https://www.feishu.cn/hc/zh-CN/articles/360049067696 "管理员创建并管理全员日历")
+        *   [管理员在 Exchange 后台配置邮件域名白名单](https://www.feishu.cn/hc/zh-CN/articles/332636150444 "管理员在 Exchange 后台配置邮件域名白名单")
+        *   [管理员在 Google Workspace 后台配置邮件域名白名单](https://www.feishu.cn/hc/zh-CN/articles/948455701962 "管理员在 Google Workspace 后台配置邮件域名白名单")
+        *   [管理员配置 Google 日历与飞书日历的双向同步](https://www.feishu.cn/hc/zh-CN/articles/071816947155 "管理员配置 Google 日历与飞书日历的双向同步")
+        *   [第三方日历同步：管理员手册](https://www.feishu.cn/hc/zh-CN/articles/079695875192 "第三方日历同步：管理员手册")
+
+    *   [服务台管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571240701979) 
+        *   [企业管理员管理服务台](https://www.feishu.cn/hc/zh-CN/articles/360042558954 "企业管理员管理服务台")
+        *   [企业管理员查看服务台数据](https://www.feishu.cn/hc/zh-CN/articles/355200364595 "企业管理员查看服务台数据")
+
+*   [费用中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571303551004) 
+    *   [飞书定价版本介绍](https://www.feishu.cn/hc/zh-CN/articles/360049067600 "飞书定价版本介绍")
+    *   [管理员自助购买飞书付费版本](https://www.feishu.cn/hc/zh-CN/articles/936313194152 "管理员自助购买飞书付费版本")
+    *   [管理员线上购买扩容包](https://www.feishu.cn/hc/zh-CN/articles/360048487013 "管理员线上购买扩容包")
+    *   [管理员查看并支付订单](https://www.feishu.cn/hc/zh-CN/articles/913736516947 "管理员查看并支付订单")
+    *   [管理员在线申请发票和合同](https://www.feishu.cn/hc/zh-CN/articles/360049067528 "管理员在线申请发票和合同")
+    *   [管理员管理席位](https://www.feishu.cn/hc/zh-CN/articles/548377434838 "管理员管理席位")
+
+*   [存储空间](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7398133270640115715) 
+    *   [管理员查看企业存储容量并清理存储空间](https://www.feishu.cn/hc/zh-CN/articles/728807030651 "管理员查看企业存储容量并清理存储空间")
+    *   [管理员设置存储空间使用上限](https://www.feishu.cn/hc/zh-CN/articles/653416815625 "管理员设置存储空间使用上限")
+
+*   [安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571253235739) 
+    *   [策略中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7584366050821541050) 
+        *   [策略中心特殊管控场景说明](https://www.feishu.cn/hc/zh-CN/articles/730459818828 "策略中心特殊管控场景说明")
+
+    *   [安全中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7442602601897541636) 
+        *   [管理员使用成员异常功能](https://www.feishu.cn/hc/zh-CN/articles/963318746351 "管理员使用成员异常功能")
+        *   [管理员使用文档异常功能](https://www.feishu.cn/hc/zh-CN/articles/642571906257 "管理员使用文档异常功能")
+
+    *   [成员权限](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7217764720110174236) 
+        *   [管理员设置沟通协作权限](https://www.feishu.cn/hc/zh-CN/articles/360049067482 "管理员设置沟通协作权限")
+        *   [管理员管理组织架构可见范围](https://www.feishu.cn/hc/zh-CN/articles/360049067480 "管理员管理组织架构可见范围")
+        *   [管理员设置成员字段可见范围](https://www.feishu.cn/hc/zh-CN/articles/360049067481 "管理员设置成员字段可见范围")
+        *   [管理员设置搜索权限](https://www.feishu.cn/hc/zh-CN/articles/405946781714 "管理员设置搜索权限")
+        *   [管理员设置成员对外沟通权限](https://www.feishu.cn/hc/zh-CN/articles/308867175966 "管理员设置成员对外沟通权限")
+        *   [管理员操作云文档设置](https://www.feishu.cn/hc/zh-CN/articles/360042749154 "管理员操作云文档设置")
+        *   [管理员为成员设置文件操作权限](https://www.feishu.cn/hc/zh-CN/articles/791060103354 "管理员为成员设置文件操作权限")
+        *   [管理员设置文档权限默认值](https://www.feishu.cn/hc/zh-CN/articles/265017155035 "管理员设置文档权限默认值")
+        *   [管理员设置云文档信息流通度](https://www.feishu.cn/hc/zh-CN/articles/690541490413 "管理员设置云文档信息流通度")
+
+    *   [账号安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7174711040785661980) 
+        *   [管理员开启两步验证](https://www.feishu.cn/hc/zh-CN/articles/480863598792 "管理员开启两步验证")
+        *   [管理员如何管理成员登录方式](https://www.feishu.cn/hc/zh-CN/articles/523718439325 "管理员如何管理成员登录方式")
+        *   [管理员管理成员登录密码](https://www.feishu.cn/hc/zh-CN/articles/375210701431 "管理员管理成员登录密码")
+        *   [管理员设置成员登录有效期](https://www.feishu.cn/hc/zh-CN/articles/538280274631 "管理员设置成员登录有效期")
+        *   [管理员设置多端同登](https://www.feishu.cn/hc/zh-CN/articles/124160085067 "管理员设置多端同登")
+        *   [管理员配置 SAML 2.0 SSO 登录（以 Okta IdP 为例）](https://www.feishu.cn/hc/zh-CN/articles/360049067599 "管理员配置 SAML 2.0 SSO 登录（以 Okta IdP 为例）")
+        *   [管理员配置 SAML 2.0 SSO 登录（以 Google Workspace IdP 为例）](https://www.feishu.cn/hc/zh-CN/articles/335787416164 "管理员配置 SAML 2.0 SSO 登录（以 Google Workspace IdP 为例）")
+        *   [管理员配置 SAML 2.0 SSO 登录（以 Microsoft Entra ID 为例）](https://www.feishu.cn/hc/zh-CN/articles/523565009942 "管理员配置 SAML 2.0 SSO 登录（以 Microsoft Entra ID 为例）")
+        *   [使用 SSO 登录飞书](https://www.feishu.cn/hc/zh-CN/articles/360043576234 "使用 SSO 登录飞书")
+
+    *   [访问安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7577615299738864845) 
+        *   [管理员使用链接安全](https://www.feishu.cn/hc/zh-CN/articles/100245062684 "管理员使用链接安全")
+
+    *   [终端安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7171017953935589378) 
+        *   [管理员设置移动端文件加密](https://www.feishu.cn/hc/zh-CN/articles/007430218049 "管理员设置移动端文件加密")
+        *   [管理员设置粘贴保护](https://www.feishu.cn/hc/zh-CN/articles/613380686308 "管理员设置粘贴保护")
+        *   [管理员设置截屏录屏保护](https://www.feishu.cn/hc/zh-CN/articles/428390929435 "管理员设置截屏录屏保护")
+        *   [管理员设置文件安全检测](https://www.feishu.cn/hc/zh-CN/articles/546317756517 "管理员设置文件安全检测")
+
+    *   [网络安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7217798108483616796) 
+        *   [管理员管理网络围栏](https://www.feishu.cn/hc/zh-CN/articles/807018538338 "管理员管理网络围栏")
+
+    *   [数据保护](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6986610564965416961) 
+        *   [管理员设置密级标签](https://www.feishu.cn/hc/zh-CN/articles/681363834397 "管理员设置密级标签")
+        *   [管理员设置全局水印](https://www.feishu.cn/hc/zh-CN/articles/360042748734 "管理员设置全局水印")
+        *   [管理员基于组织架构设置水印](https://www.feishu.cn/hc/zh-CN/articles/843678469255 "管理员基于组织架构设置水印")
+
+    *   [部署与加密](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7171018621525229569) 
+        *   [自主密钥基础版与高级版的对比](https://www.feishu.cn/hc/zh-CN/articles/922446567072 "自主密钥基础版与高级版的对比")
+        *   [管理员使用自主密钥（基础版）](https://www.feishu.cn/hc/zh-CN/articles/860825466804 "管理员使用自主密钥（基础版）")
+        *   [管理员使用自主密钥（高级版）](https://www.feishu.cn/hc/zh-CN/articles/480210033668 "管理员使用自主密钥（高级版）")
+        *   [第三方密钥产品介绍](https://www.feishu.cn/hc/zh-CN/articles/461203444730 "第三方密钥产品介绍")
+        *   [管理员为数据私有化启用兜底配置](https://www.feishu.cn/hc/zh-CN/articles/561220753549 "管理员为数据私有化启用兜底配置")
+        *   [如何使用数据私有化流量看板](https://www.feishu.cn/hc/zh-CN/articles/609351385607 "如何使用数据私有化流量看板")
+        *   [数据私有化存储空间的查看和告警机制](https://www.feishu.cn/hc/zh-CN/articles/654915868933 "数据私有化存储空间的查看和告警机制")
+        *   [管理员配置文件加解密集成](https://www.feishu.cn/hc/zh-CN/articles/486497709952 "管理员配置文件加解密集成")
+
+*   [合规](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7217798286952906753) 
+    *   [日志审计](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413324582046629892) 
+        *   [管理员查看管理员日志](https://www.feishu.cn/hc/zh-CN/articles/877442708521 "管理员查看管理员日志")
+        *   [管理员使用 OpenAPI 日志](https://www.feishu.cn/hc/zh-CN/articles/675705685125 "管理员使用 OpenAPI 日志")
+        *   [管理员进行成员行为审计](https://www.feishu.cn/hc/zh-CN/articles/686190340856 "管理员进行成员行为审计")
+        *   [成员行为审计查询事件说明](https://www.feishu.cn/hc/zh-CN/articles/796512972564 "成员行为审计查询事件说明")
+        *   [管理员进行 People 行为审计](https://www.feishu.cn/hc/zh-CN/articles/589375738598 "管理员进行 People 行为审计")
+        *   [People 行为审计事件说明](https://www.feishu.cn/hc/zh-CN/articles/402038803440 "People 行为审计事件说明")
+        *   [管理员查看密钥管理日志](https://www.feishu.cn/hc/zh-CN/articles/899006621675 "管理员查看密钥管理日志")
+
+    *   [权限审计](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413324929854717955) 
+        *   [管理员使用权限审计](https://www.feishu.cn/hc/zh-CN/articles/152388446470 "管理员使用权限审计")
+        *   [管理员建立权限查询任务](https://www.feishu.cn/hc/zh-CN/articles/303898525054 "管理员建立权限查询任务")
+
+    *   [数据保险箱](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7457117882619822084) 
+        *   [管理员使用数据保留](https://www.feishu.cn/hc/zh-CN/articles/229673951244 "管理员使用数据保留")
+        *   [管理员使用运算符](https://www.feishu.cn/hc/zh-CN/articles/274721790010 "管理员使用运算符")
+
+    *   [内容合规](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413325292243222531) 
+        *   [管理员配置内容合规](https://www.feishu.cn/hc/zh-CN/articles/966546847701 "管理员配置内容合规")
+
+    *   [数据驻留](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413325625341263876) 
+        *   [数据驻留地功能介绍](https://www.feishu.cn/hc/zh-CN/articles/668865966127 "数据驻留地功能介绍")
+        *   [管理员设置成员数据驻留地](https://www.feishu.cn/hc/zh-CN/articles/302771207155 "管理员设置成员数据驻留地")
+
+    *   [隐私设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7600329111558425780) 
+        *   [管理员关闭设备地理位置信息权限](https://www.feishu.cn/hc/zh-CN/articles/974462198746 "管理员关闭设备地理位置信息权限")
+        *   [管理员设置移动端通知消息预览](https://www.feishu.cn/hc/zh-CN/articles/193923612413 "管理员设置移动端通知消息预览")
+
+*   [数据报表](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336865314455748636) 
+    *   [管理员查看应用使用数据](https://www.feishu.cn/hc/zh-CN/articles/436290455066 "管理员查看应用使用数据")
+    *   [管理员查看成员活跃数据和功能使用情况](https://www.feishu.cn/hc/zh-CN/articles/360043131974 "管理员查看成员活跃数据和功能使用情况")
+
+*   [企业文化](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170982556362391554) 
+    *   [品牌配置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336928996195696642) 
+        *   [管理员配置专属品牌显示](https://www.feishu.cn/hc/zh-CN/articles/124202937808 "管理员配置专属品牌显示")
+        *   [管理员如何配置下载引导](https://www.feishu.cn/hc/zh-CN/articles/780460331908 "管理员如何配置下载引导")
+        *   [管理员如何配置“帮助与客服”入口](https://www.feishu.cn/hc/zh-CN/articles/472974613419 "管理员如何配置“帮助与客服”入口")
+        *   [管理员配置客户端“关于”功能模块](https://www.feishu.cn/hc/zh-CN/articles/191305691214 "管理员配置客户端“关于”功能模块")
+
+    *   [功能配置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336929210985889820) 
+        *   [管理员配置客户端导航栏](https://www.feishu.cn/hc/zh-CN/articles/360049067840 "管理员配置客户端导航栏")
+        *   [管理员基于用户组配置导航栏](https://www.feishu.cn/hc/zh-CN/articles/770805519816 "管理员基于用户组配置导航栏")
+        *   [管理员配置云文档顶栏企业文化提示语](https://www.feishu.cn/hc/zh-CN/articles/741904402988 "管理员配置云文档顶栏企业文化提示语")
+        *   [管理员配置聊天输入框提示语](https://www.feishu.cn/hc/zh-CN/articles/335139505400 "管理员配置聊天输入框提示语")
+        *   [管理员配置飞书移动端开屏](https://www.feishu.cn/hc/zh-CN/articles/075025551889 "管理员配置飞书移动端开屏")
+        *   [管理员配置应用缓存](https://www.feishu.cn/hc/zh-CN/articles/151279115345 "管理员配置应用缓存")
+        *   [管理员配置客户端皮肤](https://www.feishu.cn/hc/zh-CN/articles/836781638028 "管理员配置客户端皮肤")
+        *   [管理员上传并管理企业勋章](https://www.feishu.cn/hc/zh-CN/articles/301996260813 "管理员上传并管理企业勋章")
+        *   [管理员上传并管理企业表情贴图](https://www.feishu.cn/hc/zh-CN/articles/141366045824 "管理员上传并管理企业表情贴图")
+        *   [企业表情贴图制作及上传规范](https://www.feishu.cn/hc/zh-CN/articles/360049068046 "企业表情贴图制作及上传规范")
+        *   [管理员配置企业自定义表情符号](https://www.feishu.cn/hc/zh-CN/articles/883916780204 "管理员配置企业自定义表情符号")
+        *   [企业表情符号制作及上传规范](https://www.feishu.cn/hc/zh-CN/articles/553091891174 "企业表情符号制作及上传规范")
+        *   [管理员发放企业红包](https://www.feishu.cn/hc/zh-CN/articles/367741500630 "管理员发放企业红包")
+        *   [红包封面设计规范](https://www.feishu.cn/hc/zh-CN/articles/050142108832 "红包封面设计规范")
+        *   [管理员添加企业红包封面](https://www.feishu.cn/hc/zh-CN/articles/153731606067 "管理员添加企业红包封面")
+
+    *   [企业文化常见问题](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336929485440188417) 
+        *   [企业专属表情包常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049068045 "企业专属表情包常见问题")
+        *   [红包封面上传常见问题](https://www.feishu.cn/hc/zh-CN/articles/091538820081 "红包封面上传常见问题")
+
+*   [企业设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571102191643) 
+    *   [企业信息](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336939829231517724) 
+        *   [管理员修改企业信息](https://www.feishu.cn/hc/zh-CN/articles/360043180534 "管理员修改企业信息")
+        *   [企业创建人解散企业](https://www.feishu.cn/hc/zh-CN/articles/167461183593 "企业创建人解散企业")
+
+    *   [管理员权限](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170980647976370178) 
+        *   [管理员类型和角色介绍](https://www.feishu.cn/hc/zh-CN/articles/927897012636 "管理员类型和角色介绍")
+        *   [管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213 "管理员创建管理员角色及分配权限")
+        *   [设置超级管理员](https://www.feishu.cn/hc/zh-CN/articles/360045350634 "设置超级管理员")
+        *   [转移企业创建人身份](https://www.feishu.cn/hc/zh-CN/articles/360043485013 "转移企业创建人身份")
+        *   [管理员定制管理后台无权限引导页](https://www.feishu.cn/hc/zh-CN/articles/622732813519 "管理员定制管理后台无权限引导页")
+        *   [管理员使用管理后台任务中心](https://www.feishu.cn/hc/zh-CN/articles/453435968597 "管理员使用管理后台任务中心")
+        *   [管理员设置超级管理员的敏感权限隔离](https://www.feishu.cn/hc/zh-CN/articles/913041296181 "管理员设置超级管理员的敏感权限隔离")
+        *   [管理员在管理后台使用搜索](https://www.feishu.cn/hc/zh-CN/articles/856825778389 "管理员在管理后台使用搜索")
+        *   [管理员使用人事管理模式](https://www.feishu.cn/hc/zh-CN/articles/492303220149 "管理员使用人事管理模式")
+
+    *   [组织架构数据同步](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7366961493595979780) 
+        *   [组织架构数据同步介绍](https://www.feishu.cn/hc/zh-CN/articles/145315497885 "组织架构数据同步介绍")
+        *   [管理员同步钉钉组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/369910872834 "管理员同步钉钉组织架构数据到飞书")
+        *   [管理员同步企业微信组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/477188073259 "管理员同步企业微信组织架构数据到飞书")
+        *   [管理员同步 Google Workspace 组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/271126901829 "管理员同步 Google Workspace 组织架构数据到飞书")
+        *   [管理员同步 Entra ID 组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/551589835558 "管理员同步 Entra ID 组织架构数据到飞书")
+        *   [管理员同步 Okta 组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/527839043690 "管理员同步 Okta 组织架构数据到飞书")
+        *   [管理员通过 SCIM 2.0 同步组织架构数据](https://www.feishu.cn/hc/zh-CN/articles/121592347312 "管理员通过 SCIM 2.0 同步组织架构数据")
+        *   [组织架构数据同步常见问题](https://www.feishu.cn/hc/zh-CN/articles/409303801123 "组织架构数据同步常见问题")
+
+    *   [风险控制](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336940136996880386) 
+        *   [管理员设置敏感操作保护](https://www.feishu.cn/hc/zh-CN/articles/167891666379 "管理员设置敏感操作保护")
+        *   [管理员设置机密成员保护](https://www.feishu.cn/hc/zh-CN/articles/187937458256 "管理员设置机密成员保护")
+
+    *   [版本升级提醒](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7415954211639607300) 
+        *   [管理员配置版本升级提醒与限制登录](https://www.feishu.cn/hc/zh-CN/articles/988775465719 "管理员配置版本升级提醒与限制登录")
+
+*   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934168707576905755) 
+    *   [场景实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7171268624529932289) 
+        *   [飞书安全最佳实践：对“待离职”成员的安全管理配置](https://www.feishu.cn/hc/zh-CN/articles/451789504373 "飞书安全最佳实践：对“待离职”成员的安全管理配置")
+        *   [功能实践：管理员清理企业和成员数据](https://www.feishu.cn/hc/zh-CN/articles/524895953707 "功能实践：管理员清理企业和成员数据")
+        *   [大型组织解决方案](https://www.feishu.cn/hc/zh-CN/articles/967983976195 "大型组织解决方案")
+        *   [用好这 3 招，成员激活飞书更高效！](https://www.feishu.cn/hc/zh-CN/articles/121741109619 "用好这 3 招，成员激活飞书更高效！")
+        *   [3 个方法，帮管理员轻松推广飞书！](https://www.feishu.cn/hc/zh-CN/articles/529384630736 "3 个方法，帮管理员轻松推广飞书！")
+        *   [一图带你设置管理后台](https://www.feishu.cn/hc/zh-CN/articles/119786110316 "一图带你设置管理后台")
+        *   [关联组织功能实践](https://www.feishu.cn/hc/zh-CN/articles/762346821295 "关联组织功能实践")
+        *   [7 个渠道，给员工同步重要信息](https://www.feishu.cn/hc/zh-CN/articles/641121625866 "7 个渠道，给员工同步重要信息")
+        *   [提升企业凝聚力，管理员能做什么？](https://www.feishu.cn/hc/zh-CN/articles/723970110429 "提升企业凝聚力，管理员能做什么？")
+        *   [巧用 7 种方法，避免重复解答员工提问](https://www.feishu.cn/hc/zh-CN/articles/208039554618 "巧用 7 种方法，避免重复解答员工提问")
+        *   [怎样灵活设置权限，保护企业信息安全？](https://www.feishu.cn/hc/zh-CN/articles/940584192376 "怎样灵活设置权限，保护企业信息安全？")
+        *   [要汇报工作了，管理员怎样查看各项数据？](https://www.feishu.cn/hc/zh-CN/articles/688654221847 "要汇报工作了，管理员怎样查看各项数据？")
+        *   [机器人可以提醒管理员审核哪些事项？](https://www.feishu.cn/hc/zh-CN/articles/732710771819 "机器人可以提醒管理员审核哪些事项？")
+        *   [哪些重复性操作，管理员可以批量处理？](https://www.feishu.cn/hc/zh-CN/articles/431979694824 "哪些重复性操作，管理员可以批量处理？")
+        *   [员工要离职，管理员需要做什么？](https://www.feishu.cn/hc/zh-CN/articles/093954078213 "员工要离职，管理员需要做什么？")
+        *   [飞书全员培训难？快用视频课机器人助手模板](https://www.feishu.cn/hc/zh-CN/articles/336153051076 "飞书全员培训难？快用视频课机器人助手模板")
+
+*   [更新日志](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6999559269796364290) 
+    *   [飞书管理后台功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067487 "飞书管理后台功能更新日志")
+
+[企业管理后台](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571089608732)
+
+[费用中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571303551004)
+
+飞书定价版本介绍
+
+# 飞书定价版本介绍
+
+本文阅读时长：3 分钟
+
+一、简介​
+
+​
+
+🔖
+
+增值信息：商业版和企业版需另外购买。如需咨询，请[联系客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)或客户成功经理。​
+
+​
+
+飞书分为基础版、商业版和企业版，不同版本在成员人数上限、存储空间、视频会议同时参会人数等方面存在权益区别。完成飞书账号注册即可使用基础版，商业版和企业版需要另外购买。​
+
+二、说明​
+
+不同版本的权益区别​
+
+飞书基础版、商业版和企业版的部分权益区别可见下图。如需了解更详细的权益对比，可前往[飞书官网版本对比页](https://www.feishu.cn/service)查看。​
+
+​
+
+250px|700px|reset
+
+![Image 3: image.png](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b798dad88312407cb31ceb53dee758a1.png~tplv-jbbdkfciu3-png:0:0.png)​​
+
+飞书认证前后的权益区别​
+
+[飞书认证](https://www.feishu.cn/hc/zh-CN/articles/360034114413-%E4%BB%80%E4%B9%88%E6%98%AF%E9%A3%9E%E4%B9%A6%E8%AE%A4%E8%AF%81)服务是由北京飞书科技有限公司提供给中国大陆企业、事业单位、其他组织的专业资质审核服务。多项功能权益（如群人数上限、能否加急、存储空间等）在认证前后均存在一定区别。企业可以免费进行飞书认证，享受更多权益。​
+
+升级版本和购买扩容包​
+
+升级版本​
+
+如果你当前使用的是基础版，希望升级至更高版本，享受更多权益，可在[飞书管理后台](https://feishu.cn/admin)的 企业概览 页面点击 立即升级，完成自助升级。具体信 息请参考[管理员自助购买飞书商业版或企业版](https://www.feishu.cn/hc/zh-CN/articles/936313194152-%E7%AE%A1%E7%90%86%E5%91%98%E8%87%AA%E5%8A%A9%E8%B4%AD%E4%B9%B0%E9%A3%9E%E4%B9%A6%E5%95%86%E4%B8%9A%E7%89%88%E6%88%96%E4%BC%81%E4%B8%9A%E7%89%88)。如需咨询，请[联系客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)或客户成功经理。​
+
+​
+
+250px|700px|reset
+
+![Image 4](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d379127c3e3c43389c133d29b6fd233c~tplv-jbbdkfciu3-image:0:0.image)​​
+
+购买扩容包​
+
+如果企业当前使用的权益额度不足，管理员可以在[飞书管理后台](https://feishu.cn/admin)的 费用中心 > 权益数据 中在线购买扩容包，获得更多额度。具体信息请参考[管理员线上购买扩容包](https://www.feishu.cn/hc/zh-CN/articles/360048487013-%E7%AE%A1%E7%90%86%E5%91%98%E7%BA%BF%E4%B8%8A%E8%B4%AD%E4%B9%B0%E6%89%A9%E5%AE%B9%E5%8C%85)。​
+
+注：​
+
+*   不同版本的权益类型和额度不同，具体信息请参考[版本权益对比](https://www.feishu.cn/service)。​
+
+*   部分扩容包仅支持使用指定付费版本的企业在线购买，具体信息请以实际页面为准。​
+
+​
+
+250px|700px|reset
+
+![Image 5](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/a826a9358eeb442a8515efb30a0a8c19~tplv-jbbdkfciu3-image:0:0.image)​​
+
+三、常见问题​
+
+问：已购买的商业版或企业版过期了，还能享受商业版或企业版权益吗？
+
+答：不能。如果商业版或企业版到期了并且没有续订，企业只能享受基础版权益。企业内成员的数量、管理员的数量将与基础版的限制一致。管理员如需添加新成员，需升级至商业版或企业版，或者先减少企业内成员人数，使成员人数少于基础版相关功能的人数上限，然后再添加新成员。​
+
+问：如何查看企业目前用的是哪个版本？
+
+答：管理员可以通过以下两种方式查看企业当前使用的版本。​
+
+*   在飞书管理后台的 企业概览 页面中查看。​
+
+*   ​250px|700px|reset ![Image 6](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/48be33be6d5c493ebf5c92148bad5a32~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   如果企业已购买了商业版和企业版，管理员可以在飞书管理后台中点击 费用中心>我的产品，订阅状态显示为“生效中”的版本即为当前企业正在使用的版本。​
+
+*   ​250px|700px|reset ![Image 7](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/701130441d874a4d9f74055ede4151fd~tplv-jbbdkfciu3-image:0:0.image)​​
+
+问：如果企业已购买商业版或企业版，如何查看拥有的席位数量？
+
+答：在飞书管理后台中点击 费用中心 > 我的产品，即可查看所购买版本的 已购席位 和 已分配席位。有关席位的具体信息，请参考[管理员分配席位](https://www.feishu.cn/hc/zh-CN/articles/548377434838-%E7%AE%A1%E7%90%86%E5%91%98%E5%88%86%E9%85%8D%E5%B8%AD%E4%BD%8D)。​
+
+​
+
+250px|700px|reset
+
+![Image 8](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/9a304dc2388743268c062ece095d5b17~tplv-jbbdkfciu3-image:0:0.image)​​
+
+问：企业是否可以混合使用飞书基础版、商业版和企业版？
+
+答：不可以。​
+
+例如，使用飞书基础版的企业在升级为商业版时，需将整个企业使用的版本进行升级，即购买的商业版数量必须不少于企业内的总人数，不能只为一部分成员购买商业版。​
+
+作者：飞书帮助中心
+
+最后更新于2025/07/25
+
+本文是否对你有帮助
+
+有帮助
+
+无帮助
+
+提交成功，感谢你的反馈！
+
+未能解决你的问题？请联系[在线客服](https://applink.feishu.cn/client/web_url/open?width=640&height=480&mode=window&url=https%3A%2F%2Flinkchat.feishu.cn%2Fim-linkchat%2Fredirect.html%3Fsource%3D5%26channelId%3D44)
+
+本篇目录
+
+1.   [一、简介​](javascript:;)
+2.   [二、说明​](javascript:;)
+3.   [不同版本的权益区别​](javascript:;)
+4.   [飞书认证前后的权益区别​](javascript:;)
+5.   [升级版本和购买扩容包​](javascript:;)
+6.   [三、常见问题​](javascript:;)
+
+0
+
+*   [快速入门](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7016631252413415426) 
+    *   [管理员登录飞书管理后台](https://www.feishu.cn/hc/zh-CN/articles/876813189909 "管理员登录飞书管理后台")
+    *   [管理员快速上手飞书管理后台](https://www.feishu.cn/hc/zh-CN/articles/360044088133 "管理员快速上手飞书管理后台")
+    *   [管理员快速认识安全功能](https://www.feishu.cn/hc/zh-CN/articles/650237282537 "管理员快速认识安全功能")
+    *   [管理员快速认识合规功能](https://www.feishu.cn/hc/zh-CN/articles/597393220813 "管理员快速认识合规功能")
+
+*   [飞书认证](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7264866935623024641) 
+    *   [飞书认证介绍](https://www.feishu.cn/hc/zh-CN/articles/360034114413 "飞书认证介绍")
+    *   [管理员进行团队认证](https://www.feishu.cn/hc/zh-CN/articles/921811047812 "管理员进行团队认证")
+    *   [团队认证所需材料与信息填写说明](https://www.feishu.cn/hc/zh-CN/articles/402720579736 "团队认证所需材料与信息填写说明")
+    *   [管理员进行企业法人认证](https://www.feishu.cn/hc/zh-CN/articles/318449169648 "管理员进行企业法人认证")
+    *   [企业法人认证填写要求](https://www.feishu.cn/hc/zh-CN/articles/390098904273 "企业法人认证填写要求")
+    *   [管理员进行加盖公章授权书认证](https://www.feishu.cn/hc/zh-CN/articles/256314588871 "管理员进行加盖公章授权书认证")
+    *   [加盖公章授权书认证填写要求](https://www.feishu.cn/hc/zh-CN/articles/696013578195 "加盖公章授权书认证填写要求")
+    *   [飞书认证企业名称命名规则](https://www.feishu.cn/hc/zh-CN/articles/624838781642 "飞书认证企业名称命名规则")
+    *   [管理员进行飞书认证年审](https://www.feishu.cn/hc/zh-CN/articles/648477241047 "管理员进行飞书认证年审")
+    *   [管理员更新认证信息](https://www.feishu.cn/hc/zh-CN/articles/165064206937 "管理员更新认证信息")
+    *   [企业变更认证主体说明](https://www.feishu.cn/hc/zh-CN/articles/742675570657 "企业变更认证主体说明")
+
+*   [组织架构管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571152523266) 
+    *   [成员管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170974844279390209) 
+        *   [管理员邀请成员加入企业](https://www.feishu.cn/hc/zh-CN/articles/578016169187 "管理员邀请成员加入企业")
+        *   [管理员在添加成员时分配席位](https://www.feishu.cn/hc/zh-CN/articles/329867155184 "管理员在添加成员时分配席位")
+        *   [管理员自定义人员类型](https://www.feishu.cn/hc/zh-CN/articles/360049067516 "管理员自定义人员类型")
+        *   [管理员修改成员信息](https://www.feishu.cn/hc/zh-CN/articles/360043261194 "管理员修改成员信息")
+        *   [管理员重置成员登录密码](https://www.feishu.cn/hc/zh-CN/articles/142941765253 "管理员重置成员登录密码")
+        *   [管理员修改成员登录手机号和登录邮箱](https://www.feishu.cn/hc/zh-CN/articles/283439237594 "管理员修改成员登录手机号和登录邮箱")
+        *   [管理员暂停成员账号](https://www.feishu.cn/hc/zh-CN/articles/360041605594 "管理员暂停成员账号")
+        *   [管理员操作成员离职及转移资源](https://www.feishu.cn/hc/zh-CN/articles/360043223853 "管理员操作成员离职及转移资源")
+        *   [管理员将成员状态更新为待离职](https://www.feishu.cn/hc/zh-CN/articles/703612138512 "管理员将成员状态更新为待离职")
+        *   [企业创建人注销账号](https://www.feishu.cn/hc/zh-CN/articles/360038770054 "企业创建人注销账号")
+
+    *   [部门管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571156717595) 
+        *   [管理员创建并管理部门](https://www.feishu.cn/hc/zh-CN/articles/360033588234 "管理员创建并管理部门")
+        *   [管理员设置企业和部门负责人](https://www.feishu.cn/hc/zh-CN/articles/360044810913 "管理员设置企业和部门负责人")
+        *   [管理员调整成员在部门中的展示顺序](https://www.feishu.cn/hc/zh-CN/articles/277835673804 "管理员调整成员在部门中的展示顺序")
+
+    *   [角色管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336890078339301404) 
+        *   [管理员设置企业内审批角色](https://www.feishu.cn/hc/zh-CN/articles/360043815453 "管理员设置企业内审批角色")
+
+    *   [单位与用户组管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170981444918116380) 
+        *   [管理员管理用户组](https://www.feishu.cn/hc/zh-CN/articles/360049067479 "管理员管理用户组")
+        *   [管理员设置动态用户组](https://www.feishu.cn/hc/zh-CN/articles/360049067874 "管理员设置动态用户组")
+        *   [管理员进行单位管理](https://www.feishu.cn/hc/zh-CN/articles/333548009177 "管理员进行单位管理")
+
+    *   [成员字段管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571165122562) 
+        *   [管理员进行字段管理](https://www.feishu.cn/hc/zh-CN/articles/973209819304 "管理员进行字段管理")
+        *   [管理员设置成员展示字段](https://www.feishu.cn/hc/zh-CN/articles/360049067669 "管理员设置成员展示字段")
+        *   [管理员设置成员搜索匹配字段](https://www.feishu.cn/hc/zh-CN/articles/393027020588 "管理员设置成员搜索匹配字段")
+        *   [管理员为成员设置分机号](https://www.feishu.cn/hc/zh-CN/articles/823883903976 "管理员为成员设置分机号")
+
+    *   [组织架构管理常见问题](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336893286252134428) 
+        *   [企业管理后台组织架构数量上限说明](https://www.feishu.cn/hc/zh-CN/articles/650990574301 "企业管理后台组织架构数量上限说明")
+        *   [管理员为成员变更部门](https://www.feishu.cn/hc/zh-CN/articles/360044811133 "管理员为成员变更部门")
+        *   [管理员恢复误操作离职的成员](https://www.feishu.cn/hc/zh-CN/articles/447505786347 "管理员恢复误操作离职的成员")
+        *   [管理员邀请成员加入指定部门](https://www.feishu.cn/hc/zh-CN/articles/933084936146 "管理员邀请成员加入指定部门")
+        *   [管理员提醒成员激活账号或加入企业](https://www.feishu.cn/hc/zh-CN/articles/360043261094 "管理员提醒成员激活账号或加入企业")
+        *   [管理员调整邀请成员加入的有效期](https://www.feishu.cn/hc/zh-CN/articles/360049067843 "管理员调整邀请成员加入的有效期")
+        *   [管理员开启非管理员邀请成员的权限](https://www.feishu.cn/hc/zh-CN/articles/360043486213 "管理员开启非管理员邀请成员的权限")
+        *   [管理员自定义成员列表的展示列](https://www.feishu.cn/hc/zh-CN/articles/360046655473 "管理员自定义成员列表的展示列")
+        *   [管理员允许成员自行修改信息](https://www.feishu.cn/hc/zh-CN/articles/360042994534 "管理员允许成员自行修改信息")
+        *   [管理员为成员设置多语种姓名](https://www.feishu.cn/hc/zh-CN/articles/360043486453 "管理员为成员设置多语种姓名")
+        *   [管理员设置成员别名](https://www.feishu.cn/hc/zh-CN/articles/961542027123 "管理员设置成员别名")
+        *   [管理员更改部门群群主](https://www.feishu.cn/hc/zh-CN/articles/360043964034 "管理员更改部门群群主")
+        *   [管理员批量导出组织架构信息](https://www.feishu.cn/hc/zh-CN/articles/360049067524 "管理员批量导出组织架构信息")
+
+*   [关联组织管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6984683455900663836) 
+    *   [关联组织介绍](https://www.feishu.cn/hc/zh-CN/articles/657083794612 "关联组织介绍")
+    *   [管理员配置关联组织](https://www.feishu.cn/hc/zh-CN/articles/583042385085 "管理员配置关联组织")
+    *   [管理员配置跨境关联组织](https://www.feishu.cn/hc/zh-CN/articles/818324991938 "管理员配置跨境关联组织")
+    *   [成员使用关联组织功能](https://www.feishu.cn/hc/zh-CN/articles/637087506262 "成员使用关联组织功能")
+
+*   [功能管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571181899803) 
+    *   [搜索管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336906281112551426) 
+        *   [管理员设置搜索内容官方认证](https://www.feishu.cn/hc/zh-CN/articles/417716996390 "管理员设置搜索内容官方认证")
+
+    *   [即时消息管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336913605708840962) 
+        *   [管理员清理聊天文件](https://www.feishu.cn/hc/zh-CN/articles/543307987013 "管理员清理聊天文件")
+        *   [管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183 "管理员设置撤回和编辑消息权限")
+        *   [管理员配置超大群](https://www.feishu.cn/hc/zh-CN/articles/154855394756 "管理员配置超大群")
+        *   [管理员设置群成员人数上限](https://www.feishu.cn/hc/zh-CN/articles/001739931634 "管理员设置群成员人数上限")
+        *   [管理员管控公开群权限](https://www.feishu.cn/hc/zh-CN/articles/847237870238 "管理员管控公开群权限")
+        *   [管理员设置导出群成员信息权限](https://www.feishu.cn/hc/zh-CN/articles/330845767295 "管理员设置导出群成员信息权限")
+
+    *   [公司圈管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7099504697744031746) 
+        *   [管理员管理公司圈](https://www.feishu.cn/hc/zh-CN/articles/863081922016 "管理员管理公司圈")
+        *   [管理员管理公司圈版块](https://www.feishu.cn/hc/zh-CN/articles/962834352633 "管理员管理公司圈版块")
+        *   [管理员规划公司圈版块](https://www.feishu.cn/hc/zh-CN/articles/416479245302 "管理员规划公司圈版块")
+        *   [管理员设置在工作台展示公司圈小组件](https://www.feishu.cn/hc/zh-CN/articles/457987106891 "管理员设置在工作台展示公司圈小组件")
+        *   [管理员用订阅号推送公司圈内容](https://www.feishu.cn/hc/zh-CN/articles/056937286452 "管理员用订阅号推送公司圈内容")
+        *   [管理员设置和监控公司圈敏感词](https://www.feishu.cn/hc/zh-CN/articles/081028667505 "管理员设置和监控公司圈敏感词")
+        *   [管理员查看公司圈活跃成员](https://www.feishu.cn/hc/zh-CN/articles/913698150605 "管理员查看公司圈活跃成员")
+        *   [管理员使用公司圈官方号](https://www.feishu.cn/hc/zh-CN/articles/814183151336 "管理员使用公司圈官方号")
+        *   [管理员设置公司圈展示字段](https://www.feishu.cn/hc/zh-CN/articles/835922753667 "管理员设置公司圈展示字段")
+        *   [公司圈公约模板](https://www.feishu.cn/hc/zh-CN/articles/440655848029 "公司圈公约模板")
+
+    *   [云文档管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571219664897) 
+        *   [管理企业云文档文件](https://www.feishu.cn/hc/zh-CN/articles/360047526413 "管理企业云文档文件")
+        *   [管理员设置云文档存储用量上限](https://www.feishu.cn/hc/zh-CN/articles/591189075011 "管理员设置云文档存储用量上限")
+        *   [Google Drive 迁移到飞书云文档](https://www.feishu.cn/hc/zh-CN/articles/178259973139 "Google Drive 迁移到飞书云文档")
+        *   [云文档迁移错误码说明](https://www.feishu.cn/hc/zh-CN/articles/648495108541 "云文档迁移错误码说明")
+
+    *   [企业知识库管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336906055932182556) 
+        *   [管理企业知识库](https://www.feishu.cn/hc/zh-CN/articles/400603380471 "管理企业知识库")
+        *   [添加知识库功能管理员](https://www.feishu.cn/hc/zh-CN/articles/312388487450 "添加知识库功能管理员")
+        *   [设置知识库首页公告](https://www.feishu.cn/hc/zh-CN/articles/993994646120 "设置知识库首页公告")
+        *   [管理员设置知识库分类](https://www.feishu.cn/hc/zh-CN/articles/549145148620 "管理员设置知识库分类")
+        *   [查看企业知识库使用数据](https://www.feishu.cn/hc/zh-CN/articles/219849558386 "查看企业知识库使用数据")
+        *   [Confluence Cloud 空间迁移到飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/305632216372 "Confluence Cloud 空间迁移到飞书知识库")
+        *   [Confluence Server 空间迁移到飞书知识库](https://www.feishu.cn/hc/zh-CN/articles/482328884433 "Confluence Server 空间迁移到飞书知识库")
+
+    *   [多维表格管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7571717960612449466) 
+        *   [管理员设置多维表格应用机器人权限](https://www.feishu.cn/hc/zh-CN/articles/853519297905 "管理员设置多维表格应用机器人权限 ")
+        *   [管理员配置多维表格流程预警和自动关停策略](https://www.feishu.cn/hc/zh-CN/articles/211437598760 "管理员配置多维表格流程预警和自动关停策略")
+
+    *   [视频会议管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571186143259) 
+        *   [管理员进行视频会议设置](https://www.feishu.cn/hc/zh-CN/articles/360049067828 "管理员进行视频会议设置")
+        *   [管理员查看会议管理数据](https://www.feishu.cn/hc/zh-CN/articles/360049067547 "管理员查看会议管理数据")
+        *   [管理员管理录制文件（妙记）](https://www.feishu.cn/hc/zh-CN/articles/823897737029 "管理员管理录制文件（妙记）")
+        *   [管理员查看视频会议使用数据](https://www.feishu.cn/hc/zh-CN/articles/360049067848 "管理员查看视频会议使用数据")
+        *   [管理员设置参会人数据导出](https://www.feishu.cn/hc/zh-CN/articles/869888847709 "管理员设置参会人数据导出")
+        *   [设置管理员视频会议管理权限](https://www.feishu.cn/hc/zh-CN/articles/451456782924 "设置管理员视频会议管理权限")
+        *   [管理员管理会议流媒体](https://www.feishu.cn/hc/zh-CN/articles/236180365184 "管理员管理会议流媒体")
+        *   [管理员设置电话入会](https://www.feishu.cn/hc/zh-CN/articles/360049067850 "管理员设置电话入会")
+        *   [管理员查看办公电话通话明细](https://www.feishu.cn/hc/zh-CN/articles/039722680839 "管理员查看办公电话通话明细")
+        *   [管理员查看电话服务数据](https://www.feishu.cn/hc/zh-CN/articles/317802785587 "管理员查看电话服务数据")
+        *   [管理员设置企业办公电话权限及配额](https://www.feishu.cn/hc/zh-CN/articles/188172683591 "管理员设置企业办公电话权限及配额")
+        *   [管理员设置电话服务用量预警](https://www.feishu.cn/hc/zh-CN/articles/321685958563 "管理员设置电话服务用量预警")
+        *   [管理员设置高清视频会议用量扩容包使用限额](https://www.feishu.cn/hc/zh-CN/articles/029426532325 "管理员设置高清视频会议用量扩容包使用限额")
+
+    *   [会议室管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571190304796) 
+        *   [管理员设置会议室预定管理员](https://www.feishu.cn/hc/zh-CN/articles/077303185145 "管理员设置会议室预定管理员")
+        *   [设置管理员会议室管理权限](https://www.feishu.cn/hc/zh-CN/articles/440836839853 "设置管理员会议室管理权限")
+        *   [管理员添加、编辑、删除会议室](https://www.feishu.cn/hc/zh-CN/articles/360049068040 "管理员添加、编辑、删除会议室")
+        *   [管理员设置会议室的可预定时间](https://www.feishu.cn/hc/zh-CN/articles/360049068029 "管理员设置会议室的可预定时间")
+        *   [管理员设置会议室签到时间](https://www.feishu.cn/hc/zh-CN/articles/728881777746 "管理员设置会议室签到时间")
+        *   [管理员设置会议室二维码签到](https://www.feishu.cn/hc/zh-CN/articles/382008151878 "管理员设置会议室二维码签到")
+        *   [管理员设置会议室级联](https://www.feishu.cn/hc/zh-CN/articles/711448960756 "管理员设置会议室级联")
+        *   [管理员设置会议室的可预定范围](https://www.feishu.cn/hc/zh-CN/articles/360049068033 "管理员设置会议室的可预定范围")
+        *   [设置会议室预定表单](https://www.feishu.cn/hc/zh-CN/articles/416287050743 "设置会议室预定表单")
+        *   [管理员设置会议室审批](https://www.feishu.cn/hc/zh-CN/articles/360049067453 "管理员设置会议室审批")
+        *   [管理员设置会议室禁用](https://www.feishu.cn/hc/zh-CN/articles/360049068034 "管理员设置会议室禁用")
+        *   [管理员设置会议室抢占](https://www.feishu.cn/hc/zh-CN/articles/101182428249 "管理员设置会议室抢占")
+        *   [管理员设置会议室请求现场服务](https://www.feishu.cn/hc/zh-CN/articles/743264586124 "管理员设置会议室请求现场服务")
+        *   [管理员设置会议室摄像头自动取景](https://www.feishu.cn/hc/zh-CN/articles/133027926038 "管理员设置会议室摄像头自动取景")
+        *   [管理员设置会议室屏幕顺序及默认视图](https://www.feishu.cn/hc/zh-CN/articles/380437380871 "管理员设置会议室屏幕顺序及默认视图")
+        *   [管理员设置飞书会议室软件开机自启动及窗口始终展示在最前端](https://www.feishu.cn/hc/zh-CN/articles/800427226284 "管理员设置飞书会议室软件开机自启动及窗口始终展示在最前端")
+        *   [管理员使用会议室设备告警中心](https://www.feishu.cn/hc/zh-CN/articles/767917049218 "管理员使用会议室设备告警中心")
+        *   [管理员安装飞书会议室告警助手](https://www.feishu.cn/hc/zh-CN/articles/171574794281 "管理员安装飞书会议室告警助手")
+        *   [管理员使用飞书会议室告警助手](https://www.feishu.cn/hc/zh-CN/articles/108849193903 "管理员使用飞书会议室告警助手")
+        *   [管理员管理会议室许可授权](https://www.feishu.cn/hc/zh-CN/articles/499167307439 "管理员管理会议室许可授权")
+        *   [管理员管理和维护会议室设备](https://www.feishu.cn/hc/zh-CN/articles/232398251993 "管理员管理和维护会议室设备")
+        *   [管理员配置会议室小程序](https://www.feishu.cn/hc/zh-CN/articles/485897707301 "管理员配置会议室小程序")
+        *   [管理员导出会议室数据](https://www.feishu.cn/hc/zh-CN/articles/978338949556 "管理员导出会议室数据")
+
+    *   [企业邮箱管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571211309084) 
+        *   [入门指南](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799367444480002) 
+            *   [飞书邮箱管理员使用手册](https://www.feishu.cn/hc/zh-CN/articles/207987789616 "飞书邮箱管理员使用手册")
+            *   [在飞书上使用邮箱的 4 种方案](https://www.feishu.cn/hc/zh-CN/articles/670282738496 "在飞书上使用邮箱的 4 种方案")
+            *   [启用新的飞书邮箱服务](https://www.feishu.cn/hc/zh-CN/articles/791791470063 "启用新的飞书邮箱服务")
+            *   [发信限制规则介绍](https://www.feishu.cn/hc/zh-CN/articles/329462350714 "发信限制规则介绍")
+            *   [企业邮箱管理功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/853447936583 "企业邮箱管理功能更新日志")
+
+        *   [邮箱搬家](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799511359438850) 
+            *   [第三方邮箱迁移至飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/815511323958 "第三方邮箱迁移至飞书邮箱")
+            *   [腾讯企业邮箱迁移到飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/353943398340 "腾讯企业邮箱迁移到飞书邮箱")
+            *   [阿里企业邮箱迁移到飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/673894994112 "阿里企业邮箱迁移到飞书邮箱")
+            *   [网易企业邮箱迁移到飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/865748886465 "网易企业邮箱迁移到飞书邮箱")
+            *   [管理员将 Microsoft 365 或本地部署 Exchange 邮箱迁移至飞书邮箱](https://www.feishu.cn/hc/zh-CN/articles/669274915245 "管理员将 Microsoft 365 或本地部署 Exchange 邮箱迁移至飞书邮箱")
+            *   [为 Outlook 邮箱搬家配置授权账号（Microsoft 365 版本）](https://www.feishu.cn/hc/zh-CN/articles/683979331615 "为 Outlook 邮箱搬家配置授权账号（Microsoft 365 版本）")
+            *   [为 Outlook 邮箱搬家配置授权账号（本地部署 Exchange 版本）](https://www.feishu.cn/hc/zh-CN/articles/891249638716 "为 Outlook 邮箱搬家配置授权账号（本地部署 Exchange 版本）")
+            *   [邮箱迁移过程中业务系统 SMTP 更换指南](https://www.feishu.cn/hc/zh-CN/articles/221905160046 "邮箱迁移过程中业务系统 SMTP 更换指南")
+            *   [第三方邮箱 IMAP/SMTP 地址和端口](https://www.feishu.cn/hc/zh-CN/articles/360049067809 "第三方邮箱 IMAP/SMTP 地址和端口")
+            *   [管理员在不同域名之间进行邮箱搬家](https://www.feishu.cn/hc/zh-CN/articles/521680521891 "管理员在不同域名之间进行邮箱搬家")
+            *   [在邮箱搬家时开启 Office 365 的基本身份验证](https://www.feishu.cn/hc/zh-CN/articles/090523342992 "在邮箱搬家时开启 Office 365 的基本身份验证")
+            *   [在 Microsoft Azure 后台配置全局管理员账号](https://www.feishu.cn/hc/zh-CN/articles/017691978165 "在 Microsoft Azure 后台配置全局管理员账号")
+            *   [邮箱搬家验证失败怎么办？](https://www.feishu.cn/hc/zh-CN/articles/615095823061 "邮箱搬家验证失败怎么办？")
+            *   [企业邮箱搬家漏掉部分成员、邮件怎么办？](https://www.feishu.cn/hc/zh-CN/articles/033997299851 "企业邮箱搬家漏掉部分成员、邮件怎么办？")
+            *   [邮箱搬家常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049067810 "邮箱搬家常见问题")
+
+        *   [域名管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799670432661506) 
+            *   [管理员管理邮箱域名常见问题](https://www.feishu.cn/hc/zh-CN/articles/360048318654 "管理员管理邮箱域名常见问题")
+            *   [管理员进行 DNS 配置](https://www.feishu.cn/hc/zh-CN/articles/360049067888 "管理员进行 DNS 配置")
+            *   [管理员在火山引擎上调整 DNS 配置](https://www.feishu.cn/hc/zh-CN/articles/706206993931 "管理员在火山引擎上调整 DNS 配置")
+            *   [管理员在阿里云上调整 DNS 设置](https://www.feishu.cn/hc/zh-CN/articles/360049067803 "管理员在阿里云上调整 DNS 设置")
+            *   [管理员在 DNSpod 上调整 DNS 设置](https://www.feishu.cn/hc/zh-CN/articles/360049067806 "管理员在 DNSpod 上调整 DNS 设置")
+            *   [管理员如何在华为云上调整 DNS 设置？](https://www.feishu.cn/hc/zh-CN/articles/360049067805 "管理员如何在华为云上调整 DNS 设置？")
+            *   [管理员在 GoDaddy 上调整 DNS 配置](https://www.feishu.cn/hc/zh-CN/articles/360049067804 "管理员在 GoDaddy 上调整 DNS 配置")
+            *   [管理员配置包含多个服务器地址的 SPF 记录](https://www.feishu.cn/hc/zh-CN/articles/786646942518 "管理员配置包含多个服务器地址的 SPF 记录")
+            *   [管理员在腾讯企业邮箱替换域名](https://www.feishu.cn/hc/zh-CN/articles/065370624239 "管理员在腾讯企业邮箱替换域名")
+            *   [管理员在网易企业邮箱替换域名](https://www.feishu.cn/hc/zh-CN/articles/263741961949 "管理员在网易企业邮箱替换域名")
+            *   [管理员管理邮箱域名别名](https://www.feishu.cn/hc/zh-CN/articles/360049067556 "管理员管理邮箱域名别名")
+            *   [管理员删除邮箱域名常见问题](https://www.feishu.cn/hc/zh-CN/articles/035842079774 "管理员删除邮箱域名常见问题")
+
+        *   [成员邮箱管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057799806664015874) 
+            *   [管理员配置成员的企业邮箱地址](https://www.feishu.cn/hc/zh-CN/articles/360049066573 "管理员配置成员的企业邮箱地址")
+            *   [管理员修改成员的企业邮箱地址](https://www.feishu.cn/hc/zh-CN/articles/360049067887 "管理员修改成员的企业邮箱地址")
+            *   [管理员为成员添加企业邮箱别名](https://www.feishu.cn/hc/zh-CN/articles/360049067882 "管理员为成员添加企业邮箱别名")
+            *   [管理员在数据报表中查看成员邮箱使用情况](https://www.feishu.cn/hc/zh-CN/articles/326206253328 "管理员在数据报表中查看成员邮箱使用情况")
+            *   [管理员转移离职成员的邮件](https://www.feishu.cn/hc/zh-CN/articles/715885646166 "管理员转移离职成员的邮件")
+            *   [分配企业邮箱时，提示与登录账号冲突怎么办？](https://www.feishu.cn/hc/zh-CN/articles/541206204028 "分配企业邮箱时，提示与登录账号冲突怎么办？")
+
+        *   [邮件组管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800006459293698) 
+            *   [管理员创建邮件组](https://www.feishu.cn/hc/zh-CN/articles/360049067762 "管理员创建邮件组")
+            *   [管理员批量导入和导出邮件组信息](https://www.feishu.cn/hc/zh-CN/articles/439095566469 "管理员批量导入和导出邮件组信息")
+            *   [管理员开启邮件组审核](https://www.feishu.cn/hc/zh-CN/articles/538434075934 "管理员开启邮件组审核")
+            *   [添加邮件组管理员](https://www.feishu.cn/hc/zh-CN/articles/091327310378 "添加邮件组管理员")
+
+        *   [公共邮箱管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800144074424348) 
+            *   [管理员创建公共邮箱收发邮件](https://www.feishu.cn/hc/zh-CN/articles/360049067763 "管理员创建公共邮箱收发邮件")
+            *   [管理员批量导入和导出公共邮箱](https://www.feishu.cn/hc/zh-CN/articles/848431381615 "管理员批量导入和导出公共邮箱")
+            *   [管理员添加公共邮箱或邮件组别名](https://www.feishu.cn/hc/zh-CN/articles/776540664224 "管理员添加公共邮箱或邮件组别名")
+            *   [管理员删除公共邮箱和释放邮箱地址](https://www.feishu.cn/hc/zh-CN/articles/913177236113 "管理员删除公共邮箱和释放邮箱地址")
+
+        *   [邮箱管理工具](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7062292591676489730) 
+            *   [管理员配置邮件自动转发](https://www.feishu.cn/hc/zh-CN/articles/779711637362 "管理员配置邮件自动转发")
+            *   [管理员开启第三方邮箱客户端登录设置](https://www.feishu.cn/hc/zh-CN/articles/360049068017 "管理员开启第三方邮箱客户端登录设置")
+            *   [管理员开启邮件导出功能](https://www.feishu.cn/hc/zh-CN/articles/843529814310 "管理员开启邮件导出功能")
+            *   [管理员使用邮件缓存功能](https://www.feishu.cn/hc/zh-CN/articles/986545044270 "管理员使用邮件缓存功能")
+            *   [管理员限制成员外发邮件](https://www.feishu.cn/hc/zh-CN/articles/324731948494 "管理员限制成员外发邮件")
+            *   [管理员设置邮件大规模发送提醒](https://www.feishu.cn/hc/zh-CN/articles/108643021511 "管理员设置邮件大规模发送提醒")
+            *   [管理员配置企业签名模板](https://www.feishu.cn/hc/zh-CN/articles/101200248115 "管理员配置企业签名模板")
+            *   [管理员设置企业注脚](https://www.feishu.cn/hc/zh-CN/articles/791695586813 "管理员设置企业注脚")
+            *   [管理员查询邮件收发记录](https://www.feishu.cn/hc/zh-CN/articles/426445859340 "管理员查询邮件收发记录")
+            *   [管理员进行邮件数据管理](https://www.feishu.cn/hc/zh-CN/articles/959599040579 "管理员进行邮件数据管理")
+            *   [成员的飞书邮箱无法接收邮件怎么办？](https://www.feishu.cn/hc/zh-CN/articles/875569252485 "成员的飞书邮箱无法接收邮件怎么办？")
+
+        *   [安全与反垃圾](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800429043777538) 
+            *   [管理员使用邮箱黑名单功能](https://www.feishu.cn/hc/zh-CN/articles/735661419187 "管理员使用邮箱黑名单功能")
+            *   [管理员使用邮箱白名单功能](https://www.feishu.cn/hc/zh-CN/articles/183125916507 "管理员使用邮箱白名单功能")
+            *   [邮箱黑白名单支持的 IP、IP 段和通配符](https://www.feishu.cn/hc/zh-CN/articles/610191072259 "邮箱黑白名单支持的 IP、IP 段和通配符")
+            *   [管理员解决白名单添加地址或域名后不生效问题](https://www.feishu.cn/hc/zh-CN/articles/722313545908 "管理员解决白名单添加地址或域名后不生效问题")
+            *   [管理员配置防钓鱼伪造策略](https://www.feishu.cn/hc/zh-CN/articles/297362727231 "管理员配置防钓鱼伪造策略")
+            *   [管理员为域名配置 DKIM](https://www.feishu.cn/hc/zh-CN/articles/386580981044 "管理员为域名配置 DKIM ")
+            *   [管理员为域名配置 DMARC](https://www.feishu.cn/hc/zh-CN/articles/726331581389 "管理员为域名配置 DMARC")
+            *   [管理员设置外部邮件警示](https://www.feishu.cn/hc/zh-CN/articles/594706998335 "管理员设置外部邮件警示")
+            *   [管理员设置邮件保护规则](https://www.feishu.cn/hc/zh-CN/articles/360049067936 "管理员设置邮件保护规则")
+            *   [管理员设置邮件流规则](https://www.feishu.cn/hc/zh-CN/articles/279210016072 "管理员设置邮件流规则")
+            *   [飞书邮箱隔离区](https://www.feishu.cn/hc/zh-CN/articles/929580888148 "飞书邮箱隔离区")
+            *   [管理员管理隔离区](https://www.feishu.cn/hc/zh-CN/articles/037052327149 "管理员管理隔离区")
+            *   [管理员审核隔离区邮件](https://www.feishu.cn/hc/zh-CN/articles/516258884180 "管理员审核隔离区邮件")
+
+        *   [邮箱数据合规](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7057800285946675201) 
+            *   [管理员设置邮件路由入站网关](https://www.feishu.cn/hc/zh-CN/articles/403047075069 "管理员设置邮件路由入站网关")
+            *   [管理员设置邮件路由出站网关](https://www.feishu.cn/hc/zh-CN/articles/877212879302 "管理员设置邮件路由出站网关")
+
+    *   [日历管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571232247810) 
+        *   [管理员设置日历权限](https://www.feishu.cn/hc/zh-CN/articles/316811644508 "管理员设置日历权限")
+        *   [管理员设置日程人数管控](https://www.feishu.cn/hc/zh-CN/articles/357160205487 "管理员设置日程人数管控")
+        *   [管理员创建并管理全员日历](https://www.feishu.cn/hc/zh-CN/articles/360049067696 "管理员创建并管理全员日历")
+        *   [管理员在 Exchange 后台配置邮件域名白名单](https://www.feishu.cn/hc/zh-CN/articles/332636150444 "管理员在 Exchange 后台配置邮件域名白名单")
+        *   [管理员在 Google Workspace 后台配置邮件域名白名单](https://www.feishu.cn/hc/zh-CN/articles/948455701962 "管理员在 Google Workspace 后台配置邮件域名白名单")
+        *   [管理员配置 Google 日历与飞书日历的双向同步](https://www.feishu.cn/hc/zh-CN/articles/071816947155 "管理员配置 Google 日历与飞书日历的双向同步")
+        *   [第三方日历同步：管理员手册](https://www.feishu.cn/hc/zh-CN/articles/079695875192 "第三方日历同步：管理员手册")
+
+    *   [服务台管理](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571240701979) 
+        *   [企业管理员管理服务台](https://www.feishu.cn/hc/zh-CN/articles/360042558954 "企业管理员管理服务台")
+        *   [企业管理员查看服务台数据](https://www.feishu.cn/hc/zh-CN/articles/355200364595 "企业管理员查看服务台数据")
+
+*   [费用中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571303551004) 
+    *   [飞书定价版本介绍](https://www.feishu.cn/hc/zh-CN/articles/360049067600 "飞书定价版本介绍")
+    *   [管理员自助购买飞书付费版本](https://www.feishu.cn/hc/zh-CN/articles/936313194152 "管理员自助购买飞书付费版本")
+    *   [管理员线上购买扩容包](https://www.feishu.cn/hc/zh-CN/articles/360048487013 "管理员线上购买扩容包")
+    *   [管理员查看并支付订单](https://www.feishu.cn/hc/zh-CN/articles/913736516947 "管理员查看并支付订单")
+    *   [管理员在线申请发票和合同](https://www.feishu.cn/hc/zh-CN/articles/360049067528 "管理员在线申请发票和合同")
+    *   [管理员管理席位](https://www.feishu.cn/hc/zh-CN/articles/548377434838 "管理员管理席位")
+
+*   [存储空间](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7398133270640115715) 
+    *   [管理员查看企业存储容量并清理存储空间](https://www.feishu.cn/hc/zh-CN/articles/728807030651 "管理员查看企业存储容量并清理存储空间")
+    *   [管理员设置存储空间使用上限](https://www.feishu.cn/hc/zh-CN/articles/653416815625 "管理员设置存储空间使用上限")
+
+*   [安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571253235739) 
+    *   [策略中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7584366050821541050) 
+        *   [策略中心特殊管控场景说明](https://www.feishu.cn/hc/zh-CN/articles/730459818828 "策略中心特殊管控场景说明")
+
+    *   [安全中心](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7442602601897541636) 
+        *   [管理员使用成员异常功能](https://www.feishu.cn/hc/zh-CN/articles/963318746351 "管理员使用成员异常功能")
+        *   [管理员使用文档异常功能](https://www.feishu.cn/hc/zh-CN/articles/642571906257 "管理员使用文档异常功能")
+
+    *   [成员权限](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7217764720110174236) 
+        *   [管理员设置沟通协作权限](https://www.feishu.cn/hc/zh-CN/articles/360049067482 "管理员设置沟通协作权限")
+        *   [管理员管理组织架构可见范围](https://www.feishu.cn/hc/zh-CN/articles/360049067480 "管理员管理组织架构可见范围")
+        *   [管理员设置成员字段可见范围](https://www.feishu.cn/hc/zh-CN/articles/360049067481 "管理员设置成员字段可见范围")
+        *   [管理员设置搜索权限](https://www.feishu.cn/hc/zh-CN/articles/405946781714 "管理员设置搜索权限")
+        *   [管理员设置成员对外沟通权限](https://www.feishu.cn/hc/zh-CN/articles/308867175966 "管理员设置成员对外沟通权限")
+        *   [管理员操作云文档设置](https://www.feishu.cn/hc/zh-CN/articles/360042749154 "管理员操作云文档设置")
+        *   [管理员为成员设置文件操作权限](https://www.feishu.cn/hc/zh-CN/articles/791060103354 "管理员为成员设置文件操作权限")
+        *   [管理员设置文档权限默认值](https://www.feishu.cn/hc/zh-CN/articles/265017155035 "管理员设置文档权限默认值")
+        *   [管理员设置云文档信息流通度](https://www.feishu.cn/hc/zh-CN/articles/690541490413 "管理员设置云文档信息流通度")
+
+    *   [账号安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7174711040785661980) 
+        *   [管理员开启两步验证](https://www.feishu.cn/hc/zh-CN/articles/480863598792 "管理员开启两步验证")
+        *   [管理员如何管理成员登录方式](https://www.feishu.cn/hc/zh-CN/articles/523718439325 "管理员如何管理成员登录方式")
+        *   [管理员管理成员登录密码](https://www.feishu.cn/hc/zh-CN/articles/375210701431 "管理员管理成员登录密码")
+        *   [管理员设置成员登录有效期](https://www.feishu.cn/hc/zh-CN/articles/538280274631 "管理员设置成员登录有效期")
+        *   [管理员设置多端同登](https://www.feishu.cn/hc/zh-CN/articles/124160085067 "管理员设置多端同登")
+        *   [管理员配置 SAML 2.0 SSO 登录（以 Okta IdP 为例）](https://www.feishu.cn/hc/zh-CN/articles/360049067599 "管理员配置 SAML 2.0 SSO 登录（以 Okta IdP 为例）")
+        *   [管理员配置 SAML 2.0 SSO 登录（以 Google Workspace IdP 为例）](https://www.feishu.cn/hc/zh-CN/articles/335787416164 "管理员配置 SAML 2.0 SSO 登录（以 Google Workspace IdP 为例）")
+        *   [管理员配置 SAML 2.0 SSO 登录（以 Microsoft Entra ID 为例）](https://www.feishu.cn/hc/zh-CN/articles/523565009942 "管理员配置 SAML 2.0 SSO 登录（以 Microsoft Entra ID 为例）")
+        *   [使用 SSO 登录飞书](https://www.feishu.cn/hc/zh-CN/articles/360043576234 "使用 SSO 登录飞书")
+
+    *   [访问安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7577615299738864845) 
+        *   [管理员使用链接安全](https://www.feishu.cn/hc/zh-CN/articles/100245062684 "管理员使用链接安全")
+
+    *   [终端安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7171017953935589378) 
+        *   [管理员设置移动端文件加密](https://www.feishu.cn/hc/zh-CN/articles/007430218049 "管理员设置移动端文件加密")
+        *   [管理员设置粘贴保护](https://www.feishu.cn/hc/zh-CN/articles/613380686308 "管理员设置粘贴保护")
+        *   [管理员设置截屏录屏保护](https://www.feishu.cn/hc/zh-CN/articles/428390929435 "管理员设置截屏录屏保护")
+        *   [管理员设置文件安全检测](https://www.feishu.cn/hc/zh-CN/articles/546317756517 "管理员设置文件安全检测")
+
+    *   [网络安全](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7217798108483616796) 
+        *   [管理员管理网络围栏](https://www.feishu.cn/hc/zh-CN/articles/807018538338 "管理员管理网络围栏")
+
+    *   [数据保护](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6986610564965416961) 
+        *   [管理员设置密级标签](https://www.feishu.cn/hc/zh-CN/articles/681363834397 "管理员设置密级标签")
+        *   [管理员设置全局水印](https://www.feishu.cn/hc/zh-CN/articles/360042748734 "管理员设置全局水印")
+        *   [管理员基于组织架构设置水印](https://www.feishu.cn/hc/zh-CN/articles/843678469255 "管理员基于组织架构设置水印")
+
+    *   [部署与加密](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7171018621525229569) 
+        *   [自主密钥基础版与高级版的对比](https://www.feishu.cn/hc/zh-CN/articles/922446567072 "自主密钥基础版与高级版的对比")
+        *   [管理员使用自主密钥（基础版）](https://www.feishu.cn/hc/zh-CN/articles/860825466804 "管理员使用自主密钥（基础版）")
+        *   [管理员使用自主密钥（高级版）](https://www.feishu.cn/hc/zh-CN/articles/480210033668 "管理员使用自主密钥（高级版）")
+        *   [第三方密钥产品介绍](https://www.feishu.cn/hc/zh-CN/articles/461203444730 "第三方密钥产品介绍")
+        *   [管理员为数据私有化启用兜底配置](https://www.feishu.cn/hc/zh-CN/articles/561220753549 "管理员为数据私有化启用兜底配置")
+        *   [如何使用数据私有化流量看板](https://www.feishu.cn/hc/zh-CN/articles/609351385607 "如何使用数据私有化流量看板")
+        *   [数据私有化存储空间的查看和告警机制](https://www.feishu.cn/hc/zh-CN/articles/654915868933 "数据私有化存储空间的查看和告警机制")
+        *   [管理员配置文件加解密集成](https://www.feishu.cn/hc/zh-CN/articles/486497709952 "管理员配置文件加解密集成")
+
+*   [合规](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7217798286952906753) 
+    *   [日志审计](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413324582046629892) 
+        *   [管理员查看管理员日志](https://www.feishu.cn/hc/zh-CN/articles/877442708521 "管理员查看管理员日志")
+        *   [管理员使用 OpenAPI 日志](https://www.feishu.cn/hc/zh-CN/articles/675705685125 "管理员使用 OpenAPI 日志")
+        *   [管理员进行成员行为审计](https://www.feishu.cn/hc/zh-CN/articles/686190340856 "管理员进行成员行为审计")
+        *   [成员行为审计查询事件说明](https://www.feishu.cn/hc/zh-CN/articles/796512972564 "成员行为审计查询事件说明")
+        *   [管理员进行 People 行为审计](https://www.feishu.cn/hc/zh-CN/articles/589375738598 "管理员进行 People 行为审计")
+        *   [People 行为审计事件说明](https://www.feishu.cn/hc/zh-CN/articles/402038803440 "People 行为审计事件说明")
+        *   [管理员查看密钥管理日志](https://www.feishu.cn/hc/zh-CN/articles/899006621675 "管理员查看密钥管理日志")
+
+    *   [权限审计](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413324929854717955) 
+        *   [管理员使用权限审计](https://www.feishu.cn/hc/zh-CN/articles/152388446470 "管理员使用权限审计")
+        *   [管理员建立权限查询任务](https://www.feishu.cn/hc/zh-CN/articles/303898525054 "管理员建立权限查询任务")
+
+    *   [数据保险箱](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7457117882619822084) 
+        *   [管理员使用数据保留](https://www.feishu.cn/hc/zh-CN/articles/229673951244 "管理员使用数据保留")
+        *   [管理员使用运算符](https://www.feishu.cn/hc/zh-CN/articles/274721790010 "管理员使用运算符")
+
+    *   [内容合规](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413325292243222531) 
+        *   [管理员配置内容合规](https://www.feishu.cn/hc/zh-CN/articles/966546847701 "管理员配置内容合规")
+
+    *   [数据驻留](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7413325625341263876) 
+        *   [数据驻留地功能介绍](https://www.feishu.cn/hc/zh-CN/articles/668865966127 "数据驻留地功能介绍")
+        *   [管理员设置成员数据驻留地](https://www.feishu.cn/hc/zh-CN/articles/302771207155 "管理员设置成员数据驻留地")
+
+    *   [隐私设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7600329111558425780) 
+        *   [管理员关闭设备地理位置信息权限](https://www.feishu.cn/hc/zh-CN/articles/974462198746 "管理员关闭设备地理位置信息权限")
+        *   [管理员设置移动端通知消息预览](https://www.feishu.cn/hc/zh-CN/articles/193923612413 "管理员设置移动端通知消息预览")
+
+*   [数据报表](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336865314455748636) 
+    *   [管理员查看应用使用数据](https://www.feishu.cn/hc/zh-CN/articles/436290455066 "管理员查看应用使用数据")
+    *   [管理员查看成员活跃数据和功能使用情况](https://www.feishu.cn/hc/zh-CN/articles/360043131974 "管理员查看成员活跃数据和功能使用情况")
+
+*   [企业文化](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170982556362391554) 
+    *   [品牌配置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336928996195696642) 
+        *   [管理员配置专属品牌显示](https://www.feishu.cn/hc/zh-CN/articles/124202937808 "管理员配置专属品牌显示")
+        *   [管理员如何配置下载引导](https://www.feishu.cn/hc/zh-CN/articles/780460331908 "管理员如何配置下载引导")
+        *   [管理员如何配置“帮助与客服”入口](https://www.feishu.cn/hc/zh-CN/articles/472974613419 "管理员如何配置“帮助与客服”入口")
+        *   [管理员配置客户端“关于”功能模块](https://www.feishu.cn/hc/zh-CN/articles/191305691214 "管理员配置客户端“关于”功能模块")
+
+    *   [功能配置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336929210985889820) 
+        *   [管理员配置客户端导航栏](https://www.feishu.cn/hc/zh-CN/articles/360049067840 "管理员配置客户端导航栏")
+        *   [管理员基于用户组配置导航栏](https://www.feishu.cn/hc/zh-CN/articles/770805519816 "管理员基于用户组配置导航栏")
+        *   [管理员配置云文档顶栏企业文化提示语](https://www.feishu.cn/hc/zh-CN/articles/741904402988 "管理员配置云文档顶栏企业文化提示语")
+        *   [管理员配置聊天输入框提示语](https://www.feishu.cn/hc/zh-CN/articles/335139505400 "管理员配置聊天输入框提示语")
+        *   [管理员配置飞书移动端开屏](https://www.feishu.cn/hc/zh-CN/articles/075025551889 "管理员配置飞书移动端开屏")
+        *   [管理员配置应用缓存](https://www.feishu.cn/hc/zh-CN/articles/151279115345 "管理员配置应用缓存")
+        *   [管理员配置客户端皮肤](https://www.feishu.cn/hc/zh-CN/articles/836781638028 "管理员配置客户端皮肤")
+        *   [管理员上传并管理企业勋章](https://www.feishu.cn/hc/zh-CN/articles/301996260813 "管理员上传并管理企业勋章")
+        *   [管理员上传并管理企业表情贴图](https://www.feishu.cn/hc/zh-CN/articles/141366045824 "管理员上传并管理企业表情贴图")
+        *   [企业表情贴图制作及上传规范](https://www.feishu.cn/hc/zh-CN/articles/360049068046 "企业表情贴图制作及上传规范")
+        *   [管理员配置企业自定义表情符号](https://www.feishu.cn/hc/zh-CN/articles/883916780204 "管理员配置企业自定义表情符号")
+        *   [企业表情符号制作及上传规范](https://www.feishu.cn/hc/zh-CN/articles/553091891174 "企业表情符号制作及上传规范")
+        *   [管理员发放企业红包](https://www.feishu.cn/hc/zh-CN/articles/367741500630 "管理员发放企业红包")
+        *   [红包封面设计规范](https://www.feishu.cn/hc/zh-CN/articles/050142108832 "红包封面设计规范")
+        *   [管理员添加企业红包封面](https://www.feishu.cn/hc/zh-CN/articles/153731606067 "管理员添加企业红包封面")
+
+    *   [企业文化常见问题](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336929485440188417) 
+        *   [企业专属表情包常见问题](https://www.feishu.cn/hc/zh-CN/articles/360049068045 "企业专属表情包常见问题")
+        *   [红包封面上传常见问题](https://www.feishu.cn/hc/zh-CN/articles/091538820081 "红包封面上传常见问题")
+
+*   [企业设置](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6933474571102191643) 
+    *   [企业信息](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336939829231517724) 
+        *   [管理员修改企业信息](https://www.feishu.cn/hc/zh-CN/articles/360043180534 "管理员修改企业信息")
+        *   [企业创建人解散企业](https://www.feishu.cn/hc/zh-CN/articles/167461183593 "企业创建人解散企业")
+
+    *   [管理员权限](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7170980647976370178) 
+        *   [管理员类型和角色介绍](https://www.feishu.cn/hc/zh-CN/articles/927897012636 "管理员类型和角色介绍")
+        *   [管理员创建管理员角色及分配权限](https://www.feishu.cn/hc/zh-CN/articles/360043495213 "管理员创建管理员角色及分配权限")
+        *   [设置超级管理员](https://www.feishu.cn/hc/zh-CN/articles/360045350634 "设置超级管理员")
+        *   [转移企业创建人身份](https://www.feishu.cn/hc/zh-CN/articles/360043485013 "转移企业创建人身份")
+        *   [管理员定制管理后台无权限引导页](https://www.feishu.cn/hc/zh-CN/articles/622732813519 "管理员定制管理后台无权限引导页")
+        *   [管理员使用管理后台任务中心](https://www.feishu.cn/hc/zh-CN/articles/453435968597 "管理员使用管理后台任务中心")
+        *   [管理员设置超级管理员的敏感权限隔离](https://www.feishu.cn/hc/zh-CN/articles/913041296181 "管理员设置超级管理员的敏感权限隔离")
+        *   [管理员在管理后台使用搜索](https://www.feishu.cn/hc/zh-CN/articles/856825778389 "管理员在管理后台使用搜索")
+        *   [管理员使用人事管理模式](https://www.feishu.cn/hc/zh-CN/articles/492303220149 "管理员使用人事管理模式")
+
+    *   [组织架构数据同步](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7366961493595979780) 
+        *   [组织架构数据同步介绍](https://www.feishu.cn/hc/zh-CN/articles/145315497885 "组织架构数据同步介绍")
+        *   [管理员同步钉钉组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/369910872834 "管理员同步钉钉组织架构数据到飞书")
+        *   [管理员同步企业微信组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/477188073259 "管理员同步企业微信组织架构数据到飞书")
+        *   [管理员同步 Google Workspace 组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/271126901829 "管理员同步 Google Workspace 组织架构数据到飞书")
+        *   [管理员同步 Entra ID 组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/551589835558 "管理员同步 Entra ID 组织架构数据到飞书")
+        *   [管理员同步 Okta 组织架构数据到飞书](https://www.feishu.cn/hc/zh-CN/articles/527839043690 "管理员同步 Okta 组织架构数据到飞书")
+        *   [管理员通过 SCIM 2.0 同步组织架构数据](https://www.feishu.cn/hc/zh-CN/articles/121592347312 "管理员通过 SCIM 2.0 同步组织架构数据")
+        *   [组织架构数据同步常见问题](https://www.feishu.cn/hc/zh-CN/articles/409303801123 "组织架构数据同步常见问题")
+
+    *   [风险控制](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7336940136996880386) 
+        *   [管理员设置敏感操作保护](https://www.feishu.cn/hc/zh-CN/articles/167891666379 "管理员设置敏感操作保护")
+        *   [管理员设置机密成员保护](https://www.feishu.cn/hc/zh-CN/articles/187937458256 "管理员设置机密成员保护")
+
+    *   [版本升级提醒](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7415954211639607300) 
+        *   [管理员配置版本升级提醒与限制登录](https://www.feishu.cn/hc/zh-CN/articles/988775465719 "管理员配置版本升级提醒与限制登录")
+
+*   [功能实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6934168707576905755) 
+    *   [场景实践](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=7171268624529932289) 
+        *   [飞书安全最佳实践：对“待离职”成员的安全管理配置](https://www.feishu.cn/hc/zh-CN/articles/451789504373 "飞书安全最佳实践：对“待离职”成员的安全管理配置")
+        *   [功能实践：管理员清理企业和成员数据](https://www.feishu.cn/hc/zh-CN/articles/524895953707 "功能实践：管理员清理企业和成员数据")
+        *   [大型组织解决方案](https://www.feishu.cn/hc/zh-CN/articles/967983976195 "大型组织解决方案")
+        *   [用好这 3 招，成员激活飞书更高效！](https://www.feishu.cn/hc/zh-CN/articles/121741109619 "用好这 3 招，成员激活飞书更高效！")
+        *   [3 个方法，帮管理员轻松推广飞书！](https://www.feishu.cn/hc/zh-CN/articles/529384630736 "3 个方法，帮管理员轻松推广飞书！")
+        *   [一图带你设置管理后台](https://www.feishu.cn/hc/zh-CN/articles/119786110316 "一图带你设置管理后台")
+        *   [关联组织功能实践](https://www.feishu.cn/hc/zh-CN/articles/762346821295 "关联组织功能实践")
+        *   [7 个渠道，给员工同步重要信息](https://www.feishu.cn/hc/zh-CN/articles/641121625866 "7 个渠道，给员工同步重要信息")
+        *   [提升企业凝聚力，管理员能做什么？](https://www.feishu.cn/hc/zh-CN/articles/723970110429 "提升企业凝聚力，管理员能做什么？")
+        *   [巧用 7 种方法，避免重复解答员工提问](https://www.feishu.cn/hc/zh-CN/articles/208039554618 "巧用 7 种方法，避免重复解答员工提问")
+        *   [怎样灵活设置权限，保护企业信息安全？](https://www.feishu.cn/hc/zh-CN/articles/940584192376 "怎样灵活设置权限，保护企业信息安全？")
+        *   [要汇报工作了，管理员怎样查看各项数据？](https://www.feishu.cn/hc/zh-CN/articles/688654221847 "要汇报工作了，管理员怎样查看各项数据？")
+        *   [机器人可以提醒管理员审核哪些事项？](https://www.feishu.cn/hc/zh-CN/articles/732710771819 "机器人可以提醒管理员审核哪些事项？")
+        *   [哪些重复性操作，管理员可以批量处理？](https://www.feishu.cn/hc/zh-CN/articles/431979694824 "哪些重复性操作，管理员可以批量处理？")
+        *   [员工要离职，管理员需要做什么？](https://www.feishu.cn/hc/zh-CN/articles/093954078213 "员工要离职，管理员需要做什么？")
+        *   [飞书全员培训难？快用视频课机器人助手模板](https://www.feishu.cn/hc/zh-CN/articles/336153051076 "飞书全员培训难？快用视频课机器人助手模板")
+
+*   [更新日志](https://www.feishu.cn/hc/zh-CN/categories-detail?category-id=6999559269796364290) 
+    *   [飞书管理后台功能更新日志](https://www.feishu.cn/hc/zh-CN/articles/360049067487 "飞书管理后台功能更新日志")
+
+简体中文
+
+English
+
+[![Image 9](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ec090d13c05142508f47228ec31aef55~tplv-jbbdkfciu3-image:0:0.image)](javascript:void(0);)[](https://weibo.com/u/7223713567)[](https://www.zhihu.com/org/fei-shu-27-96/activities)[](https://www.toutiao.com/c/user/3073831497904140/)[![Image 10: social](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d58453d89da34a179ac64a94d4c136f5~tplv-jbbdkfciu3-image:0:0.image)](https://web.okjike.com/u/b02229cb-9242-4a7f-9ec7-8a8cacb2142c)
+
+Copyright © 2024 北京飞书科技有限公司[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 11](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image) 京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+rangeDom
+
+购买咨询
+
+一对一专业企业顾问
+
+工作日 09:00 - 18:00 在线服务
+
+[预约顾问 免费获取专属服务 填写表单享功能配置等服务](https://www.feishu.cn/salessupport?from=helpcenter_hover)
+
+![Image 12](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=21b4f096-1020-42a3-8c99-9444de9dfbb7&bo=1&sid=973bd4f059c611f1b0506f5d0ebab1fd&vid=973be97059c611f1a9915db26e716a07&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E9%A3%9E%E4%B9%A6%E5%AE%9A%E4%BB%B7%E7%89%88%E6%9C%AC%E4%BB%8B%E7%BB%8D&kw=%E5%9F%BA%E7%A1%80%E7%89%88,%E5%95%86%E4%B8%9A%E7%89%88,%E4%BC%81%E4%B8%9A%E7%89%88,%E9%A3%9E%E4%B9%A6%E7%89%88%E6%9C%AC,%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB&p=https%3A%2F%2Fwww.feishu.cn%2Fhc%2Fzh-CN%2Farticles%2F360049067600-%25E9%25A3%259E%25E4%25B9%25A6%25E5%25AE%259A%25E4%25BB%25B7%25E7%2589%2588%25E6%259C%25AC%25E4%25BB%258B%25E7%25BB%258D&r=&lt=3628&evt=pageLoad&sv=2&cdb=AQAQ&rn=865278)

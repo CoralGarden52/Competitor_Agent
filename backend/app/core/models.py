@@ -205,6 +205,7 @@ class ReworkTicket(BaseModel):
     deadline: str = ''
     acceptance_criteria: list[str] = Field(default_factory=list)
     status: TicketStatus = TicketStatus.created
+    domain_extensions: dict[str, Any] = Field(default_factory=dict)
 
     @model_validator(mode='after')
     def validate_rework_ticket(self):
@@ -364,16 +365,33 @@ class DraftOutput(BaseModel):
     report: Report
 
 
+class QACollectPlanItem(BaseModel):
+    competitor: str
+    field_name: str
+    reason: str
+    query_list: list[str] = Field(default_factory=list, min_length=2, max_length=4)
+    priority: int = Field(default=1, ge=1, le=10)
+
+
+class QACollectPlan(BaseModel):
+    enabled: bool = False
+    items: list[QACollectPlanItem] = Field(default_factory=list)
+    global_notes: str = ''
+
+
 class QAOutput(BaseModel):
     passed: bool
     issues: list[ReworkIssue] = Field(default_factory=list)
     target_agent: Literal['Collect', 'Analyze', 'Draft'] | None = None
     ticket: ReworkTicket | None = None
+    collect_plan: QACollectPlan | None = None
 
     @model_validator(mode='after')
     def validate_qa_output(self):
         if not self.passed and self.target_agent is None:
             raise ValueError('target_agent is required when QA fails')
+        if (not self.passed) and self.target_agent == 'Collect' and self.collect_plan is None:
+            raise ValueError('collect_plan is required when QA fails and target_agent=Collect')
         return self
 
 

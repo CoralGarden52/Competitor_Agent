@@ -1,0 +1,423 @@
+# 免費Office 套件，適用於Word、Excel、PDF 與PPT | Kingsoft WPS ...
+
+Title: 免費 Office 套件，適用於 Word、Excel、PDF 與 PPT | Kingsoft WPS Office
+
+URL Source: https://zh-hant.wps.com/
+
+Markdown Content:
+# 免費 Office 套件，適用於 Word、Excel、PDF 與 PPT | Kingsoft WPS Office
+
+[](https://zh-hant.wps.com/)
+
+產品 
+
+探索工具 
+
+[下載](https://zh-hant.wps.com/download/)
+
+[價格](https://zh-hant.wps.com/buy/)
+
+資源中心 
+
+支援 
+
+[企業版](https://365.wps.com/)
+
+[免費下載](https://zh-hant.wps.com/)[登入](https://zh-hant.wps.com/)[免費下載](https://zh-hant.wps.com/)
+
+# 全新 AI 驅動 Office 套件
+
+隨時隨地創建、編輯、轉換、協作文檔
+
+WPS Office，一款專為日常工作打造的免費 Office 套件，將 Writer、Spreadsheet、Presentation 與 PDF 整合在一起，並結合 AI Copilot、Cloud Docs 與流暢的多裝置同步。
+
+免費下載
+
+Docs
+
+Slides
+
+Sheets
+
+PDF
+
+WPS AI
+
+AI Slides
+
+AirPage
+
+AirSheet
+
+Forms
+
+DBSheet
+
+Windows
+
+Mac
+
+iPad
+
+iOS
+
+Android
+
+Linux
+
+### 在日常工作中使用 AI
+
+透過內建於日常辦公任務中的 AI 工具，更快速地撰寫、摘要、分析與創作。
+
+### 更高效地協作
+
+分享連結、即時共同編輯、與團隊成員留言討論，並讓每項變更自動同步。
+
+### 跨檔案類型工作
+
+開啟、編輯與轉換 Office、PDF 和 Google Docs 檔案，格式呈現更順暢，額外步驟更少。
+
+深受數百萬使用者信賴
+
+![Image 1: Trusted by leading organizations worldwide](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/slogan_trust_logo.auhc0_nj.png)
+
+## WPS AI 內建於每項任務
+
+每項 AI 功能都對應您工作流程中的真實情境，而不是您永遠不會使用的展示功能。
+
+WPS Docs
+
+### 快速從想法產生初稿
+
+從簡單提示開始撰寫，讓 AI 在過程中協助您架構、潤飾並擴充內容。
+
+![Image 2: 快速從想法產生初稿](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/ai-docs-generate-report.Cw2GyBgi.jpg)
+
+WPS Slides
+
+### 一鍵生成可以簡報的投影片
+
+從簡短描述或現有檔案建立完整簡報，且可完全編輯。
+
+![Image 3: 一鍵生成可以簡報的投影片](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/ai-slides-generate-profile.DmaH_Zi1.jpg)
+
+WPS Sheets
+
+### 立即理解您的資料
+
+分析資料、產生圖表並自動摘要洞察，將原始數字轉為清晰可用的報告。
+
+![Image 4: 立即理解您的資料](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/ai-sheets-summary.BtlKDYtE.jpg)
+
+WPS PDF
+
+### 與 PDF 順暢協作，而非受其限制
+
+無需逐頁閱讀，即可摘要文件、提出問題並擷取關鍵資訊。
+
+![Image 5: 與 PDF 順暢協作，而非受其限制](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/ai-pdf-extract-keypoint.CqiG8srM.jpg)
+
+WPS Docs, Sheets, Slides
+
+### 保持文件整潔且一致
+
+自動優化版面與格式，讓文件看起來更有結構、更專業，並可立即分享。
+
+![Image 6: 保持文件整潔且一致](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/ai-docs-format.DqPXF9AW.jpg)
+
+WPS AI
+
+### 數秒內理解文件
+
+直接從文件中提問、取得摘要並擷取關鍵洞察。
+
+![Image 7: 數秒內理解文件](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/ai-assistant-chat.CdTkOj-F.jpg)
+
+## 一個用於團隊協作的雲端工作空間
+
+Kingsoft WPS Office 將團隊文件、意見回饋與更新連結在同一個工作空間中。
+
+![Image 8: 雲端文件](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-cloud-docs.Dc4W3rlY.jpg)![Image 9: 即時共同編輯](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-realtime-editing.DD1HN7GS.jpg)![Image 10: 團隊工作空間](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-team-workspace.BQuhSqVC.jpg)![Image 11: 智慧分享與權限控管](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-smart-sharing.Fx6PiOFz.jpg)
+
+### 雲端文件
+
+隨時隨地存取文件，在所有裝置上即時同步，並將一切整理在共享雲端工作空間中。
+
+![Image 12: 雲端文件](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-cloud-docs.Dc4W3rlY.jpg)
+
+### 即時共同編輯
+
+共同編輯、查看即時游標、加入註解、用表情符號回應，並在共享文件中立即追蹤變更。
+
+![Image 13: 即時共同編輯](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-realtime-editing.DD1HN7GS.jpg)
+
+### 團隊工作空間
+
+將團隊聚集在統一的數位空間中，讓專案、檔案與溝通都集中於同一處。
+
+![Image 14: 團隊工作空間](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-team-workspace.BQuhSqVC.jpg)
+
+### 智慧分享與權限控管
+
+透過精準的存取權限分享文件——設定誰可以檢視、留言或編輯，並可隨時撤銷存取權。
+
+![Image 15: 智慧分享與權限控管](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/collab-smart-sharing.Fx6PiOFz.jpg)
+
+## WPS Office：一站式生產力套件
+
+WPS Office 以統一的生產力套件取代分散的軟體。透過單一輕量應用程式，無縫存取 Writer、Spreadsheet、Presentation、PDF 與 Photo。
+
+![Image 16: PDF](blob:http://localhost/30f7e37f2434fe0f9df76a043ac25160)PDF
+
+### 無需額外工具即可處理 PDF
+
+在同一處檢視、編輯、轉換並簽署 PDF。使用 Kingsoft Office 的可靠工具簡化文件流程。
+
+[了解更多](https://zh-hant.wps.com/office/pdf/)
+
+![Image 17: 無需額外工具即可處理 PDF](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/allinone_img_pdf.C-Kv6a5i.png)
+
+![Image 18: 投影片](blob:http://localhost/288920caf9d66d866de4df29a1965333)投影片
+
+### 自信呈現想法
+
+為會議、提案與課堂設計清晰且吸引人的簡報。使用 WPS Office App 無縫建立並呈現投影片。
+
+[了解更多](https://zh-hant.wps.com/office/presentation/)
+
+![Image 19: 自信呈現想法](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/allinone_img_slides.BNaETSwm.png)
+
+![Image 20: 試算表](blob:http://localhost/5962390a2d807b7ba024e013019ebc86)試算表
+
+### 將資料轉化為清晰決策
+
+輕鬆整理資料、建立圖表並管理預算。在專為實際任務打造的免費 Office 套件中，享受強大且直覺的體驗。
+
+[了解更多](https://zh-hant.wps.com/office/spreadsheet/)
+
+![Image 21: 將資料轉化為清晰決策](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/allinone_img_spreadsheet.40MmKlLh.png)
+
+![Image 22: Writer](blob:http://localhost/e16e361845a5f6b1a37761b5e44fec93)Writer
+
+### 自信撰寫
+
+輕鬆撰寫、編輯並協作處理文件。在專為實際任務打造的免費 Office 套件中，享受強大且直覺的體驗。
+
+[了解更多](https://zh-hant.wps.com/office/writer/)
+
+![Image 23: 自信撰寫](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/allinone_img_writer.C4NV2HQX.png)
+
+![Image 24: 圖片](blob:http://localhost/c98b5ad95b55503cfcb0f730cf7a0776)圖片
+
+### 輕鬆編輯並優化圖片
+
+為文件、簡報與分享裁剪、標註並優化圖片。這款輕量工具可在 WPS web 與 desktop 上順暢運作。
+
+![Image 25: 輕鬆編輯並優化圖片](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/allinone_img_photo.C2SPFBw8.png)
+
+[探索所有功能](https://zh-hant.wps.com/office/)
+
+## 您的資料安全。
+
+我們的核心使命。
+
+![Image 26: ISO 20000, ISO 27001, ISO 27018, ISO 27017, ISO 27701, GDPR, AWS certifications](https://global-static.wpscdn.com/cms/official-website/v2/_nuxt/secure_iso.D10kbnle.png)
+
+![Image 27: 安全的資料保護](blob:http://localhost/49a80295bb1fef8d0ace33c19d87e14f)
+
+### 安全的資料保護
+
+在建立、分享與協作過程中，以加密傳輸與安全儲存保護檔案。
+
+![Image 28: 全球合規標準](blob:http://localhost/24c85869eec0d136deec031a38812697)
+
+### 全球合規標準
+
+支援符合 GDPR 與 ISO 等國際標準的隱私與安全實務。
+
+![Image 29: 隱私優先的 AI 工作流程](blob:http://localhost/a8f7b4b945776e57c75d063ed7f54617)
+
+### 隱私優先的 AI 工作流程
+
+讓文件與提示詞由您掌控，未經許可絕不會用於 AI 訓練。
+
+![Image 30: 可靠的雲端基礎架構](blob:http://localhost/c3e2f6047b8ae9d6781b92986858ba99)
+
+### 可靠的雲端基礎架構
+
+透過安全的雲端儲存、備份與復原功能，讓工作內容可隨時存取並受到保護。
+
+## 專家信賴，使用者實證
+
+體驗從手動作業到智慧創作的轉變。WPS 軟體是您每項任務的協作夥伴。
+
+KOL 影片 創作者怎麼說
+
+公關與媒體 科技媒體與產業評論
+
+G2 使用者 來自日常使用者的真實回饋
+
+![Image 31: partner-1](blob:http://localhost/c758f7a1b374d6d6c8fc7e9311f60d86)
+
+![Image 32: partner-2](blob:http://localhost/c0ee150eab4eb41c6ad2edc1d460c3cd)
+
+![Image 33: partner-3](blob:http://localhost/f9040652a09d95d7e9d70519f703c6c2)
+
+![Image 34: partner-4](blob:http://localhost/93fc3fb074f4934161622a5c41699842)
+
+![Image 35: partner-5](blob:http://localhost/190fcb5714f126389e46daa05fc1a692)
+
+![Image 36: partner-6](blob:http://localhost/56ddec32c21da78be941873b2a9b2eed)
+
+![Image 37: partner-7](blob:http://localhost/f25453d9747f665c500733bacdc7eabe)
+
+![Image 38: partner-8](blob:http://localhost/c2ece6f68ad461531369456cdeda634b)
+
+![Image 39: partner-9](blob:http://localhost/765409c3fca9fc978e869b745066597d)
+
+![Image 40: partner-10](blob:http://localhost/d570ce787e95946866f39011a1f34991)
+
+![Image 41: partner-11](blob:http://localhost/e2f927c137832f41898a7e264137460f)
+
+![Image 42: partner-12](blob:http://localhost/48f8c239ba550a4a51b7524c60527acc)
+
+![Image 43: partner-13](blob:http://localhost/ebf4a3e8a2f97d3276948a4c4f148d2f)
+
+![Image 44: partner-14](blob:http://localhost/c52136f9091ba7c9fd5c1706a92f41d3)
+
+![Image 45: partner-15](blob:http://localhost/b8344fcafe3db102246e9bb1cc899232)
+
+![Image 46: partner-16](blob:http://localhost/5b3ce75548e1232ae9d0e4e809a8d0cd)
+
+![Image 47: partner-17](blob:http://localhost/9a8afe60ff9aa5a4c752c2b526a7dfbb)
+
+![Image 48: partner-18](blob:http://localhost/7f9f5f6ea52ebd7a4a252024fc9f6257)
+
+![Image 49: partner-1](blob:http://localhost/c758f7a1b374d6d6c8fc7e9311f60d86)
+
+![Image 50: partner-2](blob:http://localhost/c0ee150eab4eb41c6ad2edc1d460c3cd)
+
+![Image 51: partner-3](blob:http://localhost/f9040652a09d95d7e9d70519f703c6c2)
+
+![Image 52: partner-4](blob:http://localhost/93fc3fb074f4934161622a5c41699842)
+
+![Image 53: partner-5](blob:http://localhost/190fcb5714f126389e46daa05fc1a692)
+
+![Image 54: partner-6](blob:http://localhost/56ddec32c21da78be941873b2a9b2eed)
+
+![Image 55: partner-7](blob:http://localhost/f25453d9747f665c500733bacdc7eabe)
+
+![Image 56: partner-8](blob:http://localhost/c2ece6f68ad461531369456cdeda634b)
+
+![Image 57: partner-9](blob:http://localhost/765409c3fca9fc978e869b745066597d)
+
+![Image 58: partner-10](blob:http://localhost/d570ce787e95946866f39011a1f34991)
+
+![Image 59: partner-11](blob:http://localhost/e2f927c137832f41898a7e264137460f)
+
+![Image 60: partner-12](blob:http://localhost/48f8c239ba550a4a51b7524c60527acc)
+
+![Image 61: partner-13](blob:http://localhost/ebf4a3e8a2f97d3276948a4c4f148d2f)
+
+![Image 62: partner-14](blob:http://localhost/c52136f9091ba7c9fd5c1706a92f41d3)
+
+![Image 63: partner-15](blob:http://localhost/b8344fcafe3db102246e9bb1cc899232)
+
+![Image 64: partner-16](blob:http://localhost/5b3ce75548e1232ae9d0e4e809a8d0cd)
+
+![Image 65: partner-17](blob:http://localhost/9a8afe60ff9aa5a4c752c2b526a7dfbb)
+
+![Image 66: partner-18](blob:http://localhost/7f9f5f6ea52ebd7a4a252024fc9f6257)
+
+## WPS 最新消息
+
+掌握我們最新功能、社群活動與生產力技巧。
+
+最新功能
+
+### 探索更多 WPS Office 工具
+
+探索更多 WPS Office 線上工具，更快速地編輯、轉換並管理文件——一站完成。
+
+[AI 故事產生器](https://zh-hant.wps.com/tools/ai-story-generator/)
+
+[AI 文字產生器](https://zh-hant.wps.com/tools/ai-text-generator/)
+
+[JPG 轉 Excel](https://zh-hant.wps.com/tools/jpg-to-excel/)
+
+[PDF 翻譯器](https://zh-hant.wps.com/tools/translate-pdf/)
+
+最新動態
+
+### Excel 中的 Claude 將 AI 帶入試算表
+
+了解 Claude 在 Excel 中的運作方式、它可為公式、資料分析與自動化帶來哪些功能，以及 WPS Spreadsheet 如何提供更簡單的內建 AI 替代方案。
+
+[立即閱讀](https://www.wps.com/blog/claude-in-excel-ai-powered-spreadsheet-assistant-complete-guide/)
+
+教學
+
+### 如何使用 WPS Copilot - 專業人士實用指南
+
+探索 WPS AI 的核心功能，從 AI 寫作與文件分析，到投影片建立、Excel 公式與更智慧的日常工作流程。
+
+[立即閱讀](https://www.wps.com/academy/wps-copilot-practical-guide-quick-tutorials-1898623/)
+
+[查看所有新聞](https://zh-hant.wps.com/blog/)
+
+## 適用於所有工作的 AI Office 套件
+
+加入超過 500 萬個已改用 WPS 的團隊，打造更專注、統一的工作空間。
+
+免費下載
+
+[](https://zh-hant.wps.com/)
+WPS SOFTWARE PTE. LTD. 
+
+ 6 RAFFLES QUAY #14-06. 
+
+SINGAPORE(048580)
+
+### 產品
+
+*   [Windows 版 WPS Office](https://zh-hant.wps.com/office/windows/)
+*   [Mac 版 WPS Office](https://zh-hant.wps.com/office/mac/)
+*   [Android 版 WPS Office](https://zh-hant.wps.com/office/android/)
+*   [iOS 版 WPS Office](https://zh-hant.wps.com/office/ios/)
+*   [Linux 版 WPS Office](https://zh-hant.wps.com/office/linux/)
+*   [教育版 WPS Office](https://zh-hant.wps.com/education/)
+
+### 公司
+
+*   [關於我們](https://zh-hant.wps.com/about-us/)
+*   [商務合作](https://zh-hant.wps.com/strategic-partner/)
+*   [合作夥伴](https://zh-hant.wps.com/partners-oem/)
+*   [隱私政策](https://zh-hant.wps.com/privacy-policy/)
+*   [全球信賴](https://zh-hant.wps.com/partnership-customer-stories/)
+
+### 支援
+
+*   [幫助中心](https://help.wps.com/)
+*   [WPS 學院](https://www.wps.com/academy/)
+*   [技術規格](https://zh-hant.wps.com/tech-specs/)
+
+### Follow us
+
+[![Image 67: Social Icon](https://global-static.wpscdn.com/cms/official-website/v1/img/circle_facebook.2ab50d3.svg)](https://www.facebook.com/kingsoftwps)[![Image 68: Social Icon](https://global-static.wpscdn.com/cms/official-website/v1/img/circle_twitter.be63f89.svg)](https://x.com/WPS_Office)[![Image 69: Social Icon](https://global-static.wpscdn.com/cms/official-website/v1/img/circle_youtube.226033c.svg)](https://www.youtube.com/wpsofficeofficial)
+
+產品
+
+公司
+
+支援
+
+### Follow us
+
+[![Image 70: Social Icon](https://global-static.wpscdn.com/cms/official-website/v1/img/circle_facebook.2ab50d3.svg)](https://www.facebook.com/kingsoftwps)[![Image 71: Social Icon](https://global-static.wpscdn.com/cms/official-website/v1/img/circle_twitter.be63f89.svg)](https://x.com/WPS_Office)[![Image 72: Social Icon](https://global-static.wpscdn.com/cms/official-website/v1/img/circle_youtube.226033c.svg)](https://www.youtube.com/wpsofficeofficial)
+
+繁體中文
+版權所有 © Kingsoft Office Software，保留所有權利。
+
+![Image 73: Udesk](blob:http://localhost/cb7d78b9d375f6af836d42d1a36dc648)
+
+![Image 74: Scroll to top](blob:http://localhost/a9276051baa0519c31ed1b64d141e8fb)

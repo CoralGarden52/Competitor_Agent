@@ -1,0 +1,283 @@
+# 金山办公的“双面”财报：在套利和套路之间选择套娃 - 维科号V
+
+Title: 金山办公的“双面”财报：在套利和套路之间选择套娃 - 维科号V
+
+URL Source: https://mp.ofweek.com/ai/a056714733577
+
+Markdown Content:
+# 金山办公的“双面”财报：在套利和套路之间选择套娃 - 维科号V
+
+[APP下载](https://www.ofweek.com/app/)|[关于维科号](https://mp.ofweek.com/index/aboutus.html)|[用户反馈](https://mp.ofweek.com/index/feedback_type.html)|[OFweek首页](https://www.ofweek.com/)
+
+[登录](https://mp.ofweek.com/index/login_member.html)|[注册](https://mp.ofweek.com/browser/index)
+
+ 发表 
+
+[![Image 1](https://mp.ofweek.com/Public/Home/images/toutiao/header-pub01.png)文章](https://mp.ofweek.com/article/publish.html)[![Image 2](https://mp.ofweek.com/Public/Home/images/toutiao/header-pub02.png)微头条](https://mp.ofweek.com/micro/publish.html)[![Image 3](https://mp.ofweek.com/Public/Home/images/toutiao/header-pub03.png)视频](https://mp.ofweek.com/home/video/publish)[![Image 4](https://mp.ofweek.com/Public/Home/images/toutiao/header-pub04.png)提问](https://mp.ofweek.com/ask)
+
+[投稿](https://mp.ofweek.com/Contribute/index)
+
+[![Image 5](https://mp.ofweek.com/Public/Home/images/index-logo.png?v=1779884719)](https://mp.ofweek.com/)
+
+[首页 /](https://mp.ofweek.com/)[人工智能 /](https://mp.ofweek.com/ctrade/ai)正文
+
+*   发文
+*   评论
+*   微博
+*   空间
+*   微信 
+
+# 金山办公的“双面”财报：在套利和套路之间选择套娃
+
+![Image 6](https://mp.ofweek.com/Upload/News/Img/member99959890/202305/202305081407443887.png)正见TrueView 2025-04-16 09:44[发文](https://mp.ofweek.com/article/publish.html)
+
+![Image 7](https://mp.ofweek.com/Upload/News/Img/member99959890/202504/wx_article__b38ac5db861655c388b7f03c4cc0f742.jpg)
+
+有消费者感叹，爱优腾的超前点播和金山的付费套路相比，简直不值一提。
+
+**内容/沐哲**
+
+**编辑/咏鹅**
+
+**校对/莽夫**
+
+AI技术正成为办公软件市场的新变量，带来效率与产品革新，但尚未“革命”掉厂商们的发展逻辑与困境。
+
+赛道头部玩家金山办公近期交出了一份亮眼的2024年财务答卷，营收和净利润双增长，营业收入达到51.21亿元，同比增长12.40%；归属于母公司所有者净利润为16.45亿元，同比增长24.84%，盈利能力稳步提升。
+
+金山办公还同步披露了2024年度利润分派预案，计划向全体股东每10股派发现金红利9.00元（含税），预计合计派发现金红利4.16亿元（含税）。
+
+然而，这份光鲜的成绩单背后，却因“套娃式收费”陷入舆论漩涡。用户一边为AI功能付费，一边被层层会员体系套牢，质疑声此起彼伏。财报显示，2024年WPS个人业务业务全年收入达32.83亿元，同比增长18.00%。
+
+当盈利能力遭遇舆论争议，金山办公的业务增长模式，究竟是一场创新突围，还是过度逐利的商业冒险？
+
+**Part.1**
+
+**套娃收费影响用户体验**
+
+去年，WPS因会员权益付费和AI功能问题引发消费者不满，相关话题引发广泛讨论。黑猫投诉平台数据显示，有关“WPS”的投诉量已超9000条。
+
+有用户反映：“原本是普通会员，很多功能不能用，所以开通了WPS超级会员，本以为能使用AI功能，结果现在又要升级为大会员才行。”
+
+![Image 8](https://mp.ofweek.com/Upload/News/Img/member99959890/202504/wx_article__a94383e77dd903e6fbe80e3a25a3ea97.jpg)
+
+小红书上也有不少博主和用户吐槽，有人称：“一次性买了六年超级会员，想着能使用AI排版，结果被告知要开大会员，购买时条款写得清楚，现在却变了。”
+
+![Image 9](https://mp.ofweek.com/Upload/News/Img/member99959890/202504/wx_article__212cfa2764cf4d93c13c6527e94e6690.jpg)
+
+还有人提到：“开了会员，一段时间没注意，会员体系又变了。”
+
+WPS曾设置过多种会员类型，如普通会员、超级会员、稻壳会员、超级会员Pro、AI会员、大会员等，每档会员解锁的权限不同，部分权益也有差异，而未充值会员的用户权益十分有限。
+
+WPS采用免费基础功能+付费高级服务的商业化模式，其付费策略被部分用户称为“套娃模式”。从基础的文档编辑权限，到高级的文档格式转换、云空间扩容等功能，很多常见操作都被设置为单独付费项目。付费层级繁杂、功能拆分细致，如同层层套娃，导致用户在不知不觉中多次消费。
+
+另外，官方对会员层级的说明不够清晰透明。有的用户以为开通超级会员就能“解锁所有功能”，但像特殊模板、简历和PPT美化模板、大文件云存储扩容（超出会员额度后按需购买）、高级PDF转换等常用功能，批量转换还需按次收费，实际使用时却发现这些功能需额外购买，与超级会员并不互通，而且提示弹窗较多，严重影响用户体验。
+
+最常用的“PDF高级编辑”功能仅在Pro版提供，但用户购买前需仔细对比条款才能发现这一差异。
+
+有消费者感叹，爱优腾的超前点播和金山的付费套路相比，简直不值一提。虽说是否付费取决于个人对功能的需求以及对复杂订阅体系的容忍度，但即便付费购买了众多功能，但实际使用中很多功能并不常用。
+
+针对消费者的不满，2023年4月，金山办公调整了原有会员体系，推出单独的WPS AI会员，价格为248元/年；将“WPS会员”、“稻壳会员”整合为“WPS超级会员”，价格为148元/年。2024年4月，又推出价格更高的“大会员”，为348元/年，“大会员”包含AI权益，原超级会员用户可补差价升级为大会员。
+
+在升级过程中，WPS被用户发现存在大数据杀熟问题。平台利用大数据分析用户的消费习惯和能力，向不同用户推送不同的会员升级价格。对于长期依赖WPS且消费意愿较高的老用户，在推出新的付费服务或会员升级活动时，给予的优惠力度远不及新用户。
+
+在采访老用户小王时，她表示自己是超级会员Pro，同事是超级会员，她每月会员费比同事多5元。如今升级大会员，同事每月只需花8.3元，而她作为超级会员Pro却需交5元/月，算下来比同事多花了一块多，感觉自己被“算计”了，心里很不是滋味。
+
+这种区别对待的做法，让老用户感到寒心，觉得自己的忠诚度没有得到应有的回报。对此，WPS客服解释称，这是系统根据用户会员剩余时长不同，计算出的补差价不同。
+
+除此之外，WPS的自动续费陷阱也遭到不少网友吐槽。其优惠价通常仅限首年，次年起自动按原价续费。有网友开通连续扣费会员后，想取消时却发现中途退出需要退还之前享受的优惠金额，十分不划算。而且，自动续费的取消流程复杂且隐蔽，其自动扣费服务并未在支付宝或微信的自动扣费设置中显示，用户需要联系[苹果](https://mp.ofweek.com/ai/a056714733577)客服或打开相应交易订单，点开查看详情才能找到关闭渠道。
+
+![Image 10](https://mp.ofweek.com/Upload/News/Img/member99959890/202504/wx_article__1c1f66341d275a298c1119d834c14d51.jpg)
+
+还有不少用户反映，自己在不知情的情况下遭遇自动付费扣款，联系WPS客服却很难联系上，即便联系上了，申请退款也困难重重。
+
+由此可见，WPS通过精细化分层收费获取最大化商业收益。在电脑端，WPS和微软的市场份额相近；在手机端，WPS在国内的市场份额最高可达90%。正因如此，WPS在收费上较为“大胆”，但这无疑增加了用户的选择成本和隐性支出，难免被用户吐槽吃相难看，甚至引发了新华社、人民日报的关注和点评。
+
+不少用户看清WPS的套路后，转而选择使用office，因为office软件功能全面，且不存在二次付费问题。
+
+此外，随着越来越多的用户倾向于使用云文档进行协同办公和多人协作，WPS还面临着来自在线文档的竞争，其竞争对手包括飞书云文档、腾讯文档、石墨文档等。如果没有这些竞争对手，WPS的收费行为可能会更加“肆无忌惮”。
+
+无论如何，AI诱导下的套娃付费模式本质上是在透支用户信任，不仅影响用户忠诚度，还会损害产品的长期价值。
+
+**Part.2**
+
+**套娃收费背后的行业困境**
+
+WPS套娃式收费的背后，或是金山在AI领域真金白银研发投入后急于看到成果的无奈之举。
+
+在AI办公时代，各大互联网巨头纷纷布局，抢占市场。阿里推出“通义千问”、[百度](https://mp.ofweek.com/ai/a056714733577)有“文心一言”、腾讯有“混元”、字节跳动有“豆包”，金山作为国内办公软件的龙头企业，自然也推出了WPS AI办公助手，包含AI写作助手、AI阅读助手、AI数据助手、AI设计助手等功能，旨在提升用户办公效率。
+
+市场竞争激烈，金山加码押注AI。财报显示，2024年，金山办公研发投入16.96亿元，占收入比约33%，研发费用同比增长15.16%。
+
+但实际使用WPS AI的用户数量并不多，在WPS电脑版和手机端月度活跃设备数分别为2.70亿、3.29亿的情况下，WPS AI月度活跃用户数只有1968万。其中，最热门的“论文大纲”指令累计使用次数仅12.6万次，排名第二的“PPT大纲生成”累计使用量仅7.2万次。
+
+![Image 11](https://mp.ofweek.com/Upload/News/Img/member99959890/202504/wx_article__c647e9aa64e0db0ef1ae0d17df3b3ffc.jpg)
+
+不少用户认为，WPS AI生成的文字套路化、公式化严重，还需要自己进一步修改；生成的PPT效果也不理想，仍需大量人工调整，使用体验不佳。
+
+虽然WPSAI具备多种文字风格，但对于媒体、广告行业工作者来说，其行文风格还是偏固化，无法满足甲方多样化的要求，创作效果难以达到预期，实用性有待提高。
+
+最重要的是，市面上的AI办公软件众多，WPS AI并不具备显著优势。从功能定义来看，各家都将AI产品定位为智能办公助手，功能涵盖整理会议记录、生成数据表格、制作演示文件、文案创作、人机交互、多模态内容生成等，功能上大同小异。只不过不同公司推出的模型各有擅长方向，有的擅长文档处理，有的擅长代码生成。
+
+但在价格方面，通义千问、豆包、混元处于免费阶段；科大讯飞的“讯飞星火”对个人用户免费，企业用户收费；文心一言大模型3.5版本免费，4.0专业版会员连续包月费用为49.9元，相比之下，金山的收费价格偏高。
+
+此外，今年DeepSeek的出现给行业带来巨大冲击，各行各业掀起接入热潮，这使得走上会员付费之路的AI大模型陷入过早商业化的被动局面，WPS AI面临着前所未有的挑战。
+
+在技术红利期，AI大模型能帮助WPS带来一定的商业增量，市场也理解AI研发成本高昂，深耕AI领域需要大量资金投入。但与较高收费形成鲜明对比的是，WPS AI的综合表现并不突出，甚至还曾陷入窃取用户隐私的风波。
+
+![Image 12](https://mp.ofweek.com/Upload/News/Img/member99959890/202504/wx_article__73e2c2c93d3dba22761a3fa911203720.jpg)
+
+WPS曾被指有权使用用户上传的个人数据档案作为AI大模型的训练素材，此事引发网友的强烈谴责。
+
+若不是及时进行公关，声明公司并无此意图，恐怕会陷入企业与消费者双输的局面。
+
+面对C端用户口碑下滑和公司业绩增长的压力，金山亟需反思。
+
+**Part.3**
+
+**办公软件市场的新路径探索**
+
+从长远来看，AI技术应用能够为各行各业注入强劲的内生成长动力，实现降本增效。金山于2024年推出WPS 365。该产品基于“Office+协作+AI”组合，深耕B端市场，帮助客户实现AI大模型的开箱即用。
+
+其一站式AI办公平台能够助力企业完成模型调用、知识沉淀与辅助决策的闭环，尤其受到国企和大型民营企业的青睐，这类企业对相关软件的需求巨大。
+
+根据金山办公财报，WPS 365业务表现出色，作为独立科目首次出现在财务报表中。2024年，该业务收入达4.37亿元，业务覆盖金融、制造、互联网等多个领域。
+
+不过，在B端市场金山也面临着激烈的竞争，钉钉便是其中一个强有力的对手。如今的钉钉不再局限于提供信息查询、日程管理等基础服务，而是引入AI大模型，率先接入DeepSeek，推出通义千问大模型版AI智能体，还涵盖AI短视频助理、AI PPT助理等诸多实用工具。其AI企业用户数超220万，覆盖制造、医疗、金融、零售等20个一级行业。
+
+同时，腾讯文档在与WPS在C端存在竞争的同时，也在不断拓展B端市场。有人对比发现，腾讯文档AI的功能更为丰富，提供了更多的内容类别提示菜单。用户可以让腾讯文档AI帮忙生成方案报告、年度总结、周报等内容。
+
+尤其是在策划方案、广告文案撰写方面，腾讯文档AI生成的内容更具传播性和人情味；而WPS AI则更注重内容生成和全文分析，撰写各类文案报告逻辑性较强，各板块较为均衡。
+
+深耕AI技术为金山办公打开了新的增长空间，但“套娃收费”的争议与用户体验的割裂，也为这家老牌办公软件企业敲响了警钟。在激烈的市场竞争中，用户的选择愈发多元，从微软Office到飞书、钉钉，替代品层出不穷。若无法平衡商业利益与用户需求，金山或将在技术迭代的洪流中逐渐失去护城河。
+
+面对C端用户口碑下滑和业绩增长的压力，金山办公需要在收费策略、用户体验和技术创新之间找到更好的平衡。而在AI时代办公软件市场未来谁又将独占鳌头，尚未到终局。
+
+声明：本文为OFweek维科号作者发布，不代表OFweek维科号立场。如有侵权或其他问题，请及时联系我们举报。
+
+[金山办公](https://mp.ofweek.com/keyword/3119)/[WPS](https://mp.ofweek.com/search/index?keywords=WPS)
+
+[侵权举报](https://mp.ofweek.com/ai/a056714733577)收藏
+
+ 评论 1
+
+2
+
+1 条
+
+评论
+
+评论
+
+*   [![Image 13](https://mp.ofweek.com/Upload/News/Img/member3229/201801/201801221101526715.png)](https://mp.ofweek.com/m923431803234)[非工不控](https://mp.ofweek.com/m923431803234)2025-04-16 17:38 广东 
+现在所有的会员体系都是越来越复杂，越来越诡计多端
+
+回复 [举报](https://mp.ofweek.com/ai/a056714733577)_0_   [![Image 14](https://mp.ofweek.com/Public/Home/images/userAvatar.png)](https://mp.ofweek.com/micro/m58907462130) 发表  查看更多  
+
+查看更多评论
+
+没有更多评论了
+
+## 相关阅读
+
+*   ### [爆金山办公内部员工可免费用多个“小龙虾”](https://mp.ofweek.com/ai/a656714352627)[![Image 15](https://mp.ofweek.com/Upload/News/Img/member99958277/202212/202212272217186911.png)慢放](https://mp.ofweek.com/m267897879958)04月10日 0 [评论](https://mp.ofweek.com/ai/a656714352627#comment) 
+*   ### [WPS为AI装上“智能解析大脑”](https://mp.ofweek.com/ai/a856714679577)[![Image 16](https://mp.ofweek.com/Upload/News/Img/member99960373/202512/wx_article__80166a931b083ace90e62fbf95250099_208_134_thumb.jpg)![Image 17](https://mp.ofweek.com/Upload/News/Img/member99960373/202512/wx_article__431dbe60b9fc98e41a9982c3da780a7a_208_134_thumb.jpg)![Image 18](https://mp.ofweek.com/Upload/News/Img/member99960373/202512/wx_article__42ba72db9ef08cd3db436caaaad80227_208_134_thumb.jpg)](https://mp.ofweek.com/ai/a856714679577)[![Image 19](https://mp.ofweek.com/Upload/News/Img/member99960373/202406/202406231045533320.png)唐辰同学](https://mp.ofweek.com/m367893079968)2025年12月25日 0 [评论](https://mp.ofweek.com/ai/a856714679577#comment) 
+*   ### [不止于「国家队」认证：WPS要定义AI时代的新协同办公](https://mp.ofweek.com/ai/a956714068517)[![Image 20](https://mp.ofweek.com/Upload/News/Img/member34930/202510/20210243430882_208_134_thumb.png)![Image 21](https://mp.ofweek.com/Upload/News/Img/member34930/202510/20210249511181_208_134_thumb.png)![Image 22](https://mp.ofweek.com/Upload/News/Img/member34930/202510/20210254899344_208_134_thumb.png)](https://mp.ofweek.com/ai/a956714068517)[![Image 23](https://mp.ofweek.com/Upload/News/Img/member34930/202007/202007291013517295.png)节点财经](https://mp.ofweek.com/m034532019435)2025年10月21日 0 [评论](https://mp.ofweek.com/ai/a956714068517#comment) 
+*   ### [WPS灵犀AI办公智能体，能否挑战微软？](https://mp.ofweek.com/ai/a156714106547)[![Image 24](https://mp.ofweek.com/Upload/News/Img/member99957103/202508/wx_article__87155345ea082ef6cfb999f12c87e75c_208_134_thumb.jpg)![Image 25](https://mp.ofweek.com/Upload/News/Img/member99957103/202508/wx_article__e089e2dcfaac9bd6450c9de5b5a081e8_208_134_thumb.jpg)![Image 26](https://mp.ofweek.com/Upload/News/Img/member99957103/202508/wx_article__214b628e45a657ca46e596ca28b18f46_208_134_thumb.jpg)](https://mp.ofweek.com/ai/a156714106547)[![Image 27](https://mp.ofweek.com/Upload/News/Img/member99957103/202210/202210111057516761.png)芯流智库](https://mp.ofweek.com/m167893709958)2025年08月06日 2 [评论](https://mp.ofweek.com/ai/a156714106547#comment) 
+*   [![Image 28](https://mp.ofweek.com/Upload/News/Img/member35589/202507/wx_article__89d2a92acebd2b8ef33b1c4d5a65c853_208_134_thumb.jpg)](https://mp.ofweek.com/ai/a556714756527)### [金山办公发布原生Office智能体WPS灵犀，田然：教会AI与软件深度交流，输出可用内容｜WAIC2025](https://mp.ofweek.com/ai/a556714756527)[![Image 29](https://mp.ofweek.com/Upload/News/Img/member35589/202008/202008241846128205.png)财经涂鸦](https://mp.ofweek.com/m034532915585)2025年07月31日 0 [评论](https://mp.ofweek.com/ai/a556714756527#comment) 
+
+[![Image 30](https://mp.ofweek.com/Upload/Newad/Img/member47893/202605/6a042d753e7fa.jpg)](https://forms.ofweek.com/Form/preview/form_id/2378)
+
+### [维科杯•OFweek 2026中国智能制造行业年度评选](https://forms.ofweek.com/Form/preview/form_id/2378)
+
+    *   推广
+    *   [OFweek维科网](https://mp.ofweek.com/m034542318795)
+
+*   ### [AI办公的效率革命，金山办公从未被颠覆](https://mp.ofweek.com/ai/a456714336527)[![Image 31](https://mp.ofweek.com/Upload/News/Img/member44406/202507/30132223910834_208_134_thumb.jpg)![Image 32](https://mp.ofweek.com/Upload/News/Img/member44406/202507/30132223464292_208_134_thumb.jpg)![Image 33](https://mp.ofweek.com/Upload/News/Img/member44406/202508/01090631164951_208_134_thumb.png)](https://mp.ofweek.com/ai/a456714336527)[![Image 34](https://mp.ofweek.com/Upload/News/Img/member44406/202104/202104291439513940.png)光锥智能](https://mp.ofweek.com/m034542614405)2025年07月30日 0 [评论](https://mp.ofweek.com/ai/a456714336527#comment) 
+
+暂无数据
+
+![Image 35](https://mp.ofweek.com/Public/Home/images/detail/loading_1.gif)
+
+[![Image 36](https://mp.ofweek.com/Upload/News/Img/member99959890/202305/202305081407443887.png)](https://mp.ofweek.com/m867890999958)## [正见TrueView](https://mp.ofweek.com/m867890999958)
+正见TrueView--去看见，...
+
+[![Image 37](https://mp.ofweek.com/Upload/News/Img/member99959890/202305/202305081407443887.png)](https://mp.ofweek.com/m867890999958)## [正见TrueView](https://mp.ofweek.com/m867890999958)
+
+[![Image 38](https://d1.ofweek.com/www/images/bc7617d8cc6e1e0ca7b53818e63df0d2.jpg)](https://d1.ofweek.com/www/delivery/ck.php?oaparams=2__bannerid=9629__zoneid=2289__cb=ef5a1d3df2__oadest=https%3A%2F%2Fmp.ofweek.com%2FInternet%2Fa656714013627)
+
+![Image 39](https://d1.ofweek.com/www/delivery/lg.php?bannerid=9629&campaignid=2779&zoneid=2289&loc=https%3A%2F%2Fmp.ofweek.com%2Fai%2Fa056714733577&cb=ef5a1d3df2)
+
+推荐商品
+
+[![Image 40: 粉尘浓度仪](https://mallimages.ofweek.com/Upload/product/2026/04/22/thumb_900_900_268a4a7316b0795a777d3560f70f3368.jpg) 粉尘浓度仪](https://mall.ofweek.com/6905.html "粉尘浓度仪")[![Image 41: 四方光电NMP气体检测器](https://mallimages.ofweek.com/Upload/product/2026/04/22/thumb_900_900_7ea1d88959ee5eb4e938ddd484e7f68f.jpg) 四方光电NMP气体检测器](https://mall.ofweek.com/6904.html "四方光电NMP气体检测器")[![Image 42: 激光粒子计数传感器PM5100](https://mallimages.ofweek.com/Upload/product/2026/04/01/thumb_900_900_1fc2dc40d62e1db454fc3ed4d86e5943.jpg) 激光粒子计数传感器PM5100](https://mall.ofweek.com/6903.html "激光粒子计数传感器PM5100")[![Image 43: 激光粒子计数传感器PM5100](https://mallimages.ofweek.com/Upload/product/2026/04/01/thumb_900_900_1fc2dc40d62e1db454fc3ed4d86e5943.jpg) 激光粒子计数传感器PM5100](https://mall.ofweek.com/6902.html "激光粒子计数传感器PM5100")[![Image 44: 激光粒子计数传感器PM5000S](https://mallimages.ofweek.com/Upload/product/2026/04/01/thumb_900_900_4833a0626316e4c2d4496aba71322f28.jpg) 激光粒子计数传感器PM5000S](https://mall.ofweek.com/6901.html "激光粒子计数传感器PM5000S")[![Image 45: 激光粒子计数传感器PM5000S](https://mallimages.ofweek.com/Upload/product/2026/04/01/thumb_900_900_4833a0626316e4c2d4496aba71322f28.jpg) 激光粒子计数传感器PM5000S](https://mall.ofweek.com/6900.html "激光粒子计数传感器PM5000S")
+
+ 热门文章排行榜 
+
+*   1[160%、155%、75%！国产AI芯片集体向上](https://mp.ofweek.com/ai/a356714482697)
+*   2[全球股市陷AI独大结构性疯狂](https://mp.ofweek.com/ai/a456714423627)
+*   3[全球正在重估中国芯片](https://mp.ofweek.com/ai/a556714513607)
+*   4[趋势丨AI风口下磷化铟（InP）疯涨，周期与变局将持续演进](https://mp.ofweek.com/ai/a856714253607)
+*   5[谷歌2026 I/O大会完整回顾：模型依然重要，但智能体正在接管一切](https://mp.ofweek.com/ai/a256714273637)
+*   6[分析丨PCB是阶段性价格暴涨吗？](https://mp.ofweek.com/ai/a956714233607)
+
+## 举报文章问题
+
+×
+
+*    营销广告 - [x] 
+*    重复、旧闻 - [x] 
+*    格式问题 - [x] 
+*    低俗 - [x] 
+*    标题夸张 - [x] 
+*    与事实不符 - [x] 
+*    疑似抄袭 - [x] 
+*   我有话要说
+
+确定 取消
+
+*   关注作者
+*   返回顶部
+
+## 举报评论问题
+
+×
+
+*    淫秽色情 
+*    营销广告 
+*    恶意攻击谩骂 
+*   我要吐槽
+
+确定 取消
+
+## 用户登录×
+
+请输入用户名/手机/邮箱
+
+请输入密码
+
+登 录
+
+[忘记密码](https://www.ofweek.com/user/ulogin.do?method=togetpwd&flag=0&returnurl=https://mp.ofweek.com/ai/a056714733577)[注册账号](https://mp.ofweek.com/browser/index)
+
+使用以下账号直接登录
+
+[](https://www.ofweek.com/user/login.do?method=qqLogin&returnurl=https://mp.ofweek.com/news)[](https://www.ofweek.com/user/login.do?method=weixinLogin&returnurl=https://mp.ofweek.com/news)[](https://www.ofweek.com/user/login.do?method=baiduLogin&returnurl=https://mp.ofweek.com/news)
+
+[关于我们](https://www.ofweek.com/about.shtml) - [About OFweek](https://www.ofweek.com/abouten/company.html) - [征 稿](https://mp.ofweek.com/index/login_member.html) - [广告咨询](https://www.ofweek.com/ad.shtml) - [帮助信息](https://www.ofweek.com/help.shtml) - [联系我们](https://www.ofweek.com/contact.shtml) - [会员服务](https://www.ofweek.com/service.shtml) - [网站导航](https://www.ofweek.com/sitemap.shtml) - [手机OFweek网](https://m.ofweek.com/)
+
+ 我们的网站：[人工智能网](https://ai.ofweek.com/) | [物联网](https://iot.ofweek.com/) | [医疗科技网](https://medical.ofweek.com/) | [机器人网](https://robot.ofweek.com/) | [激光网](https://laser.ofweek.com/) | [电子工程网](https://ee.ofweek.com/) | [锂电网](https://libattery.ofweek.com/) | [太阳能光伏网](https://solar.ofweek.com/) | [光通讯网](https://fiber.ofweek.com/) | [半导体照明网](https://lights.ofweek.com/) | [智能制造网](https://www.ofweek.com/im/) | [工控网](https://gongkong.ofweek.com/) | [氢能网](https://www.ofweek.com/hydrogen/) | [安防网](https://security.ofweek.com/) | [智能家居网](https://smarthome.ofweek.com/) | [智慧城市网](https://smartcity.ofweek.com/) | [新能源汽车网](https://nev.ofweek.com/) | [智能汽车网](https://auto.ofweek.com/) | [显示网](https://display.ofweek.com/) | [可穿戴设备网](https://wearable.ofweek.com/) | [智慧海洋网](https://www.ofweek.com/smartocean/) | [云计算网](https://cloud.ofweek.com/) | [智能硬件网](https://znyj.ofweek.com/) | [新材料网](https://xincailiao.ofweek.com/) | [通信网](https://tele.ofweek.com/) | [储能网](https://chuneng.ofweek.com/) | [3D打印网](https://3dprint.ofweek.com/) | [传感器网](https://sensor.ofweek.com/) | [环保网](https://ecep.ofweek.com/) | [仪器仪表网](https://instrument.ofweek.com/) | [VR 网](https://vr.ofweek.com/) | [风电网](https://windpower.ofweek.com/) | [智能电网](https://smartgrids.ofweek.com/) | [电力网](https://power.ofweek.com/) | [照明网](https://lighting.ofweek.com/) | [电源网](https://dianyuan.ofweek.com/) | [光学网](https://optics.ofweek.com/) | [PCB网](https://pcb.ofweek.com/) | [人才网](https://hr.ofweek.com/) | [商城](https://mall.ofweek.com/) | [外贸网](https://en.ofweek.com/) | [培训网](https://peixun.ofweek.com/)| [工采网](https://www.isweek.cn/)
+
+ 客服热线：0755-83279360/19925280375 客服传真：+86-755-83279008 
+
+[粤ICP备06087881号](http://beian.miit.gov.cn/)Copyright © 2026, All Rights Reserved. 
+
+ 中文版权所有－OFweek维科网（高科技行业门户）网站所有图片、文字未经许可不得拷贝、复制。 
+
+[![Image 46](https://mp.ofweek.com/Public/Home/images/beian.png) 粤公网安备 44030502002758号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502002758)
+
+[![Image 47: 全国互联网安全管理服务平台](https://mp.ofweek.com/Public/Home/images/network-secure.png)](https://beian.mps.gov.cn/#/query/webSearch)[全国互联网安全 管理服务平台](https://beian.mps.gov.cn/#/query/webSearch)
+
+[![Image 48: 不良信息举报中心](https://mp.ofweek.com/Public/Home/images/buliang.gif)](http://www.12377.cn/)[不良信息 举报中心](http://www.12377.cn/)
+
+[![Image 49: 不良信息举报中心](https://mp.ofweek.com/Public/Home/images/artboard.png)](http://szcert.ebs.org.cn/9822308f-c3cf-4c02-851d-6bac920e6898)[工商网监 电子标识](http://szcert.ebs.org.cn/9822308f-c3cf-4c02-851d-6bac920e6898)

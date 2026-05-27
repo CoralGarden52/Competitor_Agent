@@ -1,0 +1,910 @@
+# 深度剖析国民办公软件WPS - 人人都是产品经理
+
+Title: 深度剖析国民办公软件WPS – 人人都是产品经理,
+
+URL Source: https://www.woshipm.com/evaluating/5979719.html
+
+Published Time: 2024-01-19T10:01:45
+
+Markdown Content:
+# 深度剖析国民办公软件WPS | 人人都是产品经理
+
+[![Image 1: 人人都是产品经理](https://image.woshipm.com/fp/images/logo.png)](https://www.woshipm.com/)
+*   [首页](https://www.woshipm.com/)
+*   [培训课程](javascript:;)[名师辅导课](https://www.qidianla.com/) [AI产品经理转岗特训营](https://ke.qidianla.com/courses/aipmtc) [BAT大厂产品运营体系课](https://vip.qidianla.com/studyClass.html) [B端C端全栈产品经理私教课](https://ke.qidianla.com/courses/bcpm) [查看更多](https://www.qidianla.com/)  [个人自学课](https://www.qidianla.com/) [互联网运营能力进阶](https://ke.qidianla.com/courses/iom) [业务产品经理能力进阶](https://ke.qidianla.com/courses/bupm) [电商产品经理从入门到进阶](https://ke.qidianla.com/courses/ecpm1) [查看更多](https://www.qidianla.com/)  [企业内训课](https://daxue.qidianla.com/) [数字化产品经理课](https://daxue.qidianla.com/) [商业化产品实战课](https://daxue.qidianla.com/) [数字化营销体系课](https://daxue.qidianla.com/)  [B端运营实战课](https://daxue.qidianla.com/) [私域流量实战课](https://daxue.qidianla.com/) [数据分析体系课](https://daxue.qidianla.com/)   [查看更多](https://daxue.qidianla.com/)    
+*   [分类浏览](javascript:;)[业界动态 30918篇文章](https://www.woshipm.com/category/it) [产品设计 19391篇文章](https://www.woshipm.com/category/pd) [产品运营 15246篇文章](https://www.woshipm.com/category/operate) [产品经理 9583篇文章](https://www.woshipm.com/category/pmd) [职场攻略 5375篇文章](https://www.woshipm.com/category/zhichang) [营销推广 4903篇文章](https://www.woshipm.com/category/marketing) [交互体验 3937篇文章](https://www.woshipm.com/category/ucd) [分析评测 3588篇文章](https://www.woshipm.com/category/evaluating) [创业学院 2256篇文章](https://www.woshipm.com/category/chuangye) [用户研究 1903篇文章](https://www.woshipm.com/category/user-research) [数据分析 1803篇文章](https://www.woshipm.com/category/data-analysis) [原型设计 1436篇文章](https://www.woshipm.com/category/rp)    
+*   [活动讲座](https://www.woshipm.com/category/active)
+*   [问答](https://wen.woshipm.com/)
+*   [企业培训](https://daxue.qidianla.com/)
+*   [AI社区](https://www.aixq.cc/)
+*   [图文](https://www.woshipm.com/story)
+*   [HarmonyOS](https://www.woshipm.com/harmony)
+
+[搜索](https://api.woshipm.com/search/list.html)
+
+APP
+
+![Image 2](https://image.woshipm.com/build/img/footer-appdownload.png)
+
+![Image 3](https://image.woshipm.com/VIP.svg)
+
+![Image 4](https://image.woshipm.com/2023/05/19/de725b98-f62f-11ed-adbb-00163e0b5ff3.png)起点课堂会员权益
+
+![Image 5](https://image.woshipm.com/2023/05/19/dfe517e2-f62d-11ed-bbb6-00163e0b5ff3.png)职业体系课特权
+
+![Image 6](https://image.woshipm.com/2023/05/19/ebb5071c-f62d-11ed-bbb6-00163e0b5ff3.png)线下行业大会特权
+
+![Image 7](https://image.woshipm.com/2023/05/19/c9756278-f62d-11ed-94e0-00163e0b5ff3.png)个人IP打造特权
+
+![Image 8](https://image.woshipm.com/2023/05/19/f64625a8-f62d-11ed-bbb6-00163e0b5ff3.png)30+门专项技能课
+
+![Image 9](https://image.woshipm.com/2023/05/19/0148a02a-f62e-11ed-96ae-00163e0b5ff3.png)1300+专题课程
+
+![Image 10](https://image.woshipm.com/2023/05/19/25fc8396-f62e-11ed-adbb-00163e0b5ff3.png)12场职场软技能直播
+
+![Image 11](https://image.woshipm.com/2023/05/19/1d4ecd4e-f62e-11ed-adbb-00163e0b5ff3.png)12场求职辅导直播
+
+![Image 12](https://image.woshipm.com/2023/05/19/30793c56-f62e-11ed-adbb-00163e0b5ff3.png)12场专业技能直播
+
+![Image 13](https://image.woshipm.com/2023/05/19/15fae604-f62e-11ed-bbb6-00163e0b5ff3.png)会员专属社群
+
+![Image 14](https://image.woshipm.com/2023/05/19/0e3283be-f62e-11ed-8df9-00163e0b5ff3.png)荣耀标识
+
+[开通会员](https://vip.qidianla.com/member.html)
+
+发布
+
+注册 | 登录 
+
+登录人人都是产品经理即可获得以下权益
+
+*    关注优质作者
+*    收藏优质内容
+*    查阅浏览足迹
+*    免费发布作品
+*    参与提问答疑
+*    交流互动学习
+
+ 立即登录 
+
+ 首次使用？ 
+
+ 点我注册 
+
+[![Image 15](https://image.woshipm.com/2023/06/14/57e3c074-0aae-11ee-a1ce-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+## 深度剖析国民办公软件WPS
+
+[![Image 16](https://static.woshipm.com/pmapp_avatar_20240119093604_2723.jpg?imageView2/1/w/72/h/72/q/100)](https://www.woshipm.com/u/278940)
+
+[三白有话说](https://www.woshipm.com/u/278940)![Image 17](https://static.woshipm.com/tag/1101_1@2x.png)关注
+
+2024-01-19
+
+ 7 评论  9607 浏览  94 收藏 60 分钟
+
+[![Image 18: 🔗](https://s.w.org/images/core/emoji/16.0.1/svg/1f517.svg) B端产品经理两大难题：如何从市场，用户，业务等多个角度分析和设计产品？如何有效地管理和推进项目落地？](https://ke.qidianla.com/courses/bcpm)
+
+> 这是一篇关于国民办公软件WPS的商业研究内容，三白花费了将近14个加班夜晚，以及2个泡在咖啡馆的周末用心输出了这篇内容，我将从行业、产品、商业、用户这4个角度，讲讲我对这个国民级产品的理解和洞察，对于想要研究和了解数字化、办公行业、SaaS、以及C2B商业发展路径产品的朋友，这可能是一个从入门到深入的参考，全文16000字，阅读预计需要40分钟，也是一篇万字长文，希望大家别嫌弃哈哈！
+
+![Image 19](https://image.woshipm.com/2023/05/06/cf506692-ec01-11ed-bbb6-00163e0b5ff3.jpg)
+
+## 一、写在前面的话
+
+### 1. 为什么要分析WPS？
+
+**WPS对于国内办公和SaaS领域的产品发展有重要的参考价值**
+
+WPS作为国内具备启蒙意义的SaaS产品，在历经35年的发展之后，目前已经是一个国民级别的办公产品，据最近公布数据，全球月活已经高达5.89亿，国内windows端的渗透率高达69%，除了MAU保持多年的持续增长，股价在今年也是涨的疯狂，**这么牛的一个产品无论如何是很值得研究分析一波的**；
+
+![Image 20](https://image.woshipm.com/wp-files/2024/01/4kMCUg08CDycRmm6nJ5Q.png)
+
+其次WPS不管是在国内SaaS发展环境遇到的困难上、以及面临微软等国际巨头的竞争的问题上、SaaS产品在商业模式的设计和发展路径上，和国内办公赛道的很多产品都很类似，因此其研究具备深刻的代表性意义。
+
+这意味着：**你研究清楚WPS这个产品，可能国内办公或者SaaS这个领域的问题就大部分能摸清楚了**，后续在遇到其他类似的产品的时候，也能快速的理解其发展过程中遇到的问题；
+
+因此，对WPS的研究分析，可以达到管窥蠡测，窥一斑而见全豹的效果，这是我重点研究WPS的主要原因，我希望能和大家通过WPS这个点，窥探国内SaaS和办公领域这个面。
+
+### 2. 适合什么人群阅读？
+
+本篇内容适合如下几个人群：
+
+1.   关注商业研究和商业增长的朋友；
+2.   SaaS和办公领域的从业朋友；
+3.   SaaS和办公领域的投资者和行业研究者；
+
+### 3. 我将分享哪些内容？
+
+我主要从行业、产品、商业、用户这4个角度发表我自己的看法，其中重点讲的是行业和商业这部分；
+
+![Image 21](https://image.woshipm.com/wp-files/2024/01/k9De229SKYHBR1nthbT2.png)
+
+1.   **通过行业这部分**，或许你可以了解国内办公领域的赛道布局和竞争格局情况，也能明白为什么这么多年了国内在office领域为什么没有没有再现一个与之竞争的对手，但是腾讯文档和石墨文档等又能异军突起和金山文档直接竞争；
+2.   **通过产品部分**，你可以了解WPS在产品发展历史上的关键里程碑以及关键决策和思考，也能对比了解WPS和微软office的竞争对比，搞清楚目前WPS在技术和产品上和微软的差距以及优势，并了解未来wps可能在产品上的规划布局方向；
+3.   **通过商业部分，**你可以了解WPS面向C、B、G的商业模式和价值定位以及和微软的差异，同时对于贡献WPS将近60%的营收的个人订阅的业务的营收增长模型是怎么样的，以及WPS 又是如何实现MAU和付费转化率的持续增长；
+4.   **通过用户部分，**你可以初步了解WPS的C端和B端的客户画像；
+
+### 4. 你将收获什么？
+
+1.   了解国内协同办公市场情况；
+2.   了解SaaS产品的商业模式和发展路径，以及其营收增长的方式；
+3.   了解WPS这个产品以及其关键产品决策；
+
+## 二、从行业的角度看WPS
+
+### 1. 国内外办公赛道的主要玩家
+
+从所属行业赛道的角度看，WPS归属于办公行业赛道上的一个重量级的产品，在深度分析WPS之前，我们先大概了解一下协同办公行业的赛道布局和主要玩家的情况，纵观目前国内和国外协同办公市场，各个子赛道的产品和玩家主要如下：
+
+![Image 22](https://image.woshipm.com/wp-files/2024/01/4uzc8T8DprrjqI4oez1U.png)
+
+**1）综合协同办公平台**
+
+综合协同办公平台通过集成IM、文档、视频会议、OA、日历、待办、邮箱等多种办公产品，为企业提供综合性的办公协作解决方案；该领域目前国内主要以钉钉、企业微信、飞书和华为welink这几个产品为主，且钉钉和企业微信已经和其他玩家拉开比较大差距，基本占据绝大部分市场；而国外在综合协同办公平台对标的主要产品是Slack和微软Teams；
+
+**2）基础办公软件**
+
+基础办公软件主要以office类传统办公软件为主，WPS是目前国内发展最早的基础办公软件，在国内影响力较高，同个赛道在国内基本没有可以与之匹敌的竞争对手，国内虽有包括永中office、福昕等产品在同赛道竞争，但与WPS差距甚远，已经不是一个量级水平；而国外对标的产品当然主要是微软office，此外还有谷歌的Google workspace、苹果的IWork；
+
+**3）文档协同**
+
+这是一个比较热闹的赛道，包括在线文档、在线笔记、脑图、流程图、白板等多个领域，其中目前用户规模比较高的自然是在线文档领域，国内在线文档领域头部的产品主要是腾讯文档、金山文档、钉钉文档、飞书文档和石墨文档这几个，国外对标的产品则主要是Google docs等；
+
+**4）视频会议**
+
+视频会议领域，总体上可以划分为云视频会议和会议室解决方案两个赛道，在云视频会议赛道，目前国内市场份额第一的是腾讯会议，其次是钉钉会议，国外对标的产品则主要是zoom、微软Teams、Google Meet；而会议室解决方案赛道，即以会议硬件为主的传统会议领域，国内的主要服务商为华为、中兴、小鱼易联、Maxhub等，国外对标的产品主要是思科、poly、logitech和webx等；
+
+**5）企业IM**
+
+企业IM产品为用户提供文字聊天、音视频聊天沟通等服务，该领域包括2个赛道，一个是SaaS赛道，其主要产品同样是以钉钉、企业微信这类综合协同办公平台为主，另一个赛道为PaaS赛道，即以提供IM产品和技术能力为主的服务商，包括网易云信、环信、融云、融联云，国外提供类似服务的服务商主要是Twilio；
+
+**6）办公OA**
+
+办公OA产品为企业提供企业审批流程、考勤打卡、人才和薪酬管理等服务，国内提供OA服务的服务商主要包括泛微、蓝凌、致远、用友软件这几个产品，国外垂直做OA的产品，暂时没有发现；
+
+**7）项目管理**
+
+项目管理类的产品主要用于管理产品研发等企业项目的流程和进度，国内在项目管理方面的产品主要有Tower、teambition、tapd、明道，国外对标的产品包括Trello、Asana、Jira、以及微软的Project；
+
+**8）协同设计和交付**
+
+协同设计和交付类产品为企业提供设计协作（包括创作和交付）的服务，目前国内市场占有率比较高的产品主要是蓝湖、墨刀等几个产品，国外则主要是Figma，sketch等；
+
+**9）邮箱**
+
+邮箱这个赛道，这么多年来，格局基本没怎么变过，国内主要是QQ邮箱、网易邮箱、阿里云邮箱这几个，国外则主要是outlook、Gmail等；
+
+### 2. 金山办公在办公赛道的产品布局
+
+在协同办公赛道的布局上，**WPS主要以文档软件为核心和根本**，逐步拓展综合协同办公平台和企业IM、脑图、流程图、视频会议等领域，包括如下：
+
+*   在协同办公平台和企业IM方面对标钉钉、企业微信，推出了金山协作，为客户提供围绕着企业IM的综合办公服务；
+*   在视频会议领域，对标腾讯会议，推出金山会议；
+*   在协同设计方面，对标canva、稿定设计，联合创客贴推出图片编辑器产品金山海报；
+
+尽管在多个子赛道均有产品布局，但WPS目前在**在线笔记、在线白板、办公OA、项目管理、协同交付等这几个领域尚未布局**；
+
+![Image 23](https://image.woshipm.com/wp-files/2024/01/4PZEWtMgIDiDSd0lQIa0.png)
+
+### 3. WPS国内产品竞争情况
+
+**1）在office基础办公软件领域**
+
+目前的**主要的竞争对手就是微软office，国内基本没有可以与之匹敌的竞争对手**，虽有永中office、福昕等算直接竞争对手，但是其体量和规模和WPS差距甚大，基本可忽略，因而单从国产软件上看，基本可以认为WPS具备国内基础办公软件领域的垄断地位，考虑到微软office在国内也有不低的渗透率，因此在国内和国外直接竞争对手主要就是微软office；
+
+**2）在协同文档领域**
+
+这个领域竞争对手会相对多一些，包括腾讯文档、飞书文档、石墨文档、钉钉文档，均为直接竞争对手，且目前腾讯文档在月活上超过金山文档；
+
+![Image 24](https://image.woshipm.com/wp-files/2024/01/BW7Tj35xsVs0pZfW82vW.png)
+
+### 4. 为什么这么多年，国内在office上WPS没有竞争对手？
+
+这个问题可以概括总结为是因为WPS在**产品和技术实现难度、实现成本和市场占有率等因素上占据核心竞争壁垒**，我们不妨假设一下国内像BAT巨头，他们想要完整的复制一个像WPS Office这样的产品，其难度和代价到底有多大：
+
+![Image 25](https://image.woshipm.com/wp-files/2024/01/BZlfADHW8UxOvAKDtHWm.png)
+
+**1）在产品和技术实现难度方面**
+
+假如从0到1的实现一个WPS Office产品，我觉得必然要经历3个阶段：**基础office产品能力实现阶段、竞品进阶产品能力追赶阶段、商业化产品能力实现阶段**，其中每一个阶段会遇到的关键产品和技术实现难题主要如下：
+
+第一阶段：基础office产品能力的实现阶段的难题
+
+1.   **Office产品生态多而复杂度**：Office产品生态非常的复杂，包括常规的word、excel、ppt、pdf、脑图、流程图等文档产品，还有日历、会议、待办、云空间等，**其中每一个单品单独拿出来都是一个重活**；当然对于新的入局者而言，不需要一下子支持这么多产品，但是基础的文字、表格、PPT这三件套是必须要支持的，其中每一个产品都设计比较多的产品模块，**每个模块的能力都需要做深入的研究且均需要攻克算法、数据处理等难题**；
+2.   **文档格式兼容：**对于新的入局者，其产品的文档格式必然要兼容市场上主流的办公软件Microsoft Office和WPS Office，特别是word、excel、ppt这三个文档格式；因为目前大部分文档的格式的标准都是Microsoft Office制定的，其文档格式的规范和实现具有一定的复杂性，**开发者需要深入研究Microsoft Office文档格式的规范，并开发相应的解析和编码算法，以确确保打开和保存来自微软和WPS的文档的正确性和一致性，这本身是一个不小的挑战；**
+3.   **版本兼容：**除了格式兼容，还需要做微软和WPS历史版本的兼容，否者可能出现部分WPS和微软的版本的文档使用异常的情况；
+4.   **平台兼容：**需要同时支持windows、ios、安卓、linux等多个平台的兼容性问题，**每个平台的开发都需要消耗不少的研发资源；**
+
+第二阶段：竞品进阶产品能力追赶阶段的难题
+
+1.   **云文档和本地化：**对于当前的文档产品而言，云文档的能力已经是必不可少的能力，所以office产品必然要支持云端协作的能力，这也不是一个简单的事情，需要解决包括多人实时协作的实时性、稳定性、安全性等问题；
+2.   **支持内容体系、第三方应用：**时至今日，以模板、素材等为主的内容，以及丰富的第三方应用已经是客户们认为office产品不可缺少的能力，内容的建立和第三方应用的引入，随便一个拿出来都是很重的东西；
+
+**第三阶段：商业化产品能力实现阶段的难题**
+
+1.   **增值产品能力的研发和商业化能力的支持：**这个领域可能相对难度小一些，关键难题在于产品能力的丰富度和用户满意度，是否足以支撑商业化，用户是否愿意付费。
+
+**2）在实现成本方面**
+
+前面讲了那么多难题，但是说实话，对于技术实力雄厚的很多科技公司而言，他们并不是解决不了，也能解决，关键在于实现这些，可能需要投入大量的产研人力，并且要经历足够长的研发周期；
+
+以WPS Office为例，金山办公现在的研发人员有近3000人，WPS Office现在的产品能力是经过35年才发展至今，假如按照现在互联网研发的效率和速度，研发周期缩短10倍，3000人的研发规模，也需要历经3年左右才能复制一个WPS Office出来，其成本和代价非常高，没有哪一个企业敢轻易去尝试（当然，这种评估方式可能并不是非常的合理，纯属简单粗暴的评估）；
+
+并且，我们反观WPS，**追赶了微软30多年，目前和微软依然存在实力的差距，依然只能算继续追赶阶段**，还达不到比肩对齐阶段；
+
+因此，从这个角度上看，WPS的**竞争壁垒赢在时间和成本**上；
+
+**3）客户获取和市场竞争视角**
+
+即使我们不考虑1和2的因素，真的把产品做出来了，**还需要面临如何从微软和WPS的手上争夺个人和企业的客户的难题**；在国内，民营企业的office市场牢牢把握在微软手上，连WPS都难以撼动；政企市场客户基本在WPS手上；加上客户都已经习惯了使用和付费微软和WPS，用户的替换成本很高，在产品没有硬性突破和优势条件的情况下，没有谁有把握从他们手上争夺客户；
+
+综合上述，这就是过去这么多年，国内依然没有出现能够与WPS匹敌的竞争对手，WPS在国内一骑绝尘的主要原因。
+
+### 5. 为什么腾讯文档能够在在线文档领域和金山文档直接竞争？
+
+这个问题要拆分成两个问题来看：
+
+**1）WPS在国内传统办公软件领域没有竞争对手，为什么在线文档领域却有诸多竞争对手？**
+
+2006年谷歌为了对抗微软上线了google docs，开启了在线协同文档的热潮，谷歌通过在线协作文档的方式弯道超车微软，这给了国内的创业者和巨头们在办公市场对抗WPS的启发，所以一时间出现了很多在线文档的竞品，包括腾讯文档、石墨文档等，与微软类似，WPS在在线文档这个领域也是空白情况，没有形成绝对的垄断优势，同时这也是一个新兴赛道；另外一方面，**与office产品不同，在线文档的产品相对更加轻便，可以不用那么庞大，一定程度上降低了准入的门槛**；
+
+**2）超越金山文档的为什么是腾讯文档？**
+
+这个主要得益于QQ，当年在企业微信和钉钉这类IM产品还没有盛行的时候，当时的企业IM产品主要是QQ，QQ团队产品经理发现，有大量的用户会在QQ群分享办公文档，并且当时的产品体验，用户需要先从QQ下载文档，然后用办公软件打开，流程比较长，于是QQ团队的产品经理诞生了做在线文档的想法，并**且因为QQ体系下有大量的文档分享的需求**，这形成了腾讯文档在进军在线文档领域的优势。
+
+## 三、从产品的角度看WPS
+
+### 1. WPS的产品发展关键里程碑与思考
+
+![Image 26](https://image.woshipm.com/wp-files/2024/01/zUs4zjlRFhFUfJbOfhTW.png)
+
+**1）2005年个人版宣布免费**
+
+这在当时所有SaaS产品不管个人还是企业都是付费的情况下，针对个人版放开免费，是一个非常大胆的决策；也是从这里开始，中国的SaaS商业模式，从纯粹的付费模式，演化出一条C2B的模式，**也就是C端用户基础免费使用，增值付费，并逐步影响B端企业付费**；
+
+**2）2011年发布移动端office**
+
+在当时整个行业的办公场景都基本聚焦在PC端的氛围下，WPS能积极拥抱移动互联网的浪潮，做出了进军移动端的正确决定，提前拿到移动互联网的门票，到今日，WPS在移动端的市场占有率和口碑，是对抗微软office的一个重要优势之一；
+
+布局移动端给WPS带来了什么好处？
+
+*   **增长效应：**毫无疑问的是，布局移动端为WPS的用户增长带来了明显的推动作用，截止23年3月，移动端全球月活达到3.47亿；
+*   **竞争优势：**从现在看，WPS在移动端的市场占有率和产品体验优势成为了WPS和微软形成差异化和竞争优势的因素之一；
+*   **渗透学生群体**：移动端的出现，让WPS更快速的获取到没有电脑的年轻用户群体，其中主要就是初中、高中学生群体用户；
+*   **促进便携式的移动办公体验，**正好迎合移动办公的时代潮流；
+
+当然，也会有人会问，对于一个重度依赖PC的产品，WPS移动端的使用场景是什么样的？调研了解，移动端区别于PC的使用场景主要包括**接收通知、文档阅读、临时或紧急文档简单二次编辑、手机上保存和管理文档、信息收集和提交、文档分享、文档标记、管理员审批修改**等；
+
+**3）2015年发布WPS+进军中小企业市场**
+
+这算是WPS在to B领域的一个新的尝试，在过往企业订单主要来源于政企，大型民营企业难以从微软手上争夺客户的情况下，**选择获取微软没有涉及的中小企业市场；**目前对于这个做法，是否是一个成功的做法，尚无法评估，从最新WPS的商业化体系上，可以看到WPS+已经下线，或许这块并没有取得正向的效果，但是我相信中小企业这个市场是可以持续探索的；
+
+**4）2023年发布 WPS AI**
+
+不管这是WPS的主动进攻，还是受微软、投资者推进，WPS AI 让WPS在办公领域最先达到AI的入场券；
+
+### 2. WPS Office和微软Office的竞争对比
+
+**1）市场渗透和经营情况对比**
+
+**个人端用户市场渗透**：据22年金山办公财报数据，截止22年12月，WPS全球月活5.73亿，预估国内月活4.7亿，微软的活跃数据暂无可参考数据，根据艾瑞咨询数据，**国内windows端WPS的覆盖率预计是69%，微软的覆盖率是78%，从覆盖率的趋势上看，WPS的覆盖率在逐年提升，逐步逼近微软Office；**
+
+![Image 27](https://image.woshipm.com/wp-files/2024/01/B0WeI2dz79YDAKQZzwnF.png)
+
+**企业端市场渗透：**根据2019年公布数据，WPS在国内世界500强的企业中，渗透率57%，暂无微软数据，但是微软的渗透率应该更高；而国央企中，WPS渗透率高达85%，特别是金融行业，渗透率高达91%；**可见目前WPS在国央企市场的渗透率是高于微软的，但是在民营企业中的渗透率应该低于微软。**
+
+**营收规模：**根据22年公布数据，个人业务上，WPS年度营收20.5亿人民币，微软全球年度营收57.87亿美元，折合人民币416亿左右，相比之下WPS的营收规模和微软比差距还较大；企业业务上，WPS年度营收15.28亿人民币，微软全球营收390.7亿美元，折合人民币2808亿左右；**从营收结构上，WPS企业业务营收占比39%，个人业务的营收（包括订阅和广告）占比更高，而微软office企业业务营收占比高达87%，营收主要来源于企业业务；**
+
+**付费用户数和ARPU：**根据22年公布数据，个人业务方面，WPS年度付费用户数将近3000万，年度ARPU按财务收入口径计算为68人民币；而微软office全球年度付费用户数5970万，年度ARPU97美元；企业业务方面，WPS暂未公布付费用户数数据，而根据微软2019年公布数据，微软企业业务付费用户数已达1.8亿，年度ARPU达176美元；
+
+![Image 28](https://image.woshipm.com/wp-files/2024/01/Dy4FVtE7RjN1IzLLjbhO.png)
+
+**2）产品和技术能力对比**
+
+目前即使WPS的产品和技术能力上发展的已经相当成熟，但是相比于微软仍然有差距，**具体差距以及差距存在的原因如下：**
+
+![Image 29](https://image.woshipm.com/wp-files/2024/01/8vvYZcOFfXKsZzlD7NDR.png)
+
+**办公软件产品生态方面**
+
+*   WPS与微软的差异：WPS主要提供基础的办公软件功能，**而微软的Office 365则拥有更为丰富的生态，**包括Teams、SharePoint、OneDrive等众多配套产品。
+*   微软领先的原因：微软长期的战略，是以办公为核心，围绕着办公来不断扩展其产品生态，通过整合其各种服务，为用户提供一站式的解决方案，而WPS的战略主要是以文档三件套为核心，围绕着文档拓展产品生态；两者战略的高度不太一样；
+*   技术难点：一方面，每投入一个领域，都等同于打造一个产品，这是一个重活，所以不是那么简单的事情；另一方面建立一个强大的生态系统需要解决交互操作性、安全性和可扩展性等问题。微软通过采用开放的API、统一的安全体系和强大的云基础设施来解决这些问题。
+*   WPS的难点与代价：WPS需要建立更多的服务和产品，并且需要保证这些服务之间的良好集成，这需要大量的研发投入、深入的系统设计和架构工作、完善的基础设施、足够强大的开放能力；我们看到最近这几年WPS在逐步建立文档和协作中台系统和能力，已经在逐步弥补和追赶，但是还需要时间；
+
+**云服务方面**
+
+*   WPS与微软的差异：WPS的云服务功能相对较少，而微软的OneDrive和SharePoint提供了强大的云存储和协作功能，并且微软在流畅度和稳定性上更强；
+*   微软领先的原因：微软早期就开始布局云计算，拥有成熟的Azure高效云平台，能够提供的云服务更多，而WPS依托金山云的能力，起步相对比较晚，云服务的能力和微软相比实力差距明显；
+*   技术难点：云服务需要解决数据一致性、可扩展性和安全性等问题。微软通过其Azure平台，提供了高可用性、安全性和可扩展性的解决方案。
+*   WPS的难点与代价：WPS需要建立或者扩展其云基础设施，同时需要开发云服务的相关功能。这需要大量的资金投入和技术工作。
+
+**实时协作方面**
+
+*   WPS与微软的差异：微软的实时协作功能更加成熟，而WPS的此类功能相对还有些差距，主要体现在多人协作时的稳定性和实时性上；
+*   微软领先的原因是：微软通过其强大的云基础设施和多年的高效经验积累，为用户提供了实时的协作体验。
+*   技术难点：实时协作涉及复杂的运算控制、数据同步和网络通信问题。微软通过优化算法、利用云计算和采用高效通信协议来解决这些问题。
+*   WPS的难点与代价：WPS需要开发先进的并行控制和数据同步算法，并且可以扩展其云基础设施以支持实时协作。这涉及到算法研究、系统开发和基础设施投入。
+
+**安全和合规性方面**
+
+*   WPS与微软的差异：微软在数据安全和合规性方面有更深入的投入，而WPS在这方面可能相对较弱。
+*   微软举例的原因是：微软长期与全球各地的政府和企业合作，对各种安全和合规标准有深入的理解。同时，微软投入大量资源以确保其产品符合这些标准。
+*   技术难点：涉及加密、数据处理、访问控制等方面的安全和合规性。微软通过采用强加密标准、制定的数据处理政策和强大的访问控制来解决这些问题。
+*   WPS的难点与代价：WPS需要加强其产品的安全性，并且需要与各种合规标准保持一致。这需要大量的研发工作，以及与政府和行业机构的合作。
+
+**文档格式兼容性**
+
+*   WPS与微软的差异：微软Office的文档格式被广泛接受，而WPS需要保持与Office的兼容性。
+*   微软领先的原因：Office 的文件格式已经成为业界标准，微软能够控制这些格式的发展和变化。
+*   技术难点：保持文档格式的兼容性需要处理复杂的数据结构和编码问题。微软通过持续更新其文档格式，并提供工具和文档来支持这些格式来解决这些问题。
+*   WPS的难点与代价：WPS需要持续延续Office的文件格式的变化，并且需要开发和维护与这些格式兼容的代码。这需要对微软的技术进行深入研究，以及持续的代码维护工作。
+
+**全球市场和本地化**
+
+*   WPS与微软的差异：微软Office在全球市场上具有广泛的影响力，而WPS主要在中国市场上具有一定的影响力。
+*   微软举例的原因是：微软长期以来积极拓展全球市场，并为不同地区的用户提供本地化的产品和服务。
+*   技术难点：全球市场拓展和本土化需要解决语言、文化和法律等问题。微软通过建立本土团队、进行文化适应和遵守当地法律来解决这些问题。
+*   WPS的难点与代价：WPS需要投入资源来理解和适应不同地区的市场，包括语言、文化和法律。这需要市场研究、本土化开发和合规工作。
+
+**插件生态**
+
+*   WPS与微软的差异：微软的Office拥有丰富的插件生态，而WPS的插件生态相对较弱。
+*   微软领先的原因：微软提供了丰富的API和开发工具，并且拥有庞大的开发者社区。
+*   技术难点：建立插件生态需要解决兼容性、稳定性和开发者支持等问题。微软通过提供开发工具、文档和社区支持来解决这些问题。
+*   WPS的难点与代价：WPS需要开发和维护更多的API，并建立开发者社区。这需要大量的人力和时间投入。
+
+**研发投入和创新**
+
+*   WPS与微软的差异：微软在研发和创新方面投入更大，拥有更多的专利和技术。
+*   微软领先的原因是：微软作为一个技术联盟，拥有雄厚的资金和人力资源，可以在研发和创新上投入大量的资源。
+*   技术难点：持续的创新需要解决技术挑战、市场需求和竞争压力等问题。微软通过建立研发团队、与学术机构合作和收购创新公司来保持其技术领先地位。
+*   WPS的难点与代价：WPS需要增加研发和创新的投入，包括成立研发团队、投入市场研究和保护知识产权。这需要大量的资金和人力资源。
+
+**3）和微软相比，WPS的优势有哪些？**
+
+![Image 30](https://image.woshipm.com/wp-files/2024/01/vgqYfPVBel6ewU9KPkq5.png)
+
+**成本效益**
+
+具体优势：WPS Office提供免费版本，这对于许多用户来说是一个巨大的优势。即使是其付费版本，WPS Office的订阅费用通常也低于Microsoft Office。
+
+与微软的比较：Microsoft Office 通常以较贵的价格提供，虽然它的 Office 365 订阅提供了一套丰富的功能，但对于那些只需要基本功能的用户来说，WPS 可能是一个更经济的选择。
+
+**简洁的用户界面**
+
+具体优势：WPS Office的界面设计简洁，对于新用户来说更容易上手，同时WPS提供一站式的办公平台，把所有办公套件都整合在一起，这个产品体验很棒；
+
+与微软的比较：Microsoft Office的界面过于复杂，可能会让新用户感到不知所措，并且每一个办公套件都要以单独的产品承载，对于用户而言，需要运行好多个软件。
+
+**轻量级**
+
+具体优势：WPS Office的安装包较小，对系统资源的要求较低，这使得它在旧旧或配置较低的硬件上运行得更快，同时对于用户安装体验也更好，基本上完成WPS的安装只需要5~10分钟；
+
+与微软的比较：Microsoft Office 是一个功能丰富的套件，但是其产品非常庞大，简单一点讲，普通用户安装一个微软office，基本需要2小时左右；
+
+**移动便携**
+
+具体优势：WPS Office在移动设备上的表现非常出色，其移动应用程序具有简洁的用户界面和针对移动设备优化的功能。
+
+与微软的比较：虽然Microsoft Office也提供移动应用程序，但WPS的移动应用程序通常被认为在用户界面和使用体验方面更胜一筹。
+
+### 3. 对于WPS未来的产品规划的猜想
+
+**在产品布局上，猜测其未来的方向可能如下：**
+
+1.   追赶微软office，补齐空白领域：包括对标Teams的协作领域、对标微软project的项目管理领域、对标power bi的数据分析领域、对标white board的协作白板领域等；
+2.   弥补自身在协同办公领域的缺失赛道：包括对标notion 和有道云笔记等的在线笔记领域，对标墨刀等的协同设计领域、对标Figma的设计交付领域等。
+3.   积极全面拥抱AI，WPS整个系列产品全面AI化；
+4.   增加更多细分用户群体的垂直产品服务：包括学生群体、教师群体、党政群体、创业群体等；
+5.   在开放能力上，开放更多的API和插件接口，允许第三方开发者创建和添加新的功能，引进更多的第三方插件产品；
+
+**在企业市场的拓展上，猜测其未来的方向可能如下：**
+
+1.   积极拥抱信创办公，通过国产信创抢夺微软占据的民营企业市场；
+2.   深化行业解决方案和场景化解决方案；
+3.   继续尝试中小企业市场的影响和商业化探索；
+
+## 四、从商业的视角看WPS
+
+### 1. 商业模式分析
+
+![Image 31](https://image.woshipm.com/wp-files/2024/01/gj7N6m1r13LE4YCuoLXJ.png)
+
+**客户是谁？**
+
+1.   对于C端个人用户，WPS的典型客户主要是互联网办公白领，学生、教师、公务员、金融从业者和餐饮零售经营商家等；
+2.   而对于企业客户，其典型客户主要是互联网、电商行业企业、制造业、能源行业企业；
+3.   对于政府客户则主要是政企、国央企、教育机构客户；
+
+**提供的核心产品服务是什么?**
+
+1.   面向C端用户，WPS提供WPS个人版的产品，并且提供个人免费版本，个人可以免费下载和使用，这点和微软大不相同，严格意义上讲，微软office并没有提供个人免费的版本给用户，即使个人使用也要付费；
+2.   面向B端客户，WPS提供WPS365一整套产品服务，并且也提供企业免费版本，能支持基础的企业功能；
+3.   面相政企和教育客户：为政企客户提供政企解决方案，本质其实也是WPS365，为教育客户提供教育版产品；
+
+**商业模式是什么？**
+
+1.   面向C端用户：主要的商业模式就是通过个人免费版积累海量的使用用户，然后通过增值服务引导用户付费；此外，广告也是其商业变现的一种模式，但是最近几年广告的收入逐步下降，已经不是其主推的商业模式了；
+2.   面向B端客户：针对中小企业，提供企业免费版，通过政治付费引导购买企业版；针对中、大型企业提供企业付费版本，通过企业版付费变现；
+3.   面向政府和教育客户：为政企提供政企付费版和信创版本，为教育客户提供教育版付费版本；
+
+**有哪些售卖模式？**
+
+1.   对于C端用户：售卖模式比较简单，主要就是通过个人会员的方式售卖WPS提供基础会员和Pro会员两个等级的会员，并针对不同等级会员设置不同的定价；
+2.   对于B端客户：则主要有订阅模式和软件授权模式两种售卖模式，其中对于订阅的模式，WPS设计了企业免费版、商业基础版、商业应用版、商业标准版、商业高级版5个商业化版本，分别面向不同规模的企业；而对于软件授权的模式，则包括一次性授权、按场地授权、按数量授权等多种售卖模式；
+3.   对于政企和教育客户：政企客户的售卖模式和企业类似，值得一提的是，WPS针对教育客户，还单独推出教育版，并且制定更低的价格，这也很好理解，教育机构通常预算有限，承受不起企业版本高昂的费用，所以一般SaaS产品都会针对教育客户制定一个相对更低的定价方案；
+
+**客户的付费路径是什么样的？**
+
+1.   对于个人用户：其付费路径通常是个人在使用免费功能的过程中，需要使用更强的增值功能从而触发付费；
+2.   对于企业客户：其付费路径包括客户试用企业免费版后，因为有更高的增值功能需求后触发付费，另一个付费路径就是直接联系销售购买；
+3.   对于政企和教育客户：主要就是通过联系销售购买；
+
+**客户的核心痛点和需求是什么？**
+
+1.   对于个人用户，其核心痛点和需求主要是办公效率提升和丰富的产品功能的需求；
+2.   对于企业客户，其核心痛点和需求除了员工办公提效之外，还有团队协作和共享、企业管理、安全合规、软件授权和二次开发等需求；
+3.   对于政企客户，其核心痛点和需求会更加重视数据安全和隐私保护、合规性、成本、技术服务与支持、以及能够提供定制化的开发；
+4.   对于教育客户，其核心痛点和需求则更加重视成本，因为学校等预算有限；其次会关注保障学生和教职工信息安全，以及是否符合教学和科研的用途；
+
+**产品的核心卖点是什么？**
+
+1.   对于个人用户：WPS个人会员的核心卖点包括效率工具类的增值服务，例如云端同步和文档资产管理、格式转换、PDF特权、排版优化、AI工具；以及内容类的增值服务，包括办公模板、创作素材、字体和美化工具；
+2.   对于企业客户：对于中小企业，WPS的核心卖点是团队协作和资产共享的能力；而对于中、大型企业的核心卖点是软件授权、企业管理、安全管控，而大型企业还有定制开发和二次开发的需求；
+3.   对于政企客户：WPS的核心卖点则主要是其强大的安全管控能力、稳定性、强大的技术服务能力，以及优惠的企业定价模式和定价政策；
+4.   对于教育客户：WPS的核心卖点则主要是其针对教育客户的优惠定价方案、以及提供教学科研场景下的功能和教育行业解决方案；
+
+**付费决策人是谁？**
+
+1.   对于个人用户：付费决策人通常就是使用的用户本人；
+2.   对于企业客户：付费决策人通常是企业技术、运维负责人，或者人力和行政负责人，甚至可能是企业CEO；
+3.   对于政企客户：付费决策人则通常是政府部门/事业单位的IT部门负责人或主管、行政办公室主任、政府采购部分负责人；
+4.   对于教育客户：付费决策人通常是学校行政处或信息办公室的负责人、IT部门或者网络信息中心负责人、校长或教学处负责人、教育部采购部门负责人；
+
+**影响客户购买的因素？**
+
+1.   个人用户：功能的使用频率、使用体验的满意度、价格等是影响个人用户购买的主要因素；
+2.   企业客户：影响企业客户购买的主要因素则包括公司预算、价格政策、企业员工的使用习惯、售后服务满意度以及品牌知名度和影响力；
+3.   政企和教育客户：除了企业客户中的影响因素，数据安全合规、产品的定价模式和价格、采购政策同样也会影响政企和教育客户是否购买；
+
+### 2. 商业模式上和微软office的对比？
+
+![Image 32](https://image.woshipm.com/wp-files/2024/01/CybNwy3iVL6cQnrW0wsD.png)
+
+*   微软面向个人版并未提供完整意义上的免费版，个人版本依然需要付费才能使用，虽然其在APP版本可以支持个人免费下载使用，但只提供基础的功能，PC端也只提供了30天的免费试用；
+*   微软面向企业端，也没有提供免费的版本，只提供免费试用期限，到期后需要付费；
+*   相比而言，WPS的付费版本，在定价上相比微软价格更低，性价比更高；
+
+### 3. C、B、G的价值定位和未来方向？
+
+对于现阶段而言，C端订阅收入目前占据WPS相当高的比重，短中期看，也是营收增长的保障之一，不过这对于一个SaaS产品而言，个人认为不是一个健康的结构，证明B端的商业化还不行，不过从数据趋势上看，C端业务的营收占比已经在逐步下降；
+
+随之逐步增长上来的是B端的业务，从长期的目标上看，企业订阅的营收占比会越来越高，也是长期营收增长的希望；
+
+对于G端的营收，目前营收占比在逐渐下降，但是未来依托信创，可能仍然还有较高的增长空间；
+
+![Image 33](https://image.woshipm.com/wp-files/2024/01/9FqjCAAH0wAuEl6LAqXT.png)
+
+### 4. C、B、G整体营收分析
+
+**1）营收规模和增长趋势**
+
+1.   WPS的整体营收可以拆分成3部分：**个人订阅收入、机构订阅收入、机构授权收入，其中机构订阅和机构授权部分收入为企业端收入**；
+2.   整体营收保持持续的上涨，但是营收同比增幅在逐步下降，到23年Q1时，同比增幅维持在20%左右；和微软相比，微软office的年营收同比增速最近几年基本维持在12%左右，增幅相对比较稳定；
+3.   个人订阅业务收入同样也在逐年保持增长，营收同比增幅增长放缓，23年Q1是，同比增幅维持在38%左右；
+4.   机构授权业务从21年开始同比增幅急剧下降，甚至出现负增长，主要因为WPS针对历史采用机构授权付费模式的企业客户，逐步向订阅模式转移，因此机构订阅收入同比明显提升，但是机构授权收入下降；
+5.   B端整体（即机构订阅+机构授权）收入同比增幅在2022年明显下降，主要因为22年信创订单收入减少；
+
+![Image 34](https://image.woshipm.com/wp-files/2024/01/UOWTYTEDG2FOiAEsPyWP.png)
+
+以上数据均参考金山办公对外公布财报和第三方研究机构数据；
+
+**2）营收结构情况分析**
+
+1.从营收结构上，WPS目前个人业务收入依然占据大头，对比微软，在营收结构上，微软office来源于企业的收入占比高达87%，个人业务收入占仅13%，这是和WPS的营收结构上有明显差异的地方；
+
+2.WPS在企业端的营收上，机构授权营收逐步向机构订阅转移，机构授权部分收入占比逐步下降，机构订阅部分收入占比逐步提升，而对比微软，根据2021财年公布数据,微软订阅收入占总收入约为60%，订阅收入已经超过许可证授权的收入，微软率先完成了授权向订阅转移；
+
+![Image 35](https://image.woshipm.com/wp-files/2024/01/FQbIHOSI3bLjwRj17oDu.png)
+
+### 5. 个人订阅业务为什么这么多年保持持续增长？
+
+从前面的数据上，我们也能了解到，WPS从2013年开始推出个人付费会员，这么多年过去了，WPS的个人订阅收入一直在保持着同比增幅40%以上的增长，对于一个已经发展了10年的业务而言，是一个相当不容易的数据，所以也不禁引发我们的思考，WPS的个人订阅业务何以能保持这么多年的增长。
+
+**1）WPS个人订阅的营收增长模型**
+
+![Image 36](https://image.woshipm.com/wp-files/2024/01/OySvnvzMQCoQYSBmA8dX.png)
+
+首先，我引入一个个人订阅营收的分析模型：
+
+**年度会员营收=年度付费用户数平均1个用户付费金额（ARPU）=MAU年度付费转化率年度平均付费次数平均每次付费单价**
+
+通过这个模型，参考最近几年WPS个人订阅收入的变化情况：
+
+*   过去年营收的增长，均来源于WPS活跃用户规模、付费转化率、平均用户付费订单数量的增长；
+*   其中用户规模、付费转化率的同比增幅到2022年已经开始逐步放缓，而平均用户付费订单数还在持续保持增长，可见未来流量和转化的增长对营收增长的贡献会逐渐减弱，用户续费率提升带来的平均订单数量的提升对营收的贡献会越来越强。
+
+**2）WPS如何提升活跃用户规模？**
+
+**高度的产品驱动和过硬的产品实力**
+
+对于SaaS产品而言，用户增长的关键永远首先是产品，只有坚实的产品实力才是持续增长的根基，在产品驱动这个关键因素上，我认为WPS的增长主要得益于如下几个产品策略：
+
+![Image 37](https://image.woshipm.com/wp-files/2024/01/yeL9ZqS9K4WOmnq2EYyf.png)
+
+1.   **免费+增值策略**：面向个人用户提供免费使用版本这个策略，是WPS在国内用户增长的关键，这也是很多微软用户转向WPS的主要原因之一；相比微软对个人用户的策略，其核心使用终端PC端提供30天的免费试用，移动端免费使用，该策略对很多用户而言终究觉得免费的有些鸡肋，所以大部分微软的用户，基本选择盗版，对于懒得安装盗版版本的用户，wps成为了最好的选择；加上这些年WPS通过持续的提供很多好用的增值功能，用户体验越来越好，逐渐的和微软拉开了差距；
+2.   **轻、快、一站式：**相比微软office的臃肿和庞大，WPS相比更加轻便和快速，安装过微软office的人都知道，微软office的安装包非常大，光安装就要花费一两个小时的时间，而安装WPS通常只需要10分钟；其次，微软的word、excel、ppt每一个都是单独1个产品，办公的用户经常需要同时打开好几个应用，并且在多个应用间切换，而WPS把所有的文档产品打包在一个平台，这种一站式的办公体验，吸引了很多办公用户；
+3.   **布局移动端策略：**WPS这些年在移动端上的投入和提供完整的产品体验，是其用户增长的关键因素之一，根据QM数据，22年WPS移动端的月活已经将近2.5亿，而微软office移动端的月活仅有100万左右，其用户体量相形见绌，WPS在移动端上的布局，除了MAU数据指标上的增长，同时还渗透了很多仅手机端的用户，特别是学生群体和三四线城市群体；
+4.   **云和协同策略：**协同文档自带裂变和增长的产品特性，也刺激了WPS的增长，相信WPS的注册新增中，有不少占比的用户来源于金山文档；
+5.   **场景拓展策略：**我们可以关注到，WPS最近几年从传统的文字、表格、演示三件套为主，持续拓展了PDF、脑图、流程图、多媒体等产品场景；从办公这个核心场景，拓展了翻译、求职、论文服务等场景，细分场景拓展的策略也是WPS增长的关键驱动之一；
+
+**运营和市场拓展**
+
+在运营和市场拓展层面，更多以来预装、内容运营和细分市场策略促进增长：
+
+![Image 38](https://image.woshipm.com/wp-files/2024/01/8a3Dc1qbz0JiO8xNjyhF.png)
+
+1.   **厂商预装策略：**通过与联想、华硕、惠普、戴尔等多家PC厂商达成预装合作，以及手机端与华为、小米、OV预装合作，快速提高用户渗透；
+2.   **内容运营策略：**通过知乎、小红书、公众号等社媒平台内容运营，提升站外用户活跃；
+3.   **细分市场策略：**渗透教育、金融、党政等垂直细分市场，在细分市场谋求增长；
+
+**外部客观因素**
+
+![Image 39](https://image.woshipm.com/wp-files/2024/01/ZiwP3gD8BdH7wmcwyU9b.png)
+
+1.   **疫情原因：**20年开始因为疫情的原因，办公群体和教育群体对于在线办公和教学、移动办公和教学的需求增强，刺激了WPS的用户增长；
+2.   **信创政策**：因为信创政策和环境影响，国家和政府对国产办公软件的大力倡导和支持，对WPS的用户增长也有一定的影响作用；
+3.   **品牌影响力：**在办公软件国产化的热潮之下，最近几年WPS的品牌影响力越来越高促进了WPS的用户增长；
+
+**3）WPS如何提升付费转化率？**
+
+**拓展增值特权和付费场景**
+
+![Image 40](https://image.woshipm.com/wp-files/2024/01/lnLYmTiJ7LAb0Kmy4HdV.png)
+
+截止2022年WPS的会员特权的数量已经有将近200多个，其会员特权内容非常丰富，这得益于这么多年WPS在增值特权和付费场景上的积累，其权益拓展的核心方向概括起来主要有3个：
+
+1.   **拓展新产品和新特权：**包括PDF特权、图片处理特权、音视频、脑图、流程图等产品特权；
+2.   **拓展非一次性使用的特权：**大家都知道WPS的核心营收主要源于内容模版、格式转换等特权，这些均主要是一次性使用的特权，用户付费后使用黏性不高，很容易流失，所以最近几年wps通过新增云特权、创作元素特权等长期可用的特权从而提升付费转化率；
+3.   **拓展垂直服务场景：**在通用办公场景的基础上，拓展求职服务、文档翻译、论文查重等垂直场景增值服务；
+
+**拓展站外渠道转化**
+
+![Image 41](https://image.woshipm.com/wp-files/2024/01/yT0YNufs6Sx9dn4kXiJY.png)
+
+1.   **微信渠道：**拓展微信渠道，通过微信渠道带来收入新增；
+2.   **异业合作：**通过外部商务合作，发放免费试用会员，拓展站外用户试用，到期后引导付费转化；
+3.   **直播带货：**发展抖音直播、电商店铺等带货渠道，通过电商售卖的方式提升站外付费转化；
+
+## 五、从用户的角度看WPS
+
+### 1. C端用户画像
+
+**1）行业分布**
+
+参考相关调研机构数据，中国协同办公平台用户主要集中的行业分布如下，其中，教育行业和互联网/电商行业人群（也就是学生、教师、互联网办公白领）为主流人群，其次是金融行业从业者，猜测WPS的C端用户画像分布大致应该也是如此；
+
+![Image 42](https://image.woshipm.com/wp-files/2024/01/XU2jEmlOtgpAYIbveOwN.png)
+
+**2）城市分布**
+
+和行业整体和大部分办公产品的分布类似，WPS的用户主要还是聚焦在三四线城市，占比将近53%，一线和新一线城市的占比仅有20%左右，下沉用户才是大头；以下数据参考第三方研究机构；
+
+![Image 43](https://image.woshipm.com/wp-files/2024/01/4XpM4dg3K8Zs40ocbvEV.png)
+
+**3）消费水平**
+
+和行业整体相比，WPS用户群体的消费水平更高，不过相比腾讯文档和微软，略微低于竞品，以下数据参考第三方研究机构；
+
+![Image 44](https://image.woshipm.com/wp-files/2024/01/3iCAeeJHHZ3iDWx9RWYQ.png)
+
+### 2. 企业端客户画像分布
+
+虽然WPS没有对外的公开过其企业客户画像相关信息，但是从第三方调研机构平台同步信息、以及官方宣传企业客户标杆案例上，推测其主要客户画像如下：
+
+1.   政企、国央企客户为WPS主要客户：根据第三方调研机构同步数据，22年WPS来源于企业授权的收入中，三分之二的收入来源于信创收入，信创客户主要是以政企和国央企为主；
+2.   金融客户占据相当大比重：目前国有银行基本都是WPS的客户，金融行业因为其极高的安全和合规需求，毫无疑问都会选择使用WPS;
+3.   教育、电信、能源、制造行业也是WPS重要客户；
+
+OK，至此，本篇内容的完整内容结束，希望能帮助到你，**欢迎关注三白**。
+
+作者：三白有话说，公众号：三白有话说
+
+本文由 @三白有话说 原创发布于人人都是产品经理。未经作者许可，禁止转载。
+
+题图来自Unsplash，基于CC0协议。
+
+该文观点仅代表作者本人，人人都是产品经理平台仅提供信息存储空间服务。
+
+ 赞赏 收藏 已收藏 94 点赞 已赞 48
+
+更多精彩内容，请关注人人都是产品经理微信公众号或下载App
+
+[![Image 45](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2022/10/13/2df02d86-4af4-11ed-9ad4-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[SaaS产品](https://www.woshipm.com/tag/saas%e4%ba%a7%e5%93%81)[企业服务](https://www.woshipm.com/tag/%e4%bc%81%e4%b8%9a%e6%9c%8d%e5%8a%a1)[办公软件](https://www.woshipm.com/tag/%e5%8a%9e%e5%85%ac%e8%bd%af%e4%bb%b6)[金山WPS](https://www.woshipm.com/tag/%e9%87%91%e5%b1%b1wps)
+
+[分享到微博](https://service.weibo.com/share/share.php?appkey=2775287854&title=%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%E5%9B%BD%E6%B0%91%E5%8A%9E%E5%85%AC%E8%BD%AF%E4%BB%B6WPS&url=https://www.woshipm.com/evaluating/5979719.html&pic=https://image.woshipm.com/2023/05/06/cf506692-ec01-11ed-bbb6-00163e0b5ff3.jpg)
+
+微信扫一扫 
+
+![Image 46: 微信二维码](https://api.pwmqr.com/qrcode/create/?url=https://www.woshipm.com/evaluating/5979719.html)
+
+分享
+
+[![Image 47](https://static.woshipm.com/pmapp_avatar_20240119093604_2723.jpg?imageView2/1/w/150/h/150/q/100)](https://www.woshipm.com/u/278940)
+
+[三白有话说](https://www.woshipm.com/u/278940)![Image 48](https://static.woshipm.com/tag/1601_1@2x.png)![Image 49](https://static.woshipm.com/tag/1101_1@2x.png)关注
+
+腾讯用户增长专家，AI快研侠kuaiyanai.com创始人！
+
+41篇作品 287272总阅读量
+
+为你推荐
+
+[格式塔心理学 | 设计师需要知道的设计原则！](https://www.woshipm.com/ucd/5811028.html "格式塔心理学 | 设计师需要知道的设计原则！")
+
+04-21 11740 浏览
+
+[![Image 50: 格式塔心理学 | 设计师需要知道的设计原则！](https://image.woshipm.com/2023/04/17/38117a34-dcf5-11ed-9781-00163e0b5ff3.png!/both/120x80)](https://www.woshipm.com/ucd/5811028.html "格式塔心理学 | 设计师需要知道的设计原则！")
+
+[当“寒气”逼向AIGC](https://www.woshipm.com/ai/5725740.html "当“寒气”逼向AIGC")
+
+01-10 3006 浏览
+
+[![Image 51: 当“寒气”逼向AIGC](https://image.woshipm.com/wp-files/2023/01/u6voGHH3hRSS33ZU3SYL.jpg!/both/120x80)](https://www.woshipm.com/ai/5725740.html "当“寒气”逼向AIGC")
+
+[成功跳槽的秘诀：我的3年B端产品经理经验总结](https://ke.qidianla.com/courses/bcpm)
+
+刚刚
+
+[![Image 52](https://image.woshipm.com/2023/08/02/56aa250e-3100-11ee-b430-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp)](https://ke.qidianla.com/courses/bcpm)
+
+[看不见的挑战：探寻GPT-4的能力极限，突破还是止步于此？](https://www.woshipm.com/ai/5796056.html "看不见的挑战：探寻GPT-4的能力极限，突破还是止步于此？")
+
+04-03 3755 浏览
+
+[![Image 53: 看不见的挑战：探寻GPT-4的能力极限，突破还是止步于此？](https://image.woshipm.com/wp-files/2023/04/WuJBQzVvZBBPSKWNp1IE.jpg!/both/120x80)](https://www.woshipm.com/ai/5796056.html "看不见的挑战：探寻GPT-4的能力极限，突破还是止步于此？")
+
+[薅美团民宿羊毛全攻略，烧脑](https://www.woshipm.com/operate/5920072.html "薅美团民宿羊毛全攻略，烧脑")
+
+10-13 2480 浏览
+
+[![Image 54: 薅美团民宿羊毛全攻略，烧脑](https://image.woshipm.com/2023/04/13/d6c14c3e-d9eb-11ed-a8b0-00163e0b5ff3.jpg!/both/120x80)](https://www.woshipm.com/operate/5920072.html "薅美团民宿羊毛全攻略，烧脑")
+
+[当人人都明白“免费的才是最贵的”时，运营疯了](https://www.woshipm.com/operate/5771740.html "当人人都明白“免费的才是最贵的”时，运营疯了")
+
+03-06 15673 浏览
+
+[![Image 55: 当人人都明白“免费的才是最贵的”时，运营疯了](https://image.woshipm.com/wp-files/2023/03/eJIv0VHhttq2Le9yWGq4.jpg!/both/120x80)](https://www.woshipm.com/operate/5771740.html "当人人都明白“免费的才是最贵的”时，运营疯了")
+
+[![Image 56: 如何用Agent实现效能跃迁？腾讯云AI产业应用大会直播预约开启](https://image.yunyingpai.com/wp/2026/05/9cJeNHMj2Y3D0vrCmmWC.jpg!/both/240x168)](https://www.woshipm.com/open/6398520.html)
+
+[如何用Agent实现效能跃迁？腾讯云AI产业应用大会直播预约开启](https://www.woshipm.com/open/6398520.html)
+
+推荐
+
+评论
+
+评论请登录
+
+1.   [![Image 57](https://static.woshipm.com/view/woshipm_api_def_20231218143337_6390.png?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/973329) [加鱼加肉](https://www.woshipm.com/u/973329)![Image 58](https://static.woshipm.com/tag/1121_1@2x.png)   感谢分享，有详实的产品分析。
+
+ 想从运营的角度聊一下WPS和Office，在商业模式上是 freemium（免费增值）和free-trail（免费试用）的区别。
+
+ Freemium优势：吸引大量用户、降低市场准入门槛；劣势是盈利压力、转化率低、用户滥用和资源消耗
+
+ Free-trail优势：增加转化率、减少滥用行为、提供真实体验；劣势是用户数量限制、高营销成本
+
+在决定产品商业模式时，是选择Freemium还是Free Trial？
+
+如果产品做得比市场上的竞品好得多，而且收费明显低于他们。那么采用Free Trial和免费增值Freemium这两种模式都可以，因为它们既是获客模式又是成本效益。如：Netflix。
+
+ 如果产品比竞争对手做得更好，解决了某个垂直化、专业化、老大难的问题，当然收费要多得多。那么，可以采用Free Trial。如：SaaS 垂类产品。由于市场规模的限制和产品的专业性和复杂性，Freemium很可能无法在这种策略下发挥作用。
+
+ 如果产品没有比竞品做的更好，有些瑕疵，但简单易用，同时收费也相对廉价。那么采用Freemium是更合适的，降低门槛，快速获客。如：Canva。 最近 来自浙江 回复![Image 59](https://image.woshipm.com/more.svg)   
+    1.   [![Image 60](https://static.woshipm.com/pmapp_avatar_20240119093604_2723.jpg?imageView2/1/w/72/h/72/q/100)](https://www.woshipm.com/u/278940) [三白有话说](https://www.woshipm.com/u/278940)![Image 61](https://static.woshipm.com/tag/1601_1@2x.png)![Image 62](https://static.woshipm.com/tag/1101_1@2x.png)作者 回复[加鱼加肉](https://www.woshipm.com/evaluating/5979719.html#comment-578609)   行内人哈，这两种模式到底哪种比较合适，比较难得出一个绝对的结论，关键还是看产品自己的选择，是选择市场规模，还是选择商业效率，个人认为企业能解决活下来的问题，我喜欢免费增值的模式，想象空间很多，中小企业和创业公司，我喜欢免费试用或者直接收费的模式。 最近 来自广东 回复![Image 63](https://image.woshipm.com/more.svg)   
+    2.   [![Image 64](https://static.woshipm.com/view/woshipm_api_def_20231218143337_6390.png?imageView2/1/w/72/h/72/q/100)](https://www.woshipm.com/u/973329) [加鱼加肉](https://www.woshipm.com/u/973329)![Image 65](https://static.woshipm.com/tag/1601_1@2x.png)![Image 66](https://static.woshipm.com/tag/1121_1@2x.png)回复[三白有话说](https://www.woshipm.com/evaluating/5979719.html#comment-578632)   是的，就像生存与繁荣：付费率与用户体验在天平两端。
+
+ 收费不可耻，这不仅对产品的可持续发展至关重要，也反映了用户对产品的价值认可。
+
+ 而在引导付费的路上，不把用户当羊毛党或韭菜，充分尊重用户选择，也能让产品和用户达成共赢。 最近 来自浙江 回复![Image 67](https://image.woshipm.com/more.svg)   
+    3.   [![Image 68](https://static.woshipm.com/pmapp_avatar_20240119093604_2723.jpg?imageView2/1/w/72/h/72/q/100)](https://www.woshipm.com/u/278940) [三白有话说](https://www.woshipm.com/u/278940)![Image 69](https://static.woshipm.com/tag/1601_1@2x.png)![Image 70](https://static.woshipm.com/tag/1101_1@2x.png)作者 回复[加鱼加肉](https://www.woshipm.com/evaluating/5979719.html#comment-578648)   赞同![Image 71: 👍](https://s.w.org/images/core/emoji/16.0.1/svg/1f44d.svg) 最近 来自广东 回复![Image 72](https://image.woshipm.com/more.svg)   
+
+2.   [![Image 73](https://static.woshipm.com/view/woshipm_api_def_20240223135346_4987.png?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/793930) [frank](https://www.woshipm.com/u/793930)   感谢作者的分析，给从事sAAs行业的同行带来了一个有标杆意义的产品分析文档。
+
+ 从文档中学习到对于调研分析一个产品，应该从哪些方向进行思考和深入探讨，以及在做产品分析和竞品对比时的一些方法。
+
+ 再此处还想请教作者2个问题：
+
+ 1、关于数据方面的追源，一般是用哪些方法？是来自哪些咨询机构，能不能给出一些比较信得过的机构链接？
+
+ 2、关于营收增长模型的公式部分：年度会员营收=年度付费用户数*平均1个用户付费金额（ARPU）=MAU*年度付费转化率*年度平均付费次数*平均每次付费单价，MAU（是月活用户）是不是应该*12？才是完成的公式？ 最近 来自四川 回复![Image 74](https://image.woshipm.com/more.svg)   
+    1.   [![Image 75](https://static.woshipm.com/pmapp_avatar_20240119093604_2723.jpg?imageView2/1/w/72/h/72/q/100)](https://www.woshipm.com/u/278940) [三白有话说](https://www.woshipm.com/u/278940)![Image 76](https://static.woshipm.com/tag/1601_1@2x.png)![Image 77](https://static.woshipm.com/tag/1101_1@2x.png)作者 回复[frank](https://www.woshipm.com/evaluating/5979719.html#comment-578325)   感谢，确实这这篇文章本身也是为了建立一个研究框架，对于你的2个问题
+
+ 1.数据来源，最权威的就看上市公司的年报，其次 saas 的看东吴计算机等研究机构，最后看专业的数据平台，比如 QM 是比较准的
+
+ 2.不应该*12，建议你再看仔细一点，再仔细思考一下。 最近 来自广东 回复![Image 78](https://image.woshipm.com/more.svg)   
+
+3.   [![Image 79](https://static.qidianla.com/woshipm_def_head_1.jpg?imageView2/1/w/80/h/80/q/100)](https://www.woshipm.com/u/729255) [Hello丶火腿肠](https://www.woshipm.com/u/729255)   赞 最近 来自山东 回复![Image 80](https://image.woshipm.com/more.svg)   
+
+举报
+
+提交 取消
+
+为你推荐
+
+[![Image 81](https://image.woshipm.com/2023/07/07/4732f132-1c97-11ee-94c6-00163e0b5ff3.jpg?x-oss-process=image/quality,q_80/format,webp)需求难做，商业模式难找，我是如何做好B端产品经理的](https://ke.qidianla.com/courses/bcpm)
+
+*   [![Image 82: 产品经理：如何在需求调研时“拿下客户”？](https://image.woshipm.com/2023/04/13/8b7e302a-d9eb-11ed-a6e8-00163e0b5ff3.jpg!/both/130x88)](https://www.woshipm.com/user-research/5963735.html) [产品经理：如何在需求调研时“拿下客户”？](https://www.woshipm.com/user-research/5963735.html) 12-22 7022 浏览  
+*   [![Image 83: 如何通过运营突破在线教育的转化瓶颈，这个方法你一定要懂](https://image.woshipm.com/wp-files/2023/01/Oca6xoEMayQc0KMMciZk.jpg!/both/130x88)](https://www.woshipm.com/operate/5726555.html) [如何通过运营突破在线教育的转化瓶颈，这个方法你一定要懂](https://www.woshipm.com/operate/5726555.html) 01-11 11570 浏览  
+*   [![Image 84: 卷资本、卷流量、卷明星主播，直播电商2022大洗牌](https://image.woshipm.com/wp-files/2023/01/zw4YrS4qk1PSXO2x4aXI.jpg!/both/130x88)](https://www.woshipm.com/it/5726671.html) [卷资本、卷流量、卷明星主播，直播电商2022大洗牌](https://www.woshipm.com/it/5726671.html) 01-10 2490 浏览  
+
+推荐专题[更多专题](https://www.woshipm.com/topic-list)
+
+[_专题_![Image 85](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/08/02/b01a699a-3101-11ee-b550-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 18651人已学习 11篇文章](https://www.woshipm.com/topic/ipd)
+
+[什么是IPD开发流程？如何应用IPD开发流程？](https://www.woshipm.com/topic/ipd)
+
+采用IPD开发流程，在初期能把各种工作问题识别出来并扼杀在摇篮中。本专题的文章分享了什么是IPD开发流程？如何应用IPD开发流程？
+
+[_专题_![Image 86](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/07/17/2ae70178-2479-11ee-875d-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 16456人已学习 13篇文章](https://www.woshipm.com/topic/user-4)
+
+[如何做用户运营策略？](https://www.woshipm.com/topic/user-4)
+
+本专题的文章分析了用户运营策略的案例，为如何做用户运营策略提供了思路。
+
+[_专题_![Image 87](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/12/11/4e67ce02-9800-11ee-8fc4-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 15535人已学习 14篇文章](https://www.woshipm.com/topic/fp)
+
+[项目复盘](https://www.woshipm.com/topic/fp)
+
+在项目完结时，我们经常需要进行项目复盘。那么一个好的项目复盘是怎样的？
+
+[_专题_![Image 88](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2024/04/07/b232d032-f4a6-11ee-abf7-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 18833人已学习 13篇文章](https://www.woshipm.com/topic/xiaohongshu-2)
+
+[小红书流量密码](https://www.woshipm.com/topic/xiaohongshu-2)
+
+如果做小红书运营？本专题的文章分享了小红书流量密码。
+
+[_专题_![Image 89](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2023/08/09/fd15cd46-36a3-11ee-be05-00163e0b5ff3.png?x-oss-process=image/quality,q_80/format,webp) 17850人已学习 15篇文章](https://www.woshipm.com/topic/smart-hardware)
+
+[智能硬件产品经理入门篇](https://www.woshipm.com/topic/smart-hardware)
+
+智能硬件产品经理需要做什么工作内容呢？与互联网产品经理有什么区别呢？本专题为刚入行的智能硬件产品经理分享了入门指南。
+
+[_专题_![Image 90](https://liangcang-prod.oss-cn-hangzhou.aliyuncs.com/55b5eac92aab2289d9a67c3929f8ea9d/2024/03/25/3d2095c4-ea81-11ee-a013-00163e142b65.png?x-oss-process=image/quality,q_80/format,webp) 14466人已学习 13篇文章](https://www.woshipm.com/topic/user-7)
+
+[如何做好新用户激活？](https://www.woshipm.com/topic/user-7)
+
+激活是指用户通过完成关键行为，真正成为产品的用户，而提升新用户激活则是留存用户的第一步。本专题的文章分享了如何做好新用户激活。
+
+社群
+
+[付费群](https://www.woshipm.com/evaluating/5979719.html) | [免费群](https://www.woshipm.com/evaluating/5979719.html)
+
+*   ![Image 91](https://image.woshipm.com/fp/images/a1.svg)AI产品经理交流群![Image 92](https://image.woshipm.com/wp-files/2024/04/6GgzZKB2vv6oJwWZrfvI.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/5979719.html)
+*   ![Image 93](https://image.woshipm.com/fp/images/a2.svg)AI工具共学交流群![Image 94](https://image.woshipm.com/wp-files/2024/06/koBjkl4OziVTXHx79TeG.jpg) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/5979719.html)
+*   ![Image 95](https://image.woshipm.com/fp/images/a3.svg)华为鸿蒙交流群![Image 96](https://image.woshipm.com/wp-files/2024/11/lfoTXWOHKfpeRunhi7Fk.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/5979719.html)
+*   ![Image 97](https://image.woshipm.com/fp/images/a4.svg)运营增长交流群![Image 98](https://image.yunyingpai.com/wp/2024/01/tz5fR0ocBXaqWOrMZHtV.png) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/5979719.html)
+*   ![Image 99](https://image.woshipm.com/fp/images/a5.svg)OPC一人公司交流群![Image 100](https://wework.qpic.cn/wwpic3az/765799_Bo4F-gUdR0e-V9f_1772098485/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/5979719.html)
+*   ![Image 101](https://image.woshipm.com/fp/images/a6.svg)OpenCalw&Hermes交流群![Image 102](https://wework.qpic.cn/wwpic3az/61131_STHVj2BZR56rLQW_1771995429/0) 扫码加我拉你进群 
+请注明：姓名-公司-职位
+
+以便审核进群资格，未注明则拒绝   [加入](https://www.woshipm.com/evaluating/5979719.html)
+
+快讯
+
+[查看更多](https://www.woshipm.com/digest)
+
+[腾讯电脑管家入局Mac生态，首推AI Agent安全防护](https://www.woshipm.com/digest/495971)
+
+刚刚
+
+[亚马逊2025年在英投资达200亿美元](https://www.woshipm.com/digest/495979)
+
+刚刚
+
+[阿里员工十三薪并入年终奖](https://www.woshipm.com/digest/495989)
+
+刚刚
+
+热门文章
+
+*   [![Image 103: 做B端业务，我为什么对更聪明的AI毫无期待](https://image.woshipm.com/2023/04/13/732971a2-d9ef-11ed-bd74-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6398839.html "做B端业务，我为什么对更聪明的AI毫无期待") [做B端业务，我为什么对更聪明的AI毫无期待](https://www.woshipm.com/ai/6398839.html "做B端业务，我为什么对更聪明的AI毫无期待") 05-20  
+*   [![Image 104: AI 健康产品的下一站：不是“回答更像医生”，而是“先学会问问题”](https://image.woshipm.com/2023/04/14/8e88cba6-da8e-11ed-aeb8-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6392458.html "AI 健康产品的下一站：不是“回答更像医生”，而是“先学会问问题”") [AI 健康产品的下一站：不是“回答更像医生”，而是“先学会问问题”](https://www.woshipm.com/ai/6392458.html "AI 健康产品的下一站：不是“回答更像医生”，而是“先学会问问题”") 05-11  
+*   [![Image 105: 一次金融AI研讨会，聊聊B端产品落地的几点真实感受](https://image.woshipm.com/2023/04/13/8b7edd04-d9eb-11ed-889f-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6395646.html "一次金融AI研讨会，聊聊B端产品落地的几点真实感受") [一次金融AI研讨会，聊聊B端产品落地的几点真实感受](https://www.woshipm.com/ai/6395646.html "一次金融AI研讨会，聊聊B端产品落地的几点真实感受") 05-14  
+*   [![Image 106: 产品经理这一行，可能也快”上半场”结束了](https://image.woshipm.com/2023/05/06/a91e2ffe-ec01-11ed-bbb6-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6392466.html "产品经理这一行，可能也快”上半场”结束了") [产品经理这一行，可能也快”上半场”结束了](https://www.woshipm.com/ai/6392466.html "产品经理这一行，可能也快”上半场”结束了") 05-11  
+*   [![Image 107: 埋点做完了，然后呢？数据分析的完整闭环](https://image.woshipm.com/2023/04/14/a1997136-da9e-11ed-aee8-00163e0b5ff3.png!/both/100x60)](https://www.woshipm.com/data-analysis/6389270.html "埋点做完了，然后呢？数据分析的完整闭环") [埋点做完了，然后呢？数据分析的完整闭环](https://www.woshipm.com/data-analysis/6389270.html "埋点做完了，然后呢？数据分析的完整闭环") 05-06  
+*   [![Image 108: 同样是AI落地，为什么金融成了、工业没成？](https://image.woshipm.com/2023/04/13/d34ae8a8-d9e1-11ed-9d7a-00163e0b5ff3.jpg!/both/100x60)](https://www.woshipm.com/ai/6392229.html "同样是AI落地，为什么金融成了、工业没成？") [同样是AI落地，为什么金融成了、工业没成？](https://www.woshipm.com/ai/6392229.html "同样是AI落地，为什么金融成了、工业没成？") 05-11  
+
+![Image 109](https://image.woshipm.com/wp-files/2020/06/qgEa9DwE5Xshp2Q7EbAx.png)
+
+为什么饿了么外卖对商家的评分是5分制（五颗星），但针对骑手的评分是3分制（非常差/一般/超赞）？
+
+饿了么外卖对商家的评分机制是5分制（五颗星），但针对骑手的评分机制是3分制（非常差/一般/超赞）。此...
+
+![Image 110](https://static.woshipm.com/WX_U_202001_20200121114005_5237.jpg?imageView2/2/w/80/size-limit/5k!)![Image 111](https://static.woshipm.com/WX_U_201805_20180531185421_8464.jpg?imageView2/2/w/80/size-limit/5k!)![Image 112](https://image.woshipm.com//wp-files/2015/10/touxiang-5.jpg!avatar)97.9k 点击 56 回答
+
+[进入回答](https://wen.woshipm.com/question/detail/omplm9.html?sf=wipm)
+
+[拼多多本地生活业务全面暂停，这类业务的挑战在哪里？](https://wen.woshipm.com/question/detail/21qgq8.html?sf=wipm)
+
+ 12.8k 点击 8 回答 
+
+[老年人群体薅app羊毛越来越多，对此你怎么看待这件事？](https://wen.woshipm.com/question/detail/d7s3pe.html?sf=wipm)
+
+ 23.4k 点击 16 回答 
+
+[领导负责两个部门的事务，经常两个部门的事情交叉给我们做，该怎么解决？](https://wen.woshipm.com/question/detail/tdb90j.html?sf=wipm)
+
+ 13.4k 点击 16 回答 
+
+文章导航
+
+*   [一、写在前面的话](https://www.woshipm.com/evaluating/5979719.html#toc-1)
+*   [二、从行业的角度看WPS](https://www.woshipm.com/evaluating/5979719.html#toc-2)
+*   [三、从产品的角度看WPS](https://www.woshipm.com/evaluating/5979719.html#toc-3)
+*   [四、从商业的视角看WPS](https://www.woshipm.com/evaluating/5979719.html#toc-4)
+*   [五、从用户的角度看WPS](https://www.woshipm.com/evaluating/5979719.html#toc-5)
+
+关于
+
+ 人人都是产品经理（woshipm.com）是以产品经理、运营为核心的学习、交流、分享平台，集媒体、培训、社群为一体，全方位服务产品人和运营人，成立12年举办在线讲座1000+期，线下分享会500+场，产品经理大会、运营大会50+场，覆盖北上广深杭成都等20个城市，在行业有较高的影响力和知名度。平台聚集了众多BAT美团京东滴滴360小米网易等知名互联网公司产品总监和运营总监，他们在这里与你一起成长。 
+
+合作伙伴
+
+*   [![Image 113: 起点课堂](https://image.woshipm.com/wp-files/2021/10/zUwm4IYjmoiV63Kk9aKQ.png)](https://www.qidianla.com/?woshipm "起点课堂")
+*   [![Image 114](https://image.yunyingpai.com/wp/2021/12/wyRAfH2rXJha57p06bbQ.png)](https://36kr.com/)
+*   [![Image 115: 极验验证](https://image.woshipm.com/wp-files/2020/05/zHiqREB7rkGZsC6rFerJ.png)](https://www.geetest.com/?woshipm)
+*   [![Image 116: 致设计](https://image.woshipm.com/wp-files/2020/05/k7Gf25a7GdaoRNLLogCo.png)](https://www.zhisheji.com/?woshipm "致设计")
+*   [![Image 117: 保利威](https://image.woshipm.com/wp-files/2020/05/KZTBx2R2UyR2k96mHpa4.png)](https://www.polyv.net/?-cpjl)
+
+链接
+
+*   [隐私政策](https://www.woshipm.com/policy)
+*   [投稿须知](https://www.woshipm.com/it/1010671.html)
+*   [意见反馈](https://wen.woshipm.com/question/detail/omkf.html)
+*   [帮助中心](https://doc.weixin.qq.com/doc/w3_ALsAdwZgAO8uhueZ8ahRse75jgAJm?scode=AGsAywdaAA0wPabVgMAYgAZgbwAOM)
+
+![Image 118: 公众号](https://image.woshipm.com/wp-files/2020/06/cKMzCQWucvwdFhHVeoib.jpeg)
+公众号
+
+![Image 119: 视频号](https://image.woshipm.com/wp-files/2020/06/PAVQDSOr3b6NRnHyqAVy.jpeg)
+视频号
+
+*   友情链接
+*   [PM265](https://pm265.com/)
+*   [产品经理导航](https://www.pmbaobao.com/)
+*   [起点课堂](https://www.qidianla.com/)
+*   [猪八戒网](http://www.zbj.com/)
+*   [伙伴云表格](https://www.huoban.com/)
+*   [网易易盾](https://dun.163.com/)
+*   [个推](https://www.getui.com/cn/)
+*   [友盟+](https://www.umeng.com/)
+*   [创业邦](https://www.cyzone.cn/?woshipm)
+*   [AI学习社区](https://www.aixq.cc/ "学习AI第一站")
+*   [慕课网](https://www.imooc.com/ "慕课网")
+
+ 旗下品牌: [起点课堂](https://www.qidianla.com/) | [运营派](https://www.yunyingpai.com/) | [粮仓企微管家](https://www.liangcang.cc/)
+
+ ©2010-2024 - 人人都是产品经理 - [粤ICP备14037330号](https://beian.miit.gov.cn/)-[粤公网安备 44030502001309号](https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001309)
+
+[广播电视节目制作经营许可证（粤）字第03109号](https://static.qidianla.com/Audio-TVLicense.jpg)[增值电信业务经营许可证粤B2-20190788](https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyesearch.jsp?num=%E6%B7%B1%E5%9C%B3%E8%81%9A%E5%8A%9B%E5%88%9B%E6%83%B3%E4%BF%A1%E6%81%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&type=xuke) 版权所有 © 深圳聚力创想信息科技有限公司 
+
+[网站统计](http://tongji.baidu.com/hm-web/welcome/ico?s=b85cbcc76e92e3fd79be8f2fed0f504f)

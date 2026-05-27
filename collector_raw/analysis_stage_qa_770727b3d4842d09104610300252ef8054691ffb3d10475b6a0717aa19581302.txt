@@ -1,0 +1,615 @@
+# 飞书项目这次发布,可能被大部分人低估了 - 知乎
+
+Title: 飞书项目这次发布，可能被大部分人低估了
+
+URL Source: https://zhuanlan.zhihu.com/p/2032491295642490831
+
+Markdown Content:
+# 飞书项目这次发布，可能被大部分人低估了 - 知乎
+[![Image 1](https://zhuanlan.zhihu.com/p/2032491295642490831)](javascript:void(0))
+
+[](https://www.zhihu.com/)
+
+[关注](https://www.zhihu.com/signin?next=%2Ffollow)[推荐](https://www.zhihu.com/signin?next=%2F)[热榜](https://www.zhihu.com/signin?next=%2Fhot)[专栏](https://www.zhihu.com/signin?next=%2Fcolumn-square)[圈子 New](https://www.zhihu.com/signin?next=%2Fring-feeds)[付费咨询](https://www.zhihu.com/consult)[知学堂](https://www.zhihu.com/education/learning)
+
+​ 
+
+[直答](https://zhida.zhihu.com/)
+
+切换模式
+
+登录/注册
+
+飞书项目这次发布，可能被大部分人低估了
+
+切换模式
+
+# 飞书项目这次发布，可能被大部分人低估了
+
+[![Image 2: 人人都是产品经理](https://pica.zhimg.com/v2-1fb69735e6174414988ef2d2edcde2b8_l.jpg?source=172ae18b)](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li)
+
+[人人都是产品经理](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li)
+
+[​![Image 3](https://picx.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c)](https://www.zhihu.com/question/48510028)
+
+已认证机构号
+
+1 人赞同了该文章
+
+> [飞书项目](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=%E9%A3%9E%E4%B9%A6%E9%A1%B9%E7%9B%AE&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiLpo57kuabpobnnm64iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzM5MzYwNjAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.eNQblmaW1KkMn023hMhD-uSeStyFbMf2_U_uktl7ZM4&zhida_source=entity)在SaaS赛道的数据令人震惊，但真正让行业瞩目的却是其AI生态的高速进化。日均接口调用量一年增长五倍背后，隐藏着一个被多数人忽略的战略信号：系统的一等公民正在从「人」转向「人+Agent」。本文深度解析飞书项目如何通过[AI Friendly](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=AI+Friendly&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiJBSSBGcmllbmRseSIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI3MzkzNjA2MCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.SpeObEsNDgzjbOMOGc80F0BwBLk0BlHJRN1UpgBdbtc&zhida_source=entity)战略重构研发管理范式，其开源CLI与[AAMP协议](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=AAMP%E5%8D%8F%E8%AE%AE&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiJBQU1Q5Y2P6K6uIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjczOTM2MDYwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.SAjnY7zQwGrOrG-_fSgQypK7JvUWh2bZ30AYPXYC0Bs&zhida_source=entity)如何为多Agent协作铺设基础设施，以及那些正在主动「蒸馏」自己的PMO们揭示的残酷进化法则。
+
+![Image 4](https://picx.zhimg.com/v2-2367735f03045fed0402a99bbad7d987_1440w.jpg)
+
+先摆几个数据。
+
+2025年，飞书项目在「软件研发项目管理SaaS」和「[IPD流程数字化SaaS](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=IPD%E6%B5%81%E7%A8%8B%E6%95%B0%E5%AD%97%E5%8C%96SaaS&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiJJUETmtYHnqIvmlbDlrZfljJZTYWFTIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjczOTM2MDYwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.gt_S2eA9r1M1ijLPdYmgW0jmlj_xc5Drtp1hkHkKWrE&zhida_source=entity)」两个赛道，市占率分别是46.8%和68.6%，全国双第一。这个数据是赛迪最新发布的。
+
+但更让我愣住的不是这个，是另一组。
+
+飞书项目开放平台上线一年，活跃插件数量翻倍，日均接口调用量从500万增长到2300万。一年差不多五倍的量。
+
+这个量级的增长在SaaS行业里是个什么概念？这东西已经不只是一个工具了，它是很多企业每天都在依赖的业务底座。
+
+昨天我在上海参加了飞书项目生态日，听了一整个下午，脑子里一直在盘一件事。
+
+到底是什么让飞书项目在这个赛道里跑成了现在这个样子？然后又凭什么它今天在AI方面还能再往前冲一大截？
+
+听了半场，我记下了一个词。
+
+AI Friendly。
+
+这个词是飞书项目负责人洪涛提出来的，翻译过来叫「对AI友好」。听着挺普通对吧？我一开始也没当回事儿。
+
+但洪涛接着讲了一句话，把我听坐直了。
+
+> **「过去我们的开放，更多是对人开放。从流程配置的灵活开放，到API接口的丰富开放，再到[轻应用](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=%E8%BD%BB%E5%BA%94%E7%94%A8&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiLovbvlupTnlKgiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzM5MzYwNjAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.ZjEFiyOGm3v0NTgKScecg2gGY0rmqt152KtqjAqQh5c&zhida_source=entity)前端的全面开放。但今天，当越来越多的使用者变成了AI Agent，平台还得对AI友好。」**
+
+这句话我咂摸了一下午。因为它背后藏着一个我们很多人还没反应过来的事情。
+
+系统的一等公民，正在从「人」扩展到「人+Agent」。
+
+坦率的讲，我来之前期望没那么高。我自己这半年都在做AI Agent落地的事情，踩坑踩到怀疑人生，来这儿最开始就是一个「看看友商在干啥」的吃瓜心态。但听了洪涛开场那十分钟，我就知道今天这场会，对在一线做AI落地的人来说，值得认真对待。
+
+我想跟你聊聊，为什么。
+
+洪涛开场讲了一段话我觉得是整场最核心的判断。他说，AI到底给咱们的研发项目管理带来了什么麻烦？
+
+**没听错，是麻烦。**
+
+写代码、写文档、出方案，确实变快了。但单点产出变快，不代表大家配合得更顺。干活的节奏越快，信息不同步、流程断开、责任扯皮的情况，反而会成倍放大。
+
+这时候，如果一个项目管理平台还停留在「记任务、看状态」，那就彻底扛不住了。
+
+那解法是什么？
+
+洪涛给的答案只有一句话。**「把结构化数据，变成AI的燃料。」**
+
+这句话我听完当场抄在了备忘录里。
+
+因为它讲透了一件事儿。我们很多人讨论AI转型，都在讨论模型能力、Prompt技巧、Agent架构。但真正在企业里把AI跑稳的人都知道，AI如果只是一个聊天框，那是玩具。只有当AI真正吃透企业里那些结构化的流程数据，帮你去排期、去暴露风险，它才能解决真实的业务问题。
+
+所以AI时代的研发管理，必须是把开放能力、结构化数据和流程系统，死死地焊在一起。
+
+这一句话，就是AI Friendly战略的底层逻辑。
+
+好，带着这个判断，我再看飞书项目这次发布的东西，突然就看懂了。
+
+先说一个容易被低估的事实。飞书项目的开放，不是今天才开始的。
+
+这事儿其实是飞书项目的基因。去年这个时候他们在北京办了一场开发者日，当时来了大概一百号人。从那儿之后，开放平台正式上线，接口、Webhook、轻应用、三方插件体系全开放出去，一年时间跑出来大几十个优质的解决方案。活跃插件翻倍、日均调用量从500万涨到2300万这两个数据，就是这一年开放的果实。
+
+但你注意洪涛在开场讲的另一句话，他说，开放平台发布一年，数字增长以外更重要的是质变。
+
+什么质变？
+
+是越来越多的插件和解决方案，开始尝试「AI × 飞书项目」。
+
+这句话翻译过来是，过去一年开放平台承接的是「人的开发者」做出来的工具；往后开放平台要承接的，是「AI的开发者」以及「人+AI一起开发出来的工具」。
+
+这就是为什么今年活动从「开发者日」变成了「生态日」。
+
+一字之差，里面的东西全变了。
+
+因为「开发者」这个词的含义正在被重新定义。以前开发者是程序员。今天一个懂业务的PMO配一套AI Coding工具就是开发者，一个一线产品经理用自然语言生成插件也是开发者。当开发者的边界开始模糊，开发者日这个名字就自然不够用了。
+
+洪涛在开场还定义了一下什么叫生态。他说生态不是人多热闹，生态的标志是三件事。第一，平台上开始长出真实的业务作品。第二，不同的角色开始围绕同一个底座一起干活。第三，也是最实在的，伙伴们开始在这里获得客户、获得收入、获得持续投入的理由。
+
+这三条放在一起，就是「生态日」这个名字的全部含义。
+
+从「人的开发者」扩展到「AI参与的生态」，这是飞书项目今年判断的起点。
+
+而AI Friendly这个战略，就是为了把这件事接住。
+
+好，说回产品本身。
+
+飞书项目这次发布的那张主架构图，我在现场拍下来了，回家之后看了好几遍。整个图分三层。
+
+![Image 5](https://pic2.zhimg.com/v2-dbc4cf5ce90729942dc5b92cedc2f78b_1440w.jpg)
+
+第一层叫 AI 连接 Connection，里面有 [MCP](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=MCP&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiJNQ1AiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzM5MzYwNjAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.n2ElAWFnPLmNixgybY9ZWNjK34coZI5PY_bXzOhO3nM&zhida_source=entity) 升级、飞书项目 CLI、[AI Coding 开发套件](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=AI+Coding+%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiJBSSBDb2Rpbmcg5byA5Y-R5aWX5Lu2IiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6MjczOTM2MDYwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.JI_spuDOtBk_Hf59bSfN6W7CwVBGYfWkRTWRiV2WHyo&zhida_source=entity)。第二层叫 AI 应用 Application，里面有 AI 节点、AI 字段。第三层叫 AI 助手 Agent，里面有飞书项目 AI 助手和 AAMP 协议。
+
+发布会上一个叫杨澍的开放平台负责人花了快一小时讲这三层，我一开始以为就是常规产品更新，听到后面越听越觉得不对劲。
+
+这三层对应的其实是一个AI Agent在业务系统里生存的三个阶段。
+
+Agent能不能进来。Agent怎么工作。Agent和其他Agent怎么协作。
+
+这三个问题的答案，决定了一个SaaS平台未来三年还有没有戏。
+
+先说第一层，Agent怎么进来。
+
+这层升级最让我眼前一亮的不是MCP，而是那个 CLI。
+
+我跟你说，我自己做多Agent系统踩过的坑，跟这个完全对得上。MCP当然是好东西，飞书项目的MCP这次也升级到了市面上功能最全的项目管理MCP，覆盖40多个工具，首家支持OAuth这种更安全的授权方式，现在已经有接近500家租户在高频使用，月活用户6000多，每周调用次数超过150万次。
+
+但MCP有一个结构性的问题。在中大型项目里，你的tool数量一多，上下文窗口就会被吃光，AI开始出现幻觉、调用超时、逻辑混乱。这不是MCP的错，是当初设计MCP的人没预料到项目管理这种场景的复杂度。
+
+CLI这东西的价值在哪呢？
+
+它是渐进式披露的。AI想调用某个能力，先搜索命令，再读那个命令的帮助文档，最后执行。它不用一次性把所有能力塞进上下文。就像你去一个图书馆，不是一进门把所有书的目录都背下来再说，而是查索引、找到相关那本再翻。
+
+这种设计对大模型有三个直接好处。更稳定、更省token、效果更好。
+
+现场那个演示我当时看完就想起我自己做的事情。我们之前纠结过很久到底用MCP还是自己搭 Function Calling。飞书项目给的答案是，两个都要，但针对不同的场景。
+
+顺手讲一下这个CLI里最让我佩服的一个设计。它内置了SKILL，而且是自动发现机制。AI用户不需要手动找文档，CLI在启动时就会告诉AI「你这个场景应该用这个skill」。
+
+这是一个很小的细节，但它背后是对Agent工作流特别深的理解。你去看所有搞Agent的人，都在吭哧吭哧写System Prompt、写工具说明。飞书项目把这一套沉淀到CLI里，对接入方来说就是一个命令行的事。
+
+更关键的是，飞书项目CLI是开源的。
+
+开源这件事在今天的AI时代，已经不是一个锦上添花的选项，它是一个分水岭。你不开源，Agent开发者不信你。你开源，整个生态才能真正长起来。
+
+飞书项目选了更难的那条路。
+
+第一层还有一个即将上线的东西叫 AI Coding 开发套件。简单讲就是自然语言生成插件和AI应用，一句话让AI帮你从零到一做一个飞书项目插件，甚至能自主上架。
+
+这东西意味着什么？
+
+以后在飞书项目生态里开发插件，不再是程序员的专利。这正是洪涛一开始说的那句话的落地。
+
+AI正在重塑「开发者」的边界。
+
+第二层，AI 应用。这一层飞书项目发了两个东西，AI 节点和 AI 字段。
+
+AI节点很好理解，就是把一个AI应用（比如一个Code Agent、一个Test Agent）嵌入到项目流程里，当流程走到某一步，这个AI节点就自动触发。听起来很普通对吧？
+
+但你得跟传统的工作流产品对比一下。传统的工作流，流转到某一步你是等人来处理的。现在这一步可以是AI处理，处理完直接把结果写回项目实例。这就是把「人做的事情」和「AI做的事情」放在同一个流程图里了。
+
+AI节点还有一个挺妙的设计。它首次取消了「要用开放能力必须管理员先安装」的限制。以前一个插件要用起来，管理员得先一个一个空间去配。现在节点负责人自己就能把他负责的节点转成AI节点，让AI接管。这在大组织里是一个很大的解绑。
+
+AI 字段这个设计我觉得更妙。
+
+传统的飞书项目，你的一个字段是文本、数字、日期、下拉选项这种固定的结构化数据类型。现在多了一个字段类型叫「AI字段」。这一列每一个单元格在生成的时候都会调用一个AI应用。
+
+举个例子。你做招聘管理，每条记录是一份简历，以前你要手动打分，现在加一个「AI评分」字段，每条简历自动触发打分逻辑。你做一个需求池，每条需求加一个「AI分类打标」字段，每条需求自动贴标签。
+
+这次AI字段还升级了一个叫「快速创建」的模式。用户可以把自己调得好用的指令，直接包装成一个带变量输入的模板，在市场上架，给其他同学复用。同事只需要选配一下变量对应的字段就行。
+
+这个设计真的太懂中国企业了。
+
+你想想以前在企业里搞AI落地最痛的是什么？不是做不出来，是别人用不起来。好不容易调出一个精准的Prompt，想让同事也用，得发内部文档、开会讲解、一个个教。有任何微调，还得挨个通知。
+
+现在AI字段把这事儿给解了。调得好用的直接上架模板，整个组织都能用起来，有微调还能自动生效。这就是把个人的AI最佳实践，变成了组织的AI资产。
+
+这一层发布完之后我才反应过来飞书项目在走的路线。
+
+先把底层的「AI连接」做到极致，让Agent能顺畅进来。再用「AI应用」把Agent能力下沉到业务场景里，让普通用户人人可用。最后用「AI助手」把整个东西封装成开箱即用的产品。
+
+层层递进，自下而上。这是一个懂AI的团队才会做的产品路径。
+
+第三层，AI 助手加AAMP协议。
+
+这是我今天觉得最被低估的东西。
+
+AAMP全称叫 Agent Asynchronous Messaging Protocol。直译是智能体异步通信协议。
+
+你听到这个名字第一反应可能是，诶这不就是一个协议吗，协议嘛，又发不出什么新玩意儿。
+
+我一开始也是这个反应。听完之后我直接改变看法。
+
+事情是这样的。你现在想象一个场景。你作为一个员工，你有自己的AI助手（比如你装了OpenClaw本地版）。你的公司有自己的AI助手（比如飞书项目AI助手）。这两个AI助手现在要协作完成一个任务。
+
+怎么协作？
+
+传统的做法是，你的AI助手调用公司AI助手的API。但这里有一个大问题。你的AI助手跑在你本地（可能是你的笔记本，可能是一个NAT后面的内网环境），公司AI助手不能主动来找你。你的AI助手要不停地去轮询，才能知道公司那边有没有给你派活。
+
+AAMP解决的就是这个事儿。它是一个双向异步通信协议，支持本地Agent在NAT、防火墙限制下也能被远端Agent找到。
+
+你听着是不是还是觉得很技术很无聊？
+
+那我换个说法。
+
+互联网刚诞生的时候，人和人之间怎么协作？靠email。洪涛在开场讲过这个比喻，email不性感吧，但没有email，全球化办公就别做了。
+
+**AAMP就是给Agent配的email。**
+
+没有这个协议，Agent只能在同一个平台里玩。有了这个协议，你的Agent和我的Agent和她的Agent可以异步通信，互相委托任务，互相协作，即使来自不同团队、跑在不同机器上。
+
+现场一个叫嘉硕的工程师演示了这个，我看完当场愣住了。
+
+一个市场部同学在飞书项目里输入一句话「帮我开发一个倒计时组件」，这个需求通过AAMP协议发到了一个本地Agent的邮箱里。本地Agent收到之后调用命令行工具开始开发，开发完回传结果，插件自动上架。
+
+整个过程，市场部同学什么代码都不懂，什么部署都不会，他只需要说人话。
+
+这个演示看着还有点卡顿，协议速度不是完美的。但我当场就判断，这事儿的方向对得不能再对了。
+
+因为它解决的是一个所有搞多Agent协作的人都绕不开的问题，Agent的身份边界和通信通道。
+
+这东西关键还开源。
+
+AAMP是开源协议，意味着它不是飞书项目一家的东西，任何平台任何智能体只要遵循这个协议，都能互相通信。飞书项目主动把主动权让出去了。
+
+这个动作在SaaS行业里是很少见的。大部分公司在这种关键基础设施上，第一反应是建围墙，让用户锁死在自己的生态里。飞书项目反过来，主动降低自己的护城河，去建一条所有人都能用的高速公路。
+
+这是一个有点反直觉但方向完全正确的选择。因为在Agent时代，谁先把标准定下来，谁就赢了生态。
+
+讲到这儿，我想讲讲下午的另一场分享。
+
+下午有一场叫「AI+项目管理一线落地实践」的分享环节，50分钟时间，六位一线PMO轮番上，每人八分钟。这种短平快的环节特别见功力，水的人两分钟就被看穿。
+
+第一个上来的是唱吧的PM张楚楚。她讲了一个事儿。她们设计团队以前一个月要出几百个物料，每个都得手动调用一堆AI工具。现在她们在飞书项目里搭了一个智能体，设计师只做最后的审核，一句话的需求进去，图就出来了。
+
+但让我记下来的不是这个场景，是她在分享最后讲的一段话。
+
+她说，现在网上有个词叫「把同事蒸馏成skill」，听着挺残酷。她的原话是这样的。
+
+> 「这就是一个蒸馏过程，但你又不得不去做。因为你不蒸馏别人，别人也会蒸馏你。」
+
+我听完当场愣住了。
+
+这句话的杀伤力在于，它直接戳破了AI时代最大的一个幻觉。很多人还在讨论AI会不会取代我，但真正在一线的人已经不再讨论这个问题了。他们讨论的是，**我要在被取代之前，先把自己的经验沉淀成可以被他人调用的能力。**
+
+张楚楚后来补了一句更狠的。
+
+「我抱着未来公司可以不用项目管理的心态去做很多事情。我列了项目管理日常在做的所有事情，把可AI化的做了标注，把已AI化的也做了标注。」
+
+一个项目经理，在系统性地把自己做的事情AI化。
+
+她在主动地蒸馏自己。
+
+这不是被动应对AI时代，这是在成为这个时代的原生物种。
+
+![Image 6](https://pic3.zhimg.com/v2-02720026fffb0fcf5682ac23a6523a44_1440w.jpg)
+
+真正让我坐直的是另一个分享的人，字节剪映的杨淼。他上来分享的是一个K8S海外机房容灾的项目，要跟60多个中台、300多个外部服务去确认容灾能力。每周老板问他「哪些ready了、哪些有风险、谁没进展」，他得在各个部门群里挨个艾特，搜集，整理。
+
+这种活儿最容易想的就是，直接让AI帮我总结群聊。
+
+他一开始也这么干的。然后拿到的是什么呢？是「XX中台表示资源紧张正在评估方案」、「语音中台正在和项目组沟通资源缺口」这种summary。
+
+这种总结回答不了任何问题。你要知道的是哪些需要你今天去复试，哪些需要上升到老板。前面这些回答全是废话。
+
+然后他做了一个我觉得特别对的事情。
+
+他把「让AI做什么」重新设计了一遍。AI不去自由判断，AI带着问题去采集。他提前写好一个样文件，把要回答的三个问题作为固定字段，让大模型在采集的时候必须填这些格子。大模型只做中间一段「语义归一化」，前后的采集和分析都用代码处理。
+
+他讲到这儿的时候我就在想，这哥们是真懂工程的人。
+
+因为市面上95%的人讨论AI Agent，都在讨论模型能力、prompt技巧、工具调用。但真正把Agent跑稳的人都知道，中间这一段的自由发挥越少越好，前后的确定性代码越多越好。
+
+杨淼最后的个人思考是这样一句话。
+
+> **「新时代PMO的角色，是压缩组织里面的摩擦。」**
+
+这句话我当场记下来了。
+
+接着上来的是字节中国交易与广告的郑宇。他讲了一个特别聪明的框架。他把工作按照《高效能人士的七个习惯》分成四象限，然后说AI的价值不是帮你做第一象限（紧急重要）的事，而是让你从第三第四象限（不重要的事）里解放出来，把精力回流到第二象限（不紧急但重要）的长期投入。
+
+他讲完之后有人问他幻觉问题怎么解决，他给的答案我觉得是全场最珍贵的一句话。
+
+「AI是被关在小屋子里的人，他的能力就是做词语接龙。控制上下文的篇幅，做分治。单团队单指标的内容，AI能百分百不出幻觉。然后在这个前提下，建立工程循环调用它。」
+
+这句话如果你是做LLM应用的，应该会跟我一样会心一笑。
+
+好，听完这几个分享，我心里已经有一个判断了。
+
+现在所有真正在一线把AI用起来的人，方法论都在往同一个方向收敛。
+
+都在做一件事儿，把AI的自由度向下压，把周围的上下文和流程向上拉。
+
+这个判断有了之后，我再回头看飞书项目上午发布的那一整套东西，突然就全连上了。
+
+它在修路。
+
+它修的是一条让Agent能稳稳跑在真实业务流程里的路。而一线PMO们搭 harness、搭AI评审、搭个人智能体，做的是在路上跑自己的车。两边是一回事，只是分工不同。
+
+讲完自己用的，我想讲讲生态伙伴是怎么用的。这块我觉得是整场活动信息密度最高、也最能说明问题的部分。
+
+第一个要讲的是雅迪。
+
+雅迪是电动两轮车行业的龙头，一年要发几十款新品。整车研发是个很复杂的东西，他们依托飞书项目落地了IPD（集成产品开发）和IPMS（集成产品市场营销）两套流程体系。
+
+效果是什么？
+
+新车开发周期缩短了两个月，产品上市准确性提升了20%。这两个数据不是PPT吹的，是现场雅迪研发数字化负责人陈曦亲口讲的。
+
+更厉害的是他们基于飞书项目的开放接口和底层数据，自己做了一个「AI项目副驾」，嵌到整车研发流程里。自动生成周报月报、智能查询历史项目经验、AI会议质检，都做进去了。
+
+但他们做得最有意思的一个东西，是「龙虾团」智能预评审。
+
+我第一次听这个名字的时候以为是某种茶歇。陈曦在台上讲完我才反应过来，这是一群AI智能体。
+
+场景是这样的。电动车项目每个评审节点之前，以前是把所有干系人叫到一个会议室，市场、工程、成本、法规、外观各方挨个提意见，然后再回去改，再开评审会。一个来回就是一两周。
+
+现在雅迪在正式评审之前，先放一群AI智能体来预评审。让AI分别扮演市场、工程、成本等不同角色来挑刺儿。相当于正式过堂前，先让这群AI帮你交叉把关。
+
+我听完心想，这个设计太漂亮了。
+
+它解决的不是「AI能不能做评审」这个问题，而是「AI能不能帮人把评审这件事情做到不返工」这个更高维的问题。人还是最终决策者，但AI接管了前面最耗时、最容易忽略细节的交叉把关环节。
+
+最后的效果是什么？资源浪费减少20%，重复工时减少30%。
+
+你想想这是个什么量级的事情。一家制造业龙头，不是买了一个SaaS产品用，而是把SaaS产品当底座，在上面长出一群属于自己业务的智能体。
+
+这种用法只有底座真的开放、真的AI友好，才能跑得起来。
+
+陈曦在圆桌上讲了一句话特别打动我。她说，在制造业让AI落地，必须平衡AI的发散性和两轮车研发的绝对严谨之间的张力。她给出的秘诀是三句话。
+
+「科学的数据模型是AI的地基，知识沉淀是AI的养料，而守门人机制是AI的安全阀。三者缺一不可。」
+
+我觉得这一句话够所有做AI落地的企业抄进PPT里用三年。
+
+第二个是轻舟智航，智能驾驶公司。他们面对上千条项目需求，完全靠人工对齐链路成本极高。借助飞书项目，他们落地了ASPICE（汽车行业的标准流程）。
+
+然后干了一件我觉得特别漂亮的事儿。
+
+路测问题100%自动创建。
+
+场景是这样的。工程师在路上测车，遇到问题直接语音记录，回收之后系统自动分类打标，结合规则和历史数据推送给对应的责任人。整个「记录—分诊—分派—闭环」打成了一条自动化流水线。
+
+轻舟智航项目交付负责人刘宇在圆桌上讲了一句话。
+
+「先把链路跑顺，AI才有抓手。链路顺了，人才能把精力放回判断和解决问题上。」
+
+这句话我建议你多读两遍。
+
+因为它其实是在说，在AI真正发挥价值之前，你得先有一个能够承载Agent的业务底座。Agent不能凭空跑，它得跑在一条结构化的、可追溯的、权限清晰的流水线上。
+
+飞书项目做的事情，就是那条流水线。
+
+第三个是爪印工作室，做游戏的。游戏研发有一个众所周知的痛点，内容修改牵一发而动全身。
+
+他们形容自己的业务是「小瀑布，大敏捷」。重资产内容生产必须按工序走瀑布，但玩法和版本又要求敏捷到「今天决定、明天验证」。
+
+这两个东西放在同一条流水线上是反直觉的。
+
+爪印的解法是什么呢？依托飞书项目的轻应用能力，他们自研了一个叫 FlowStack 的「流程资产仓库」，把研发节点和流程模板全部资产化，现在已经沉淀了200多个标准节点、50余项流程模板。
+
+结合轻应用和AI Coding，他们做出来一个什么效果呢？
+
+一个像FlowStack这种量级的产品，从管理思路到落地可用的系统，只需要2天。
+
+爪印项目管理负责人缪克讲了一句话。
+
+「让创造举重若轻，不是把流程做没，而是把复杂流程变成可以被表达、被复用、被治理的东西。」
+
+缪克在圆桌上还给出了一个我觉得特别准的判断。他说，AI时代项目管理的终极形态是什么？
+
+「人做判断，AI做推演；人抓创意与取舍，系统把重活搬走。」
+
+这句话跟雅迪陈曦那个「守门人机制」其实讲的是同一件事。
+
+无论什么行业，让AI落地的底层逻辑都是把「人和AI的分工」重新设计一遍，而不是直接让AI全盘接手。
+
+讲完三家客户，再讲两家ISV。
+
+[词元无限](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=%E8%AF%8D%E5%85%83%E6%97%A0%E9%99%90&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiLor43lhYPml6DpmZAiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzM5MzYwNjAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.RvJANbDDqeSFAqGF__BT8gPjRJHsLgCo6zNZTPO9qRo&zhida_source=entity)，一家做AI Agent技术的公司。他们基于飞书项目的AI节点，把技术方案生成、智能编码、智能测试三个环节封装到项目流程里。
+
+这是他们演示的一个完整场景。
+
+以前一个中等复杂度的需求，从PRD评审到开发到测试，要跑7到10人天。现在跑完全流程是多少？
+
+1到2人天。
+
+这个压缩比不是简单的提效，它是研发流程的范式变化。
+
+拆开看，每个环节都是AI在工作。PRD理解和技术方案生成由一个Agent做，原本2-3人天压缩到0.5人天。开发环节Agent拆解任务，Coding Agent并行执行，原本3-5人天压缩到1人天。测试环节Testing Agent接管，原本1-2人天压缩到0.5人天。
+
+三个Agent串起来，人只做review和关键决策。
+
+词元无限的创始人王磊在台上讲了一句话我印象很深。
+
+> 「企业真正缺的，不是一个更强的Coding Agent，而是一条能把Agent产出稳定变成交付结果的流程闭环。」
+
+这句话跟洪涛开场讲的「把结构化数据变成AI燃料」是同一件事，从另一个角度讲出来了。
+
+顺便说一下，词元无限的Coding Agent在SWE-bench和MONKEY-bench上拿过全球第一，尤其是C++和Java这两个企业最主流的编程领域，双榜登顶。这个数据不是吹的，是公开榜单。
+
+第二个是[Zadig](https://zhida.zhihu.com/search?content_id=273936060&content_type=Article&match_order=1&q=Zadig&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDM5NzAsInEiOiJaYWRpZyIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI3MzkzNjA2MCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.ym4D44hsTiWYY0Z2OV_aoOplP_GSSO-KoIRuzejy1eA&zhida_source=entity)，一家云原生DevOps平台公司。他们做的事情更有意思，把飞书项目的「管理域」和代码仓库的「工程域」打通了。开发者在飞书项目里提交代码变更，测试工作流自动触发，结果实时回传。到发布环节，AI先做发布风险检测，再走飞书审批，通过后自动执行。
+
+一个平台完成「从想法到执行」的完整闭环。
+
+最后的效果是发布效率提升3倍，交付周期缩短35%，故障恢复时间降低50%。
+
+Zadig的创始人李倩现场讲了一个让我特别触动的事。她说发布这件事在严肃场景下，是关乎生死的事情。比如数字货币交易所，一次发布延迟可能意味着上千万交易被阻塞。比如车企充电业务，一次发布遗漏某个依赖项，可能导致充电桩几十分钟无法使用。
+
+这种级别的发布决策，不只是流程自动化的问题，它需要AI能真正介入风险判断。
+
+Zadig做了一个叫「AI发布风险检测」的东西，把飞书项目的需求数据，和Zadig的全链路工程数据打通。当你点击发布的那一刻，AI会汇总所有的需求改动、关联服务、代码扫描结果、运行时健康等信息，自动给出发布风险结论。
+
+李倩讲了一句话我觉得特别能代表这一类工具的价值。
+
+「不是出了问题再报警，是提前告诉你，这次发布有风险。」
+
+这种事要做到，必须依托一个足够开放、足够可控的底座。
+
+还有一家我想顺手提一下的ISV叫高远，一家做汽车行业解决方案的公司。他们基于飞书项目做了一个专门针对汽车行业的ASPICE插件，过去一年拿下15家大型智能汽车企业客户，在国内智能驾驶TOP 20公司中覆盖率已经很高了。
+
+这家公司给我的启发是，在飞书项目这个底座上，甚至可以长出专门服务某个垂直行业的解决方案。这就是生态能力的真正体现，不是通用工具堆功能，而是底座足够开放、足够AI友好，让懂行业的团队能做出行业最懂的东西。
+
+讲了这么多生态案例，我想说一个共同点。
+
+这些客户和ISV有大有小、行业各异，但他们选飞书项目的原因出奇地一致。
+
+底座够开放。够AI友好。权限模型够安全。数据模型够结构化。
+
+这几个词翻译过来其实就是一句话，飞书项目是一个能让Agent真正跑得动的平台。
+
+这句话说起来简单，做起来极难。国内真正做到这一点的项目管理SaaS，目前屈指可数。
+
+这也是我开头讲的那个数据的答案。
+
+飞书项目为什么在两个赛道都能拿下全国第一？
+
+因为它的开放基因比行业走得早、走得深。早到去年的开发者日就已经把API、Webhook、轻应用全开放出去；深到今年的生态日把开放从「对人」扩展到「对AI」，把MCP、CLI、AAMP协议全部开源出去。
+
+这种级别的开放能力，加上制造业、汽车、游戏、互联网等各行业头部客户沉淀下来的业务流程，构成了一个其他玩家一时半会儿追不上的护城河。
+
+再拉开一点时代视角来看这件事。
+
+IDC去年有一组预测数据，到2029年，能有效衡量人机协作的企业，利润率将比仅关注生产效率的企业高出15%。到2030年，70%的开发者将与自主AI智能体协作，他们的角色会从「亲自执行」转向「规划与设计」。
+
+Gartner那边也给了一组数据，到2027年，75%的企业将在知识管理中采用AI增强技术，使知识检索和应用效率平均提升40%。
+
+还有一组更直接的数字。全球范围内，超半数项目应用AI的组织数量，在过去一年激增了86%。
+
+这三组数据放在一起告诉你一件事。AI Native的项目管理范式不是一个「未来可能发生的事」，它是一个「正在发生、且加速发生的事」。
+
+在这个时代窗口里，谁先把底座做好，谁就接住了接下来五年的企业数字化转型浪潮。
+
+回到文章开头那个问题。
+
+AI Friendly这个战略的真正含义是什么？
+
+表面上看，它是一套新的产品能力。MCP升级、CLI、AI节点、AI字段、AI助手、AAMP协议。每一个拎出来都是实打实的工程成果。
+
+但再往下一层看，它是一次哲学层面的重构。
+
+**系统的一等公民，正在从「人」扩展到「人+Agent」。**
+
+以前所有SaaS平台的设计，权限系统、数据模型、UI交互，都是围绕「人怎么用」来设计的。Agent只是一个工具、一个插件、一个按钮。
+
+现在飞书项目做的事情，是在重新设计平台的公民体系。Agent不再是一个被动工具，它是一个有身份、有权限、有通信通道、可以和人、和其他Agent异步协作的一等公民。
+
+这种级别的重构，大部分人会低估它。因为它不性感。MCP升级、CLI发布、AAMP协议，听起来都是技术细节，没有「XXX模型吊打GPT」那种爆款叙事。
+
+但做过系统的人都知道，决定一个系统能走多远的，从来不是最闪亮的那一层，而是最下面那几层管道。
+
+飞书项目这次干的事情，是在修Agent时代的高速公路。
+
+等高速公路修好了，所有在上面跑的人，速度都会跟着起来。
+
+生态日、AI Friendly、开源协议，这三件事连在一起看，其实讲的是同一个故事。
+
+飞书项目在用自己的方式告诉整个行业，在Agent时代，项目管理平台的角色正在发生根本性变化。从一个「记录与跟踪」的工具，变成一个「人+Agent协同的行动系统」。
+
+这件事做成了，不只是飞书项目赢，是整个国内的AI+项目管理生态跟着一起赢。
+
+而现在从市占率、从生态增长、从产品节奏、从开源策略任何一个维度看，飞书项目目前都是国内跑得最快的那一个。
+
+我昨天回来之后打开笔记本，对着飞书项目发布的那张三层架构图看了半天。有几个事情我当场就决定要回去重做。
+
+这场会对我个人的价值，远远超过一次活动体验。
+
+最后我想把唱吧那位张楚楚的话再引一遍。
+
+「你不蒸馏别人，别人也会蒸馏你。」
+
+这句话放在今天任何一个想把AI用起来的人面前，都是一面镜子。
+
+大时代啊，朋友们。
+
+本文由 @鸣老师 原创发布于人人都是产品经理。未经作者许可，禁止转载
+
+题图来自Unsplash，基于CC0协议
+
+编辑于 2026-04-28 08:08・广东
+
+[![Image 7: 图片](https://picx.zhimg.com/v2-79bd78471b01c32562b368e0dc29306f_bh.webp?source=d6434cab) 告别“文档焦虑”！千问让处理变得超轻松～ 文本、PDF、PPT、表格、图片…50+格式一键导入，千问AI自动翻译、总结、生成脑图，结果可导出。查看详情 文本、PDF、PPT、表格、图片…50+格式一键导入，千问AI自动翻译、总结、生成脑图，结果可导出。 查看详情 ![Image 8: 用户头像](https://pic1.zhimg.com/v2-25d9de2e2b8d4971d2c24574387ab4c0_xl.webp?source=d6434cab) 千问 的广告](https://www.qianwen.com/?ch=webtongyi@gp_zhztzhihugpwebty01_normal2_39&from=zhihu&aid=755269&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D29935518-c475-4eb2-abc3-ece166fa807d%26os%3D3%26zid%3D1629%26zaid%3D3745686%26zcid%3D3736406%26cid%3D3736406%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D755269%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MXdBZcPC1XVncfO1UvKX1-AycSWDRxAVxzCnkAemJwfBdqUgdmehYEK1wjXH5qZiJQb1dQjoRzCJ055A%3D%3D&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F148.0.0.0+Safari%2F537.36&os=3&campaignId=2743635&adgroupId=3745686&creativeId=3736406&accountId=755269&ip=2600:1900:0:4006::1901&ipv6=2600:1900:0:4006::1901&spu=biz%3D0%26ci%3D3736406%26si%3D28d12cbd-73b8-46ab-80de-6c70f92496cf%26ts%3D1779871175%26zid%3D1629)
+
+​赞同 1​​添加评论​1 ​喜欢
+
+​分享
+
+​申请转载​
+
+​
+
+![Image 9](https://pic1.zhimg.com/v2-d41c2ceaed8f51999522f903672a521f_l.jpeg)
+
+未登录用户
+
+还没有评论，发表第一个评论吧
+
+[](https://zhuanlan.zhihu.com/p/2032491295642490831)
+
+关于作者
+
+[![Image 10: 人人都是产品经理](https://pica.zhimg.com/v2-1fb69735e6174414988ef2d2edcde2b8_l.jpg?source=172ae18b)](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li)
+
+[人人都是产品经理](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li)
+
+[​](https://zhuanlan.zhihu.com/p/96956163)
+
+已认证机构号
+
+[回答](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li/answers)[文章](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li/posts)[关注者](https://www.zhihu.com/org/ren-ren-du-shi-chan-pin-jing-li/followers)
+
+​关注​发私信
+
+大家都在搜
+
+换一换
+
+[王鹤棣 沈月 484 万](https://www.zhihu.com/search?q=%E7%8E%8B%E9%B9%A4%E6%A3%A3+%E6%B2%88%E6%9C%88&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[华为发表半导体领域新定律 376 万](https://www.zhihu.com/search?q=%E5%8D%8E%E4%B8%BA%E5%8F%91%E8%A1%A8%E5%8D%8A%E5%AF%BC%E4%BD%93%E9%A2%86%E5%9F%9F%E6%96%B0%E5%AE%9A%E5%BE%8B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[杨梅收购商跑光价格从20元跌到8毛 312 万](https://www.zhihu.com/search?q=%E6%9D%A8%E6%A2%85%E6%94%B6%E8%B4%AD%E5%95%86%E8%B7%91%E5%85%89%E4%BB%B7%E6%A0%BC%E4%BB%8E20%E5%85%83%E8%B7%8C%E5%88%B08%E6%AF%9B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[救灾女干部戴耳环遭网暴 306 万](https://www.zhihu.com/search?q=%E6%95%91%E7%81%BE%E5%A5%B3%E5%B9%B2%E9%83%A8%E6%88%B4%E8%80%B3%E7%8E%AF%E9%81%AD%E7%BD%91%E6%9A%B4&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[新华社评「耿同学」打假 304 万](https://www.zhihu.com/search?q=%E6%96%B0%E5%8D%8E%E7%A4%BE%E8%AF%84%E3%80%8C%E8%80%BF%E5%90%8C%E5%AD%A6%E3%80%8D%E6%89%93%E5%81%87&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[前三体 CEO 许垚投毒被执行死刑 303 万](https://www.zhihu.com/search?q=%E5%89%8D%E4%B8%89%E4%BD%93+CEO+%E8%AE%B8%E5%9E%9A%E6%8A%95%E6%AF%92%E8%A2%AB%E6%89%A7%E8%A1%8C%E6%AD%BB%E5%88%91&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[雷军回应武契奇说买不起小米汽车 300 万](https://www.zhihu.com/search?q=%E9%9B%B7%E5%86%9B%E5%9B%9E%E5%BA%94%E6%AD%A6%E5%A5%91%E5%A5%87%E8%AF%B4%E4%B9%B0%E4%B8%8D%E8%B5%B7%E5%B0%8F%E7%B1%B3%E6%B1%BD%E8%BD%A6&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[盒马粉木耳包装惹争议 296 万](https://www.zhihu.com/search?q=%E7%9B%92%E9%A9%AC%E7%B2%89%E6%9C%A8%E8%80%B3%E5%8C%85%E8%A3%85%E6%83%B9%E4%BA%89%E8%AE%AE&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[曝庾澄庆被换了6首歌 266 万](https://www.zhihu.com/search?q=%E6%9B%9D%E5%BA%BE%E6%BE%84%E5%BA%86%E8%A2%AB%E6%8D%A2%E4%BA%866%E9%A6%96%E6%AD%8C&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[福建杨梅协会会长恳求给果农生路 250 万](https://www.zhihu.com/search?q=%E7%A6%8F%E5%BB%BA%E6%9D%A8%E6%A2%85%E5%8D%8F%E4%BC%9A%E4%BC%9A%E9%95%BF%E6%81%B3%E6%B1%82%E7%BB%99%E6%9E%9C%E5%86%9C%E7%94%9F%E8%B7%AF&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[广告 ![Image 11: 广告](https://pic2.zhimg.com/v2-0db3ca7d6b7acb67261fdc1092ca2c72_720w.webp?source=d6434cab)](https://www.doubao.com/chat/?channel=dbweb_zhihu_xxl_pc_cpc_ty_ppt_pptsc_508&source=dbweb_zhihu_xxl_pc_cpc_ty_ppt_pptsc_508&keywordid=3734752&ad_platform_id=zhihu_feed_lead&ug_callback_url=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D532dba31-872a-4e40-9cb9-7d8180b021da%26os%3D3%26zid%3D6001%26zaid%3D3744310%26zcid%3D3734752%26cid%3D3734752%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MXdBZcPC1XVncfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1dnMzt16-pyKw%3D%3D&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D532dba31-872a-4e40-9cb9-7d8180b021da%26os%3D3%26zid%3D6001%26zaid%3D3744310%26zcid%3D3734752%26cid%3D3734752%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MXdBZcPC1XVncfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1dnMzt16-pyKw%3D%3D&ug_semver=v1.0.0&spu=biz%3D0%26ci%3D3734752%26si%3Da04451cd-9de2-40fd-bfe4-7ef2f6cd19f1%26ts%3D1779871176%26zid%3D6001)
+
+### 推荐阅读
+
+[![Image 12: 飞书：很荣幸能帮你卷死同行。](https://picx.zhimg.com/v2-5a1298e82db7dc5684f3fc7b54e009a3_250x0.jpg?source=172ae18b) # 飞书：很荣幸能帮你卷死同行。 史中](https://zhuanlan.zhihu.com/p/1967909004480058388)[![Image 13: 现在，你终于可以用飞书搭自己的AI知识库了。](https://pic1.zhimg.com/v2-aa4786e7787002daecc904196e14da6f_250x0.jpg?source=172ae18b) # 现在，你终于可以用飞书搭自己的AI知识库了。 数字生命卡兹克](https://zhuanlan.zhihu.com/p/1909173189763925749)[![Image 14: 飞书 aily：终于等到了真正能干活的 AI 助理](https://pic1.zhimg.com/v2-578881e1bd43019f98aa0b972467b440_250x0.jpg?source=172ae18b) # 飞书 aily：终于等到了真正能干活的 AI 助理 向阳乔木](https://zhuanlan.zhihu.com/p/1984357932020809774)# [妙用飞书机器人让信息管理效率翻倍 分享下飞书机器人的使用场景，机器人可以把IM消息自动同步到多维表格。通过这个能力可以很方便收集和加工信息，让信息管理效率翻倍。 使用场景 个人使用场景 我建了几个个人专属群，在这些… 云说时光](https://zhuanlan.zhihu.com/p/535076084)
+
+_想来知乎工作？请发送邮件到 jobs@zhihu.com_
+
+打开知乎App
+
+在「我的页」右上角打开扫一扫
+
+![Image 15](https://picx.zhimg.com/v2-9e41ea16bdfbe9cf4896617ecad5b4ca.png)
+
+其他扫码方式：微信
+
+下载知乎App
+
+无障碍模式
+
+验证码登录
+
+密码登录
+
+[开通机构号](https://zhuanlan.zhihu.com/org/signup)
+
+中国 +86
+
+获取短信验证码
+
+获取语音验证码
+
+登录/注册
+
+其他方式登录
+
+未注册手机验证后自动登录，注册即代表同意[《知乎协议》](https://www.zhihu.com/term/zhihu-terms)[《隐私保护指引》](https://www.zhihu.com/term/privacy)
+
+扫码下载知乎 App
+
+关闭二维码

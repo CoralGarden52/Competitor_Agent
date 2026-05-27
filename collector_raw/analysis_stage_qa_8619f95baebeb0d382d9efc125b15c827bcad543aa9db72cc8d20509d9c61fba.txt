@@ -1,0 +1,205 @@
+# 飞书开放平台
+
+Title: 飞书开放平台
+
+URL Source: https://open.feishu.cn/?lang=zh-CN
+
+Markdown Content:
+# 飞书开放平台
+![Image 1](https://lf-package-cn.feishucdn.com/obj/feishu-static/lark/open/website/share-logo.png)
+
+[![Image 2: logo](https://lf-package-cn.feishucdn.com/obj/feishu-static/lark/open/website/images/899fa60e60151c73aaea2e25871102dc.svg)](https://open.feishu.cn/)
+
+*   [客户案例](https://open.feishu.cn/solutions)  
+*   [应用中心](https://app.feishu.cn/?lang=zh-CN)  
+*   [开发文档](https://open.feishu.cn/document?lang=zh-CN)  
+*   [智能助手](https://open.feishu.cn/app/ai/playground?from=nav&lang=zh-CN)  
+*   [更新日志](https://open.feishu.cn/changelog?lang=zh-CN)  
+
+你可以输入文档关键词、开发问题、Log ID、错误码
+
+ 
+
+*   [开发者后台](https://open.feishu.cn/app?lang=zh-CN)  
+
+登录
+
+*   ## 助力企业打造一站式工作平台
+
+提供强大丰富的应用开发和系统集成能力，帮助企业定制专属飞书
+
+[创建应用](https://open.feishu.cn/app)[开发教程](https://open.feishu.cn/document/home/course)   
+*   ## 飞书官方 CLI 现已开源
+
+命令行操作飞书套件，无缝接入主流 AI 工具，一键安装、开箱即用
+
+[立即体验](https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu)   
+*   ## OpenClaw 飞书官方插件
+
+更懂你的工作，帮你直接干活！
+
+[安装插件](https://bytedance.larkoffice.com/docx/MFK7dDFLFoVlOGxWCv5cTXKmnMh)   
+*   ## 3 分钟轻松开发机器人
+
+跟随教程点击按钮，四步轻松掌握 API 调用、事件接收与卡片交互能力
+
+[立即体验](https://open.feishu.cn/document/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/introduction?from=banner)   
+*   ## 开放平台智能助手
+
+一站式完成代码生成、开发答疑、报错排查，飞书应用开发轻松搞定
+
+[立即体验](https://open.feishu.cn/app/ai/playground?from=banner)   
+*   ## 助力企业打造一站式工作平台
+
+提供强大丰富的应用开发和系统集成能力，帮助企业定制专属飞书
+
+[创建应用](https://open.feishu.cn/app)[开发教程](https://open.feishu.cn/document/home/course)   
+*   ## 飞书官方 CLI 现已开源
+
+命令行操作飞书套件，无缝接入主流 AI 工具，一键安装、开箱即用
+
+[立即体验](https://open.feishu.cn/document/mcp_open_tools/feishu-cli-let-ai-actually-do-your-work-in-feishu)   
+
+What's New
+
+**飞书 CLI 开源** 覆盖 IM、云文档、云盘、电子表格、多维表格、日历、邮件、通讯录、任务、事件、视频会议、画板 共 12 个业务能力。 MIT 协议，零门槛真开源，npx @larksuite/cli@latest install 一行安装即用。 [**接入文档**](https://www.feishu.cn/feishu-cli) ｜ [**Github**](https://github.com/larksuite/cli)｜ [**功能建议**](https://bytedance.larkoffice.com/share/base/form/shrcnFYECazRm9hPygXwLkEhmKf?prefill_%E6%A8%A1%E5%9D%97=CLI)[查看更多更新](https://open.feishu.cn/changelog)
+
+全面的开放能力，实现灵活定制
+
+![Image 3](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/36c3c6de4a1d5bf43e563474a6f06625.png)开放接口
+
+![Image 4](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/157124d4aeb911d209634a837739ef0d.png)应用形态
+
+![Image 5](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/df7f06f0d6f2ea7f1c88b97482b0c019.png)网页组件
+
+![Image 6](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/c525de92fb9bc903e06eccc2b7c14519.png)定制飞书
+
+2500+ 开放接口，飞书全面开放
+
+[![Image 7](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/1db5edcf8df9cc0526174e391e011162.png)通讯录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3)[![Image 8](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/ba268c065ff2aed9fa5d06d1dcf82dcc.png)消息与群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1)[![Image 9](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/1884aefc15b9f234e34815298bf73dee.png)文档](https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/docx-overview)[![Image 10](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/1d564838259ee20050212791d05d21cc.png)多维表格](https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview)[![Image 11](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/2132c0e528fa196aafad08d4ac04658b.png)电子表格](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)[![Image 12](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/1c515271b9861ba1f5d3e74b125fca3d.png)知识库](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)[![Image 13](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/40572ad1e036a95ee2068feee22712bd.png)审批](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4)[![Image 14](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/fe8e172bd70ea1f04d0b1f49b0561d2e.png)日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4)[![Image 15](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/a929e93b67bf302219d9f475a2255bd2.png)视频会议](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1)
+
+[更多接口](https://open.feishu.cn/document/server-docs/api-call-guide/server-api-list?from=home)
+
+[Video 1](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/c08783096cae51a5bf8ee276dc0e0198.mp4)
+
+3 种应用形态，适配多样场景
+
+机器人
+
+通过飞书会话与用户进行消息交互
+
+[进一步了解](https://open.feishu.cn/document/client-docs/bot-v3/bot-overview?from=home)
+
+网页应用
+
+H5 开发，运行在飞书客户端内
+
+[进一步了解](https://open.feishu.cn/document/client-docs/h5/introduction?from=home)
+
+小组件
+
+将应用嵌入到云文档、多维表格等飞书模块
+
+[云文档小组件](https://open.feishu.cn/document/client-docs/docs-add-on/docs-add-on-introduction?from=home)[多维表格插件](https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/base-extensions/base-extension-introduction?from=home)
+
+[Video 2](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/21cec2e7da0d41a6851e67880b0dd9cd.mp4)[Video 3](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/4c80f60e4df6f540962718fa7a1b1b20.mp4)[Video 4](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/19c4836c1732779b257ba4e7232b42d2.mp4)
+
+飞书组件  嵌入 企业网页系统
+
+云文档组件
+
+将文档嵌入到任意网页，借助文档强大的协作能力，一次编辑，多处同时生效
+
+[进一步了解](https://open.feishu.cn/document/common-capabilities/web-components/uYDO3YjL2gzN24iN3cjN/introduction?from=home)
+
+成员名片组件
+
+在网页中展示飞书成员名片，并支持通过名片上的按钮发起飞书聊天、查看 OKR 等
+
+[进一步了解](https://open.feishu.cn/document/common-capabilities/web-components/profile-component?from=home)
+
+搜索组件
+
+在网页中搜索和选择人员、群组、文档等飞书数据
+
+[进一步了解](https://open.feishu.cn/document/common-capabilities/web-components/selector?from=home)
+
+[Video 5](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/5bd38bbb9a9579f393854ec1e42477fd.mp4)[Video 6](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/0d2c9f478f9be392423be4ce97b745e9.mp4)[Video 7](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/e45adc00f4f515313cb19772c82d61b6.mp4)
+
+定制 飞书客户端，彰显企业文化
+
+基于飞书底座，通过品牌定制、SDK 集成等开放能力，提供一企业一定制的办公协作平台
+
+[进一步了解](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/native-integration-overview?from=home)
+
+[Video 8](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/02c79a6099cb0e3db76f6faea1243aa3.mp4)
+
+让业务在飞书中高效流转
+
+![Image 16](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/cf2a1f09f6999e2e4b4f3ee6fe25d109.png)[Video 9](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/5c36f308315a2bbc1660490bcc4199d1.mp4)
+
+[按需开发应用 企业内部开发应用，将业务系统与飞书消息、会议、多维表格等核心办公场景打通 [更多客户案例](https://open.feishu.cn/solutions?from=home)](https://open.feishu.cn/solutions?from=home)
+
+![Image 17](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/3f46ba9276db423dad0aca67a0c29a61.png)[Video 10](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/cf1c8854ad49b382d9dcecc7363001b9.mp4)
+
+[挑选商店应用 优质的飞书合作伙伴，提供丰富的行业解决方案，企业可灵活挑选、一键安装 [进入应用中心](https://app.feishu.cn/?from=home&lang=zh-CN)[成为飞书伙伴](https://open.feishu.cn/document/isv-guides/publish-your-app/publishing-guidelines)](https://app.feishu.cn/?from=home&lang=zh-CN)
+
+每个开发场景，都有合适的平台
+
+全代码开发
+
+适用于开发人员
+
+[![Image 18](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/a5bd8d1c9b354a0d0e1ab0ed04cdd7e4.png) 开放平台 支持所有开放能力，包含多种应用形态、开放接口、网页组件等 [打开开发文档](https://open.feishu.cn/document/home/index?from=home)](https://open.feishu.cn/document/home/index?from=home)
+
+低代码开发
+
+适用于开发人员
+
+[![Image 19](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/20010b68921cd5ad967a1e5677f96b85.png) aPaaS 快速构建满足复杂业务需求的网页应用 [打开 aPaaS](https://ae.feishu.cn/home)](https://ae.feishu.cn/home)[![Image 20](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/4c14ec4a7c28d0862a374fcc4e49336b.png) 集成平台 标准、高效的系统集成能力，为企业构建强大的集成解决方案 [打开集成平台](https://anycross.feishu.cn/)](https://anycross.feishu.cn/)
+
+零代码搭建
+
+业务人员直接上手
+
+[![Image 21](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/b4041460c46b20ff1886277a4b236cf7.png) 多维表格 提供视图、仪表盘、表单、自动化和插件等能力，定制专属业务系统 [打开多维表格](https://feishu.cn/base)](https://feishu.cn/base)
+
+开发 AI 智能体
+
+业务人员直接上手
+
+[![Image 22](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/d28456187b742c884572771a47e74a9f.png) aily 快速搭建知识问答智能体，一键发布到飞书机器人和服务台 [打开 aily](https://aily.feishu.cn/)](https://aily.feishu.cn/)
+
+工具与支持
+
+[![Image 23](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/27c475e99d905de5549b6fe026de0328.png) 开放平台智能助手 开发疑问、报错排查，都可以问问智能助手 [立即咨询](https://open.feishu.cn/search?from=home&page=1&pageSize=10&q=%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E8%AF%9D%E9%A2%98%E7%BE%A4%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E6%B6%88%E6%81%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87&topicFilter=)](https://open.feishu.cn/search?from=home&page=1&pageSize=10&q=%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E8%AF%9D%E9%A2%98%E7%BE%A4%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E6%B6%88%E6%81%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87&topicFilter=)[![Image 24](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/66ff54bfb2609c3e18df89e492b4351f.png) 开发教程 详细步骤拆解，5 分钟带你快速入门 [立即查看](https://open.feishu.cn/document/home/course?from=home)](https://open.feishu.cn/document/home/course?from=home)[![Image 25](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/8a9c522223b2b6129808bf570dccc86a.png) 开发工具 覆盖开发、调试、运营、维护全流程 [了解更多](https://open.feishu.cn/document/developer-tools-portal?from=home)](https://open.feishu.cn/document/developer-tools-portal?from=home)[![Image 26](https://lf-package-cn.feishucdn.com/obj/lark-open-web/file/812b29ebca180528a86eaa756e1caac6.png) 技术支持 遇到故障时，提交技术支持反馈，快速获取人工支持 [立即咨询](https://applink.feishu.cn/TLJpeNdW)](https://applink.feishu.cn/TLJpeNdW)
+
+![Image 27: logo](https://lf-package-cn.feishucdn.com/obj/feishu-static/lark/open/website/images/899fa60e60151c73aaea2e25871102dc.svg)
+
+集成方案
+
+[SSO与飞书集成](https://open.feishu.cn/solutions/detail/sso)[门户接入飞书](https://open.feishu.cn/solutions/detail/oa)[智能管理业务](https://open.feishu.cn/solutions/detail/automation)
+
+资源
+
+[飞书官网](https://www.feishu.cn/)[应用中心](https://app.feishu.cn/)[下载](https://www.feishu.cn/download)
+
+常用链接
+
+[应用开发流程](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process)[小程序开发流程](https://open.feishu.cn/document/home/develop-a-gadget-in-5-minutes/create-a-custom-app)[网页应用接入流程](https://open.feishu.cn/document/home/integrating-web-apps-in-5-minutes/create-app-and-configuration)[机器人开发流程](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+
+法律声明
+
+[服务协议](https://www.feishu.cn/terms)[隐私政策](https://www.feishu.cn/privacy)[安全与合规](https://www.feishu.cn/security)
+
+简体中文 English
+
+Copyright © 2026 北京飞书科技有限公司[京ICP备16045432号-4](https://beian.miit.gov.cn/#/Integrated/index)[![Image 28](https://sf3-cn.feishucdn.com/obj/lark-open-web/file/e575536b21e631448960ed18786ad1f8.png)京公网安备 11010802029085号](https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+意见反馈
+
+技术支持
+
+收起
+
+展开

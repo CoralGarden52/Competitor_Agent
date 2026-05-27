@@ -1,0 +1,301 @@
+# 2026年亲测30多款AI智能体工具,最后只留下这10个(附使用场景) - 知乎
+
+Title: 2026年亲测30多款AI智能体工具，最后只留下这10个（附使用场景）
+
+URL Source: https://zhuanlan.zhihu.com/p/2037593256230383962
+
+Markdown Content:
+# 2026年亲测30多款AI智能体工具，最后只留下这10个（附使用场景） - 知乎
+[![Image 1](https://zhuanlan.zhihu.com/p/2037593256230383962)](javascript:void(0))
+
+[](https://www.zhihu.com/)
+
+[关注](https://www.zhihu.com/signin?next=%2Ffollow)[推荐](https://www.zhihu.com/signin?next=%2F)[热榜](https://www.zhihu.com/signin?next=%2Fhot)[专栏](https://www.zhihu.com/signin?next=%2Fcolumn-square)[圈子 New](https://www.zhihu.com/signin?next=%2Fring-feeds)[付费咨询](https://www.zhihu.com/consult)[知学堂](https://www.zhihu.com/education/learning)
+
+​ 
+
+[直答](https://zhida.zhihu.com/)
+
+切换模式
+
+登录/注册
+
+2026年亲测30多款AI智能体工具，最后只留下这10个（附使用场景）
+
+首发于[boardmix博思白板](https://www.zhihu.com/column/c_1556388915581521920)
+
+切换模式
+
+![Image 2: 2026年亲测30多款AI智能体工具，最后只留下这10个（附使用场景）](https://pic1.zhimg.com/v2-71e8e64e74b73ac16e45194cb15304f0_720w.jpg?source=172ae18b)
+
+# 2026年亲测30多款AI智能体工具，最后只留下这10个（附使用场景）
+
+[![Image 3: boardmix博思白板](https://pic1.zhimg.com/v2-8633f8225a5f054ad70112fd3669c20c_l.jpg?source=172ae18b)](https://www.zhihu.com/org/boardmixxie-tong-bai-ban)
+
+[boardmix博思白板](https://www.zhihu.com/org/boardmixxie-tong-bai-ban)
+
+[​![Image 4](https://picx.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c)](https://www.zhihu.com/question/48510028)
+
+已认证机构号
+
+[收录于 · boardmix博思白板](https://www.zhihu.com/column/c_1556388915581521920)
+
+2 人赞同了该文章
+
+​
+
+目录
+
+去年这个时候，我手机上装着 11 个 AI App，电脑浏览器收藏夹里塞了不下三十个 AI 工具的标签页。每天打开工作的第一件事不是干活，而是先想：**这个需求该用哪个 AI**？
+
+写脚本用 ChatGPT，画图切到 Midjourney，整理资料用 [Notion AI](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=Notion+AI&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiJOb3Rpb24gQUkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzQ3MjQzNTAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.pg0WTcq4iSZUxasz7LagrpA8N6O4oAGZFILfwiIRFmA&zhida_source=entity)，开会纪要丢给 Kimi，做流程图打开 [drawio](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=drawio&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiJkcmF3aW8iLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzQ3MjQzNTAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.SDkmjdtZASmJhG_bkZsthLG649sNBQoFIODTVskysKY&zhida_source=entity)，再切回飞书写文档……一天下来，手忙脚乱却没产出多少东西。
+
+直到今年三月，我下狠心做了一次“工具精简”。前后实测了 30 多款主流 AI 智能体工具，每款至少用满一周，按真实工作场景打分。最后我的工具栏里只留下了 10 款。
+
+这篇文章把这 10 款 AI 智能体分享出来，附上各自的使用场景和不踩坑的用法，看完你也能少走半年的弯路。
+
+![Image 5](https://pica.zhimg.com/v2-71e8e64e74b73ac16e45194cb15304f0_1440w.jpg)
+
+## **一、ChatGPT：通用底座，绕不开的 AI 智能体**
+
+不管你愿不愿意承认，2026 年的 ChatGPT 还是综合最稳的那个。GPT-5.5 之后的版本，长上下文和工具调用稳定了很多，Operator 模式可以直接在浏览器里跑订票、收集竞品信息这种连贯操作。
+
+我的用法很朴素：所有我也不知道该怎么开始的问题先丢给它问个底。然后把它的回答当原料，再去找更专业的工具加工。
+
+适合：通用对话、写代码、跨语言、需要 Operator 自动操作浏览器的场景。
+
+不适合：中文长文写作（味儿不对），深度本地化场景（不如国内模型对特定场景的理解）。
+
+![Image 6](https://pic4.zhimg.com/v2-d50f044878a928ab9ac54bd61dfa3bbd_1440w.jpg)
+
+## **二、[Claude](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=Claude&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiJDbGF1ZGUiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzQ3MjQzNTAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.03YHupQAqm0_dHA4F162MKFHedpb8WZtRT-gFyhB050&zhida_source=entity)：长文档处理与代码的另一把好刀**
+
+Claude Opus 4.7 之后，我处理长文档基本都默认丢给它。一份 200 页的 PDF 报告，它能比 GPT 更稳地抓出结构、不丢中间内容。写代码的细节把控、debug 的耐心，也比 ChatGPT 多几分。
+
+但 Claude 在国内访问需要解决一些已知问题，新手门槛稍高。
+
+适合：长文档分析、代码审查、需要温和而严谨的写作。
+
+不适合：开箱即用的简单场景。
+
+![Image 7](https://picx.zhimg.com/v2-f1b61fb79e2c460e06263faba6c682c1_1440w.jpg)
+
+## **三、[Gemini](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=Gemini&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiJHZW1pbmkiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzQ3MjQzNTAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.l8LjflDyKMPbQESnRcLNAx7ru0zC1rRjYgd5LmCeX3Y&zhida_source=entity)：多模态和 AI 搜索的融合体**
+
+Gemini 3 这一代的多模态能力真的让我刮目相看，尤其是视频理解。一段三分钟的产品演示视频丢进去，它能逐帧给我讲清楚画面里发生了什么、UI 上有什么变化。
+
+加上 Google 搜索的实时性加持，做行业研究、找最新数据，我现在基本默认开 Gemini。
+
+适合：多模态任务（视频/图片理解）、需要最新信息检索的研究类工作。
+
+不适合：纯中文创作场景。
+
+## **四、Perplexity：搜索类问题的最优解**
+
+如果你的工作里有大量我需要快速搞清楚一件事的需求，Perplexity 是无可替代的。它的答案自带引用链接，每句话都能追溯到原始来源——对内容创作者来说，这一点至关重要。
+
+我现在写任何含数据、含行业判断的稿子，第一步都是先用它把事实底座搭起来。
+
+适合：行业调研、事实核查、写作前的素材准备。
+
+不适合：创意发散、纯文本生成。
+
+## **五、[Cursor](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=Cursor&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiJDdXJzb3IiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoyNzQ3MjQzNTAsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.6ITgDqB434K2__qa9j_rfgJy7M0LPBXVjLxGuL9UaHk&zhida_source=entity)：不写代码的人也开始用了**
+
+Cursor 已经不只是程序员的工具了。我认识好几个产品经理、运营，最近都开始拿它来跑自动化脚本、写小工具。它的优势在于整个项目的上下文理解——你让它改一个地方，它能看懂整个项目的结构。
+
+非技术同学想要入门 AI 编程，Cursor 是目前体验最丝滑的入口。
+
+适合：写代码、改代码、用自然语言搭原型。
+
+不适合：你完全不知道自己要做什么的时候。
+
+![Image 8](https://pic2.zhimg.com/v2-66e97dc43f1e1c340a5516507b134e6d_1440w.jpg)
+
+## **六、Notion AI：个人知识库中台**
+
+Notion AI 这一年的变化，是从在 Notion 里塞了个 AI 插件变成了一个真正的 Agent 工作台。它能直接根据我笔记里的内容生成周报、整理项目状态、写邮件草稿。
+
+我把它定位为我的第二大脑——所有沉淀下来的素材都在 Notion，AI 直接在我的素材上工作，不用我反复复制粘贴。
+
+适合：已经在用 Notion 的人、需要把分散资料整合的人。
+
+不适合：从零开始的新用户（搭建成本不低）。
+
+## [七、博思 AI 超级智能体：白板 AI 画布的本土最优解](https://link.zhihu.com/?target=https%3A//boardmix.cn/ai-agent/%3Futm_source%3Dzhihu%26utm_content%3D2026ai_agent_collections)
+
+Notion 解决的是文档场景，但我有大量工作不是写出来，而是画出来——脑暴、做流程图、画商业画布、整理思路。这一块的赛道很挤：海外有 Miro AI、FigJam AI、Mural，国内之前一直没有特别能打的。
+
+直到最近 [boardmix白板](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=boardmix%E7%99%BD%E6%9D%BF&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiJib2FyZG1peOeZveadvyIsInpoaWRhX3NvdXJjZSI6ImVudGl0eSIsImNvbnRlbnRfaWQiOjI3NDcyNDM1MCwiY29udGVudF90eXBlIjoiQXJ0aWNsZSIsIm1hdGNoX29yZGVyIjoxLCJ6ZF90b2tlbiI6bnVsbH0.-X0paT27MkaF-uZ--Wu9vIf1rUSJUF1K57G3-qtAYe4&zhida_source=entity) 上线了博思 AI 超级智能体，我用了两周之后基本把这条赛道的工具收敛到了它一个。
+
+它的核心思路是把 100+ 智能体直接内嵌进白板，每个智能体对应一种专业角色——产品经理、运营、设计、写作助理等等。
+
+![Image 9](https://pic3.zhimg.com/v2-5f63118e1c99f126650da84d10fc280a_1440w.jpg)
+
+我做产品方案的时候，常常用法是：
+
+先把脑子里的模糊想法用一句话扔进画布，它会在 30 秒之内帮我生成思维导图或商业画布。然后我框选画布里某一块内容，让白板副驾接管，它会就这部分内容继续展开。整个过程不需要复制粘贴，不需要在 ChatGPT 和画图工具之间切来切去。
+
+![Image 10](https://pic2.zhimg.com/v2-8c200128c8026fbba234a214a0ce4271_1440w.jpg)
+
+让我意外的是它的多模态理解。我之前在纸上手绘的一个流程草图，拍照丢进画布，它直接识别成可编辑的流程图，节点和连线都对得上。还有一次开完会，我把白板上一堆便签拍下来扔进去，它自动按主题聚类、生成结构化的会议纪要。
+
+![Image 11](https://pica.zhimg.com/v2-69a2ff03a8babec837c93d06f49d5fe8_1440w.jpg)
+
+新版本还把 Markdown 文档里的 Mermaid 代码识别出来直接转成流程图，对程序员朋友来说省了一个画图的步骤。
+
+适合：脑暴、绘制思维导图/流程图/商业画布、把碎片化素材结构化、需要团队协作的画布场景。
+
+不适合：纯文本长文写作。
+
+## [八、博思AIPPT：让我彻底告别 PPT 的工具](https://link.zhihu.com/?target=https%3A//pptgo.cn/%3Futm_source%3Dzhihu%26utm_content%3D2026ai_agent_collections)
+
+我已经一年多没用 PowerPoint 了。所有需要演示的场景，博思AIPPT 一句话生成的 PPT 页面，比我自己做的 PPT 好看十倍。它的对话式编辑也很顺——不满意哪一页，直接说把这一页改成深色或者加一张对比图，它实时改。
+
+适合：商务提案、产品介绍、培训讲义。
+
+不适合：需要极度自定义动效的场合。
+
+![Image 12](https://pic2.zhimg.com/v2-6323cc9b9164ce51097aa0be7d05f179_1440w.jpg)
+
+## **九、Midjourney：视觉创作的天花板还是它**
+
+试了一圈国产模型之后，我的结论是：日常电商图、海报、国风插画，国产模型已经够用。但但凡需要点审美调性的画面，Midjourney 仍然是天花板。
+
+它的劣势是中文 prompt 友好度差一点，需要你愿意花时间琢磨提示词。
+
+适合：高质量插画、概念图、品牌视觉。
+
+不适合：批量生产电商图（性价比低）。
+
+![Image 13](https://picx.zhimg.com/v2-29fe3c4dfe0dfb7ae17ad31b2e4232d9_1440w.jpg)
+
+## **十、扣子（Coze）：个人搭智能体的入门首选**
+
+如果你已经习惯了用别人做好的 AI，下一步就是自己搭一个 AI。扣子（Coze）是目前国内门槛最低的智能体搭建平台，可视化编排，不用写代码就能把工作流串起来。
+
+我用它搭了一个每天定时帮我抓取行业新闻 + 总结 + 发到飞书的小机器人，前后花了不到一小时。
+
+适合：想自己定制 Agent 的进阶用户。
+
+不适合：只想用现成 AI 的轻度用户。
+
+## **写在最后**
+
+工具清单从来不是越长越好，三十多款工具精简到十款，我自己的工作效率反而比去年高了一倍多。
+
+如果你现在也面对一堆 AI 工具不知道怎么选，我的建议是：先想清楚自己每天最高频的三件事是什么，再去匹配工具，而不是看到一个新工具就装一个。
+
+文档处理交给 Claude，知识沉淀交给 Notion，画布和脑暴交给**[博思 AI 智能体](https://zhida.zhihu.com/search?content_id=274724350&content_type=Article&match_order=1&q=%E5%8D%9A%E6%80%9D+AI+%E6%99%BA%E8%83%BD%E4%BD%93&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3ODAwNDYxNDAsInEiOiLljZrmgJ0gQUkg5pm66IO95L2TIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6Mjc0NzI0MzUwLCJjb250ZW50X3R5cGUiOiJBcnRpY2xlIiwibWF0Y2hfb3JkZXIiOjEsInpkX3Rva2VuIjpudWxsfQ.Hzd1Mcc-WksIUith0G1N6ogtP05MbZq3EYlf5cSFG4I&zhida_source=entity)（boardmix）**，剩下的按场景查表。这是 2026 年我自己跑通的一套 AI 工作流，分享给你参考。
+
+以上就是本次想和各位分享的所有内容，希望能帮到有需要的朋友。如果你有其他疑问，或是想进一步了解的内容，欢迎在下方的评论区留言，我们一起交流探讨。
+
+码字不易，如果对你有帮助的话，请别忘了赏个【三连】或是【关注】我 **[@boardmix博思白板](https://www.zhihu.com/people/0954831e927db0e4babc950e3eee4877)**哦，关注不迷路，那我们下次再见咯！
+
+编辑于 2026-05-12 11:22・广东
+
+[AI智能体](https://www.zhihu.com/topic/28266286)
+
+[AI-Agent](https://www.zhihu.com/topic/30639237)
+
+[BoardMix](https://www.zhihu.com/topic/25751905)
+
+[![Image 14: 图片](https://picx.zhimg.com/v2-79bd78471b01c32562b368e0dc29306f_bh.webp?source=d6434cab) 告别“文档焦虑”！千问让处理变得超轻松～ 文本、PDF、PPT、表格、图片…50+格式一键导入，千问AI自动翻译、总结、生成脑图，结果可导出。查看详情 文本、PDF、PPT、表格、图片…50+格式一键导入，千问AI自动翻译、总结、生成脑图，结果可导出。 查看详情 ![Image 15: 用户头像](https://pic1.zhimg.com/v2-25d9de2e2b8d4971d2c24574387ab4c0_xl.webp?source=d6434cab) 千问 的广告](https://www.qianwen.com/?ch=webtongyi@gp_zhztzhihugpwebty01_normal2_39&from=zhihu&aid=755269&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3Dd6ff589e-c108-4bfc-bd61-21b3f40a779d%26os%3D3%26zid%3D1629%26zaid%3D3745686%26zcid%3D3736406%26cid%3D3736406%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D755269%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MUdBZcPC1XVnUfO1UvKX1-AycSWDRxAVxzCnkAemJwfBdqUgdmehYEK1wjXH5qZiJQb1cJ2zUlxWaytg%3D%3D&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F148.0.0.0+Safari%2F537.36&os=3&campaignId=2743635&adgroupId=3745686&creativeId=3736406&accountId=755269&ip=2600:1900:0:4001::1800&ipv6=2600:1900:0:4001::1800&spu=biz%3D0%26ci%3D3736406%26si%3D1dbc5d0f-136b-4e03-a7a2-de7f6734e676%26ts%3D1779873343%26zid%3D1629)
+
+​赞同 2​​添加评论​8 ​喜欢
+
+​分享
+
+​申请转载​
+
+​
+
+![Image 16](https://pic1.zhimg.com/v2-d41c2ceaed8f51999522f903672a521f_l.jpeg)
+
+未登录用户
+
+还没有评论，发表第一个评论吧
+
+[](https://zhuanlan.zhihu.com/p/2037593256230383962)
+
+关于作者
+
+[![Image 17: boardmix博思白板](https://pic1.zhimg.com/v2-8633f8225a5f054ad70112fd3669c20c_l.jpg?source=172ae18b)](https://www.zhihu.com/org/boardmixxie-tong-bai-ban)
+
+[boardmix博思白板](https://www.zhihu.com/org/boardmixxie-tong-bai-ban)
+
+一款数字化实时协作与表达工具
+
+[​](https://zhuanlan.zhihu.com/p/96956163)
+
+已认证机构号
+
+[回答](https://www.zhihu.com/org/boardmixxie-tong-bai-ban/answers)[文章](https://www.zhihu.com/org/boardmixxie-tong-bai-ban/posts)[关注者](https://www.zhihu.com/org/boardmixxie-tong-bai-ban/followers)
+
+​关注​发私信
+
+大家都在搜
+
+换一换
+
+[王鹤棣 沈月 494 万](https://www.zhihu.com/search?q=%E7%8E%8B%E9%B9%A4%E6%A3%A3+%E6%B2%88%E6%9C%88&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[华为发表半导体领域新定律 373 万](https://www.zhihu.com/search?q=%E5%8D%8E%E4%B8%BA%E5%8F%91%E8%A1%A8%E5%8D%8A%E5%AF%BC%E4%BD%93%E9%A2%86%E5%9F%9F%E6%96%B0%E5%AE%9A%E5%BE%8B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[杨梅收购商跑光价格从20元跌到8毛 313 万](https://www.zhihu.com/search?q=%E6%9D%A8%E6%A2%85%E6%94%B6%E8%B4%AD%E5%95%86%E8%B7%91%E5%85%89%E4%BB%B7%E6%A0%BC%E4%BB%8E20%E5%85%83%E8%B7%8C%E5%88%B08%E6%AF%9B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[救灾女干部戴耳环遭网暴 308 万](https://www.zhihu.com/search?q=%E6%95%91%E7%81%BE%E5%A5%B3%E5%B9%B2%E9%83%A8%E6%88%B4%E8%80%B3%E7%8E%AF%E9%81%AD%E7%BD%91%E6%9A%B4&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[雷军回应武契奇说买不起小米汽车 307 万](https://www.zhihu.com/search?q=%E9%9B%B7%E5%86%9B%E5%9B%9E%E5%BA%94%E6%AD%A6%E5%A5%91%E5%A5%87%E8%AF%B4%E4%B9%B0%E4%B8%8D%E8%B5%B7%E5%B0%8F%E7%B1%B3%E6%B1%BD%E8%BD%A6&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[新华社评「耿同学」打假 307 万](https://www.zhihu.com/search?q=%E6%96%B0%E5%8D%8E%E7%A4%BE%E8%AF%84%E3%80%8C%E8%80%BF%E5%90%8C%E5%AD%A6%E3%80%8D%E6%89%93%E5%81%87&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[前三体 CEO 许垚投毒被执行死刑 302 万](https://www.zhihu.com/search?q=%E5%89%8D%E4%B8%89%E4%BD%93+CEO+%E8%AE%B8%E5%9E%9A%E6%8A%95%E6%AF%92%E8%A2%AB%E6%89%A7%E8%A1%8C%E6%AD%BB%E5%88%91&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[盒马粉木耳包装惹争议 297 万](https://www.zhihu.com/search?q=%E7%9B%92%E9%A9%AC%E7%B2%89%E6%9C%A8%E8%80%B3%E5%8C%85%E8%A3%85%E6%83%B9%E4%BA%89%E8%AE%AE&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[曝庾澄庆被换了6首歌 271 万](https://www.zhihu.com/search?q=%E6%9B%9D%E5%BA%BE%E6%BE%84%E5%BA%86%E8%A2%AB%E6%8D%A2%E4%BA%866%E9%A6%96%E6%AD%8C&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[被北大三次退档河南考生硕士毕业 256 万](https://www.zhihu.com/search?q=%E8%A2%AB%E5%8C%97%E5%A4%A7%E4%B8%89%E6%AC%A1%E9%80%80%E6%A1%A3%E6%B2%B3%E5%8D%97%E8%80%83%E7%94%9F%E7%A1%95%E5%A3%AB%E6%AF%95%E4%B8%9A&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[广告 ![Image 18: 广告](https://pic1.zhimg.com/v2-27cdafb07cf516e4e5ec153bad2437c6_720w.webp?source=d6434cab)](https://www.doubao.com/chat/?channel=dbweb_zhihu_xxl_pc_cpc_ty_xiez_gzcj_gzhb_501&source=dbweb_zhihu_xxl_pc_cpc_ty_xiez_gzcj_gzhb_501&keywordid=3734393&ad_platform_id=zhihu_feed_lead&ug_callback_url=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3Dadf10042-ec54-4d78-868f-17cbf385b2c3%26os%3D3%26zid%3D6001%26zaid%3D3744002%26zcid%3D3734393%26cid%3D3734393%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MUdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1c3BbJ_27DPjg%3D%3D&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3Dadf10042-ec54-4d78-868f-17cbf385b2c3%26os%3D3%26zid%3D6001%26zaid%3D3744002%26zcid%3D3734393%26cid%3D3734393%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MUdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1c3BbJ_27DPjg%3D%3D&ug_semver=v1.0.0&spu=biz%3D0%26ci%3D3734393%26si%3Dfac91892-e3a8-4ccd-b946-764d5039355a%26ts%3D1779873343%26zid%3D6001)
+
+### 推荐阅读
+
+# [2025 年全球最火的 8 个 AI 工具：各自最强的能力和适合人群 AI 工具每天都在更新，普通人最大的困惑其实不是“AI 有没有颠覆世界”，而是—— 到底应该用哪个？哪个比较强？哪个最适合我？作为一个每天接触 AI 的普通用户，我把 2025 年全球使用量最… 如梦](https://zhuanlan.zhihu.com/p/1974521391652032635)# [盘点2024值得尝试的50个AI应用，建议收藏！ 这个AI无处不在的年代，无论你是打工人、创业者还是学生，总有一款AI工具能为你的工作学习和生活带来前所未有的变化： 设计师使用AI工具自动生成创意草图，节省了大量绘图时间； 自媒体好手… ChatGPT造梦计划](https://zhuanlan.zhihu.com/p/680605864)# [2026 年最好用的 AI 工具清单 过去两年，我试了几十款 AI 工具 有的真香，有的翻车，有的已经没了 最后留下这份 S / A / B 级 实用名单 每个都附了学习方向，建议收藏 S 级：人人都该用的 AI（至少选一个） ChatGPT、Gem… 小吉 AI 实战笔记](https://zhuanlan.zhihu.com/p/2032041697652237965)# [2024年您应该知道的 12个绝佳且免费的 AI 工具 2024年，人工智能的世界会继续让我们着迷。 这里收集了12 个免费的 AI 工具，其中大多数易于使用，还有一些复杂的。无论如何，AI 将会给我们的工作和生活带来巨大的改变，了解并掌握最适合… 程序员客栈](https://zhuanlan.zhihu.com/p/676205302)
+
+_想来知乎工作？请发送邮件到 jobs@zhihu.com_
+
+打开知乎App
+
+在「我的页」右上角打开扫一扫
+
+![Image 19](https://picx.zhimg.com/v2-9e41ea16bdfbe9cf4896617ecad5b4ca.png)
+
+其他扫码方式：微信
+
+下载知乎App
+
+无障碍模式
+
+验证码登录
+
+密码登录
+
+[开通机构号](https://zhuanlan.zhihu.com/org/signup)
+
+中国 +86
+
+获取短信验证码
+
+获取语音验证码
+
+登录/注册
+
+其他方式登录
+
+未注册手机验证后自动登录，注册即代表同意[《知乎协议》](https://www.zhihu.com/term/zhihu-terms)[《隐私保护指引》](https://www.zhihu.com/term/privacy)
+
+扫码下载知乎 App
+
+关闭二维码
