@@ -1,0 +1,469 @@
+# 多语言团队专属的飞书秘籍
+
+Title: 多语言团队专属的飞书秘籍
+
+URL Source: https://www.feishu.cn/practice_template/03421
+
+Markdown Content:
+# 多语言团队专属的飞书秘籍
+![Image 1](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/84a9f036fe2b44f99b899fff4beeb963~tplv-jbbdkfciu3-image:0:0.image)
+
+[![Image 2](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/8742ff93d33147c9b7862610e5960ab6.png~tplv-jbbdkfciu3-png:0:0.png) ![Image 3](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/f0e259c1a42a4b819ebd02c1b7cad65d.png~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/landing/feishu_aily_2026?tracking_code=701TL00001XAACHYA5)
+
+[![Image 4](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/eff71c9398c04ebd8452d748646fc1e8.png~tplv-jbbdkfciu3-png:0:0.png)![Image 5](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/64ca2fdf9b7449d2b785d9b166b97c52.png~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/)
+
+[热门推荐](https://www.feishu.cn/hot)![Image 6](https://www.feishu.cn/practice_template/03421)
+
+[案例与方案](https://www.feishu.cn/practice_template/03421)![Image 7](https://www.feishu.cn/practice_template/03421)
+
+[产品功能](https://www.feishu.cn/practice_template/03421)![Image 8](https://www.feishu.cn/practice_template/03421)
+
+[飞书 AI](https://www.feishu.cn/practice_template/03421)![Image 9](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b1cf45b283ab4076909e1b723560a88c.png~tplv-jbbdkfciu3-png:0:0.png)
+
+[合作与支持](https://www.feishu.cn/practice_template/03421)![Image 10](https://www.feishu.cn/practice_template/03421)
+
+[飞行社](https://www.feishu.cn/community?from=feishu_website_header)![Image 11](https://www.feishu.cn/practice_template/03421)
+
+[定价](https://www.feishu.cn/service?from=feishu_website_header)
+
+[![Image 12](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/dc6c3a7d133b4fcbb39d6397de6b833a~tplv-jbbdkfciu3-png:0:0.png)![Image 13](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/66d86be0453146ebae1c45aa9042b51a.png~tplv-jbbdkfciu3-png:0:0.png)](tel:400-0682-666)
+
+[下载飞书](https://www.feishu.cn/download)
+
+[联系销售](https://www.feishu.cn/landing/feishu_contact_sales?tracking_code=701TL00001EjHx2YAF&from=top_bar_contact_sales)[登录/注册](https://www.feishu.cn/practice_template/03421)
+
+# 多语言团队专属的飞书秘籍
+
+使用的产品：
+
+[![Image 14](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ace780fbcbf44c25a4b9a744b4ad32ff~tplv-jbbdkfciu3-image:0:0.image)视频会议](https://www.feishu.cn/product/video)[![Image 15](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/bf76a3bebf8f4bac8d2d104e7d3d25c9~tplv-jbbdkfciu3-image:0:0.image)文档](https://www.feishu.cn/product/docs)[![Image 16](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c7a9f526cad24294acf7d9f896a66a17~tplv-jbbdkfciu3-image:0:0.image)飞书OKR](https://okr.feishu.cn/)
+
+![Image 17](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/1a98f55f9cc24e61a1162f0464f1fbcf~tplv-jbbdkfciu3-png:0:0.png)[联系我们](https://www.feishu.cn/salessupport?from=practice_template_side_contact_us)[免费试用](https://www.feishu.cn/accounts/page/ug_register?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fugregister%2Fauthorization%3Ftimeout%3D10%26terminalType%3D2&tenant_type=3&template_id=7262656438152708100&from=%E5%AE%98%E7%BD%91%E6%B3%A8%E5%86%8C%E6%97%97%E8%88%B0%E7%89%88%E8%AF%95%E7%94%A8)
+
+使用飞书前​
+
+过去十年，越来越多的中国企业走出国门，积极拓展全球市场。面对陌生的文化环境，企业往往会通过设置跨国分支、招募当地人才的方式加速国际化进程。这也带来了不少挑战：​
+
+*   语言障碍下，沟通成本高：同 一个方案，在全中文环境中 10 分钟就能宣讲完毕。如果换成英文，则需要数倍甚至数十倍时间做准备。​
+
+*   异地协同，跨时区交流不便：跨国情况下，异步沟通（如发消息/邮件）反应时间长，而同步沟通（如电话/视频会议）需要协调多方时间。​
+
+*   各种隔阂导致外籍员工参与感低，归属感差：不同的工作文化可能造成误解；外籍员工“跟不上节奏”，会慢慢累积信息差，导致参与感降低或失去团队归属感。​
+
+​
+
+使用飞书后​
+
+飞书自研发之初就一直关注国际化协作并持续实践国际化设计，针对上面的难点提出了解决方案。​
+
+飞书拥有友好的多语言界面，面向海外的客户端支持十余种语言；无处不在的翻译，让同事可以在会话、云文档和视频会议等多场景畅快沟通；日历功能可轻松对齐不同时区的同事时间，一键查看同事忙闲状态。​
+
+​
+
+​
+
+💡
+
+实践概览​
+
+1.   友好的多语言界面​
+
+1.   无处不在的自动翻译，再也不会词不达意​
+
+1.   跨地域会议一样可以高效​
+
+1.   万一找不到共同时间，不如试试“异步沟通”​
+
+1.   避免海内外团队工具割裂，做好知识沉淀​
+
+1.   跨地域项目高效管理​
+
+1.   对齐目标，让全体成员都明确方向，提高参与感​
+
+​
+
+​
+
+​
+
+飞书是 一站式企业协作平台​
+
+让工作 更高效，更愉悦​
+
+​
+
+250px|700px|reset
+
+![Image 18](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/326f35fbe54d4358899689d2acadfc32~tplv-jbbdkfciu3-image:0:0.image)​​
+
+友好的多语言界面​
+
+*   飞书在桌面端和移动端都已支持[中文、英文、日本语、繁体中文（中国香港）、繁体中文（中国台湾）](https://www.feishu.cn/hc/zh-CN/articles/360045748353)。除以上语言外，面向海外用户的客户端也支持其他 11 种语言，包括西班牙语、意大利语、德语、法语、葡萄牙语（巴西）、印尼语/马来语（Bahasa）、越南语、泰语、韩语、俄语和印地语（Hindi）。​
+
+*   飞书工作台接入的应用，也会注意国际化，英文界面保证跨地域团队的使用体验，例如​
+
+*   内部“[审批](https://getfeishu.cn/hc/zh-CN/articles/360033971554-%E5%AE%A1%E6%89%B9%E5%BA%94%E7%94%A8-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%A3%9E%E4%B9%A6%E5%AE%A1%E6%89%B9-#source=suggestion)”（如请假、报销、离职等）​
+
+*   日常工作“[汇报](https://getfeishu.cn/hc/zh-CN/articles/360043028774-%E5%B7%A5%E4%BD%9C%E5%8F%B0-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%A3%9E%E4%B9%A6%E6%B1%87%E6%8A%A5-#source=suggestion)”使用的日报/周报模板​
+
+*   无论是职能人员还是研发人员都喜欢的，让工作流自动化的“[飞书捷径](https://getfeishu.cn/hc/zh-CN/articles/360043167554-%E5%B7%A5%E4%BD%9C%E5%8F%B0-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%A3%9E%E4%B9%A6%E6%8D%B7%E5%BE%84-#source=suggestion)”​
+
+​
+
+250px|700px|reset
+
+![Image 19](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/a3f57b7c996f42659f8b3ec5fa333cf1~tplv-jbbdkfciu3-image:0:0.image)​​
+
+[无处不在的自动翻译](https://getfeishu.cn/hc/zh-CN/articles/360043536153)，再也不会词不达意​
+
+*   在飞书会话中，打开[自动翻译](https://getfeishu.cn/hc/zh-CN/articles/360024758113-%E8%81%8A%E5%A4%A9-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E7%BF%BB%E8%AF%91%E5%8A%9F%E8%83%BD-#source=suggestion)，收到消息可被自动翻译成指定语言（目前支持中英日泰互译），无需手动逐条翻译​
+
+*   云文档支持一键[中英日泰互译](https://getfeishu.cn/hc/zh-CN/articles/360044525394-%E4%BA%91%E6%96%87%E6%A1%A3-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%BF%BB%E8%AF%91%E5%8A%9F%E8%83%BD-#source=suggestion)。针对细节[划线评论，@同事](https://getfeishu.cn/hc/zh-CN/articles/360033768533)同样支持翻译，同事将在聊天 feed 中收到提醒​
+
+​
+
+250px|700px|reset
+
+![Image 20](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/7527ebec1a194d2491f6aea90ed4ecbd~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   [OKR](https://getfeishu.cn/hc/zh-CN/articles/360049067379) 支持一键翻译，保证海内外团队对齐目标，同步业务进展​
+
+​
+
+250px|700px|reset
+
+![Image 21](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/5ca5921acf564c1e879395f748d99811~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   跨地域团队远程会议，开启[字幕即时翻译，支持中英互译](https://getfeishu.cn/hc/zh-CN/articles/360045408014)​
+
+跨地域会议一样可以高效​
+
+*   会议前：添加[辅助时区](https://getfeishu.cn/hc/zh-cn/articles/360045955574-%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD-%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%97%A5%E5%8E%86%E8%AE%BE%E7%BD%AE-#source=search)，轻松对齐不同时区同事时间，[一键查看同事忙闲](https://getfeishu.cn/hc/zh-CN/articles/360038978674)；[创建会议群](https://getfeishu.cn/hc/zh-CN/articles/360045634733)，提前把要讨论的材料发到群里​
+
+​
+
+250px|700px|reset
+
+![Image 22](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/ec7660a38ab349f3ac0f9248a065ef66~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   会议中：一键[创建会议纪要](https://getfeishu.cn/hc/zh-CN/articles/360024859654)，沉淀核心讨论，个别单词拿不准也不怕，云文档已支持[英文单词自动纠错和智能拼写](https://getfeishu.cn/hc/zh-CN/articles/360043910114-%E4%BA%91%E6%96%87%E6%A1%A3-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%AF%AD%E6%B3%95%E7%BA%A0%E9%94%99%E5%8A%9F%E8%83%BD-#source=suggestion)；视频会议[录制](https://getfeishu.cn/hc/zh-CN/articles/360043230014)下来；开启[字幕，支持中英互译](https://getfeishu.cn/hc/zh-CN/articles/360045408014)，字幕可以按照关键词搜索、按参会人筛选​
+
+*   会议后：[记录待办，@同事跟进](https://getfeishu.cn/hc/zh-CN/articles/360033768373)；把录制的视频发给没能参会的同事​
+
+​
+
+250px|700px|reset
+
+![Image 23](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/35c1e4494ebf47bb8b688a58ee152b16~tplv-jbbdkfciu3-image:0:0.image)​​
+
+推荐尝试 “[飞阅会](https://getfeishu.cn/hc/zh-CN/articles/360042128094)”（「用飞书阅读文档开会」）​
+
+「飞阅会」即「用飞书阅读文档开会」，流程如下：​
+
+*   组织者在会前把要讨论的内容写成飞书文档；​
+
+*   组织者会前将在线文档发给参会者，提倡大家会前浏览（但不强制）；​
+
+*   会议开始后的 15 分钟，大家集体静默看文档，并对有疑问的部分发表在线评论，也可以针对别人的评论进一步评论；​
+
+*   组织者按照顺序主持讨论所有评论，当场解决问题或明确解决方案；​
+
+*   对于没有评论的内容，默认大家已经达成一致，不再浪费时间做无意义的沟通；​
+
+*   明确下一步行动并指定负责人，以 @ 的方式，体现在文档上；被 @ 的人会在飞书中收到通知​
+
+​
+
+「飞阅会」的优点：​
+
+*   让所有人基于同样的上下文进行讨论​
+
+*   讨论过程从串行变成并行​
+
+*   让所有人有同样的发言机会​
+
+*   有利于会后执行与存档​
+
+*   远程开会一样高效（[妙享](https://testfordemo.feishu.cn/file/boxcno1wFu6dairSW2TMSZu67nb)功能）​
+
+​
+
+*   各种会议怎么开：[关于开会](https://bytedance.feishu.cn/docs/doccnjrUtKKrdNa9vYuqSejhBZb)​
+
+*   有多于100人要参会？​
+
+*   用[直播](https://getfeishu.cn/hc/zh-CN/articles/360045972873-%E9%9F%B3%E8%A7%86%E9%A2%91%E4%BC%9A%E8%AE%AE-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%9B%B4%E6%92%AD%E5%8A%9F%E8%83%BD-#source=suggestion)功能做 CEO all-hands​
+
+*   线上活动用飞书 [线上活动举办难？飞书直播功能帮你搞定！](https://bytedance.feishu.cn/docs/doccnGz7gLvU6Fqs2N4UOSM2nFN)​
+
+万一找不到共同时间，不如试试“异步沟通”​
+
+*   很多会议可能都可以通过“异步沟通”解决；​
+
+*   鼓励用写文档的方式做书面沟通（放弃 PPT，用文档沟通；只重内容不浪费时间改格式）；发给同事，让大家用文档评论功能做聚焦的讨论​
+
+*   把自己的想法用视频会议录制+共享屏幕功能录制下来（[像这样](https://testfordemo.feishu.cn/file/boxcncy1ip3ZbgqpFhEZ69rmvSb)），之后把视频发给同事​
+
+*   用飞书文档写一个自己的“个人使用说明书”，放在飞书签名档，无需约会议，发消息，也可以让同事了解自己的职能和业务​
+
+模板： [【个人说明书演示】陈艾伦的个人使用说明书](https://testfordemo.feishu.cn/docs/doccnWHTtGSKnYeTGsQhvcGTDxd)​
+
+避免海内外团队工具割裂，做好知识沉淀​
+
+*   把「[群公告](https://getfeishu.cn/hc/zh-CN/articles/360025298493-%E8%81%8A%E5%A4%A9-%E5%A6%82%E4%BD%95%E7%BC%96%E8%BE%91%E5%92%8C%E5%8F%91%E5%B8%83%E7%BE%A4%E5%85%AC%E5%91%8A-#source=suggestion)」当成「群 Wiki」使用​
+
+*   鼓励将离线文件（如 PPT、PDF、Excel、图片、视频）上传到飞书云空间，文件永不过期。同时[上传新版本可覆盖旧版本](https://getfeishu.cn/hc/zh-CN/articles/360049067469)（链接不变），保证文件永远是最新版​
+
+*   用“One Page”文档嵌套的方式做团队共享知识库，保证海内外团队成员都可轻松查看​
+
+模板：[从入门到精通，飞书操作指南集](https://testfordemo.feishu.cn/sheets/shtcnmblD2WrfMzwqCcRjc3UhJd) | [产品研发部团队白皮书](https://testfordemo.feishu.cn/docs/doccnPZAFKGVh39fNlOwm8uOuSd#)​
+
+*   撰写自己部门的新人入职文档，方便新人快速了解团队业务和规划 - 字节模版​
+
+模板： [【新人入职须知演示】UX设计团队介绍](https://testfordemo.feishu.cn/docs/doccnlj0kVLiC3HOxGuWMBTquMg#)​
+
+*   用[全局搜索](https://getfeishu.cn/hc/zh-CN/articles/360043319334-%E4%B8%AA%E4%BA%BA%E7%AF%87-%E4%BF%A1%E6%81%AF%E6%80%BB%E6%98%AF%E6%89%BE%E4%B8%8D%E5%88%B0-%E5%B7%A7%E7%94%A8%E6%90%9C%E7%B4%A2%E8%81%9A%E7%84%A6%E9%87%8D%E7%82%B9#source=search)功能可以找到一切信息​
+
+跨地域项目高效管理​
+
+*   Jira 与飞书打通，可实时跟进需求进展 [如何通过飞书 Jira 机器人实时追踪项目动态？](https://bytedance.feishu.cn/docs/doccnrYmhygHBFVVAPKjXksYI3p)另外，支持与 多款项目管理 App 打通，如 [Asana 助手](https://app.feishu.cn/app/6728006018405499143)和 [Trello 助手](https://app.feishu.cn/app/6730096364379767051)等​
+
+*   用飞书表格管理项目排期，团队成员忙闲状态一目了然​
+
+模板：[产研排期甘特图](https://testfordemo.feishu.cn/sheets/shtcnmkNfnygHvzcAG7lbzdnKOb)​
+
+*   用飞书[公共日历](https://getfeishu.cn/hc/zh-CN/articles/360024985593)同步产品新功能上线日期，方便销售，市场等查看​
+
+*   用“[飞书提醒](https://getfeishu.cn/hc/zh-CN/articles/360040566773-%E6%9C%BA%E5%99%A8%E4%BA%BA-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E9%A3%9E%E4%B9%A6%E6%8F%90%E9%86%92-#source=suggestion)”提醒大家完成 to do​
+
+*   飞书上的任务管理工具​
+
+*   [板栗看板](https://app.feishu.cn/app/6834698406850854913)​
+
+*   [Cotask](https://app.feishu.cn/app/6787027972593090561)​
+
+*   [Todonow](https://app.feishu.cn/app/6790603714345320449)​
+
+*   [轻计划](https://app.feishu.cn/app/6797960525801209857)​
+
+对齐目标，让全体成员都明确方向，提高参与感​
+
+​
+
+250px|700px|reset
+
+![Image 24](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/cec8688762b244d58ffbd2de3e5b1642~tplv-jbbdkfciu3-image:0:0.image)​​
+
+*   制定和对齐目标：[飞书OKR](https://getfeishu.cn/hc/zh-CN/articles/360049067379)，支持一键中英互译 OKR 内容​
+
+*   落地目标：基于 OKR 的工作汇报模板​
+
+模板： [团队 OKR 周报](https://bytedance.feishu.cn/docs/doccnsOWD3XyjYyQ052WNwpWr2e)​
+
+*   好的 OKR 长什么样？以产品团队为例：​
+
+*   O：迭代升级现有产品，服务好内外部客户​
+
+*   KR1：产品模块1 ：完成达到产品化质量标准的 B 专项项目，满意度 85%，fatal < 3 ；移动端完成性能优化，加载排名到前三​
+
+*   KR2：产品模块2 ：完成登录体系打通和多种登陆方式，A 产品支持更多配置字段，100%满足下游需要，下游用户满意度到达90%​
+
+*   KR3：产品模块3 ：完成所有功能80%以上单测，双月总 fatal <20 ；SaaS版功能全量在上线，用户满意度 85% ​
+
+*   更多 OKR 干货，欢迎了解：​
+
+[制定与撰写 OKR | 两种思路与七类方法](https://bytedance.feishu.cn/docs/doccnF0yzGWKvRomAw0Ely9CJhg) | [OKR常见误区](https://okr.feishu.cn/okr/blog/article/18) | [如何把 OKR 融入企业日常工作](https://okr.feishu.cn/okr/blog/article/29) | [如何留住90后员工](https://bytedance.feishu.cn/docs/doccnGKQ1Latcep7Gf1NTAnrtef#qockFU)​
+
+字节跳动的实践准则​
+
+🤖 准则一：说“机器能听得懂”的话​
+
+*   飞书的聊天和文档翻译能力非常强大，员工直接打中文就可以和其他同事交流。但在交流时切忌用一些俚语或者网络用语，因为很多时候机器不一定能读懂，翻译出来的译文也是牛头不对马嘴​
+
+​
+
+正确做法 ​错误做法 ​
+​
+
+250px|700px|reset
+
+![Image 25](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/10448e7fcb6147f5b76cd63e5b198e01~tplv-jbbdkfciu3-image:0:0.image)​​​
+
+250px|700px|reset
+
+![Image 26](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/58a58c381693453bad1b6a098741aec1~tplv-jbbdkfciu3-image:0:0.image)​​
+​
+
+250px|700px|reset
+
+![Image 27](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/f31822d56528481faaaa18e80084e941~tplv-jbbdkfciu3-image:0:0.image)​​​
+
+250px|700px|reset
+
+![Image 28](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/33eb2392aaf64f0384bd6b42915d2bde~tplv-jbbdkfciu3-image:0:0.image)​​
+
+​
+
+💬 准则二：速战速决的高效沟通​
+
+*   交流时要“过度沟通”，把所有信息一次发完，避免来来回回打持久战。每次发消息时要提供尽可能详实的背景信息，提高沟通效率​
+
+*   说话要开门见山。打招呼的客套话能省则省，不问“在吗？”，尽可能减少同事收到的消息数量。一条消息能表达清楚，就不要分成两条​
+
+*   有些人在和其他时区的同事交流时，会觉得在他们工作时间外发消息有些不妥，生怕打扰到别人的休息时间。其实没什么不妥的。要是当时不发，也许之后就忘了。你的同事可以在第二天工作时段处理你的消息。对于全球化团队来说，这种异步沟通大家都能理解​
+
+​
+
+正确做法 ​错误做法 ​
+12 小时完成的对话：​
+
+​
+
+250px|700px|reset
+
+![Image 29](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/2b7cc8b2a925449ca0e3a1196df92e25~tplv-jbbdkfciu3-image:0:0.image)​​48 小时完成的对话：​
+
+​
+
+250px|700px|reset
+
+![Image 30](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/4c239b50c6814f1c93c896ff522dfb27~tplv-jbbdkfciu3-image:0:0.image)​​
+
+​
+
+📄 准则三：提供更多上下文​
+
+*   发消息要有理有据，把所有必要的信息都写上，不要惜字如金。比如在宣布一项决定或政策变更时，一定要解释清楚背后原因是什么​
+
+​
+
+正确做法 ​错误做法 ​
+提供背景信息和原因：​
+
+​
+
+250px|700px|reset
+
+![Image 31](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/3ad03c5feeb04d1ebcc4cfd8bf70b45d~tplv-jbbdkfciu3-image:0:0.image)​​不提供任何原因或背景信息：​
+
+​
+
+250px|700px|reset
+
+![Image 32](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/d94f9c4a1a0c46f5a1e82d8b3edd8efa~tplv-jbbdkfciu3-image:0:0.image)​​
+
+​
+
+🗓 准则四：要有时区观​
+
+*   如果你需要经常和不同时区的同事合作、开会，务必要找互相重叠的工作时间段​
+
+*   安排会议时，一定要阐明会议时间，尽可能使用对方的时区​
+
+​
+
+正确做法 ​错误做法 ​
+12小时完成的对话：​
+
+​
+
+250px|700px|reset
+
+![Image 33](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/919dd4d2e2a24a5e81f83cd22b05d8ae~tplv-jbbdkfciu3-image:0:0.image)​​48小时完成的对话：​
+
+​
+
+250px|700px|reset
+
+![Image 34](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/a7a8a347ef2a48539695ca6edfc358a3~tplv-jbbdkfciu3-image:0:0.image)​​
+
+​
+
+模板汇总​
+
+打开模板文档，点击文档右上角“...” ➡️ “创建副本”即可立刻使用​
+
+​
+
+会议​[关于开会](https://bytedance.feishu.cn/docs/doccnjrUtKKrdNa9vYuqSejhBZb)​
+个人使用说明书​[【个人说明书演示】陈艾伦的个人使用说明书](https://testfordemo.feishu.cn/docs/doccnWHTtGSKnYeTGsQhvcGTDxd)​
+团队知识库​[从入门到精通，飞书操作指南集](https://testfordemo.feishu.cn/sheets/shtcnmblD2WrfMzwqCcRjc3UhJd) | [产品研发部团队白皮书](https://testfordemo.feishu.cn/docs/doccnPZAFKGVh39fNlOwm8uOuSd#)​
+新人入职​[【新人入职须知演示】UX设计团队介绍](https://testfordemo.feishu.cn/docs/doccnlj0kVLiC3HOxGuWMBTquMg#)​
+研发排期​[产研排期甘特图](https://testfordemo.feishu.cn/sheets/shtcnmkNfnygHvzcAG7lbzdnKOb)​
+周报​[【飞阅会模板】基于OKR的周报模板](https://testfordemo.feishu.cn/docs/doccnzAOto1axu00BBnZojyWDOc)​
+
+​
+
+​
+
+## 更多最佳实践
+
+### [米未CEO马东：飞书最打动米未的是什么？ 用飞书摆脱做PPT的恐惧、更好地进行选题脑暴、帮助艺人经理更高效管理客户资源](https://www.feishu.cn/practice_template/85899)
+
+### [从车间拧螺丝到给 CEO 当助理，她如何用飞书实现职场晋升？ 一张张多维表格和与之对应的实践成果都让整个公司看到了工具的价值，也看到了人的价值](https://www.feishu.cn/practice_template/75794)
+
+### [第一批给员工写「个人说明书」的 CEO们 这届老板的新课题：要想成为一位好的管理者，如何和这届年轻的职场人平等对话？](https://www.feishu.cn/practice_template/76338)
+
+### [用飞书打败“黑话”！几千个汽车行业缩写，终于搞懂了 只有真正好用、便捷的工具，才能让员工们在日常工作中轻松地触达知识，享受知识创造的乐趣](https://www.feishu.cn/practice_template/44900)
+
+### [抖音营销新利器！飞书如何给五菱每月带来 17 万条销售线索 五菱汽车在抖音端有1800多个经销商账号，月均带来线索17万条；积累粉丝2400万，稳居汽车行业第一](https://www.feishu.cn/practice_template/43202)
+
+### [元气森林跑出“飞书速度” 要赋能，而不是用流程机制管控。把飞书这个工具的引入，当成一次管理理念的升级](https://www.feishu.cn/practice_template/01338)
+
+### [米未CEO马东：飞书最打动米未的是什么？ 用飞书摆脱做PPT的恐惧、更好地进行选题脑暴、帮助艺人经理更高效管理客户资源](https://www.feishu.cn/practice_template/85899)
+
+### [从车间拧螺丝到给 CEO 当助理，她如何用飞书实现职场晋升？ 一张张多维表格和与之对应的实践成果都让整个公司看到了工具的价值，也看到了人的价值](https://www.feishu.cn/practice_template/75794)
+
+### [第一批给员工写「个人说明书」的 CEO们 这届老板的新课题：要想成为一位好的管理者，如何和这届年轻的职场人平等对话？](https://www.feishu.cn/practice_template/76338)
+
+### [用飞书打败“黑话”！几千个汽车行业缩写，终于搞懂了 只有真正好用、便捷的工具，才能让员工们在日常工作中轻松地触达知识，享受知识创造的乐趣](https://www.feishu.cn/practice_template/44900)
+
+### [抖音营销新利器！飞书如何给五菱每月带来 17 万条销售线索 五菱汽车在抖音端有1800多个经销商账号，月均带来线索17万条；积累粉丝2400万，稳居汽车行业第一](https://www.feishu.cn/practice_template/43202)
+
+### [元气森林跑出“飞书速度” 要赋能，而不是用流程机制管控。把飞书这个工具的引入，当成一次管理理念的升级](https://www.feishu.cn/practice_template/01338)
+
+## 先进团队 先用飞书
+
+先进企业协作与管理平台
+
+[免费试用](https://www.feishu.cn/accounts/page/ug_register?app_id=11&redirect_uri=https%3A%2F%2Fwww.feishu.cn%2Fdownload%3Fafter_ugregister%3D1&tenant_type=3&template_id=7262656438152708100&from=%E5%AE%98%E7%BD%91%E6%B3%A8%E5%86%8C%E6%97%97%E8%88%B0%E7%89%88%E8%AF%95%E7%94%A8)
+
+[联系我们](https://www.feishu.cn/salessupport?from=practice_template_03421_bottom_contact_us)
+
+飞书产品
+
+[飞书 aily [](https://www.feishu.cn/practice_template/03421)](https://aily.feishu.cn/universal/landing?from=feishu_home_nav)[多维表格](https://www.feishu.cn/product/base)[飞书项目](https://project.feishu.cn/home)[即时消息](https://www.feishu.cn/product/messenger)[文档](https://www.feishu.cn/product/docs)[视频会议](https://www.feishu.cn/product/video)[妙记](https://www.feishu.cn/product/minutes)[知识库](https://www.feishu.cn/product/wiki)
+
+解决方案
+
+[制造](https://www.feishu.cn/industry_solutions/manufacturing)[消费品](https://www.feishu.cn/industry_solutions/consumption)[零售](https://www.feishu.cn/industry_solutions/retail)[金融](https://www.feishu.cn/industry_solutions/finance)[餐饮](https://www.feishu.cn/industry_solutions/catering)[医疗](https://www.feishu.cn/industry_solutions/healthcare)[企业服务](https://www.feishu.cn/industry_solutions/saas)[汽车](https://www.feishu.cn/industry_solutions/automobile)
+
+定价
+
+[版本对比](https://www.feishu.cn/service?from=feishu_website_footer)[购买咨询](javascript:;)
+
+探索飞书
+
+[加入我们](https://www.feishu.cn/jobs?_tracking=feishu_from_feishushouye)[关于飞书](https://www.feishu.cn/about)[博客中心](https://www.feishu.cn/content)[飞书研习社](https://www.feishu.cn/research)[飞书认证官](https://www.feishu.cn/certification)[公益计划](https://www.feishu.cn/charity)[生态快讯](https://www.feishu.cn/partnernews)[飞行社![Image 35](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/4af13479d9a24627a9e704bf552694ec~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/community?from=feishu_website_footer)
+
+合作与支持
+
+[帮助中心](https://www.feishu.cn/hc)[开放平台](https://open.feishu.cn/)[应用目录](https://app.feishu.cn/)[合作伙伴](https://www.feishu.cn/partners)[联系我们](https://www.feishu.cn/contact)[更新日志](https://www.feishu.cn/hc/zh-CN/articles/360043073734)[管理后台](https://www.feishu.cn/admin)[友情链接](https://www.feishu.cn/friend_links)[举报与反馈](https://www.feishu.cn/complaint)
+
+法律与合规
+
+[服务协议](https://www.feishu.cn/terms)[隐私政策](https://www.feishu.cn/privacy)[平台行为守则](https://www.feishu.cn/privacy-code-of-conduct)[安全合规](https://www.feishu.cn/security)
+
+[![Image 36](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b72cf5495452431fb04ca948c86591c9.png~tplv-jbbdkfciu3-png:0:0.png)下载飞书](https://www.feishu.cn/download)[![Image 37](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/32fb1850a84d4d50a34f01c21415c563.png~tplv-jbbdkfciu3-png:0:0.png)联系顾问](https://www.feishu.cn/salessupport?from=feishu_website_footer)
+
+[![Image 38](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/c32ebdc7607b40bbb0d568615db772b8.png~tplv-jbbdkfciu3-png:0:0.png)](https://www.feishu.cn/)[![Image 39](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/e0559a31d508475ebde9cabd69bd998a~tplv-jbbdkfciu3-png:0:0.png)](javascript:;)[![Image 40](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/1be78938fdc841ad8c328972f3c98979~tplv-jbbdkfciu3-png:0:0.png)](https://weibo.com/u/7223713567)[![Image 41](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/0eb79e8dbcb5438fb404fd443abedb32~tplv-jbbdkfciu3-png:0:0.png)](https://www.zhihu.com/org/fei-shu-27-96/activities)[![Image 42](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/b5c4da0e582546d8ab884277fd89968a~tplv-jbbdkfciu3-png:0:0.png)](https://www.toutiao.com/c/user/3073831497904140/)[![Image 43](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/18df0239e059412985b3fbe01a2345c4~tplv-jbbdkfciu3-png:0:0.png)](https://www.xiaohongshu.com/user/profile/62f09aef000000001f0076d3?xhsshare=CopyLink&appuid=5571317c3f95a333d87b579b&apptime=1675018819)[![Image 44](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/35a534f82f7a451bb36d6a5eec2f0ba1~tplv-jbbdkfciu3-png:0:0.png)](https://space.bilibili.com/1880331212)
+
+反馈给飞书 CEO：[ceo@feishu.cn](mailto:ceo@feishu.cn)
+
+[Copyright © 2026 北京飞书科技有限公司](javascript:;)[京ICP备16045432号-4](https://beian.miit.gov.cn/)[![Image 45](https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/24fe94f4e7674d41af176c75560f3ba7~tplv-jbbdkfciu3-image:0:0.image)京公网安备 11010802029085号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802029085)[增值电信业务经营许可证：京B2-20190249](https://tsm.miit.gov.cn/dxxzsp/)
+
+更改地区-简体中文
+
+rangeDom
+
+![Image 46](https://bat.bing.com/action/0?ti=187130120&Ver=2&mid=2cd25b2f-c710-41e3-8823-ee687a7595c2&bo=1&sid=83d035d0596611f192e453eda8abbe08&vid=83d084c0596611f1b32d5b9a918ca24f&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=800&sh=600&sc=24&tl=%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%9B%A2%E9%98%9F%E4%B8%93%E5%B1%9E%E7%9A%84%E9%A3%9E%E4%B9%A6%E7%A7%98%E7%B1%8D&kw=%E5%A4%9A%E8%AF%AD%E8%A8%80,%E8%B7%A8%E5%9B%BD&p=https%3A%2F%2Fwww.feishu.cn%2Fpractice_template%2F03421&r=&lt=2834&evt=pageLoad&sv=2&cdb=AQAQ&rn=866701)

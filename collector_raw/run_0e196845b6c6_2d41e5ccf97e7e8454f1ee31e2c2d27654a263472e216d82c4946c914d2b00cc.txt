@@ -1,0 +1,64 @@
+# 实测|OpenClaw+Claude Code远程控制全攻略:一步API解决海外模型调用痛点
+
+Title: 慕课网
+
+URL Source: https://www.imooc.com/article/389142
+
+Markdown Content:
+# 慕课网
+
+![Image 1](https://img1.sycdn.imooc.com/ec68766a0901b62751200096.jpg)
+
+*   [慕课网首页](https://www.imooc.com/)
+*   [免费课](https://www.imooc.com/course/list)
+*   [实战课](https://coding.imooc.com/)
+*   [体系课](https://class.imooc.com/)
+*   [发现](https://www.imooc.com/article/389142)[评价](https://coding.imooc.com/evaluation/list)[教程](https://www.imooc.com/wiki)[专栏](https://www.imooc.com/read)[手记](https://www.imooc.com/article)[企业服务](https://qiye.imooc.com/)[讲师入驻](https://www.imooc.com/seek/masters) 
+*   [会员](https://www.imooc.com/user/vip)
+*   [](https://www.imooc.com/activity/swindex)
+
+[Python](https://www.imooc.com/search/?words=Python&type=course)[AI大模型](https://www.imooc.com/act/AI)
+
+[搜索](javascript:void(0);)
+
+## 热搜
+
+[Vue](javascript:void(0))[Java](javascript:void(0))[嵌入式](javascript:void(0))[Python](javascript:void(0))[SpringBoot](javascript:void(0))[C/C++](javascript:void(0))[算法](javascript:void(0))
+
+## 最近搜索[清空](javascript:void(0);)
+
+[0](https://order.imooc.com/pay/cart)
+
+*   [登录](https://www.imooc.com/user/newlogin) / [注册](https://www.imooc.com/user/newsignup)
+
+ 新人专属 元礼包[| 查看](https://www.imooc.com/act/newcomer)__
+
+[](https://www.imooc.com/act/newcomer)
+
+ 为了账号安全，请及时绑定邮箱和手机[立即绑定](https://www.imooc.com/user/setbindsns)
+
+对不起，您访问的页面找不到啦！
+
+· 页面不存在或者已失效
+
+· 输入的地址不正确
+
+[前往首页](https://www.imooc.com/)
+
+您还可以向我们 www.imooc.com/article/details/id/389142[反馈错误](javascript:;)
+
+[使用**Command+D**可将网站添加到书签](javascript:; "收藏")[](javascript:; "微信")[](http://weibo.com/u/3306361973 "新浪微博")[](http://user.qzone.qq.com/1059809142/ "QQ空间")
+
+*   [企业服务](https://qiye.imooc.com/)
+*   [网站地图](https://www.imooc.com/index/sitemap.html)
+*   [网站首页](https://www.imooc.com/)
+*   [关于我们](https://www.imooc.com/about/us)
+*   [联系我们](https://www.imooc.com/about/contact)
+*   [讲师招募](https://www.imooc.com/seek/masters)
+*   [帮助中心](https://www.imooc.com/help)
+*   [意见反馈](https://www.imooc.com/user/feedback)
+*   [代码托管](https://git.imooc.com/)
+
+Copyright ![Image 2: ©](https://www.imooc.com/static/moco/v1.0/images/face/36x36/a9.png) 2026 imooc.com All Rights Reserved | [京ICP备12003892号-11](https://beian.miit.gov.cn/)[京公网安备11010802030151号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802030151)
+
+[微信客服 购课补贴 联系客服咨询优惠详情](javascript:void(0))[帮助反馈](https://www.imooc.com/help)[APP下载 慕课网APP 您的移动学习伙伴](https://www.imooc.com/mobile/app)[公众号 扫描二维码 关注慕课网微信公众号](javascript:void(0))[返回顶部](javascript:void(0))

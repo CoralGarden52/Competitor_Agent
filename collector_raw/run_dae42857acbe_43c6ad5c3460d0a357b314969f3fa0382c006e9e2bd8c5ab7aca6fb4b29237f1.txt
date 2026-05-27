@@ -1,0 +1,1 @@
+ Google Workspace Marketplace 让用户可以和管理员轻松查找和安装与 Google Workspace 集成的第三方应用。 您可以发布 Google Workspace 插件、编辑器插件、Google Chat 应用、课堂插件、云端硬盘应用和 Web 应用。

@@ -1,0 +1,280 @@
+# 成为Notion 合作伙伴 | Notion
+
+Title: 成为 Notion 合作伙伴 | Notion
+
+URL Source: https://www.notion.so/zh-cn/partners
+
+Markdown Content:
+# 成为 Notion 合作伙伴 | Notion
+
+See this page in your preferred language.[Change to English (US)→](https://www.notion.so/partners)
+
+[](https://www.notion.so/zh-cn/product)
+
+产品
+
+*   [Notion 你的 AI 工作空间](https://www.notion.so/zh-cn/product)
+
+*   [Notion 日历](https://www.notion.so/zh-cn/product/calendar)
+
+*   [Notion 邮箱](https://www.notion.so/zh-cn/product/mail)
+
+*   [Notion AI 办公 AI 工具](https://www.notion.so/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.so/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.so/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.so/zh-cn/product/enterprise-search)
+
+*   [知识库 集中管理你的知识](https://www.notion.so/zh-cn/product/wikis)
+
+*   [文档 简单而强大](https://www.notion.so/zh-cn/product/docs)
+
+*   [项目 管理任何项目](https://www.notion.so/zh-cn/product/projects)
+
+*   [连接 关联你的应用](https://www.notion.so/zh-cn/connections)
+
+*   [安全 安全且可扩展](https://www.notion.so/zh-cn/security)
+
+Merge cells in tables. [查看最新动态→](https://www.notion.so/zh-cn/releases)
+
+下载[Notion 应用→](https://www.notion.so/zh-cn/download)
+
+AI
+
+![Image 1](https://www.notion.so/_next/image?url=%2Ffront-static%2Fshared%2Fnavigation%2Fai_group.png&w=384&q=75)
+
+*   AI 功能
+
+*   [Notion AI 办公 AI 工具](https://www.notion.so/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.so/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.so/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.so/zh-cn/product/enterprise-search)
+
+*   探索用例
+
+*   [用于工作](https://www.notion.so/zh-cn/product/ai/use-cases?type=work)
+
+*   [用于生活](https://www.notion.so/zh-cn/product/ai/use-cases?type=life)
+
+解决方案
+
+*   团队
+
+*   [工程和产品](https://www.notion.so/zh-cn/product/notion-for-product-development)
+
+*   [设计](https://www.notion.so/zh-cn/product/notion-for-design)
+
+*   [市场营销](https://www.notion.so/zh-cn/templates/category/marketing)
+
+*   [IT](https://www.notion.so/zh-cn/templates/category/ticketing)
+
+*   公司规模
+
+*   [初创公司](https://www.notion.so/zh-cn/startups)
+
+*   [小型企业](https://www.notion.so/zh-cn/teams)
+
+*   [企业版](https://www.notion.so/zh-cn/enterprise)
+
+*   用例
+
+*   [教育](https://www.notion.so/zh-cn/product/notion-for-education)
+
+*   [个人](https://www.notion.so/zh-cn/personal)
+
+*   [专业](https://www.notion.so/zh-cn/use-case)
+
+*   [AI 用例](https://www.notion.so/zh-cn/product/ai/use-cases)
+
+资源
+
+*   浏览
+
+*   [模板](https://www.notion.so/zh-cn/templates)
+
+*   [顾问](https://www.notion.so/zh-cn/explore-consultants)
+
+*   [连接](https://www.notion.so/zh-cn/connections)
+
+*   探索
+
+*   [最近更新](https://www.notion.so/zh-cn/releases)
+
+*   [客户故事](https://www.notion.so/zh-cn/customers)
+
+*   [博客](https://www.notion.so/zh-cn/blog)
+
+*   [网络研讨会](https://www.notion.so/zh-cn/webinars)
+
+*   了解
+
+*   [开发者](https://developers.notion.com/)
+
+*   [学院](https://academy.notion.com/)
+
+*   [产品导览](https://www.notion.so/zh-cn/product/demos)
+
+*   [帮助](https://www.notion.so/zh-cn/help)
+
+[开发者](https://notion.dev/)[企业版](https://www.notion.so/zh-cn/enterprise)[价格](https://www.notion.so/zh-cn/pricing)[申请演示](https://www.notion.so/zh-cn/contact-sales)
+
+[免费获取 Notion](https://www.notion.so/signup?from=marketing&pathname=%2Fzh-cn%2Fpartners&tid=e77444ce5a9d49faa5c609a10555d899)[登录](https://www.notion.so/zh-cn/login?from=marketing&pathname=%2Fzh-cn%2Fpartners&tid=e77444ce5a9d49faa5c609a10555d899)
+
+# 成为 Notion 合作伙伴。
+
+我们的使命是让所有人都能轻松使用工具软件，但这需要更多人参与进来。成为 Notion 合作伙伴，与我们共同成长。
+
+![Image 2: 插图](https://images.ctfassets.net/spoqsaf9291f/S8gEgSmKdwGIL7HZpFeXL/e50fab5c2b4f769f0d2836325942a8d7/Startups.png)
+
+## 哪个合作伙伴项目适合你？
+
+找到适合你的合作伙伴项目，享受与 Notion 合作的好处。
+
+### 技术伙伴项目
+
+Notion 与其他工具互联时效果最佳。我们的技术伙伴通过构建集成来实现这一目标。这些集成连接工作流程，提高生产力，让双方的用户满意。
+
+[成为技术伙伴→](https://www.notion.so/zh-cn/partners/technology-partner-program)
+
+### 方案伙伴项目
+
+帮助我们支持 Notion 客户的独特需求，并发展你的业务。方案伙伴可以解锁新的销售和服务机会，优先获得潜在客户，并从专门的支持和资源中受益。
+
+[成为方案伙伴→](https://www.notion.so/zh-cn/partners/solutions-partner-program)
+
+### 安全和合规伙伴项目
+
+加入全球数十个安全和合规伙伴的行列，帮助我们确保 Notion 企业版客户的安全与合规性。
+
+[成为安全和合规伙伴→](https://www.notion.so/zh-cn/partners/security-compliance-partner-program)
+
+### 创业公司伙伴项目
+
+为你的创业公司网络提供免费的 Notion 访问权限和资源，包括 6 个月的免费商业版 Notion AI、专属软件折扣，并访问我们的初创赢家社区。
+
+[成为创业公司伙伴→](https://www.notion.so/zh-cn/startups)
+
+### 创建者计划
+
+适用于在 Notion 上构建未来的创作者、创始人和创新者。在初创生态系统中强力发声，同时为你的受众提供 3 个月的免费 Notion 商业版，内含 Notion AI 功能。
+
+[成为创建者伙伴→](https://www.notion.so/zh-cn/builders)
+
+![Image 3: OpenAI](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FZmLtxhnUafKBGJyXJeK6Q%2F793cfb07fd456f1b293ac25e6e45c5d0%2Fflexible-tool.png&w=3840&q=75)
+
+## 加入我们超过 1,000 个合作伙伴的 Notion 生态系统。
+
+![Image 4: Figma](https://images.ctfassets.net/spoqsaf9291f/502ApiNcRHgIwrDU8XRYTQ/497492503acb3fa21bbd9dd1aec193c3/Figma-logo-color.svg)
+> Figma 在 Notion 上的集成让两个工具默契配合，带来直观而流畅的协作体验。这不仅让我们双方的用户眼前一亮，也让团队合作变得更加高效自然。
+
+Anna Kohnen
+
+Figma 合作伙伴关系主管，Notion 技术伙伴
+
+![Image 5: Cron](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6CiAmkQwqrTZ5XWHEvhvNU%2F2f36e45c97ae9a9d69c4db7851cc4b45%2Flockup_dark_1x.png&w=2048&q=75)
+> 我们很高兴能与 Notion 合作。Intercom 和 Notion 的创业公司项目为初创企业带来巨大价值，为创始人提供扩展业务所需的工具。
+
+Pedro Muller
+
+Intercom 初创公司主管，Notion 创业公司伙伴
+
+![Image 6: Cron](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F194ugawvC7h3L0m1fnjUen%2F6962d1e08a3aed664e894851cdfbef86%2Fthomas-frank.png&w=3840&q=75)
+> 我喜欢分享我在 Notion 上构建的工具。Notion 的联盟推广计划让我能够做自己想做的事情，同时获得报酬。
+
+Thomas Frank
+
+内容创作者，Notion 联盟推广伙伴
+
+![Image 7: Slack](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6fyvSF2bXOoaxLUjOxSuEu%2F38fa72b44d68da791a700c7568eb53a6%2FGroup_1115.png&w=1920&q=75)![Image 8: Zoom](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3YRJbO3SPLn2WN4A9hbDWA%2F49101e43b54926712d394f204f5364dc%2Flogo_zoom.png&w=1920&q=75)![Image 9: Github](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FiwV1V6XLuOhKSYjyQaEIG%2F5bbf12a4069be570481cafc7ece62390%2Flogo_github.png&w=1920&q=75)![Image 10: Google 云端硬盘](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F76KVPU7tcAl3wzI2qjtrSr%2Fcf73e3909c42a91084dd08e144b56cf4%2Flogo_googledrive.png&w=1920&q=75)![Image 11: Figma](https://images.ctfassets.net/spoqsaf9291f/502ApiNcRHgIwrDU8XRYTQ/497492503acb3fa21bbd9dd1aec193c3/Figma-logo-color.svg)![Image 12: GitLab](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7sz4trMSQbO2JufUutkJnU%2Fa6bebb6cacc87ea32a5c8243dd8d6cd7%2Flogo_gitlab.png&w=1920&q=75)![Image 13: Loom](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2JmE3nj01LVI4cYyRVakMw%2F571b3e24439ee13ec594a66d290add89%2Flogo_loom.png&w=1920&q=75)![Image 14: Asana](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F38YIqB6Ot3JBG3KM7QeWeb%2F896f8d90d335176907368e38693dc0a7%2Flogo_asana.png&w=1920&q=75)![Image 15: Make](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1zE6K2hY4uOItUrnQDPrvs%2F0bcb9684c25e2fd6d982656c97e90a3a%2Flogo_make.png&w=1920&q=75)![Image 16: Typeform](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F69fa8WaGXER4RYKSBuu0nA%2Fecf03d80a4951aaefda6110c1ac51914%2Flogo_typeform.png&w=1920&q=75)![Image 17: Zapier](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F61QB4ecjMehci9Bmz6Vz4B%2F92bd7a16ac588f3e461988a752554bde%2Flogo_zapier.png&w=1920&q=75)![Image 18: Jira](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4Ym6tvOkMZXD8l7APTjK24%2F52b7415061de23b54742b0ded2dc4e3e%2Flogo_jira.png&w=1920&q=75)![Image 19: Alegria](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1ce8MNZlIsL74xekFMV3Nj%2F4f158770bd59143b8e50c64bc9bb147d%2Flogo_alegria.png&w=1920&q=75)![Image 20: Northsand](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6dQ9cx2KjH2sm3I76mw4vc%2Fc0d4065a81f6e09aa476d6efd3136161%2Flogo_northsand.png&w=1920&q=75)![Image 21: CPrime](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4Imd4tBVohdhKHeTatjAR%2F0c73075f9d68d5e4255ddd385e0cde44%2Flogo_cprime.png&w=1920&q=75)![Image 22: Gubbins](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7iQxiyZCvfg60OoY4SCifh%2F224152ae5dd46eb65f072b55ba9fae51%2Flogo_gubbins.png&w=1920&q=75)![Image 23: Ignyte](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1uPJdtLdxwYF0akSBypucT%2Fd8704cba1b2539e35594fab8f723a1f3%2Flogo_ignyte.png&w=1920&q=75)![Image 24: Stripe](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F24kxeaFQaH9E7bXUVB71RU%2Fc285b96467129ee467cc3788b946ac22%2Flogo_notionflows-1.png&w=1920&q=75)
+
+## 更多参与方式。
+
+## 市集 成为模板创作者
+
+你是否构建了一个值得分享的精彩模板？在 Notion 市集上发布并出售你的模板。
+
+[提交模板→](https://www.notion.so/profile/templates)
+
+![Image 25: 应用内模板库](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FoVPFfLXkBvX9xGWj5RvTk%2F078ee41508a4a351c5c7a90b57f48575%2FDiscover.png&w=3840&q=75)
+
+## 数据库 聘请方案伙伴
+
+Notion 方案伙伴是值得信赖的生产力专家和解决方案架构师。
+
+[立即体验→](https://www.notion.so/consulting-partners)
+
+![Image 26: 方案伙伴](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F53eS3WIKQlRMfgpsjwwF9U%2F6733b8e5ff5fc5cf9bdcac75d167cafb%2Fconsultants.png&w=3840&q=75)
+
+[](https://www.notion.so/zh-cn/product)
+
+*   [](https://www.instagram.com/notionhq/)
+*   [](https://twitter.com/NotionHQ)
+*   [](https://www.linkedin.com/company/notionhq/)
+*   [](https://www.facebook.com/NotionHQ/)
+*   [](https://www.youtube.com/channel/UCoSvlWS5XcwaSzIcbuJ-Ysg)
+
+简体中文
+
+*   [English (US) 英语（美国）](https://www.notion.so/en-US/partners)
+*   [English (UK) 英语（英国）](https://www.notion.so/en-GB/partners)
+*   [العربية 阿拉伯语](https://www.notion.so/ar/partners)
+*   [Dansk 丹麦语](https://www.notion.so/da/partners)
+*   [Deutsch 德语](https://www.notion.so/de/partners)
+*   [Français (France) 法语（法国）](https://www.notion.so/fr/partners)
+*   [繁體中文 繁体中文](https://www.notion.so/zh-TW/partners)
+*   [Suomi 芬兰语](https://www.notion.so/fi/partners)
+*   [한국어 韩语](https://www.notion.so/ko/partners)
+*   [Nederlands 荷兰语](https://www.notion.so/nl/partners)
+*   [简体中文 简体中文](https://www.notion.so/zh-CN/partners)
+*   [Norsk 挪威语](https://www.notion.so/nb/partners)
+*   [Português (Brasil) 葡萄牙语（巴西）](https://www.notion.so/pt/partners)
+*   [日本語 日语](https://www.notion.so/ja/partners)
+*   [Svenska 瑞典语](https://www.notion.so/sv/partners)
+*   [ภาษาไทย 泰语](https://www.notion.so/th/partners)
+*   [Español (Latinoamérica) 西班牙语（拉丁美洲）](https://www.notion.so/es/partners)
+*   [Español (España) 西班牙语（西班牙）](https://www.notion.so/es-ES/partners)
+*   [עברית 希伯来语](https://www.notion.so/he/partners)
+*   [Italiano 意大利语](https://www.notion.so/it/partners)
+*   [Bahasa Indonesia 印度尼西亚语](https://www.notion.so/id/partners)
+*   [Tiếng Việt 越南语](https://www.notion.so/vi/partners)
+
+请勿出售或分享我的个人信息 Cookie 设置
+
+© 2026 Notion Labs, Inc.
+
+*   公司
+*   [关于我们](https://www.notion.so/zh-cn/about)
+*   [工作机会](https://www.notion.so/zh-cn/careers)
+*   [安全](https://www.notion.so/zh-cn/security)
+*   [状态](https://www.notion-status.com/)
+*   [条款和隐私](https://www.notion.so/28ffdd083dc3473e9c2da6ec011b58ac)
+*   [你的隐私权](https://www.notion.com/trust/privacy-policy#california)
+
+*   下载
+*   [iOS & Android](https://www.notion.so/zh-cn/mobile)
+*   [Mac & Windows](https://www.notion.so/zh-cn/desktop)
+*   [邮箱](https://www.notion.so/zh-cn/product/mail/download)
+*   [日历](https://www.notion.so/zh-cn/product/calendar/download)
+*   [网页剪裁器](https://www.notion.so/zh-cn/web-clipper)
+
+*   资源
+*   [帮助中心](https://www.notion.so/zh-cn/help)
+*   [价格](https://www.notion.so/zh-cn/pricing)
+*   [博客](https://www.notion.so/zh-cn/blog)
+*   [社区](https://www.notion.so/community)
+*   [连接](https://www.notion.so/zh-cn/connections)
+*   [模板](https://www.notion.so/zh-cn/templates)
+*   [合作伙伴项目](https://www.notion.so/zh-cn/partners)
+
+*   Notion适用于
+*   [企业](https://www.notion.so/zh-cn/enterprise)
+*   [中小型团队](https://www.notion.so/zh-cn/teams)
+*   [个人](https://www.notion.so/zh-cn/personal)
+*   [探索更多→](https://www.notion.so/zh-cn/explore)
+
+![Image 27](https://t.co/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=ad45a66b-ec53-420f-b3a5-9131951853b3&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=e5bc7307-6c49-4c5f-bd2a-2272ee13bca8&pt=%E6%88%90%E4%B8%BA%20Notion%20%E5%90%88%E4%BD%9C%E4%BC%99%E4%BC%B4%20%7C%20Notion&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fpartners&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779843189928.478046897954604513&txn_id=ofilm&type=javascript&version=2.3.53)![Image 28](https://analytics.twitter.com/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=ad45a66b-ec53-420f-b3a5-9131951853b3&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=e5bc7307-6c49-4c5f-bd2a-2272ee13bca8&pt=%E6%88%90%E4%B8%BA%20Notion%20%E5%90%88%E4%BD%9C%E4%BC%99%E4%BC%B4%20%7C%20Notion&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fpartners&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779843189928.478046897954604513&txn_id=ofilm&type=javascript&version=2.3.53)![Image 29](https://verifi.pdscrb.com/tag?action=view&user_id=3488f428-90e1-7044-33f0-052cafff1a22&advertiser=notion&referrer=_&session_referrer=_&session_landing_url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fpartners&device_id=pscrb_61979e1f-28c5-41dc-da6e-49d3c8492567&first_visited_at=1779843190206&stid=&ipv4=34.96.52.11&url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fpartners&event_url=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fpartners&source=js-tag+v1.1.0&cachebust=1779843190473)

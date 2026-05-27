@@ -1,0 +1,237 @@
+# 公司想自建企业网盘,有哪些比较好的网盘吗? - 知乎
+
+Title: 公司想自建企业网盘，有哪些比较好的网盘吗? - 坚果云 的回答
+
+URL Source: https://www.zhihu.com/question/558852600/answer/2741052925
+
+Markdown Content:
+# 公司想自建企业网盘，有哪些比较好的网盘吗? - 知乎
+[![Image 1](https://www.zhihu.com/question/558852600/answer/2741052925)](javascript:void(0))
+
+[](https://www.zhihu.com/)
+
+[关注](https://www.zhihu.com/signin?next=%2Ffollow)[推荐](https://www.zhihu.com/signin?next=%2F)[热榜](https://www.zhihu.com/signin?next=%2Fhot)[专栏](https://www.zhihu.com/signin?next=%2Fcolumn-square)[圈子 New](https://www.zhihu.com/signin?next=%2Fring-feeds)[付费咨询](https://www.zhihu.com/consult)[知学堂](https://www.zhihu.com/education/learning)
+
+​ 
+
+[直答](https://zhida.zhihu.com/)
+
+切换模式
+
+登录/注册
+
+[](https://www.zhihu.com/)
+
+# 公司想自建企业网盘，有哪些比较好的网盘吗?
+
+关注问题​写回答
+
+登录/注册
+
+[网盘](https://www.zhihu.com/topic/19571235)
+
+[企业网盘](https://www.zhihu.com/topic/19898321)
+
+# 公司想自建企业网盘，有哪些比较好的网盘吗?
+
+领导比较重视数据安全，有没有靠谱的方法推荐？现成的企业网盘也行 显示全部 ​
+
+关注者
+
+**28**
+
+被浏览
+
+**17,006**
+
+关注问题​写回答
+
+​邀请回答
+
+​好问题
+
+​添加评论
+
+​分享
+
+​
+
+登录后你可以
+
+不限量看优质回答 私信答主深度交流 精彩内容一键收藏
+
+登录
+
+[查看全部 19 个回答](https://www.zhihu.com/question/558852600)
+
+[![Image 2: 坚果云](https://picx.zhimg.com/v2-a8ff74abdc23e404855af9002d931566_l.jpg?source=2c26e567)](https://www.zhihu.com/org/jian-guo-yun-34)
+
+[坚果云](https://www.zhihu.com/org/jian-guo-yun-34)
+
+[​![Image 3](https://pica.zhimg.com/v2-2ddc5cc683982648f6f123616fb4ec09_l.png?source=32738c0c)](https://www.zhihu.com/question/48510028)
+
+已认证机构号
+
+​ 关注
+
+**企业用网盘，首推坚果云！**
+
+**采取网银级别的加密传输、AES256加密存储，还支持企业私有化部署，数据完全由你掌控。**清华大学、郑州日产、中国海洋石油等科研院校、大型企业都选择使用坚果云来共享企业文件。
+
+自从2011年坚果云面市，还未出现数据安全问题。
+
+## 1、高等级加密传输/存储，全流程保护
+
+**采用 AES256 加密存储和多级的文件权限。**从文件上传到坚果云开始，文件就被加密保护进行传输，从云端下载文件，又会被再次加密，**不管上传或是下载，都会进行加密保护。**
+
+> 每个文件传输到坚果云服务器后，都会经过算术编码存储在多个彼此隔离的故障单元，任何单元损坏坚果云都会进行自动数据恢复，每次读取验证数据完整性，可靠性高于普通RAID和冗余备份。
+
+自开放注册以来**，坚果云安全稳定地管理着PB**（1PB=1024T=1048576GB），**超过100亿个企业文件**，从未发生数据事故，服务从未间断！
+
+**积累了饿了么、在行、优客工场 等数十万团队和清华、复旦、西湖大学等科研院所的忠实用户。**
+
+![Image 5](blob:http://localhost/669c4e31e8c231b8650828166f6fb9e2)
+
+坚果云也通过国家ISO27001信息安全管理体系认证以及等保三级！
+
+**要想安全、稳定的共享文件，建议试试坚果云团队版！**
+
+**点击下方卡片，免费试用：**
+
+坚果云官网【免费试用】
+
+## 2、灵活的权限控制，轻松管理企业数据
+
+坚果云可以分部门群组管理，可以控制团队成员对不同文件夹的访问权限，一键转交团队成员文件夹。**并且可以可灵活设定每个人对 同步文件夹 的访问权限**，**只能访问有权限的文件夹**。
+
+### **_管理员可以随时监控文件使用的异常情况，及时处理防止 机密文件 外泄。_**
+
+并且可查看任何团队成员的空间使用情况、同步的文件夹列表以及他正在和哪些人同步文件。
+
+![Image 7](blob:http://localhost/3edd09869c682c91bc79ae7606c4884d)
+
+## 3、内网私有化部署，全面掌控
+
+如果企业对数据有特别高的管理要求，坚果云也支持企业私有云盘解决方案！将坚果云多年的云存储技术赋能给企业，帮助企业搭建自己的数字化资产管理系统。
+
+**（1）内网部署，全面掌控**
+
+数据存储在企业私有服务器中，完全内网传输，体验超快速度。可与已有系统集成，避免重复建设！
+
+**(2)易安装，易维护**
+
+**兼容所有主流服务器系统，避免重复购买；5分钟内完成安装配置，快速简单；自动监控、升级，无需专业知识即可管理。**
+
+**企业想建立网盘大多是为了更高效的管理、使用文件资料，所以除了安全性，易用性也是非常重要的一点。**
+
+坚果云可以在windows、mac、Linux、统信等平台上使用，让企业数据能够统一集中，高效使用，提升企业协作运转的效率！
+
+**还有坚果云收件箱、在线编辑等功能免费提供给坚果云团队版使用！**
+
+**✅**_点击下方，免费领取坚果云团队版20天会员：_
+
+坚果云官网【免费试用】
+
+阅读全文​
+
+​赞同 6​​添加评论​19 ​喜欢
+
+​分享
+
+[![Image 8: 图片](https://pic2.zhimg.com/v2-89e415caff4a181400d5b654bf0b2456_bh.webp?source=d6434cab) 不收费不限次数，豆包让小白也能玩转 AI 漫画图片生成 不收费不限次数，豆包让小白也能玩转 AI 漫画图片...查看详情 不收费不限次数，豆包让小白也能玩转 AI 漫画图片... 查看详情 ![Image 9: 用户头像](https://pic2.zhimg.com/v2-e7769e27743e7b0bce6c1d6ffd256277_xl.webp?source=d6434cab) 豆包 的广告](https://www.doubao.com/chat/?channel=dbweb_zhihu_xxl_pc_cpc_ty_shengt_stcj_dmtp_511&source=dbweb_zhihu_xxl_pc_cpc_ty_shengt_stcj_dmtp_511&keywordid=3734816&ad_platform_id=zhihu_feed_lead&ug_callback_url=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D2a252e14-67c4-457a-be46-69d0dfc57eb5%26os%3D3%26zid%3D1628%26zaid%3D3744374%26zcid%3D3734816%26cid%3D3734816%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MWdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1dZnoVOjBt-oA%3D%3D&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3D2a252e14-67c4-457a-be46-69d0dfc57eb5%26os%3D3%26zid%3D1628%26zaid%3D3744374%26zcid%3D3734816%26cid%3D3734816%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MWdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1dZnoVOjBt-oA%3D%3D&ug_semver=v1.0.0&spu=biz%3D0%26ci%3D3734816%26si%3D6e452808-f239-4b9c-a45c-3901af96bca4%26ts%3D1779810256%26zid%3D1628)
+
+[查看全部 19 个回答](https://www.zhihu.com/question/558852600)
+
+[](https://www.zhihu.com/question/558852600/answer/2741052925)
+
+[![Image 10: QR Code of Downloading Zhihu App](https://static.zhihu.com/heifetz/assets/sidebar-download-qrcode.9c4d2837.png) 下载知乎客户端 与世界分享知识、经验和见解](https://s.zhihu.com/BDXoI)
+
+[广告 ![Image 11: 广告](https://pic1.zhimg.com/v2-0086ed548b40575e515cb83168da3a2f_720w.webp?source=d6434cab)](https://www.doubao.com/chat/?channel=dbweb_zhihu_xxl_pc_cpc_ty_ppt_pptsc_507&source=dbweb_zhihu_xxl_pc_cpc_ty_ppt_pptsc_507&keywordid=3734746&ad_platform_id=zhihu_feed_lead&ug_callback_url=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3Dc83db86b-880f-429c-83f6-09a7e706565a%26os%3D3%26zid%3D3%26zaid%3D3744304%26zcid%3D3734746%26cid%3D3734746%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MWdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1dZnoVOjBt-oA%3D%3D&cb=https%3A%2F%2Fsugar.zhihu.com%2Fplutus_adreaper_callback%3Fsi%3Dc83db86b-880f-429c-83f6-09a7e706565a%26os%3D3%26zid%3D3%26zaid%3D3744304%26zcid%3D3734746%26cid%3D3734746%26event%3D__EVENTTYPE__%26value%3D__EVENTVALUE__%26ts%3D__TIMESTAMP__%26cts%3D__TS__%26mh%3D__MEMBERHASHID__%26adv%3D784531%26ocg%3D0%26cp%3D0%26ocs%3D0%26aic%3D0%26atp%3D0%26ct%3D0%26ed%3DGiBNJgVzfCMmUW9XFyEvRA8xBGxJICwkOhh0FlwxKw1NNFQpTjE7J3MWdBZcPC1XVnUfO1UvKX1-AycSWDRxAVx3CHsBdG50eBFjUwJjfhYEK1wjXH5qZiJQb1dZnoVOjBt-oA%3D%3D&ug_semver=v1.0.0&spu=biz%3D0%26ci%3D3734746%26si%3D92f08bf0-2e75-4592-832b-9ddb66d4b5be%26ts%3D1779810256%26zid%3D3)
+
+相关问题
+
+[国内比较好用的企业网盘？](https://www.zhihu.com/question/522659068) 15 个回答
+
+[企业用哪种企业网盘比较好？](https://www.zhihu.com/question/305365159) 14 个回答
+
+[现在的企业网盘哪个最好？](https://www.zhihu.com/question/345670678) 18 个回答
+
+大家都在搜
+
+换一换
+
+[王鹤棣 沈月 426 万](https://www.zhihu.com/search?q=%E7%8E%8B%E9%B9%A4%E6%A3%A3+%E6%B2%88%E6%9C%88&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[华为发表半导体领域新定律 423 万](https://www.zhihu.com/search?q=%E5%8D%8E%E4%B8%BA%E5%8F%91%E8%A1%A8%E5%8D%8A%E5%AF%BC%E4%BD%93%E9%A2%86%E5%9F%9F%E6%96%B0%E5%AE%9A%E5%BE%8B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[救灾女干部戴耳环遭网暴 392 万](https://www.zhihu.com/search?q=%E6%95%91%E7%81%BE%E5%A5%B3%E5%B9%B2%E9%83%A8%E6%88%B4%E8%80%B3%E7%8E%AF%E9%81%AD%E7%BD%91%E6%9A%B4&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)新
+
+[杨紫新剧全阵容删除林志玲 360 万](https://www.zhihu.com/search?q=%E6%9D%A8%E7%B4%AB%E6%96%B0%E5%89%A7%E5%85%A8%E9%98%B5%E5%AE%B9%E5%88%A0%E9%99%A4%E6%9E%97%E5%BF%97%E7%8E%B2&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[杨梅收购商跑光价格从20元跌到8毛 318 万](https://www.zhihu.com/search?q=%E6%9D%A8%E6%A2%85%E6%94%B6%E8%B4%AD%E5%95%86%E8%B7%91%E5%85%89%E4%BB%B7%E6%A0%BC%E4%BB%8E20%E5%85%83%E8%B7%8C%E5%88%B08%E6%AF%9B&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[前三体 CEO 许垚投毒被执行死刑 296 万](https://www.zhihu.com/search?q=%E5%89%8D%E4%B8%89%E4%BD%93+CEO+%E8%AE%B8%E5%9E%9A%E6%8A%95%E6%AF%92%E8%A2%AB%E6%89%A7%E8%A1%8C%E6%AD%BB%E5%88%91&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)热
+
+[DeepSeek永久降价 287 万](https://www.zhihu.com/search?q=DeepSeek%E6%B0%B8%E4%B9%85%E9%99%8D%E4%BB%B7&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[福建杨梅协会会长恳求给果农生路 270 万](https://www.zhihu.com/search?q=%E7%A6%8F%E5%BB%BA%E6%9D%A8%E6%A2%85%E5%8D%8F%E4%BC%9A%E4%BC%9A%E9%95%BF%E6%81%B3%E6%B1%82%E7%BB%99%E6%9E%9C%E5%86%9C%E7%94%9F%E8%B7%AF&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[盒马粉木耳包装惹争议 264 万](https://www.zhihu.com/search?q=%E7%9B%92%E9%A9%AC%E7%B2%89%E6%9C%A8%E8%80%B3%E5%8C%85%E8%A3%85%E6%83%B9%E4%BA%89%E8%AE%AE&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[华为麒麟 2026 手机芯片今秋面世 259 万](https://www.zhihu.com/search?q=%E5%8D%8E%E4%B8%BA%E9%BA%92%E9%BA%9F+2026+%E6%89%8B%E6%9C%BA%E8%8A%AF%E7%89%87%E4%BB%8A%E7%A7%8B%E9%9D%A2%E4%B8%96&search_source=Trending&utm_content=search_hot&utm_medium=organic&utm_source=zhihu&type=content)
+
+[![Image 12: 广告](https://picx.zhimg.com/v2-241c0bd1d8cb2dec417050676382912a_720w.webp?source=d6434cab)](https://www.zhihu.com/topic/2038266253173679597/hot?spu=biz%3D0%26ci%3D3730437%26si%3Dec67d296-89a2-4997-9b7a-c2ddebb874f3%26ts%3D1779810257%26zid%3D4)
+
+帮助中心
+
+服务热线：400-919-0001[帮助与客服](https://www.zhihu.com/help-center)[联系我们](https://www.zhihu.com/contact)更多
+
+举报中心
+
+违法和不良信息举报：010-82716601[我的举报](https://www.zhihu.com/community?source=zhihu_default)更多
+
+关于知乎
+
+[知乎个人信息保护指引](https://www.zhihu.com/term/privacy)[知乎协议](https://www.zhihu.com/term/zhihu-terms)[下载知乎](https://www.zhihu.com/app/)[Investor Relations](https://ir.zhihu.com/)网站资质信息 更多
+
+[京ICP证110745号](https://tsm.miit.gov.cn/dxxzsp/) · [京ICP备13052560号-1](https://beian.miit.gov.cn/) · [京公网安备 11010802020088 号](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020088) · [京网文[2025]0422-132 号](https://www.zhihu.com/certificates) · [药品医疗器械网络信息服务备案（京）网药械信息备字（2022）第00334号](https://picx.zhimg.com/80/v2-7475facab3f2d2eda6faddaca4901d20_720w.png)
+
+![Image 13: 本站提供适老化无障碍服务](https://pica.zhimg.com/80/v2-ccdb7828c12afff31a27e51593d23260_720w.png)
+
+_想来知乎工作？请发送邮件到 jobs@zhihu.com_
+
+登录知乎，问答干货一键收藏
+
+打开知乎App
+
+在「我的页」右上角打开扫一扫
+
+![Image 14](https://picx.zhimg.com/v2-9e41ea16bdfbe9cf4896617ecad5b4ca.png)
+
+其他扫码方式：微信
+
+下载知乎App
+
+无障碍模式
+
+验证码登录
+
+密码登录
+
+[开通机构号](https://www.zhihu.com/org/signup)
+
+中国 +86
+
+获取短信验证码
+
+获取语音验证码
+
+登录/注册
+
+其他方式登录
+
+未注册手机验证后自动登录，注册即代表同意[《知乎协议》](https://www.zhihu.com/term/zhihu-terms)[《隐私保护指引》](https://www.zhihu.com/term/privacy)
+
+扫码下载知乎 App
+
+关闭二维码

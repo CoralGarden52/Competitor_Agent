@@ -12,6 +12,7 @@ def search_with_fallback(
     registry: ProviderRegistry,
     fallback_trace: list[dict],
     max_results: int = 8,
+    provider_allowlist: list[str] | None = None,
 ) -> tuple[list[SearchHit], list[dict]]:
     """
     使用 fallback 机制执行搜索。
@@ -20,7 +21,23 @@ def search_with_fallback(
     trace: list[dict] = []
     hits: list[SearchHit] = []
     
-    for provider in registry.ordered_search_providers():
+    providers = registry.ordered_search_providers()
+    strict_allowlist = bool(provider_allowlist)
+    if strict_allowlist:
+        allowed = {str(name).strip() for name in provider_allowlist if str(name).strip()}
+        providers = [provider for provider in providers if provider.name() in allowed]
+        if not providers:
+            trace.append(
+                {
+                    'provider': 'allowlist',
+                    'status': 'no_provider',
+                    'errors': [f'no_search_provider_matched_allowlist: {provider_allowlist}'],
+                }
+            )
+            fallback_trace.extend(trace)
+            return [], trace
+
+    for provider in providers:
         try:
             provider_hits, provider_errors = provider.search(query, max_results)
             
@@ -44,6 +61,8 @@ def search_with_fallback(
                 'status': 'error',
                 'error': str(e),
             })
+            if strict_allowlist:
+                break
     
     fallback_trace.extend(trace)
     return hits, trace

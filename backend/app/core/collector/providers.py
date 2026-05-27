@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -138,6 +139,11 @@ class QianfanSearchProvider:
 
 
 class ZhihuOfficialProvider:
+    _RATE_LIMIT_RPS = 3.0
+    _MIN_INTERVAL_SEC = 1.0 / _RATE_LIMIT_RPS
+    _rate_limit_lock = threading.Lock()
+    _last_request_monotonic = 0.0
+
     def __init__(self, config: AppConfig):
         self.config = config
 
@@ -153,6 +159,7 @@ class ZhihuOfficialProvider:
         if not secret:
             return [], ['zhihu_unavailable: missing ZHIHU_SEARCH_ACCESS_SECRET']
         try:
+            self._wait_for_rate_limit_slot()
             timestamp = str(int(datetime.now(tz=timezone.utc).timestamp()))
             q = urllib.parse.quote(query, safe='')
             url = f'{self.config.zhihu_search_endpoint}?Query={q}&Count={min(max_results, 10)}'
@@ -180,6 +187,19 @@ class ZhihuOfficialProvider:
             return hits, []
         except Exception as exc:
             return [], [f'zhihu_unavailable: {exc}']
+
+    @classmethod
+    def _wait_for_rate_limit_slot(cls) -> None:
+        """Apply a process-level rate limit for Zhihu search requests."""
+        while True:
+            with cls._rate_limit_lock:
+                now = time.monotonic()
+                elapsed = now - cls._last_request_monotonic
+                if elapsed >= cls._MIN_INTERVAL_SEC:
+                    cls._last_request_monotonic = now
+                    return
+                wait_sec = cls._MIN_INTERVAL_SEC - elapsed
+            time.sleep(wait_sec)
 
 
 class SerperSearchProvider:

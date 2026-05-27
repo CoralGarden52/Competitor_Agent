@@ -1,0 +1,30 @@
+# Notion中国版本地部署,企业知识管理,团队协作办公,数据安全合规
+
+Title: 安全检测中
+
+URL Source: http://wap.article.ranting.cn/index/202605/article_85130194.htm
+
+Markdown Content:
+# 安全检测中
+
+Security Node
+
+EDGE-04
+
+Protection Level Maximum
+
+## 请求已被阻止
+
+我们的实时安全引擎监测到当前会话存在违反安全策略的行为。为保护服务器资源，该连接已被强制切断。
+
+Reference ID REF-4BSFAA6K
+
+Detection Layer WAF-L7-Core
+
+Engine Hash NEJTRkFBNks=
+
+Response Code 403 (FORBIDDEN)
+
+Threat blocked by global security policy
+
+重新加载

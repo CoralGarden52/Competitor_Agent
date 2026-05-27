@@ -161,7 +161,8 @@ def main():
 
     # 保存报告
     if report_content:
-        report_path = output_dir / 'final_report.md'
+        report_ts = time.strftime('%Y%m%d_%H%M%S')
+        report_path = output_dir / f'final_report_{report_ts}.md'
         with open(report_path, 'w', encoding='utf-8') as f:
             f.write(report_content)
         print(f"✓ 报告已保存到: {report_path}")

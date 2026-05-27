@@ -1,9 +1,11 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from html import escape
+import logging
 import re
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
+from app.core.config import get_config
 from app.core.models import (
     AnalysisFieldResult,
     AnalysisSchemaField,
@@ -29,13 +31,25 @@ TEMPLATE_SECTION_ORDER: list[tuple[str, str, str]] = [
 ]
 
 CORE_REPORT_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
+SCHEMA_FIELD_ZH_LABELS = {
+    'product': '产品',
+    'feature_tree': '功能体系',
+    'strengths': '优势',
+    'weaknesses': '劣势',
+    'pricing_model': '定价模式',
+    'user_feedback': '用户反馈',
+}
+logger = logging.getLogger(__name__)
 
 
 class WriterAgent:
     def __init__(self, llm: AgentLLMClient):
         self.llm = llm
+        self.app_config = get_config()
+        self._schema_field_zh_labels = dict(SCHEMA_FIELD_ZH_LABELS)
 
     def run_llm(self, state: RunState) -> DraftOutput:
+        self._refresh_dynamic_schema_labels(state)
         section_specs = self._section_specs(state, include_overview_sections=False)
         payload = {
             'industry': state.industry,
@@ -75,6 +89,7 @@ class WriterAgent:
             ) from exc
 
     def run_fallback(self, state: RunState) -> DraftOutput:
+        self._refresh_dynamic_schema_labels(state)
         records = self._records(state)
         matrix = self._comparison_matrix(state, records)
         sections = self._template_sections(state, records, include_overview_sections=False)
@@ -145,7 +160,7 @@ class WriterAgent:
         for record in records:
             row = {'product': self._display_product_name(state, record.product_name)}
             for field in record.fields:
-                row[field.field_name] = self._compact_text(field.summary, limit=110)
+                row[field.field_name] = self._format_text_for_report(field.summary, context='matrix_cell')
             matrix.append(row)
         return matrix
 
@@ -170,9 +185,63 @@ class WriterAgent:
         dynamic_items.sort(key=lambda x: x.priority)
         return dynamic_items[:3]
 
-    @staticmethod
-    def _dynamic_section_title(field_name: str) -> str:
-        label = field_name.replace('_', ' ').strip()
+    def _refresh_dynamic_schema_labels(self, state: RunState) -> None:
+        field_names: list[str] = []
+        seen: set[str] = set()
+        for key in ['product', *CORE_REPORT_FIELDS]:
+            if key not in seen:
+                seen.add(key)
+                field_names.append(key)
+        for item in state.analysis_schema_plan or []:
+            key = str(item.field_name or '').strip()
+            if key and key not in seen:
+                seen.add(key)
+                field_names.append(key)
+        for record in state.competitor_analyses or []:
+            for field in record.fields:
+                key = str(field.field_name or '').strip()
+                if key and key not in seen:
+                    seen.add(key)
+                    field_names.append(key)
+        if not field_names:
+            return
+        payload = {
+            'task': '将 schema 字段名翻译为简体中文，用于报告表头和标题展示。仅返回 JSON。',
+            'rules': [
+                '保留 product 的中文为“产品”',
+                '术语风格简洁专业，适合竞品分析报告',
+                '不要解释，不要额外字段',
+            ],
+            'field_names': field_names,
+            'existing_labels': self._schema_field_zh_labels,
+            'output_schema': {'labels': {'field_name': '中文标签'}},
+        }
+        try:
+            result = self.llm.invoke_json(
+                trace_name='agent.draft.translate_schema_fields',
+                system_prompt='你是产品分析助手。请把输入的 schema 字段名翻译成简体中文展示标签，返回 JSON：{"labels":{"field":"中文"}}。',
+                user_payload=payload,
+                metadata={
+                    'run_id': state.run_id,
+                    'node_name': 'draft',
+                    'agent_name': 'WriterAgent',
+                    'model': self.llm.config.openai_model,
+                    'industry': state.industry,
+                    'stage': 'schema_translation',
+                },
+            )
+            labels = result.get('labels', {}) if isinstance(result, dict) else {}
+            if isinstance(labels, dict):
+                for key, value in labels.items():
+                    field = str(key or '').strip()
+                    label = ' '.join(str(value or '').split())
+                    if field and label:
+                        self._schema_field_zh_labels[field] = label
+        except Exception:
+            logger.warning('schema field translation failed, fallback to local labels', exc_info=True)
+
+    def _dynamic_section_title(self, field_name: str) -> str:
+        label = self._schema_field_label(field_name)
         return f'动态维度：{label}'
 
     def _display_product_name(self, state: RunState, product_name: str) -> str:
@@ -279,7 +348,8 @@ class WriterAgent:
             return claims, self._dynamic_field_section_text(state, records, 'feature_tree') or '暂无核心能力结构证据。'
         if section_id == 'pricing_strategy':
             claims = self._field_claims(records, preferred_fields=['pricing_model'])
-            return claims, self._dynamic_field_section_text(state, records, 'pricing_model') or '暂无稳定的定价与商业化证据。'
+            content = self._dynamic_field_section_text(state, records, 'pricing_model')
+            return claims, content or '暂无稳定的定价与商业化证据。'
         if section_id == 'user_feedback_analysis':
             claims = self._field_claims(records, preferred_fields=['user_feedback'])
             return claims, self._dynamic_field_section_text(state, records, 'user_feedback') or '暂无足够用户反馈证据。'
@@ -302,7 +372,8 @@ class WriterAgent:
         lines.extend(['## 竞品对比矩阵', ''])
         if report.comparison_matrix:
             headers = ['product', *[k for k in report.comparison_matrix[0].keys() if k != 'product']]
-            lines.append('| ' + ' | '.join(headers) + ' |')
+            display_headers = [self._schema_field_label(item) for item in headers]
+            lines.append('| ' + ' | '.join(display_headers) + ' |')
             lines.append('| ' + ' | '.join(['---'] * len(headers)) + ' |')
             for row in report.comparison_matrix:
                 lines.append('| ' + ' | '.join(str(row.get(h, '')) for h in headers) + ' |')
@@ -417,7 +488,7 @@ class WriterAgent:
         if not matrix:
             return '<p>暂无对比矩阵。</p>'
         headers = ['product', *[k for k in matrix[0].keys() if k != 'product']]
-        head = ''.join(f'<th>{escape(h)}</th>' for h in headers)
+        head = ''.join(f'<th>{escape(self._schema_field_label(h))}</th>' for h in headers)
         rows = []
         for row in matrix:
             rows.append('<tr>' + ''.join(f"<td>{escape(str(row.get(h, '')))}</td>" for h in headers) + '</tr>')
@@ -461,7 +532,7 @@ class WriterAgent:
                     continue
                 claims.append(
                     ReportClaim(
-                        statement=f"{record.product_name} 在 {field.field_name} 维度表现：{field.summary}",
+                        statement=f"{record.product_name} 在 {self._schema_field_label(field.field_name)} 维度表现：{field.summary}",
                         evidence_refs=field.evidence_refs[:3],
                         confidence=field.confidence,
                     )
@@ -617,7 +688,11 @@ class WriterAgent:
             positioning = self._positioning_summary(record)
             pricing = self._get_field(record, 'pricing_model')
             price_text = pricing.summary if pricing is not None and pricing.summary.strip().lower() != 'unknown' else '定价模式待进一步确认'
-            lines.append(f"- {record.product_name}：定位上 {self._compact_text(positioning, 90)}；商业化上 {self._compact_text(price_text, 90)}")
+            lines.append(
+                f"- {record.product_name}：定位上 "
+                f"{self._format_text_for_report(positioning, context='comparison_overview')}；商业化上 "
+                f"{self._format_text_for_report(price_text, context='comparison_overview')}"
+            )
         return '\n'.join(lines) or '暂无竞品总览信息。'
 
     def _background_text(self, state: RunState) -> str:
@@ -649,10 +724,14 @@ class WriterAgent:
         for record in records:
             weakness = self._get_field(record, 'weaknesses')
             if weakness is not None and weakness.summary.strip().lower() != 'unknown':
-                bullets.append(f"围绕 {record.product_name} 的短板补位：{self._compact_text(weakness.summary, 120)}")
+                bullets.append(
+                    f"围绕 {record.product_name} 的短板补位："
+                    f"{self._format_text_for_report(weakness.summary, context='opportunity')}"
+                )
             gaps = [field.field_name for field in record.fields if field.evidence_gaps]
             if gaps:
-                bullets.append(f"优先补充 {record.product_name} 在 {', '.join(gaps[:3])} 维度的公开证据。")
+                gap_labels = [self._schema_field_label(item) for item in gaps[:3]]
+                bullets.append(f"优先补充 {record.product_name} 在 {', '.join(gap_labels)} 维度的公开证据。")
         return bullets[:6] or ['优先补充产品定位、商业策略和增长数据相关证据。']
 
     @staticmethod
@@ -682,12 +761,12 @@ class WriterAgent:
             strength_text = strengths.summary if strengths is not None and strengths.summary.strip().lower() != 'unknown' else '暂无稳定优势结论'
             weakness_text = weaknesses.summary if weaknesses is not None and weaknesses.summary.strip().lower() != 'unknown' else '暂无明确短板证据'
             lines.append(f"- {record.product_name}")
-            lines.append(f"  - 优势：{self._compact_text(strength_text, 160)}")
+            lines.append(f"  - 优势：{self._format_text_for_report(strength_text, context='strength_weakness')}")
             if strengths is not None:
                 strength_links = self._field_provenance_line(state, strengths)
                 if strength_links:
                     lines.append(strength_links)
-            lines.append(f"  - 劣势/风险：{self._compact_text(weakness_text, 160)}")
+            lines.append(f"  - 劣势/风险：{self._format_text_for_report(weakness_text, context='strength_weakness')}")
             if weaknesses is not None:
                 weakness_links = self._field_provenance_line(state, weaknesses)
                 if weakness_links:
@@ -801,12 +880,11 @@ class WriterAgent:
             return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在{focus_text}等维度上，其中扩展能力和商业化路径最能拉开区分度。建议优先结合对比矩阵与后续建议动作判断产品取舍。"
         return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在产品能力、定价方式和用户采用信号上。建议重点结合对比总览、优劣势与建议动作章节判断取舍。"
 
-    @staticmethod
-    def _matrix_focus_text(comparison_matrix: list[dict]) -> str:
+    def _matrix_focus_text(self, comparison_matrix: list[dict]) -> str:
         if not comparison_matrix:
             return '核心能力、商业化、用户反馈等维度'
         keys = [key for key in comparison_matrix[0].keys() if key != 'product']
-        labels = [key.replace('_', ' ').strip() for key in keys[:4]]
+        labels = [self._schema_field_label(key) for key in keys[:4]]
         labels = [label for label in labels if label]
         return '、'.join(labels) if labels else '核心能力、商业化、用户反馈等维度'
 
@@ -818,8 +896,7 @@ class WriterAgent:
         keys = {key for key in comparison_matrix[0].keys()}
         return any(key not in core_fields for key in keys)
 
-    @staticmethod
-    def _matrix_overview_bullets(comparison_matrix: list[dict]) -> list[str]:
+    def _matrix_overview_bullets(self, comparison_matrix: list[dict]) -> list[str]:
         bullets: list[str] = []
         for row in comparison_matrix[:3]:
             product = str(row.get('product', '')).strip()
@@ -831,12 +908,20 @@ class WriterAgent:
                     continue
                 text = ' '.join(str(value or '').split())
                 if text:
-                    highlights.append(f"{key}: {text[:50] + ('…' if len(text) > 50 else '')}")
+                    highlights.append(f"{self._schema_field_label(key)}: {self._format_text_for_report(text, context='matrix_highlight')}")
                 if len(highlights) >= 2:
                     break
             if highlights:
                 bullets.append(f"- {product}：{'；'.join(highlights)}")
         return bullets[:3]
+
+    def _schema_field_label(self, field_name: str) -> str:
+        key = str(field_name or '').strip()
+        if not key:
+            return ''
+        if key in self._schema_field_zh_labels:
+            return self._schema_field_zh_labels[key]
+        return key.replace('_', '、')
 
     def _field_provenance_line(self, state: RunState, field: AnalysisFieldResult) -> str:
         links = self._evidence_links_for_refs(state, field.evidence_refs)
@@ -881,12 +966,25 @@ class WriterAgent:
         html_parts.append(escape(text[last:]))
         return ''.join(html_parts)
 
-    @staticmethod
-    def _compact_text(text: str, limit: int) -> str:
+    def _format_text_for_report(self, text: str, *, context: str) -> str:
+        """
+        Report text formatting strategy.
+        Truncation here is presentation-layer behavior, not an LLM output/token issue.
+        """
         cleaned = ' '.join(str(text or '').split())
+        if not self.app_config.report_truncation_enabled:
+            return cleaned
+        limit = self.app_config.report_truncation_limits.get(context, 160)
         if len(cleaned) <= limit:
             return cleaned
-        return cleaned[: limit - 1].rstrip() + '…'
+        truncated = cleaned[: limit - 1].rstrip() + '…'
+        logger.debug(
+            'Report text truncated context=%s original_len=%s truncated_len=%s',
+            context,
+            len(cleaned),
+            len(truncated),
+        )
+        return truncated
 
     @staticmethod
     def _get_field(record: CompetitorAnalysisRecord, field_name: str) -> AnalysisFieldResult | None:

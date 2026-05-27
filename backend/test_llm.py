@@ -15,7 +15,7 @@ client = OpenAI(
 # 测试调用
 response = client.chat.completions.create(
     model=os.getenv("OPENAI_MODEL"),
-    messages=[{"role": "user", "content": "你好"}]
+    messages=[{"role": "user", "content": "给出今天广州的天气，今天是2026年5月26号，联网搜索，你能联网吗？"}]
 )
 
 # 打印结果

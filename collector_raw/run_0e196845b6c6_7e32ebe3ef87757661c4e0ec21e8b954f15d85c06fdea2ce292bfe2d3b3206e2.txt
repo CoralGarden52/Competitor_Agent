@@ -1,0 +1,395 @@
+# 可容纳 Wikis 百科、文档和项目的互联工作空间|Notion
+
+Title: 可容纳 Wikis 百科、文档和项目的互联工作空间｜Notion
+
+URL Source: https://www.notion.so/zh-cn/startups
+
+Markdown Content:
+# 可容纳 Wikis 百科、文档和项目的互联工作空间｜Notion
+
+See this page in your preferred language.[Change to English (US)→](https://www.notion.so/startups)
+
+[](https://www.notion.so/zh-cn/product)
+
+产品
+
+*   [Notion 你的 AI 工作空间](https://www.notion.so/zh-cn/product)
+
+*   [Notion 日历](https://www.notion.so/zh-cn/product/calendar)
+
+*   [Notion 邮箱](https://www.notion.so/zh-cn/product/mail)
+
+*   [Notion AI 办公 AI 工具](https://www.notion.so/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.so/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.so/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.so/zh-cn/product/enterprise-search)
+
+*   [知识库 集中管理你的知识](https://www.notion.so/zh-cn/product/wikis)
+
+*   [文档 简单而强大](https://www.notion.so/zh-cn/product/docs)
+
+*   [项目 管理任何项目](https://www.notion.so/zh-cn/product/projects)
+
+*   [连接 关联你的应用](https://www.notion.so/zh-cn/connections)
+
+*   [安全 安全且可扩展](https://www.notion.so/zh-cn/security)
+
+Merge cells in tables. [查看最新动态→](https://www.notion.so/zh-cn/releases)
+
+下载[Notion 应用→](https://www.notion.so/zh-cn/download)
+
+AI
+
+![Image 1](https://www.notion.so/_next/image?url=%2Ffront-static%2Fshared%2Fnavigation%2Fai_group.png&w=384&q=75)
+
+*   AI 功能
+
+*   [Notion AI 办公 AI 工具](https://www.notion.so/zh-cn/product/ai)
+
+*   [代理 自动化繁琐工作](https://www.notion.so/zh-cn/product/agents)
+
+*   [AI 速记 由 AI 完美撰写](https://www.notion.so/zh-cn/product/ai-meeting-notes)
+
+*   [企业搜索 立即查找答案](https://www.notion.so/zh-cn/product/enterprise-search)
+
+*   探索用例
+
+*   [用于工作](https://www.notion.so/zh-cn/product/ai/use-cases?type=work)
+
+*   [用于生活](https://www.notion.so/zh-cn/product/ai/use-cases?type=life)
+
+解决方案
+
+*   团队
+
+*   [工程和产品](https://www.notion.so/zh-cn/product/notion-for-product-development)
+
+*   [设计](https://www.notion.so/zh-cn/product/notion-for-design)
+
+*   [市场营销](https://www.notion.so/zh-cn/templates/category/marketing)
+
+*   [IT](https://www.notion.so/zh-cn/templates/category/ticketing)
+
+*   公司规模
+
+*   [初创公司](https://www.notion.so/zh-cn/startups)
+
+*   [小型企业](https://www.notion.so/zh-cn/teams)
+
+*   [企业版](https://www.notion.so/zh-cn/enterprise)
+
+*   用例
+
+*   [教育](https://www.notion.so/zh-cn/product/notion-for-education)
+
+*   [个人](https://www.notion.so/zh-cn/personal)
+
+*   [专业](https://www.notion.so/zh-cn/use-case)
+
+*   [AI 用例](https://www.notion.so/zh-cn/product/ai/use-cases)
+
+资源
+
+*   浏览
+
+*   [模板](https://www.notion.so/zh-cn/templates)
+
+*   [顾问](https://www.notion.so/zh-cn/explore-consultants)
+
+*   [连接](https://www.notion.so/zh-cn/connections)
+
+*   探索
+
+*   [最近更新](https://www.notion.so/zh-cn/releases)
+
+*   [客户故事](https://www.notion.so/zh-cn/customers)
+
+*   [博客](https://www.notion.so/zh-cn/blog)
+
+*   [网络研讨会](https://www.notion.so/zh-cn/webinars)
+
+*   了解
+
+*   [开发者](https://developers.notion.com/)
+
+*   [学院](https://academy.notion.com/)
+
+*   [产品导览](https://www.notion.so/zh-cn/product/demos)
+
+*   [帮助](https://www.notion.so/zh-cn/help)
+
+[开发者](https://notion.dev/)[企业版](https://www.notion.so/zh-cn/enterprise)[价格](https://www.notion.so/zh-cn/pricing)[申请演示](https://www.notion.so/zh-cn/contact-sales)
+
+[免费获取 Notion](https://www.notion.so/signup?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)[登录](https://www.notion.so/zh-cn/login?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)
+
+Notion 创业公司支持
+
+# 一个工作空间，集齐所有创业必备工具。
+
+AI 工作空间，让你的灵感付诸行动。免费获得长达 6 个月的商业版方案，内含 Notion AI 功能。
+
+[立即申领](https://www.notion.so/startups-apply?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)
+
+破纪录增长的企业都在使用 Notion
+
+![Image 2: OpenAI](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FjWkCPMAAj0Av69704DQoB%2F84499b606028b276e0bf94c238f07097%2FOpenAI-black-wordmark-cropped.png&w=3840&q=75)![Image 3: Figma](https://images.ctfassets.net/spoqsaf9291f/502ApiNcRHgIwrDU8XRYTQ/497492503acb3fa21bbd9dd1aec193c3/Figma-logo-color.svg)![Image 4: Deel](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F7zCRwysc5YJxmu2M8EmiFF%2F569d286a66d1db0e004586a6035ed68d%2Fdeel.png&w=384&q=75)![Image 5: Perplexity](https://images.ctfassets.net/spoqsaf9291f/3hzRKZTT0Mi4Q3JLPQpQyF/28256f50d0bf6b63bfbed7862b8cbe68/Perplexity_AI_logo.svg.png)![Image 6: Ramp](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4eiEZBWL5gEClwB1IHi18I%2Fb9b86479965977121ceabd01f45567a7%2Framp.png&w=3840&q=75)![Image 7: Cursor](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3CSWr4Z4uIvbfO7102KPY%2Fbbd97c8edd0673853ac8dae2887a638d%2Fcursor.png&w=1920&q=75)
+
+## 效率飞跃，成本锐减。
+
+全能型 AI 工作空间，支持随需扩展。立享 6 个月免费商业版，轻松节省 12000 美元。
+
+[立即申领](https://www.notion.so/startups-apply?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)
+
+AI 工具太多？在此计算潜在节省金额。
+
+- [x] AI 搜索 35 美元/用户 - [x] AI 聊天机器人 20 美元/用户 - [x] AI 速记 18 美元/用户 - [x] AI 写作助手 20 美元/用户 - [x] AI 电子邮件应用 30 美元/用户 - [x] AI 探究 40 美元/用户 - [x] 日程安排 15 美元/用户 - [x] 团队 Wikis 百科 10 美元/用户 - [x] 项目管理工具 24 美元/用户 - [x] 基础 CRM 20 美元/用户 - [x] 网站生成器 20 美元/用户 - [x] 表单 15 美元/用户 
+
+团队规模 月节省金额 US$340 年节省金额 US$4,080 
+
+## 创业公司的首选工具。
+
+强大、灵活、极速——这就是全球创业公司都选择入驻 Notion 的原因。
+
+### 94%
+
+的福布斯 AI 50 强公司使用 Notion
+
+### 50%
+
+的 YC 公司使用 Notion
+
+### 70%
+
+的用户取缔了 2 种以上的工具
+
+## 从初创到规模化，提供一站式创业解决方案。
+
+构思
+
+借助 AI，更快地将想法转化为方案。
+
+筹款
+
+从提案到成交，Notion 一站式管理。
+
+搭建
+
+快速发布，高效迭代。
+
+发布
+
+在同个平台规划与协作。
+
+扩张
+
+聚焦团队目标，有序推进项目。
+
+![Image 8](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F4YbEemGbTfMzNRSG6Gkuu2%2Fdd819efa5f66dee6f9a76589531688f6%2Fimage.png&w=3840&q=75)
+
+![Image 9: Buffers-OKRs-template-desktop-image](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2qNLQF2lStyDOu7nUUMip5%2F774d0149e8869b724e35fa50efa77e45%2Ffundraiser-tracker-template.webp&w=3840&q=75)
+
+Buffers-OKRs-template-desktop-image
+
+![Image 10: 产品路线图](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3VlzrufHCFHdpiXg4CNmCY%2F61162aa37e95ec22c0d0190ac897d748%2Fproduct.png&w=3840&q=75)
+
+产品路线图
+
+![Image 11](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FoZ3KY4vWtnbYquqcOACkB%2Fb7e1a9413c03fe8630052b20930905ac%2Fproduct-launch-brief-notion-desktop.webp&w=3840&q=75)
+
+![Image 12: 企业目标 OKR 缓冲剂](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F3E3jQa1xh3nqdR6x29B8M1%2Fd6997ecf3586c14acf1d9d9eda92773c%2Fscale-hero.png&w=3840&q=75)
+
+企业目标 OKR 缓冲剂
+
+> 在 Notion 中集中管理技术文档，能让今天提出的解决方案明天就出现在井然有序的知识库中。曾经数小时调试才能解决的问题，现在只需要问问 Notion AI，几分钟就能解决。
+
+![Image 13: Open AI](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FjWkCPMAAj0Av69704DQoB%2F84499b606028b276e0bf94c238f07097%2FOpenAI-black-wordmark-cropped.png&w=3840&q=75)
+
+**John Allard，工程负责人**
+
+## 你需要的一切 AI 工具，免费试用 6 个月。
+
+[立即申领](https://www.notion.so/startups-apply?from=marketing&tid=2db135f2b74d4c369af1174cedabe65b&pathname=%2Fzh-cn%2Fstartups)
+
+### 让 Notion AI 成为你的效率引擎。写作、分析、内容生成，一切尽在 Notion AI。
+
+![Image 14: projects.webp](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6IxbVyHGyvCnnzilYb8IUa%2F21b64d6781b3ab7368f0f8f649885a47%2Fai-model-picker.png&w=3840&q=75)
+
+### 自动完成会议记录，推动团队工作进程。
+
+![Image 15: ai.webp](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F11T25kw4wj0ekzBBs4p108%2Fc7bcb037ff4d38bf2b56140d0c6882bd%2Fai-meeting-notes.png&w=3840&q=75)
+
+### 深度探究并整合工作数据，生成详尽报告。
+
+![Image 16: Notion 邮箱缩略图](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F5rueHDVripRs3YkEsQWd2%2F7d37e166dc65a54497fc0d1f3df15282%2Fai-research-3.png&w=3840&q=75)
+
+### 跨工具搜索上下文与解答，一秒扫清工作障碍。
+
+![Image 17: 企业搜索](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2FiY9QlDzpaF7S4sb9ynhVh%2F5c155c1b3778a3ec8d0cb82513f9f969%2Fai-enterprise-search.png&w=3840&q=75)
+
+> 我们使用 Notion 作为操作系统，管理从工程规范到新人入职培训等一切事宜。过去一年，我们的团队规模扩大了三倍。这要归功于 Notion，它让我们能够集中管理和快速获取所有信息。
+
+![Image 18: Clay](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F2Kxd0s7jxoiTvPyFOyf6pp%2Fcb8b28976c1be66428b95ab3568a4236%2FClay_Logo_Primary_Blk.png&w=1920&q=75)
+
+**Nashilu Mouen-Makoua，增长与运营负责人**
+
+## 创业公司的全能操作系统。
+
+由创业者打造，为创业者设计的必备工具。
+
+### Notion 邮箱
+
+收件箱可智能整理，自动起草邮件并安排会议。
+
+[了解更多→](https://www.notion.so/zh-cn/product/mail)
+
+![Image 19: projects.webp](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F1aEe9TbFU1ncLQzETwAJX9%2F4df7367450151f2e5f67b2cb736eac93%2Fn-mail-2.png&w=3840&q=75)
+
+### Notion 日历
+
+协同管理时间与工作，自动执行日程预约等琐碎工作。
+
+[了解更多→](https://www.notion.so/zh-cn/product/calendar)
+
+![Image 20: ai.webp](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F6QFymGtO4ROuq2SPyI9uEF%2Fe3add278a8350f525bc7ef74a5f4a2c6%2Fn-cal.png&w=3840&q=75)
+
+## 资格与福利。
+
+[立即申领](https://www.notion.so/startups-apply?from=marketing&tid=2db135f2b74d4c369af1174cedabe65b&pathname=%2Fzh-cn%2Fstartups)
+
+### 6 个月免费试用，包含 Notion AI 功能
+
+适用于员工人数少于 100 人，且与我们的创业公司合作伙伴有合作的非付费 Notion 客户。
+
+### 3 个月免费试用，包含 Notion AI 功能
+
+适用于员工人数少于 100 人的非付费 Notion 客户。
+
+### Notion 福利
+
+专属软件折扣，助力你的每个创业阶段
+
+[申请使用→](https://www.notion.so/zh-cn/startups-apply?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)
+
+### 倡导者社区
+
+了解并加入倡导者社区，在你的公司推广 Notion。
+
+[了解更多→](https://www.notion.so/zh-cn/Notion-Champions-20f977eb5fdd40d4a7a396f1742c3ea5)
+
+### Notion 认证顾问
+
+享受单次免费 Notion 顾问服务，手把手教你搭建专属工作空间。
+
+[申请使用→](https://www.notion.so/zh-cn/startups-apply?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)
+
+## 加入我们的合作伙伴网络，携手顶尖风投和企业加速器
+
+为你的关系网提供免费 Notion 商业版及其他额外福利！
+
+[申请成为合作伙伴→](https://startupshub.notion.site/1c1590db1742802ba5e3ca6411499628?pvs=105&from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)
+
+![Image 21: Partner-logo-wall](https://www.notion.so/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fspoqsaf9291f%2F43XegBXBwtkYjatF342hIQ%2F82f80441a64e59bdef6f0276f76b0b32%2Fpartner-network-logos.webp&w=1920&q=75)
+
+## 常见问题
+
+谁符合申请条件？
+
+你必须是非付费 Notion 客户，使用有效的企业邮箱（非 Gmail、Outlook 等个人邮箱），且从未参与过 Notion 的任何促销活动，公司规模需少于 100 人。请查看[完整条款和条件](https://www.notion.so/Notion-for-Startup-Terms-936b74c0323745a186b1497747074020)。
+
+为什么 Notion 要为创业公司提供折扣？
+
+我们已见证数千家创业公司从第一天起就将 Notion 作为全功能工作平台——使用 AI 提效、自动撰写会议记录、管理邮件与日程预约，系统化整理企业知识。我们希望帮助更多创业公司在起步时夯实基础，并伴随其共同成长。
+
+如何申请获享折扣？
+
+请填写此[申请表](https://www.notion.so/startups-apply?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)！
+
+此优惠能节省多少费用？
+
+Notion 商业版费用为每位成员每年 20 美元。若公司拥有 100 名员工，则此优惠总值可高达 12000 美元。
+
+如何向 Notion 推荐合作伙伴？
+
+没有在我们的列表上看到你的投资者吗？你可以这样做：
+
+1.   给他们发信息，鼓励他们加入该项目。
+
+2.   向他们发送带有 #NotionForStartups 标签的推文并 @NotionHQ，以便我们跟进该话题！你也可以发送电子邮件至 [startups-help@makenotion.com](mailto:startups-help@makenotion.com) 来联系我们。
+
+3.   填写此[申请表](https://startupshub.notion.site/1c1590db1742802ba5e3ca6411499628?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)并在表单中提出你的建议。
+
+我希望我的投资组合公司也能享受这一折扣。我要怎样成为合作伙伴？
+
+我们期待与你合作！[申请成为合作伙伴](https://startupshub.notion.site/1c1590db1742802ba5e3ca6411499628?from=marketing&pathname=%2Fzh-cn%2Fstartups&tid=2db135f2b74d4c369af1174cedabe65b)，我们将进一步联系你并提供更多信息。我们对大型科技公司以外的合作伙伴尤其有兴趣。
+
+[](https://www.notion.so/zh-cn/product)
+
+*   [](https://www.instagram.com/notionhq/)
+*   [](https://twitter.com/NotionHQ)
+*   [](https://www.linkedin.com/company/notionhq/)
+*   [](https://www.facebook.com/NotionHQ/)
+*   [](https://www.youtube.com/channel/UCoSvlWS5XcwaSzIcbuJ-Ysg)
+
+简体中文
+
+*   [English (US) 英语（美国）](https://www.notion.so/en-US/startups)
+*   [English (UK) 英语（英国）](https://www.notion.so/en-GB/startups)
+*   [العربية 阿拉伯语](https://www.notion.so/ar/startups)
+*   [Dansk 丹麦语](https://www.notion.so/da/startups)
+*   [Deutsch 德语](https://www.notion.so/de/startups)
+*   [Français (France) 法语（法国）](https://www.notion.so/fr/startups)
+*   [繁體中文 繁体中文](https://www.notion.so/zh-TW/startups)
+*   [Suomi 芬兰语](https://www.notion.so/fi/startups)
+*   [한국어 韩语](https://www.notion.so/ko/startups)
+*   [Nederlands 荷兰语](https://www.notion.so/nl/startups)
+*   [简体中文 简体中文](https://www.notion.so/zh-CN/startups)
+*   [Norsk 挪威语](https://www.notion.so/nb/startups)
+*   [Português (Brasil) 葡萄牙语（巴西）](https://www.notion.so/pt/startups)
+*   [日本語 日语](https://www.notion.so/ja/startups)
+*   [Svenska 瑞典语](https://www.notion.so/sv/startups)
+*   [ภาษาไทย 泰语](https://www.notion.so/th/startups)
+*   [Español (Latinoamérica) 西班牙语（拉丁美洲）](https://www.notion.so/es/startups)
+*   [Español (España) 西班牙语（西班牙）](https://www.notion.so/es-ES/startups)
+*   [עברית 希伯来语](https://www.notion.so/he/startups)
+*   [Italiano 意大利语](https://www.notion.so/it/startups)
+*   [Bahasa Indonesia 印度尼西亚语](https://www.notion.so/id/startups)
+*   [Tiếng Việt 越南语](https://www.notion.so/vi/startups)
+
+请勿出售或分享我的个人信息 Cookie 设置
+
+© 2026 Notion Labs, Inc.
+
+*   公司
+*   [关于我们](https://www.notion.so/zh-cn/about)
+*   [工作机会](https://www.notion.so/zh-cn/careers)
+*   [安全](https://www.notion.so/zh-cn/security)
+*   [状态](https://www.notion-status.com/)
+*   [条款和隐私](https://www.notion.so/28ffdd083dc3473e9c2da6ec011b58ac)
+*   [你的隐私权](https://www.notion.com/trust/privacy-policy#california)
+
+*   下载
+*   [iOS & Android](https://www.notion.so/zh-cn/mobile)
+*   [Mac & Windows](https://www.notion.so/zh-cn/desktop)
+*   [邮箱](https://www.notion.so/zh-cn/product/mail/download)
+*   [日历](https://www.notion.so/zh-cn/product/calendar/download)
+*   [网页剪裁器](https://www.notion.so/zh-cn/web-clipper)
+
+*   资源
+*   [帮助中心](https://www.notion.so/zh-cn/help)
+*   [价格](https://www.notion.so/zh-cn/pricing)
+*   [博客](https://www.notion.so/zh-cn/blog)
+*   [社区](https://www.notion.so/community)
+*   [连接](https://www.notion.so/zh-cn/connections)
+*   [模板](https://www.notion.so/zh-cn/templates)
+*   [合作伙伴项目](https://www.notion.so/zh-cn/partners)
+
+*   Notion适用于
+*   [企业](https://www.notion.so/zh-cn/enterprise)
+*   [中小型团队](https://www.notion.so/zh-cn/teams)
+*   [个人](https://www.notion.so/zh-cn/personal)
+*   [探索更多→](https://www.notion.so/zh-cn/explore)
+
+![Image 22](https://t.co/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=6f2189a4-b399-4ecb-bef3-c80781dfb484&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=ee8a2482-8849-4096-b552-ee41770775cc&pt=%E5%8F%AF%E5%AE%B9%E7%BA%B3%20Wikis%20%E7%99%BE%E7%A7%91%E3%80%81%E6%96%87%E6%A1%A3%E5%92%8C%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%BA%92%E8%81%94%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%EF%BD%9CNotion&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fstartups&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779843193371.93121240680494&txn_id=ofilm&type=javascript&version=2.3.53)![Image 23](https://analytics.twitter.com/1/i/adsct?bci=4&dv=UTC%26en-US%26Google%20Inc.%26Linux%20x86_64%26255%26800%26600%268%2624%26800%26600%260%26na&eci=3&event=%7B%7D&event_id=6f2189a4-b399-4ecb-bef3-c80781dfb484&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=ee8a2482-8849-4096-b552-ee41770775cc&pt=%E5%8F%AF%E5%AE%B9%E7%BA%B3%20Wikis%20%E7%99%BE%E7%A7%91%E3%80%81%E6%96%87%E6%A1%A3%E5%92%8C%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%BA%92%E8%81%94%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%EF%BD%9CNotion&tw_document_href=https%3A%2F%2Fwww.notion.com%2Fzh-cn%2Fstartups&tw_iframe_status=0&tw_pid_src=1&twpid=tw.1779843193371.93121240680494&txn_id=ofilm&type=javascript&version=2.3.53)

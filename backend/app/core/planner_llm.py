@@ -50,9 +50,9 @@ DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = [
     {
         'field_name': 'pricing_model',
         'query_templates': [
-            '{product} 价格 套餐',
-            '{product} 企业版 计费',
-            '{product} 免费版 价格',
+            '{product} 官网 价格 套餐',
+            '{product} 官网 企业版 计费',
+            '{product} 官网 免费版 价格',
         ],
         'recommended_sources': ['官网', '定价页', '文档'],
         'priority': 4,
@@ -1201,6 +1201,8 @@ class PlannerLLMClient:
                 continue
             if '{product}' not in text:
                 text = f'{{product}} {text}'
+            if field_name == 'pricing_model':
+                text = self._ensure_official_prefix_for_pricing_query(text)
             key = text.casefold()
             if key in seen:
                 continue
@@ -1230,10 +1232,26 @@ class PlannerLLMClient:
             'feature_tree': ['{product} 核心功能', '{product} 官方文档 功能'],
             'strengths': ['{product} 优势 评测', '{product} 对比 优势'],
             'weaknesses': ['{product} 劣势 局限', '{product} 问题 吐槽'],
-            'pricing_model': ['{product} 价格 套餐', '{product} 企业版 计费'],
+            'pricing_model': ['{product} 官网 价格 套餐', '{product} 官网 企业版 计费'],
             'user_feedback': ['{product} 用户评价 知乎', '{product} 用户反馈 社区'],
         }
         return defaults.get(field_name, [f'{{product}} {field_name}', f'{{product}} {field_name} 官网'])
+
+    @staticmethod
+    def _ensure_official_prefix_for_pricing_query(template: str) -> str:
+        text = re.sub(r'\s+', ' ', str(template or '').strip())
+        if not text:
+            return text
+        lowered = text.casefold()
+        pricing_markers = ('价格', '套餐', '计费', 'pricing', 'price', 'plans', 'billing')
+        official_markers = ('官网', 'official')
+        if not any(marker in lowered for marker in pricing_markers):
+            return text
+        if any(marker in lowered for marker in official_markers):
+            return text
+        if '{product}' in text:
+            return text.replace('{product}', '{product} 官网', 1)
+        return f'官网 {text}'
 
     @staticmethod
     def _make_candidate(*, name: str, fit_type: str, reason: str) -> dict[str, Any]:

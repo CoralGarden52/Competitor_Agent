@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from pydantic import Field
@@ -59,6 +60,8 @@ class AppConfig(BaseSettings):
     agent_llm_fallback_enabled: bool = True
     agent_llm_fallback_on_validation_error: bool = True
     analyze_llm_max_workers: int = Field(default=6, ge=1, le=32)
+    report_truncation_enabled: bool = False
+    report_truncation_limits_json: str = ''
 
     @property
     def sqlite_path_obj(self) -> Path:
@@ -83,6 +86,36 @@ class AppConfig(BaseSettings):
     def collector_fetch_order_list(self) -> list[str]:
         return [item.strip() for item in self.collector_fetch_order.split(',') if item.strip()]
 
+    @property
+    def report_truncation_limits(self) -> dict[str, int]:
+        defaults = {
+            'matrix_cell': 110,
+            'comparison_overview': 90,
+            'opportunity': 120,
+            'strength_weakness': 160,
+            'matrix_highlight': 50,
+        }
+        raw = self.report_truncation_limits_json.strip()
+        if not raw:
+            return defaults
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            return defaults
+        if not isinstance(data, dict):
+            return defaults
+        merged = dict(defaults)
+        for key, value in data.items():
+            if key not in defaults:
+                continue
+            try:
+                parsed = int(value)
+            except (TypeError, ValueError):
+                continue
+            if parsed > 0:
+                merged[key] = parsed
+        return merged
+
     def masked_runtime_config(self) -> dict[str, object]:
         masked_key = ''
         if self.openai_api_key:
@@ -95,6 +128,8 @@ class AppConfig(BaseSettings):
             'openai_base_url': self.openai_base_url,
             'openai_api_key_masked': masked_key,
             'openai_config_ready': self.has_openai_config(),
+            'report_truncation_enabled': self.report_truncation_enabled,
+            'report_truncation_limits': self.report_truncation_limits,
         }
 
 
