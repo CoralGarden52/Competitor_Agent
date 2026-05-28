@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import concurrent.futures
 import logging
-import base64
-import mimetypes
+import re
 from pathlib import Path
 from typing import Any
 
@@ -128,52 +127,15 @@ class AnalystAgent:
         recommended_sources = schema_item.recommended_sources if schema_item is not None else []
 
         if field_name == 'pricing_model':
-            pricing_vision = self._build_pricing_vision_payload(competitor=competitor, evidences=evidences)
-            if pricing_vision is not None:
-                try:
-                    result = self.llm.invoke_json_multimodal(
-                        trace_name='agent.analyze.field.pricing_model.vision',
-                        system_prompt=(
-                            "你是企业软件定价分析助手。"
-                            "请从页面截图与页面文本中提炼 pricing_model 的 normalized_value。"
-                            "不得编造，无法确认的信息填 unknown、false 或空数组。"
-                            "仅返回 JSON，格式："
-                            "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
-                            "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
-                            "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
-                        ),
-                        user_payload={
-                            'competitor': competitor,
-                            'field_name': field_name,
-                            'pricing_capture': pricing_vision['metadata'],
-                        },
-                        user_text=pricing_vision['user_text'],
-                        image_data_url=pricing_vision['image_data_url'],
-                        metadata={
-                            'competitor': competitor,
-                            'field_name': field_name,
-                            'evidence_count': len(evidences),
-                            'vision_mode': 'pricing_capture',
-                        },
-                    )
-                    summary = str(result.get('summary', '')).strip()
-                    normalized_value = self._coerce_normalized_value(
-                        field_name=field_name,
-                        raw_value=result.get('normalized_value', {}),
-                        summary=summary,
-                    )
-                    evidence_gaps = self._clean_evidence_gaps(result.get('evidence_gaps', []))
-                    confidence = min(0.92, 0.55 + (0.1 * min(len(evidences), 5)))
-                    return AnalysisFieldResult(
-                        field_name=field_name,
-                        summary=(summary.strip() or 'unknown')[:500],
-                        evidence_refs=evidence_ids,
-                        confidence=confidence,
-                        normalized_value=normalized_value,
-                        evidence_gaps=evidence_gaps,
-                    )
-                except Exception as exc:
-                    logger.warning("Vision pricing extraction failed for %s: %s", competitor, exc)
+            pricing_result = self._analyze_pricing_model_with_chunks(
+                competitor=competitor,
+                evidences=evidences,
+                industry=industry,
+                schema_item=schema_item,
+                evidence_ids=evidence_ids,
+            )
+            if pricing_result is not None:
+                return pricing_result
 
         sys_prompt = (
             f"{ANALYZE_SYSTEM_PROMPT}\n\n"
@@ -257,54 +219,190 @@ class AnalystAgent:
             evidence_gaps=evidence_gaps,
         )
 
-    def _build_pricing_vision_payload(self, *, competitor: str, evidences: list[RawEvidence]) -> dict[str, Any] | None:
-        project_root = Path(__file__).resolve().parents[3]
-        for ev in evidences:
-            ext = ev.domain_extensions if isinstance(ev.domain_extensions, dict) else {}
-            capture = ext.get('pricing_capture', {})
-            if not isinstance(capture, dict):
-                continue
-            screenshot_path = str(capture.get('screenshot_path', '')).strip()
-            markdown_path = str(capture.get('markdown_path', '')).strip()
-            html_path = str(capture.get('html_path', '')).strip()
-            if not screenshot_path:
-                continue
-            screenshot_abs = project_root / screenshot_path
-            if not screenshot_abs.exists():
-                continue
-            image_bytes = screenshot_abs.read_bytes()
-            mime_type = mimetypes.guess_type(str(screenshot_abs))[0] or 'image/png'
-            image_data_url = f"data:{mime_type};base64,{base64.b64encode(image_bytes).decode('ascii')}"
+    def _analyze_pricing_model_with_chunks(
+        self,
+        *,
+        competitor: str,
+        evidences: list[RawEvidence],
+        industry: str,
+        schema_item: AnalysisSchemaField | None,
+        evidence_ids: list[str],
+    ) -> AnalysisFieldResult | None:
+        evidence_blocks = self._build_pricing_evidence_blocks(evidences)
+        if not evidence_blocks:
+            return None
 
-            markdown_text = ''
-            html_text = ''
-            if markdown_path:
-                markdown_abs = project_root / markdown_path
-                if markdown_abs.exists():
-                    markdown_text = markdown_abs.read_text(encoding='utf-8', errors='ignore')
-            if html_path:
-                html_abs = project_root / html_path
-                if html_abs.exists():
-                    html_text = html_abs.read_text(encoding='utf-8', errors='ignore')
-            user_text = (
-                f"竞品: {competitor}\n"
-                f"问题: 说明该页面中的定价模型，并抽取结构化价格字段。\n"
-                f"URL: {ev.source_url}\n\n"
-                f"[Markdown]\n{markdown_text[:7000]}\n\n"
-                f"[HTML Excerpt]\n{html_text[:4000]}"
-            )
-            return {
-                'user_text': user_text,
-                'image_data_url': image_data_url,
-                'metadata': {
-                    'source_url': ev.source_url,
-                    'capture_status': str(capture.get('capture_status', '')),
-                    'markdown_path': markdown_path,
-                    'html_path': html_path,
-                    'screenshot_path': screenshot_path,
+        chunks = [evidence_blocks[index : index + 3] for index in range(0, min(len(evidence_blocks), 9), 3)]
+        chunk_results: list[dict[str, Any]] = []
+
+        for chunk_index, chunk in enumerate(chunks, start=1):
+            try:
+                result = self.llm.invoke_json(
+                    trace_name='agent.analyze.field.pricing_model.chunk',
+                    system_prompt=(
+                        "你是企业软件定价分析助手。"
+                        "你的任务是从一小组页面文本中尽可能提取任何定价相关事实。"
+                        "重点关注版本名称、免费层、价格数值、计费周期、席位/人数限制、报价方式、升级条件。"
+                        "即使没有完整价格，也要保留部分已确认事实。不得编造。"
+                        "仅返回 JSON："
+                        "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
+                        "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
+                        "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
+                    ),
+                    user_payload={
+                        'competitor': competitor,
+                        'industry': industry,
+                        'field_name': 'pricing_model',
+                        'chunk_index': chunk_index,
+                        'chunk_count': len(chunks),
+                        'field_context': {
+                            'query_templates': schema_item.query_templates if schema_item is not None else [],
+                            'recommended_sources': schema_item.recommended_sources if schema_item is not None else [],
+                            'analysis_focus': self._field_analysis_focus('pricing_model'),
+                            'normalized_value_shape': self._normalized_value_shape_hint('pricing_model'),
+                        },
+                        'evidences': chunk,
+                        'instruction': (
+                            "请提取这一组证据中所有能确认的定价信息。"
+                            "如果某个页面只给出了版本层级、免费条件或适用人数，也要保留下来。"
+                            "不要因为缺少完整价目表就忽略局部事实。"
+                        ),
+                    },
+                    metadata={
+                        'competitor': competitor,
+                        'field_name': 'pricing_model',
+                        'chunk_index': chunk_index,
+                        'chunk_size': len(chunk),
+                        'evidence_count': len(evidences),
+                    },
+                )
+                chunk_results.append(
+                    {
+                        'chunk_index': chunk_index,
+                        'summary': str(result.get('summary', '')).strip(),
+                        'normalized_value': result.get('normalized_value', {}),
+                        'evidence_gaps': self._clean_evidence_gaps(result.get('evidence_gaps', [])),
+                    }
+                )
+            except Exception as exc:
+                logger.warning("Chunk pricing extraction failed for %s chunk %s: %s", competitor, chunk_index, exc)
+
+        if not chunk_results:
+            return None
+
+        try:
+            final_result = self.llm.invoke_json(
+                trace_name='agent.analyze.field.pricing_model.reduce',
+                system_prompt=(
+                    "你是企业软件定价分析助手。"
+                    "请把多个定价证据分块提取结果汇总成一个最终 pricing_model。"
+                    "尽可能整合局部事实，不要只因为缺少完整公开价目表就输出 unknown。"
+                    "如果不同块的信息互补，应合并成更完整的套餐结构。不得编造。"
+                    "仅返回 JSON："
+                    "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
+                    "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
+                    "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
+                ),
+                user_payload={
+                    'competitor': competitor,
+                    'industry': industry,
+                    'field_name': 'pricing_model',
+                    'chunk_results': chunk_results,
+                    'instruction': (
+                        "请合并各块结果，优先保留能确认的版本结构、免费层、报价方式、人数限制和任何显式价格。"
+                        "如果只确认了部分价格字段，也要保留。"
+                    ),
                 },
-            }
-        return None
+                metadata={
+                    'competitor': competitor,
+                    'field_name': 'pricing_model',
+                    'chunk_count': len(chunk_results),
+                    'evidence_count': len(evidences),
+                },
+            )
+            summary = str(final_result.get('summary', '')).strip()
+            normalized_value = self._coerce_normalized_value(
+                field_name='pricing_model',
+                raw_value=final_result.get('normalized_value', {}),
+                summary=summary,
+            )
+            evidence_gaps = self._clean_evidence_gaps(final_result.get('evidence_gaps', []))
+            if not self._has_meaningful_field_output(
+                summary=summary,
+                normalized_value=normalized_value,
+                evidence_gaps=evidence_gaps,
+            ):
+                raise ValueError('empty_pricing_reduce_result')
+            confidence = min(0.92, 0.58 + (0.06 * min(len(chunk_results), 3)) + (0.04 * min(len(evidences), 6)))
+            return AnalysisFieldResult(
+                field_name='pricing_model',
+                summary=(summary or 'unknown')[:500],
+                evidence_refs=evidence_ids,
+                confidence=confidence,
+                normalized_value=normalized_value,
+                evidence_gaps=evidence_gaps,
+            )
+        except Exception as exc:
+            logger.warning("Pricing reduce extraction failed for %s: %s", competitor, exc)
+            merged_summary = '；'.join(
+                one['summary'] for one in chunk_results if str(one.get('summary', '')).strip() and str(one.get('summary', '')).strip().lower() != 'unknown'
+            )[:500]
+            merged_gaps: list[str] = []
+            for one in chunk_results:
+                for gap in one.get('evidence_gaps', []):
+                    gap_text = str(gap).strip()
+                    if gap_text and gap_text not in merged_gaps:
+                        merged_gaps.append(gap_text)
+            normalized_value = self._coerce_normalized_value(
+                field_name='pricing_model',
+                raw_value=next((one.get('normalized_value', {}) for one in chunk_results if self._normalized_value_has_signal(one.get('normalized_value', {}))), {}),
+                summary=merged_summary,
+            )
+            return AnalysisFieldResult(
+                field_name='pricing_model',
+                summary=(merged_summary or 'unknown')[:500],
+                evidence_refs=evidence_ids,
+                confidence=0.52,
+                normalized_value=normalized_value,
+                evidence_gaps=merged_gaps,
+            )
+
+    def _build_pricing_evidence_blocks(self, evidences: list[RawEvidence]) -> list[str]:
+        blocks: list[str] = []
+        for index, ev in enumerate(evidences[:8], start=1):
+            body = self._load_pricing_evidence_text(ev)
+            snippet = str(ev.snippet or '').strip()
+            title = str(ev.title or '').strip()[:160]
+            query = str(ev.query or '').strip()[:160]
+            if not body and not snippet:
+                continue
+            body_excerpt = body[:2600] if body else ''
+            merged = (
+                f"证据{index}\n"
+                f"URL: {ev.source_url}\n"
+                f"来源类型: {ev.source_type}\n"
+                f"标题: {title}\n"
+                f"查询: {query}\n"
+                f"摘要片段: {snippet[:700]}\n"
+                f"正文节选:\n{body_excerpt}"
+            ).strip()
+            blocks.append(merged)
+        return blocks
+
+    def _load_pricing_evidence_text(self, ev: RawEvidence) -> str:
+        project_root = Path(__file__).resolve().parents[3]
+        parts: list[str] = []
+        ext = ev.domain_extensions if isinstance(ev.domain_extensions, dict) else {}
+        raw_path = str(ev.raw_content_path or '').strip()
+        if raw_path:
+            file_path = project_root / raw_path
+            if file_path.exists():
+                parts.append(file_path.read_text(encoding='utf-8', errors='ignore'))
+        content_excerpt = str(ext.get('content_excerpt', '') or '').strip()
+        if content_excerpt:
+            parts.append(content_excerpt)
+        merged = '\n\n'.join(part.strip() for part in parts if part and part.strip())
+        return re.sub(r'\n{3,}', '\n\n', merged)
 
     @staticmethod
     def _has_meaningful_field_output(

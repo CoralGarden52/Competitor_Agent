@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import concurrent.futures
+import re
 from datetime import UTC, datetime
 from pathlib import Path
+from urllib.parse import urlparse
 from typing import Any
 
 from app.core.collector.extractor import extract_fields, mask_pii
@@ -79,7 +81,7 @@ class CollectorPipeline:
             )
             for query in queries:
                 if field_name == 'pricing_model':
-                    provider_allowlist = ['tavily', 'zhihu_official']
+                    provider_allowlist = ['tavily']
                     search_strategy = 'strict_tavily_only'
                 else:
                     provider_allowlist = None
@@ -110,6 +112,7 @@ class CollectorPipeline:
                 futures = [executor.submit(_search_one, task) for task in search_tasks]
                 for future in concurrent.futures.as_completed(futures):
                     all_search_results.extend(future.result())
+        all_search_results = self._prioritize_search_results(all_search_results, output, competitor)
 
         field_hit_counts: dict[str, int] = {}
         for field_name, query, source_url, recommended_sources, title, snippet, source_provider in all_search_results:
@@ -117,13 +120,14 @@ class CollectorPipeline:
                 break
 
             current_hits = field_hit_counts.get(field_name, 0)
-            if current_hits >= per_field_limit:
+            field_fetch_limit = self._field_prefetch_limit(field_name=field_name, per_field_limit=per_field_limit)
+            if current_hits >= field_fetch_limit:
                 output.provider_events.append(
                     {
                         'event_type': 'collector.field_quota_reached',
                         'competitor': competitor,
                         'field_name': field_name,
-                        'limit': per_field_limit,
+                        'limit': field_fetch_limit,
                     }
                 )
                 continue
@@ -143,28 +147,17 @@ class CollectorPipeline:
         def _fetch_one(task: tuple[str, str, str, list[str], str, str, str]) -> dict | None:
             field_name, query, source_url, recommended_sources, search_title, search_snippet, source_provider = task
             local_fallback_trace: list[dict] = []
-            pricing_capture: dict[str, Any] = {}
 
             provider_order = self.config.collector_fetch_order_list or ['jina', 'firecrawl_fetch', 'tavily_extract']
             fetch_strategy = 'unified_schema_fetch'
-
-            if field_name == 'pricing_model':
-                content, fetch_provider, pricing_capture = self._run_pricing_fetch_phase(
-                    run_id=run_id,
-                    url=source_url,
-                    output=output,
-                    fallback_trace=local_fallback_trace,
-                    field_name=field_name,
-                )
-            else:
-                content, fetch_provider = self._run_fetch_phase(
-                    url=source_url,
-                    output=output,
-                    fallback_trace=local_fallback_trace,
-                    provider_order=provider_order,
-                    field_name=field_name,
-                    strategy=fetch_strategy,
-                )
+            content, fetch_provider = self._run_fetch_phase(
+                url=source_url,
+                output=output,
+                fallback_trace=local_fallback_trace,
+                provider_order=provider_order,
+                field_name=field_name,
+                strategy=fetch_strategy,
+            )
             fallback_trace.extend(local_fallback_trace)
 
             if content and len(content) > 100:
@@ -208,7 +201,6 @@ class CollectorPipeline:
                 'schema_field': field_name,
                 'query_template': query,
                 'recommended_source_type': ','.join(recommended_sources),
-                'pricing_capture': pricing_capture,
             }
 
         if fetch_tasks:
@@ -219,6 +211,7 @@ class CollectorPipeline:
                     if result:
                         candidate_rows.append(result)
 
+        candidate_rows = self._rerank_pricing_candidates(candidate_rows, output, competitor, per_field_limit)
         candidate_rows = dedup_by_url_and_hash(candidate_rows)
         candidate_rows = verify_cross_source(candidate_rows)
         if max_items is not None:
@@ -226,6 +219,175 @@ class CollectorPipeline:
         output.evidences = candidate_rows
         output.provider_events.append({'event_type': 'collector.fallback.trace', 'fallback_trace': fallback_trace})
         return output
+
+    def _prioritize_search_results(
+        self,
+        results: list[tuple[str, str, str, list[str], str, str, str]],
+        output: CollectorOutput,
+        competitor: str,
+    ) -> list[tuple[str, str, str, list[str], str, str, str]]:
+        prioritized: list[tuple[str, str, str, list[str], str, str, str]] = []
+        pricing_results: list[tuple[int, tuple[str, str, str, list[str], str, str, str]]] = []
+
+        for result in results:
+            field_name = result[0]
+            if field_name != 'pricing_model':
+                prioritized.append(result)
+                continue
+            score = self._score_pricing_result(result[2], result[4], result[5], result[6])
+            pricing_results.append((score, result))
+
+        if not pricing_results:
+            return prioritized
+
+        pricing_results.sort(key=lambda item: item[0], reverse=True)
+        positive_results = [result for score, result in pricing_results if score > 0]
+        candidate_results = positive_results if positive_results else [result for _, result in pricing_results]
+        selected_results = self._diversify_pricing_results(candidate_results)
+        top_score = pricing_results[0][0]
+
+        output.provider_events.append(
+            {
+                'event_type': 'collector.pricing_results.prioritized',
+                'competitor': competitor,
+                'field_name': 'pricing_model',
+                'candidate_count': len(pricing_results),
+                'selected_count': len(selected_results),
+                'top_score': top_score,
+            }
+        )
+        prioritized.extend(selected_results)
+        return prioritized
+
+    def _diversify_pricing_results(
+        self,
+        results: list[tuple[str, str, str, list[str], str, str, str]],
+    ) -> list[tuple[str, str, str, list[str], str, str, str]]:
+        diversified: list[tuple[str, str, str, list[str], str, str, str]] = []
+        seen_hosts: set[str] = set()
+
+        for result in results:
+            host = self._extract_host(result[2])
+            if host and host in seen_hosts:
+                continue
+            diversified.append(result)
+            if host:
+                seen_hosts.add(host)
+
+        if diversified:
+            return diversified
+        return results
+
+    @staticmethod
+    def _extract_host(url: str) -> str:
+        try:
+            return urlparse(url).netloc.casefold()
+        except Exception:
+            return ''
+
+    def _score_pricing_result(
+        self,
+        source_url: str,
+        title: str,
+        snippet: str,
+        source_provider: str,
+    ) -> int:
+        haystack = ' '.join([source_url, title, snippet]).lower()
+        score = 0
+
+        strong_terms = ['pricing', 'price', 'plans', 'plan', 'billing', 'subscription', '套餐', '价格', '定价', '计费', '版本', '收费']
+        weak_terms = ['edition', '购买', '升级', 'pro', 'enterprise', '企业版', '免费版']
+        discussion_terms = ['知乎', 'question', 'answer', '对比', '测评', '评测', '哪个好', '性价比', 'vs']
+        community_hosts = ['zhihu.com', 'xiaohongshu.com', 'weibo.com', 'tieba.baidu.com']
+
+        if any(term in haystack for term in strong_terms):
+            score += 4
+        if any(term in haystack for term in weak_terms):
+            score += 2
+        if any(host in source_url.lower() for host in community_hosts):
+            score -= 4
+        if source_provider == 'zhihu_official':
+            score -= 3
+        if any(term.lower() in haystack for term in discussion_terms):
+            score -= 2
+        if any(token in source_url.lower() for token in ['/pricing', '/price', '/plans', '/billing', '/buy', '/order', '/edition']):
+            score += 4
+        return score
+
+    @staticmethod
+    def _field_prefetch_limit(*, field_name: str, per_field_limit: int) -> int:
+        if field_name == 'pricing_model':
+            return max(per_field_limit * 3, 6)
+        return per_field_limit
+
+    def _rerank_pricing_candidates(
+        self,
+        candidate_rows: list[dict[str, Any]],
+        output: CollectorOutput,
+        competitor: str,
+        per_field_limit: int,
+    ) -> list[dict[str, Any]]:
+        pricing_rows: list[tuple[int, dict[str, Any]]] = []
+        other_rows: list[dict[str, Any]] = []
+        for row in candidate_rows:
+            if str(row.get('schema_field', '')).strip() != 'pricing_model':
+                other_rows.append(row)
+                continue
+            score = self._score_pricing_content(row)
+            pricing_rows.append((score, row))
+
+        if not pricing_rows:
+            return candidate_rows
+
+        pricing_rows.sort(key=lambda item: item[0], reverse=True)
+        ranked_rows = [row for _, row in pricing_rows]
+        top_scores = [score for score, _ in pricing_rows[: min(len(pricing_rows), 5)]]
+        output.provider_events.append(
+            {
+                'event_type': 'collector.pricing_content_reranked',
+                'competitor': competitor,
+                'field_name': 'pricing_model',
+                'candidate_count': len(pricing_rows),
+                'selected_count': min(len(pricing_rows), per_field_limit),
+                'top_scores': top_scores,
+            }
+        )
+        return ranked_rows[:per_field_limit] + other_rows
+
+    def _score_pricing_content(self, row: dict[str, Any]) -> int:
+        text = ' '.join(
+            [
+                str(row.get('title', '') or ''),
+                str(row.get('snippet', '') or ''),
+                str(row.get('content_excerpt', '') or ''),
+                str(row.get('query', '') or ''),
+            ]
+        ).lower()
+        score = 0
+
+        exact_patterns = [
+            r'\d+\s*元\s*/\s*月',
+            r'\d+\s*元\s*/\s*年',
+            r'\d+\s*元\s*/\s*人\s*/\s*月',
+            r'\d+\s*元\s*/\s*人\s*/\s*年',
+            r'￥\s*\d+',
+            r'¥\s*\d+',
+        ]
+        for pattern in exact_patterns:
+            matches = re.findall(pattern, text)
+            score += len(matches) * 8
+
+        strong_terms = ['元/月', '元/年', '每人', '每月', '每年', '席位', 'seat', 'license', '报价', '价格', '定价', '套餐', '计费']
+        medium_terms = ['免费', '试用', '商业版', '企业版', '专业版', '基础版', '标准版', '人数', '应用数', '额度']
+        weak_negative_terms = ['测评', '体验', '对比', '哪个好', '性价比', '社区', '博客']
+
+        score += sum(3 for term in strong_terms if term in text)
+        score += sum(1 for term in medium_terms if term in text)
+        score -= sum(2 for term in weak_negative_terms if term in text)
+
+        if any(token in str(row.get('source_url', '')).lower() for token in ['/pricing', '/price', '/plans', '/billing', '/service']):
+            score += 3
+        return score
 
     def _resolve_schema_fields(
         self,
@@ -240,6 +402,7 @@ class CollectorPipeline:
                 {'field_name': '默认', 'queries': build_queries(competitor, industry), 'recommended_sources': ['public_web']},
             ]
         output: list[dict] = []
+        current_year = datetime.now(UTC).year
         for item in schema_plan:
             if isinstance(item, AnalysisSchemaField):
                 raw_item = item.model_dump(mode='json')
@@ -257,7 +420,7 @@ class CollectorPipeline:
             if override_queries:
                 queries = [str(q).strip() for q in override_queries if str(q).strip()][:4]
             else:
-                queries = [qt.format(product=competitor) for qt in templates]
+                queries = [qt.format(product=competitor, current_year=current_year) for qt in templates]
             output.append({'field_name': field_name, 'queries': queries, 'recommended_sources': sources})
         return output
 
@@ -389,96 +552,6 @@ class CollectorPipeline:
         })
         return content, provider_name
 
-    def _run_pricing_fetch_phase(
-        self,
-        *,
-        run_id: str,
-        url: str,
-        output: CollectorOutput,
-        fallback_trace: list[dict],
-        field_name: str,
-    ) -> tuple[str, str, dict[str, Any]]:
-        provider = self.registry.fetch_catalog.get('firecrawl_fetch')
-        if provider is None or not hasattr(provider, 'scrape_pricing_bundle'):
-            output.provider_events.append(
-                {
-                    'event_type': 'collector.pricing_fetch.result',
-                    'url': url,
-                    'provider': '',
-                    'status': 'missing_provider',
-                    'field_name': field_name,
-                }
-            )
-            content, fetch_provider = self._run_fetch_phase(
-                url=url,
-                output=output,
-                fallback_trace=fallback_trace,
-                provider_order=self.config.collector_fetch_order_list or ['jina', 'firecrawl_fetch', 'tavily_extract'],
-                field_name=field_name,
-                strategy='pricing_fallback_fetch',
-            )
-            return content, fetch_provider, {'capture_status': 'missing_provider'}
-
-        bundle = provider.scrape_pricing_bundle(url)
-        markdown = str(bundle.get('markdown', '') or '')
-        html = str(bundle.get('html', '') or '')
-        screenshot_bytes = bundle.get('screenshot_bytes', b'')
-        if not isinstance(screenshot_bytes, (bytes, bytearray)):
-            screenshot_bytes = b''
-        errors = bundle.get('errors', [])
-        if not isinstance(errors, list):
-            errors = [str(errors)]
-
-        capture_status = 'ok' if markdown and html and screenshot_bytes else 'partial'
-        markdown_path, html_path, screenshot_path = self._persist_pricing_assets(
-            run_id=run_id,
-            evidence_url=url,
-            markdown=markdown,
-            html=html,
-            screenshot_bytes=bytes(screenshot_bytes),
-        )
-        pricing_capture = {
-            'capture_status': capture_status,
-            'markdown_path': markdown_path,
-            'html_path': html_path,
-            'screenshot_path': screenshot_path,
-            'errors': errors,
-        }
-        fallback_trace.append(
-            {
-                'provider': provider.name(),
-                'status': capture_status,
-                'field_name': field_name,
-                'strategy': 'pricing_firecrawl_bundle',
-                'errors': errors,
-            }
-        )
-        output.provider_events.append(
-            {
-                'event_type': 'collector.pricing_fetch.result',
-                'url': url,
-                'provider': provider.name(),
-                'status': capture_status,
-                'field_name': field_name,
-                'markdown_length': len(markdown),
-                'html_length': len(html),
-                'has_screenshot': bool(screenshot_bytes),
-            }
-        )
-        text_content = markdown or html
-        if text_content and len(text_content) > 100:
-            return text_content, provider.name(), pricing_capture
-
-        content, fetch_provider = self._run_fetch_phase(
-            url=url,
-            output=output,
-            fallback_trace=fallback_trace,
-            provider_order=self.config.collector_fetch_order_list or ['jina', 'firecrawl_fetch', 'tavily_extract'],
-            field_name=field_name,
-            strategy='pricing_text_fallback',
-        )
-        return content, fetch_provider, pricing_capture
-
     def _persist_raw_content(self, run_id: str, evidence_hash: str, content: str) -> Path:
         # Persist under project/.data/collector_raw to avoid cwd-dependent duplicate directories.
         project_root = Path(__file__).resolve().parents[4]
@@ -491,40 +564,6 @@ class CollectorPipeline:
             return file_path.relative_to(project_root)
         except ValueError:
             return file_path
-
-    def _persist_pricing_assets(
-        self,
-        *,
-        run_id: str,
-        evidence_url: str,
-        markdown: str,
-        html: str,
-        screenshot_bytes: bytes,
-    ) -> tuple[str, str, str]:
-        project_root = Path(__file__).resolve().parents[4]
-        bucket = 'preview' if run_id.strip() == 'preview' else run_id.strip()
-        base_path = project_root / '.data' / 'collector_raw' / bucket / 'pricing_assets'
-        base_path.mkdir(parents=True, exist_ok=True)
-        stem = content_hash(evidence_url)[:16]
-        md_path = base_path / f'{stem}.md'
-        html_path = base_path / f'{stem}.html'
-        png_path = base_path / f'{stem}.png'
-        if markdown:
-            md_path.write_text(markdown, encoding='utf-8')
-        if html:
-            html_path.write_text(html, encoding='utf-8')
-        if screenshot_bytes:
-            png_path.write_bytes(screenshot_bytes)
-
-        def _rel(path: Path) -> str:
-            if not path.exists():
-                return ''
-            try:
-                return str(path.relative_to(project_root))
-            except ValueError:
-                return str(path)
-
-        return _rel(md_path), _rel(html_path), _rel(png_path)
 
     def _infer_source_type(self, url: str) -> str:
         u = url.lower()

@@ -16,8 +16,8 @@ from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
 
 TEST_CASE = {
-    "name": "协作办公软件全链路(Analyze后QA)",
-    "prompt": "帮我做一个协作办公软件的竞品分析",
+    "name": "在线会议软件竞品分析",
+    "prompt": "进行在线会议软件领域的竞品分析",
     "industry": "",
     "hints": [],
     "language": "zh-CN",

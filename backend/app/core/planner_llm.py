@@ -16,59 +16,64 @@ from openai import OpenAI
 logger = logging.getLogger(__name__)
 
 
-DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = [
-    {
-        'field_name': 'feature_tree',
-        'query_templates': [
-            '{product} 核心功能',
-            '{product} 官方文档 功能',
-            '{product} 使用场景',
-        ],
-        'recommended_sources': ['官网', '文档', '产品页'],
-        'priority': 1,
-    },
-    {
-        'field_name': 'strengths',
-        'query_templates': [
-            '{product} 优势 评测',
-            '{product} 对比 缺点',
-            '{product} 为什么选择',
-        ],
-        'recommended_sources': ['评测', '分析', '社区'],
-        'priority': 2,
-    },
-    {
-        'field_name': 'weaknesses',
-        'query_templates': [
-            '{product} 劣势 局限',
-            '{product} 对比 缺点',
-            '{product} 缺点 评测',
-        ],
-        'recommended_sources': ['评测', '社区', '问题反馈'],
-        'priority': 3,
-    },
-    {
-        'field_name': 'pricing_model',
-        'query_templates': [
-            '{product} 价格 套餐',
-            '{product} 企业版 计费',
-            '{product} 免费版 价格',
-        ],
-        'recommended_sources': ['官网', '定价页', '文档'],
-        'priority': 4,
-    },
-    {
-        'field_name': 'user_feedback',
-        'query_templates': [
-            '{product} 评价',
-            '{product} 点评',
-            '{product} 体验',
-            '{product} 反馈',
-        ],
-        'recommended_sources': ['知乎', '社区', '评测'],
-        'priority': 5,
-    },
-]
+def build_default_schema_plan(*, current_year: int | None = None) -> list[dict[str, Any]]:
+    year = current_year or datetime.now(UTC).year
+    return [
+        {
+            'field_name': 'feature_tree',
+            'query_templates': [
+                '{product} 核心功能',
+                '{product} 官方文档 功能',
+                '{product} 使用场景',
+            ],
+            'recommended_sources': ['官网', '文档', '产品页'],
+            'priority': 1,
+        },
+        {
+            'field_name': 'strengths',
+            'query_templates': [
+                '{product} 优势 评测',
+                '{product} 对比 缺点',
+                '{product} 为什么选择',
+            ],
+            'recommended_sources': ['评测', '分析', '社区'],
+            'priority': 2,
+        },
+        {
+            'field_name': 'weaknesses',
+            'query_templates': [
+                '{product} 劣势 局限',
+                '{product} 对比 缺点',
+                '{product} 缺点 评测',
+            ],
+            'recommended_sources': ['评测', '社区', '问题反馈'],
+            'priority': 3,
+        },
+        {
+            'field_name': 'pricing_model',
+            'query_templates': [
+                f'{{product}} {year} 价格 套餐 元/月',
+                f'{{product}} {year} 企业版 价格 元/年',
+                f'{{product}} {year} 收费 版本 对比 元/人/月',
+            ],
+            'recommended_sources': ['定价页', '文档', '评测'],
+            'priority': 4,
+        },
+        {
+            'field_name': 'user_feedback',
+            'query_templates': [
+                '{product} 评价',
+                '{product} 点评',
+                '{product} 体验',
+                '{product} 反馈',
+            ],
+            'recommended_sources': ['知乎', '社区', '评测'],
+            'priority': 5,
+        },
+    ]
+
+
+DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = build_default_schema_plan()
 
 CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
 
@@ -282,24 +287,87 @@ class PlannerLLMClient:
             self._record_step_status('infer_industry')
             return 'general'
 
+    def infer_product_profile(
+        self,
+        *,
+        prompt: str,
+        industry: str = '',
+        competitor_hints: list[str] | None = None,
+    ) -> dict[str, Any]:
+        hints = [str(x).strip() for x in (competitor_hints or []) if str(x).strip()]
+        fallback = self._fallback_product_profile(prompt=prompt, industry=industry, competitor_hints=hints)
+        if not self.enabled():
+            return fallback
+
+        sys_prompt = (
+            '你是一位产品定位分析助手。'
+            '你的任务是先理解用户要研究的产品是什么，再抽取“用于发现同定位竞品”的产品画像。'
+            '只返回严格 JSON。'
+        )
+        user_prompt = (
+            f'用户研究需求：{prompt}\n'
+            f'行业上下文：{industry}\n'
+            f'已知竞品线索：{hints}\n'
+            '请抽取一个 product_profile，用于后续竞品发现。'
+            '重点关注：核心功能、目标用户、主要使用场景、产品类别、市场定位、交付/部署风格。\n'
+            '返回 JSON：'
+            '{"product_profile":{'
+            '"product_category":"",'
+            '"core_capabilities":[""],'
+            '"target_users":[""],'
+            '"primary_use_cases":[""],'
+            '"market_positioning":"",'
+            '"delivery_model":"",'
+            '"seed_products":[""]'
+            '}}'
+        )
+        try:
+            with self._trace_llm_call(name='planner.infer_product_profile', inputs={'prompt': prompt, 'industry': industry, 'competitor_hints': hints}):
+                result = self._chat_json(sys_prompt, user_prompt)
+            self._record_step_status('infer_product_profile')
+            profile = result.get('product_profile', {})
+            return self._normalize_product_profile(profile, fallback=fallback)
+        except Exception:
+            self._record_step_status('infer_product_profile')
+            return fallback
+
     def discover_competitors_grouped(
         self,
         *,
         prompt: str,
         industry: str = '',
         competitor_hints: list[str],
-        max_direct: int = 8,
-        max_substitute: int = 6,
+        max_direct: int = 3,
+        max_substitute: int = 1,
     ) -> dict[str, Any]:
         """基于搜索验证的竞品发现方法"""
         if not self.enabled():
             direct = [self._make_candidate(name=x, fit_type='direct', reason='provided hint') for x in competitor_hints if x.strip()]
-            return {'competitors': {'direct': direct[:max_direct], 'substitute': []}, 'search_results': [], 'candidate_pool': competitor_hints}
+            return {
+                'competitors': {'direct': direct[:max_direct], 'substitute': []},
+                'search_results': [],
+                'candidate_pool': competitor_hints,
+                'product_profile': self._fallback_product_profile(
+                    prompt=prompt,
+                    industry=str(industry or '').strip().lower(),
+                    competitor_hints=competitor_hints,
+                ),
+            }
 
         normalized_industry = str(industry or '').strip().lower()
+        product_profile = self.infer_product_profile(
+            prompt=prompt,
+            industry=normalized_industry,
+            competitor_hints=competitor_hints,
+        )
 
         # 步骤1: 生成搜索 query
-        search_queries = self._generate_search_queries(prompt, competitor_hints, industry=normalized_industry)
+        search_queries = self._generate_search_queries(
+            prompt,
+            competitor_hints,
+            industry=normalized_industry,
+            product_profile=product_profile,
+        )
         if not search_queries:
             base_query = prompt.strip() or normalized_industry or '竞品分析'
             if normalized_industry and normalized_industry not in base_query:
@@ -314,11 +382,13 @@ class PlannerLLMClient:
             industry=normalized_industry,
             competitor_hints=competitor_hints,
             search_results=search_results,
+            product_profile=product_profile,
         )
 
         expansion_queries = self._build_expansion_queries(
             competitor_hints=competitor_hints,
             candidate_pool=candidate_pool,
+            product_profile=product_profile,
         )
         if expansion_queries:
             expanded_results = self._search_and_summarize(expansion_queries)
@@ -328,6 +398,7 @@ class PlannerLLMClient:
                 industry=normalized_industry,
                 competitor_hints=competitor_hints,
                 search_results=search_results,
+                product_profile=product_profile,
             )
 
         # 步骤3: 基于搜索结果发现竞品
@@ -337,6 +408,7 @@ class PlannerLLMClient:
             competitor_hints,
             search_results,
             candidate_pool,
+            product_profile=product_profile,
             max_direct=max_direct, max_substitute=max_substitute
         )
 
@@ -344,21 +416,35 @@ class PlannerLLMClient:
             'competitors': competitors,
             'search_results': search_results,
             'candidate_pool': candidate_pool,
+            'product_profile': product_profile,
         }
 
-    def _generate_search_queries(self, prompt: str, competitor_hints: list[str], *, industry: str = '') -> list[str]:
+    def _generate_search_queries(
+        self,
+        prompt: str,
+        competitor_hints: list[str],
+        *,
+        industry: str = '',
+        product_profile: dict[str, Any] | None = None,
+    ) -> list[str]:
         """生成搜索竞品的 query"""
-        generic_queries = self._build_generic_product_queries(prompt=prompt, industry=industry, competitor_hints=competitor_hints)
+        generic_queries = self._build_generic_product_queries(
+            prompt=prompt,
+            industry=industry,
+            competitor_hints=competitor_hints,
+            product_profile=product_profile,
+        )
         if generic_queries:
             return generic_queries
 
         sys_prompt = """你是一位专业的竞品分析专家，擅长为竞品发现生成有效的搜索关键词。
 
 任务要求：
-1. 根据用户的研究需求，生成2-3个最有效的搜索关键词/短语
+1. 根据用户的研究需求和产品画像，生成2-4个最有效的搜索关键词/短语
 2. 搜索词应该能够找到相关的竞品信息
 3. 搜索词应该精准定位目标竞品，避免歧义
-4. 搜索词应该简洁，控制在10-20个字以内
+4. 搜索词应该围绕核心功能、目标用户、使用场景和产品定位来写
+5. 优先生成“同类产品/替代方案/面向某类用户的某类软件”这种有判别力的搜索词
 
 输出格式：
 {"search_queries": ["搜索词1", "搜索词2"]}
@@ -367,12 +453,14 @@ class PlannerLLMClient:
 - 搜索词应该简洁明了，优先使用短词组
 - 避免包含"同类竞品汇总"、"对比"等宽泛词汇
 - 重点突出产品类别或核心功能
-- 如果用户提到了具体产品或品牌，在搜索词中包含该产品名"""
+- 如果用户提到了具体产品或品牌，在搜索词中包含该产品名
+- 优先体现目标用户和典型场景"""
         user_prompt = (
             f'用户研究需求：{prompt}\n'
             f'行业上下文：{industry}\n'
             f'已知的竞品线索：{competitor_hints}\n'
-            '请生成2-3个最有效的搜索关键词来发现相关竞品。\n'
+            f'产品画像：{self._profile_context_text(product_profile)}\n'
+            '请生成2-4个最有效的搜索关键词来发现相关竞品。\n'
             '输出格式：{"search_queries": [...]}'
         )
         try:
@@ -385,9 +473,21 @@ class PlannerLLMClient:
             logger.warning(f"Failed to generate search queries: {e}")
         return []
 
-    def _build_generic_product_queries(self, *, prompt: str, industry: str, competitor_hints: list[str]) -> list[str]:
+    def _build_generic_product_queries(
+        self,
+        *,
+        prompt: str,
+        industry: str,
+        competitor_hints: list[str],
+        product_profile: dict[str, Any] | None = None,
+    ) -> list[str]:
         topic = self._extract_generic_topic(prompt, industry=industry)
-        if not topic:
+        profile = product_profile or {}
+        category = str(profile.get('product_category', '')).strip()
+        use_cases = [str(x).strip() for x in profile.get('primary_use_cases', []) if str(x).strip()] if isinstance(profile.get('primary_use_cases', []), list) else []
+        target_users = [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else []
+        capabilities = [str(x).strip() for x in profile.get('core_capabilities', []) if str(x).strip()] if isinstance(profile.get('core_capabilities', []), list) else []
+        if not topic and not category and not use_cases and not capabilities:
             return []
 
         seed = competitor_hints[0].strip() if competitor_hints else ''
@@ -404,12 +504,19 @@ class PlannerLLMClient:
             seen.add(key)
             queries.append(cleaned)
 
-        _add(f'{topic} 官网')
-        _add(f'{topic} 产品')
-        _add(f'{topic} 竞品')
+        anchor = category or topic
+        if anchor:
+            _add(f'{anchor} 同类产品')
+            _add(f'{anchor} 替代方案')
+        if target_users and anchor:
+            _add(f'{target_users[0]} {anchor}')
         if seed:
+            _add(f'{seed} 同类产品')
             _add(f'{seed} 替代品')
-            _add(f'{seed} 竞品')
+        if use_cases and anchor:
+            _add(f'{use_cases[0]} {anchor}')
+        if capabilities and anchor:
+            _add(f'{capabilities[0]} {anchor}')
 
         return queries[:4]
 
@@ -437,6 +544,101 @@ class PlannerLLMClient:
             topic = f'{industry} {topic}'.strip()
 
         return topic[:60]
+
+    def _normalize_product_profile(self, raw: Any, *, fallback: dict[str, Any]) -> dict[str, Any]:
+        payload = raw if isinstance(raw, dict) else {}
+
+        def _clean_list(value: Any, limit: int = 4) -> list[str]:
+            if not isinstance(value, list):
+                return []
+            rows: list[str] = []
+            seen: set[str] = set()
+            for item in value:
+                text = self._repair_mojibake(str(item).strip())
+                if not text:
+                    continue
+                key = text.casefold()
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append(text[:80])
+            return rows[:limit]
+
+        profile = {
+            'product_category': self._repair_mojibake(str(payload.get('product_category', '')).strip())[:80],
+            'core_capabilities': _clean_list(payload.get('core_capabilities', [])),
+            'target_users': _clean_list(payload.get('target_users', [])),
+            'primary_use_cases': _clean_list(payload.get('primary_use_cases', [])),
+            'market_positioning': self._repair_mojibake(str(payload.get('market_positioning', '')).strip())[:120],
+            'delivery_model': self._repair_mojibake(str(payload.get('delivery_model', '')).strip())[:80],
+            'seed_products': _clean_list(payload.get('seed_products', []), limit=6),
+        }
+
+        merged = dict(fallback)
+        for key, value in profile.items():
+            if isinstance(value, list):
+                if value:
+                    merged[key] = value
+            elif value:
+                merged[key] = value
+        return merged
+
+    def _fallback_product_profile(
+        self,
+        *,
+        prompt: str,
+        industry: str,
+        competitor_hints: list[str],
+    ) -> dict[str, Any]:
+        text = re.sub(r'\s+', ' ', str(prompt).strip())
+        category = self._extract_generic_topic(text, industry=industry) or (industry or 'general software')
+        capabilities: list[str] = []
+        users: list[str] = []
+        use_cases: list[str] = []
+
+        marker_map = {
+            '协作': ('团队协作', '企业团队', '协同办公'),
+            '文档': ('文档协作', '知识工作者', '文档协同'),
+            '会议': ('在线会议', '企业团队', '远程会议'),
+            '项目': ('项目管理', '项目团队', '任务协同'),
+            '客服': ('客户服务', '客服团队', '客户支持'),
+            '低代码': ('低代码搭建', '业务团队', '业务应用搭建'),
+            'crm': ('客户管理', '销售团队', '销售管理'),
+        }
+        lowered = text.casefold()
+        for marker, values in marker_map.items():
+            if marker.casefold() in lowered:
+                capability, user, use_case = values
+                capabilities.append(capability)
+                users.append(user)
+                use_cases.append(use_case)
+
+        if not capabilities and category:
+            capabilities.append(category)
+        return {
+            'product_category': category[:80],
+            'core_capabilities': capabilities[:4],
+            'target_users': users[:4],
+            'primary_use_cases': use_cases[:4],
+            'market_positioning': industry or 'general',
+            'delivery_model': 'saas_or_software',
+            'seed_products': competitor_hints[:6],
+        }
+
+    def _profile_context_text(self, product_profile: dict[str, Any] | None) -> str:
+        profile = product_profile or {}
+        if not profile:
+            return '{}'
+        compact = {
+            'product_category': str(profile.get('product_category', '')).strip(),
+            'core_capabilities': [str(x).strip() for x in profile.get('core_capabilities', []) if str(x).strip()] if isinstance(profile.get('core_capabilities', []), list) else [],
+            'target_users': [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else [],
+            'primary_use_cases': [str(x).strip() for x in profile.get('primary_use_cases', []) if str(x).strip()] if isinstance(profile.get('primary_use_cases', []), list) else [],
+            'market_positioning': str(profile.get('market_positioning', '')).strip(),
+            'delivery_model': str(profile.get('delivery_model', '')).strip(),
+            'seed_products': [str(x).strip() for x in profile.get('seed_products', []) if str(x).strip()] if isinstance(profile.get('seed_products', []), list) else [],
+        }
+        return json.dumps(compact, ensure_ascii=False)
 
     def _search_and_summarize(self, queries: list[str]) -> list[dict[str, Any]]:
         """执行搜索并优先使用搜索结果本身的标题与摘要。"""
@@ -486,9 +688,18 @@ class PlannerLLMClient:
                 results.extend(future.result())
         return results
 
-    def _build_expansion_queries(self, *, competitor_hints: list[str], candidate_pool: list[str]) -> list[str]:
+    def _build_expansion_queries(
+        self,
+        *,
+        competitor_hints: list[str],
+        candidate_pool: list[str],
+        product_profile: dict[str, Any] | None = None,
+    ) -> list[str]:
         queries: list[str] = []
         seen: set[str] = set()
+        profile = product_profile or {}
+        category = str(profile.get('product_category', '')).strip()
+        target_users = [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else []
 
         def _add(query: str) -> None:
             cleaned = re.sub(r'\s+', ' ', query.strip())
@@ -505,6 +716,10 @@ class PlannerLLMClient:
         for name in seed_candidates[:2]:
             _add(f'{name} 替代品')
             _add(f'{name} 竞品')
+            if category:
+                _add(f'{name} {category}')
+        if category and target_users:
+            _add(f'{target_users[0]} {category} 替代')
         return queries[:4]
 
     def _dedupe_search_results(self, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -572,6 +787,7 @@ class PlannerLLMClient:
         competitor_hints: list[str],
         search_results: list[dict[str, Any]],
         candidate_pool: list[str],
+        product_profile: dict[str, Any] | None = None,
         max_direct: int = 8,
         max_substitute: int = 6,
     ) -> dict[str, list[dict[str, Any]]]:
@@ -591,10 +807,11 @@ class PlannerLLMClient:
         sys_prompt = """你是一位专业的竞品发现专家，擅长基于搜索结果识别相关竞品。
 
 任务要求：
-1. 基于用户的研究需求和搜索结果，识别相关的直接竞品和替代竞品
+1. 基于用户的研究需求、产品画像和搜索结果，识别相关的直接竞品和替代竞品
 2. 只返回与用户需求真正相关的竞品
 3. 如果搜索结果中没有找到相关竞品，返回空列表
-4. 区分直接竞品（功能相似）和替代竞品（解决相同问题但方式不同）
+4. 区分直接竞品（核心工作流、目标用户、定位高度相似）和替代竞品（解决相同问题但方式不同）
+5. 优先判断：核心功能是否相似、目标用户是否一致、使用场景是否重叠、市场定位是否同层级
 
 输出格式：
 {
@@ -612,10 +829,11 @@ class PlannerLLMClient:
             f'用户研究需求：{prompt}\n'
             f'行业上下文：{industry}\n'
             f'已知的竞品线索：{competitor_hints}\n'
+            f'产品画像：{self._profile_context_text(product_profile)}\n'
             f'候选池（只能从这里选择，不允许新增名称）：{candidate_pool}\n'
             f'{search_context}\n\n'
             '请基于以上搜索结果，识别相关的直接竞品和替代竞品。\n'
-            '只返回真正相关的竞品，如果搜索结果中没有找到相关信息，可以返回空列表。'
+            '只有当候选产品与该产品画像在功能、目标用户、使用场景或市场定位上真正匹配时才返回。'
         )
 
         try:
@@ -672,12 +890,14 @@ class PlannerLLMClient:
         industry: str,
         competitor_hints: list[str],
         search_results: list[dict[str, Any]],
+        product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
         llm_candidates = self._extract_candidates_with_llm(
             prompt=prompt,
             industry=industry,
             competitor_hints=competitor_hints,
             search_results=search_results,
+            product_profile=product_profile,
         )
         if llm_candidates:
             merged: list[str] = []
@@ -759,6 +979,7 @@ class PlannerLLMClient:
         industry: str,
         competitor_hints: list[str],
         search_results: list[dict[str, Any]],
+        product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
         if not self.enabled() or not search_results:
             return []
@@ -776,6 +997,7 @@ class PlannerLLMClient:
                 f'我们正在做“{prompt}”的竞品分析。\n'
                 f'行业上下文：{industry}\n'
                 f'已知线索：{competitor_hints}\n'
+                f'产品画像：{self._profile_context_text(product_profile)}\n'
                 f'这是第 {index} 个网页结果，请从其中抽取真实出现过的、可以独立作为竞品对象的产品名或品牌名。\n'
                 '只保留和本次竞品分析目标直接相关的候选。\n'
                 '如果网页内容主要在讲某个平台的扩展功能、附属模块、硬件生态、外围品牌或无关工具，不要把这些词返回为候选。\n'
@@ -1132,7 +1354,7 @@ class PlannerLLMClient:
         }
 
     def _core_schema_plan_only(self) -> list[dict[str, Any]]:
-        return self._normalize_dynamic_schema(list(DEFAULT_SCHEMA_PLAN))
+        return self._normalize_dynamic_schema(build_default_schema_plan())
 
     def _normalize_dynamic_schema(self, raw_plan: list[dict[str, Any]]) -> list[dict[str, Any]]:
         cleaned: list[dict[str, Any]] = []
@@ -1203,7 +1425,7 @@ class PlannerLLMClient:
             if '{product}' not in text:
                 text = f'{{product}} {text}'
             if field_name == 'pricing_model':
-                text = self._ensure_official_prefix_for_pricing_query(text)
+                text = self._ensure_pricing_query_has_year(text)
             key = text.casefold()
             if key in seen:
                 continue
@@ -1229,30 +1451,28 @@ class PlannerLLMClient:
 
     @staticmethod
     def _default_query_templates_for_field(field_name: str) -> list[str]:
+        year = datetime.now(UTC).year
         defaults = {
             'feature_tree': ['{product} 核心功能', '{product} 官方文档 功能'],
             'strengths': ['{product} 优势 评测', '{product} 对比 优势'],
             'weaknesses': ['{product} 劣势 局限', '{product} 问题 吐槽'],
-            'pricing_model': ['{product} 官网 价格 套餐', '{product} 官网 企业版 计费'],
+            'pricing_model': [
+                f'{{product}} {year} 价格 套餐 元/月',
+                f'{{product}} {year} 企业版 价格 元/年',
+                f'{{product}} {year} 收费 版本 对比 元/人/月',
+            ],
             'user_feedback': ['{product} 评价', '{product} 点评', '{product} 体验', '{product} 反馈'],
         }
         return defaults.get(field_name, [f'{{product}} {field_name}', f'{{product}} {field_name} 官网'])
 
     @staticmethod
-    def _ensure_official_prefix_for_pricing_query(template: str) -> str:
+    def _ensure_pricing_query_has_year(template: str) -> str:
         text = re.sub(r'\s+', ' ', str(template or '').strip())
         if not text:
             return text
-        lowered = text.casefold()
-        pricing_markers = ('价格', '套餐', '计费', 'pricing', 'price', 'plans', 'billing')
-        official_markers = ('官网', 'official')
-        if not any(marker in lowered for marker in pricing_markers):
+        if '{current_year}' in text or re.search(r'\b20\d{2}\b', text):
             return text
-        if any(marker in lowered for marker in official_markers):
-            return text
-        if '{product}' in text:
-            return text.replace('{product}', '{product} 官网', 1)
-        return f'官网 {text}'
+        return f'{text} {{current_year}}'
 
     @staticmethod
     def _make_candidate(*, name: str, fit_type: str, reason: str) -> dict[str, Any]:

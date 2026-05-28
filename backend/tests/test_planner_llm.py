@@ -45,7 +45,7 @@ def test_generate_search_queries_uses_generic_product_templates_for_category_pro
     cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
     planner = PlannerLLMClient(cfg)
     queries = planner._generate_search_queries('线上会议软件竞品分析', [], industry='')
-    assert queries[:4] == ['线上会议软件 官网', '线上会议软件 产品', '线上会议软件 竞品', '线上会议软件 替代品']
+    assert queries[:4] == ['线上会议软件 同类产品', '线上会议软件 替代方案', '企业团队 线上会议软件', '远程会议 线上会议软件']
     assert len(queries) == 4
 
 
