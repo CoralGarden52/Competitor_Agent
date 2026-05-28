@@ -31,7 +31,7 @@ DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = [
         'field_name': 'strengths',
         'query_templates': [
             '{product} 优势 评测',
-            '{product} 对比 优势',
+            '{product} 对比 缺点',
             '{product} 为什么选择',
         ],
         'recommended_sources': ['评测', '分析', '社区'],
@@ -41,7 +41,7 @@ DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = [
         'field_name': 'weaknesses',
         'query_templates': [
             '{product} 劣势 局限',
-            '{product} 问题 吐槽',
+            '{product} 对比 缺点',
             '{product} 缺点 评测',
         ],
         'recommended_sources': ['评测', '社区', '问题反馈'],
