@@ -55,6 +55,85 @@ class AgentLLMClient:
                 retry_count_used=0,
             )
 
+        messages = [
+            {
+                'role': 'system',
+                'content': (
+                    f'{system_prompt}\n'
+                    'Return only one valid JSON object. '
+                    'Do not include markdown code fences. '
+                    'Do not include explanation text before or after JSON.'
+                ),
+            },
+            {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
+        ]
+        return self._invoke_json_with_messages(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+            messages=messages,
+            network_retries=network_retries,
+            temperature=0.2,
+        )
+
+    def invoke_json_multimodal(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        user_text: str,
+        image_data_url: str,
+        metadata: dict[str, Any],
+        network_retries: int | None = None,
+    ) -> dict[str, Any]:
+        if not image_data_url.startswith('data:image'):
+            raise LLMCallError(
+                reason='invalid_image_data_url',
+                message='image_data_url must be a valid data:image URL',
+                attempt_count=0,
+                retry_count_used=0,
+            )
+        messages = [
+            {
+                'role': 'system',
+                'content': (
+                    f'{system_prompt}\n'
+                    'Return only one valid JSON object. '
+                    'Do not include markdown code fences. '
+                    'Do not include explanation text before or after JSON.'
+                ),
+            },
+            {
+                'role': 'user',
+                'content': [
+                    {'type': 'text', 'text': user_text},
+                    {'type': 'image_url', 'image_url': {'url': image_data_url}},
+                ],
+            },
+        ]
+        return self._invoke_json_with_messages(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+            messages=messages,
+            network_retries=network_retries,
+            temperature=0.0,
+        )
+
+    def _invoke_json_with_messages(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        messages: list[dict[str, Any]],
+        network_retries: int | None,
+        temperature: float,
+    ) -> dict[str, Any]:
         retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
         attempts = retries + 1
 
@@ -63,19 +142,8 @@ class AgentLLMClient:
         url = f'{base_url}/chat/completions'
         payload = {
             'model': self.config.openai_model,
-            'messages': [
-                {
-                    'role': 'system',
-                    'content': (
-                        f'{system_prompt}\n'
-                        'Return only one valid JSON object. '
-                        'Do not include markdown code fences. '
-                        'Do not include explanation text before or after JSON.'
-                    ),
-                },
-                {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
-            ],
-            'temperature': 0.2,
+            'messages': messages,
+            'temperature': temperature,
         }
 
         last_exc: Exception | None = None

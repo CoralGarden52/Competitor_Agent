@@ -321,7 +321,8 @@ class CompetitorWorkflowService:
         try:
             save_dir = Path(self.config.collector_preview_save_dir)
             if not save_dir.is_absolute():
-                save_dir = Path.cwd() / save_dir
+                project_root = Path(__file__).resolve().parents[3]
+                save_dir = project_root / save_dir
             save_dir.mkdir(parents=True, exist_ok=True)
             stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             suffix = uuid4().hex[:6]

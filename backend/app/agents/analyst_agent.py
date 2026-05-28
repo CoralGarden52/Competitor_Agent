@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import concurrent.futures
 import logging
+import base64
+import mimetypes
+from pathlib import Path
 from typing import Any
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
@@ -123,6 +126,55 @@ class AnalystAgent:
 
         query_templates = schema_item.query_templates if schema_item is not None else []
         recommended_sources = schema_item.recommended_sources if schema_item is not None else []
+
+        if field_name == 'pricing_model':
+            pricing_vision = self._build_pricing_vision_payload(competitor=competitor, evidences=evidences)
+            if pricing_vision is not None:
+                try:
+                    result = self.llm.invoke_json_multimodal(
+                        trace_name='agent.analyze.field.pricing_model.vision',
+                        system_prompt=(
+                            "你是企业软件定价分析助手。"
+                            "请从页面截图与页面文本中提炼 pricing_model 的 normalized_value。"
+                            "不得编造，无法确认的信息填 unknown、false 或空数组。"
+                            "仅返回 JSON，格式："
+                            "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
+                            "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
+                            "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
+                        ),
+                        user_payload={
+                            'competitor': competitor,
+                            'field_name': field_name,
+                            'pricing_capture': pricing_vision['metadata'],
+                        },
+                        user_text=pricing_vision['user_text'],
+                        image_data_url=pricing_vision['image_data_url'],
+                        metadata={
+                            'competitor': competitor,
+                            'field_name': field_name,
+                            'evidence_count': len(evidences),
+                            'vision_mode': 'pricing_capture',
+                        },
+                    )
+                    summary = str(result.get('summary', '')).strip()
+                    normalized_value = self._coerce_normalized_value(
+                        field_name=field_name,
+                        raw_value=result.get('normalized_value', {}),
+                        summary=summary,
+                    )
+                    evidence_gaps = self._clean_evidence_gaps(result.get('evidence_gaps', []))
+                    confidence = min(0.92, 0.55 + (0.1 * min(len(evidences), 5)))
+                    return AnalysisFieldResult(
+                        field_name=field_name,
+                        summary=(summary.strip() or 'unknown')[:500],
+                        evidence_refs=evidence_ids,
+                        confidence=confidence,
+                        normalized_value=normalized_value,
+                        evidence_gaps=evidence_gaps,
+                    )
+                except Exception as exc:
+                    logger.warning("Vision pricing extraction failed for %s: %s", competitor, exc)
+
         sys_prompt = (
             f"{ANALYZE_SYSTEM_PROMPT}\n\n"
             "你当前只需要分析单个字段，并返回严格 JSON："
@@ -204,6 +256,55 @@ class AnalystAgent:
             normalized_value=normalized_value,
             evidence_gaps=evidence_gaps,
         )
+
+    def _build_pricing_vision_payload(self, *, competitor: str, evidences: list[RawEvidence]) -> dict[str, Any] | None:
+        project_root = Path(__file__).resolve().parents[3]
+        for ev in evidences:
+            ext = ev.domain_extensions if isinstance(ev.domain_extensions, dict) else {}
+            capture = ext.get('pricing_capture', {})
+            if not isinstance(capture, dict):
+                continue
+            screenshot_path = str(capture.get('screenshot_path', '')).strip()
+            markdown_path = str(capture.get('markdown_path', '')).strip()
+            html_path = str(capture.get('html_path', '')).strip()
+            if not screenshot_path:
+                continue
+            screenshot_abs = project_root / screenshot_path
+            if not screenshot_abs.exists():
+                continue
+            image_bytes = screenshot_abs.read_bytes()
+            mime_type = mimetypes.guess_type(str(screenshot_abs))[0] or 'image/png'
+            image_data_url = f"data:{mime_type};base64,{base64.b64encode(image_bytes).decode('ascii')}"
+
+            markdown_text = ''
+            html_text = ''
+            if markdown_path:
+                markdown_abs = project_root / markdown_path
+                if markdown_abs.exists():
+                    markdown_text = markdown_abs.read_text(encoding='utf-8', errors='ignore')
+            if html_path:
+                html_abs = project_root / html_path
+                if html_abs.exists():
+                    html_text = html_abs.read_text(encoding='utf-8', errors='ignore')
+            user_text = (
+                f"竞品: {competitor}\n"
+                f"问题: 说明该页面中的定价模型，并抽取结构化价格字段。\n"
+                f"URL: {ev.source_url}\n\n"
+                f"[Markdown]\n{markdown_text[:7000]}\n\n"
+                f"[HTML Excerpt]\n{html_text[:4000]}"
+            )
+            return {
+                'user_text': user_text,
+                'image_data_url': image_data_url,
+                'metadata': {
+                    'source_url': ev.source_url,
+                    'capture_status': str(capture.get('capture_status', '')),
+                    'markdown_path': markdown_path,
+                    'html_path': html_path,
+                    'screenshot_path': screenshot_path,
+                },
+            }
+        return None
 
     @staticmethod
     def _has_meaningful_field_output(

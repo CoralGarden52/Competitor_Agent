@@ -79,7 +79,7 @@ class CollectorPipeline:
             )
             for query in queries:
                 if field_name == 'pricing_model':
-                    provider_allowlist = ['tavily']
+                    provider_allowlist = ['tavily', 'zhihu_official']
                     search_strategy = 'strict_tavily_only'
                 else:
                     provider_allowlist = None
@@ -143,18 +143,28 @@ class CollectorPipeline:
         def _fetch_one(task: tuple[str, str, str, list[str], str, str, str]) -> dict | None:
             field_name, query, source_url, recommended_sources, search_title, search_snippet, source_provider = task
             local_fallback_trace: list[dict] = []
+            pricing_capture: dict[str, Any] = {}
 
             provider_order = self.config.collector_fetch_order_list or ['jina', 'firecrawl_fetch', 'tavily_extract']
             fetch_strategy = 'unified_schema_fetch'
 
-            content, fetch_provider = self._run_fetch_phase(
-                url=source_url,
-                output=output,
-                fallback_trace=local_fallback_trace,
-                provider_order=provider_order,
-                field_name=field_name,
-                strategy=fetch_strategy,
-            )
+            if field_name == 'pricing_model':
+                content, fetch_provider, pricing_capture = self._run_pricing_fetch_phase(
+                    run_id=run_id,
+                    url=source_url,
+                    output=output,
+                    fallback_trace=local_fallback_trace,
+                    field_name=field_name,
+                )
+            else:
+                content, fetch_provider = self._run_fetch_phase(
+                    url=source_url,
+                    output=output,
+                    fallback_trace=local_fallback_trace,
+                    provider_order=provider_order,
+                    field_name=field_name,
+                    strategy=fetch_strategy,
+                )
             fallback_trace.extend(local_fallback_trace)
 
             if content and len(content) > 100:
@@ -198,6 +208,7 @@ class CollectorPipeline:
                 'schema_field': field_name,
                 'query_template': query,
                 'recommended_source_type': ','.join(recommended_sources),
+                'pricing_capture': pricing_capture,
             }
 
         if fetch_tasks:
@@ -378,18 +389,142 @@ class CollectorPipeline:
         })
         return content, provider_name
 
+    def _run_pricing_fetch_phase(
+        self,
+        *,
+        run_id: str,
+        url: str,
+        output: CollectorOutput,
+        fallback_trace: list[dict],
+        field_name: str,
+    ) -> tuple[str, str, dict[str, Any]]:
+        provider = self.registry.fetch_catalog.get('firecrawl_fetch')
+        if provider is None or not hasattr(provider, 'scrape_pricing_bundle'):
+            output.provider_events.append(
+                {
+                    'event_type': 'collector.pricing_fetch.result',
+                    'url': url,
+                    'provider': '',
+                    'status': 'missing_provider',
+                    'field_name': field_name,
+                }
+            )
+            content, fetch_provider = self._run_fetch_phase(
+                url=url,
+                output=output,
+                fallback_trace=fallback_trace,
+                provider_order=self.config.collector_fetch_order_list or ['jina', 'firecrawl_fetch', 'tavily_extract'],
+                field_name=field_name,
+                strategy='pricing_fallback_fetch',
+            )
+            return content, fetch_provider, {'capture_status': 'missing_provider'}
+
+        bundle = provider.scrape_pricing_bundle(url)
+        markdown = str(bundle.get('markdown', '') or '')
+        html = str(bundle.get('html', '') or '')
+        screenshot_bytes = bundle.get('screenshot_bytes', b'')
+        if not isinstance(screenshot_bytes, (bytes, bytearray)):
+            screenshot_bytes = b''
+        errors = bundle.get('errors', [])
+        if not isinstance(errors, list):
+            errors = [str(errors)]
+
+        capture_status = 'ok' if markdown and html and screenshot_bytes else 'partial'
+        markdown_path, html_path, screenshot_path = self._persist_pricing_assets(
+            run_id=run_id,
+            evidence_url=url,
+            markdown=markdown,
+            html=html,
+            screenshot_bytes=bytes(screenshot_bytes),
+        )
+        pricing_capture = {
+            'capture_status': capture_status,
+            'markdown_path': markdown_path,
+            'html_path': html_path,
+            'screenshot_path': screenshot_path,
+            'errors': errors,
+        }
+        fallback_trace.append(
+            {
+                'provider': provider.name(),
+                'status': capture_status,
+                'field_name': field_name,
+                'strategy': 'pricing_firecrawl_bundle',
+                'errors': errors,
+            }
+        )
+        output.provider_events.append(
+            {
+                'event_type': 'collector.pricing_fetch.result',
+                'url': url,
+                'provider': provider.name(),
+                'status': capture_status,
+                'field_name': field_name,
+                'markdown_length': len(markdown),
+                'html_length': len(html),
+                'has_screenshot': bool(screenshot_bytes),
+            }
+        )
+        text_content = markdown or html
+        if text_content and len(text_content) > 100:
+            return text_content, provider.name(), pricing_capture
+
+        content, fetch_provider = self._run_fetch_phase(
+            url=url,
+            output=output,
+            fallback_trace=fallback_trace,
+            provider_order=self.config.collector_fetch_order_list or ['jina', 'firecrawl_fetch', 'tavily_extract'],
+            field_name=field_name,
+            strategy='pricing_text_fallback',
+        )
+        return content, fetch_provider, pricing_capture
+
     def _persist_raw_content(self, run_id: str, evidence_hash: str, content: str) -> Path:
-        # Persist under backend/.data/raw_evidence to avoid cwd-dependent duplicate directories.
-        backend_root = Path(__file__).resolve().parents[3]
+        # Persist under project/.data/collector_raw to avoid cwd-dependent duplicate directories.
+        project_root = Path(__file__).resolve().parents[4]
         bucket = 'preview' if run_id.strip() == 'preview' else run_id.strip()
-        base_path = backend_root / '.data' / 'raw_evidence' / bucket
+        base_path = project_root / '.data' / 'collector_raw' / bucket
         base_path.mkdir(parents=True, exist_ok=True)
         file_path = base_path / f'{evidence_hash}.txt'
         file_path.write_text(content, encoding='utf-8')
         try:
-            return file_path.relative_to(backend_root)
+            return file_path.relative_to(project_root)
         except ValueError:
             return file_path
+
+    def _persist_pricing_assets(
+        self,
+        *,
+        run_id: str,
+        evidence_url: str,
+        markdown: str,
+        html: str,
+        screenshot_bytes: bytes,
+    ) -> tuple[str, str, str]:
+        project_root = Path(__file__).resolve().parents[4]
+        bucket = 'preview' if run_id.strip() == 'preview' else run_id.strip()
+        base_path = project_root / '.data' / 'collector_raw' / bucket / 'pricing_assets'
+        base_path.mkdir(parents=True, exist_ok=True)
+        stem = content_hash(evidence_url)[:16]
+        md_path = base_path / f'{stem}.md'
+        html_path = base_path / f'{stem}.html'
+        png_path = base_path / f'{stem}.png'
+        if markdown:
+            md_path.write_text(markdown, encoding='utf-8')
+        if html:
+            html_path.write_text(html, encoding='utf-8')
+        if screenshot_bytes:
+            png_path.write_bytes(screenshot_bytes)
+
+        def _rel(path: Path) -> str:
+            if not path.exists():
+                return ''
+            try:
+                return str(path.relative_to(project_root))
+            except ValueError:
+                return str(path)
+
+        return _rel(md_path), _rel(html_path), _rel(png_path)
 
     def _infer_source_type(self, url: str) -> str:
         u = url.lower()

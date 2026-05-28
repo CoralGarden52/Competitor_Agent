@@ -130,3 +130,46 @@ def test_invoke_json_persists_usage_trace(monkeypatch) -> None:
     assert trace.total_tokens == 19
     assert trace.usage_source == 'provider'
     assert trace.usage_details['completion_tokens_details']['reasoning_tokens'] == 3
+
+
+def test_invoke_json_multimodal_builds_image_message(monkeypatch) -> None:
+    captured = {}
+
+    def _fake_urlopen(req, timeout=0):
+        payload = json.loads(req.data.decode('utf-8'))
+        captured.update(payload)
+        return _FakeResponse(
+            {
+                'choices': [
+                    {
+                        'message': {
+                            'content': '{"ok": true}'
+                        }
+                    }
+                ]
+            }
+        )
+
+    monkeypatch.setattr('urllib.request.urlopen', _fake_urlopen)
+
+    client = AgentLLMClient(
+        AppConfig(
+            openai_api_key='k',
+            openai_base_url='https://example.com/v1',
+            openai_model='test-model',
+        )
+    )
+
+    result = client.invoke_json_multimodal(
+        trace_name='test.multimodal',
+        system_prompt='return json',
+        user_payload={'mode': 'vision'},
+        user_text='read this image',
+        image_data_url='data:image/png;base64,ZmFrZQ==',
+        metadata={},
+    )
+
+    assert result == {'ok': True}
+    user_message = captured['messages'][1]
+    assert isinstance(user_message['content'], list)
+    assert user_message['content'][1]['type'] == 'image_url'
