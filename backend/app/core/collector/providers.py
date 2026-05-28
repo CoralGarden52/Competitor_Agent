@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import base64
 import threading
 import time
 import urllib.error
@@ -48,6 +49,12 @@ def _http_post_text(url: str, payload: dict[str, Any], headers: dict[str, str], 
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read().decode('utf-8', errors='ignore')
+
+
+def _read_binary_url(url: str, timeout: int) -> bytes:
+    req = urllib.request.Request(url, headers={'User-Agent': DEFAULT_JINA_USER_AGENT}, method='GET')
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return resp.read()
 
 
 class TavilySearchProvider:
@@ -368,6 +375,59 @@ class FirecrawlFetchProvider:
             return content or '', ([] if content else ['firecrawl_fetch_empty'])
         except Exception as exc:
             return '', [f'firecrawl_fetch_unavailable: {exc}']
+
+    def scrape_pricing_bundle(self, url: str) -> dict[str, Any]:
+        if not self.config.firecrawl_api_key:
+            return {
+                'markdown': '',
+                'html': '',
+                'screenshot_bytes': b'',
+                'screenshot_source': '',
+                'errors': ['firecrawl_fetch_unavailable: missing FIRECRAWL_API_KEY'],
+            }
+        try:
+            data = _http_post_json(
+                'https://api.firecrawl.dev/v1/scrape',
+                {'url': url, 'formats': ['markdown', 'html', 'screenshot']},
+                {'Authorization': f'Bearer {self.config.firecrawl_api_key}', 'Content-Type': 'application/json'},
+                self.config.collector_provider_timeout_sec,
+            )
+            payload = (data.get('data') or {}) if isinstance(data, dict) else {}
+            markdown = str(payload.get('markdown', '') or '')
+            html = str(payload.get('html', '') or '')
+            screenshot_source = str(payload.get('screenshot', '') or '')
+            screenshot_bytes = b''
+            if screenshot_source:
+                if screenshot_source.startswith('data:image'):
+                    marker = 'base64,'
+                    idx = screenshot_source.find(marker)
+                    if idx != -1:
+                        encoded = screenshot_source[idx + len(marker) :]
+                        screenshot_bytes = base64.b64decode(encoded)
+                elif screenshot_source.startswith('http://') or screenshot_source.startswith('https://'):
+                    screenshot_bytes = _read_binary_url(screenshot_source, self.config.collector_provider_timeout_sec)
+            errors: list[str] = []
+            if not markdown:
+                errors.append('firecrawl_pricing_markdown_empty')
+            if not html:
+                errors.append('firecrawl_pricing_html_empty')
+            if not screenshot_bytes:
+                errors.append('firecrawl_pricing_screenshot_empty')
+            return {
+                'markdown': markdown,
+                'html': html,
+                'screenshot_bytes': screenshot_bytes,
+                'screenshot_source': screenshot_source,
+                'errors': errors,
+            }
+        except Exception as exc:
+            return {
+                'markdown': '',
+                'html': '',
+                'screenshot_bytes': b'',
+                'screenshot_source': '',
+                'errors': [f'firecrawl_pricing_scrape_unavailable: {exc}'],
+            }
 
 
 class TavilyExtractProvider:

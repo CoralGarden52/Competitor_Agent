@@ -79,6 +79,7 @@ class CollectorAgent:
                             'schema_field': item.get('schema_field', ''),
                             'query_template': item.get('query_template', ''),
                             'recommended_source_type': item.get('recommended_source_type', ''),
+                            'pricing_capture': item.get('pricing_capture', {}),
                         },
                     )
                     out.raw_evidences.append(ev)
