@@ -79,7 +79,7 @@ class CollectorPipeline:
             )
             for query in queries:
                 if field_name == 'pricing_model':
-                    provider_allowlist = ['tavily']
+                    provider_allowlist = ['tavily', 'zhihu_official']
                     search_strategy = 'strict_tavily_only'
                 else:
                     provider_allowlist = None
@@ -379,15 +379,15 @@ class CollectorPipeline:
         return content, provider_name
 
     def _persist_raw_content(self, run_id: str, evidence_hash: str, content: str) -> Path:
-        # Persist under backend/.data/raw_evidence to avoid cwd-dependent duplicate directories.
-        backend_root = Path(__file__).resolve().parents[3]
+        # Persist under project/.data/collector_raw to avoid cwd-dependent duplicate directories.
+        project_root = Path(__file__).resolve().parents[4]
         bucket = 'preview' if run_id.strip() == 'preview' else run_id.strip()
-        base_path = backend_root / '.data' / 'raw_evidence' / bucket
+        base_path = project_root / '.data' / 'collector_raw' / bucket
         base_path.mkdir(parents=True, exist_ok=True)
         file_path = base_path / f'{evidence_hash}.txt'
         file_path.write_text(content, encoding='utf-8')
         try:
-            return file_path.relative_to(backend_root)
+            return file_path.relative_to(project_root)
         except ValueError:
             return file_path
 
