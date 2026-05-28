@@ -164,6 +164,40 @@ class CompetitorAnalysisRecord(BaseModel):
     fields: list[AnalysisFieldResult] = Field(default_factory=list)
 
 
+class PlanHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    inferred_industry: str
+    planned_competitors: list[str] = Field(default_factory=list)
+    candidate_groups: dict[str, Any] = Field(default_factory=dict)
+    analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
+    split_strategy: str = 'by_competitor'
+    planner_meta: dict[str, Any] = Field(default_factory=dict)
+
+
+class CollectHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    competitors: list[str] = Field(default_factory=list)
+    schema_fields: list[str] = Field(default_factory=list)
+    evidence_bundles: list[CompetitorEvidenceBundle] = Field(default_factory=list)
+    provider_events: list[dict[str, Any]] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
+    total_evidence_count: int = 0
+    qa_collect_plan_used: bool = False
+
+
+class AnalyzeHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    competitors: list[str] = Field(default_factory=list)
+    competitor_analyses: list[CompetitorAnalysisRecord] = Field(default_factory=list)
+    profiles: list[CompetitorProfile] = Field(default_factory=list)
+    findings: list[Finding] = Field(default_factory=list)
+    coverage_summary: list[dict[str, Any]] = Field(default_factory=list)
+    evidence_gap_summary: list[dict[str, Any]] = Field(default_factory=list)
+
+
 class ReportClaim(BaseModel):
     statement: str
     evidence_refs: list[str] = Field(default_factory=list)
@@ -393,6 +427,31 @@ class QAOutput(BaseModel):
         if (not self.passed) and self.target_agent == 'Collect' and self.collect_plan is None:
             raise ValueError('collect_plan is required when QA fails and target_agent=Collect')
         return self
+
+
+class LLMCallTrace(BaseModel):
+    trace_id: str = Field(default_factory=lambda: f'llm_{uuid4().hex[:12]}')
+    run_id: str = ''
+    attempt: int = 0
+    node_name: str = ''
+    agent_name: str = ''
+    trace_name: str
+    model: str = ''
+    status: Literal['completed', 'failed'] = 'completed'
+    system_prompt: str = ''
+    user_payload: dict[str, Any] = Field(default_factory=dict)
+    raw_response: dict[str, Any] = Field(default_factory=dict)
+    parsed_response: dict[str, Any] = Field(default_factory=dict)
+    error_reason: str = ''
+    error_message: str = ''
+    finish_reason: str = ''
+    latency_ms: int = 0
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    usage_source: Literal['provider', 'estimated', 'missing'] = 'missing'
+    usage_details: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
 class EventEnvelope(BaseModel):

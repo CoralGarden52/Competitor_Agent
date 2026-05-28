@@ -32,7 +32,7 @@ uv run uvicorn app.main:app --reload --port 8010
 - `COLLECTOR_PER_FIELD_LIMIT`: evidence cap per schema field (set `1` for experiment throttling).
 - `/collector/preview` execution uses server-side `COLLECTOR_MAX_URLS` and `COLLECTOR_PER_FIELD_LIMIT` for throttling.
 - `COLLECTOR_PREVIEW_AUTO_SAVE_ENABLED`: auto-save every `/collector/preview` response as local JSON (default `true`).
-- `COLLECTOR_PREVIEW_SAVE_DIR`: auto-save directory (default `collector_exports` under backend working directory).
+- `COLLECTOR_PREVIEW_SAVE_DIR`: auto-save directory (default `.data/collector_exports` under backend working directory).
 - Auto-saved file name format: `collector_preview_result_YYYYMMDD_HHMMSS_<6hex>.json`.
 
 ## Prompt-Only Preview
@@ -81,4 +81,3 @@ Invoke-RestMethod `
   -ContentType "application/json; charset=utf-8" `
   -Body $payload
 ```
-

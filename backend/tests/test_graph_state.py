@@ -10,12 +10,15 @@ from app.core.graph_state import (
     merge_qa_output,
 )
 from app.core.models import (
+    AnalyzeHandoff,
     AnalyzeOutput,
+    CollectHandoff,
     CollectOutput,
     CompetitorProfile,
     DraftOutput,
     FeatureNode,
     Finding,
+    PlanHandoff,
     PricingModel,
     QAOutput,
     RawEvidence,
@@ -114,3 +117,27 @@ def test_plan_persists_inferred_industry_into_run_state(tmp_path) -> None:
     state = RunState(industry='', competitors=['alpha'], user_prompt='线上会议软件竞品分析')
     service._plan(state)
     assert state.industry == 'meeting_software'
+
+
+def test_stage_handoffs_are_persisted_and_replayed(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / 'test.db')
+    service = CompetitorWorkflowService(store)
+    run = service.start_run(RunRequest(industry='saas', competitors=['alpha'])).state
+
+    handoffs = store.list_stage_handoffs(run.run_id)
+    handoff_types = [item['handoff_type'] for item in handoffs]
+
+    assert 'PlanHandoff' in handoff_types
+    assert 'CollectHandoff' in handoff_types
+    assert 'AnalyzeHandoff' in handoff_types
+
+    plan_handoff = store.latest_stage_handoff(run.run_id, stage=StageName.plan)
+    collect_handoff = store.latest_stage_handoff(run.run_id, stage=StageName.collect)
+    analyze_handoff = store.latest_stage_handoff(run.run_id, stage=StageName.analyze)
+
+    assert isinstance(plan_handoff, PlanHandoff)
+    assert isinstance(collect_handoff, CollectHandoff)
+    assert isinstance(analyze_handoff, AnalyzeHandoff)
+
+    replay = service.replay_node(run.run_id, 'analyze')
+    assert replay['handoffs']

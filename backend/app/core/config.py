@@ -53,7 +53,7 @@ class AppConfig(BaseSettings):
     collector_max_urls: int = Field(default=10, ge=1, le=100)
     collector_per_field_limit: int = Field(default=3, ge=1, le=20)
     collector_preview_auto_save_enabled: bool = True
-    collector_preview_save_dir: str = 'collector_exports'
+    collector_preview_save_dir: str = '.data/collector_exports'
     tracing_mode: str = 'relaxed'
     agent_llm_retry_count: int = Field(default=2, ge=0, le=6)
     agent_llm_retry_backoff_ms: int = Field(default=400, ge=50, le=10000)

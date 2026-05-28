@@ -568,9 +568,10 @@ class WriterAgent:
         lines: list[str] = []
         for record in records:
             field = self._get_field(record, field_name)
-            if field is None or field.summary.strip().lower() == 'unknown':
+            if field is None or not self._field_has_reportable_content(field):
                 continue
-            lines.append(f"- {record.product_name}: {field.summary}")
+            primary_text = self._field_primary_text(field)
+            lines.append(f"- {record.product_name}: {primary_text}")
             lines.extend(self._normalized_value_bullets(field))
             links = self._field_provenance_line(state, field)
             if links:
@@ -601,7 +602,7 @@ class WriterAgent:
                         f"{str(item.get('billing_cycle', 'unknown')).strip() or 'unknown'}"
                     )
         if 'value' in payload and str(payload.get('value', '')).strip():
-            bullets.append(f"  - 结构化结论：{str(payload.get('value', '')).strip()}")
+            bullets.append(f"  - 最终结论：{str(payload.get('value', '')).strip()}")
         return bullets[:6]
 
     def _normalize_report_sections(
@@ -772,6 +773,99 @@ class WriterAgent:
                 if weakness_links:
                     lines.append(weakness_links)
         return '\n'.join(lines) or '暂无优劣势对比内容。'
+
+    @staticmethod
+    def _field_has_reportable_content(field: AnalysisFieldResult) -> bool:
+        summary = str(field.summary or '').strip()
+        if summary and summary.lower() != 'unknown':
+            return True
+        return WriterAgent._normalized_value_has_signal(field.normalized_value)
+
+    @staticmethod
+    def _normalized_value_has_signal(payload: dict) -> bool:
+        if not isinstance(payload, dict) or not payload:
+            return False
+        for value in payload.values():
+            if isinstance(value, str) and value.strip() and value.strip().lower() != 'unknown':
+                return True
+            if isinstance(value, list):
+                for item in value:
+                    if isinstance(item, str) and item.strip():
+                        return True
+                    if isinstance(item, dict) and any(str(v).strip() for v in item.values() if str(v).strip() and str(v).strip().lower() != 'unknown'):
+                        return True
+            if isinstance(value, dict):
+                if any(str(v).strip() for v in value.values() if str(v).strip() and str(v).strip().lower() != 'unknown'):
+                    return True
+            if isinstance(value, bool) and value:
+                return True
+        return False
+
+    def _field_primary_text(self, field: AnalysisFieldResult) -> str:
+        summary = str(field.summary or '').strip()
+        if summary and summary.lower() != 'unknown':
+            return summary
+        return self._normalized_value_summary(field.field_name, field.normalized_value)
+
+    @staticmethod
+    def _normalized_value_summary(field_name: str, payload: dict) -> str:
+        data = payload if isinstance(payload, dict) else {}
+        if field_name == 'feature_tree':
+            nodes = data.get('nodes', [])
+            if isinstance(nodes, list):
+                labels = []
+                for item in nodes[:4]:
+                    if not isinstance(item, dict):
+                        continue
+                    name = str(item.get('name', '')).strip()
+                    capability = str(item.get('capability', '')).strip()
+                    text = '：'.join(part for part in [name, capability] if part)
+                    if text:
+                        labels.append(text)
+                if labels:
+                    return '核心能力包括' + '；'.join(labels) + '。'
+        if field_name == 'pricing_model':
+            parts: list[str] = []
+            model_type = str(data.get('model_type', '')).strip()
+            if model_type and model_type.lower() != 'unknown':
+                parts.append(f'定价模式为 {model_type}')
+            if data.get('free_tier', False):
+                parts.append('存在免费层')
+            tiers = data.get('tiers', [])
+            if isinstance(tiers, list) and tiers:
+                tier_names = [str(item.get('name', '')).strip() for item in tiers[:3] if isinstance(item, dict) and str(item.get('name', '')).strip()]
+                if tier_names:
+                    parts.append('可观察到的套餐包括 ' + '、'.join(tier_names))
+            if parts:
+                return '；'.join(parts) + '。'
+        if field_name == 'user_feedback':
+            positives = data.get('positive_themes', [])
+            negatives = data.get('negative_themes', [])
+            parts = []
+            if isinstance(positives, list):
+                labels = [str(item).strip() for item in positives[:3] if str(item).strip()]
+                if labels:
+                    parts.append('正向反馈集中在 ' + '、'.join(labels))
+            if isinstance(negatives, list):
+                labels = [str(item).strip() for item in negatives[:3] if str(item).strip()]
+                if labels:
+                    parts.append('负向反馈集中在 ' + '、'.join(labels))
+            if parts:
+                return '；'.join(parts) + '。'
+        if field_name in {'strengths', 'weaknesses'}:
+            items = data.get('items', [])
+            if isinstance(items, list):
+                labels = [str(item).strip() for item in items[:4] if str(item).strip()]
+                if labels:
+                    return '；'.join(labels) + '。'
+        if isinstance(data.get('value'), str) and str(data.get('value')).strip() and str(data.get('value')).strip().lower() != 'unknown':
+            return str(data.get('value')).strip()
+        observations = data.get('key_observations', [])
+        if isinstance(observations, list):
+            labels = [str(item).strip() for item in observations[:4] if str(item).strip()]
+            if labels:
+                return '；'.join(labels) + '。'
+        return '已采集到部分结构化信息。'
 
     def _synthesize_overview_sections(self, drafted: DraftOutput, *, state: RunState) -> DraftOutput:
         report = drafted.report

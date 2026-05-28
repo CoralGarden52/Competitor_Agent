@@ -66,6 +66,61 @@ def test_comparison_matrix_labels_direct_and_substitute_competitors() -> None:
     assert '间接竞品' in matrix[1]['product']
 
 
+def test_dynamic_field_section_uses_normalized_value_when_summary_unknown() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='meeting_software',
+        competitors=['腾讯会议'],
+        evidences=[],
+    )
+    records = [
+        CompetitorAnalysisRecord(
+            product_name='腾讯会议',
+            fields=[
+                AnalysisFieldResult(
+                    field_name='feature_tree',
+                    summary='unknown',
+                    evidence_refs=[],
+                    confidence=0.7,
+                    normalized_value={'nodes': [{'name': '会议', 'capability': '音视频协作'}, {'name': '录制', 'capability': '云录制'}]},
+                )
+            ],
+        )
+    ]
+    text = agent._dynamic_field_section_text(state, records, 'feature_tree')
+    assert '腾讯会议' in text
+    assert '核心能力包括会议：音视频协作；录制：云录制。' in text
+
+
+def test_dynamic_field_section_uses_pricing_normalized_value_when_summary_unknown() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='meeting_software',
+        competitors=['飞书'],
+        evidences=[],
+    )
+    records = [
+        CompetitorAnalysisRecord(
+            product_name='飞书',
+            fields=[
+                AnalysisFieldResult(
+                    field_name='pricing_model',
+                    summary='unknown',
+                    evidence_refs=[],
+                    confidence=0.7,
+                    normalized_value={
+                        'model_type': 'subscription',
+                        'free_tier': True,
+                        'tiers': [{'name': '商业版'}, {'name': '企业版'}],
+                    },
+                )
+            ],
+        )
+    ]
+    text = agent._dynamic_field_section_text(state, records, 'pricing_model')
+    assert '定价模式为 subscription；存在免费层；可观察到的套餐包括 商业版、企业版。' in text
+
+
 def test_report_text_not_truncated_by_default() -> None:
     cfg = get_config()
     old_enabled = cfg.report_truncation_enabled

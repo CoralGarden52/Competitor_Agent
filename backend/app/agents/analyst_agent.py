@@ -129,7 +129,9 @@ class AnalystAgent:
             '{"summary":"...","normalized_value":{},"evidence_gaps":[]}\n'
             "summary 必须是原创总结，且要紧扣当前字段语义。\n"
             "normalized_value 必须尽可能结构化，并与字段类型相匹配。\n"
-            "如果证据不足，可以在 evidence_gaps 中写出缺口，但不要编造。"
+            "如果证据不足，可以在 evidence_gaps 中写出缺口，但不要编造。\n"
+            "重要：只要证据中存在可确认的局部事实，就先提炼这些已确认信息，再说明未确认边界；"
+            "不要因为缺少全量资料就把整个字段都总结成“无法获取”。"
         )
         
         user_prompt = {
@@ -147,7 +149,8 @@ class AnalystAgent:
                 f"请基于以上证据，对【{field_name}】字段进行分析总结。"
                 "必须总结提炼，不能直接复制原文；"
                 "必须结合 field_context 理解这个字段要回答什么；"
-                "只输出和该 schema item 直接相关的内容。"
+                "只输出和该 schema item 直接相关的内容；"
+                "如果现有证据只能支持部分结论，请优先输出这部分已确认内容，并用简短措辞说明剩余缺口。"
             ),
         }
         
@@ -170,8 +173,12 @@ class AnalystAgent:
             )
             evidence_gaps = self._clean_evidence_gaps(result.get('evidence_gaps', []))
             
-            # 如果还是没有有效结果，使用fallback
-            if not summary or summary.lower() == 'none' or summary.lower() == 'unknown':
+            # 只要 summary / normalized_value / evidence_gaps 里任一部分提供了有效信息，就保留结果。
+            if not self._has_meaningful_field_output(
+                summary=summary,
+                normalized_value=normalized_value,
+                evidence_gaps=evidence_gaps,
+            ):
                 raise ValueError("Empty or invalid result")
             
             confidence = min(0.9, 0.5 + (0.1 * min(len(evidences), 5)))
@@ -197,6 +204,36 @@ class AnalystAgent:
             normalized_value=normalized_value,
             evidence_gaps=evidence_gaps,
         )
+
+    @staticmethod
+    def _has_meaningful_field_output(
+        *,
+        summary: str,
+        normalized_value: dict[str, Any],
+        evidence_gaps: list[str],
+    ) -> bool:
+        normalized_summary = str(summary or '').strip()
+        if normalized_summary and normalized_summary.lower() not in {'none', 'unknown'}:
+            return True
+        if AnalystAgent._normalized_value_has_signal(normalized_value):
+            return True
+        return bool(evidence_gaps)
+
+    @staticmethod
+    def _normalized_value_has_signal(value: Any) -> bool:
+        if isinstance(value, dict):
+            for one in value.values():
+                if AnalystAgent._normalized_value_has_signal(one):
+                    return True
+            return False
+        if isinstance(value, list):
+            return any(AnalystAgent._normalized_value_has_signal(one) for one in value)
+        if isinstance(value, bool):
+            return True
+        if value is None:
+            return False
+        text = str(value).strip()
+        return bool(text) and text.lower() not in {'unknown', 'none', '{}', '[]'}
 
     def run_fallback(self, state: RunState) -> AnalyzeOutput:
         schema_plan = self._schema_plan(state)

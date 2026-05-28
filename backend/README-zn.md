@@ -32,7 +32,7 @@ uv run uvicorn app.main:app --reload --port 8010
 - `COLLECTOR_PER_FIELD_LIMIT`：每个 schema 字段的证据上限（实验限流可设为 `1`）。
 - `/collector/preview` 执行时会使用服务端 `COLLECTOR_MAX_URLS` 与 `COLLECTOR_PER_FIELD_LIMIT` 做限流。
 - `COLLECTOR_PREVIEW_AUTO_SAVE_ENABLED`：是否将每次 `/collector/preview` 响应自动保存为本地 JSON（默认 `true`）。
-- `COLLECTOR_PREVIEW_SAVE_DIR`：自动保存目录（默认是 backend 工作目录下的 `collector_exports`）。
+- `COLLECTOR_PREVIEW_SAVE_DIR`：自动保存目录（默认是 backend 工作目录下的 `.data/collector_exports`）。
 - 自动保存文件名格式：`collector_preview_result_YYYYMMDD_HHMMSS_<6hex>.json`。
 
 ## 仅 Prompt 预览

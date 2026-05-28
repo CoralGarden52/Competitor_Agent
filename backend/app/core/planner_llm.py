@@ -50,9 +50,9 @@ DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = [
     {
         'field_name': 'pricing_model',
         'query_templates': [
-            '{product} 官网 价格 套餐',
-            '{product} 官网 企业版 计费',
-            '{product} 官网 免费版 价格',
+            '{product} 价格 套餐',
+            '{product} 企业版 计费',
+            '{product} 免费版 价格',
         ],
         'recommended_sources': ['官网', '定价页', '文档'],
         'priority': 4,
@@ -60,9 +60,10 @@ DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = [
     {
         'field_name': 'user_feedback',
         'query_templates': [
-            '{product} user feedback 知乎',
-            '{product} 用户评价 小红书',
-            '{product} 用户评价 论坛',
+            '{product} 评价',
+            '{product} 点评',
+            '{product} 体验',
+            '{product} 反馈',
         ],
         'recommended_sources': ['知乎', '社区', '评测'],
         'priority': 5,
@@ -1158,7 +1159,7 @@ class PlannerLLMClient:
             if field_name in seen:
                 continue
             default_q = self._default_query_templates_for_field(field_name)
-            default_sources = ['zhihu', 'community'] if field_name == 'user_feedback' else ['official', 'public_web']
+            default_sources = ['community', 'review'] if field_name == 'user_feedback' else ['official', 'public_web']
             cleaned.append(
                 {'field_name': field_name, 'query_templates': default_q, 'recommended_sources': default_sources, 'priority': len(cleaned) + 1}
             )
@@ -1233,7 +1234,7 @@ class PlannerLLMClient:
             'strengths': ['{product} 优势 评测', '{product} 对比 优势'],
             'weaknesses': ['{product} 劣势 局限', '{product} 问题 吐槽'],
             'pricing_model': ['{product} 官网 价格 套餐', '{product} 官网 企业版 计费'],
-            'user_feedback': ['{product} 用户评价 知乎', '{product} 用户反馈 社区'],
+            'user_feedback': ['{product} 评价', '{product} 点评', '{product} 体验', '{product} 反馈'],
         }
         return defaults.get(field_name, [f'{{product}} {field_name}', f'{{product}} {field_name} 官网'])
 

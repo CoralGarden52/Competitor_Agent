@@ -8,10 +8,14 @@ from typing import Any
 
 from app.core.models import (
     ApprovalPolicy,
+    AnalyzeHandoff,
+    CollectHandoff,
     EventRecord,
     FieldRiskProfile,
+    LLMCallTrace,
     PolicyAuditRecord,
     PolicyDecision,
+    PlanHandoff,
     ProposalStatus,
     RunState,
     RunSummary,
@@ -234,6 +238,59 @@ class SQLiteStore:
                     actor TEXT NOT NULL,
                     created_at TEXT NOT NULL
                 )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS stage_handoffs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    run_id TEXT NOT NULL,
+                    stage TEXT NOT NULL,
+                    attempt INTEGER NOT NULL,
+                    handoff_type TEXT NOT NULL,
+                    payload_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE INDEX IF NOT EXISTS idx_stage_handoffs_run_stage_attempt
+                ON stage_handoffs(run_id, stage, attempt, id)
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS llm_calls (
+                    trace_id TEXT PRIMARY KEY,
+                    run_id TEXT NOT NULL,
+                    attempt INTEGER NOT NULL,
+                    node_name TEXT NOT NULL,
+                    agent_name TEXT NOT NULL,
+                    trace_name TEXT NOT NULL,
+                    model TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    system_prompt TEXT NOT NULL,
+                    user_payload_json TEXT NOT NULL,
+                    raw_response_json TEXT NOT NULL,
+                    parsed_response_json TEXT NOT NULL,
+                    error_reason TEXT NOT NULL,
+                    error_message TEXT NOT NULL,
+                    finish_reason TEXT NOT NULL,
+                    latency_ms INTEGER NOT NULL,
+                    prompt_tokens INTEGER NOT NULL,
+                    completion_tokens INTEGER NOT NULL,
+                    total_tokens INTEGER NOT NULL,
+                    usage_source TEXT NOT NULL,
+                    usage_details_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE INDEX IF NOT EXISTS idx_llm_calls_run_node_attempt
+                ON llm_calls(run_id, node_name, attempt, created_at)
                 '''
             )
             self._seed_default_schema_versions(conn)
@@ -878,6 +935,170 @@ class SQLiteStore:
                 'ended_at': row['ended_at'],
                 'duration_ms': row['duration_ms'],
                 'error_text': row['error_text'],
+            }
+            for row in rows
+        ]
+
+    def save_stage_handoff(
+        self,
+        *,
+        run_id: str,
+        stage: StageName,
+        attempt: int,
+        handoff: PlanHandoff | CollectHandoff | AnalyzeHandoff,
+    ) -> None:
+        now_s = datetime.now(UTC).isoformat()
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO stage_handoffs (run_id, stage, attempt, handoff_type, payload_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ''',
+                (
+                    run_id,
+                    stage.value,
+                    attempt,
+                    handoff.__class__.__name__,
+                    handoff.model_dump_json(),
+                    now_s,
+                ),
+            )
+
+    def list_stage_handoffs(
+        self,
+        run_id: str,
+        *,
+        stage: str | None = None,
+        attempt: int | None = None,
+    ) -> list[dict[str, Any]]:
+        sql = 'SELECT stage, attempt, handoff_type, payload_json, created_at FROM stage_handoffs WHERE run_id = ?'
+        params: list[Any] = [run_id]
+        if stage is not None:
+            sql += ' AND stage = ?'
+            params.append(stage)
+        if attempt is not None:
+            sql += ' AND attempt = ?'
+            params.append(attempt)
+        sql += ' ORDER BY id ASC'
+        with self._connect() as conn:
+            rows = conn.execute(sql, tuple(params)).fetchall()
+        return [
+            {
+                'stage': row['stage'],
+                'attempt': row['attempt'],
+                'handoff_type': row['handoff_type'],
+                'payload': json.loads(row['payload_json']),
+                'created_at': row['created_at'],
+            }
+            for row in rows
+        ]
+
+    def latest_stage_handoff(
+        self,
+        run_id: str,
+        *,
+        stage: StageName,
+        attempt: int | None = None,
+    ) -> PlanHandoff | CollectHandoff | AnalyzeHandoff | None:
+        sql = 'SELECT handoff_type, payload_json FROM stage_handoffs WHERE run_id = ? AND stage = ?'
+        params: list[Any] = [run_id, stage.value]
+        if attempt is not None:
+            sql += ' AND attempt = ?'
+            params.append(attempt)
+        sql += ' ORDER BY id DESC LIMIT 1'
+        with self._connect() as conn:
+            row = conn.execute(sql, tuple(params)).fetchone()
+        if row is None:
+            return None
+        type_name = row['handoff_type']
+        if type_name == 'PlanHandoff':
+            return PlanHandoff.model_validate_json(row['payload_json'])
+        if type_name == 'CollectHandoff':
+            return CollectHandoff.model_validate_json(row['payload_json'])
+        if type_name == 'AnalyzeHandoff':
+            return AnalyzeHandoff.model_validate_json(row['payload_json'])
+        return None
+
+    def save_llm_call(self, trace: LLMCallTrace) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT OR REPLACE INTO llm_calls (
+                    trace_id, run_id, attempt, node_name, agent_name, trace_name, model, status,
+                    system_prompt, user_payload_json, raw_response_json, parsed_response_json,
+                    error_reason, error_message, finish_reason, latency_ms, prompt_tokens,
+                    completion_tokens, total_tokens, usage_source, usage_details_json, created_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''',
+                (
+                    trace.trace_id,
+                    trace.run_id,
+                    trace.attempt,
+                    trace.node_name,
+                    trace.agent_name,
+                    trace.trace_name,
+                    trace.model,
+                    trace.status,
+                    trace.system_prompt,
+                    json.dumps(trace.user_payload, ensure_ascii=False),
+                    json.dumps(trace.raw_response, ensure_ascii=False),
+                    json.dumps(trace.parsed_response, ensure_ascii=False),
+                    trace.error_reason,
+                    trace.error_message,
+                    trace.finish_reason,
+                    trace.latency_ms,
+                    trace.prompt_tokens,
+                    trace.completion_tokens,
+                    trace.total_tokens,
+                    trace.usage_source,
+                    json.dumps(trace.usage_details, ensure_ascii=False),
+                    trace.created_at.isoformat(),
+                ),
+            )
+
+    def list_llm_calls(
+        self,
+        run_id: str,
+        *,
+        node_name: str | None = None,
+        attempt: int | None = None,
+    ) -> list[dict[str, Any]]:
+        sql = 'SELECT * FROM llm_calls WHERE run_id = ?'
+        params: list[Any] = [run_id]
+        if node_name is not None:
+            sql += ' AND node_name = ?'
+            params.append(node_name)
+        if attempt is not None:
+            sql += ' AND attempt = ?'
+            params.append(attempt)
+        sql += ' ORDER BY created_at ASC'
+        with self._connect() as conn:
+            rows = conn.execute(sql, tuple(params)).fetchall()
+        return [
+            {
+                'trace_id': row['trace_id'],
+                'run_id': row['run_id'],
+                'attempt': row['attempt'],
+                'node_name': row['node_name'],
+                'agent_name': row['agent_name'],
+                'trace_name': row['trace_name'],
+                'model': row['model'],
+                'status': row['status'],
+                'system_prompt': row['system_prompt'],
+                'user_payload': json.loads(row['user_payload_json']),
+                'raw_response': json.loads(row['raw_response_json']),
+                'parsed_response': json.loads(row['parsed_response_json']),
+                'error_reason': row['error_reason'],
+                'error_message': row['error_message'],
+                'finish_reason': row['finish_reason'],
+                'latency_ms': row['latency_ms'],
+                'prompt_tokens': row['prompt_tokens'],
+                'completion_tokens': row['completion_tokens'],
+                'total_tokens': row['total_tokens'],
+                'usage_source': row['usage_source'],
+                'usage_details': json.loads(row['usage_details_json']),
+                'created_at': row['created_at'],
             }
             for row in rows
         ]

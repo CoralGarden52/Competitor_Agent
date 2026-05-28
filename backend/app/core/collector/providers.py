@@ -139,7 +139,7 @@ class QianfanSearchProvider:
 
 
 class ZhihuOfficialProvider:
-    _RATE_LIMIT_RPS = 3.0
+    _RATE_LIMIT_RPS = 1.0
     _MIN_INTERVAL_SEC = 1.0 / _RATE_LIMIT_RPS
     _rate_limit_lock = threading.Lock()
     _last_request_monotonic = 0.0

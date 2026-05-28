@@ -8,9 +8,12 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from typing import Any
 
 from app.core.config import AppConfig
+from app.core.models import LLMCallTrace
+from app.core.storage import SQLiteStore
 from app.core.tracing_factory import get_tracing_runtime
 
 logger = logging.getLogger(__name__)
@@ -28,8 +31,9 @@ class LLMCallError(RuntimeError):
 
 
 class AgentLLMClient:
-    def __init__(self, config: AppConfig):
+    def __init__(self, config: AppConfig, store: SQLiteStore | None = None):
         self.config = config
+        self.store = store
 
     def enabled(self) -> bool:
         return bool(self.config.openai_api_key and self.config.openai_base_url and self.config.openai_model)
@@ -88,6 +92,7 @@ class AgentLLMClient:
 
         with trace_ctx:
             for idx in range(attempts):
+                started_at = time.time()
                 try:
                     data = self._post_chat_completion(url=url, payload=payload)
                     choices = data.get('choices', [])
@@ -109,8 +114,30 @@ class AgentLLMClient:
                             metadata=metadata,
                         )
                         parsed = _parse_json_content(repaired)
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response=data,
+                        parsed_response=parsed,
+                        status='completed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                    )
                     return parsed
                 except LLMCallError as exc:
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=exc.reason,
+                        error_message=str(exc),
+                    )
                     last_exc = exc
                     last_reason = exc.reason
                     if idx < attempts - 1 and _is_retryable_reason(exc.reason):
@@ -119,6 +146,18 @@ class AgentLLMClient:
                     break
                 except Exception as exc:
                     reason = _classify_error(exc)
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=reason,
+                        error_message=str(exc),
+                    )
                     last_exc = exc
                     last_reason = reason
                     if idx < attempts - 1 and _is_retryable_reason(reason):
@@ -186,6 +225,56 @@ class AgentLLMClient:
                 retry_count_used=0,
             )
         return str((choices[0].get('message') or {}).get('content', '{}'))
+
+    def _record_llm_trace(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        raw_response: dict[str, Any],
+        parsed_response: dict[str, Any],
+        status: str,
+        latency_ms: int,
+        error_reason: str = '',
+        error_message: str = '',
+    ) -> None:
+        if self.store is None:
+            return
+        usage = raw_response.get('usage', {}) if isinstance(raw_response, dict) else {}
+        prompt_tokens, completion_tokens, total_tokens, usage_source, usage_details = _extract_usage(usage)
+        finish_reason = ''
+        choices = raw_response.get('choices', []) if isinstance(raw_response, dict) else []
+        if choices and isinstance(choices[0], dict):
+            finish_reason = str(choices[0].get('finish_reason', '') or '')
+        trace = LLMCallTrace(
+            run_id=str(metadata.get('run_id', '') or ''),
+            attempt=int(metadata.get('attempt', 0) or 0),
+            node_name=str(metadata.get('node_name', '') or ''),
+            agent_name=str(metadata.get('agent_name', '') or ''),
+            trace_name=trace_name,
+            model=str(metadata.get('model', self.config.openai_model) or self.config.openai_model),
+            status='completed' if status == 'completed' else 'failed',
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            raw_response=raw_response if isinstance(raw_response, dict) else {},
+            parsed_response=parsed_response if isinstance(parsed_response, dict) else {},
+            error_reason=error_reason,
+            error_message=error_message[:2000],
+            finish_reason=finish_reason,
+            latency_ms=max(0, latency_ms),
+            prompt_tokens=prompt_tokens,
+            completion_tokens=completion_tokens,
+            total_tokens=total_tokens,
+            usage_source=usage_source,
+            usage_details=usage_details,
+            created_at=datetime.now(UTC),
+        )
+        try:
+            self.store.save_llm_call(trace)
+        except Exception as exc:
+            logger.warning('Failed to persist llm trace %s: %s', trace_name, exc)
 
 
 class _NullTrace:
@@ -286,3 +375,18 @@ def _strip_json_fence(text: str) -> str:
         stripped = re.sub(r'^```(?:json)?\s*', '', stripped, flags=re.IGNORECASE)
         stripped = re.sub(r'\s*```$', '', stripped)
     return stripped
+
+
+def _extract_usage(usage: Any) -> tuple[int, int, int, str, dict[str, Any]]:
+    if not isinstance(usage, dict):
+        return 0, 0, 0, 'missing', {}
+    prompt_tokens = int(usage.get('prompt_tokens', 0) or 0)
+    completion_tokens = int(usage.get('completion_tokens', 0) or 0)
+    total_tokens = int(usage.get('total_tokens', prompt_tokens + completion_tokens) or 0)
+    details = {
+        key: value
+        for key, value in usage.items()
+        if key not in {'prompt_tokens', 'completion_tokens', 'total_tokens'}
+    }
+    source = 'provider' if any([prompt_tokens, completion_tokens, total_tokens, details]) else 'missing'
+    return prompt_tokens, completion_tokens, total_tokens, source, details

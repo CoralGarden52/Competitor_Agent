@@ -41,6 +41,31 @@ def test_run_happy_path() -> None:
     assert 'user_feedback' in profile
 
 
+def test_replay_endpoint_includes_handoffs() -> None:
+    app = create_app()
+    client = TestClient(app)
+    payload = {
+        'industry': 'saas',
+        'competitors': ['alpha'],
+        'language': 'zh-CN',
+        'timeframe': 'last_12_months',
+    }
+    create_resp = client.post('/runs', json=payload)
+    assert create_resp.status_code == 200
+    run_id = create_resp.json()['state']['run_id']
+
+    replay_resp = client.get(f'/runs/{run_id}/replay')
+    assert replay_resp.status_code == 200
+    body = replay_resp.json()
+    assert isinstance(body['handoffs'], list)
+    assert any(item['handoff_type'] == 'PlanHandoff' for item in body['handoffs'])
+
+    node_resp = client.get(f'/runs/{run_id}/nodes/analyze')
+    assert node_resp.status_code == 200
+    node_body = node_resp.json()
+    assert isinstance(node_body['handoffs'], list)
+
+
 def test_registry_endpoint() -> None:
     app = create_app()
     client = TestClient(app)

@@ -16,14 +16,19 @@ from app.core.planner_llm import PlannerLLMClient
 from app.core.graph_state import WorkflowGraphState, init_graph_state_from_run_request, make_stage_snapshot
 from app.core.models import (
     AnalysisSchemaField,
+    AnalyzeHandoff,
     ApprovalPolicy,
+    CollectHandoff,
     CompetitorProfile,
+    CompetitorEvidenceBundle,
     FieldRiskProfile,
+    FieldEvidenceBundle,
     EventEnvelope,
     EventType,
     FeatureNode,
     FeedbackSummary,
     Finding,
+    PlanHandoff,
     PolicyAuditRecord,
     PolicyDecision,
     PolicyUpsertRequest,
@@ -55,7 +60,7 @@ class CompetitorWorkflowService:
         self.store = store
         self.config = get_config()
         self.planner_llm = PlannerLLMClient(self.config)
-        self.agent_llm = AgentLLMClient(self.config)
+        self.agent_llm = AgentLLMClient(self.config, store)
         self.collector = CollectorPipeline(self.config, self.store)
         self.policy_engine = ApprovalPolicyEngine(store)
         self.orchestrator = OrchestratorAgent(max_rework_iterations=self.config.max_rework_iterations, planner=self.planner_llm)
@@ -111,14 +116,18 @@ class CompetitorWorkflowService:
         if run is None:
             return {'run_id': run_id, 'timeline': [], 'status': 'not_found'}
         timeline = self.store.replay_timeline(run_id)
-        return {'run_id': run_id, 'status': run.state.status, 'timeline': timeline}
+        handoffs = self.store.list_stage_handoffs(run_id)
+        llm_calls = self.store.list_llm_calls(run_id)
+        return {'run_id': run_id, 'status': run.state.status, 'timeline': timeline, 'handoffs': handoffs, 'llm_calls': llm_calls}
 
     def replay_node(self, run_id: str, node_name: str) -> dict[str, object]:
         run = self.get_run(run_id)
         if run is None:
             return {'run_id': run_id, 'node_name': node_name, 'io': [], 'status': 'not_found'}
         io = self.store.replay_node_io(run_id, node_name)
-        return {'run_id': run_id, 'node_name': node_name, 'io': io}
+        handoffs = self.store.list_stage_handoffs(run_id, stage=node_name)
+        llm_calls = self.store.list_llm_calls(run_id, node_name=node_name)
+        return {'run_id': run_id, 'node_name': node_name, 'io': io, 'handoffs': handoffs, 'llm_calls': llm_calls}
 
     def resume_from_checkpoint(self, run_id: str) -> RunResponse | None:
         state = self.store.latest_checkpoint(run_id)
@@ -481,6 +490,7 @@ class CompetitorWorkflowService:
             'plan.schema_generated',
             {'analysis_schema_plan': [item.model_dump(mode='json') for item in state.analysis_schema_plan]},
         )
+        self._save_handoff(state, StageName.plan, self._build_plan_handoff(state))
 
     def _collect(self, state: RunState) -> None:
         qa_collect_plan = self._consume_qa_collect_plan(state)
@@ -510,6 +520,16 @@ class CompetitorWorkflowService:
                 'errors': result.errors[:5],
                 'qa_plan_used': bool(qa_collect_plan),
             },
+        )
+        self._save_handoff(
+            state,
+            StageName.collect,
+            self._build_collect_handoff(
+                state,
+                provider_events=result.provider_events,
+                errors=result.errors,
+                qa_collect_plan_used=bool(qa_collect_plan),
+            ),
         )
 
     def _normalize(self, state: RunState) -> None:
@@ -599,6 +619,7 @@ class CompetitorWorkflowService:
                 'domain_version': domain.version,
             },
         )
+        self._save_handoff(state, StageName.analyze, self._build_analyze_handoff(state))
 
     def _draft(self, state: RunState) -> None:
         self._save_and_event(state, StageName.draft, 'agent.llm.started', {'agent': 'WriterAgent', 'trace_name': 'agent.draft.generate_report'})
@@ -661,8 +682,16 @@ class CompetitorWorkflowService:
         self._save_and_event(state, StageName.draft, EventType.draft_completed.value, {'has_report': state.report is not None})
 
     def _qa(self, state: RunState) -> QAOutput:
-        self._save_and_event(state, StageName.qa, 'qa.analysis_review.started', {'competitor_count': len(state.competitor_analyses)})
-        if not state.competitor_analyses:
+        analyze_handoff = self.store.latest_stage_handoff(run_id=state.run_id, stage=StageName.analyze, attempt=state.attempt)
+        handoff_analyses = analyze_handoff.competitor_analyses if isinstance(analyze_handoff, AnalyzeHandoff) else []
+        active_analyses = handoff_analyses or state.competitor_analyses
+        self._save_and_event(
+            state,
+            StageName.qa,
+            'qa.analysis_review.started',
+            {'competitor_count': len(active_analyses), 'handoff_used': bool(handoff_analyses)},
+        )
+        if not active_analyses:
             result = QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
             self._save_and_event(state, StageName.qa, 'qa_checked', {'passed': True, 'issue_count': 0, 'reason': 'no_competitor_analyses'})
             return result
@@ -670,7 +699,7 @@ class CompetitorWorkflowService:
         schema_fields = [item.field_name for item in state.analysis_schema_plan if item.field_name]
         reviews: list[dict] = []
         review_errors: list[dict] = []
-        max_workers = min(4, len(state.competitor_analyses))
+        max_workers = min(4, len(active_analyses))
 
         def _review_one(record) -> dict:
             payload = {
@@ -685,7 +714,7 @@ class CompetitorWorkflowService:
             )
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            future_map = {executor.submit(_review_one, record): record.product_name for record in state.competitor_analyses}
+            future_map = {executor.submit(_review_one, record): record.product_name for record in active_analyses}
             for future in concurrent.futures.as_completed(future_map):
                 competitor = future_map[future]
                 try:
@@ -822,6 +851,108 @@ class CompetitorWorkflowService:
             'target_competitors': target_competitors,
             'field_query_overrides': field_query_overrides,
         }
+
+    def _save_handoff(
+        self,
+        state: RunState,
+        stage: StageName,
+        handoff: PlanHandoff | CollectHandoff | AnalyzeHandoff,
+    ) -> None:
+        self.store.save_stage_handoff(
+            run_id=state.run_id,
+            stage=stage,
+            attempt=state.attempt,
+            handoff=handoff,
+        )
+        self._save_and_event(
+            state,
+            stage,
+            f'{stage.value}.handoff.saved',
+            {
+                'handoff_type': handoff.__class__.__name__,
+                'attempt': state.attempt,
+            },
+        )
+
+    @staticmethod
+    def _build_plan_handoff(state: RunState) -> PlanHandoff:
+        return PlanHandoff(
+            run_id=state.run_id,
+            attempt=state.attempt,
+            inferred_industry=state.industry,
+            planned_competitors=state.planned_competitors or state.competitors,
+            candidate_groups=state.planner_meta.get('candidate_groups', {}) if isinstance(state.planner_meta, dict) else {},
+            analysis_schema_plan=state.analysis_schema_plan,
+            split_strategy=state.split_strategy,
+            planner_meta=state.planner_meta,
+        )
+
+    def _build_collect_handoff(
+        self,
+        state: RunState,
+        *,
+        provider_events: list[dict],
+        errors: list[str],
+        qa_collect_plan_used: bool,
+    ) -> CollectHandoff:
+        schema_fields = [item.field_name for item in state.analysis_schema_plan]
+        competitors = state.planned_competitors or state.competitors
+        bundles: list[CompetitorEvidenceBundle] = []
+        for competitor in competitors:
+            fields: list[FieldEvidenceBundle] = []
+            for field_name in schema_fields:
+                matches = [
+                    ev
+                    for ev in state.evidences
+                    if self.analyst_agent._evidence_matches_competitor(ev, competitor)
+                    and self.analyst_agent._evidence_matches_field(ev, field_name)
+                ]
+                fields.append(FieldEvidenceBundle(field_name=field_name, evidences=matches))
+            bundles.append(CompetitorEvidenceBundle(product_name=competitor, fields=fields))
+        return CollectHandoff(
+            run_id=state.run_id,
+            attempt=state.attempt,
+            competitors=competitors,
+            schema_fields=schema_fields,
+            evidence_bundles=bundles,
+            provider_events=provider_events,
+            errors=errors,
+            total_evidence_count=len(state.evidences),
+            qa_collect_plan_used=qa_collect_plan_used,
+        )
+
+    @staticmethod
+    def _build_analyze_handoff(state: RunState) -> AnalyzeHandoff:
+        coverage_summary: list[dict[str, object]] = []
+        gap_summary: list[dict[str, object]] = []
+        for record in state.competitor_analyses:
+            for field in record.fields:
+                coverage_summary.append(
+                    {
+                        'competitor': record.product_name,
+                        'field_name': field.field_name,
+                        'evidence_count': len(field.evidence_refs),
+                        'confidence': field.confidence,
+                    }
+                )
+                if field.evidence_gaps:
+                    gap_summary.append(
+                        {
+                            'competitor': record.product_name,
+                            'field_name': field.field_name,
+                            'gaps': field.evidence_gaps,
+                        }
+                    )
+        return AnalyzeHandoff(
+            run_id=state.run_id,
+            attempt=state.attempt,
+            competitors=state.planned_competitors or state.competitors,
+            competitor_analyses=state.competitor_analyses,
+            profiles=state.profiles,
+            findings=state.findings,
+            coverage_summary=coverage_summary,
+            evidence_gap_summary=gap_summary,
+        )
 
     def _finalize(self, state: RunState) -> None:
         for ticket in state.tickets:

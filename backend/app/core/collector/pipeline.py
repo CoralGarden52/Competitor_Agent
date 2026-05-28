@@ -379,12 +379,17 @@ class CollectorPipeline:
         return content, provider_name
 
     def _persist_raw_content(self, run_id: str, evidence_hash: str, content: str) -> Path:
-        # 使用预览保存目录作为默认路径
-        base_path = Path(getattr(self.config, 'collector_raw_content_path', 'collector_raw'))
+        # Persist under backend/.data/raw_evidence to avoid cwd-dependent duplicate directories.
+        backend_root = Path(__file__).resolve().parents[3]
+        bucket = 'preview' if run_id.strip() == 'preview' else run_id.strip()
+        base_path = backend_root / '.data' / 'raw_evidence' / bucket
         base_path.mkdir(parents=True, exist_ok=True)
-        file_path = base_path / f'{run_id}_{evidence_hash}.txt'
+        file_path = base_path / f'{evidence_hash}.txt'
         file_path.write_text(content, encoding='utf-8')
-        return file_path
+        try:
+            return file_path.relative_to(backend_root)
+        except ValueError:
+            return file_path
 
     def _infer_source_type(self, url: str) -> str:
         u = url.lower()
