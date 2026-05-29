@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -30,10 +31,20 @@ def test_run_happy_path() -> None:
     response = client.post('/runs', json=payload)
     assert response.status_code == 200
     body = response.json()
-    assert body['state']['status'] in ('completed', 'failed')
-    assert len(body['state']['profiles']) >= 1
+    assert body['state']['status'] == 'running'
+    run_id = body['state']['run_id']
 
-    profile = body['state']['profiles'][0]
+    final_body = body
+    for _ in range(40):
+        final_body = client.get(f'/runs/{run_id}').json()
+        if final_body['state']['status'] in ('completed', 'failed'):
+            break
+        time.sleep(0.05)
+
+    assert final_body['state']['status'] in ('completed', 'failed')
+    assert len(final_body['state']['profiles']) >= 1
+
+    profile = final_body['state']['profiles'][0]
     assert 'feature_tree' in profile
     assert 'advantages' in profile
     assert 'disadvantages' in profile
@@ -53,6 +64,13 @@ def test_replay_endpoint_includes_handoffs() -> None:
     create_resp = client.post('/runs', json=payload)
     assert create_resp.status_code == 200
     run_id = create_resp.json()['state']['run_id']
+
+    for _ in range(40):
+        state_resp = client.get(f'/runs/{run_id}')
+        assert state_resp.status_code == 200
+        if state_resp.json()['state']['status'] in ('completed', 'failed'):
+            break
+        time.sleep(0.05)
 
     replay_resp = client.get(f'/runs/{run_id}/replay')
     assert replay_resp.status_code == 200

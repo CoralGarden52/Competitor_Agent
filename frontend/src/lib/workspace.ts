@@ -129,6 +129,8 @@ export interface LiveProgress {
   completed_stages: string[]
   latest_stage: string
   workspace: WorkspacePayload | null
+  preview?: PreviewPayload | null
+  timed_out?: boolean
 }
 
 async function fetchJson<T>(path: string, init?: RequestInit): Promise<T> {
@@ -294,15 +296,20 @@ export async function loadLiveWorkspace(runId: string): Promise<WorkspacePayload
 export async function runLivePrompt(
   prompt: string,
   onProgress?: (progress: LiveProgress) => void
-): Promise<{ preview: PreviewPayload; workspace: WorkspacePayload }> {
+): Promise<{ preview: PreviewPayload; workspace: WorkspacePayload; timedOut: boolean }> {
   const preview = await fetchJson<PreviewPayload>('/collector/preview', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt, industry_hint: '', competitor_hints: [] }),
   })
-  if (!preview.planned_competitors.length) {
-    throw new Error('未发现可用竞品，建议补充更明确的产品定位或功能关键词。')
-  }
+  onProgress?.({
+    run_id: '',
+    status: 'preview_ready',
+    completed_stages: ['plan'],
+    latest_stage: 'plan',
+    workspace: null,
+    preview,
+  })
 
   let run = await fetchJson<{
     summary: { run_id: string }
@@ -312,7 +319,7 @@ export async function runLivePrompt(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       industry: preview.inferred_industry || 'general',
-      competitors: preview.planned_competitors.slice(0, 5),
+      competitors: preview.planned_competitors.slice(0, 3),
       user_prompt: prompt,
       language: 'zh-CN',
       timeframe: 'last_12_months',
@@ -320,6 +327,7 @@ export async function runLivePrompt(
   })
 
   let latestWorkspace: WorkspacePayload | null = null
+  let timedOut = true
   const emitProgress = (workspace: WorkspacePayload | null, status: string) => {
     const completedStages =
       workspace?.workflow.agent_stages
@@ -335,6 +343,8 @@ export async function runLivePrompt(
       completed_stages: completedStages,
       latest_stage: latestStage,
       workspace,
+      preview,
+      timed_out: timedOut,
     })
   }
 
@@ -346,7 +356,11 @@ export async function runLivePrompt(
   }
 
   for (let attempt = 0; attempt < 120; attempt += 1) {
-    if (run.state.status !== 'running') break
+    const currentStatus = latestWorkspace?.run.status ?? run.state.status
+    if (currentStatus !== 'running') {
+      timedOut = false
+      break
+    }
     await new Promise((resolve) => setTimeout(resolve, 1500))
     run = await fetchJson(`/runs/${run.summary.run_id}`)
     try {
@@ -358,7 +372,10 @@ export async function runLivePrompt(
   }
 
   const workspace = latestWorkspace ?? (await loadLiveWorkspace(run.summary.run_id))
-  return { preview, workspace }
+  if (workspace.run.status !== 'running') {
+    timedOut = false
+  }
+  return { preview, workspace, timedOut }
 }
 
 export async function downloadLogs(path: string, fallback: WorkspacePayload): Promise<void> {

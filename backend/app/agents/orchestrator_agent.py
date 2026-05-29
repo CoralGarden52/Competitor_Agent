@@ -47,15 +47,15 @@ class OrchestratorAgent:
         competitors: list[str] | None = None,
         industry_hint: str | None = None,
         competitor_hints: list[str] | None = None,
-        max_direct: int = 4,
-        max_substitute: int = 2,
+        max_direct: int = 2,
+        max_substitute: int = 1,
     ) -> dict[str, Any]:
         """
         直接根据用户输入生成动态竞品分析计划。
 
         参数：
-        - max_direct: 直接竞品最大数量（默认4）
-        - max_substitute: 替代竞品最大数量（默认2）
+        - max_direct: 直接竞品最大数量（默认2）
+        - max_substitute: 替代竞品最大数量（默认1）
 
         流程：
         1. 如果用户提供了 competitor_hints，直接使用

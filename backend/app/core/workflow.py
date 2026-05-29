@@ -2,6 +2,7 @@
 
 import json
 import concurrent.futures
+import logging
 from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
@@ -55,6 +56,9 @@ from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, reg
 from app.core.storage import SQLiteStore
 
 
+logger = logging.getLogger(__name__)
+
+
 class CompetitorWorkflowService:
     def __init__(self, store: SQLiteStore):
         self.store = store
@@ -69,8 +73,21 @@ class CompetitorWorkflowService:
         self.writer_agent = WriterAgent(self.agent_llm)
         self.qa_critic_agent = QACriticAgent(self.agent_llm, self.store)
         self.runtime = WorkflowLangGraphRuntime(self)
+        self._run_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix='workflow-run')
+        self._background_runs: dict[str, concurrent.futures.Future[None]] = {}
 
     def start_run(self, request: RunRequest) -> RunResponse:
+        state = self._initialize_run_state(request)
+        state = self._execute_run(state)
+        return RunResponse(summary=self._summary_for(state), state=state)
+
+    def start_run_async(self, request: RunRequest) -> RunResponse:
+        state = self._initialize_run_state(request)
+        future = self._run_executor.submit(self._execute_run_background, state)
+        self._background_runs[state.run_id] = future
+        return RunResponse(summary=self._summary_for(state), state=state)
+
+    def _initialize_run_state(self, request: RunRequest) -> RunState:
         state = RunState(
             industry=request.industry.strip().lower(),
             competitors=request.competitors,
@@ -92,13 +109,33 @@ class CompetitorWorkflowService:
             'start',
             {'competitors': request.competitors, 'user_prompt': request.user_prompt.strip()},
         )
+        return state
+
+    def _execute_run(self, state: RunState) -> RunState:
         state = self.runtime.execute(state)
         if state.status not in ('completed', 'failed'):
             state.status = 'failed'
             self._save_and_event(state, StageName.qa, 'max_iterations_reached', {'iteration': state.attempt, 'reason': 'runtime_ended_without_terminal_status'})
         self.store.save_state(state)
         self._auto_save_demo_workspace(state.run_id)
-        return RunResponse(summary=self._summary_for(state), state=state)
+        return state
+
+    def _execute_run_background(self, state: RunState) -> None:
+        try:
+            self._execute_run(state)
+        except Exception as exc:
+            logger.exception('Background run failed for %s', state.run_id)
+            state.status = 'failed'
+            self._save_and_event(
+                state,
+                StageName.finalize,
+                'background_failed',
+                {'error': str(exc)},
+            )
+            self.store.save_state(state)
+            self._auto_save_demo_workspace(state.run_id)
+        finally:
+            self._background_runs.pop(state.run_id, None)
 
     def get_run(self, run_id: str) -> RunResponse | None:
         state = self.store.get_state(run_id)

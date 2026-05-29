@@ -282,6 +282,14 @@ select {
   color: var(--muted);
 }
 
+.inline-empty {
+  height: auto;
+  min-height: 140px;
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.72);
+}
+
 .panel-section {
   display: grid;
   gap: 14px;
@@ -332,6 +340,7 @@ select {
   fill: none;
   stroke: #98a2b3;
   stroke-width: 2.2;
+  stroke-linecap: round;
 }
 
 .dag-rect {
@@ -348,6 +357,13 @@ select {
 .dag-rect.failed,
 .dag-rect.warning {
   stroke: rgba(249, 115, 22, 0.55);
+}
+
+.dag-rect.current {
+  stroke: rgba(37, 99, 235, 0.9);
+  stroke-width: 2.4;
+  fill: rgba(239, 246, 255, 0.98);
+  filter: drop-shadow(0 12px 24px rgba(37, 99, 235, 0.16));
 }
 
 .dag-stage-label {
@@ -592,6 +608,17 @@ select {
 .dag-rect.selected {
   border-color: rgba(37, 99, 235, 0.35);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.stage-card.current {
+  border-color: rgba(37, 99, 235, 0.55);
+  background: linear-gradient(180deg, rgba(239, 246, 255, 0.98), rgba(255, 255, 255, 0.96));
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.stage-card.current .stage-head span,
+.stage-card.current .stage-head strong {
+  color: #1d4ed8;
 }
 
 .dag-rect.selected {
