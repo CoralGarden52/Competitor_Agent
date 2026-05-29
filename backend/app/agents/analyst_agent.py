@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import concurrent.futures
 import logging
@@ -38,15 +38,27 @@ class AnalystAgent:
         self.llm = llm
         self.store = store
 
-    def run_llm(self, state: RunState) -> AnalyzeOutput:
+    def run_llm(
+        self,
+        state: RunState,
+        *,
+        reanalyze_targets: dict[str, set[str]] | None = None,
+        previous_records: list[CompetitorAnalysisRecord] | None = None,
+    ) -> AnalyzeOutput:
         schema_plan = self._schema_plan(state)
         schema_map = {item.field_name: item for item in schema_plan}
         bundles = self._build_competitor_evidence_bundles(state, schema_plan)
+        previous_map = {item.product_name: item for item in (previous_records or [])}
+        should_reanalyze = bool(reanalyze_targets)
 
         tasks: list[tuple[int, int, str, FieldEvidenceBundle, AnalysisSchemaField | None]] = []
         for bundle_index, bundle in enumerate(bundles):
             print(f"  分析竞品: {bundle.product_name}")
             for field_index, field_bundle in enumerate(bundle.fields):
+                if should_reanalyze:
+                    target_fields = reanalyze_targets.get(bundle.product_name, set()) if reanalyze_targets else set()
+                    if field_bundle.field_name not in target_fields:
+                        continue
                 print(f"    分析字段: {field_bundle.field_name}")
                 tasks.append(
                     (
@@ -81,16 +93,32 @@ class AnalystAgent:
 
         records = []
         for bundle_index, bundle in enumerate(bundles):
-            ordered_fields = [
-                field_results[(bundle_index, field_index)]
-                for field_index, _field_bundle in enumerate(bundle.fields)
-            ]
+            previous_field_map = {
+                item.field_name: item
+                for item in (previous_map.get(bundle.product_name).fields if bundle.product_name in previous_map else [])
+            }
+            ordered_fields: list[AnalysisFieldResult] = []
+            for field_index, field_bundle in enumerate(bundle.fields):
+                key = (bundle_index, field_index)
+                if key in field_results:
+                    ordered_fields.append(field_results[key])
+                    continue
+                reused = previous_field_map.get(field_bundle.field_name)
+                if reused is not None:
+                    ordered_fields.append(reused)
+                    continue
+                ordered_fields.append(
+                    self._fallback_field_result(
+                        bundle.product_name,
+                        field_bundle.field_name,
+                        field_bundle.evidences,
+                    )
+                )
             records.append(CompetitorAnalysisRecord(product_name=bundle.product_name, fields=ordered_fields))
 
         profiles = [self._profile_from_record(state=state, record=record) for record in records]
         findings = self._build_findings_from_records(records)
         return AnalyzeOutput(competitors=records, profiles=profiles, findings=findings)
-    
     def _analyze_single_field(
         self,
         competitor: str,
@@ -99,7 +127,7 @@ class AnalystAgent:
         industry: str,
         schema_item: AnalysisSchemaField | None = None,
     ) -> AnalysisFieldResult:
-        """对单个字段进行分析，单独调用LLM"""
+        """对单个字段进行分析，单独调用 LLM。"""
         if not evidences:
             return AnalysisFieldResult(
                 field_name=field_name,
@@ -113,14 +141,14 @@ class AnalystAgent:
         # 准备证据内容
         evidence_contents = []
         evidence_ids = []
-        for ev in evidences[:5]:  # 最多使用5条证据
+        for ev in evidences[:5]:  # 最多使用 5 条证据
             evidence_ids.append(ev.evidence_id)
             content = ev.snippet[:500] if ev.snippet else ''
             if content:
                 title = ev.title.strip()[:120] if ev.title else ''
                 query = ev.query.strip()[:120] if ev.query else ''
                 evidence_contents.append(
-                    f"证据{len(evidence_contents)+1}（来源: {ev.source_type}，标题: {title}，查询: {query}）:\n{content}"
+                    f"证据{len(evidence_contents)+1}（来源: {ev.source_type}，标题: {title}，查询: {query}）\n{content}"
                 )
 
         query_templates = schema_item.query_templates if schema_item is not None else []
@@ -139,13 +167,10 @@ class AnalystAgent:
 
         sys_prompt = (
             f"{ANALYZE_SYSTEM_PROMPT}\n\n"
-            "你当前只需要分析单个字段，并返回严格 JSON："
+            "Analyze exactly one schema field and return strict JSON only:\n"
             '{"summary":"...","normalized_value":{},"evidence_gaps":[]}\n'
-            "summary 必须是原创总结，且要紧扣当前字段语义。\n"
-            "normalized_value 必须尽可能结构化，并与字段类型相匹配。\n"
-            "如果证据不足，可以在 evidence_gaps 中写出缺口，但不要编造。\n"
-            "重要：只要证据中存在可确认的局部事实，就先提炼这些已确认信息，再说明未确认边界；"
-            "不要因为缺少全量资料就把整个字段都总结成“无法获取”。"
+            "Summarize from evidence instead of copying raw text. Keep output field-specific. "
+            "If evidence is partial, provide confirmed facts first and list remaining gaps."
         )
         
         user_prompt = {
@@ -160,11 +185,8 @@ class AnalystAgent:
             },
             'evidences': evidence_contents,
             'instruction': (
-                f"请基于以上证据，对【{field_name}】字段进行分析总结。"
-                "必须总结提炼，不能直接复制原文；"
-                "必须结合 field_context 理解这个字段要回答什么；"
-                "只输出和该 schema item 直接相关的内容；"
-                "如果现有证据只能支持部分结论，请优先输出这部分已确认内容，并用简短措辞说明剩余缺口。"
+                f"Based on the evidence above, analyze the field [{field_name}]. "
+                "Use field_context to focus the summary, avoid hallucination, and return only JSON-compatible output."
             ),
         }
         
@@ -187,7 +209,7 @@ class AnalystAgent:
             )
             evidence_gaps = self._clean_evidence_gaps(result.get('evidence_gaps', []))
             
-            # 只要 summary / normalized_value / evidence_gaps 里任一部分提供了有效信息，就保留结果。
+            # 只要 summary / normalized_value / evidence_gaps 任一部分有有效信息，就保留结果
             if not self._has_meaningful_field_output(
                 summary=summary,
                 normalized_value=normalized_value,
@@ -240,11 +262,9 @@ class AnalystAgent:
                 result = self.llm.invoke_json(
                     trace_name='agent.analyze.field.pricing_model.chunk',
                     system_prompt=(
-                        "你是企业软件定价分析助手。"
-                        "你的任务是从一小组页面文本中尽可能提取任何定价相关事实。"
-                        "重点关注版本名称、免费层、价格数值、计费周期、席位/人数限制、报价方式、升级条件。"
-                        "即使没有完整价格，也要保留部分已确认事实。不得编造。"
-                        "仅返回 JSON："
+                        "You are an enterprise software pricing analysis assistant. "
+                        "Extract any pricing facts from this evidence chunk and return JSON only. "
+                        "Keep partial but confirmed facts; do not hallucinate."
                         "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
                         "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
                         "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
@@ -263,9 +283,8 @@ class AnalystAgent:
                         },
                         'evidences': chunk,
                         'instruction': (
-                            "请提取这一组证据中所有能确认的定价信息。"
-                            "如果某个页面只给出了版本层级、免费条件或适用人数，也要保留下来。"
-                            "不要因为缺少完整价目表就忽略局部事实。"
+                            "Extract all pricing-relevant facts from this chunk, including partial facts "
+                            "such as plan names, billing cycle, seat limits, free tier, or any explicit prices."
                         ),
                     },
                     metadata={
@@ -294,11 +313,9 @@ class AnalystAgent:
             final_result = self.llm.invoke_json(
                 trace_name='agent.analyze.field.pricing_model.reduce',
                 system_prompt=(
-                    "你是企业软件定价分析助手。"
-                    "请把多个定价证据分块提取结果汇总成一个最终 pricing_model。"
-                    "尽可能整合局部事实，不要只因为缺少完整公开价目表就输出 unknown。"
-                    "如果不同块的信息互补，应合并成更完整的套餐结构。不得编造。"
-                    "仅返回 JSON："
+                    "You are an enterprise software pricing analysis assistant. "
+                    "Merge chunk-level extraction results into one final pricing_model JSON. "
+                    "Preserve confirmed facts and avoid hallucination."
                     "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
                     "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
                     "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
@@ -309,8 +326,7 @@ class AnalystAgent:
                     'field_name': 'pricing_model',
                     'chunk_results': chunk_results,
                     'instruction': (
-                        "请合并各块结果，优先保留能确认的版本结构、免费层、报价方式、人数限制和任何显式价格。"
-                        "如果只确认了部分价格字段，也要保留。"
+                        "Merge chunk results and keep any confirmed plan/tier/pricing facts, even if partial."
                     ),
                 },
                 metadata={
@@ -344,7 +360,7 @@ class AnalystAgent:
             )
         except Exception as exc:
             logger.warning("Pricing reduce extraction failed for %s: %s", competitor, exc)
-            merged_summary = '；'.join(
+            merged_summary = '; '.join(
                 one['summary'] for one in chunk_results if str(one.get('summary', '')).strip() and str(one.get('summary', '')).strip().lower() != 'unknown'
             )[:500]
             merged_gaps: list[str] = []
@@ -597,7 +613,7 @@ class AnalystAgent:
                     continue
                 findings.append(
                     Finding(
-                        statement=f'{record.product_name} 在 {field.field_name} 维度：{field.summary}',
+                        statement=f'{record.product_name} in {field.field_name}: {field.summary}',
                         category=category_map.get(field.field_name, 'feature'),
                         evidence_refs=field.evidence_refs[:3],
                         confidence=field.confidence,
@@ -651,38 +667,35 @@ class AnalystAgent:
     ) -> str:
         if not evidences:
             return 'unknown'
-        
-        # 收集所有证据的摘要内容
+
         all_snippets = []
         for ev in evidences:
             if ev.snippet and ev.snippet.strip():
                 all_snippets.append(ev.snippet.strip())
             elif ev.title and ev.title.strip():
                 all_snippets.append(ev.title.strip())
-        
-        # 合并摘要内容
+
         combined_content = ' '.join(all_snippets)[:500]
-        
-        source_hint = f"重点来源包括：{', '.join(recommended_sources[:3])}。" if recommended_sources else ''
+        source_hint = f" Key sources: {', '.join(recommended_sources[:3])}." if recommended_sources else ''
         if field_name == 'feature_tree':
             if combined_content:
-                return f'{competitor} 的核心功能和能力结构主要体现在：{combined_content[:180]}。'
-            return f'{competitor} 的功能结构可从已采集页面中观察到核心平台、自动化与集成相关能力。{source_hint}'
+                return f'{competitor} feature/capability structure is reflected by: {combined_content[:180]}.'
+            return f'{competitor} has observable core platform and integration capability signals.{source_hint}'
         if field_name == 'pricing_model':
             if combined_content:
-                return f'{competitor} 的定价模式与套餐线索主要包括：{combined_content[:180]}。'
-            return f'{competitor} 存在公开定价或套餐线索。{source_hint}'
+                return f'{competitor} pricing model and tier clues include: {combined_content[:180]}.'
+            return f'{competitor} has public pricing or plan-related signals.{source_hint}'
         if field_name == 'user_feedback':
             if combined_content:
-                return f'{competitor} 的用户反馈重点集中在：{combined_content[:180]}。'
-            return f'{competitor} 存在可公开观察的用户反馈信号。{source_hint}'
+                return f'{competitor} user feedback mainly mentions: {combined_content[:180]}.'
+            return f'{competitor} has observable user feedback signals.{source_hint}'
         if field_name == 'strengths':
-            return combined_content[:180] or f'{competitor} 在该维度存在可观察优势。{source_hint}'
+            return combined_content[:180] or f'{competitor} shows strengths on this dimension.{source_hint}'
         if field_name == 'weaknesses':
-            return combined_content[:180] or f'{competitor} 在该维度存在待确认短板。{source_hint}'
+            return combined_content[:180] or f'{competitor} shows weaknesses on this dimension.{source_hint}'
         if query_templates:
-            return f'{competitor} 在 {field_name} 维度的公开信息主要围绕这些方向：{"；".join(query_templates[:2])}。结合现有证据可见：{combined_content[:160]}。'
-        return combined_content[:180] or f'{competitor} 在 {field_name} 维度存在公开信息。{source_hint}'
+            return f'{competitor} public info on {field_name} focuses on: {"; ".join(query_templates[:2])}. Observed: {combined_content[:160]}.'
+        return combined_content[:180] or f'{competitor} has public information in {field_name}.{source_hint}'
 
     @staticmethod
     def _fallback_normalized_value(
@@ -707,7 +720,7 @@ class AnalystAgent:
             }
         if field_name == 'pricing_model':
             has_pricing = any(
-                ('pricing' in ev.snippet.lower() or 'plan' in ev.snippet.lower() or '价格' in ev.snippet or '套餐' in ev.snippet)
+                ('pricing' in ev.snippet.lower() or 'plan' in ev.snippet.lower() or '浠锋牸' in ev.snippet or '濂楅' in ev.snippet)
                 for ev in evidences
                 if ev.snippet
             )
@@ -741,20 +754,20 @@ class AnalystAgent:
     @staticmethod
     def _field_analysis_focus(field_name: str) -> str:
         focus_map = {
-            'feature_tree': '提炼核心功能、能力结构和主要使用场景',
-            'strengths': '总结核心优势、差异化亮点和竞争卖点',
-            'weaknesses': '总结明显短板、限制条件和用户常见顾虑',
-            'pricing_model': '分析定价模式、套餐结构、计费维度和免费层',
-            'user_feedback': '提炼正向反馈、负向反馈和代表性体验主题',
+            'feature_tree': 'Extract core capabilities, structure, and major use cases.',
+            'strengths': 'Summarize differentiation and core strengths.',
+            'weaknesses': 'Summarize limits, risks, and common concerns.',
+            'pricing_model': 'Analyze pricing structure, tiers, billing dimensions, and free tier.',
+            'user_feedback': 'Extract positive/negative themes and representative feedback.',
         }
-        return focus_map.get(field_name, f'围绕 {field_name} 这个分析维度提炼关键事实、能力范围和差异点')
+        return focus_map.get(field_name, f'Extract key facts and differences around {field_name}.')
 
     @staticmethod
     def _normalized_value_shape_hint(field_name: str) -> dict[str, Any]:
         hints: dict[str, dict[str, Any]] = {
-            'feature_tree': {'nodes': [{'name': '能力模块', 'capability': '能力说明'}]},
-            'strengths': {'items': ['优势1', '优势2']},
-            'weaknesses': {'items': ['劣势1', '劣势2']},
+            'feature_tree': {'nodes': [{'name': 'Capability', 'capability': 'Description'}]},
+            'strengths': {'items': ['strength_1', 'strength_2']},
+            'weaknesses': {'items': ['weakness_1', 'weakness_2']},
             'pricing_model': {
                 'model_type': 'subscription|usage_based|enterprise_quote|unknown',
                 'free_tier': False,
@@ -762,13 +775,13 @@ class AnalystAgent:
                 'tiers': [{'name': 'Pro', 'price_range': 'unknown', 'billing_cycle': 'monthly', 'limits': []}],
             },
             'user_feedback': {
-                'positive_themes': ['易用性'],
-                'negative_themes': ['价格偏高'],
-                'representative_quotes': ['一句代表性反馈'],
+                'positive_themes': ['ease_of_use'],
+                'negative_themes': ['pricing_concern'],
+                'representative_quotes': ['quote'],
                 'sentiment_distribution': {'positive': 0.6, 'neutral': 0.2, 'negative': 0.2},
             },
         }
-        return hints.get(field_name, {'key_observations': ['观察1', '观察2'], 'value': '结构化概括值'})
+        return hints.get(field_name, {'key_observations': ['observation_1', 'observation_2'], 'value': 'structured_value'})
 
     def _coerce_normalized_value(self, *, field_name: str, raw_value: Any, summary: str) -> dict[str, Any]:
         payload = raw_value if isinstance(raw_value, dict) else {}
@@ -918,3 +931,4 @@ class AnalystAgent:
         if non_generic:
             return non_generic[0][:220]
         return f'{record.product_name} market positioning inferred from public sources'
+
