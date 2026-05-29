@@ -568,6 +568,10 @@ class CompetitorWorkflowService:
 
     def _collect(self, state: RunState) -> None:
         qa_collect_plan = self._consume_qa_collect_plan(state)
+        if qa_collect_plan and isinstance(state.planner_meta, dict):
+            reanalyze_targets = qa_collect_plan.get('reanalyze_targets', {})
+            if isinstance(reanalyze_targets, dict) and reanalyze_targets:
+                state.planner_meta['qa_reanalyze_targets'] = reanalyze_targets
         result: CollectOutput = self.collector_agent.run(
             state,
             target_competitors=qa_collect_plan.get('target_competitors') if qa_collect_plan else None,
@@ -621,8 +625,24 @@ class CompetitorWorkflowService:
 
     def _analyze(self, state: RunState) -> None:
         self._save_and_event(state, StageName.analyze, 'agent.llm.started', {'agent': 'AnalystAgent', 'trace_name': 'agent.analyze.generate_profiles'})
+        raw_targets = state.planner_meta.pop('qa_reanalyze_targets', None) if isinstance(state.planner_meta, dict) else None
+        reanalyze_targets: dict[str, set[str]] = {}
+        if isinstance(raw_targets, dict):
+            for competitor, fields in raw_targets.items():
+                if not isinstance(fields, list):
+                    continue
+                c = str(competitor).strip()
+                cleaned = {str(x).strip() for x in fields if str(x).strip()}
+                if c and cleaned:
+                    reanalyze_targets[c] = cleaned
+        incremental_reanalyze = bool(reanalyze_targets)
+        target_field_count = sum(len(v) for v in reanalyze_targets.values())
         try:
-            analyzed = self.analyst_agent.run_llm(state)
+            analyzed = self.analyst_agent.run_llm(
+                state,
+                reanalyze_targets=reanalyze_targets or None,
+                previous_records=state.competitor_analyses if incremental_reanalyze else None,
+            )
             self._save_and_event(
                 state,
                 StageName.analyze,
@@ -633,6 +653,9 @@ class CompetitorWorkflowService:
                     'attempt_count': 1 + self.config.agent_llm_retry_count,
                     'retry_count_used': self.config.agent_llm_retry_count,
                     'fallback_used': False,
+                    'incremental_reanalyze': incremental_reanalyze,
+                    'target_competitor_count': len(reanalyze_targets),
+                    'target_field_count': target_field_count,
                 },
             )
         except LLMCallError as exc:
@@ -679,7 +702,11 @@ class CompetitorWorkflowService:
         state.profiles = analyzed.profiles
         state.findings = analyzed.findings
         domain = get_domain_schema(self.store, state.industry)
-        coverage = min(1.0, len([f for f in state.findings if f.evidence_refs]) / max(1, len(state.findings)))
+        coverage_stats = self._calc_analyze_coverage(state)
+        coverage = float(coverage_stats['coverage'])
+        passed_units = int(coverage_stats['passed_units'])
+        total_units = int(coverage_stats['total_units'])
+        print(f"Analyze coverage: {passed_units}/{total_units} ({coverage:.2%})")
         state.self_eval['analyze'] = SelfEval(coverage=coverage, consistency=0.8, evidence_quality=0.7, uncertainty=0.3)
         self._save_and_event(
             state,
@@ -691,9 +718,41 @@ class CompetitorWorkflowService:
                 'finding_count': len(state.findings),
                 'domain': domain.industry,
                 'domain_version': domain.version,
+                'incremental_reanalyze': incremental_reanalyze,
+                'target_competitor_count': len(reanalyze_targets),
+                'target_field_count': target_field_count,
+                'coverage': coverage,
+                'coverage_passed_units': passed_units,
+                'coverage_total_units': total_units,
             },
         )
         self._save_handoff(state, StageName.analyze, self._build_analyze_handoff(state))
+
+    @staticmethod
+    def _is_analysis_unit_passed(summary: object) -> bool:
+        text = str(summary or '').strip().lower()
+        return text not in {'', 'unknown', 'none', 'null'}
+
+    def _calc_analyze_coverage(self, state: RunState) -> dict[str, float | int]:
+        schema_fields = [item.field_name for item in state.analysis_schema_plan if item.field_name]
+        competitors = state.planned_competitors or state.competitors
+        total_units = len(competitors) * len(schema_fields)
+        if total_units <= 0:
+            return {'coverage': 0.0, 'passed_units': 0, 'total_units': 0}
+
+        record_map = {record.product_name: record for record in state.competitor_analyses}
+        passed_units = 0
+        for competitor in competitors:
+            record = record_map.get(competitor)
+            field_map = {field.field_name: field for field in (record.fields if record else [])}
+            for field_name in schema_fields:
+                field = field_map.get(field_name)
+                if field is None:
+                    continue
+                if self._is_analysis_unit_passed(field.summary):
+                    passed_units += 1
+        coverage = passed_units / total_units
+        return {'coverage': coverage, 'passed_units': passed_units, 'total_units': total_units}
 
     def _draft(self, state: RunState) -> None:
         self._save_and_event(state, StageName.draft, 'agent.llm.started', {'agent': 'WriterAgent', 'trace_name': 'agent.draft.generate_report'})
@@ -906,6 +965,7 @@ class CompetitorWorkflowService:
             return None
         target_competitors: list[str] = []
         field_query_overrides: dict[str, list[str]] = {}
+        reanalyze_targets: dict[str, list[str]] = {}
         for item in items:
             if not isinstance(item, dict):
                 continue
@@ -916,6 +976,9 @@ class CompetitorWorkflowService:
                 continue
             if competitor not in target_competitors:
                 target_competitors.append(competitor)
+            reanalyze_targets.setdefault(competitor, [])
+            if field_name not in reanalyze_targets[competitor]:
+                reanalyze_targets[competitor].append(field_name)
             sanitized_queries = [str(x).strip() for x in query_list if str(x).strip()]
             if sanitized_queries:
                 field_query_overrides[f'{competitor}::{field_name}'] = sanitized_queries[:4]
@@ -924,6 +987,7 @@ class CompetitorWorkflowService:
         return {
             'target_competitors': target_competitors,
             'field_query_overrides': field_query_overrides,
+            'reanalyze_targets': reanalyze_targets,
         }
 
     def _save_handoff(
