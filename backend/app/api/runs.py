@@ -11,7 +11,7 @@ router = APIRouter(prefix='/runs', tags=['runs'])
 
 @router.post('', response_model=RunResponse)
 def create_run(payload: RunRequest, service: CompetitorWorkflowService = Depends(get_service)) -> RunResponse:
-    return service.start_run(payload)
+    return service.start_run_async(payload)
 
 
 @router.get('', response_model=list[RunSummary])

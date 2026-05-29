@@ -80,6 +80,33 @@ function buildDagLayout(nodes: string[]) {
   return { positions, width: 860, height: 180 + rows * 200 }
 }
 
+function buildDagEdgePath(
+  from: { x: number; y: number },
+  to: { x: number; y: number },
+  nodeWidth = 208,
+  nodeHeight = 120
+): string {
+  const halfW = nodeWidth / 2
+  const halfH = nodeHeight / 2
+  let startX = from.x
+  let startY = from.y
+  let endX = to.x
+  let endY = to.y
+
+  if (Math.abs(to.x - from.x) >= Math.abs(to.y - from.y)) {
+    const direction = to.x >= from.x ? 1 : -1
+    startX = from.x + halfW * direction
+    endX = to.x - halfW * direction
+  } else {
+    const direction = to.y >= from.y ? 1 : -1
+    startY = from.y + halfH * direction
+    endY = to.y - halfH * direction
+  }
+
+  const controlX = (startX + endX) / 2
+  return `M ${startX} ${startY} C ${controlX} ${startY}, ${controlX} ${endY}, ${endX} ${endY}`
+}
+
 function wrapSvgLines(text: string, maxChars: number, maxLines: number): string[] {
   const normalized = text.replace(/\s+/g, ' ').trim()
   if (!normalized) return []
@@ -232,6 +259,13 @@ function App() {
   }, [messages])
 
   const sourceLinks = useMemo(() => (workspace ? deriveSourceLinks(workspace) : []), [workspace])
+  const stageStatusMap = useMemo(() => {
+    const map = new Map<string, string>()
+    for (const item of workspace?.workflow.agent_stages ?? []) {
+      map.set(item.stage, item.status)
+    }
+    return map
+  }, [workspace])
   const totalTokens = useMemo(
     () => workspace?.observability.llm_calls.reduce((sum, item) => sum + Number(item.total_tokens ?? 0), 0) ?? 0,
     [workspace]
@@ -246,6 +280,14 @@ function App() {
     () => workspace?.workflow.agent_stages.find((item) => item.stage === selectedStage) ?? workspace?.workflow.agent_stages[0] ?? null,
     [workspace, selectedStage]
   )
+  const currentStageName = useMemo(() => {
+    const failedStage = workspace?.workflow.agent_stages.find((item) => item.status === 'failed')?.stage
+    if (failedStage) return failedStage
+    const runningStage = workspace?.workflow.agent_stages.find((item) => item.status === 'running')?.stage
+    if (runningStage) return runningStage
+    const completedStages = workspace?.workflow.agent_stages.filter((item) => item.status === 'completed') ?? []
+    return completedStages[completedStages.length - 1]?.stage ?? ''
+  }, [workspace])
   const selectedHandoffs = useMemo(
     () => workspace?.workflow.handoffs.filter((item) => item.stage === (selectedStageRecord?.stage ?? '')) ?? [],
     [workspace, selectedStageRecord]
@@ -300,8 +342,8 @@ function App() {
 
   useEffect(() => {
     if (!workspace?.workflow.agent_stages.length) return
-    setSelectedStage((current) => current || workspace.workflow.agent_stages[0].stage)
-  }, [workspace?.workflow.agent_stages])
+    setSelectedStage((current) => currentStageName || current || workspace.workflow.agent_stages[0].stage)
+  }, [workspace?.workflow.agent_stages, currentStageName])
 
   async function handleSubmit() {
     const value = prompt.trim()
@@ -331,6 +373,11 @@ function App() {
         ])
         let lastProgressKey = ''
         const result = await runLivePrompt(value, (progress: LiveProgress) => {
+          if (progress.preview) {
+            startTransition(() => {
+              setPreview(progress.preview ?? null)
+            })
+          }
           if (progress.workspace) {
             startTransition(() => {
               setWorkspace(progress.workspace)
@@ -338,8 +385,9 @@ function App() {
           }
           const completed = progress.completed_stages.length ? `已完成：${progress.completed_stages.join(' → ')}` : '正在初始化运行。'
           const current = progress.latest_stage ? `当前阶段：${progress.latest_stage}` : '当前阶段：waiting'
-          const content = `正在执行 planner、collect、analyze、qa 和 report 流程。\n\n${completed}\n${current}\nrun_id: ${progress.run_id}\nstatus: ${progress.status}`
-          const progressKey = `${progress.completed_stages.join('|')}::${progress.latest_stage}::${progress.status}`
+          const timeoutNote = progress.timed_out && progress.status === 'running' ? '\n轮询窗口已到，前端将保留运行中状态。' : ''
+          const content = `正在执行 planner、collect、analyze、qa 和 report 流程。\n\n${completed}\n${current}\nrun_id: ${progress.run_id}\nstatus: ${progress.status}${timeoutNote}`
+          const progressKey = `${progress.completed_stages.join('|')}::${progress.latest_stage}::${progress.status}::${String(progress.timed_out)}`
           if (progressKey !== lastProgressKey) {
             lastProgressKey = progressKey
             updateMessage(progressId, content)
@@ -350,17 +398,41 @@ function App() {
           setWorkspace(result.workspace)
           setReportDraft(result.workspace.report.markdown)
         })
-        updateMessage(
-          progressId,
-          `分析完成。\n\n已完成：${result.workspace.workflow.agent_stages
-            .filter((item) => item.status === 'completed')
-            .map((item) => item.stage)
-            .join(' → ')}\n当前阶段：finalize\nrun_id: ${result.workspace.run.run_id}\nstatus: ${result.workspace.run.status}`
-        )
-        pushMessage(
-          'assistant',
-          `分析完成：行业 ${result.preview.inferred_industry}，竞品 ${result.preview.planned_competitors.join('、')}，日志和报告已可查看与下载。`
-        )
+        const finalCompetitors = result.preview.planned_competitors.length
+          ? result.preview.planned_competitors
+          : result.workspace.run.planned_competitors
+        const completedStages = result.workspace.workflow.agent_stages
+          .filter((item) => item.status === 'completed')
+          .map((item) => item.stage)
+          .join(' → ')
+        if (result.workspace.run.status === 'completed') {
+          updateMessage(
+            progressId,
+            `分析完成。\n\n已完成：${completedStages}\n当前阶段：finalize\nrun_id: ${result.workspace.run.run_id}\nstatus: ${result.workspace.run.status}`
+          )
+          pushMessage(
+            'assistant',
+            `分析完成：行业 ${result.preview.inferred_industry}，竞品 ${finalCompetitors.join('、')}，日志和报告已可查看与下载。`
+          )
+        } else if (result.workspace.run.status === 'failed') {
+          updateMessage(
+            progressId,
+            `运行失败。\n\n已完成：${completedStages || '无'}\n当前阶段：${result.workspace.workflow.agent_stages.find((item) => item.status === 'failed')?.stage ?? 'unknown'}\nrun_id: ${result.workspace.run.run_id}\nstatus: ${result.workspace.run.status}`
+          )
+          pushMessage(
+            'assistant',
+            `运行失败：行业 ${result.preview.inferred_industry}，竞品 ${finalCompetitors.join('、') || '暂无'}。你可以先查看日志与阶段状态定位问题。`
+          )
+        } else {
+          updateMessage(
+            progressId,
+            `运行仍在继续。\n\n已完成：${completedStages || '无'}\n当前阶段：${result.workspace.workflow.agent_stages.find((item) => item.status === 'running')?.stage ?? 'running'}\nrun_id: ${result.workspace.run.run_id}\nstatus: ${result.workspace.run.status}`
+          )
+          pushMessage(
+            'assistant',
+            `后端仍在运行：行业 ${result.preview.inferred_industry}，竞品 ${finalCompetitors.join('、') || '暂无'}。右侧会先展示当前进度快照，但报告与日志不应被视为最终结果。`
+          )
+        }
       }
     } catch (error) {
       pushMessage('assistant', `执行失败：${error instanceof Error ? error.message : 'unknown error'}`)
@@ -417,7 +489,7 @@ function App() {
         </section>
 
         <section className="result-pane">
-          {!workspace ? (
+          {!workspace && !preview ? (
             <div className="empty-state">
               <h2>等待任务</h2>
               <p>提交问题后，这里会展示完整工作流、Agent 交接、QA 结果、日志与可编辑报告。</p>
@@ -426,12 +498,12 @@ function App() {
             <>
               <div className="result-header">
                 <div>
-                  <h2>{preview?.inferred_industry || workspace.run.industry}</h2>
-                  <p>{preview?.planned_competitors.join('、') || workspace.run.planned_competitors.join('、')}</p>
+                  <h2>{preview?.inferred_industry || workspace?.run.industry || '分析进行中'}</h2>
+                  <p>{preview?.planned_competitors.join('、') || workspace?.run.planned_competitors.join('、') || '正在发现竞品…'}</p>
                 </div>
                 <div className="result-meta">
-                  <span>{workspace.run.status}</span>
-                  <span>{workspace.run.evidence_count} 条证据</span>
+                  <span>{workspace?.run.status || 'preview_ready'}</span>
+                  <span>{workspace?.run.evidence_count ?? 0} 条证据</span>
                   <span>{totalTokens} tokens</span>
                 </div>
               </div>
@@ -445,6 +517,33 @@ function App() {
               </div>
 
               <div className="panel-body">
+                {!workspace ? (
+                  <div className="panel-section">
+                    <div className="summary-cards">
+                      <article className="info-card">
+                        <strong>Planner</strong>
+                        <p>已完成竞品发现和字段规划。</p>
+                      </article>
+                      <article className="info-card">
+                        <strong>竞品候选</strong>
+                        <p>{preview?.planned_competitors.join('、') || '暂无'}</p>
+                      </article>
+                      <article className="info-card">
+                        <strong>字段数量</strong>
+                        <p>{preview?.analysis_schema_plan.length ?? 0}</p>
+                      </article>
+                    </div>
+                    <div className="detail-grid">
+                      {(preview?.analysis_schema_plan ?? []).map((field) => (
+                        <article key={field.field_name} className="detail-card">
+                          <h3>{field.field_name}</h3>
+                          <p>等待进入 collect / analyze 阶段后补充证据与结论。</p>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <>
                 {tab === 'workflow' ? (
                   <div className="panel-section">
                     <div className="dag-canvas-card">
@@ -470,11 +569,10 @@ function App() {
                             const from = dagLayout.positions.get(edge.from)
                             const to = dagLayout.positions.get(edge.to)
                             if (!from || !to) return null
-                            const controlX = (from.x + to.x) / 2
                             return (
                               <path
                                 key={`${edge.from}-${edge.to}`}
-                                d={`M ${from.x} ${from.y} C ${controlX} ${from.y}, ${controlX} ${to.y}, ${to.x} ${to.y}`}
+                                d={buildDagEdgePath(from, to)}
                                 className="dag-edge"
                                 markerEnd="url(#dag-arrow)"
                               />
@@ -496,7 +594,7 @@ function App() {
                                   width="208"
                                   height="120"
                                   rx="20"
-                                  className={`dag-rect ${stage.status} ${selectedStageRecord?.stage === stage.stage ? 'selected' : ''}`}
+                                  className={`dag-rect ${stage.status} ${selectedStageRecord?.stage === stage.stage ? 'selected' : ''} ${currentStageName === stage.stage ? 'current' : ''}`}
                                 />
                                 <text x="18" y="24" className="dag-stage-label">
                                   {stage.stage}
@@ -526,7 +624,7 @@ function App() {
                       {workspace.workflow.agent_stages.map((stage) => (
                         <article
                           key={stage.stage}
-                          className={`stage-card ${selectedStageRecord?.stage === stage.stage ? 'selected' : ''}`}
+                          className={`stage-card ${selectedStageRecord?.stage === stage.stage ? 'selected' : ''} ${currentStageName === stage.stage ? 'current' : ''}`}
                           onClick={() => setSelectedStage(stage.stage)}
                         >
                           <div className="stage-head">
@@ -639,6 +737,12 @@ function App() {
 
                 {tab === 'quality' ? (
                   <div className="panel-section">
+                    {stageStatusMap.get('qa') !== 'completed' ? (
+                      <div className="empty-state inline-empty">
+                        <h2>等待 QA</h2>
+                        <p>QA 阶段完成后，这里会展示回采计划、问题明细与来源链接。</p>
+                      </div>
+                    ) : null}
                     <div className="summary-cards">
                       <article className="info-card">
                         <strong>QA 状态</strong>
@@ -681,6 +785,12 @@ function App() {
 
                 {tab === 'trace' ? (
                   <div className="panel-section">
+                    {!workspace.observability.llm_calls.length ? (
+                      <div className="empty-state inline-empty">
+                        <h2>等待 Trace</h2>
+                        <p>Agent 开始调用 LLM 后，这里会持续更新 Prompt、输入、输出与 Token 消耗。</p>
+                      </div>
+                    ) : null}
                     <div className="trace-grid">
                       {workspace.observability.llm_calls.map((trace) => (
                         <article key={`${trace.trace_id ?? trace.trace_name ?? Math.random()}`} className="trace-card">
@@ -715,6 +825,12 @@ function App() {
 
                 {tab === 'report' ? (
                   <div className="panel-section report-panel">
+                    {stageStatusMap.get('draft') !== 'completed' ? (
+                      <div className="empty-state inline-empty">
+                        <h2>等待报告</h2>
+                        <p>Draft 阶段完成后，Markdown 报告会先生成再持续可编辑。</p>
+                      </div>
+                    ) : null}
                     <div className="report-actions">
                       <button type="button" onClick={() => setReportDraft(workspace.report.markdown)}>
                         重置为原始报告
@@ -745,6 +861,8 @@ function App() {
                     </div>
                   </div>
                 ) : null}
+                  </>
+                )}
               </div>
             </>
           )}

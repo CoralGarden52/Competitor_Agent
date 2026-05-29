@@ -436,7 +436,7 @@ class PlannerLLMClient:
         prompt: str,
         industry: str = '',
         competitor_hints: list[str],
-        max_direct: int = 3,
+        max_direct: int = 2,
         max_substitute: int = 1,
     ) -> dict[str, Any]:
         """基于搜索验证的竞品发现方法"""
@@ -599,12 +599,7 @@ class PlannerLLMClient:
         product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
         topic = self._extract_generic_topic(prompt, industry=industry)
-        profile = product_profile or {}
-        category = str(profile.get('product_category', '')).strip()
-        use_cases = [str(x).strip() for x in profile.get('primary_use_cases', []) if str(x).strip()] if isinstance(profile.get('primary_use_cases', []), list) else []
-        target_users = [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else []
-        capabilities = [str(x).strip() for x in profile.get('core_capabilities', []) if str(x).strip()] if isinstance(profile.get('core_capabilities', []), list) else []
-        if not topic and not category and not use_cases and not capabilities:
+        if not topic and not industry and not competitor_hints:
             return []
 
         seed = competitor_hints[0].strip() if competitor_hints else ''
@@ -621,21 +616,48 @@ class PlannerLLMClient:
             seen.add(key)
             queries.append(cleaned)
 
-        anchor = category or topic
-        if anchor:
-            _add(f'{anchor} 同类产品')
-            _add(f'{anchor} 替代方案')
-        if target_users and anchor:
-            _add(f'{target_users[0]} {anchor}')
+        primary_anchor = self._short_query_anchor(topic or industry)
+
+        if primary_anchor:
+            _add(f'{primary_anchor} 同类产品')
+            _add(f'{primary_anchor} 替代品')
+            _add(f'{primary_anchor} 竞品')
         if seed:
             _add(f'{seed} 同类产品')
             _add(f'{seed} 替代品')
-        if use_cases and anchor:
-            _add(f'{use_cases[0]} {anchor}')
-        if capabilities and anchor:
-            _add(f'{capabilities[0]} {anchor}')
 
         return queries[:4]
+
+    def _short_query_anchor(self, value: str) -> str:
+        text = self._repair_mojibake(str(value).strip())
+        if not text:
+            return ''
+        replacements = (
+            ('领域', ''),
+            ('行业', ''),
+            ('一站式', ''),
+            ('解决方案', ''),
+            ('SaaS', ''),
+            ('saas', ''),
+            ('软件平台', '软件'),
+            ('协作SaaS软件', '协作软件'),
+            ('在线音视频会议协作软件', '在线会议软件'),
+            ('在线音视频会议协作', '在线会议'),
+            ('音视频会议协作', '视频会议'),
+            ('线上会议', '在线会议'),
+        )
+        for source, target in replacements:
+            text = text.replace(source, target)
+        text = re.sub(r'覆盖.*$', '', text).strip()
+        text = re.sub(r'主打.*$', '', text).strip()
+        text = re.sub(r'\s+', ' ', text).strip(' ，,。')
+        if not text:
+            return ''
+        preferred = ('在线会议软件', '视频会议软件', '在线会议', '视频会议', '会议软件', '协作软件')
+        for item in preferred:
+            if item in text:
+                return item
+        return text[:24]
 
     def _extract_generic_topic(self, prompt: str, *, industry: str) -> str:
         text = re.sub(r'\s+', ' ', str(prompt).strip())
@@ -990,8 +1012,8 @@ class PlannerLLMClient:
         search_results: list[dict[str, Any]],
         candidate_pool: list[str],
         product_profile: dict[str, Any] | None = None,
-        max_direct: int = 8,
-        max_substitute: int = 6,
+        max_direct: int = 2,
+        max_substitute: int = 1,
     ) -> dict[str, list[dict[str, Any]]]:
         """基于搜索结果和网页摘要发现竞品"""
         if not self.enabled():
@@ -1009,11 +1031,10 @@ class PlannerLLMClient:
         sys_prompt = """你是一位专业的竞品发现专家，擅长基于搜索结果识别相关竞品。
 
 任务要求：
-1. 基于用户的研究需求、产品画像和搜索结果，识别相关的直接竞品和替代竞品
+1. 基于用户的研究需求和搜索结果，识别相关的直接竞品和替代竞品
 2. 只返回与用户需求真正相关的竞品
 3. 如果搜索结果中没有找到相关竞品，返回空列表
-4. 区分直接竞品（核心工作流、目标用户、定位高度相似）和替代竞品（解决相同问题但方式不同）
-5. 优先判断：核心功能是否相似、目标用户是否一致、使用场景是否重叠、市场定位是否同层级
+4. 区分直接竞品（功能相似）和替代竞品（解决相同问题但方式不同）
 
 输出格式：
 {
@@ -1031,11 +1052,10 @@ class PlannerLLMClient:
             f'用户研究需求：{prompt}\n'
             f'行业上下文：{industry}\n'
             f'已知的竞品线索：{competitor_hints}\n'
-            f'产品画像：{self._profile_context_text(product_profile)}\n'
-            f'候选池（只能从这里选择，不允许新增名称）：{candidate_pool}\n'
+            f'候选池（优先参考，不必限制在其中）：{candidate_pool}\n'
             f'{search_context}\n\n'
             '请基于以上搜索结果，识别相关的直接竞品和替代竞品。\n'
-            '只有当候选产品与该产品画像在功能、目标用户、使用场景或市场定位上真正匹配时才返回。'
+            '优先返回搜索结果中明确出现、并且与用户需求直接相关的产品。'
         )
 
         try:
@@ -1051,13 +1071,13 @@ class PlannerLLMClient:
             result.get('direct', []),
             fallback_hints=competitor_hints,
             default_fit='direct',
-            allowed_names=candidate_pool,
+            allowed_names=candidate_pool or None,
         )
         substitute = self._clean_candidates(
             result.get('substitute', []),
             fallback_hints=[],
             default_fit='substitute',
-            allowed_names=candidate_pool,
+            allowed_names=candidate_pool or None,
         )
         return {'direct': direct[:max_direct], 'substitute': substitute[:max_substitute]}
 

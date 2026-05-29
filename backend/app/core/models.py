@@ -320,7 +320,7 @@ class PolicyDecisionResult(BaseModel):
 
 class RunRequest(BaseModel):
     industry: str
-    competitors: list[str] = Field(min_length=1)
+    competitors: list[str] = Field(default_factory=list)
     user_prompt: str = ''
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
