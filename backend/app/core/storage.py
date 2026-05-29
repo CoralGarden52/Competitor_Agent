@@ -1148,3 +1148,27 @@ class SQLiteStore:
                     now_s,
                 ),
             )
+
+    def list_manual_interventions(self, run_id: str) -> list[dict[str, Any]]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                '''
+                SELECT node_name, action, before_json, after_json, reason, actor, created_at
+                FROM manual_interventions
+                WHERE run_id = ?
+                ORDER BY id ASC
+                ''',
+                (run_id,),
+            ).fetchall()
+        return [
+            {
+                'node_name': row['node_name'],
+                'action': row['action'],
+                'before': json.loads(row['before_json']),
+                'after': json.loads(row['after_json']),
+                'reason': row['reason'],
+                'actor': row['actor'],
+                'created_at': row['created_at'],
+            }
+            for row in rows
+        ]

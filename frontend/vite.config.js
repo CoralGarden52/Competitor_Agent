@@ -6,10 +6,10 @@ export default defineConfig({
     server: {
         port: 4173,
         proxy: {
-            '/runs': 'http://127.0.0.1:8000',
-            '/collector': 'http://127.0.0.1:8000',
-            '/schema': 'http://127.0.0.1:8000',
-            '/healthz': 'http://127.0.0.1:8000'
+            '/runs': 'http://127.0.0.1:4174',
+            '/collector': 'http://127.0.0.1:4174',
+            '/schema': 'http://127.0.0.1:4174',
+            '/healthz': 'http://127.0.0.1:4174'
         }
     }
 });

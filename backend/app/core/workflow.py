@@ -59,7 +59,7 @@ class CompetitorWorkflowService:
     def __init__(self, store: SQLiteStore):
         self.store = store
         self.config = get_config()
-        self.planner_llm = PlannerLLMClient(self.config)
+        self.planner_llm = PlannerLLMClient(self.config, self.store)
         self.agent_llm = AgentLLMClient(self.config, store)
         self.collector = CollectorPipeline(self.config, self.store)
         self.policy_engine = ApprovalPolicyEngine(store)
@@ -97,6 +97,7 @@ class CompetitorWorkflowService:
             state.status = 'failed'
             self._save_and_event(state, StageName.qa, 'max_iterations_reached', {'iteration': state.attempt, 'reason': 'runtime_ended_without_terminal_status'})
         self.store.save_state(state)
+        self._auto_save_demo_workspace(state.run_id)
         return RunResponse(summary=self._summary_for(state), state=state)
 
     def get_run(self, run_id: str) -> RunResponse | None:
@@ -128,6 +129,45 @@ class CompetitorWorkflowService:
         handoffs = self.store.list_stage_handoffs(run_id, stage=node_name)
         llm_calls = self.store.list_llm_calls(run_id, node_name=node_name)
         return {'run_id': run_id, 'node_name': node_name, 'io': io, 'handoffs': handoffs, 'llm_calls': llm_calls}
+
+    def workspace_payload(self, run_id: str) -> dict[str, object]:
+        run = self.get_run(run_id)
+        if run is None:
+            return {'run_id': run_id, 'status': 'not_found'}
+        replay = self.replay_run(run_id)
+        events = self.list_run_events(run_id)
+        manual_interventions = self.store.list_manual_interventions(run_id)
+        return self._build_workspace_payload(run=run, replay=replay, events=events, manual_interventions=manual_interventions)
+
+    def export_run_logs(self, run_id: str) -> dict[str, object]:
+        run = self.get_run(run_id)
+        if run is None:
+            return {'run_id': run_id, 'status': 'not_found'}
+        replay = self.replay_run(run_id)
+        events = self.list_run_events(run_id)
+        manual_interventions = self.store.list_manual_interventions(run_id)
+        timeline = replay.get('timeline', []) if isinstance(replay.get('timeline', []), list) else []
+        handoffs = replay.get('handoffs', []) if isinstance(replay.get('handoffs', []), list) else []
+        llm_calls = replay.get('llm_calls', []) if isinstance(replay.get('llm_calls', []), list) else []
+        stage_io = {stage: self.store.replay_node_io(run_id, stage) for stage in self._stage_names()}
+        stage_logs = self._build_stage_observability(
+            state=run.state,
+            events=events,
+            handoffs=handoffs,
+            llm_calls=llm_calls,
+            stage_io=stage_io,
+        )
+        return {
+            'run_id': run_id,
+            'status': run.state.status,
+            'events': events,
+            'timeline': timeline,
+            'handoffs': handoffs,
+            'llm_calls': llm_calls,
+            'stage_logs': stage_logs,
+            'manual_interventions': manual_interventions,
+            'report_markdown': run.state.report.markdown if run.state.report else '',
+        }
 
     def resume_from_checkpoint(self, run_id: str) -> RunResponse | None:
         state = self.store.latest_checkpoint(run_id)
@@ -231,6 +271,7 @@ class CompetitorWorkflowService:
             response['auto_saved_file'] = auto_saved_file
             if auto_saved_error:
                 response['auto_saved_error'] = auto_saved_error
+            self._auto_save_demo_preview(response)
             return response
 
         def _collect_one_competitor(competitor: str) -> tuple[str, dict]:
@@ -269,7 +310,34 @@ class CompetitorWorkflowService:
         with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(planned_competitors), 4)) as executor:
             futures = {executor.submit(_collect_one_competitor, comp): comp for comp in planned_competitors}
             for future in concurrent.futures.as_completed(futures):
-                competitor, result_data = future.result()
+                competitor = futures[future]
+                try:
+                    competitor, result_data = future.result()
+                except Exception as exc:
+                    errors.append(f'{competitor}: {exc}')
+                    preview.append(
+                        {
+                            'competitor': competitor,
+                            'evidence_count': 0,
+                            'sample': [],
+                            'search_events': [],
+                            'fetch_events': [],
+                            'fallback_trace': [],
+                            'field_stats': [],
+                            'field_summaries': [],
+                            'error': str(exc),
+                        }
+                    )
+                    execution_timeline.append(
+                        {
+                            'seq': seq,
+                            'competitor': competitor,
+                            'event_type': 'collector.preview.failed',
+                            'error': str(exc),
+                        }
+                    )
+                    seq += 1
+                    continue
                 preview.append({
                     'competitor': result_data['competitor'],
                     'evidence_count': result_data['evidence_count'],
@@ -313,6 +381,7 @@ class CompetitorWorkflowService:
         response['auto_saved_file'] = auto_saved_file
         if auto_saved_error:
             response['auto_saved_error'] = auto_saved_error
+        self._auto_save_demo_preview(response)
         return response
 
     def _auto_save_preview_result(self, payload: dict) -> tuple[bool, str, str]:
@@ -447,11 +516,15 @@ class CompetitorWorkflowService:
         return proposal
 
     def _plan(self, state: RunState) -> None:
-        dynamic_plan = self.orchestrator.generate_dynamic_plan(
-            prompt=state.user_prompt,
-            industry=state.industry,
-            competitors=state.competitors,
-        )
+        self.planner_llm.set_trace_context(run_id=state.run_id, attempt=state.attempt, node_name='plan', agent_name='PlannerLLMClient')
+        try:
+            dynamic_plan = self.orchestrator.generate_dynamic_plan(
+                prompt=state.user_prompt,
+                industry=state.industry,
+                competitors=state.competitors,
+            )
+        finally:
+            self.planner_llm.clear_trace_context()
         inferred_industry = str(dynamic_plan.get('inferred_industry', '')).strip().lower()
         if inferred_industry:
             state.industry = inferred_industry
@@ -973,6 +1046,10 @@ class CompetitorWorkflowService:
         )
 
     def _save_and_event(self, state: RunState, stage: StageName, event_type: str, payload: dict) -> None:
+        print(
+            f"[{datetime.now().strftime('%H:%M:%S')}] EVENT: {stage.value} -> {event_type} "
+            f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})"
+        )
         envelope = EventEnvelope(
             event_type=event_type,
             stage=stage,
@@ -993,6 +1070,322 @@ class CompetitorWorkflowService:
             {'envelope': envelope.model_dump(mode='json'), 'snapshot': snapshot.model_dump(mode='json')},
         )
         self.store.save_state(state)
+
+    def _build_workspace_payload(
+        self,
+        *,
+        run: RunResponse,
+        replay: dict[str, object],
+        events: list[dict],
+        manual_interventions: list[dict],
+    ) -> dict[str, object]:
+        state = run.state
+        timeline = replay.get('timeline', []) if isinstance(replay.get('timeline', []), list) else []
+        handoffs = replay.get('handoffs', []) if isinstance(replay.get('handoffs', []), list) else []
+        llm_calls = replay.get('llm_calls', []) if isinstance(replay.get('llm_calls', []), list) else []
+        stage_io = {stage: self.store.replay_node_io(state.run_id, stage) for stage in self._stage_names()}
+        agent_workflows = self._build_agent_workflows(
+            state=state,
+            handoffs=handoffs,
+            llm_calls=llm_calls,
+            events=events,
+        )
+        stage_logs = self._build_stage_observability(
+            state=state,
+            events=events,
+            handoffs=handoffs,
+            llm_calls=llm_calls,
+            stage_io=stage_io,
+        )
+        qa_ticket = state.tickets[0] if state.tickets else None
+        qa_collect_items = []
+        if qa_ticket is not None and isinstance(qa_ticket.domain_extensions, dict):
+            qa_collect_items = qa_ticket.domain_extensions.get('collect_plan', {}).get('items', [])
+
+        return {
+            'summary': run.summary.model_dump(mode='json'),
+            'request': {
+                'industry': state.industry,
+                'user_prompt': state.user_prompt,
+                'competitors': state.competitors,
+                'language': state.language,
+                'timeframe': state.timeframe,
+            },
+            'run': {
+                'run_id': state.run_id,
+                'status': state.status,
+                'industry': state.industry,
+                'planned_competitors': state.planned_competitors,
+                'schema_fields': [item.field_name for item in state.analysis_schema_plan],
+                'evidence_count': len(state.evidences),
+                'finding_count': len(state.findings),
+                'competitor_count': len(state.competitors),
+            },
+            'workflow': {
+                'dag': self._build_dag(timeline),
+                'timeline': timeline,
+                'agent_stages': self._build_agent_stage_cards(state=state, timeline=timeline, handoffs=handoffs),
+                'agent_workflows': agent_workflows,
+                'handoffs': [
+                    {
+                        'stage': item.get('stage', ''),
+                        'attempt': item.get('attempt', 0),
+                        'handoff_type': item.get('handoff_type', ''),
+                        'created_at': item.get('created_at', ''),
+                        'summary': self._summarize_handoff_payload(item.get('payload', {})),
+                        'highlights': self._handoff_highlights(item.get('payload', {})),
+                        'payload': item.get('payload', {}),
+                    }
+                    for item in handoffs
+                ],
+            },
+            'qa': {
+                'passed': qa_ticket is None,
+                'target_agent': qa_ticket.target_agent if qa_ticket else None,
+                'issue_count': len(qa_ticket.issues) if qa_ticket else 0,
+                'issues': [issue.model_dump(mode='json') for issue in qa_ticket.issues] if qa_ticket else [],
+                'collect_items': qa_collect_items,
+            },
+            'report': {
+                'markdown': state.report.markdown if state.report else '',
+                'sources': state.report.appendix_sources if state.report else [],
+            },
+            'observability': {
+                'llm_calls': llm_calls,
+                'stage_logs': stage_logs,
+                'events': events,
+                'manual_interventions': manual_interventions,
+                'log_download_path': f'/runs/{state.run_id}/logs/export',
+            },
+        }
+
+    @staticmethod
+    def _stage_names() -> list[str]:
+        return ['plan', 'collect', 'normalize', 'analyze', 'draft', 'qa', 'finalize']
+
+    @staticmethod
+    def _build_dag(timeline: list[dict]) -> dict[str, list]:
+        known_order = ['plan', 'collect', 'normalize', 'analyze', 'draft', 'qa', 'finalize']
+        sequence: list[str] = []
+        for item in timeline:
+            stage = str(item.get('node_name', '')).strip()
+            if stage:
+                sequence.append(stage)
+        nodes = [stage for stage in known_order if stage in sequence]
+        for stage in sequence:
+            if stage not in nodes:
+                nodes.append(stage)
+        edges: list[dict[str, str]] = []
+        for index in range(len(sequence) - 1):
+            source = sequence[index]
+            target = sequence[index + 1]
+            if not source or not target or source == target:
+                continue
+            edge = {'from': source, 'to': target}
+            if edge not in edges:
+                edges.append(edge)
+        return {'nodes': nodes, 'edges': edges}
+
+    def _build_agent_stage_cards(self, *, state: RunState, timeline: list[dict], handoffs: list[dict]) -> list[dict[str, object]]:
+        timeline_map = {str(item.get('node_name', '')): item for item in timeline}
+        handoff_map = {str(item.get('stage', '')): item for item in handoffs}
+        stage_meta = [
+            ('plan', 'Planner Agent'),
+            ('collect', 'Collector Agent'),
+            ('analyze', 'Analyst Agent'),
+            ('qa', 'QA Agent'),
+            ('draft', 'Report Agent'),
+            ('finalize', 'Finalize'),
+        ]
+        cards: list[dict[str, object]] = []
+        for stage, label in stage_meta:
+            timeline_row = timeline_map.get(stage, {})
+            handoff_row = handoff_map.get(stage, {})
+            cards.append(
+                {
+                    'stage': stage,
+                    'agent': label,
+                    'status': timeline_row.get('status', 'pending'),
+                    'duration_ms': timeline_row.get('duration_ms'),
+                    'summary': self._summarize_stage(stage, state),
+                    'handoff_type': handoff_row.get('handoff_type', ''),
+                    'handoff_summary': self._summarize_handoff_payload(handoff_row.get('payload', {})),
+                }
+            )
+        return cards
+
+    def _build_agent_workflows(
+        self,
+        *,
+        state: RunState,
+        handoffs: list[dict],
+        llm_calls: list[dict],
+        events: list[dict],
+    ) -> dict[str, dict[str, object]]:
+        handoff_map = {str(item.get('stage', '')): item for item in handoffs}
+        event_map: dict[str, list[dict]] = {}
+        for item in events:
+            stage = str(item.get('stage', '')).strip()
+            if not stage:
+                continue
+            event_map.setdefault(stage, []).append(item)
+        llm_map: dict[str, list[dict]] = {}
+        for item in llm_calls:
+            stage = str(item.get('node_name', '')).strip()
+            if not stage:
+                continue
+            llm_map.setdefault(stage, []).append(item)
+
+        workflows: dict[str, dict[str, object]] = {}
+        for stage in self._stage_names():
+            nodes: list[str] = ['input']
+            if stage == 'plan':
+                planner_meta = state.planner_meta if isinstance(state.planner_meta, dict) else {}
+                llm_by_step = planner_meta.get('llm_call_status_by_step', {})
+                if isinstance(llm_by_step, dict):
+                    for step in llm_by_step.keys():
+                        nodes.append(step)
+                nodes.extend(['candidate_groups', 'schema_plan', 'handoff', 'output'])
+            elif stage == 'collect':
+                provider_events = []
+                payload = handoff_map.get(stage, {}).get('payload', {})
+                if isinstance(payload, dict):
+                    provider_events = payload.get('provider_events', [])
+                collect_nodes = ['receive_plan_handoff', 'dispatch_parallel_collect']
+                if isinstance(provider_events, list) and provider_events:
+                    event_types = {str(item.get('event_type', '')).strip() for item in provider_events if isinstance(item, dict)}
+                    if any('search' in item for item in event_types):
+                        collect_nodes.append('search_sources')
+                    if any('fetch' in item for item in event_types):
+                        collect_nodes.append('fetch_pages')
+                    if any('fallback' in item or 'rerank' in item for item in event_types):
+                        collect_nodes.append('fallback_and_rerank')
+                collect_nodes.extend(['merge_evidence', 'collect_handoff', 'output'])
+                nodes.extend(collect_nodes)
+            elif stage == 'normalize':
+                nodes.extend(['normalize_evidence', 'output'])
+            elif stage == 'analyze':
+                nodes.extend(['receive_collect_handoff'])
+                trace_steps = [str(item.get('trace_name', '')).strip().replace('agent.analyze.', '') for item in llm_map.get(stage, []) if str(item.get('trace_name', '')).strip()]
+                nodes.extend(trace_steps or ['field_analysis', 'synthesize_findings'])
+                nodes.extend(['analyze_handoff', 'output'])
+            elif stage == 'draft':
+                nodes.extend(['receive_analyze_handoff'])
+                trace_steps = [str(item.get('trace_name', '')).strip().replace('agent.draft.', '') for item in llm_map.get(stage, []) if str(item.get('trace_name', '')).strip()]
+                nodes.extend(trace_steps or ['generate_report'])
+                nodes.extend(['report_output', 'output'])
+            elif stage == 'qa':
+                nodes.extend(['receive_analysis_handoff'])
+                trace_steps = [str(item.get('trace_name', '')).strip().replace('agent.qa.', '') for item in llm_map.get(stage, []) if str(item.get('trace_name', '')).strip()]
+                nodes.extend(trace_steps or ['analysis_review'])
+                nodes.extend(['route_decision', 'output'])
+            elif stage == 'finalize':
+                nodes.extend(['resolve_tickets', 'persist_state', 'output'])
+            deduped_nodes: list[str] = []
+            for item in nodes:
+                cleaned = str(item).strip()
+                if cleaned and cleaned not in deduped_nodes:
+                    deduped_nodes.append(cleaned)
+            edges = [{'from': deduped_nodes[index], 'to': deduped_nodes[index + 1]} for index in range(len(deduped_nodes) - 1)]
+            workflows[stage] = {'nodes': deduped_nodes, 'edges': edges}
+        return workflows
+
+    def _build_stage_observability(
+        self,
+        *,
+        state: RunState,
+        events: list[dict],
+        handoffs: list[dict],
+        llm_calls: list[dict],
+        stage_io: dict[str, list[dict]],
+    ) -> dict[str, dict[str, object]]:
+        output: dict[str, dict[str, object]] = {}
+        for stage in self._stage_names():
+            output[stage] = {
+                'stage': stage,
+                'io': stage_io.get(stage, []),
+                'inputs': [item for item in stage_io.get(stage, []) if str(item.get('io_type', '')) == 'input'],
+                'outputs': [item for item in stage_io.get(stage, []) if str(item.get('io_type', '')) == 'output'],
+                'events': [item for item in events if str(item.get('stage', '')) == stage],
+                'handoffs': [item for item in handoffs if str(item.get('stage', '')) == stage],
+                'llm_calls': [item for item in llm_calls if str(item.get('node_name', '')) == stage],
+            }
+        return output
+
+    @staticmethod
+    def _summarize_stage(stage: str, state: RunState) -> str:
+        if stage == 'plan':
+            return f'发现 {len(state.planned_competitors or state.competitors)} 个竞品，并规划 {len(state.analysis_schema_plan)} 个分析字段。'
+        if stage == 'collect':
+            return f'累计采集 {len(state.evidences)} 条证据，并完成字段级归因。'
+        if stage == 'analyze':
+            return f'生成 {len(state.findings)} 条结构化结论，产出 {len(state.profiles)} 份竞品画像。'
+        if stage == 'qa':
+            return '执行完整性、引用与 unknown 检查，并在必要时生成回采计划。'
+        if stage == 'draft':
+            return '汇总分析结果，生成可编辑 Markdown 报告。'
+        if stage == 'finalize':
+            return f'运行状态：{state.status}。'
+        return ''
+
+    @staticmethod
+    def _summarize_handoff_payload(payload: object) -> str:
+        if not isinstance(payload, dict) or not payload:
+            return '暂无交接摘要。'
+        if 'planned_competitors' in payload:
+            competitors = payload.get('planned_competitors', [])
+            return f'向下游交接 {len(competitors) if isinstance(competitors, list) else 0} 个竞品候选与 schema。'
+        if 'total_evidence_count' in payload:
+            return f'向分析阶段交接证据集合，总证据数 {payload.get("total_evidence_count", 0)}。'
+        if 'findings' in payload:
+            findings = payload.get('findings', [])
+            return f'向报告与 QA 交接分析结果，findings {len(findings) if isinstance(findings, list) else 0} 条。'
+        return f'交接字段：{", ".join(list(payload.keys())[:4])}'
+
+    @staticmethod
+    def _handoff_highlights(payload: object) -> list[str]:
+        if not isinstance(payload, dict) or not payload:
+            return []
+        highlights: list[str] = []
+        for key, value in list(payload.items())[:4]:
+            if isinstance(value, list):
+                highlights.append(f'{key}: {len(value)} items')
+            else:
+                highlights.append(f'{key}: {str(value)[:60]}')
+        return highlights
+
+    def _auto_save_demo_preview(self, payload: dict[str, object]) -> None:
+        if not self.config.demo_workspace_auto_save_enabled:
+            return
+        try:
+            save_dir = Path(self.config.demo_workspace_save_dir)
+            if not save_dir.is_absolute():
+                save_dir = Path(__file__).resolve().parents[3] / save_dir
+            save_dir.mkdir(parents=True, exist_ok=True)
+            (save_dir / 'latest_preview.json').write_text(json.dumps(payload, ensure_ascii=False, indent=2, default=str), encoding='utf-8')
+        except Exception:
+            return
+
+    def _auto_save_demo_workspace(self, run_id: str) -> None:
+        if not self.config.demo_workspace_auto_save_enabled:
+            return
+        try:
+            payload = self.workspace_payload(run_id)
+            if payload.get('status') == 'not_found':
+                return
+            save_dir = Path(self.config.demo_workspace_save_dir)
+            if not save_dir.is_absolute():
+                save_dir = Path(__file__).resolve().parents[3] / save_dir
+            save_dir.mkdir(parents=True, exist_ok=True)
+            (save_dir / 'latest_workspace.json').write_text(json.dumps(payload, ensure_ascii=False, indent=2, default=str), encoding='utf-8')
+            report = payload.get('report', {})
+            report_markdown = str(report.get('markdown', '')) if isinstance(report, dict) else ''
+            if report_markdown:
+                (save_dir / 'latest_report.md').write_text(report_markdown, encoding='utf-8')
+            logs_payload = self.export_run_logs(run_id)
+            (save_dir / 'latest_logs.json').write_text(json.dumps(logs_payload, ensure_ascii=False, indent=2, default=str), encoding='utf-8')
+        except Exception:
+            return
 
     @staticmethod
     def run_state_to_graph_state(state: RunState) -> WorkflowGraphState:

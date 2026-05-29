@@ -10,6 +10,8 @@ from datetime import UTC, datetime
 from typing import Any
 
 from app.core.config import AppConfig
+from app.core.models import LLMCallTrace
+from app.core.storage import SQLiteStore
 from app.core.tracing_factory import get_tracing_runtime
 from openai import OpenAI
 
@@ -79,8 +81,9 @@ CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pr
 
 
 class PlannerLLMClient:
-    def __init__(self, config: AppConfig):
+    def __init__(self, config: AppConfig, store: SQLiteStore | None = None):
         self.config = config
+        self.store = store
         self._last_call_status: dict[str, Any] = {
             'success': False,
             'endpoint': '',
@@ -89,11 +92,23 @@ class PlannerLLMClient:
             'attempted_endpoints': [],
         }
         self._step_call_status: dict[str, dict[str, Any]] = {}
+        self._trace_context: dict[str, Any] = {}
 
     def enabled(self) -> bool:
         return bool(self.config.openai_api_key and self.config.openai_base_url and self.config.openai_model)
 
-    def _chat_json(self, system_prompt: str, user_prompt: str) -> dict[str, Any]:
+    def set_trace_context(self, *, run_id: str, attempt: int, node_name: str = 'plan', agent_name: str = 'PlannerLLMClient') -> None:
+        self._trace_context = {
+            'run_id': run_id,
+            'attempt': attempt,
+            'node_name': node_name,
+            'agent_name': agent_name,
+        }
+
+    def clear_trace_context(self) -> None:
+        self._trace_context = {}
+
+    def _chat_json(self, system_prompt: str, user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, Any]:
         base_url = self.config.openai_base_url.rstrip('/')
         endpoint = f'{base_url}/chat/completions' if base_url else ''
         strict_system_prompt = (
@@ -111,6 +126,7 @@ class PlannerLLMClient:
         for attempt in range(1, max_attempts + 1):
             if endpoint:
                 attempted_endpoints.append(endpoint)
+            started_at = time.time()
             try:
                 client = OpenAI(
                     api_key=self.config.openai_api_key,
@@ -133,6 +149,15 @@ class PlannerLLMClient:
                 parsed = self._parse_json_content(content)
                 if not isinstance(parsed, dict):
                     raise ValueError('json_parse_failed: parsed JSON is not an object')
+                self._record_llm_trace(
+                    trace_name=trace_name,
+                    system_prompt=system_prompt,
+                    user_prompt=user_prompt,
+                    raw_response=self._response_to_dict(response),
+                    parsed_response=parsed,
+                    status='completed',
+                    latency_ms=int((time.time() - started_at) * 1000),
+                )
                 self._last_call_status = {
                     'success': True,
                     'endpoint': endpoint,
@@ -155,6 +180,16 @@ class PlannerLLMClient:
                 break
 
         error_with_attempt = f'{last_error_text} (attempt={len(attempted_endpoints)}/{max_attempts})'
+        self._record_llm_trace(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            raw_response={},
+            parsed_response={},
+            status='failed',
+            latency_ms=0,
+            error_message=error_with_attempt,
+        )
         self._last_call_status = {
             'success': False,
             'endpoint': endpoint,
@@ -184,7 +219,7 @@ class PlannerLLMClient:
                 'llm_call_status': self.last_call_status(),
             }
         try:
-            _ = self._chat_json('请返回严格 JSON。', '请返回 JSON：{"ok": true}')
+            _ = self._chat_json('请返回严格 JSON。', '请返回 JSON：{"ok": true}', trace_name='planner.healthcheck')
             return {
                 'enabled': True,
                 'success': True,
@@ -217,6 +252,70 @@ class PlannerLLMClient:
         except Exception as exc:
             logger.warning('LangSmith trace disabled for this call due to runtime error: %s', exc)
             return _NullTrace()
+
+    @staticmethod
+    def _response_to_dict(response: Any) -> dict[str, Any]:
+        if response is None:
+            return {}
+        if isinstance(response, dict):
+            return response
+        model_dump = getattr(response, 'model_dump', None)
+        if callable(model_dump):
+            try:
+                dumped = model_dump()
+                return dumped if isinstance(dumped, dict) else {}
+            except Exception:
+                return {}
+        return {}
+
+    def _record_llm_trace(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_prompt: str,
+        raw_response: dict[str, Any],
+        parsed_response: dict[str, Any],
+        status: str,
+        latency_ms: int,
+        error_message: str = '',
+    ) -> None:
+        if self.store is None or not self._trace_context.get('run_id'):
+            return
+        usage = raw_response.get('usage', {}) if isinstance(raw_response, dict) else {}
+        prompt_tokens = int(usage.get('prompt_tokens', 0) or 0) if isinstance(usage, dict) else 0
+        completion_tokens = int(usage.get('completion_tokens', 0) or 0) if isinstance(usage, dict) else 0
+        total_tokens = int(usage.get('total_tokens', 0) or 0) if isinstance(usage, dict) else 0
+        finish_reason = ''
+        choices = raw_response.get('choices', []) if isinstance(raw_response, dict) else []
+        if choices and isinstance(choices[0], dict):
+            finish_reason = str(choices[0].get('finish_reason', '') or '')
+        trace = LLMCallTrace(
+            run_id=str(self._trace_context.get('run_id', '') or ''),
+            attempt=int(self._trace_context.get('attempt', 0) or 0),
+            node_name=str(self._trace_context.get('node_name', 'plan') or 'plan'),
+            agent_name=str(self._trace_context.get('agent_name', 'PlannerLLMClient') or 'PlannerLLMClient'),
+            trace_name=trace_name,
+            model=self.config.openai_model,
+            status='completed' if status == 'completed' else 'failed',
+            system_prompt=system_prompt,
+            user_payload={'prompt': user_prompt},
+            raw_response=raw_response if isinstance(raw_response, dict) else {},
+            parsed_response=parsed_response if isinstance(parsed_response, dict) else {},
+            error_message=error_message[:2000],
+            finish_reason=finish_reason,
+            latency_ms=max(0, latency_ms),
+            prompt_tokens=prompt_tokens,
+            completion_tokens=completion_tokens,
+            total_tokens=total_tokens,
+            usage_source='provider' if total_tokens > 0 else 'missing',
+            usage_details=usage if isinstance(usage, dict) else {},
+            created_at=datetime.now(UTC),
+        )
+        try:
+            self.store.save_llm_call(trace)
+        except Exception as exc:
+            logger.warning('Failed to persist planner llm trace %s: %s', trace_name, exc)
 
     def _is_retryable_planner_error(self, exc: Exception, *, http_status: int | None, error_text: str) -> bool:
         if isinstance(exc, (json.JSONDecodeError, ValueError, TypeError)):
@@ -258,7 +357,7 @@ class PlannerLLMClient:
                 name='planner.discover_competitors',
                 inputs={'industry': industry, 'user_competitors': user_competitors},
             ):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.discover_competitors')
             competitors = result.get('competitors', [])
             if isinstance(competitors, list):
                 return [self._repair_mojibake(str(x).strip()) for x in competitors if str(x).strip()]
@@ -279,7 +378,7 @@ class PlannerLLMClient:
         )
         try:
             with self._trace_llm_call(name='planner.infer_industry', inputs={'prompt': prompt}):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.infer_industry')
             self._record_step_status('infer_industry')
             industry = str(result.get('industry', '')).strip().lower()
             return industry or 'general'
@@ -323,7 +422,7 @@ class PlannerLLMClient:
         )
         try:
             with self._trace_llm_call(name='planner.infer_product_profile', inputs={'prompt': prompt, 'industry': industry, 'competitor_hints': hints}):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.infer_product_profile')
             self._record_step_status('infer_product_profile')
             profile = result.get('product_profile', {})
             return self._normalize_product_profile(profile, fallback=fallback)
@@ -384,6 +483,14 @@ class PlannerLLMClient:
             search_results=search_results,
             product_profile=product_profile,
         )
+        if not candidate_pool:
+            candidate_pool = self._fallback_candidates_from_search_results(
+                prompt=prompt,
+                industry=normalized_industry,
+                competitor_hints=competitor_hints,
+                search_results=search_results,
+                product_profile=product_profile,
+            )
 
         expansion_queries = self._build_expansion_queries(
             competitor_hints=competitor_hints,
@@ -411,6 +518,16 @@ class PlannerLLMClient:
             product_profile=product_profile,
             max_direct=max_direct, max_substitute=max_substitute
         )
+        if not competitors.get('direct') and not competitors.get('substitute') and candidate_pool:
+            fallback_direct = [
+                self._make_candidate(name=name, fit_type='direct', reason='domain_fallback', confidence=0.66)
+                for name in candidate_pool[:max_direct]
+            ]
+            fallback_substitute = [
+                self._make_candidate(name=name, fit_type='substitute', reason='domain_fallback', confidence=0.56)
+                for name in candidate_pool[max_direct : max_direct + max_substitute]
+            ]
+            competitors = {'direct': fallback_direct, 'substitute': fallback_substitute}
 
         return {
             'competitors': competitors,
@@ -465,7 +582,7 @@ class PlannerLLMClient:
         )
         try:
             with self._trace_llm_call(name='planner.generate_search_queries', inputs={'prompt': prompt}):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.generate_search_queries')
             queries = result.get('search_queries', [])
             if isinstance(queries, list):
                 return [str(q).strip() for q in queries if str(q).strip()][:4]
@@ -625,6 +742,91 @@ class PlannerLLMClient:
             'seed_products': competitor_hints[:6],
         }
 
+    def _fallback_candidates_from_search_results(
+        self,
+        *,
+        prompt: str,
+        industry: str,
+        competitor_hints: list[str],
+        search_results: list[dict[str, Any]],
+        product_profile: dict[str, Any] | None = None,
+    ) -> list[str]:
+        merged: list[str] = []
+        seen: set[str] = set()
+
+        def _add(name: str) -> None:
+            cleaned = self._clean_candidate_name(name)
+            if not cleaned:
+                cleaned = self._repair_mojibake(str(name).strip())[:40]
+            key = self._normalize_candidate_key(cleaned)
+            if not cleaned or key in seen:
+                return
+            if industry and key == self._normalize_candidate_key(industry):
+                return
+            if prompt and key == self._normalize_candidate_key(prompt):
+                return
+            if self._looks_too_generic_for_candidate(cleaned, product_profile=product_profile):
+                return
+            seen.add(key)
+            merged.append(cleaned)
+
+        for hint in competitor_hints:
+            _add(hint)
+
+        for item in search_results[:12]:
+            title = str(item.get('title', '')).strip()
+            summary = str(item.get('summary', '')).strip()
+            for part in self._extract_title_candidates(title):
+                _add(part)
+            for token in self._extract_candidate_mentions(summary):
+                _add(token)
+            for token in self._extract_list_candidates(summary):
+                _add(token)
+            # last resort: split raw title into shorter brand-like fragments
+            for part in re.split(r'[-:|｜/,，()\[\]·]', title):
+                text = self._repair_mojibake(part.strip())
+                if 2 <= len(text) <= 24:
+                    _add(text)
+
+        return merged[: max(self.config.planner_schema_max_candidates, 6)]
+
+    def _looks_too_generic_for_candidate(self, value: str, *, product_profile: dict[str, Any] | None = None) -> bool:
+        text = self._normalize_candidate_key(value)
+        if not text:
+            return True
+        generic_tokens = {
+            '软件',
+            '工具',
+            '平台',
+            '系统',
+            '服务',
+            '应用',
+            '会议',
+            '视频会议',
+            '在线会议',
+            '远程会议',
+            '办公',
+            '协作',
+            '产品',
+            '竞品',
+            '替代方案',
+            '替代产品',
+        }
+        if text in generic_tokens:
+            return True
+        profile = product_profile or {}
+        profile_values: list[str] = []
+        for key in ('product_category', 'market_positioning', 'delivery_model'):
+            value_text = str(profile.get(key, '')).strip()
+            if value_text:
+                profile_values.append(value_text)
+        for key in ('core_capabilities', 'target_users', 'primary_use_cases'):
+            value_list = profile.get(key, [])
+            if isinstance(value_list, list):
+                profile_values.extend(str(item).strip() for item in value_list if str(item).strip())
+        normalized_profile_values = {self._normalize_candidate_key(item) for item in profile_values if item}
+        return text in normalized_profile_values
+
     def _profile_context_text(self, product_profile: dict[str, Any] | None) -> str:
         profile = product_profile or {}
         if not profile:
@@ -765,7 +967,7 @@ class PlannerLLMClient:
         )
         try:
             with self._trace_llm_call(name='planner.summarize_content', inputs={'url': url}):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.summarize_content')
             summary = result.get('summary', '')
             if summary and len(summary) > 20:
                 return summary
@@ -838,7 +1040,7 @@ class PlannerLLMClient:
 
         try:
             with self._trace_llm_call(name='planner.discover_from_search', inputs={'prompt': prompt, 'search_result_count': len(search_results)}):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.discover_from_search')
             self._record_step_status('discover_competitors_grouped')
         except Exception as e:
             logger.warning(f"Failed to discover from search results: {e}")
@@ -1019,7 +1221,7 @@ class PlannerLLMClient:
                     name='planner.extract_candidates_with_llm.page',
                     inputs={'prompt': prompt, 'page_index': index, 'url': page_payload.get('url', '')},
                 ):
-                    result = self._chat_json(sys_prompt, user_prompt)
+                    result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.extract_candidates_with_llm.page')
             except Exception as exc:
                 logger.warning('Failed to extract candidate names with llm for page %s: %s', index, exc)
                 return []
@@ -1290,7 +1492,7 @@ class PlannerLLMClient:
                 name='planner.plan_schema_extensions',
                 inputs={'prompt': prompt, 'core_schema_fields': core_schema_fields, 'candidate_names': limited_candidates, 'search_result_count': len(search_results) if search_results else 0},
             ):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.plan_schema_extensions')
             plan = result.get('extra_schema_fields', [])
             if not isinstance(plan, list):
                 return []
@@ -1314,7 +1516,7 @@ class PlannerLLMClient:
                 name='planner.plan_schema',
                 inputs={'industry': industry, 'target_product': target_product, 'competitors': competitors},
             ):
-                result = self._chat_json(sys_prompt, user_prompt)
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.plan_schema')
             plan = result.get('schema_plan', [])
             if not isinstance(plan, list) or not plan:
                 return self._core_schema_plan_only()

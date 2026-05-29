@@ -43,6 +43,22 @@ def replay_run(run_id: str, service: CompetitorWorkflowService = Depends(get_ser
     return data
 
 
+@router.get('/{run_id}/workspace')
+def workspace_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.workspace_payload(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.get('/{run_id}/logs/export')
+def export_run_logs(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.export_run_logs(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
 @router.get('/{run_id}/nodes/{node_name}')
 def replay_node(run_id: str, node_name: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
     data = service.replay_node(run_id, node_name)

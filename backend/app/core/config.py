@@ -7,8 +7,19 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+_BACKEND_DIR = Path(__file__).resolve().parents[2]
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+
 class AppConfig(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix='', env_file='.env', extra='ignore')
+    model_config = SettingsConfigDict(
+        env_prefix='',
+        env_file=(
+            str(_PROJECT_ROOT / '.env'),
+            str(_BACKEND_DIR / '.env'),
+        ),
+        extra='ignore',
+    )
 
     sqlite_path: str = '.data/competitor_analysis.db'
     max_rework_iterations: int = Field(default=2, ge=1, le=5)
@@ -54,6 +65,8 @@ class AppConfig(BaseSettings):
     collector_per_field_limit: int = Field(default=3, ge=1, le=20)
     collector_preview_auto_save_enabled: bool = True
     collector_preview_save_dir: str = '.data/collector_exports'
+    demo_workspace_auto_save_enabled: bool = True
+    demo_workspace_save_dir: str = 'mock_data/demo_workspace'
     tracing_mode: str = 'relaxed'
     agent_llm_retry_count: int = Field(default=2, ge=0, le=6)
     agent_llm_retry_backoff_ms: int = Field(default=400, ge=50, le=10000)
@@ -66,7 +79,8 @@ class AppConfig(BaseSettings):
 
     @property
     def sqlite_path_obj(self) -> Path:
-        return Path(self.sqlite_path)
+        path = Path(self.sqlite_path)
+        return path if path.is_absolute() else _PROJECT_ROOT / path
 
     def has_openai_config(self) -> bool:
         return bool(self.openai_api_key and self.openai_base_url and self.openai_model)
