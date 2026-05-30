@@ -146,8 +146,8 @@ class CompetitorWorkflowService:
     def list_runs(self, limit: int = 20) -> list[RunSummary]:
         return self.store.list_runs(limit=limit)
 
-    def list_run_events(self, run_id: str) -> list[dict]:
-        return self.store.list_events(run_id)
+    def list_run_events(self, run_id: str, *, after_id: int = 0, limit: int | None = None) -> list[dict]:
+        return self.store.list_events(run_id, after_id=after_id, limit=limit)
 
     def replay_run(self, run_id: str) -> dict[str, object]:
         run = self.get_run(run_id)
@@ -1227,6 +1227,7 @@ class CompetitorWorkflowService:
                 'timeline': timeline,
                 'agent_stages': self._build_agent_stage_cards(state=state, timeline=timeline, handoffs=handoffs),
                 'agent_workflows': agent_workflows,
+                'agent_handoffs': self._build_agent_handoffs(state=state, handoffs=handoffs, stage_io=stage_io),
                 'handoffs': [
                     {
                         'stage': item.get('stage', ''),
@@ -1251,9 +1252,17 @@ class CompetitorWorkflowService:
                 'markdown': state.report.markdown if state.report else '',
                 'sources': state.report.appendix_sources if state.report else [],
             },
+            'artifacts': self._build_workspace_artifacts(state),
             'observability': {
                 'llm_calls': llm_calls,
                 'stage_logs': stage_logs,
+                'agent_traces': self._build_agent_traces(
+                    state=state,
+                    stage_io=stage_io,
+                    handoffs=handoffs,
+                    llm_calls=llm_calls,
+                    events=events,
+                ),
                 'events': events,
                 'manual_interventions': manual_interventions,
                 'log_download_path': f'/runs/{state.run_id}/logs/export',
@@ -1412,6 +1421,252 @@ class CompetitorWorkflowService:
                 'llm_calls': [item for item in llm_calls if str(item.get('node_name', '')) == stage],
             }
         return output
+
+    def _build_workspace_artifacts(self, state: RunState) -> dict[str, object]:
+        return {
+            'analysis_schema_plan': [item.model_dump(mode='json') for item in state.analysis_schema_plan],
+            'evidences': [item.model_dump(mode='json') for item in state.evidences],
+            'competitor_analyses': [item.model_dump(mode='json') for item in state.competitor_analyses],
+            'profiles': [item.model_dump(mode='json') for item in state.profiles],
+            'findings': [item.model_dump(mode='json') for item in state.findings],
+            'tickets': [item.model_dump(mode='json') for item in state.tickets],
+            'report': state.report.model_dump(mode='json') if state.report else None,
+        }
+
+    def _build_agent_handoffs(
+        self,
+        *,
+        state: RunState,
+        handoffs: list[dict],
+        stage_io: dict[str, list[dict]],
+    ) -> list[dict[str, object]]:
+        handoffs_by_stage: dict[str, list[dict]] = {}
+        for item in handoffs:
+            stage = str(item.get('stage', '')).strip()
+            if not stage:
+                continue
+            handoffs_by_stage.setdefault(stage, []).append(item)
+
+        output: list[dict[str, object]] = []
+        for stage in self._stage_names():
+            stage_inputs = [item for item in stage_io.get(stage, []) if str(item.get('io_type', '')) == 'input']
+            stage_outputs = [item for item in stage_io.get(stage, []) if str(item.get('io_type', '')) == 'output']
+            latest_handoff = handoffs_by_stage.get(stage, [])[-1] if handoffs_by_stage.get(stage) else None
+            output.append(
+                {
+                    'stage': stage,
+                    'agent_name': self._stage_agent_name(stage),
+                    'status': self._stage_status_from_io(stage_inputs, stage_outputs, state.status),
+                    'input_schema': {
+                        'schema_name': self._input_schema_name(stage),
+                        'payload': stage_inputs[-1].get('payload', {}) if stage_inputs else {},
+                        'created_at': stage_inputs[-1].get('created_at', '') if stage_inputs else '',
+                    },
+                    'output_schema': {
+                        'schema_name': str(latest_handoff.get('handoff_type', '')) if latest_handoff else self._output_schema_name(stage),
+                        'payload': latest_handoff.get('payload', {}) if latest_handoff else (stage_outputs[-1].get('payload', {}) if stage_outputs else {}),
+                        'created_at': latest_handoff.get('created_at', '') if latest_handoff else (stage_outputs[-1].get('created_at', '') if stage_outputs else ''),
+                    },
+                    'handoff_summary': self._summarize_handoff_payload(latest_handoff.get('payload', {}) if latest_handoff else {}),
+                    'handoff_highlights': self._handoff_highlights(latest_handoff.get('payload', {}) if latest_handoff else {}),
+                }
+            )
+        return output
+
+    def _build_agent_traces(
+        self,
+        *,
+        state: RunState,
+        stage_io: dict[str, list[dict]],
+        handoffs: list[dict],
+        llm_calls: list[dict],
+        events: list[dict],
+    ) -> list[dict[str, object]]:
+        handoffs_by_stage: dict[str, list[dict]] = {}
+        llm_by_stage: dict[str, list[dict]] = {}
+        events_by_stage: dict[str, list[dict]] = {}
+        for item in handoffs:
+            stage = str(item.get('stage', '')).strip()
+            if stage:
+                handoffs_by_stage.setdefault(stage, []).append(item)
+        for item in llm_calls:
+            stage = str(item.get('node_name', '')).strip()
+            if stage:
+                llm_by_stage.setdefault(stage, []).append(item)
+        for item in events:
+            stage = str(item.get('stage', '')).strip()
+            if stage:
+                events_by_stage.setdefault(stage, []).append(item)
+
+        traces: list[dict[str, object]] = []
+        for stage in self._stage_names():
+            stage_inputs = [item for item in stage_io.get(stage, []) if str(item.get('io_type', '')) == 'input']
+            stage_outputs = [item for item in stage_io.get(stage, []) if str(item.get('io_type', '')) == 'output']
+            stage_handoffs = handoffs_by_stage.get(stage, [])
+            stage_llm_calls = llm_by_stage.get(stage, [])
+            stage_events = events_by_stage.get(stage, [])
+
+            steps: list[dict[str, object]] = []
+            for item in stage_inputs:
+                steps.append(
+                    {
+                        'step_type': 'input',
+                        'display_name': f'{self._input_schema_name(stage)} Input',
+                        'created_at': item.get('created_at', ''),
+                        'payload': item.get('payload', {}),
+                    }
+                )
+            for item in stage_events:
+                payload = item.get('payload', {})
+                steps.append(
+                    {
+                        'step_type': 'event',
+                        'display_name': self._humanize_step_label(str(item.get('event_type', 'event'))),
+                        'created_at': item.get('created_at', ''),
+                        'event_type': item.get('event_type', ''),
+                        'payload': payload,
+                        'payload_preview': self._truncate_json_preview(payload),
+                    }
+                )
+            for index, item in enumerate(stage_llm_calls, start=1):
+                parsed_response = item.get('parsed_response', {})
+                user_payload = item.get('user_payload', {})
+                steps.append(
+                    {
+                        'step_type': 'llm_call',
+                        'step_order': index,
+                        'display_name': self._humanize_step_label(str(item.get('trace_name', 'llm_call'))),
+                        'trace_name': item.get('trace_name', ''),
+                        'created_at': item.get('created_at', ''),
+                        'status': item.get('status', ''),
+                        'model': item.get('model', ''),
+                        'system_prompt': item.get('system_prompt', ''),
+                        'user_payload': user_payload,
+                        'raw_response': item.get('raw_response', {}),
+                        'parsed_response': parsed_response,
+                        'input_preview': self._truncate_json_preview(user_payload),
+                        'output_preview': self._truncate_json_preview(parsed_response),
+                        'latency_ms': item.get('latency_ms', 0),
+                        'prompt_tokens': item.get('prompt_tokens', 0),
+                        'completion_tokens': item.get('completion_tokens', 0),
+                        'total_tokens': item.get('total_tokens', 0),
+                        'finish_reason': item.get('finish_reason', ''),
+                        'error_reason': item.get('error_reason', ''),
+                        'error_message': item.get('error_message', ''),
+                    }
+                )
+            for item in stage_handoffs:
+                payload = item.get('payload', {})
+                steps.append(
+                    {
+                        'step_type': 'handoff',
+                        'display_name': f'{item.get("handoff_type", self._output_schema_name(stage))} Handoff',
+                        'created_at': item.get('created_at', ''),
+                        'schema_name': item.get('handoff_type', ''),
+                        'payload': payload,
+                        'payload_preview': self._truncate_json_preview(payload),
+                        'summary': self._summarize_handoff_payload(payload),
+                    }
+                )
+            for item in stage_outputs:
+                steps.append(
+                    {
+                        'step_type': 'output',
+                        'display_name': f'{self._output_schema_name(stage)} Output',
+                        'created_at': item.get('created_at', ''),
+                        'payload': item.get('payload', {}),
+                    }
+                )
+
+            steps.sort(key=lambda item: str(item.get('created_at', '')))
+            traces.append(
+                {
+                    'stage': stage,
+                    'agent_name': self._stage_agent_name(stage),
+                    'status': self._stage_status_from_io(stage_inputs, stage_outputs, state.status),
+                    'summary': {
+                        'llm_call_count': len(stage_llm_calls),
+                        'total_tokens': sum(int(item.get('total_tokens', 0) or 0) for item in stage_llm_calls),
+                        'prompt_tokens': sum(int(item.get('prompt_tokens', 0) or 0) for item in stage_llm_calls),
+                        'completion_tokens': sum(int(item.get('completion_tokens', 0) or 0) for item in stage_llm_calls),
+                        'event_count': len(stage_events),
+                        'handoff_count': len(stage_handoffs),
+                        'input_count': len(stage_inputs),
+                        'output_count': len(stage_outputs),
+                    },
+                    'steps': steps,
+                }
+            )
+        return traces
+
+    @staticmethod
+    def _truncate_json_preview(payload: object, limit: int = 240) -> str:
+        try:
+            text = json.dumps(payload, ensure_ascii=False, default=str)
+        except Exception:
+            text = str(payload)
+        return text if len(text) <= limit else f'{text[:limit]}...'
+
+    @staticmethod
+    def _humanize_step_label(value: str) -> str:
+        cleaned = (
+            value.replace('agent.', '')
+            .replace('planner.', '')
+            .replace('collector.', '')
+            .replace('_', ' ')
+            .replace('.', ' / ')
+            .strip()
+        )
+        if not cleaned:
+            return value
+        return ' '.join(part.capitalize() if part else '' for part in cleaned.split(' '))
+
+    @staticmethod
+    def _stage_agent_name(stage: str) -> str:
+        mapping = {
+            'plan': 'Planner Agent',
+            'collect': 'Collector Agent',
+            'normalize': 'Normalizer',
+            'analyze': 'Analyst Agent',
+            'draft': 'Writer Agent',
+            'qa': 'QA Agent',
+            'finalize': 'Finalize',
+        }
+        return mapping.get(stage, stage)
+
+    @staticmethod
+    def _input_schema_name(stage: str) -> str:
+        mapping = {
+            'plan': 'RunRequest',
+            'collect': 'PlanHandoff',
+            'normalize': 'CollectOutput',
+            'analyze': 'CollectHandoff',
+            'draft': 'AnalyzeHandoff',
+            'qa': 'AnalyzeHandoff',
+            'finalize': 'RunState',
+        }
+        return mapping.get(stage, 'UnknownInput')
+
+    @staticmethod
+    def _output_schema_name(stage: str) -> str:
+        mapping = {
+            'plan': 'PlanHandoff',
+            'collect': 'CollectHandoff',
+            'normalize': 'CollectOutput',
+            'analyze': 'AnalyzeHandoff',
+            'draft': 'Report',
+            'qa': 'QAOutput',
+            'finalize': 'RunState',
+        }
+        return mapping.get(stage, 'UnknownOutput')
+
+    @staticmethod
+    def _stage_status_from_io(stage_inputs: list[dict], stage_outputs: list[dict], run_status: str) -> str:
+        if stage_outputs:
+            return 'completed'
+        if stage_inputs:
+            return 'running' if run_status == 'running' else run_status
+        return 'pending'
 
     @staticmethod
     def _summarize_stage(stage: str, state: RunState) -> str:

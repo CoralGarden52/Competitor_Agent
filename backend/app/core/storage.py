@@ -472,16 +472,23 @@ class SQLiteStore:
             for row in rows
         ]
 
-    def list_events(self, run_id: str) -> list[dict[str, Any]]:
+    def list_events(self, run_id: str, *, after_id: int = 0, limit: int | None = None) -> list[dict[str, Any]]:
+        sql = 'SELECT id, stage, event_type, payload_json, created_at FROM events WHERE run_id = ?'
+        params: list[Any] = [run_id]
+        if after_id > 0:
+            sql += ' AND id > ?'
+            params.append(after_id)
+        sql += ' ORDER BY id ASC'
+        if limit is not None:
+            sql += ' LIMIT ?'
+            params.append(limit)
         with self._connect() as conn:
-            rows = conn.execute(
-                'SELECT stage, event_type, payload_json, created_at FROM events WHERE run_id = ? ORDER BY id ASC',
-                (run_id,),
-            ).fetchall()
+            rows = conn.execute(sql, tuple(params)).fetchall()
         output: list[dict[str, Any]] = []
         for row in rows:
             output.append(
                 {
+                    'event_id': row['id'],
                     'stage': row['stage'],
                     'event_type': row['event_type'],
                     'payload': json.loads(row['payload_json']),
