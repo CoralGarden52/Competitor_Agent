@@ -355,19 +355,81 @@ export async function runLivePrompt(
     emitProgress(null, run.state.status)
   }
 
-  for (let attempt = 0; attempt < 120; attempt += 1) {
-    const currentStatus = latestWorkspace?.run.status ?? run.state.status
-    if (currentStatus !== 'running') {
-      timedOut = false
-      break
-    }
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    run = await fetchJson(`/runs/${run.summary.run_id}`)
+  const sseSupported = typeof window !== 'undefined' && typeof window.EventSource !== 'undefined'
+  if (sseSupported) {
     try {
-      latestWorkspace = await loadLiveWorkspace(run.summary.run_id)
-      emitProgress(latestWorkspace, latestWorkspace.run.status)
+      await new Promise<void>((resolve) => {
+        const source = new window.EventSource(`/runs/${run.summary.run_id}/stream`)
+        let settled = false
+
+        const finish = (done: boolean) => {
+          if (settled) return
+          settled = true
+          timedOut = !done
+          source.close()
+          resolve()
+        }
+
+        const timeout = window.setTimeout(() => finish(false), 180000)
+
+        source.addEventListener('workspace', (event) => {
+          try {
+            const payload = JSON.parse((event as MessageEvent).data) as {
+              status?: string
+              workspace?: WorkspacePayload
+            }
+            if (payload.workspace) {
+              latestWorkspace = payload.workspace
+              emitProgress(payload.workspace, payload.workspace.run.status)
+            }
+          } catch {
+            // Ignore malformed workspace events and keep stream alive.
+          }
+        })
+
+        source.addEventListener('run_event', () => {
+          if (latestWorkspace) {
+            emitProgress(latestWorkspace, latestWorkspace.run.status)
+          }
+        })
+
+        source.addEventListener('run_done', async (event) => {
+          window.clearTimeout(timeout)
+          try {
+            const payload = JSON.parse((event as MessageEvent).data) as { status?: string }
+            latestWorkspace = await loadLiveWorkspace(run.summary.run_id)
+            emitProgress(latestWorkspace, payload.status || latestWorkspace.run.status)
+          } catch {
+            if (latestWorkspace) emitProgress(latestWorkspace, latestWorkspace.run.status)
+          }
+          finish(true)
+        })
+
+        source.addEventListener('error', () => {
+          window.clearTimeout(timeout)
+          finish(false)
+        })
+      })
     } catch {
-      emitProgress(latestWorkspace, run.state.status)
+      timedOut = true
+    }
+  }
+
+  if (timedOut) {
+    for (let attempt = 0; attempt < 120; attempt += 1) {
+      const currentStatus = latestWorkspace?.run.status ?? run.state.status
+      if (currentStatus !== 'running') {
+        timedOut = false
+        break
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      run = await fetchJson(`/runs/${run.summary.run_id}`)
+      try {
+        latestWorkspace = await loadLiveWorkspace(run.summary.run_id)
+        emitProgress(latestWorkspace, latestWorkspace.run.status)
+      } catch {
+        emitProgress(latestWorkspace, run.state.status)
+      }
     }
   }
 
