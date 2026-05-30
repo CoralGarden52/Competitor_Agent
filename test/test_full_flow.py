@@ -2,6 +2,7 @@
 """Full flow: plan/collect/normalize/analyze -> QA -> recollect(once) -> analyze -> draft."""
 from __future__ import annotations
 
+import builtins
 import json
 import time
 import sys
@@ -11,7 +12,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).parent / 'backend'))
 
 from app.core.config import get_config
-from app.core.models import AnalysisSchemaField, RunState
+from app.core.models import RunState
 from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
 
@@ -26,6 +27,19 @@ TEST_CASE = {
     "max_substitute": 1,
     "output_dir": "complete_flow_result",
 }
+
+
+def _install_event_log_filter() -> None:
+    """Suppress noisy workflow event lines while keeping script-level output."""
+    original_print = builtins.print
+
+    def filtered_print(*args, **kwargs):
+        text = " ".join(str(x) for x in args)
+        if " EVENT: " in text:
+            return
+        return original_print(*args, **kwargs)
+
+    builtins.print = filtered_print
 
 
 def _save_analysis_files(*, state: RunState, analyst_output_dir: Path) -> list[str]:
@@ -54,60 +68,8 @@ def _save_analysis_files(*, state: RunState, analyst_output_dir: Path) -> list[s
     return files
 
 
-def _backup_file(path: Path) -> Path:
-    stamp = time.strftime('%Y%m%d_%H%M%S')
-    backup = path.with_name(f'{path.stem}.backup_{stamp}{path.suffix}')
-    backup.write_text(path.read_text(encoding='utf-8'), encoding='utf-8')
-    return backup
-
-
-def _merge_fields(original_fields: list[dict[str, Any]], new_fields: list[dict[str, Any]], target_fields: set[str]) -> list[dict[str, Any]]:
-    update_map = {str(x.get('field_name', '')).strip(): x for x in new_fields if isinstance(x, dict) and str(x.get('field_name', '')).strip()}
-    merged: list[dict[str, Any]] = []
-    seen: set[str] = set()
-    for item in original_fields:
-        if not isinstance(item, dict):
-            merged.append(item)
-            continue
-        field_name = str(item.get('field_name', '')).strip()
-        if field_name in target_fields and field_name in update_map:
-            merged.append(update_map[field_name])
-            seen.add(field_name)
-        else:
-            merged.append(item)
-    for field_name in sorted(target_fields):
-        if field_name not in seen and field_name in update_map:
-            merged.append(update_map[field_name])
-    return merged
-
-
-def _competitor_schema_plan_from_payload(payload: dict[str, Any]) -> list[dict[str, Any]]:
-    fields = payload.get("fields", [])
-    if not isinstance(fields, list):
-        return []
-    plan: list[dict[str, Any]] = []
-    seen: set[str] = set()
-    priority = 1
-    for item in fields:
-        if not isinstance(item, dict):
-            continue
-        field_name = str(item.get("field_name", "")).strip()
-        if not field_name or field_name in seen:
-            continue
-        seen.add(field_name)
-        plan.append(
-            {
-                "field_name": field_name,
-                "query_templates": [f"{{product}} {field_name}"],
-                "recommended_sources": ["public_web"],
-                "priority": priority,
-            }
-        )
-        priority += 1
-    return plan
-
-
 def main() -> None:
+    _install_event_log_filter()
     config = get_config()
     store = SQLiteStore(config.sqlite_path_obj)
     service = CompetitorWorkflowService(store)
@@ -134,7 +96,23 @@ def main() -> None:
     competitors = plan.get('planned_competitors', [])
     schema_plan = plan.get('analysis_schema_plan', [])
     inferred_industry = str(plan.get('inferred_industry', '')).strip().lower() or 'general'
+    planner_meta = plan.get('planner_meta', {}) if isinstance(plan.get('planner_meta', {}), dict) else {}
+    candidate_groups = plan.get('candidate_groups', {}) if isinstance(plan.get('candidate_groups', {}), dict) else {}
+    candidate_pool = plan.get('candidate_pool', []) if isinstance(plan.get('candidate_pool', []), list) else []
+    schema_fields = [
+        str(item.get('field_name', '')).strip()
+        for item in schema_plan
+        if isinstance(item, dict) and str(item.get('field_name', '')).strip()
+    ]
     print(f"      competitors={competitors}")
+    print(f"      inferred_industry={inferred_industry}")
+    print(f"      candidate_groups.direct={candidate_groups.get('direct', [])}")
+    print(f"      candidate_groups.substitute={candidate_groups.get('substitute', [])}")
+    print(f"      candidate_pool={candidate_pool}")
+    print(f"      schema_fields({len(schema_fields)})={schema_fields}")
+    if planner_meta:
+        print(f"      planner_llm_status={planner_meta.get('llm_call_status', {})}")
+        print(f"      planner_llm_status_by_step={planner_meta.get('llm_call_status_by_step', {})}")
     print(f"      done in {time.time() - t:.2f}s")
 
     print('\n[2/7] 初始化RunState')
@@ -161,10 +139,12 @@ def main() -> None:
     print('\n[4/7] Analyze(首轮) + 落盘分析JSON')
     t = time.time()
     service._analyze(state)
+    coverage_before_qa = float(state.self_eval.get('analyze').coverage if state.self_eval.get('analyze') else 0.0)
     output_dir = Path(__file__).parent / 'mock_data' / TEST_CASE['output_dir']
     analyst_output_dir = output_dir / 'analyst_output'
     first_files = _save_analysis_files(state=state, analyst_output_dir=analyst_output_dir)
     print(f"      analysis_files={len(first_files)}")
+    print(f"      coverage_before_qa={coverage_before_qa:.4f}")
     print(f"      done in {time.time() - t:.2f}s")
 
     print('\n[5/7] QA(并行审查分析JSON)')
@@ -181,9 +161,13 @@ def main() -> None:
 
     qa_rework_summary: dict[str, Any] = {
         'triggered': False,
-        'updated_files': [],
-        'backup_files': [],
+        'incremental_verified': False,
+        'reanalyzed_pairs': [],
+        'non_target_pairs_checked': 0,
         'collect_items': [],
+        'coverage_before_qa': coverage_before_qa,
+        'coverage_after_qa': coverage_before_qa,
+        'coverage_delta': 0.0,
     }
 
     if (not qa.passed) and qa.target_agent == 'Collect' and qa.collect_plan and qa.collect_plan.items:
@@ -196,69 +180,55 @@ def main() -> None:
         for item in qa.collect_plan.items:
             target_fields_by_competitor.setdefault(item.competitor, set()).add(item.field_name)
 
-        first_round_analysis_map = {rec.product_name: rec for rec in state.competitor_analyses}
+        # Snapshot before incremental analyze to verify unchanged non-target fields.
+        first_round_summary_map: dict[tuple[str, str], str] = {}
+        for record in state.competitor_analyses:
+            for field in record.fields:
+                first_round_summary_map[(record.product_name, field.field_name)] = field.summary
+
         service._apply_rework_ticket(state, qa)
         service._collect(state)
         service._normalize(state)
+        service._analyze(state)
+        coverage_after_qa = float(state.self_eval.get('analyze').coverage if state.self_eval.get('analyze') else 0.0)
 
-        rerun_analysis_map: dict[str, Any] = {}
-        for competitor, target_fields in target_fields_by_competitor.items():
-            path = analyst_output_dir / f'{competitor}_analysis.json'
-            if not path.exists():
-                continue
+        # Strict verification: non-target fields must keep previous summaries.
+        non_target_checked = 0
+        for record in state.competitor_analyses:
+            competitor = record.product_name
+            target_fields = target_fields_by_competitor.get(competitor, set())
+            for field in record.fields:
+                key = (competitor, field.field_name)
+                if field.field_name in target_fields:
+                    continue
+                if key not in first_round_summary_map:
+                    continue
+                assert (
+                    field.summary == first_round_summary_map[key]
+                ), f'non-target field changed unexpectedly: {competitor}.{field.field_name}'
+                non_target_checked += 1
 
-            payload_before = json.loads(path.read_text(encoding='utf-8'))
-            competitor_schema_plan = _competitor_schema_plan_from_payload(payload_before)
-            if not competitor_schema_plan:
-                continue
+        reanalyzed_pairs = [
+            f'{competitor}.{field_name}'
+            for competitor, fields in target_fields_by_competitor.items()
+            for field_name in sorted(fields)
+        ]
+        qa_rework_summary['incremental_verified'] = True
+        qa_rework_summary['non_target_pairs_checked'] = non_target_checked
+        qa_rework_summary['reanalyzed_pairs'] = sorted(reanalyzed_pairs)
+        qa_rework_summary['coverage_after_qa'] = coverage_after_qa
+        qa_rework_summary['coverage_delta'] = coverage_after_qa - coverage_before_qa
 
-            competitor_evidences = []
-            for ev in state.evidences or []:
-                ev_competitor = ""
-                ext = getattr(ev, "domain_extensions", {}) or {}
-                if isinstance(ext, dict):
-                    ev_competitor = str(ext.get("competitor", "")).strip()
-                if ev_competitor == competitor:
-                    competitor_evidences.append(ev)
-
-            if not competitor_evidences:
-                continue
-
-            rerun_state = RunState(
-                run_id=state.run_id,
-                industry=state.industry,
-                competitors=[competitor],
-                planned_competitors=[competitor],
-                user_prompt=state.user_prompt,
-                language=state.language,
-                timeframe=state.timeframe,
-                analysis_schema_plan=[AnalysisSchemaField.model_validate(item) for item in competitor_schema_plan],
-                evidences=competitor_evidences,
-            )
-            analyze_out = service.analyst_agent.run_llm(rerun_state)
-            if not analyze_out.competitors:
-                continue
-            rerun_analysis_map[competitor] = analyze_out.competitors[0]
-
-            backup = _backup_file(path)
-            qa_rework_summary['backup_files'].append(str(backup))
-            old_payload = payload_before
-            old_fields = old_payload.get('fields', []) if isinstance(old_payload.get('fields', []), list) else []
-            new_fields = [x.model_dump(mode='json') for x in rerun_analysis_map[competitor].fields]
-            merged = _merge_fields(old_fields, new_fields, target_fields)
-            new_payload = {'competitor': competitor, 'run_id': state.run_id, 'fields': merged}
-            path.write_text(json.dumps(new_payload, ensure_ascii=False, indent=2), encoding='utf-8')
-            qa_rework_summary['updated_files'].append(str(path))
-
-        if rerun_analysis_map:
-            merged_analysis_map = dict(first_round_analysis_map)
-            merged_analysis_map.update(rerun_analysis_map)
-            state.competitor_analyses = [merged_analysis_map[c] for c in state.competitors if c in merged_analysis_map]
-
-        print(f"      updated_files={len(qa_rework_summary['updated_files'])}")
+        print(f"      incremental_verified=True")
+        print(f"      reanalyzed_pairs={qa_rework_summary['reanalyzed_pairs']}")
+        print(f"      non_target_pairs_checked={non_target_checked}")
+        print(f"      coverage_after_qa={coverage_after_qa:.4f}")
+        print(f"      coverage_delta={qa_rework_summary['coverage_delta']:+.4f}")
         print(f"      done in {time.time() - t:.2f}s")
     else:
         print('\n[6/7] QA未触发回采，跳过')
+        print(f"      coverage_after_qa={coverage_before_qa:.4f} (no recollect)")
+        print(f"      coverage_delta={0.0:+.4f}")
 
     print('\n[7/7] Draft(最终报告) + 结果落盘')
     t = time.time()
@@ -289,6 +259,9 @@ def main() -> None:
         'findings_count': len(state.findings or []),
         'qa_summary': qa_summary,
         'qa_rework': qa_rework_summary,
+        'coverage_before_qa': qa_rework_summary['coverage_before_qa'],
+        'coverage_after_qa': qa_rework_summary['coverage_after_qa'],
+        'coverage_delta': qa_rework_summary['coverage_delta'],
         'report_exists': bool(report_content),
         'report_length': len(report_content),
         'report_path': str(report_path),

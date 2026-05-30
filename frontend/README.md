@@ -1,65 +1,41 @@
-# Frontend Demo
+# Competitor Analysis Frontend
 
-这个前端是给 `Competitor_Agent` 的后端演示台，目标是：
+基于 Next.js + React 的竞品分析工作台页面，用来连接后端多智能体流程并展示运行态、事件流和最终报告。
 
-- 默认使用稳定的 `mock_data` 做演示
-- 可切换到真实后端 API 读取运行态
-- 一屏覆盖评分细则里的核心给分点
+## 功能
 
-## 技术栈
+- 左侧导航（新建任务 / Agent 流程 / 历史运行）
+- 中央工作台展示 DAG、handoff、事件流、QA 回路和报告
+- 通过后端 API 启动异步 run，并优先使用 SSE 实时刷新工作区
 
-- React 18
-- TypeScript
-- Vite
-
-## 启动
+## 启动方式
 
 ```bash
 cd frontend
-npm install
-npm run dev -- --host 127.0.0.1
+pnpm install
+pnpm dev
 ```
 
 默认访问：
 
-- `http://127.0.0.1:4173`
+- `http://localhost:3000`
 
-## 数据模式
+如果后端不是默认的 `http://127.0.0.1:8010`，先配置：
 
-### Mock Mode
+```bash
+export NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8010
+```
 
-默认读取这些静态数据：
+## 联调说明
 
-- `mock_data/complete_flow_result/complete_flow_result.json`
-- `mock_data/complete_flow_result/final_report_20260528_210348.md`
-- `mock_data/complete_flow_result/qa_rework_result_20260528_210348.json`
-- `mock_data/complete_flow_result/analyst_output/*.json`
+- 前端调用 `POST /runs/async` 启动异步任务
+- 前端优先订阅 `GET /runs/{run_id}/stream` 的 SSE 实时流来动态展示工作区
+- `GET /runs/{run_id}/workspace` 用于首屏加载和手动刷新兜底
+- `GET /runs/{run_id}/logs/export` 可导出运行日志
 
-适合现场演示，稳定、不依赖后端状态。
+## 生产构建
 
-### API Mode
-
-通过 Vite proxy 访问：
-
-- `/runs`
-- `/runs/{run_id}`
-- `/runs/{run_id}/replay`
-- `/runs/{run_id}/ops/intervene`
-- `/collector/*`
-- `/schema/*`
-
-默认代理到：
-
-- `http://127.0.0.1:8000`
-
-## 页面覆盖点
-
-- Run Overview：效率、覆盖度、QA 重做指标
-- Agent Roles：多 Agent 分工与协议
-- Workflow Replay：DAG、handoff、决策回放
-- Competitor Profile / Field Analysis：Schema-first 输出
-- Findings & Traceability：结论与来源入口
-- QA Loop：真实打回与补采项
-- Intervention：人工修正入口
-- Observability：LLM trace / token / 决策过程
-- Report Viewer：最终报告展示
+```bash
+pnpm build
+pnpm start
+```

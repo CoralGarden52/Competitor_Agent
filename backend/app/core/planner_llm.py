@@ -1697,8 +1697,8 @@ class PlannerLLMClient:
         return f'{text} {{current_year}}'
 
     @staticmethod
-    def _make_candidate(*, name: str, fit_type: str, reason: str) -> dict[str, Any]:
-        return {'name': name.strip(), 'fit_type': fit_type, 'reason': reason, 'confidence': 0.7}
+    def _make_candidate(*, name: str, fit_type: str, reason: str, confidence: float = 0.7) -> dict[str, Any]:
+        return {'name': name.strip(), 'fit_type': fit_type, 'reason': reason, 'confidence': float(confidence)}
 
     def _clean_candidates(
         self,
