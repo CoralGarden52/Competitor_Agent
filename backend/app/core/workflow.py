@@ -1180,6 +1180,7 @@ class CompetitorWorkflowService:
             industry=state.industry,
             status=state.status,
             competitor_count=len(state.competitors),
+            user_prompt=state.user_prompt,
             created_at=now,
             updated_at=now,
         )

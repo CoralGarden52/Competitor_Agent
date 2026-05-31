@@ -457,15 +457,22 @@ class SQLiteStore:
     def list_runs(self, limit: int = 20) -> list[RunSummary]:
         with self._connect() as conn:
             rows = conn.execute(
-                'SELECT run_id, industry, status, competitor_count, created_at, updated_at FROM runs ORDER BY updated_at DESC LIMIT ?',
+                'SELECT run_id, industry, status, competitor_count, state_json, created_at, updated_at FROM runs ORDER BY updated_at DESC LIMIT ?',
                 (limit,),
             ).fetchall()
+        def _extract_user_prompt(state_json: str) -> str:
+            try:
+                payload = json.loads(state_json or '{}')
+                return str(payload.get('user_prompt', '') or '').strip()
+            except Exception:
+                return ''
         return [
             RunSummary(
                 run_id=row['run_id'],
                 industry=row['industry'],
                 status=row['status'],
                 competitor_count=row['competitor_count'],
+                user_prompt=_extract_user_prompt(row['state_json']),
                 created_at=datetime.fromisoformat(row['created_at']),
                 updated_at=datetime.fromisoformat(row['updated_at']),
             )

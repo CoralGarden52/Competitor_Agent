@@ -366,6 +366,7 @@ class RunSummary(BaseModel):
     industry: str
     status: str
     competitor_count: int
+    user_prompt: str = ''
     created_at: datetime
     updated_at: datetime
 

@@ -19,3 +19,9 @@ response = client.chat.completions.create(
 
 # 打印结果
 print("模型返回：", response.choices[0].message.content)
+if response.usage:
+    print("prompt_tokens:", response.usage.prompt_tokens)
+    print("completion_tokens:", response.usage.completion_tokens)
+    print("total_tokens:", response.usage.total_tokens)
+else:
+    print("This response does not include usage info.")

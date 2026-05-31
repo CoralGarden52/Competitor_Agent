@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import { Bot, History, MessageSquarePlus } from "lucide-react";
 
 type ViewMode = "welcome" | "workspace";
 type StepStatus = "pending" | "running" | "done" | "failed";
@@ -32,7 +33,7 @@ type WorkspacePayload = {
 };
 
 type RunStatusResponse = { state?: { status?: string } };
-type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; created_at: string; updated_at: string };
+type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; user_prompt?: string; created_at: string; updated_at: string };
 type AgentCard = { id: string; title: string; status: StepStatus; summaryLines: string[] };
 type ChatMessage = { id: string; role: "user" | "assistant" | "system"; content: string };
 type ReferenceLinkItem = { label: string; url: string };
@@ -75,6 +76,7 @@ export function HomeWorkspace() {
   const maxReconnectAttempts = 4;
   const maxSessionCount = 30;
   const displaySummary = taskSummary.replace(/^任务(目标|分析)\s*[:：]\s*/u, "").trim();
+  const sessionChatStoragePrefix = "home_workspace_chat_messages:";
 
   useEffect(() => {
     if (viewMode === "workspace" && scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -93,8 +95,97 @@ export function HomeWorkspace() {
     return new Date().toISOString();
   }
 
+  function initialPromptMessageId(runId: string): string {
+    return `initial-user-prompt:${runId}`;
+  }
+
+  function makeInitialPromptMessage(runId: string, prompt: string): ChatMessage {
+    return { id: initialPromptMessageId(runId), role: "user", content: prompt };
+  }
+
+  function ensureInitialPromptMessage(runId: string, messages: ChatMessage[], prompt: string): ChatMessage[] {
+    const normalizedRunId = runId.trim();
+    const normalizedPrompt = prompt.trim();
+    if (!normalizedRunId || !normalizedPrompt) return messages;
+
+    const deduped = messages.filter(
+      (item) =>
+        item.id !== initialPromptMessageId(normalizedRunId) &&
+        !(item.role === "user" && item.content.trim() === normalizedPrompt)
+    );
+    const initial = makeInitialPromptMessage(normalizedRunId, normalizedPrompt);
+    return [initial, ...deduped];
+  }
+
+  function storageKeyForRun(runId: string): string {
+    return `${sessionChatStoragePrefix}${runId}`;
+  }
+
+  function readStoredMessages(runId: string): ChatMessage[] {
+    if (typeof window === "undefined" || !runId) return [];
+    try {
+      const raw = window.localStorage.getItem(storageKeyForRun(runId));
+      if (!raw) return [];
+      const parsed = JSON.parse(raw) as ChatMessage[];
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter((item) => typeof item?.content === "string" && (item.role === "user" || item.role === "assistant" || item.role === "system"));
+    } catch {
+      return [];
+    }
+  }
+
+  function writeStoredMessages(runId: string, messages: ChatMessage[]) {
+    if (typeof window === "undefined" || !runId) return;
+    try {
+      if (!messages.length) {
+        window.localStorage.removeItem(storageKeyForRun(runId));
+        return;
+      }
+      window.localStorage.setItem(storageKeyForRun(runId), JSON.stringify(messages));
+    } catch {
+      // ignore storage errors
+    }
+  }
+
+  function mergeSessionsPreserveState(mapped: StoredSession[], previous: StoredSession[]): StoredSession[] {
+    const previousById = new Map(previous.map((item) => [item.session_id, item]));
+    return mapped.map((item) => {
+      const existing = previousById.get(item.session_id);
+      const promptFromSnapshot = (existing?.workspace_snapshot?.request?.user_prompt || "").trim();
+      if (!existing) {
+        const cached = readStoredMessages(item.session_id);
+        const title = resolveSessionTitle({
+          runId: item.session_id,
+          prompt: "",
+          taskSummary: item.task_summary,
+          currentTitle: item.title,
+        });
+        return cached.length ? { ...item, title, chat_messages: cached } : { ...item, title };
+      }
+      const taskSummary = existing.task_summary || item.task_summary;
+      const title = resolveSessionTitle({
+        runId: item.session_id,
+        prompt: promptFromSnapshot,
+        taskSummary,
+        currentTitle: item.title || existing.title,
+      });
+      return {
+        ...item,
+        title,
+        task_summary: taskSummary,
+        chat_messages: existing.chat_messages.length ? existing.chat_messages : readStoredMessages(item.session_id),
+        workspace_snapshot: existing.workspace_snapshot || item.workspace_snapshot,
+      };
+    });
+  }
+
   function makeSessionFromRunSummary(run: RunListItem): StoredSession {
-    const title = run.run_id;
+    const title = resolveSessionTitle({
+      runId: run.run_id,
+      prompt: run.user_prompt || "",
+      taskSummary: "",
+      currentTitle: run.run_id,
+    });
     return {
       session_id: run.run_id,
       title,
@@ -105,6 +196,14 @@ export function HomeWorkspace() {
       chat_messages: [],
       workspace_snapshot: null,
     };
+  }
+
+  function resolveSessionTitle(args: { runId: string; prompt?: string; taskSummary?: string; currentTitle?: string }): string {
+    const runId = (args.runId || "").trim();
+    const prompt = (args.prompt || "").trim();
+    const taskSummary = (args.taskSummary || "").trim();
+    const currentTitle = (args.currentTitle || "").trim();
+    return prompt || taskSummary || currentTitle || runId || "未命名会话";
   }
 
   async function fetchRuns(limit = maxSessionCount): Promise<RunListItem[]> {
@@ -297,20 +396,34 @@ export function HomeWorkspace() {
     const runId = workspace.run?.run_id || activeRunIdRef.current;
     const prompt = (workspace.request?.user_prompt || "").trim();
     if (runId) {
-      setSessions((prev) =>
-        prev.map((s) =>
+      setSessions((prev) => {
+        const next = prev.map((s) =>
           s.session_id === runId
             ? {
                 ...s,
                 active_run_id: runId,
                 workspace_snapshot: workspace,
                 task_summary: s.task_summary || prompt,
-                title: s.title && s.title !== s.session_id ? s.title : (prompt || s.title || runId),
+                title: resolveSessionTitle({
+                  runId,
+                  prompt,
+                  taskSummary: s.task_summary || prompt,
+                  currentTitle: s.title,
+                }),
+                chat_messages: ensureInitialPromptMessage(runId, s.chat_messages || [], prompt),
                 updated_at: nowIso(),
               }
             : s
-        )
-      );
+        );
+        const updated = next.find((s) => s.session_id === runId);
+        if (updated) writeStoredMessages(runId, updated.chat_messages);
+        return next;
+      });
+      setChatMessages((prev) => {
+        const next = ensureInitialPromptMessage(runId, prev, prompt);
+        writeStoredMessages(runId, next);
+        return next;
+      });
     }
     if (prompt && !taskSummary) setTaskSummary(prompt);
   }
@@ -385,7 +498,7 @@ export function HomeWorkspace() {
   async function loadSessionToUI(session: StoredSession) {
     setActiveSessionId(session.session_id);
     setTaskSummary(session.task_summary || "");
-    setChatMessages(session.chat_messages || []);
+    setChatMessages(session.chat_messages?.length ? session.chat_messages : readStoredMessages(session.session_id));
     setWorkspaceData(session.workspace_snapshot || null);
     setAgentCards(session.workspace_snapshot ? buildAgentCardsFromWorkspace(session.workspace_snapshot) : []);
     setViewMode("workspace");
@@ -418,19 +531,20 @@ export function HomeWorkspace() {
   async function refreshSessions(preferredRunId = ""): Promise<StoredSession[]> {
     const runs = await fetchRuns(maxSessionCount);
     const mapped = runs.map(makeSessionFromRunSummary);
-    setSessions(mapped);
+    const merged = mergeSessionsPreserveState(mapped, sessions);
+    setSessions(merged);
 
-    if (!mapped.length) {
+    if (!merged.length) {
       setActiveSessionId("");
       setViewMode("welcome");
       return [];
     }
 
-    const targetId = preferredRunId || activeSessionId || mapped[0].session_id;
-    const target = mapped.find((s) => s.session_id === targetId) || mapped[0];
+    const targetId = preferredRunId || activeSessionId || merged[0].session_id;
+    const target = merged.find((s) => s.session_id === targetId) || merged[0];
     stopRealtime();
     await loadSessionToUI(target);
-    return mapped;
+    return merged;
   }
 
   function handleNewConversation() {
@@ -472,12 +586,13 @@ export function HomeWorkspace() {
         const runs = await fetchRuns(maxSessionCount);
         if (canceled) return;
         const mapped = runs.map(makeSessionFromRunSummary);
-        setSessions(mapped);
-        if (!mapped.length) {
+        const merged = mergeSessionsPreserveState(mapped, []);
+        setSessions(merged);
+        if (!merged.length) {
           handleNewConversation();
           return;
         }
-        await loadSessionToUI(mapped[0]);
+        await loadSessionToUI(merged[0]);
       } catch (initError) {
         if (canceled) return;
         const message = initError instanceof Error ? initError.message : "加载历史会话失败";
@@ -527,9 +642,7 @@ export function HomeWorkspace() {
       }
 
       const runId = runPayload.summary?.run_id || "";
-      const newMessages = [...chatMessages, { id: `${Date.now()}-u`, role: "user" as const, content: text }];
       setTaskSummary(summary);
-      setChatMessages(newMessages);
       setAgentCards([
         { id: "boot-plan", title: "1. 计划智能体", status: "running", summaryLines: [`任务摘要：${summary}`] },
         { id: "boot-collect", title: "2. 采集智能体", status: "pending", summaryLines: ["等待采集启动..."] },
@@ -543,7 +656,7 @@ export function HomeWorkspace() {
       if (runId) {
         const refreshed = await fetchRuns(maxSessionCount);
         const mapped = refreshed.map(makeSessionFromRunSummary);
-        setSessions(mapped);
+        setSessions((prev) => mergeSessionsPreserveState(mapped, prev));
         const next = mapped.find((item) => item.session_id === runId) || makeSessionFromRunSummary({
           run_id: runId,
           industry: "",
@@ -553,8 +666,34 @@ export function HomeWorkspace() {
           updated_at: nowIso(),
         });
         setSessions((prev) => {
-          if (prev.some((item) => item.session_id === next.session_id)) return prev;
-          return [next, ...prev].slice(0, maxSessionCount);
+          if (prev.some((item) => item.session_id === next.session_id)) {
+            return prev.map((item) =>
+              item.session_id === runId
+                ? {
+                    ...item,
+                    title: resolveSessionTitle({
+                      runId,
+                      prompt: text,
+                      taskSummary: item.task_summary || summary,
+                      currentTitle: item.title,
+                    }),
+                    chat_messages: item.chat_messages || [],
+                    task_summary: item.task_summary || summary,
+                  }
+                : item
+            );
+          }
+          return [{
+            ...next,
+            title: resolveSessionTitle({
+              runId,
+              prompt: text,
+              taskSummary: summary,
+              currentTitle: next.title,
+            }),
+            task_summary: summary,
+            chat_messages: next.chat_messages || [],
+          }, ...prev].slice(0, maxSessionCount);
         });
         setActiveSessionId(runId);
         activeRunIdRef.current = runId;
@@ -573,7 +712,9 @@ export function HomeWorkspace() {
       <aside className="sidebar">
         <div className="sidebar-fixed">
           <div className="brand">
-            <div className="brand-mark" aria-hidden="true">◈</div>
+            <div className="brand-mark" aria-hidden="true">
+              <img className="brand-mark-image" src="/logo.png" alt="" />
+            </div>
             <div>
               <h2>竞品分析智能体</h2>
               <p>CompeteAI</p>
@@ -582,11 +723,11 @@ export function HomeWorkspace() {
 
           <nav className="menu" aria-label="主导航">
             <button className={activeMenu === "new" ? "menu-item active" : "menu-item"} onClick={() => { setActiveMenu("new"); handleNewConversation(); }}>
-              <span className="menu-icon" aria-hidden="true">✚</span>
+              <span className="menu-icon" aria-hidden="true"><MessageSquarePlus size={17} strokeWidth={2.2} /></span>
               <span>新对话</span>
             </button>
             <button className={activeMenu === "agent" ? "menu-item active" : "menu-item"} onClick={() => setActiveMenu("agent")}>
-              <span className="menu-icon" aria-hidden="true">◉</span>
+              <span className="menu-icon" aria-hidden="true"><Bot size={17} strokeWidth={2.2} /></span>
               <span>智能体协作</span>
             </button>
           </nav>
@@ -595,7 +736,7 @@ export function HomeWorkspace() {
         <div className="history-pane">
           <nav className="menu history-menu" aria-label="历史导航">
             <button className={activeMenu === "history" ? "menu-item active" : "menu-item"} onClick={() => setActiveMenu("history")}>
-              <span className="menu-icon" aria-hidden="true">🕘</span>
+              <span className="menu-icon" aria-hidden="true"><History size={17} strokeWidth={2.2} /></span>
               <span>演示对话</span>
             </button>
           </nav>
@@ -708,7 +849,7 @@ export function HomeWorkspace() {
                     {workspaceData && ((workspaceData.report?.markdown || "").trim() || agentCards.some((item) => item.id.includes("draft") && item.status === "done")) ? (
                       <section className="reference-section" aria-label="参考文献">
                         <details>
-                          <summary>全部参考文献</summary>
+                          <summary>全部参考资料</summary>
                           <div className="reference-list">
                             {buildReferenceItems(workspaceData).map((item, idx) => (
                               <div className="reference-item" key={`ref-${idx}-${item.url}`}><a href={item.url} target="_blank" rel="noreferrer">{idx + 1}. {item.label}</a></div>
