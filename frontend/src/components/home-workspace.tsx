@@ -1,43 +1,29 @@
 ﻿"use client";
 
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { startTransition, type FormEvent, useEffect, useRef, useState } from "react";
 import { Bot, History, MessageSquarePlus } from "lucide-react";
+import { EventStreamPanel } from "@/components/event-stream-panel";
+import { StageDetailPanel } from "@/components/stage-detail-panel";
+import { WorkspaceDagBoard } from "@/components/workspace-dag-board";
+import type {
+  AgentHandoff,
+  AgentStageCard,
+  AgentTrace,
+  AgentWorkflow,
+  EvidenceItem,
+  StageName,
+  WorkspaceEvent,
+  WorkspacePayload,
+} from "@/components/workspace-types";
 
 type ViewMode = "welcome" | "workspace";
-type StepStatus = "pending" | "running" | "done" | "failed";
 
 type SubmitResponse = { summary_text: string };
 
-type WorkspaceStage = { stage: string; status: string; summary?: string };
-type WorkspaceEvent = {
-  stage?: string;
-  event_type?: string;
-  created_at?: string;
-  payload?: { envelope?: { attempt?: number; payload?: Record<string, unknown> } };
-};
-type EvidenceItem = { title?: string; source_url?: string };
-type WorkspacePayload = {
-  run?: { run_id?: string; status?: string; planned_competitors?: string[]; schema_fields?: string[] };
-  request?: { user_prompt?: string };
-  workflow?: { agent_stages?: WorkspaceStage[] };
-  qa?: {
-    passed?: boolean;
-    issue_count?: number;
-    target_agent?: string | null;
-    issues?: Array<{ code?: string; message?: string }>;
-    collect_items?: Array<{ competitor?: string; field_name?: string }>;
-  };
-  report?: { markdown?: string; sources?: string[] };
-  artifacts?: { evidences?: EvidenceItem[] };
-  observability?: { events?: WorkspaceEvent[] };
-};
-
 type RunStatusResponse = { state?: { status?: string } };
 type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; user_prompt?: string; created_at: string; updated_at: string };
-type AgentCard = { id: string; title: string; status: StepStatus; summaryLines: string[] };
 type ChatMessage = { id: string; role: "user" | "assistant" | "system"; content: string };
 type ReferenceLinkItem = { label: string; url: string };
-type CollectWebItem = { title: string; url: string; isEllipsis?: boolean };
 
 type StoredSession = {
   session_id: string;
@@ -50,6 +36,78 @@ type StoredSession = {
   workspace_snapshot: WorkspacePayload | null;
 };
 
+type StreamState = "idle" | "streaming" | "reconnecting" | "polling";
+
+const STAGE_ORDER: StageName[] = ["plan", "collect", "normalize", "analyze", "draft", "qa", "finalize"];
+
+function isStageName(value: string): value is StageName {
+  return STAGE_ORDER.includes(value as StageName);
+}
+
+function makeEventKey(event: WorkspaceEvent, index: number): string {
+  if (typeof event.event_id === "number") return `event:${event.event_id}`;
+  return `${event.created_at || "unknown"}:${event.stage || "none"}:${event.event_type || "event"}:${index}`;
+}
+
+function mergeEvents(previous: WorkspaceEvent[], incoming: WorkspaceEvent[]): WorkspaceEvent[] {
+  const merged = [...previous, ...incoming];
+  const seen = new Set<string>();
+  const deduped: WorkspaceEvent[] = [];
+
+  for (let index = merged.length - 1; index >= 0; index -= 1) {
+    const item = merged[index];
+    const key = makeEventKey(item, index);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(item);
+  }
+
+  deduped.reverse();
+  deduped.sort((left, right) => {
+    const leftId = typeof left.event_id === "number" ? left.event_id : -1;
+    const rightId = typeof right.event_id === "number" ? right.event_id : -1;
+    if (leftId >= 0 && rightId >= 0 && leftId !== rightId) return leftId - rightId;
+    return (left.created_at || "").localeCompare(right.created_at || "");
+  });
+  return deduped.slice(-300);
+}
+
+function getDefaultSelectedStage(workspace: WorkspacePayload | null): StageName | null {
+  const stages = workspace?.workflow?.agent_stages ?? [];
+  const runningStage = stages.find((item) => item.status === "running" && isStageName(item.stage));
+  if (runningStage && isStageName(runningStage.stage)) return runningStage.stage;
+
+  const completedStages = stages.filter((item) => item.status === "completed" && isStageName(item.stage));
+  if (completedStages.length) {
+    const lastCompleted = completedStages[completedStages.length - 1];
+    if (isStageName(lastCompleted.stage)) return lastCompleted.stage;
+  }
+
+  const dagNodes = workspace?.workflow?.dag?.nodes ?? [];
+  const firstDagNode = dagNodes.find((item) => isStageName(item));
+  return firstDagNode ?? null;
+}
+
+function getStageCard(workspace: WorkspacePayload | null, stage: StageName | null): AgentStageCard | null {
+  if (!workspace || !stage) return null;
+  return workspace.workflow?.agent_stages?.find((item) => item.stage === stage) ?? null;
+}
+
+function getStageWorkflow(workspace: WorkspacePayload | null, stage: StageName | null): AgentWorkflow | null {
+  if (!workspace || !stage) return null;
+  return workspace.workflow?.agent_workflows?.[stage] ?? null;
+}
+
+function getStageHandoff(workspace: WorkspacePayload | null, stage: StageName | null): AgentHandoff | null {
+  if (!workspace || !stage) return null;
+  return workspace.workflow?.agent_handoffs?.find((item) => item.stage === stage) ?? null;
+}
+
+function getStageTrace(workspace: WorkspacePayload | null, stage: StageName | null): AgentTrace | null {
+  if (!workspace || !stage) return null;
+  return workspace.observability?.agent_traces?.find((item) => item.stage === stage) ?? null;
+}
+
 export function HomeWorkspace() {
   const [activeMenu, setActiveMenu] = useState<"new" | "agent" | "history">("new");
   const [viewMode, setViewMode] = useState<ViewMode>("welcome");
@@ -58,7 +116,12 @@ export function HomeWorkspace() {
   const [aspectHintsText, setAspectHintsText] = useState("");
   const [taskSummary, setTaskSummary] = useState("");
   const [workspaceData, setWorkspaceData] = useState<WorkspacePayload | null>(null);
-  const [agentCards, setAgentCards] = useState<AgentCard[]>([]);
+  const [selectedStage, setSelectedStage] = useState<StageName | null>(null);
+  const [eventFeed, setEventFeed] = useState<WorkspaceEvent[]>([]);
+  const [streamState, setStreamState] = useState<StreamState>("idle");
+  const [eventFilterMode, setEventFilterMode] = useState<"all" | "stage">("all");
+  const [expandedEventKeys, setExpandedEventKeys] = useState<string[]>([]);
+  const [expandedCallKeys, setExpandedCallKeys] = useState<string[]>([]);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [sessions, setSessions] = useState<StoredSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState("");
@@ -79,6 +142,16 @@ export function HomeWorkspace() {
   const maxSessionCount = 30;
   const displaySummary = taskSummary.replace(/^任务(目标|分析)\s*[:：]\s*/u, "").trim();
   const sessionChatStoragePrefix = "home_workspace_chat_messages:";
+  const stageCards = workspaceData?.workflow?.agent_stages ?? [];
+  const selectedStageCard = getStageCard(workspaceData, selectedStage);
+  const selectedStageWorkflow = getStageWorkflow(workspaceData, selectedStage);
+  const selectedStageHandoff = getStageHandoff(workspaceData, selectedStage);
+  const selectedStageTrace = getStageTrace(workspaceData, selectedStage);
+  const selectedStageEvents = selectedStage
+    ? eventFeed.filter((item) => item.stage === selectedStage)
+    : [];
+  const hasReport = Boolean(workspaceData && (workspaceData.report?.markdown || "").trim());
+  const referenceItems = workspaceData ? buildReferenceItems(workspaceData) : [];
 
   useEffect(() => {
     if (viewMode === "workspace" && scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -259,6 +332,7 @@ export function HomeWorkspace() {
     stopStream();
     stopPolling();
     stopReconnectTimer();
+    setStreamState("idle");
   }
 
   async function fetchRunWorkspace(runId: string): Promise<WorkspacePayload> {
@@ -271,113 +345,6 @@ export function HomeWorkspace() {
     const response = await fetch(`/runs/${runId}`);
     if (!response.ok) throw new Error(`run status failed: ${response.status}`);
     return (await response.json()) as RunStatusResponse;
-  }
-
-  function mapStageStatus(status: string): StepStatus {
-    if (status === "completed") return "done";
-    if (status === "running") return "running";
-    if (status === "failed") return "failed";
-    return "pending";
-  }
-
-  function stageTitle(stage: string): string {
-    const map: Record<string, string> = {
-      plan: "计划智能体",
-      collect: "采集智能体",
-      normalize: "标准化阶段",
-      analyze: "分析智能体",
-      qa: "QA智能体",
-      draft: "写作智能体",
-      finalize: "完成阶段",
-    };
-    return map[stage] || stage;
-  }
-
-  function formatEventTime(input?: string): string {
-    if (!input) return "--:--:--";
-    const t = input.split("T")[1] || input;
-    return t.slice(0, 8);
-  }
-
-  function buildCollectLogLines(workspace: WorkspacePayload): string[] {
-    const events = workspace.observability?.events ?? [];
-    const lines: string[] = [];
-    for (const item of events) {
-      const type = item.event_type || "";
-      const payload = (item.payload?.envelope?.payload ?? {}) as Record<string, unknown>;
-      if (type === "collector.competitor.started") {
-        const competitor = String(payload.competitor || "").trim();
-        if (competitor) lines.push(`[${formatEventTime(item.created_at)}] 开始采集: ${competitor}`);
-      }
-      if (type === "collector.competitor.completed") {
-        const competitor = String(payload.competitor || "").trim();
-        const elapsed = Number(payload.elapsed_sec || 0).toFixed(2);
-        const evidenceCount = Number(payload.evidence_count || 0);
-        if (competitor) lines.push(`[${formatEventTime(item.created_at)}] 完成采集: ${competitor} (耗时=${elapsed}s, 证据数=${evidenceCount})`);
-      }
-    }
-    return lines;
-  }
-
-  function buildQaSummaryLines(workspace: WorkspacePayload): string[] {
-    const qa = workspace.qa;
-    if (!qa) return [];
-    const lines = [`质检结论：${qa.passed ? "通过" : "未通过"}`, `问题数：${qa.issue_count ?? 0}`];
-    if (qa.target_agent) lines.push(`打回目标：${qa.target_agent}`);
-    const issuePreview = (qa.issues ?? []).slice(0, 2).map((item) => `${item.code || "issue"}: ${item.message || ""}`);
-    return [...lines, ...issuePreview];
-  }
-
-  function buildPlanSummaryLines(workspace: WorkspacePayload): string[] {
-    const competitors = workspace.run?.planned_competitors ?? [];
-    const fields = workspace.run?.schema_fields ?? [];
-    const competitorText = competitors.length ? competitors.join("、") : "待规划";
-    const fieldText = fields.length ? fields.join("、") : "待生成";
-    return [`竞品数：${competitors.length}`, `竞品名称：${competitorText}`, `字段数：${fields.length}`, `字段：${fieldText}`];
-  }
-
-  function buildAgentCardsFromWorkspace(workspace: WorkspacePayload): AgentCard[] {
-    const stages = workspace.workflow?.agent_stages ?? [];
-    const cards: AgentCard[] = stages.map((stage, index) => {
-      const summaryLines: string[] = [];
-      if (stage.stage === "plan") summaryLines.push(...buildPlanSummaryLines(workspace));
-      if (stage.summary?.trim()) summaryLines.push(stage.summary.trim());
-      if (stage.stage === "collect") summaryLines.push(...buildCollectLogLines(workspace));
-      if (stage.stage === "qa") summaryLines.push(...buildQaSummaryLines(workspace));
-      if (!summaryLines.length) summaryLines.push("等待执行...");
-      return { id: `${stage.stage}-${index}`, title: `${index + 1}. ${stageTitle(stage.stage)}`, status: mapStageStatus(stage.status), summaryLines };
-    });
-
-    const recollectItems = workspace.qa?.collect_items ?? [];
-    const events = workspace.observability?.events ?? [];
-    const recollectCollectEvents = events.filter((item) => Number(item.payload?.envelope?.attempt || 1) > 1 && item.stage === "collect");
-    const recollectAnalyzeEvents = events.filter((item) => Number(item.payload?.envelope?.attempt || 1) > 1 && item.stage === "analyze");
-    const collectDone = recollectCollectEvents.some((item) => item.event_type === "collect.completed");
-    const analyzeDone = recollectAnalyzeEvents.some((item) => item.event_type === "analyze.completed");
-    if (recollectItems.length) {
-      const competitors = Array.from(new Set(recollectItems.map((item) => String(item.competitor || "").trim()).filter(Boolean)));
-      cards.splice(4, 0,
-        {
-          id: "recollect-route",
-          title: "回采链路",
-          status: "running",
-          summaryLines: [`需回采：${recollectItems.length} 项`, `目标竞品：${competitors.join("、") || "待确认"}`, "执行链路：采集智能体 -> 分析智能体 -> 写作智能体"],
-        },
-        {
-          id: "recollect-collect",
-          title: "采集智能体（回采）",
-          status: collectDone ? "done" : recollectCollectEvents.length ? "running" : "pending",
-          summaryLines: [`回采目标竞品：${competitors.join("、") || "待确认"}`, `回采任务数：${recollectItems.length}`],
-        },
-        {
-          id: "recollect-analyze",
-          title: "分析智能体（回采）",
-          status: analyzeDone ? "done" : recollectAnalyzeEvents.length ? "running" : "pending",
-          summaryLines: ["根据回采证据重新生成结构化结论。"],
-        }
-      );
-    }
-    return cards;
   }
 
   function buildReferenceItems(workspace: WorkspacePayload): ReferenceLinkItem[] {
@@ -399,17 +366,16 @@ export function HomeWorkspace() {
     return (workspace.report?.sources ?? []).map((url) => String(url || "").trim()).filter(Boolean).map((url) => ({ label: url, url }));
   }
 
-  function buildCollectWebPreview(workspace: WorkspacePayload): CollectWebItem[] {
-    const refs = buildReferenceItems(workspace);
-    const top: CollectWebItem[] = refs.slice(0, 6).map((item, i) => ({ title: `${i + 1}. ${item.label}`, url: item.url }));
-    if (refs.length > 6) top.push({ title: "……", url: "", isEllipsis: true });
-    return top;
-  }
-
-  function applyWorkspace(workspace: WorkspacePayload) {
-    setWorkspaceData(workspace);
-    const cards = buildAgentCardsFromWorkspace(workspace);
-    if (cards.length) setAgentCards(cards);
+  function applyWorkspace(workspace: WorkspacePayload, options?: { preserveSelectedStage?: boolean }) {
+    const preserveSelectedStage = options?.preserveSelectedStage ?? true;
+    startTransition(() => {
+      setWorkspaceData(workspace);
+      setEventFeed((prev) => mergeEvents(prev, workspace.observability?.events ?? []));
+      setSelectedStage((current) => {
+        if (preserveSelectedStage && current && getStageCard(workspace, current)) return current;
+        return getDefaultSelectedStage(workspace);
+      });
+    });
     const runId = workspace.run?.run_id || activeRunIdRef.current;
     const prompt = (workspace.request?.user_prompt || "").trim();
     if (runId) {
@@ -447,6 +413,7 @@ export function HomeWorkspace() {
 
   function startPolling(runId: string) {
     stopPolling();
+    setStreamState("polling");
     pollingTimerRef.current = window.setInterval(async () => {
       try {
         const [workspace, status] = await Promise.all([fetchRunWorkspace(runId), fetchRunStatus(runId)]);
@@ -462,6 +429,7 @@ export function HomeWorkspace() {
   function scheduleReconnect(runId: string) {
     stopReconnectTimer();
     reconnectAttemptRef.current += 1;
+    setStreamState("reconnecting");
     if (reconnectAttemptRef.current > maxReconnectAttempts) {
       startPolling(runId);
       return;
@@ -476,6 +444,7 @@ export function HomeWorkspace() {
     stopPolling();
     stopReconnectTimer();
     activeRunIdRef.current = runId;
+    setStreamState(isReconnect ? "reconnecting" : "streaming");
     const source = new window.EventSource(`/runs/${runId}/stream`);
     streamRef.current = source;
     if (!isReconnect) reconnectAttemptRef.current = 0;
@@ -486,7 +455,17 @@ export function HomeWorkspace() {
         if (payload.workspace) {
           applyWorkspace(payload.workspace);
           reconnectAttemptRef.current = 0;
+          setStreamState("streaming");
         }
+      } catch {
+        // ignore malformed event
+      }
+    });
+
+    source.addEventListener("run_event", (event) => {
+      try {
+        const payload = JSON.parse((event as MessageEvent<string>).data) as WorkspaceEvent;
+        setEventFeed((prev) => mergeEvents(prev, [payload]));
       } catch {
         // ignore malformed event
       }
@@ -501,6 +480,7 @@ export function HomeWorkspace() {
             applyWorkspace(workspace);
           }
         } finally {
+          setStreamState("idle");
           stopRealtime();
         }
       })();
@@ -517,14 +497,17 @@ export function HomeWorkspace() {
     setTaskSummary(session.task_summary || "");
     setChatMessages(session.chat_messages?.length ? session.chat_messages : readStoredMessages(session.session_id));
     setWorkspaceData(session.workspace_snapshot || null);
-    setAgentCards(session.workspace_snapshot ? buildAgentCardsFromWorkspace(session.workspace_snapshot) : []);
+    setEventFeed(session.workspace_snapshot?.observability?.events ?? []);
+    setSelectedStage(getDefaultSelectedStage(session.workspace_snapshot));
+    setExpandedEventKeys([]);
+    setExpandedCallKeys([]);
     setViewMode("workspace");
     setActiveMenu("history");
     activeRunIdRef.current = session.active_run_id || "";
     if (session.active_run_id) {
       try {
         const latestWorkspace = await fetchRunWorkspace(session.active_run_id);
-        applyWorkspace(latestWorkspace);
+        applyWorkspace(latestWorkspace, { preserveSelectedStage: false });
       } catch {
         // keep known state if workspace fetch fails
       } finally {
@@ -575,7 +558,12 @@ export function HomeWorkspace() {
     setAspectHintsText("");
     setTaskSummary("");
     setWorkspaceData(null);
-    setAgentCards([]);
+    setSelectedStage(null);
+    setEventFeed([]);
+    setStreamState("idle");
+    setEventFilterMode("all");
+    setExpandedEventKeys([]);
+    setExpandedCallKeys([]);
     setChatMessages([]);
     setError("");
     setPreviewOpen(false);
@@ -672,16 +660,15 @@ export function HomeWorkspace() {
 
       const runId = runPayload.summary?.run_id || "";
       setTaskSummary(summary);
-      setAgentCards([
-        { id: "boot-plan", title: "1. 计划智能体", status: "running", summaryLines: [`任务摘要：${summary}`] },
-        { id: "boot-collect", title: "2. 采集智能体", status: "pending", summaryLines: ["等待采集启动..."] },
-        { id: "boot-analyze", title: "3. 分析智能体", status: "pending", summaryLines: ["等待分析启动..."] },
-        { id: "boot-qa", title: "4. QA智能体", status: "pending", summaryLines: ["等待质检启动..."] },
-        { id: "boot-draft", title: "5. 写作智能体", status: "pending", summaryLines: ["等待报告生成..."] },
-      ]);
       setViewMode("workspace");
       setActiveMenu("history");
       setQuery("");
+      setWorkspaceData(null);
+      setSelectedStage(null);
+      setEventFeed([]);
+      setStreamState("streaming");
+      setExpandedEventKeys([]);
+      setExpandedCallKeys([]);
       setCompetitorHintsText("");
       setAspectHintsText("");
       if (runId) {
@@ -846,7 +833,15 @@ export function HomeWorkspace() {
           </div>
         ) : (
           <section className="workspace-chat-shell" aria-label="演示对话工作区">
-            <header className="workspace-topbar"><h1>{displaySummary || "分析进行中"}</h1></header>
+            <header className="workspace-topbar">
+              <h1>{displaySummary || "分析进行中"}</h1>
+              {activeMenu === "agent" ? (
+                <div className="workspace-topbar-status">
+                  <span className="workspace-topbar-label">Stream</span>
+                  <strong>{streamState}</strong>
+                </div>
+              ) : null}
+            </header>
             <div className="workspace-scroll" ref={scrollRef}>
               {error ? <div className="error-banner" role="alert">{error}</div> : null}
               <div className="workspace-conversation">
@@ -854,60 +849,119 @@ export function HomeWorkspace() {
                   <div key={message.id} className={`message-row ${message.role}`}><div className={`message-bubble ${message.role}`}>{message.content}</div></div>
                 ))}
                 <div className="workspace-lower">
-                  <section className="thought-chain-panel" aria-label="智能体思考链">
-                    <h2>智能体执行卡片</h2>
-                    {agentCards.length === 0 ? <p className="empty-state">等待智能体分析中...</p> : (
-                      <ol className="thought-list agent-card-list">
-                        {agentCards.map((step) => (
-                          <li key={step.id} className="thought-item agent-card">
-                            <div className="thought-head">
-                              <span>{step.title}</span>
-                              <span className={`status-pill ${step.status}`}>{step.status === "pending" ? "待执行" : step.status === "running" ? "执行中" : step.status === "failed" ? "失败" : "已完成"}</span>
-                            </div>
-                            <div className="agent-summary-block">{step.summaryLines.map((line, idx) => <p key={`${step.id}-${idx}`}>{line}</p>)}</div>
-                            {step.id.includes("collect") && workspaceData ? (
-                              <div className="collect-web-preview">
-                                <strong>采集网页（前6条）</strong>
-                                {buildCollectWebPreview(workspaceData).map((item, idx) => (
-                                  <p key={`collect-web-${idx}`}>{item.isEllipsis ? <span>……</span> : <a className="collect-web-link" href={item.url} target="_blank" rel="noreferrer">{item.title}</a>}</p>
-                                ))}
+                  {activeMenu === "agent" ? (
+                    <>
+                      <section className="workspace-panel workspace-summary-panel" aria-label="运行总览">
+                        <div className="workspace-panel-header">
+                          <div>
+                            <p className="workspace-eyebrow">Workspace</p>
+                            <h2>智能体协作总览</h2>
+                          </div>
+                        </div>
+                        <div className="workspace-summary-grid">
+                          <article>
+                            <span>Run Status</span>
+                            <strong>{workspaceData?.run?.status || "running"}</strong>
+                          </article>
+                          <article>
+                            <span>Competitors</span>
+                            <strong>{workspaceData?.run?.competitor_count ?? workspaceData?.run?.planned_competitors?.length ?? 0}</strong>
+                          </article>
+                          <article>
+                            <span>Schema Fields</span>
+                            <strong>{workspaceData?.run?.schema_fields?.length ?? 0}</strong>
+                          </article>
+                          <article>
+                            <span>Evidence</span>
+                            <strong>{workspaceData?.run?.evidence_count ?? 0}</strong>
+                          </article>
+                          <article>
+                            <span>Findings</span>
+                            <strong>{workspaceData?.run?.finding_count ?? 0}</strong>
+                          </article>
+                          <article>
+                            <span>QA Issues</span>
+                            <strong>{workspaceData?.qa?.issue_count ?? 0}</strong>
+                          </article>
+                        </div>
+                      </section>
+
+                      <WorkspaceDagBoard
+                        dag={workspaceData?.workflow?.dag}
+                        stages={stageCards}
+                        selectedStage={selectedStage}
+                        onSelectStage={setSelectedStage}
+                      />
+
+                      <div className="workspace-detail-grid">
+                        <EventStreamPanel
+                          events={eventFeed}
+                          selectedStage={selectedStage}
+                          filterMode={eventFilterMode}
+                          onChangeFilterMode={setEventFilterMode}
+                          expandedEventKeys={expandedEventKeys}
+                          onToggleEvent={(key) =>
+                            setExpandedEventKeys((prev) =>
+                              prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]
+                            )
+                          }
+                        />
+
+                        <StageDetailPanel
+                          stage={selectedStage}
+                          stageCard={selectedStageCard}
+                          handoff={selectedStageHandoff}
+                          workflow={selectedStageWorkflow}
+                          trace={selectedStageTrace}
+                          events={selectedStageEvents}
+                          expandedCallKeys={expandedCallKeys}
+                          onToggleCall={(key) =>
+                            setExpandedCallKeys((prev) =>
+                              prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]
+                            )
+                          }
+                          expandedEventKeys={expandedEventKeys}
+                          onToggleEvent={(key) =>
+                            setExpandedEventKeys((prev) =>
+                              prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]
+                            )
+                          }
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {hasReport ? (
+                        <section className="workspace-panel report-card-section" aria-label="报告下载区">
+                          <button type="button" className="report-card" onClick={() => setPreviewOpen(true)}>
+                            <div className="report-card-main">
+                              <span className="report-card-icon" aria-hidden="true">📖</span>
+                              <div>
+                                <strong>{`report_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
+                                <small>Markdown file</small>
                               </div>
-                            ) : null}
-                          </li>
-                        ))}
-                      </ol>
-                    )}
-
-                    {workspaceData && ((workspaceData.report?.markdown || "").trim() || agentCards.some((item) => item.id.includes("draft") && item.status === "done")) ? (
-                      <section className="report-card-section" aria-label="报告下载区">
-                        <button type="button" className="report-card" onClick={() => setPreviewOpen(true)}>
-                          <div className="report-card-main">
-                            <span className="report-card-icon" aria-hidden="true">📖</span>
-                            <div>
-                              <strong>{`report_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
-                              <small>Markdown file</small>
                             </div>
-                          </div>
-                        </button>
-                        <a className="report-download-btn" href={activeRunIdRef.current ? `/runs/${activeRunIdRef.current}/report.md` : "#"} target="_blank" rel="noreferrer" onClick={(event) => { if (!activeRunIdRef.current) event.preventDefault(); }}>
-                          下载
-                        </a>
-                      </section>
-                    ) : null}
+                          </button>
+                          <a className="report-download-btn" href={activeRunIdRef.current ? `/runs/${activeRunIdRef.current}/report.md` : "#"} target="_blank" rel="noreferrer" onClick={(event) => { if (!activeRunIdRef.current) event.preventDefault(); }}>
+                            下载
+                          </a>
+                        </section>
+                      ) : null}
 
-                    {workspaceData && ((workspaceData.report?.markdown || "").trim() || agentCards.some((item) => item.id.includes("draft") && item.status === "done")) ? (
-                      <section className="reference-section" aria-label="参考文献">
-                        <details>
-                          <summary>全部参考资料</summary>
-                          <div className="reference-list">
-                            {buildReferenceItems(workspaceData).map((item, idx) => (
-                              <div className="reference-item" key={`ref-${idx}-${item.url}`}><a href={item.url} target="_blank" rel="noreferrer">{idx + 1}. {item.label}</a></div>
-                            ))}
-                          </div>
-                        </details>
-                      </section>
-                    ) : null}
-                  </section>
+                      {referenceItems.length ? (
+                        <section className="workspace-panel reference-section" aria-label="参考文献">
+                          <details>
+                            <summary>全部参考资料</summary>
+                            <div className="reference-list">
+                              {referenceItems.map((item, idx) => (
+                                <div className="reference-item" key={`ref-${idx}-${item.url}`}><a href={item.url} target="_blank" rel="noreferrer">{idx + 1}. {item.label}</a></div>
+                              ))}
+                            </div>
+                          </details>
+                        </section>
+                      ) : null}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
