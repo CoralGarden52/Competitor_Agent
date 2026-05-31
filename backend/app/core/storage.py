@@ -1179,3 +1179,23 @@ class SQLiteStore:
             }
             for row in rows
         ]
+
+    def delete_run(self, run_id: str) -> bool:
+        with self._connect() as conn:
+            row = conn.execute('SELECT 1 FROM runs WHERE run_id = ?', (run_id,)).fetchone()
+            if row is None:
+                return False
+
+            for table in (
+                'events',
+                'agent_runs',
+                'agent_io',
+                'run_checkpoints',
+                'manual_interventions',
+                'stage_handoffs',
+                'llm_calls',
+                'evidence_raw_contents',
+            ):
+                conn.execute(f'DELETE FROM {table} WHERE run_id = ?', (run_id,))
+            conn.execute('DELETE FROM runs WHERE run_id = ?', (run_id,))
+        return True

@@ -118,6 +118,38 @@ def test_replay_endpoint_includes_handoffs() -> None:
     assert isinstance(node_body['handoffs'], list)
 
 
+def test_delete_run_endpoint() -> None:
+    app = create_app()
+    client = TestClient(app)
+    payload = {
+        'industry': 'saas',
+        'competitors': ['alpha'],
+        'language': 'zh-CN',
+        'timeframe': 'last_12_months',
+    }
+    create_resp = client.post('/runs', json=payload)
+    assert create_resp.status_code == 200
+    run_id = create_resp.json()['state']['run_id']
+
+    # ensure run exists first
+    assert client.get(f'/runs/{run_id}').status_code == 200
+
+    delete_resp = client.delete(f'/runs/{run_id}')
+    assert delete_resp.status_code == 200
+    assert delete_resp.json() == {'ok': True}
+
+    # run and related endpoints should no longer find the data
+    assert client.get(f'/runs/{run_id}').status_code == 404
+    assert client.get(f'/runs/{run_id}/workspace').status_code == 404
+
+
+def test_delete_run_endpoint_404() -> None:
+    app = create_app()
+    client = TestClient(app)
+    response = client.delete('/runs/run_not_exists_123')
+    assert response.status_code == 404
+
+
 def test_registry_endpoint() -> None:
     app = create_app()
     client = TestClient(app)

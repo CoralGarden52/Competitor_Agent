@@ -46,6 +46,14 @@ def get_run(run_id: str, service: CompetitorWorkflowService = Depends(get_servic
     return run
 
 
+@router.delete('/{run_id}')
+def delete_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict[str, bool]:
+    deleted = service.delete_run(run_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail='run not found')
+    return {'ok': True}
+
+
 @router.get('/{run_id}/events')
 def get_run_events(
     run_id: str,

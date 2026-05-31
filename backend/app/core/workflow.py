@@ -146,6 +146,9 @@ class CompetitorWorkflowService:
     def list_runs(self, limit: int = 20) -> list[RunSummary]:
         return self.store.list_runs(limit=limit)
 
+    def delete_run(self, run_id: str) -> bool:
+        return self.store.delete_run(run_id)
+
     def list_run_events(self, run_id: str, *, after_id: int = 0, limit: int | None = None) -> list[dict]:
         return self.store.list_events(run_id, after_id=after_id, limit=limit)
 

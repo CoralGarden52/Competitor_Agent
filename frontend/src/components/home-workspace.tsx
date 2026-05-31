@@ -17,6 +17,7 @@ type WorkspaceEvent = {
 type EvidenceItem = { title?: string; source_url?: string };
 type WorkspacePayload = {
   run?: { run_id?: string; status?: string; planned_competitors?: string[]; schema_fields?: string[] };
+  request?: { user_prompt?: string };
   workflow?: { agent_stages?: WorkspaceStage[] };
   qa?: {
     passed?: boolean;
@@ -31,6 +32,7 @@ type WorkspacePayload = {
 };
 
 type RunStatusResponse = { state?: { status?: string } };
+type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; created_at: string; updated_at: string };
 type AgentCard = { id: string; title: string; status: StepStatus; summaryLines: string[] };
 type ChatMessage = { id: string; role: "user" | "assistant" | "system"; content: string };
 type ReferenceLinkItem = { label: string; url: string };
@@ -46,11 +48,6 @@ type StoredSession = {
   chat_messages: ChatMessage[];
   workspace_snapshot: WorkspacePayload | null;
 };
-
-const STORAGE_KEYS = {
-  sessions: "home_workspace_sessions",
-  activeSessionId: "home_workspace_active_session_id",
-} as const;
 
 export function HomeWorkspace() {
   const [activeMenu, setActiveMenu] = useState<"new" | "agent" | "history">("new");
@@ -96,28 +93,29 @@ export function HomeWorkspace() {
     return new Date().toISOString();
   }
 
-  function makeSession(title = "新对话"): StoredSession {
-    const now = nowIso();
+  function makeSessionFromRunSummary(run: RunListItem): StoredSession {
+    const title = run.run_id;
     return {
-      session_id: `sess_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
+      session_id: run.run_id,
       title,
-      created_at: now,
-      updated_at: now,
-      active_run_id: "",
+      created_at: run.created_at || nowIso(),
+      updated_at: run.updated_at || run.created_at || nowIso(),
+      active_run_id: run.run_id,
       task_summary: "",
       chat_messages: [],
       workspace_snapshot: null,
     };
   }
 
-  function upsertActiveSession(patch: Partial<StoredSession>) {
-    if (!activeSessionId) return;
-    setSessions((prev) => {
-      return prev
-        .map((s) => (s.session_id === activeSessionId ? { ...s, ...patch, updated_at: nowIso() } : s))
-        .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
-        .slice(0, maxSessionCount);
-    });
+  async function fetchRuns(limit = maxSessionCount): Promise<RunListItem[]> {
+    const response = await fetch(`/runs?limit=${limit}`);
+    if (!response.ok) throw new Error(`runs list failed: ${response.status}`);
+    return (await response.json()) as RunListItem[];
+  }
+
+  async function deleteRunById(runId: string): Promise<void> {
+    const response = await fetch(`/runs/${runId}`, { method: "DELETE" });
+    if (!response.ok) throw new Error(`delete run failed: ${response.status}`);
   }
 
   function stopPolling() {
@@ -296,7 +294,25 @@ export function HomeWorkspace() {
     setWorkspaceData(workspace);
     const cards = buildAgentCardsFromWorkspace(workspace);
     if (cards.length) setAgentCards(cards);
-    upsertActiveSession({ workspace_snapshot: workspace, active_run_id: activeRunIdRef.current });
+    const runId = workspace.run?.run_id || activeRunIdRef.current;
+    const prompt = (workspace.request?.user_prompt || "").trim();
+    if (runId) {
+      setSessions((prev) =>
+        prev.map((s) =>
+          s.session_id === runId
+            ? {
+                ...s,
+                active_run_id: runId,
+                workspace_snapshot: workspace,
+                task_summary: s.task_summary || prompt,
+                title: s.title && s.title !== s.session_id ? s.title : (prompt || s.title || runId),
+                updated_at: nowIso(),
+              }
+            : s
+        )
+      );
+    }
+    if (prompt && !taskSummary) setTaskSummary(prompt);
   }
 
   function startPolling(runId: string) {
@@ -366,26 +382,24 @@ export function HomeWorkspace() {
     });
   }
 
-  function loadSessionToUI(session: StoredSession) {
+  async function loadSessionToUI(session: StoredSession) {
     setActiveSessionId(session.session_id);
     setTaskSummary(session.task_summary || "");
     setChatMessages(session.chat_messages || []);
     setWorkspaceData(session.workspace_snapshot || null);
     setAgentCards(session.workspace_snapshot ? buildAgentCardsFromWorkspace(session.workspace_snapshot) : []);
-    setViewMode(session.workspace_snapshot || session.chat_messages.length ? "workspace" : "welcome");
+    setViewMode("workspace");
     setActiveMenu("history");
     activeRunIdRef.current = session.active_run_id || "";
     if (session.active_run_id) {
-      void (async () => {
-        try {
-          const latestWorkspace = await fetchRunWorkspace(session.active_run_id);
-          applyWorkspace(latestWorkspace);
-        } catch {
-          // keep local snapshot and continue with realtime subscription
-        } finally {
-          startRunStream(session.active_run_id);
-        }
-      })();
+      try {
+        const latestWorkspace = await fetchRunWorkspace(session.active_run_id);
+        applyWorkspace(latestWorkspace);
+      } catch {
+        // keep known state if workspace fetch fails
+      } finally {
+        startRunStream(session.active_run_id);
+      }
     }
   }
 
@@ -394,49 +408,35 @@ export function HomeWorkspace() {
     const target = sessions.find((item) => item.session_id === sessionId);
     if (!target) return;
     stopRealtime();
-    loadSessionToUI(target);
+    void loadSessionToUI(target);
   }
 
-  function shouldShowSession(session: StoredSession): boolean {
-    if (session.active_run_id) return true;
-    if (session.task_summary.trim()) return true;
-    if ((session.chat_messages || []).length > 0) return true;
-    if (session.workspace_snapshot) {
-      const ws = session.workspace_snapshot;
-      const hasMeaningfulWorkspaceData = Boolean(
-        ws.run?.run_id ||
-        (ws.workflow?.agent_stages?.length || 0) > 0 ||
-        (ws.observability?.events?.length || 0) > 0 ||
-        (ws.artifacts?.evidences?.length || 0) > 0 ||
-        (ws.report?.markdown || "").trim() ||
-        (ws.report?.sources?.length || 0) > 0
-      );
-      if (hasMeaningfulWorkspaceData) return true;
+  function shouldShowSession(_session: StoredSession): boolean {
+    return true;
+  }
+
+  async function refreshSessions(preferredRunId = ""): Promise<StoredSession[]> {
+    const runs = await fetchRuns(maxSessionCount);
+    const mapped = runs.map(makeSessionFromRunSummary);
+    setSessions(mapped);
+
+    if (!mapped.length) {
+      setActiveSessionId("");
+      setViewMode("welcome");
+      return [];
     }
-    return false;
+
+    const targetId = preferredRunId || activeSessionId || mapped[0].session_id;
+    const target = mapped.find((s) => s.session_id === targetId) || mapped[0];
+    stopRealtime();
+    await loadSessionToUI(target);
+    return mapped;
   }
 
   function handleNewConversation() {
     stopRealtime();
     setOpenSessionMenuId(null);
-    const session = makeSession("新对话");
-    setSessions((prev) => {
-      return [session, ...prev].slice(0, maxSessionCount);
-    });
-    setActiveSessionId(session.session_id);
-    setViewMode("welcome");
-    setQuery("");
-    setTaskSummary("");
-    setWorkspaceData(null);
-    setAgentCards([]);
-    setChatMessages([]);
-    setError("");
-    setPreviewOpen(false);
-    activeRunIdRef.current = "";
-  }
-
-  function resetToWelcomeWithSession(session: StoredSession) {
-    setActiveSessionId(session.session_id);
+    setActiveSessionId("");
     setViewMode("welcome");
     setActiveMenu("new");
     setQuery("");
@@ -449,118 +449,49 @@ export function HomeWorkspace() {
     activeRunIdRef.current = "";
   }
 
-  function handleDeleteSession(sessionId: string) {
+  async function handleDeleteSession(sessionId: string) {
     const target = sessions.find((item) => item.session_id === sessionId);
     if (!target) return;
     const confirmed = window.confirm("确认删除该会话？");
     if (!confirmed) return;
-
-    const remaining = sessions.filter((item) => item.session_id !== sessionId);
-    setOpenSessionMenuId(null);
-
-    if (sessionId !== activeSessionId) {
-      setSessions(remaining);
-      return;
+    try {
+      setOpenSessionMenuId(null);
+      await deleteRunById(sessionId);
+      const remaining = await refreshSessions();
+      if (!remaining.length) handleNewConversation();
+    } catch (deleteError) {
+      const message = deleteError instanceof Error ? deleteError.message : "删除失败，请稍后重试。";
+      setError(message);
     }
-
-    stopRealtime();
-    if (remaining.length > 0) {
-      setSessions(remaining);
-      loadSessionToUI(remaining[0]);
-      return;
-    }
-
-    const blank = makeSession("新对话");
-    setSessions([blank]);
-    resetToWelcomeWithSession(blank);
   }
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const isValidObject = (value: unknown): value is Record<string, unknown> => Boolean(value) && typeof value === "object";
-    const hasSnapshotContent = (workspace: WorkspacePayload | null | undefined): boolean => {
-      if (!workspace) return false;
-      return Boolean(
-        workspace.run?.run_id ||
-        (workspace.workflow?.agent_stages?.length || 0) > 0 ||
-        (workspace.observability?.events?.length || 0) > 0 ||
-        (workspace.artifacts?.evidences?.length || 0) > 0 ||
-        (workspace.report?.markdown || "").trim() ||
-        (workspace.report?.sources?.length || 0) > 0
-      );
-    };
-    const hasSessionContent = (session: StoredSession): boolean => {
-      return Boolean(
-        session.active_run_id ||
-        session.task_summary.trim() ||
-        (session.chat_messages || []).length > 0 ||
-        hasSnapshotContent(session.workspace_snapshot)
-      );
-    };
-    const sanitizeSession = (raw: unknown): StoredSession | null => {
-      if (!isValidObject(raw)) return null;
-      const sid = typeof raw.session_id === "string" ? raw.session_id.trim() : "";
-      if (!sid) return null;
-      const createdAt = typeof raw.created_at === "string" && raw.created_at ? raw.created_at : nowIso();
-      const updatedAt = typeof raw.updated_at === "string" && raw.updated_at ? raw.updated_at : createdAt;
-      const rawMessages = Array.isArray(raw.chat_messages) ? raw.chat_messages : [];
-      const messages: ChatMessage[] = rawMessages
-        .filter((item) => isValidObject(item) && typeof item.content === "string" && typeof item.role === "string")
-        .map((item, idx) => {
-          const role = item.role === "assistant" || item.role === "system" ? item.role : "user";
-          const id = typeof item.id === "string" && item.id ? item.id : `${sid}-m-${idx}`;
-          return { id, role, content: String(item.content) };
-        });
-      const workspace = isValidObject(raw.workspace_snapshot) ? (raw.workspace_snapshot as WorkspacePayload) : null;
-      return {
-        session_id: sid,
-        title: typeof raw.title === "string" && raw.title.trim() ? raw.title : "新对话",
-        created_at: createdAt,
-        updated_at: updatedAt,
-        active_run_id: typeof raw.active_run_id === "string" ? raw.active_run_id : "",
-        task_summary: typeof raw.task_summary === "string" ? raw.task_summary : "",
-        chat_messages: messages,
-        workspace_snapshot: workspace,
-      };
-    };
-
-    let loadedSessions: StoredSession[] = [];
-    const raw = window.localStorage.getItem(STORAGE_KEYS.sessions);
-    if (raw) {
+    let canceled = false;
+    void (async () => {
       try {
-        const parsed = JSON.parse(raw) as unknown;
-        const list = Array.isArray(parsed) ? parsed : [];
-        loadedSessions = list.map(sanitizeSession).filter((item): item is StoredSession => Boolean(item));
-      } catch {
-        loadedSessions = [];
+        const runs = await fetchRuns(maxSessionCount);
+        if (canceled) return;
+        const mapped = runs.map(makeSessionFromRunSummary);
+        setSessions(mapped);
+        if (!mapped.length) {
+          handleNewConversation();
+          return;
+        }
+        await loadSessionToUI(mapped[0]);
+      } catch (initError) {
+        if (canceled) return;
+        const message = initError instanceof Error ? initError.message : "加载历史会话失败";
+        setError(message);
+        handleNewConversation();
       }
-    }
-    loadedSessions = loadedSessions
-      .filter(hasSessionContent)
-      .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
-      .slice(0, maxSessionCount);
-    if (!loadedSessions.length) loadedSessions = [makeSession("新对话")];
+    })();
 
-    const storedActive = window.localStorage.getItem(STORAGE_KEYS.activeSessionId) || "";
-    setSessions(loadedSessions);
-    const active = loadedSessions.find((s) => s.session_id === storedActive) || loadedSessions[0];
-    loadSessionToUI(active);
-
-    return () => stopRealtime();
+    return () => {
+      canceled = true;
+      stopRealtime();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!sessions.length) return;
-    window.localStorage.setItem(STORAGE_KEYS.sessions, JSON.stringify(sessions));
-  }, [sessions]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!activeSessionId) return;
-    window.localStorage.setItem(STORAGE_KEYS.activeSessionId, activeSessionId);
-  }, [activeSessionId]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -609,15 +540,26 @@ export function HomeWorkspace() {
       setViewMode("workspace");
       setActiveMenu("history");
       setQuery("");
-
-      upsertActiveSession({
-        title: summary || text.slice(0, 28),
-        task_summary: summary,
-        active_run_id: runId,
-        chat_messages: newMessages,
-      });
-
-      if (runId) startRunStream(runId);
+      if (runId) {
+        const refreshed = await fetchRuns(maxSessionCount);
+        const mapped = refreshed.map(makeSessionFromRunSummary);
+        setSessions(mapped);
+        const next = mapped.find((item) => item.session_id === runId) || makeSessionFromRunSummary({
+          run_id: runId,
+          industry: "",
+          status: "running",
+          competitor_count: 0,
+          created_at: nowIso(),
+          updated_at: nowIso(),
+        });
+        setSessions((prev) => {
+          if (prev.some((item) => item.session_id === next.session_id)) return prev;
+          return [next, ...prev].slice(0, maxSessionCount);
+        });
+        setActiveSessionId(runId);
+        activeRunIdRef.current = runId;
+        startRunStream(runId);
+      }
     } catch (submitError) {
       const message = submitError instanceof Error ? submitError.message : "提交失败，请稍后重试。";
       setError(message);
@@ -680,7 +622,7 @@ export function HomeWorkspace() {
                       role="menuitem"
                       onClick={(event) => {
                         event.stopPropagation();
-                        handleDeleteSession(session.session_id);
+                        void handleDeleteSession(session.session_id);
                       }}
                     >
                       删除会话
