@@ -1105,6 +1105,56 @@ class PlannerLLMClient:
         self._record_step_status('plan_dynamic_schema')
         return core_plan
 
+    def refine_final_plan_lists(
+        self,
+        *,
+        prompt: str,
+        competitors: list[str],
+        schema_plan: list[dict[str, Any]],
+    ) -> dict[str, Any] | None:
+        normalized_competitors = [str(item or '').strip() for item in competitors if str(item or '').strip()]
+        normalized_schema = self._normalize_dynamic_schema(schema_plan)
+        if not normalized_competitors and not normalized_schema:
+            return {'planned_competitors': [], 'analysis_schema_plan': self._core_schema_plan_only()}
+
+        if not self.enabled():
+            return {
+                'planned_competitors': self._dedupe_competitors_by_key(normalized_competitors),
+                'analysis_schema_plan': normalized_schema,
+            }
+
+        sys_prompt = (
+            '你是竞品分析计划去重助手。'
+            '你需要对输入的竞品列表和分析字段列表做去重、合并同义项和命名规范化。'
+            '必须保留核心字段 feature_tree/strengths/weaknesses/pricing_model/user_feedback。'
+            '只返回严格 JSON。'
+        )
+        user_prompt = (
+            f'用户分析任务：{prompt}\n'
+            f'候选竞品列表：{normalized_competitors}\n'
+            f'候选字段列表：{normalized_schema}\n'
+            '返回 JSON: {"planned_competitors":["..."],"analysis_schema_plan":[{"field_name":"","query_templates":["{product} ..."],'
+            '"recommended_sources":["official"],"priority":1}]}\n'
+            '要求:\n'
+            '1) 竞品按语义去重，保留最规范产品名；\n'
+            '2) 字段按语义去重，field_name 用 snake_case；\n'
+            '3) 去重后不得丢失核心字段；\n'
+            '4) query_templates 至少1条，recommended_sources 至少1条。'
+        )
+        try:
+            result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.refine_final_plan_lists')
+            self._record_step_status('refine_final_plan_lists')
+            raw_competitors = result.get('planned_competitors', [])
+            raw_schema = result.get('analysis_schema_plan', [])
+            competitors_out = self._dedupe_competitors_by_key(
+                [str(item).strip() for item in raw_competitors if str(item).strip()]
+            ) or self._dedupe_competitors_by_key(normalized_competitors)
+            schema_out = self._normalize_dynamic_schema(raw_schema if isinstance(raw_schema, list) else normalized_schema)
+            return {'planned_competitors': competitors_out, 'analysis_schema_plan': schema_out}
+        except Exception:
+            self._record_step_status('refine_final_plan_lists')
+            return None
+
     def _build_candidate_pool(
         self,
         *,
@@ -1577,6 +1627,21 @@ class PlannerLLMClient:
 
     def _core_schema_plan_only(self) -> list[dict[str, Any]]:
         return self._normalize_dynamic_schema(build_default_schema_plan())
+
+    @staticmethod
+    def _dedupe_competitors_by_key(items: list[str]) -> list[str]:
+        output: list[str] = []
+        seen: set[str] = set()
+        for item in items:
+            value = str(item or '').strip()
+            if not value:
+                continue
+            key = value.casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            output.append(value)
+        return output
 
     def _normalize_dynamic_schema(self, raw_plan: list[dict[str, Any]]) -> list[dict[str, Any]]:
         cleaned: list[dict[str, Any]] = []

@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
+import re
 
 from app.agents.router import RouteDecision, route_after_qa
 from app.core.planner_llm import PlannerLLMClient, CORE_DYNAMIC_FIELDS
@@ -47,6 +48,7 @@ class OrchestratorAgent:
         competitors: list[str] | None = None,
         industry_hint: str | None = None,
         competitor_hints: list[str] | None = None,
+        aspect_hints: list[str] | None = None,
         max_direct: int = 2,
         max_substitute: int = 1,
     ) -> dict[str, Any]:
@@ -102,6 +104,21 @@ class OrchestratorAgent:
         direct = [str(item.get('name', '')).strip() for item in candidate_groups.get('direct', []) if str(item.get('name', '')).strip()]
         substitute = [str(item.get('name', '')).strip() for item in candidate_groups.get('substitute', []) if str(item.get('name', '')).strip()]
         planned = self._dedupe_competitors(direct + substitute)
+        merged_competitors = self._dedupe_competitors(planned + (competitor_hints or []))
+
+        user_aspect_fields = self._aspect_hints_to_schema_fields(aspect_hints or [])
+        merged_schema = self._merge_schema_plan(schema, user_aspect_fields)
+        final_refine_status = 'fallback'
+        if self.planner is not None:
+            refined = self.planner.refine_final_plan_lists(
+                prompt=prompt_text,
+                competitors=merged_competitors,
+                schema_plan=merged_schema,
+            )
+            if refined is not None:
+                merged_competitors = self._dedupe_competitors(refined.get('planned_competitors', merged_competitors))
+                merged_schema = refined.get('analysis_schema_plan', merged_schema)
+                final_refine_status = 'success'
 
         planner_meta = {}
         if self.planner is not None:
@@ -113,11 +130,12 @@ class OrchestratorAgent:
             planner_meta['reason'] = 'planner_missing'
 
         return {
-            'planned_competitors': planned or base,
+            'planned_competitors': merged_competitors or planned or base,
             'candidate_groups': candidate_groups,
-            'analysis_schema_plan': schema,
+            'analysis_schema_plan': merged_schema,
             'inferred_industry': inferred_industry,
             'planner_meta': planner_meta,
+            'final_refine_status': final_refine_status,
         }
 
     @staticmethod
@@ -134,6 +152,35 @@ class OrchestratorAgent:
             seen.add(key)
             output.append(name)
         return output
+
+    @staticmethod
+    def _normalize_field_name(value: str) -> str:
+        token = re.sub(r'[^a-zA-Z0-9\u4e00-\u9fff]+', '_', str(value or '').strip().lower())
+        token = re.sub(r'_+', '_', token).strip('_')
+        return token
+
+    def _aspect_hints_to_schema_fields(self, hints: list[str]) -> list[dict[str, Any]]:
+        output: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for index, hint in enumerate(hints, 1):
+            normalized = self._normalize_field_name(hint)
+            if not normalized or normalized in seen:
+                continue
+            seen.add(normalized)
+            output.append(
+                {
+                    'field_name': normalized,
+                    'query_templates': [f'{{product}} {hint}', f'{{product}} {hint} 对比'],
+                    'recommended_sources': ['official', 'public_web', 'community'],
+                    'priority': 100 + index,
+                }
+            )
+        return output
+
+    def _merge_schema_plan(self, base_schema: list[dict[str, Any]], extra_schema: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        if self.planner is None:
+            return base_schema + extra_schema
+        return self.planner._normalize_dynamic_schema(list(base_schema) + list(extra_schema))
 
     @staticmethod
     def stage_order() -> list[StageName]:

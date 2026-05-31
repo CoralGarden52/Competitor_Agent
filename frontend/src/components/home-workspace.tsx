@@ -54,6 +54,8 @@ export function HomeWorkspace() {
   const [activeMenu, setActiveMenu] = useState<"new" | "agent" | "history">("new");
   const [viewMode, setViewMode] = useState<ViewMode>("welcome");
   const [query, setQuery] = useState("");
+  const [competitorHintsText, setCompetitorHintsText] = useState("");
+  const [aspectHintsText, setAspectHintsText] = useState("");
   const [taskSummary, setTaskSummary] = useState("");
   const [workspaceData, setWorkspaceData] = useState<WorkspacePayload | null>(null);
   const [agentCards, setAgentCards] = useState<AgentCard[]>([]);
@@ -93,6 +95,21 @@ export function HomeWorkspace() {
 
   function nowIso() {
     return new Date().toISOString();
+  }
+
+  function parseHintList(input: string): string[] {
+    const parts = String(input || "").split(/[,\n，、;；]+/);
+    const output: string[] = [];
+    const seen = new Set<string>();
+    for (const part of parts) {
+      const value = part.trim();
+      if (!value) continue;
+      const key = value.toLocaleLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      output.push(value);
+    }
+    return output;
   }
 
   function initialPromptMessageId(runId: string): string {
@@ -554,6 +571,8 @@ export function HomeWorkspace() {
     setViewMode("welcome");
     setActiveMenu("new");
     setQuery("");
+    setCompetitorHintsText("");
+    setAspectHintsText("");
     setTaskSummary("");
     setWorkspaceData(null);
     setAgentCards([]);
@@ -619,6 +638,8 @@ export function HomeWorkspace() {
     setError("");
     setIsSubmitting(true);
     try {
+      const competitorHints = parseHintList(competitorHintsText);
+      const aspectHints = parseHintList(aspectHintsText);
       const [summaryResponse, runResponse] = await Promise.all([
         fetch("/runs/summary", {
           method: "POST",
@@ -628,7 +649,15 @@ export function HomeWorkspace() {
         fetch("/runs", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ industry: "", competitors: [], user_prompt: text, language: "zh-CN", timeframe: "last_12_months" }),
+          body: JSON.stringify({
+            industry: "",
+            competitors: [],
+            user_prompt: text,
+            language: "zh-CN",
+            timeframe: "last_12_months",
+            competitor_hints: competitorHints,
+            aspect_hints: aspectHints,
+          }),
         }),
       ]);
 
@@ -653,6 +682,8 @@ export function HomeWorkspace() {
       setViewMode("workspace");
       setActiveMenu("history");
       setQuery("");
+      setCompetitorHintsText("");
+      setAspectHintsText("");
       if (runId) {
         const refreshed = await fetchRuns(maxSessionCount);
         const mapped = refreshed.map(makeSessionFromRunSummary);
@@ -794,6 +825,24 @@ export function HomeWorkspace() {
               <input aria-label="分析任务输入" placeholder="输入竞品、行业或分析任务" value={query} onChange={(event) => setQuery(event.target.value)} disabled={isSubmitting} />
               <button type="submit" aria-label="提交" disabled={isSubmitting}>{isSubmitting ? "…" : "↑"}</button>
             </form>
+            <div className="query-hint-grid">
+              <input
+                aria-label="想分析的竞品"
+                className="query-hint-input"
+                placeholder="想分析的竞品（可选，逗号/换行分隔）"
+                value={competitorHintsText}
+                onChange={(event) => setCompetitorHintsText(event.target.value)}
+                disabled={isSubmitting}
+              />
+              <input
+                aria-label="竞品分析包含哪些方面"
+                className="query-hint-input"
+                placeholder="竞品分析包含哪些方面（可选，逗号/换行分隔）"
+                value={aspectHintsText}
+                onChange={(event) => setAspectHintsText(event.target.value)}
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
         ) : (
           <section className="workspace-chat-shell" aria-label="演示对话工作区">

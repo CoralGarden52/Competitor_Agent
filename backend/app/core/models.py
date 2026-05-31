@@ -322,6 +322,8 @@ class RunRequest(BaseModel):
     industry: str
     competitors: list[str] = Field(default_factory=list)
     user_prompt: str = ''
+    competitor_hints: list[str] = Field(default_factory=list)
+    aspect_hints: list[str] = Field(default_factory=list)
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
 
@@ -334,6 +336,8 @@ class RunState(BaseModel):
     industry: str
     competitors: list[str]
     user_prompt: str = ''
+    competitor_hints: list[str] = Field(default_factory=list)
+    aspect_hints: list[str] = Field(default_factory=list)
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
     split_strategy: str = 'by_competitor'

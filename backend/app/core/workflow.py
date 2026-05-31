@@ -88,10 +88,28 @@ class CompetitorWorkflowService:
         return RunResponse(summary=self._summary_for(state), state=state)
 
     def _initialize_run_state(self, request: RunRequest) -> RunState:
+        def _normalize_hint_list(items: list[str] | None) -> list[str]:
+            output: list[str] = []
+            seen: set[str] = set()
+            for item in items or []:
+                value = str(item or '').strip()
+                if not value:
+                    continue
+                key = value.casefold()
+                if key in seen:
+                    continue
+                seen.add(key)
+                output.append(value)
+            return output
+
+        normalized_competitor_hints = _normalize_hint_list(request.competitor_hints)
+        normalized_aspect_hints = _normalize_hint_list(request.aspect_hints)
         state = RunState(
             industry=request.industry.strip().lower(),
             competitors=request.competitors,
             user_prompt=request.user_prompt.strip(),
+            competitor_hints=normalized_competitor_hints,
+            aspect_hints=normalized_aspect_hints,
             language=request.language,
             timeframe=request.timeframe,
             core_schema_version=CORE_SCHEMA_VERSION,
@@ -107,7 +125,12 @@ class CompetitorWorkflowService:
             state,
             StageName.plan,
             'start',
-            {'competitors': request.competitors, 'user_prompt': request.user_prompt.strip()},
+            {
+                'competitors': request.competitors,
+                'user_prompt': request.user_prompt.strip(),
+                'competitor_hints': normalized_competitor_hints,
+                'aspect_hints': normalized_aspect_hints,
+            },
         )
         return state
 
@@ -597,6 +620,8 @@ class CompetitorWorkflowService:
                 prompt=state.user_prompt,
                 industry=state.industry,
                 competitors=state.competitors,
+                competitor_hints=state.competitor_hints,
+                aspect_hints=state.aspect_hints,
             )
         finally:
             self.planner_llm.clear_trace_context()
@@ -612,9 +637,33 @@ class CompetitorWorkflowService:
         candidate_groups = dynamic_plan.get('candidate_groups', {})
         if isinstance(candidate_groups, dict) and candidate_groups:
             state.planner_meta['candidate_groups'] = candidate_groups
+        state.planner_meta['user_competitor_hint_count'] = len(state.competitor_hints)
+        state.planner_meta['user_aspect_hint_count'] = len(state.aspect_hints)
+        state.planner_meta['final_refine_status'] = str(dynamic_plan.get('final_refine_status', 'fallback'))
         split_strategy = 'by_competitor' if len(state.competitors) <= 4 else 'by_topic'
         state.split_strategy = split_strategy
         state.self_eval['plan'] = SelfEval(coverage=1.0, consistency=0.9, evidence_quality=0.8, uncertainty=0.2)
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'plan.user_hints_received',
+            {
+                'competitor_hint_count': len(state.competitor_hints),
+                'aspect_hint_count': len(state.aspect_hints),
+                'competitor_hints': state.competitor_hints,
+                'aspect_hints': state.aspect_hints,
+            },
+        )
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'plan.final_lists_refined',
+            {
+                'final_refine_status': state.planner_meta.get('final_refine_status', 'fallback'),
+                'planned_competitor_count': len(state.planned_competitors),
+                'schema_field_count': len(state.analysis_schema_plan),
+            },
+        )
         self._save_and_event(
             state,
             StageName.plan,
@@ -1257,6 +1306,8 @@ class CompetitorWorkflowService:
                 'industry': state.industry,
                 'user_prompt': state.user_prompt,
                 'competitors': state.competitors,
+                'competitor_hints': state.competitor_hints,
+                'aspect_hints': state.aspect_hints,
                 'language': state.language,
                 'timeframe': state.timeframe,
             },

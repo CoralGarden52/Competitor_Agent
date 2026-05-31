@@ -221,6 +221,33 @@ body {
   opacity: 0.6;
 }
 
+.query-hint-grid {
+  margin: 14px auto 0;
+  width: min(920px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.query-hint-input {
+  border: 1px solid rgba(120, 157, 228, 0.28);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2f4365;
+  font-size: 15px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.query-hint-input::placeholder {
+  color: #8f9db8;
+}
+
+.query-hint-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .error-banner {
   margin: 0 auto 16px;
   width: min(920px, 100%);
@@ -803,5 +830,9 @@ body {
   .query-box input,
   .composer-box input {
     font-size: 16px;
+  }
+
+  .query-hint-grid {
+    grid-template-columns: 1fr;
   }
 }
