@@ -571,68 +571,75 @@ export function HomeWorkspace() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark" aria-hidden="true">◈</div>
-          <div>
-            <h2>竞品分析智能体</h2>
-            <p>CompeteAI</p>
+        <div className="sidebar-fixed">
+          <div className="brand">
+            <div className="brand-mark" aria-hidden="true">◈</div>
+            <div>
+              <h2>竞品分析智能体</h2>
+              <p>CompeteAI</p>
+            </div>
           </div>
+
+          <nav className="menu" aria-label="主导航">
+            <button className={activeMenu === "new" ? "menu-item active" : "menu-item"} onClick={() => { setActiveMenu("new"); handleNewConversation(); }}>
+              <span className="menu-icon" aria-hidden="true">✚</span>
+              <span>新对话</span>
+            </button>
+            <button className={activeMenu === "agent" ? "menu-item active" : "menu-item"} onClick={() => setActiveMenu("agent")}>
+              <span className="menu-icon" aria-hidden="true">◉</span>
+              <span>智能体协作</span>
+            </button>
+          </nav>
         </div>
 
-        <nav className="menu" aria-label="主导航">
-          <button className={activeMenu === "new" ? "menu-item active" : "menu-item"} onClick={() => { setActiveMenu("new"); handleNewConversation(); }}>
-            <span className="menu-icon" aria-hidden="true">✚</span>
-            <span>新对话</span>
-          </button>
-          <button className={activeMenu === "agent" ? "menu-item active" : "menu-item"} onClick={() => setActiveMenu("agent")}>
-            <span className="menu-icon" aria-hidden="true">◉</span>
-            <span>智能体协作</span>
-          </button>
-          <button className={activeMenu === "history" ? "menu-item active" : "menu-item"} onClick={() => setActiveMenu("history")}>
-            <span className="menu-icon" aria-hidden="true">🕘</span>
-            <span>演示对话</span>
-          </button>
-        </nav>
+        <div className="history-pane">
+          <nav className="menu history-menu" aria-label="历史导航">
+            <button className={activeMenu === "history" ? "menu-item active" : "menu-item"} onClick={() => setActiveMenu("history")}>
+              <span className="menu-icon" aria-hidden="true">🕘</span>
+              <span>演示对话</span>
+            </button>
+          </nav>
 
-        <div className="session-list" aria-label="历史会话列表">
-          {sessions.filter(shouldShowSession).map((session) => (
-            <div key={session.session_id} className={session.session_id === activeSessionId ? "session-row active" : "session-row"}>
-              <div className={session.session_id === activeSessionId ? "session-item active" : "session-item"}>
-                <button type="button" className="session-title-btn" onClick={() => handleSwitchSession(session.session_id)}>
-                  {session.title || "未命名会话"}
-                </button>
-              <div className="session-actions" ref={openSessionMenuId === session.session_id ? sessionMenuRef : null}>
-                <button
-                  type="button"
-                  className="session-more-btn"
-                  aria-label="会话操作"
-                  aria-expanded={openSessionMenuId === session.session_id}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setOpenSessionMenuId((prev) => (prev === session.session_id ? null : session.session_id));
-                  }}
-                >
-                  ⋮
-                </button>
-                {openSessionMenuId === session.session_id ? (
-                  <div className="session-menu" role="menu">
+          <div className="session-list" aria-label="历史会话列表">
+            {sessions.filter(shouldShowSession).map((session) => (
+              <div key={session.session_id} className={session.session_id === activeSessionId ? "session-row active" : "session-row"}>
+                <div className={session.session_id === activeSessionId ? "session-item active" : "session-item"}>
+                  <button type="button" className="session-title-btn" onClick={() => handleSwitchSession(session.session_id)}>
+                    {session.title || "未命名会话"}
+                  </button>
+                  <div className="session-actions" ref={openSessionMenuId === session.session_id ? sessionMenuRef : null}>
                     <button
                       type="button"
-                      className="session-menu-danger"
-                      role="menuitem"
+                      className="session-more-btn"
+                      aria-label="会话操作"
+                      aria-expanded={openSessionMenuId === session.session_id}
                       onClick={(event) => {
                         event.stopPropagation();
-                        void handleDeleteSession(session.session_id);
+                        setOpenSessionMenuId((prev) => (prev === session.session_id ? null : session.session_id));
                       }}
                     >
-                      删除会话
+                      ⋮
                     </button>
+                    {openSessionMenuId === session.session_id ? (
+                      <div className="session-menu" role="menu">
+                        <button
+                          type="button"
+                          className="session-menu-danger"
+                          role="menuitem"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            void handleDeleteSession(session.session_id);
+                          }}
+                        >
+                          删除会话
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
+                </div>
               </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </aside>
 
@@ -729,7 +736,30 @@ export function HomeWorkspace() {
           <aside className="report-preview-drawer" onClick={(event) => event.stopPropagation()}>
             <div className="report-preview-header">
               <strong>{`report_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
-              <button type="button" onClick={() => setPreviewOpen(false)}>关闭</button>
+              <div className="report-preview-actions">
+                <a
+                  className="report-preview-icon-btn"
+                  href={activeRunIdRef.current ? `/runs/${activeRunIdRef.current}/report.md` : "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="下载报告"
+                  title="下载报告"
+                  onClick={(event) => {
+                    if (!activeRunIdRef.current) event.preventDefault();
+                  }}
+                >
+                  下载
+                </a>
+                <button
+                  type="button"
+                  className="report-preview-icon-btn"
+                  onClick={() => setPreviewOpen(false)}
+                  aria-label="关闭预览"
+                  title="关闭预览"
+                >
+                  关闭
+                </button>
+              </div>
             </div>
             <div className="report-preview-body">
               <pre>{workspaceData?.report?.markdown || "暂无报告内容"}</pre>

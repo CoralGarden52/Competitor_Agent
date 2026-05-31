@@ -25,9 +25,10 @@ body {
 }
 
 .app-shell {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 280px 1fr;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -39,6 +40,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebar-fixed {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.history-pane {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.history-menu {
+  margin-bottom: 10px;
 }
 
 .brand {
@@ -113,8 +134,10 @@ body {
 }
 
 .main-area {
-  min-height: 100vh;
+  min-height: 0;
+  height: 100vh;
   padding: 0;
+  overflow: hidden;
 }
 
 .hero-card {
@@ -297,8 +320,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 32vh;
-  overflow: auto;
 }
 
 .session-row {
@@ -608,13 +629,46 @@ body {
   padding: 0 16px;
 }
 
-.report-preview-header button {
+.report-preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.report-preview-icon-btn {
+  min-width: 52px;
+  height: 34px;
   border: 1px solid rgba(126, 156, 212, 0.4);
   border-radius: 8px;
   background: #fff;
   color: #395a86;
   cursor: pointer;
-  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-size: 22px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.report-preview-icon-btn:hover {
+  background: rgba(235, 244, 255, 0.9);
+}
+
+.report-preview-icon-btn:focus-visible {
+  outline: 2px solid rgba(84, 138, 240, 0.75);
+  outline-offset: 2px;
+}
+
+.report-preview-icon-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.report-preview-header button.report-preview-icon-btn {
+  border: 1px solid rgba(126, 156, 212, 0.4);
+  padding: 0;
 }
 
 .report-preview-body {
@@ -704,12 +758,21 @@ body {
 @media (max-width: 980px) {
   .app-shell {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
   }
 
   .sidebar {
     border-right: none;
     border-bottom: 2px solid var(--sidebar-border);
     padding: 20px;
+    overflow: visible;
+  }
+
+  .main-area {
+    height: auto;
+    overflow: visible;
   }
 
   .brand h2 {
