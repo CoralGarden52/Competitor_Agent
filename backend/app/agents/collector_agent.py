@@ -4,7 +4,7 @@ import concurrent.futures
 
 from app.core.collector import CollectorPipeline
 from app.core.config import get_config
-from app.core.models import CollectOutput, RawEvidence, RunState
+from app.core.models import CollectOutput, RawEvidence, RunState, StageName
 from app.core.storage import SQLiteStore
 
 
@@ -31,6 +31,12 @@ class CollectorAgent:
         def _collect_one(competitor: str):
             print(f"[{__import__('time').strftime('%H:%M:%S')}] 开始采集: {competitor}")
             start = __import__('time').time()
+            self.store.append_stage_event(
+                state.run_id,
+                StageName.collect,
+                'collector.competitor.started',
+                {'competitor': competitor},
+            )
             
             result = self.pipeline.collect(
                 run_id=state.run_id,
@@ -43,6 +49,16 @@ class CollectorAgent:
             
             elapsed = __import__('time').time() - start
             print(f"[{__import__('time').strftime('%H:%M:%S')}] 完成采集: {competitor} (耗时={elapsed:.2f}s, 证据数={len(result.evidences)})")
+            self.store.append_stage_event(
+                state.run_id,
+                StageName.collect,
+                'collector.competitor.completed',
+                {
+                    'competitor': competitor,
+                    'elapsed_sec': round(float(elapsed), 2),
+                    'evidence_count': len(result.evidences),
+                },
+            )
             
             return competitor, result
         

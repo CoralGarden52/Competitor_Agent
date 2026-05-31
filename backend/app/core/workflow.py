@@ -247,6 +247,41 @@ class CompetitorWorkflowService:
         self.store.save_state(state)
         return RunResponse(summary=self._summary_for(state), state=state)
 
+    def summarize_task(self, *, text: str, language: str = 'zh-CN') -> dict[str, str]:
+        cleaned = str(text or '').strip()
+        if not cleaned:
+            return {'summary_text': ''}
+
+        fallback = self._fallback_task_summary(cleaned)
+        if not self.agent_llm.enabled():
+            return {'summary_text': fallback}
+
+        try:
+            payload = self.agent_llm.invoke_json(
+                trace_name='agent.task.summarize',
+                system_prompt=(
+                    '你是一个竞品分析任务摘要助手。'
+                    '请将用户输入的任务压缩成一句简洁明确的中文摘要，突出分析目标和对象。'
+                    '输出 JSON：{"summary_text":"..."}。'
+                    'summary_text 不超过 40 个汉字。'
+                ),
+                user_payload={'text': cleaned, 'language': language},
+                metadata={'run_id': '', 'attempt': 0, 'node_name': 'summary', 'agent_name': 'TaskSummaryAgent'},
+                network_retries=1,
+            )
+        except Exception:
+            return {'summary_text': fallback}
+
+        summary = str(payload.get('summary_text', '')).strip()
+        return {'summary_text': summary or fallback}
+
+    @staticmethod
+    def _fallback_task_summary(text: str) -> str:
+        compact = ' '.join(str(text or '').split())
+        if len(compact) <= 40:
+            return compact
+        return f'{compact[:40]}...'
+
     def collector_preview(self, *, prompt: str, industry_hint: str = '', competitor_hints: list[str] | None = None) -> dict:
         import concurrent.futures
 
@@ -1147,10 +1182,11 @@ class CompetitorWorkflowService:
         )
 
     def _save_and_event(self, state: RunState, stage: StageName, event_type: str, payload: dict) -> None:
-        print(
-            f"[{datetime.now().strftime('%H:%M:%S')}] EVENT: {stage.value} -> {event_type} "
-            f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})"
-        )
+        if self._should_print_event(stage=stage, event_type=event_type):
+            print(
+                f"[{datetime.now().strftime('%H:%M:%S')}] EVENT: {stage.value} -> {event_type} "
+                f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})"
+            )
         envelope = EventEnvelope(
             event_type=event_type,
             stage=stage,
@@ -1171,6 +1207,14 @@ class CompetitorWorkflowService:
             {'envelope': envelope.model_dump(mode='json'), 'snapshot': snapshot.model_dump(mode='json')},
         )
         self.store.save_state(state)
+
+    @staticmethod
+    def _should_print_event(*, stage: StageName, event_type: str) -> bool:
+        # `provider_event` is extremely high-frequency during collect and can flood terminal output.
+        # Keep persisting it to storage/events, but skip console print for readability.
+        if stage == StageName.collect and event_type == 'provider_event':
+            return False
+        return True
 
     def _build_workspace_payload(
         self,

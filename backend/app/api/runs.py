@@ -1,10 +1,12 @@
 ﻿from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
+from pydantic import BaseModel, Field
 
 from app.core.deps import get_service
 from app.core.models import RunRequest, RunResponse, RunSummary
@@ -13,9 +15,22 @@ from app.core.workflow import CompetitorWorkflowService
 router = APIRouter(prefix='/runs', tags=['runs'])
 
 
+class TaskSummaryRequest(BaseModel):
+    text: str = Field(min_length=1)
+    language: str = 'zh-CN'
+
+
 @router.post('', response_model=RunResponse)
 def create_run(payload: RunRequest, service: CompetitorWorkflowService = Depends(get_service)) -> RunResponse:
     return service.start_run_async(payload)
+
+
+@router.post('/summary')
+def summarize_task(payload: TaskSummaryRequest, service: CompetitorWorkflowService = Depends(get_service)) -> dict[str, str]:
+    text = payload.text.strip()
+    if not text:
+        raise HTTPException(status_code=400, detail='text is required')
+    return service.summarize_task(text=text, language=payload.language)
 
 
 @router.get('', response_model=list[RunSummary])
@@ -69,6 +84,22 @@ def workspace_run(run_id: str, service: CompetitorWorkflowService = Depends(get_
     return data
 
 
+@router.get('/{run_id}/report.md')
+def download_report_markdown(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> Response:
+    run = service.get_run(run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    markdown = run.state.report.markdown if run.state.report else ''
+    if not str(markdown).strip():
+        raise HTTPException(status_code=404, detail='report not found')
+    filename = f'{run_id}.md'
+    return Response(
+        content=markdown,
+        media_type='text/markdown; charset=utf-8',
+        headers={'Content-Disposition': f'attachment; filename="{filename}"'},
+    )
+
+
 @router.get('/{run_id}/stream')
 async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> StreamingResponse:
     run = service.get_run(run_id)
@@ -77,7 +108,40 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
 
     async def event_generator():
         last_event_id = 0
-        workspace_signature: tuple[str, int, int] | None = None
+        workspace_signature: str | None = None
+
+        def _workspace_signature(workspace: dict, fallback_status: str = 'running') -> str:
+            run_block = workspace.get('run', {}) if isinstance(workspace, dict) else {}
+            workflow = workspace.get('workflow', {}) if isinstance(workspace, dict) else {}
+            qa_block = workspace.get('qa', {}) if isinstance(workspace, dict) else {}
+            observability = workspace.get('observability', {}) if isinstance(workspace, dict) else {}
+            stages = workflow.get('agent_stages', []) if isinstance(workflow, dict) else []
+            events = observability.get('events', []) if isinstance(observability, dict) else []
+
+            stage_digest = [
+                {
+                    'stage': item.get('stage', ''),
+                    'status': item.get('status', ''),
+                    'duration_ms': item.get('duration_ms', None),
+                }
+                for item in stages
+                if isinstance(item, dict)
+            ]
+            last_event = 0
+            if isinstance(events, list) and events:
+                last_event = max(int(item.get('event_id', 0) or 0) for item in events if isinstance(item, dict))
+
+            basis = {
+                'status': str(run_block.get('status', fallback_status)) if isinstance(run_block, dict) else fallback_status,
+                'evidence_count': int(run_block.get('evidence_count', 0) or 0) if isinstance(run_block, dict) else 0,
+                'finding_count': int(run_block.get('finding_count', 0) or 0) if isinstance(run_block, dict) else 0,
+                'stage_digest': stage_digest,
+                'qa_issue_count': int(qa_block.get('issue_count', 0) or 0) if isinstance(qa_block, dict) else 0,
+                'qa_collect_items': len(qa_block.get('collect_items', []) if isinstance(qa_block, dict) and isinstance(qa_block.get('collect_items', []), list) else []),
+                'last_event_id': last_event,
+            }
+            text = json.dumps(basis, ensure_ascii=False, sort_keys=True, default=str)
+            return hashlib.sha1(text.encode('utf-8')).hexdigest()
 
         initial_workspace = service.workspace_payload(run_id)
         if initial_workspace.get('status') != 'not_found':
@@ -91,11 +155,7 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
             event_list = initial_workspace.get('observability', {}).get('events', []) if isinstance(initial_workspace.get('observability', {}), dict) else []
             if isinstance(event_list, list) and event_list:
                 last_event_id = max(int(item.get('event_id', 0) or 0) for item in event_list)
-            workspace_signature = (
-                str(payload['status']),
-                int(initial_run.get('evidence_count', 0) or 0) if isinstance(initial_run, dict) else 0,
-                int(initial_run.get('finding_count', 0) or 0) if isinstance(initial_run, dict) else 0,
-            )
+            workspace_signature = _workspace_signature(initial_workspace, str(payload['status']))
 
         while True:
             current_run = service.get_run(run_id)
@@ -113,15 +173,11 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
             if should_refresh_workspace:
                 workspace = service.workspace_payload(run_id)
                 run_block = workspace.get('run', {})
-                signature = (
-                    str(run_block.get('status', 'running')) if isinstance(run_block, dict) else 'running',
-                    int(run_block.get('evidence_count', 0) or 0) if isinstance(run_block, dict) else 0,
-                    int(run_block.get('finding_count', 0) or 0) if isinstance(run_block, dict) else 0,
-                )
+                signature = _workspace_signature(workspace, 'running')
                 if signature != workspace_signature:
                     payload = {
                         'run_id': run_id,
-                        'status': signature[0],
+                        'status': str(run_block.get('status', 'running')) if isinstance(run_block, dict) else 'running',
                         'workspace': workspace,
                     }
                     yield f"event: workspace\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"

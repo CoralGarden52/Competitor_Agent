@@ -19,6 +19,40 @@ def test_healthz() -> None:
     assert response.json()['status'] == 'ok'
 
 
+def test_runs_summary_endpoint() -> None:
+    app = create_app()
+    client = TestClient(app)
+    response = client.post('/runs/summary', json={'text': '分析在线会议软件市场竞争格局'})
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body.get('summary_text', ''), str)
+    assert body['summary_text'].strip()
+
+
+def test_runs_summary_endpoint_empty_text_422() -> None:
+    app = create_app()
+    client = TestClient(app)
+    response = client.post('/runs/summary', json={'text': ''})
+    assert response.status_code == 422
+
+
+def test_run_prompt_only_payload() -> None:
+    app = create_app()
+    client = TestClient(app)
+    payload = {
+        'industry': '',
+        'competitors': [],
+        'user_prompt': '对在线会议软件进行竞品分析',
+        'language': 'zh-CN',
+        'timeframe': 'last_12_months',
+    }
+    response = client.post('/runs', json=payload)
+    assert response.status_code == 200
+    body = response.json()
+    assert body['summary']['run_id']
+    assert body['state']['status'] == 'running'
+
+
 def test_run_happy_path() -> None:
     app = create_app()
     client = TestClient(app)

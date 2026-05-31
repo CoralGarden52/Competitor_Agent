@@ -39,3 +39,6 @@ export NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8010
 pnpm build
 pnpm start
 ```
+
+## Stack Note
+This frontend is maintained as a Next.js-only stack. Legacy Vite configs have been removed.

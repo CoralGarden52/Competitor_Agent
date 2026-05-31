@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #edf1f9;
   --sidebar-bg: rgba(248, 250, 255, 0.82);
   --sidebar-border: rgba(116, 143, 198, 0.62);
@@ -293,16 +293,109 @@ body {
   padding-top: 2px;
 }
 
-.sidebar-summary-card {
-  margin-top: 8px;
-  border: 1px solid rgba(124, 153, 210, 0.34);
-  background: rgba(255, 255, 255, 0.62);
-  color: #2f466e;
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 14px;
-  line-height: 1.45;
-  word-break: break-word;
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 32vh;
+  overflow: auto;
+}
+
+.session-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px;
+}
+
+.session-item {
+  border: 1px solid rgba(124, 153, 210, 0.22);
+  background: rgba(255, 255, 255, 0.58);
+  color: #35557f;
+  border-radius: 10px;
+  padding: 6px 8px 6px 10px;
+  font-size: 13px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.session-title-btn {
+  border: none;
+  background: transparent;
+  color: inherit;
+  flex: 1;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 0;
+}
+
+.session-title-btn:focus-visible {
+  outline: 2px solid rgba(84, 138, 240, 0.75);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.session-item.active {
+  border-color: rgba(80, 132, 224, 0.55);
+  background: rgba(227, 239, 255, 0.75);
+}
+
+.session-actions {
+  position: relative;
+}
+
+.session-more-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(79, 141, 252, 0.12);
+  color: #47679a;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+.session-more-btn:hover {
+  background: rgba(227, 239, 255, 0.88);
+}
+
+.session-more-btn:focus-visible {
+  outline: 2px solid rgba(84, 138, 240, 0.75);
+  outline-offset: 2px;
+}
+
+.session-menu {
+  position: absolute;
+  right: 0;
+  top: 34px;
+  min-width: 108px;
+  border-radius: 10px;
+  border: 1px solid rgba(126, 148, 189, 0.35);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(42, 72, 126, 0.16);
+  padding: 6px;
+  z-index: 20;
+}
+
+.session-menu-danger {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  text-align: left;
+  padding: 7px 8px;
+  cursor: pointer;
+  color: #b13939;
+  background: transparent;
+}
+
+.session-menu-danger:hover {
+  background: rgba(255, 236, 236, 0.9);
 }
 
 .thought-chain-panel {
@@ -325,6 +418,18 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.agent-card-list {
+  padding-left: 0;
+}
+
+.agent-card {
+  list-style: none;
+  border: 1px solid rgba(126, 156, 212, 0.28);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.66);
 }
 
 .thought-item {
@@ -370,6 +475,206 @@ body {
   color: #1f6a40;
   background: rgba(180, 233, 199, 0.6);
   border-color: rgba(70, 169, 108, 0.45);
+}
+
+.status-pill.failed {
+  color: #7a2634;
+  background: rgba(252, 209, 219, 0.58);
+  border-color: rgba(201, 86, 109, 0.42);
+}
+
+.agent-summary-block {
+  margin-top: 8px;
+}
+
+.agent-summary-block p {
+  margin: 6px 0 0;
+  color: #445d86;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.collect-web-preview {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(112, 150, 219, 0.3);
+  background: rgba(236, 245, 255, 0.62);
+}
+
+.collect-web-preview strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #2c4f87;
+  font-size: 13px;
+}
+
+.collect-web-preview p {
+  margin: 4px 0 0;
+  color: #44628f;
+  font-size: 13px;
+}
+
+.collect-web-link {
+  color: #245aa5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.collect-web-link:hover {
+  color: #1d4f96;
+  text-decoration: underline;
+}
+
+.collect-web-link:focus-visible {
+  outline: 2px solid rgba(64, 128, 224, 0.65);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.reference-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(112, 147, 209, 0.58);
+}
+
+.report-card-section {
+  margin-top: 12px;
+  border: 1px solid rgba(126, 156, 212, 0.35);
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.report-card {
+  flex: 1;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.report-card-main {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.report-card-main small {
+  display: block;
+  margin-top: 4px;
+  color: #6e7f99;
+}
+
+.report-download-btn {
+  color: #1f4f95;
+  text-decoration: none;
+  border: 1px solid rgba(103, 146, 219, 0.45);
+  background: rgba(233, 243, 255, 0.78);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.report-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 32, 55, 0.24);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 60;
+}
+
+.report-preview-drawer {
+  width: min(760px, 90vw);
+  height: 100vh;
+  background: #f8fbff;
+  border-left: 1px solid rgba(120, 152, 214, 0.35);
+  display: flex;
+  flex-direction: column;
+}
+
+.report-preview-header {
+  height: 56px;
+  border-bottom: 1px solid rgba(132, 160, 214, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.report-preview-header button {
+  border: 1px solid rgba(126, 156, 212, 0.4);
+  border-radius: 8px;
+  background: #fff;
+  color: #395a86;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+.report-preview-body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.report-preview-body pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #2f4365;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.reference-section details > summary {
+  cursor: pointer;
+  color: #315b9a;
+  font-weight: 600;
+}
+
+.reference-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reference-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 152, 214, 0.28);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.reference-item a {
+  color: #224f95;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.reference-item a:hover {
+  text-decoration: underline;
+}
+
+.reference-item p {
+  margin: 6px 0 0;
+  color: #58739b;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.reference-item small {
+  display: block;
+  margin-top: 6px;
+  color: #607796;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .empty-state {
