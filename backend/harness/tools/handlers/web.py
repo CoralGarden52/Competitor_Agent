@@ -58,3 +58,17 @@ class WebExtractHandler:
         markdown = extract_to_markdown(content, title=title or "document", content_type="markdown")
         sanitized = mask_pii(markdown)
         return ToolResult(ok=True, output={"sanitized": sanitized, "extract_fields": extract_fields(sanitized, snippet)})
+
+
+class CorpusSearchHandler:
+    def __init__(self, store: Any) -> None:
+        self.store = store
+
+    def handle(self, request: ToolRequest) -> ToolResult:
+        documents = self.store.search_comparison_corpus(
+            topic_key=str(request.args.get("topic_key", "") or ""),
+            industry=str(request.args.get("industry", "") or ""),
+            keywords=request.args.get("keywords", []) if isinstance(request.args.get("keywords", []), list) else [],
+            limit=int(request.args.get("limit", 8) or 8),
+        )
+        return ToolResult(ok=True, provider="sqlite", output={"documents": documents})

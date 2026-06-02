@@ -181,6 +181,7 @@ class AnalystAgent:
             '{"summary":"...","normalized_value":{},"evidence_gaps":[]}\n'
             "请根据证据进行归纳，不要复制原始文本。输出内容必须聚焦当前字段。"
             "如果证据不完整，请优先给出已确认事实，并列出剩余缺口。"
+            "必要时可以调用 corpus.search 检索 Plan 阶段保存的横向竞品对比语料。"
         )
         
         user_prompt = {
@@ -215,7 +216,7 @@ class AnalystAgent:
                     'agent_name': 'AnalystAgent',
                     'node_name': 'analyze',
                 },
-                tool_names=['web.search', 'web.fetch', 'web.extract'],
+                tool_names=['corpus.search', 'web.search', 'web.fetch', 'web.extract'],
             )
             summary = str(result.get('summary', '')).strip()
             normalized_value = self._coerce_normalized_value(
@@ -539,6 +540,7 @@ class AnalystAgent:
                     for ev in state.evidences
                     if self._evidence_matches_competitor(ev, competitor) and self._evidence_matches_field(ev, field_name)
                 ]
+                matches.sort(key=lambda ev: ev.domain_extensions.get('origin') == 'plan_comparison_corpus')
                 field_bundles.append(FieldEvidenceBundle(field_name=field_name, evidences=matches))
             bundles.append(CompetitorEvidenceBundle(product_name=competitor, fields=field_bundles))
         return bundles
@@ -678,6 +680,10 @@ class AnalystAgent:
 
     @staticmethod
     def _evidence_matches_competitor(evidence: RawEvidence, competitor: str) -> bool:
+        if evidence.domain_extensions.get('origin') == 'plan_comparison_corpus':
+            mentions = evidence.domain_extensions.get('mentioned_competitors', [])
+            if isinstance(mentions, list) and any(competitor.casefold() in str(item).casefold() for item in mentions):
+                return True
         competitor_hint = str(evidence.domain_extensions.get('competitor', '')).strip().casefold()
         if competitor_hint and competitor_hint == competitor.casefold():
             return True
@@ -693,6 +699,8 @@ class AnalystAgent:
 
     @staticmethod
     def _evidence_matches_field(evidence: RawEvidence, field_name: str) -> bool:
+        if evidence.domain_extensions.get('origin') == 'plan_comparison_corpus':
+            return True
         schema_field = str(evidence.domain_extensions.get('schema_field', '')).strip().casefold()
         if schema_field:
             return schema_field == field_name.casefold()

@@ -56,6 +56,7 @@ from app.core.models import (
     TicketStatus,
     TransitionReason,
     RecoveryState,
+    RawEvidence,
 )
 from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, registry_snapshot
 from app.core.storage import SQLiteStore
@@ -72,7 +73,7 @@ class CompetitorWorkflowService:
     def __init__(self, store: SQLiteStore):
         self.store = store
         self.config = get_config()
-        self.tools = build_tool_runtime(self.config, event_sink=self._tool_event_sink)
+        self.tools = build_tool_runtime(self.config, event_sink=self._tool_event_sink, store=self.store)
         self.tool_registry = self.tools.registry
         self.tool_router = self.tools.router
         self.hook_registry = HookRegistry()
@@ -439,6 +440,21 @@ class CompetitorWorkflowService:
         planned_competitors = dynamic_plan.get('planned_competitors', competitor_hints or [])
         analysis_schema_plan = dynamic_plan.get('analysis_schema_plan', [])
         candidate_groups = dynamic_plan.get('candidate_groups', {'direct': [], 'substitute': []})
+        comparison_search_plan = dynamic_plan.get('comparison_search_plan', {})
+        comparison_corpus = dynamic_plan.get('comparison_corpus', [])
+        comparison_corpus_summary = {
+            'selected_count': len(comparison_corpus) if isinstance(comparison_corpus, list) else 0,
+            'documents': [
+                {
+                    'corpus_id': item.get('corpus_id', ''),
+                    'title': item.get('title', ''),
+                    'url': item.get('source_url', ''),
+                    'published_at': item.get('published_at', ''),
+                    'date_confidence': item.get('date_confidence', 'unknown'),
+                }
+                for item in comparison_corpus
+            ] if isinstance(comparison_corpus, list) else [],
+        }
         effective_max_urls = self.config.collector_max_urls
         preview = []
         errors = []
@@ -483,6 +499,8 @@ class CompetitorWorkflowService:
                 'planned_competitors': planned_competitors,
                 'analysis_schema_plan': analysis_schema_plan,
                 'planner_meta': dynamic_plan.get('planner_meta', {}),
+                'comparison_search_plan': comparison_search_plan,
+                'comparison_corpus_summary': comparison_corpus_summary,
             }
             auto_saved, auto_saved_file, auto_saved_error = self._auto_save_preview_result(response)
             response['auto_saved'] = auto_saved
@@ -614,6 +632,8 @@ class CompetitorWorkflowService:
             'planned_competitors': planned_competitors,
             'analysis_schema_plan': analysis_schema_plan,
             'planner_meta': dynamic_plan.get('planner_meta', {}),
+            'comparison_search_plan': comparison_search_plan,
+            'comparison_corpus_summary': comparison_corpus_summary,
         }
         auto_saved, auto_saved_file, auto_saved_error = self._auto_save_preview_result(response)
         response['auto_saved'] = auto_saved
@@ -781,6 +801,12 @@ class CompetitorWorkflowService:
         state.planner_meta['user_competitor_hint_count'] = len(state.competitor_hints)
         state.planner_meta['user_aspect_hint_count'] = len(state.aspect_hints)
         state.planner_meta['final_refine_status'] = str(dynamic_plan.get('final_refine_status', 'fallback'))
+        state.planner_meta['comparison_search_plan'] = dynamic_plan.get('comparison_search_plan', {})
+        comparison_corpus = dynamic_plan.get('comparison_corpus', [])
+        state.planner_meta['comparison_corpus_count'] = len(comparison_corpus) if isinstance(comparison_corpus, list) else 0
+        state.planner_meta['comparison_decision_evidence_refs'] = dynamic_plan.get('comparison_decision_evidence_refs', [])
+        if isinstance(comparison_corpus, list):
+            state.evidences = self._comparison_corpus_evidences(comparison_corpus)
         split_strategy = 'by_competitor' if len(state.competitors) <= 4 else 'by_topic'
         state.split_strategy = split_strategy
         state.self_eval['plan'] = SelfEval(coverage=1.0, consistency=0.9, evidence_quality=0.8, uncertainty=0.2)
@@ -852,11 +878,8 @@ class CompetitorWorkflowService:
             self._save_and_event(state, StageName.collect, 'provider_event', pe)
         for te in result.tool_events:
             self._save_and_event(state, StageName.collect, 'tool_event', te)
-        if qa_collect_plan:
-            # Re-collect mode: preserve prior evidence and append new evidence.
-            state.evidences = list(state.evidences) + list(result.raw_evidences)
-        else:
-            state.evidences = list(result.raw_evidences)
+        # Preserve Plan comparison-corpus evidence and append field-level collection.
+        state.evidences = list(state.evidences) + list(result.raw_evidences)
         active_competitors = state.planned_competitors or state.competitors
         coverage = min(1.0, len(state.evidences) / max(2, len(active_competitors) * 2))
         quality = 0.35 if result.errors else 0.72
@@ -882,6 +905,43 @@ class CompetitorWorkflowService:
                 qa_collect_plan_used=bool(qa_collect_plan),
             ),
         )
+
+    @staticmethod
+    def _comparison_corpus_evidences(documents: list[dict]) -> list[RawEvidence]:
+        evidences: list[RawEvidence] = []
+        for item in documents:
+            if item.get('date_confidence') == 'out_of_range':
+                continue
+            corpus_id = str(item.get('corpus_id', '') or '').strip()
+            source_url = str(item.get('source_url', '') or '').strip()
+            if not corpus_id or not source_url:
+                continue
+            extract = item.get('llm_extract', {}) if isinstance(item.get('llm_extract', {}), dict) else {}
+            evidences.append(
+                RawEvidence(
+                    evidence_id=f'evd_{corpus_id.removeprefix("corpus_")[:10]}',
+                    source_url=source_url,
+                    query=str(item.get('query', '') or ''),
+                    title=str(item.get('title', '') or ''),
+                    snippet=str(item.get('summary', '') or item.get('content', '') or '')[:1000],
+                    source_type='report',
+                    retrieval_method='plan_comparison_corpus',
+                    retrieval_status='ok' if str(item.get('content', '') or '') else 'partial',
+                    recency_score=0.45 if item.get('date_confidence') == 'unknown' else 0.8,
+                    domain_extensions={
+                        'origin': 'plan_comparison_corpus',
+                        'scope': 'cross_competitor',
+                        'corpus_id': corpus_id,
+                        'topic_key': item.get('topic_key', ''),
+                        'keywords': item.get('keywords', []),
+                        'published_at': item.get('published_at', ''),
+                        'date_confidence': item.get('date_confidence', 'unknown'),
+                        'mentioned_competitors': extract.get('mentioned_competitors', []),
+                        'comparison_dimensions': extract.get('comparison_dimensions', []),
+                    },
+                )
+            )
+        return evidences
 
     def _normalize(self, state: RunState) -> None:
         seen: set[str] = set()
@@ -1296,6 +1356,12 @@ class CompetitorWorkflowService:
             analysis_schema_plan=state.analysis_schema_plan,
             split_strategy=state.split_strategy,
             planner_meta=state.planner_meta,
+            comparison_search_plan=state.planner_meta.get('comparison_search_plan', {}) if isinstance(state.planner_meta, dict) else {},
+            comparison_corpus_refs=[
+                str(ev.domain_extensions.get('corpus_id', ''))
+                for ev in state.evidences
+                if ev.domain_extensions.get('origin') == 'plan_comparison_corpus'
+            ],
         )
 
     def _build_collect_handoff(

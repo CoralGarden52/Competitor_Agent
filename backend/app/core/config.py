@@ -52,6 +52,7 @@ class AppConfig(BaseSettings):
     planner_llm_retry_backoff_ms: int = Field(default=800, ge=50, le=10000)
     planner_llm_retry_max_backoff_ms: int = Field(default=4000, ge=100, le=30000)
     planner_schema_max_candidates: int = Field(default=8, ge=1, le=20)
+    planner_comparison_corpus_max_docs: int = Field(default=12, ge=1, le=30)
     max_search_results: int = Field(default=8, ge=1, le=20)
     collector_timeout_sec: int = Field(default=12, ge=3, le=60)
     collector_max_results_per_query: int = Field(default=5, ge=1, le=20)

@@ -50,6 +50,23 @@ WEB_EXTRACT_SPEC = ToolSpec(
     output_schema={"type": "object", "properties": {"sanitized": {"type": "string"}, "extract_fields": {"type": "object"}}},
 )
 
+CORPUS_SEARCH_SPEC = ToolSpec(
+    name="corpus.search",
+    group="corpus",
+    description="按结构化标签检索已持久化的横向竞品对比语料。",
+    input_schema={
+        "type": "object",
+        "properties": {
+            "topic_key": {"type": "string"},
+            "industry": {"type": "string"},
+            "keywords": {"type": "array", "items": {"type": "string"}},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 20},
+        },
+    },
+    output_schema={"type": "object", "properties": {"documents": {"type": "array"}}},
+    visibility="internal",
+)
+
 LLM_INVOKE_JSON_SPEC = ToolSpec(
     name="llm.invoke_json",
     group="llm",

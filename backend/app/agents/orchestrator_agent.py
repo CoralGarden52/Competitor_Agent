@@ -100,6 +100,9 @@ class OrchestratorAgent:
                 candidates=[item['name'] for item in candidate_groups.get('direct', []) + candidate_groups.get('substitute', [])],
                 search_results=search_results,  # 传入搜索结果
             )
+            schema = self.planner._normalize_dynamic_schema(
+                schema + list(discover_result.get('comparison_schema_fields', []))
+            )
 
         direct = [str(item.get('name', '')).strip() for item in candidate_groups.get('direct', []) if str(item.get('name', '')).strip()]
         substitute = [str(item.get('name', '')).strip() for item in candidate_groups.get('substitute', []) if str(item.get('name', '')).strip()]
@@ -125,6 +128,8 @@ class OrchestratorAgent:
             planner_meta['llm_call_status'] = self.planner.last_call_status()
             planner_meta['llm_call_status_by_step'] = self.planner.step_call_status()
             planner_meta['candidate_policy'] = 'direct_substitute_only'
+            planner_meta['comparison_search_plan'] = discover_result.get('comparison_search_plan', {})
+            planner_meta['comparison_corpus_count'] = len(discover_result.get('comparison_corpus', []))
         else:
             planner_meta['llm_enabled'] = False
             planner_meta['reason'] = 'planner_missing'
@@ -136,6 +141,9 @@ class OrchestratorAgent:
             'inferred_industry': inferred_industry,
             'planner_meta': planner_meta,
             'final_refine_status': final_refine_status,
+            'comparison_search_plan': discover_result.get('comparison_search_plan', {}) if self.planner is not None else {},
+            'comparison_corpus': discover_result.get('comparison_corpus', []) if self.planner is not None else [],
+            'comparison_decision_evidence_refs': discover_result.get('comparison_decision_evidence_refs', []) if self.planner is not None else [],
         }
 
     @staticmethod

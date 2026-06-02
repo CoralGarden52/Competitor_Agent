@@ -290,6 +290,46 @@ class SQLiteStore:
             )
             conn.execute(
                 '''
+                CREATE TABLE IF NOT EXISTS comparison_corpus_documents (
+                    corpus_id TEXT PRIMARY KEY,
+                    source_url TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    topic_key TEXT NOT NULL,
+                    industry TEXT NOT NULL,
+                    keywords_json TEXT NOT NULL,
+                    query TEXT NOT NULL,
+                    summary TEXT NOT NULL,
+                    content TEXT NOT NULL,
+                    content_hash TEXT NOT NULL,
+                    published_at TEXT,
+                    date_confidence TEXT NOT NULL,
+                    source_provider TEXT NOT NULL,
+                    llm_extract_json TEXT NOT NULL,
+                    fetched_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    UNIQUE(source_url, content_hash)
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS run_comparison_corpus_links (
+                    run_id TEXT NOT NULL,
+                    corpus_id TEXT NOT NULL,
+                    usage_type TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    PRIMARY KEY (run_id, corpus_id, usage_type)
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE INDEX IF NOT EXISTS idx_comparison_corpus_topic_industry
+                ON comparison_corpus_documents(topic_key, industry, updated_at)
+                '''
+            )
+            conn.execute(
+                '''
                 CREATE TABLE IF NOT EXISTS subagent_runs (
                     subagent_id TEXT PRIMARY KEY,
                     parent_run_id TEXT NOT NULL,
@@ -865,6 +905,121 @@ class SQLiteStore:
                 (url, content, content_hash, source_provider, fetched_at, now, http_status, etag, last_modified),
             )
 
+    def upsert_comparison_corpus_document(self, document: dict[str, Any]) -> str:
+        now = datetime.now(UTC).isoformat()
+        corpus_id = str(document.get('corpus_id', '') or f"corpus_{document.get('content_hash', '')[:12]}").strip()
+        if not corpus_id:
+            raise ValueError('comparison corpus document requires corpus_id or content_hash')
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO comparison_corpus_documents (
+                    corpus_id, source_url, title, topic_key, industry, keywords_json, query,
+                    summary, content, content_hash, published_at, date_confidence,
+                    source_provider, llm_extract_json, fetched_at, updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(source_url, content_hash) DO UPDATE SET
+                    title=excluded.title,
+                    topic_key=excluded.topic_key,
+                    industry=excluded.industry,
+                    keywords_json=excluded.keywords_json,
+                    query=excluded.query,
+                    summary=excluded.summary,
+                    content=excluded.content,
+                    published_at=excluded.published_at,
+                    date_confidence=excluded.date_confidence,
+                    source_provider=excluded.source_provider,
+                    llm_extract_json=excluded.llm_extract_json,
+                    updated_at=excluded.updated_at
+                ''',
+                (
+                    corpus_id,
+                    str(document.get('source_url', '')),
+                    str(document.get('title', '')),
+                    str(document.get('topic_key', '')),
+                    str(document.get('industry', '')),
+                    json.dumps(document.get('keywords', []), ensure_ascii=False),
+                    str(document.get('query', '')),
+                    str(document.get('summary', '')),
+                    str(document.get('content', '')),
+                    str(document.get('content_hash', '')),
+                    str(document.get('published_at', '') or '') or None,
+                    str(document.get('date_confidence', 'unknown') or 'unknown'),
+                    str(document.get('source_provider', '')),
+                    json.dumps(document.get('llm_extract', {}), ensure_ascii=False),
+                    str(document.get('fetched_at', '') or now),
+                    now,
+                ),
+            )
+            row = conn.execute(
+                'SELECT corpus_id FROM comparison_corpus_documents WHERE source_url = ? AND content_hash = ?',
+                (str(document.get('source_url', '')), str(document.get('content_hash', ''))),
+            ).fetchone()
+        return str(row['corpus_id']) if row is not None else corpus_id
+
+    def link_run_comparison_corpus(self, *, run_id: str, corpus_id: str, usage_type: str = 'plan_selected') -> None:
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT OR IGNORE INTO run_comparison_corpus_links (run_id, corpus_id, usage_type, created_at)
+                VALUES (?, ?, ?, ?)
+                ''',
+                (run_id, corpus_id, usage_type, datetime.now(UTC).isoformat()),
+            )
+
+    def search_comparison_corpus(
+        self,
+        *,
+        topic_key: str = '',
+        industry: str = '',
+        keywords: list[str] | None = None,
+        limit: int = 8,
+    ) -> list[dict[str, Any]]:
+        clauses: list[str] = []
+        params: list[Any] = []
+        if topic_key.strip():
+            clauses.append('topic_key = ?')
+            params.append(topic_key.strip())
+        if industry.strip():
+            clauses.append('(industry = ? OR industry = ?)')
+            params.extend([industry.strip(), 'general'])
+        keyword_items = [str(item).strip() for item in (keywords or []) if str(item).strip()]
+        if keyword_items:
+            keyword_clauses = []
+            for keyword in keyword_items[:6]:
+                keyword_clauses.append('(keywords_json LIKE ? OR title LIKE ? OR summary LIKE ?)')
+                token = f'%{keyword}%'
+                params.extend([token, token, token])
+            clauses.append(f"({' OR '.join(keyword_clauses)})")
+        sql = 'SELECT * FROM comparison_corpus_documents'
+        if clauses:
+            sql += ' WHERE ' + ' AND '.join(clauses)
+        sql += ' ORDER BY updated_at DESC LIMIT ?'
+        params.append(max(1, min(int(limit), 20)))
+        with self._connect() as conn:
+            rows = conn.execute(sql, params).fetchall()
+        return [
+            {
+                'corpus_id': row['corpus_id'],
+                'source_url': row['source_url'],
+                'title': row['title'],
+                'topic_key': row['topic_key'],
+                'industry': row['industry'],
+                'keywords': json.loads(row['keywords_json']),
+                'query': row['query'],
+                'summary': row['summary'],
+                'content': row['content'],
+                'content_hash': row['content_hash'],
+                'published_at': row['published_at'] or '',
+                'date_confidence': row['date_confidence'],
+                'source_provider': row['source_provider'],
+                'llm_extract': json.loads(row['llm_extract_json']),
+                'fetched_at': row['fetched_at'],
+            }
+            for row in rows
+        ]
+
     def trace_node_started(self, *, run_id: str, node_name: str, attempt: int) -> int:
         now = datetime.now(UTC).isoformat()
         with self._connect() as conn:
@@ -1308,6 +1463,7 @@ class SQLiteStore:
                 'stage_handoffs',
                 'llm_calls',
                 'evidence_raw_contents',
+                'run_comparison_corpus_links',
             ):
                 conn.execute(f'DELETE FROM {table} WHERE run_id = ?', (run_id,))
             conn.execute('DELETE FROM subagent_runs WHERE parent_run_id = ?', (run_id,))

@@ -41,12 +41,37 @@ def test_plan_dynamic_schema_fallback_when_llm_disabled() -> None:
     assert priorities == list(range(1, len(priorities) + 1))
 
 
-def test_generate_search_queries_uses_generic_product_templates_for_category_prompt() -> None:
+def test_generate_search_queries_uses_recent_comparison_templates_when_llm_fails() -> None:
     cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
     planner = PlannerLLMClient(cfg)
+    planner._chat_json = lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError('boom'))  # type: ignore[method-assign]
     queries = planner._generate_search_queries('线上会议软件竞品分析', [], industry='')
-    assert queries[:4] == ['线上会议软件 同类产品', '线上会议软件 替代方案', '企业团队 线上会议软件', '远程会议 线上会议软件']
+    assert queries[:4] == [
+        '线上会议软件 同类产品 近一年 对比',
+        '线上会议软件 替代方案 近一年',
+        '企业团队 线上会议软件 近一年 对比',
+        '远程会议 线上会议软件 近一年 对比',
+    ]
     assert len(queries) == 4
+    assert planner._last_comparison_search_plan['source'] == 'rule_fallback'  # type: ignore[attr-defined]
+
+
+def test_generate_search_queries_prefers_llm_comparison_search_plan() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._chat_json = lambda *_args, **_kwargs: {  # type: ignore[method-assign]
+        'primary_query': '近一年主流会议软件对比',
+        'expansion_queries': ['企业视频会议软件排行榜', '主流在线会议软件盘点'],
+        'topic_key': 'meeting_software',
+        'keywords': ['会议软件', '视频会议'],
+    }
+    queries = planner._generate_search_queries('请进行主流的会议软件竞品分析', [], industry='')
+    assert queries == [
+        '近一年主流会议软件对比',
+        '企业视频会议软件排行榜 近一年',
+        '主流在线会议软件盘点 近一年',
+    ]
+    assert planner._last_comparison_search_plan['source'] == 'llm'  # type: ignore[attr-defined]
 
 
 def test_build_expansion_queries_uses_hints_and_candidate_pool() -> None:
@@ -174,6 +199,22 @@ def test_normalize_dynamic_schema_repairs_generic_query_templates() -> None:
     deployment = next(item for item in plan if item['field_name'] == 'deployment_model')
     assert len(deployment['query_templates']) >= 2
     assert all('{product}' in template for template in deployment['query_templates'])
+
+
+def test_normalize_dynamic_schema_preserves_comparison_corpus_refs() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    plan = planner._normalize_dynamic_schema([  # type: ignore[attr-defined]
+        {
+            'field_name': 'deployment_model',
+            'query_templates': ['{product} deployment'],
+            'recommended_sources': ['official'],
+            'priority': 1,
+            'corpus_refs': ['corpus_a'],
+        }
+    ])
+    deployment = next(item for item in plan if item['field_name'] == 'deployment_model')
+    assert deployment['corpus_refs'] == ['corpus_a']
 
 
 def test_parse_json_content_plain_json() -> None:

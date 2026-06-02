@@ -1,4 +1,4 @@
 from harness.tools.handlers.llm import LLMInvokeJsonHandler
-from harness.tools.handlers.web import WebExtractHandler, WebFetchHandler, WebSearchHandler
+from harness.tools.handlers.web import CorpusSearchHandler, WebExtractHandler, WebFetchHandler, WebSearchHandler
 
-__all__ = ['WebSearchHandler', 'WebFetchHandler', 'WebExtractHandler', 'LLMInvokeJsonHandler']
+__all__ = ['WebSearchHandler', 'WebFetchHandler', 'WebExtractHandler', 'CorpusSearchHandler', 'LLMInvokeJsonHandler']

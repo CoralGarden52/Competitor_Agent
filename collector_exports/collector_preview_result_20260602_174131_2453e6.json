@@ -1,0 +1,57 @@
+{
+  "prompt": "AI agent competitor analysis",
+  "industry_hint": "",
+  "inferred_industry": "saas",
+  "effective_max_urls": 10,
+  "max_urls_note": "server uses COLLECTOR_MAX_URLS from .env",
+  "deep_dive": false,
+  "candidate_groups": {
+    "direct": [],
+    "substitute": []
+  },
+  "candidates": {
+    "direct": [],
+    "substitute": []
+  },
+  "handoff_targets": {
+    "direct": [],
+    "substitute": []
+  },
+  "plan_phase": {
+    "competitors_generated": [],
+    "schema_generated": [],
+    "planner_meta": {}
+  },
+  "execution_timeline": [
+    {
+      "seq": 1,
+      "event_type": "plan.competitors_generated",
+      "payload": {
+        "planned_competitors": [],
+        "candidate_groups": {
+          "direct": [],
+          "substitute": []
+        }
+      }
+    },
+    {
+      "seq": 2,
+      "event_type": "plan.schema_generated",
+      "payload": {
+        "analysis_schema_plan": []
+      }
+    }
+  ],
+  "preview": [],
+  "errors": [
+    "no_competitors_discovered"
+  ],
+  "planned_competitors": [],
+  "analysis_schema_plan": [],
+  "planner_meta": {},
+  "comparison_search_plan": {},
+  "comparison_corpus_summary": {
+    "selected_count": 0,
+    "documents": []
+  }
+}

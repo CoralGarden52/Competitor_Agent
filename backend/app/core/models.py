@@ -164,6 +164,7 @@ class AnalysisSchemaField(BaseModel):
     query_templates: list[str] = Field(default_factory=list)
     recommended_sources: list[str] = Field(default_factory=list)
     priority: int = 1
+    corpus_refs: list[str] = Field(default_factory=list)
 
 
 class FieldEvidenceBundle(BaseModel):
@@ -199,6 +200,8 @@ class PlanHandoff(BaseModel):
     analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
     split_strategy: str = 'by_competitor'
     planner_meta: dict[str, Any] = Field(default_factory=dict)
+    comparison_search_plan: dict[str, Any] = Field(default_factory=dict)
+    comparison_corpus_refs: list[str] = Field(default_factory=list)
 
 
 class CollectHandoff(BaseModel):
