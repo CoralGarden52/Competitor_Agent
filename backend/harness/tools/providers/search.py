@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from app.core.collector.provider_registry import ProviderRegistry
-    from app.core.collector.types import SearchHit
+    from harness.tools.providers.registry import ProviderRegistry
+    from harness.tools.providers.types import SearchHit
 
 
 def search_with_fallback(

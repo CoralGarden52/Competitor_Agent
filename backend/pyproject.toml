@@ -21,7 +21,7 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["app*"]
+include = ["app*", "harness*"]
 exclude = ["collector_exports*"]
 
 [tool.pytest.ini_options]

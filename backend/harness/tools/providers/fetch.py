@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from app.core.collector.provider_registry import ProviderRegistry
+    from harness.tools.providers.registry import ProviderRegistry
 
 
 def fetch_with_fallback(

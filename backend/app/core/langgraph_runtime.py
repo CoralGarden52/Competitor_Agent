@@ -151,10 +151,11 @@ class WorkflowLangGraphRuntime:
         stage_error: Exception | None = None
         try:
             handler = self._stage_handlers[active_stage]
-            self.service.mark_todo_stage_started(run_state, active_stage, self._stage_agents.get(active_stage, active_stage.value))
+            self._call_optional('mark_todo_stage_started', run_state, active_stage, self._stage_agents.get(active_stage, active_stage.value))
             stage_result = self._trace(active_stage.value, run_state, handler)
-            self.service.mark_todo_stage_completed(run_state, active_stage, self._stage_agents.get(active_stage, active_stage.value))
-            self.service._emit_hook(
+            self._call_optional('mark_todo_stage_completed', run_state, active_stage, self._stage_agents.get(active_stage, active_stage.value))
+            self._call_optional(
+                '_emit_hook',
                 'after_stage',
                 {
                     'run_id': run_state.run_id,
@@ -166,8 +167,9 @@ class WorkflowLangGraphRuntime:
             )
         except Exception as exc:  # noqa: BLE001
             stage_error = exc
-            self.service.mark_todo_stage_blocked(run_state, active_stage, str(exc), self._stage_agents.get(active_stage, active_stage.value))
-            self.service._emit_hook(
+            self._call_optional('mark_todo_stage_blocked', run_state, active_stage, str(exc), self._stage_agents.get(active_stage, active_stage.value))
+            self._call_optional(
+                '_emit_hook',
                 'on_error',
                 {
                     'run_id': run_state.run_id,
@@ -263,3 +265,8 @@ class WorkflowLangGraphRuntime:
     @staticmethod
     def _route_after_turn(state: GraphExecState) -> str:
         return 'continue' if state.get('should_continue', False) else 'end'
+
+    def _call_optional(self, method_name: str, *args: Any) -> None:
+        callback = getattr(self.service, method_name, None)
+        if callable(callback):
+            callback(*args)

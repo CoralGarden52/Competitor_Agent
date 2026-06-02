@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from app.core.collector.provider_registry import ProviderRegistry
-from app.core.collector.search import search_with_fallback
-from app.core.collector.types import ProviderHealth, SearchHit
+from harness.tools.providers.registry import ProviderRegistry
+from harness.tools.providers.search import search_with_fallback
+from harness.tools.providers.types import ProviderHealth, SearchHit
+from harness.tools.providers import providers
+from app.core.config import AppConfig
 
 
 class _FakeSearchProvider:
@@ -106,3 +108,13 @@ def test_default_fallback_behavior_unchanged_for_other_fields() -> None:
     assert qianfan.calls == 1
     assert any(item.get("provider") == "tavily" and item.get("status") == "empty" for item in trace)
     assert any(item.get("provider") == "qianfan" and item.get("status") == "success" for item in trace)
+
+
+def test_zhihu_empty_payload_returns_no_hits(monkeypatch) -> None:
+    monkeypatch.setattr(providers, "_http_get_json", lambda *_args, **_kwargs: {"Data": None})
+    provider = providers.ZhihuOfficialProvider(AppConfig(zhihu_search_access_secret="secret"))
+
+    hits, errors = provider.search("Zoom user feedback", 3)
+
+    assert hits == []
+    assert errors == []

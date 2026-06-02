@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from app.core.tools.registry import ToolRegistry
-from app.core.tools.router import ToolRouter
-from app.core.tools.types import ToolError, ToolRequest, ToolResult, ToolSpec
+from dataclasses import dataclass
+
+from harness.tools.registry import ToolRegistry
+from harness.tools.router import ToolRouter
+from harness.tools.types import ToolError, ToolRequest, ToolResult, ToolSpec
 
 
 class _Ok:
@@ -30,7 +32,8 @@ class _FailRetry:
 def test_router_success_with_events() -> None:
     events = []
     reg = ToolRegistry()
-    reg.register(_Ok())
+    handler = _Ok()
+    reg.register(spec=handler.spec(), handler=handler)
     router = ToolRouter(reg, event_sink=events.append)
     result = router.invoke(ToolRequest(name="web.search", args={"q": "x"}, metadata={"group": "web"}))
     assert result.ok is True
@@ -41,17 +44,30 @@ def test_router_success_with_events() -> None:
 def test_router_retryable_error_retries() -> None:
     h = _FailRetry()
     reg = ToolRegistry()
-    reg.register(h)
+    reg.register(spec=h.spec(), handler=h)
     router = ToolRouter(reg)
     result = router.invoke(ToolRequest(name="llm.invoke_json", max_retries=1))
     assert result.ok is True
     assert h.calls == 2
 
 
+def test_router_allows_internal_llm_for_planner() -> None:
+    handler = _FailRetry()
+    reg = ToolRegistry()
+    reg.register(spec=handler.spec(), handler=handler)
+    result = ToolRouter(reg).invoke(
+        ToolRequest(name="llm.invoke_json", metadata={"agent_name": "PlannerLLMClient"})
+    )
+
+    assert result.ok is False
+    assert result.error_code == "http_429"
+
+
 def test_router_forbidden_tool_rejected() -> None:
     events = []
     reg = ToolRegistry()
-    reg.register(_Ok())
+    handler = _Ok()
+    reg.register(spec=handler.spec(), handler=handler)
     router = ToolRouter(reg, event_sink=events.append)
     result = router.invoke(
         ToolRequest(
@@ -63,3 +79,20 @@ def test_router_forbidden_tool_rejected() -> None:
     assert result.ok is False
     assert result.error_code == "forbidden_tool"
     assert events[-1]["forbidden"] is True
+
+
+def test_router_serializes_dataclass_output() -> None:
+    @dataclass
+    class _Payload:
+        url: str
+
+    class _DataclassHandler:
+        def handle(self, request: ToolRequest) -> ToolResult:
+            return ToolResult(ok=True, output={"hits": [_Payload(url="https://example.com")]})
+
+    reg = ToolRegistry()
+    spec = ToolSpec(name="web.fetch", group="web", description="fetch")
+    reg.register(spec=spec, handler=_DataclassHandler())
+    result = ToolRouter(reg).invoke(ToolRequest(name="web.fetch"))
+
+    assert result.output == {"hits": [{"url": "https://example.com"}]}

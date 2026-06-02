@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from app.core.collector.types import FetchProvider, SearchProvider
+from harness.tools.providers.types import FetchProvider, SearchProvider
 
 
 @dataclass

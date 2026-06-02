@@ -15,6 +15,7 @@ def collector_preview(payload: CollectorPreviewRequest, service: CompetitorWorkf
         prompt=payload.prompt,
         industry_hint=payload.industry_hint,
         competitor_hints=payload.competitor_hints,
+        deep_dive=payload.deep_dive,
     )
 
 

@@ -11,11 +11,13 @@ class ToolRegistry:
         self._enabled: set[str] = set()
         self._groups: dict[str, set[str]] = defaultdict(set)
 
-    def register(self, handler: ToolHandler) -> None:
-        spec = handler.spec()
+        self._specs: dict[str, ToolSpec] = {}
+
+    def register(self, *, spec: ToolSpec, handler: ToolHandler) -> None:
         if spec.name in self._handlers:
             raise ValueError(f"tool_already_registered: {spec.name}")
         self._handlers[spec.name] = handler
+        self._specs[spec.name] = spec
         self._groups[spec.group].add(spec.name)
         if spec.enabled:
             self._enabled.add(spec.name)
@@ -28,14 +30,14 @@ class ToolRegistry:
         return self._handlers[name]
 
     def get_spec(self, name: str) -> ToolSpec:
-        handler = self.get(name)
-        return handler.spec()
+        self.get(name)
+        return self._specs[name]
 
     def list_specs(self, *, group: str | None = None) -> list[ToolSpec]:
         names = sorted(self._enabled)
         output: list[ToolSpec] = []
         for name in names:
-            spec = self._handlers[name].spec()
+            spec = self._specs[name]
             if group is not None and spec.group != group:
                 continue
             output.append(spec)

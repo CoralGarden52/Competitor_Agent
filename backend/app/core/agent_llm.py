@@ -14,7 +14,7 @@ from typing import Any
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
 from app.core.storage import SQLiteStore
-from app.core.tools import ToolRequest, ToolRouter, parse_tool_call_turn, tool_specs_for_prompt
+from harness.tools import ToolLoopError, ToolLoopExecutor, ToolRequest, ToolRouter
 from app.core.tracing_factory import get_tracing_runtime
 
 logger = logging.getLogger(__name__)
@@ -79,6 +79,7 @@ class AgentLLMClient:
         user_payload: dict[str, Any],
         metadata: dict[str, Any],
         network_retries: int | None = None,
+        token_tracker: Any | None = None,
     ) -> dict[str, Any]:
         if self.tool_router is not None and not bool(metadata.get('_via_tool', False)):
             routed = self.tool_router.invoke(
@@ -113,9 +114,9 @@ class AgentLLMClient:
                 'role': 'system',
                 'content': (
                     f'{system_prompt}\n'
-                    'Return only one valid JSON object. '
-                    'Do not include markdown code fences. '
-                    'Do not include explanation text before or after JSON.'
+                    '只返回一个合法的 JSON 对象。'
+                    '不要包含 markdown 代码块。'
+                    '不要在 JSON 前后添加解释文本。'
                 ),
             },
             {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
@@ -128,6 +129,7 @@ class AgentLLMClient:
             messages=messages,
             network_retries=network_retries,
             temperature=0.2,
+            token_tracker=token_tracker,
         )
 
     def invoke_json_multimodal(
@@ -153,9 +155,9 @@ class AgentLLMClient:
                 'role': 'system',
                 'content': (
                     f'{system_prompt}\n'
-                    'Return only one valid JSON object. '
-                    'Do not include markdown code fences. '
-                    'Do not include explanation text before or after JSON.'
+                    '只返回一个合法的 JSON 对象。'
+                    '不要包含 markdown 代码块。'
+                    '不要在 JSON 前后添加解释文本。'
                 ),
             },
             {
@@ -203,126 +205,27 @@ class AgentLLMClient:
                 user_payload=user_payload,
                 metadata=metadata,
             )
-        effective_rounds = int(policy.get('max_tool_rounds', max_tool_rounds) or max_tool_rounds)
-        effective_rounds = max(1, effective_rounds)
+        effective_rounds = max(1, int(policy.get('max_tool_rounds', max_tool_rounds) or max_tool_rounds))
         denied_tools = {str(item).strip() for item in policy.get('denied_tools', []) if str(item).strip()} if isinstance(policy.get('denied_tools', []), list) else set()
         allowed_tool_names = [name for name in tool_names if name not in denied_tools]
-
-        specs = []
-        for name in allowed_tool_names:
-            try:
-                spec = self.tool_router.registry.get_spec(name)
-            except Exception:
-                continue
-            specs.append(
-                {
-                    'name': spec.name,
-                    'group': spec.group,
-                    'description': spec.description,
-                    'schema': spec.schema,
-                }
-            )
-        if not specs:
-            return self.invoke_json(
+        try:
+            return ToolLoopExecutor(self.tool_router).run(
+                invoke_model=self.invoke_json,
                 trace_name=trace_name,
                 system_prompt=system_prompt,
                 user_payload=user_payload,
                 metadata=metadata,
-            )
-
-        protocol_prompt = (
-            f"{system_prompt}\n\n"
-            "You can call tools before final answer.\n"
-            "Return strict JSON only with this schema:\n"
-            "{\"tool_calls\":[{\"name\":\"tool.name\",\"arguments\":{}}],\"final_output\":{}}\n"
-            "- If you need tools, set tool_calls and set final_output to null.\n"
-            "- If done, set tool_calls to [] and put answer in final_output.\n"
-            "Available tools:\n"
-            f"{tool_specs_for_prompt(specs)}"
-        )
-
-        history: list[dict[str, Any]] = []
-        consecutive_empty_calls = 0
-        for round_index in range(1, effective_rounds + 1):
-            payload = {
-                'task': user_payload,
-                'tool_history': history,
-                'round': round_index,
-                'max_rounds': effective_rounds,
-            }
-            model_result = self.invoke_json(
-                trace_name=f"{trace_name}.tool_round",
-                system_prompt=protocol_prompt,
-                user_payload=payload,
-                metadata={**metadata, '_via_tool': True, 'tool_round': round_index},
-            )
-            turn = parse_tool_call_turn(model_result)
-            if turn.final_output is not None and not turn.tool_calls:
-                return turn.final_output
-            if not turn.tool_calls:
-                consecutive_empty_calls += 1
-                if consecutive_empty_calls >= 2:
-                    raise LLMCallError(
-                        reason='tool_protocol_error',
-                        message='consecutive empty tool_calls without final_output',
-                        attempt_count=round_index,
-                        retry_count_used=0,
-                    )
-                return model_result if isinstance(model_result, dict) else {}
-
-            round_calls: list[dict[str, Any]] = []
-            for call in turn.tool_calls:
-                if call.name not in set(allowed_tool_names):
-                    round_calls.append(
-                        {
-                            'name': call.name,
-                            'arguments': call.arguments,
-                            'ok': False,
-                            'output': {},
-                            'error_code': 'forbidden_tool',
-                            'error_message': f'tool_not_allowed_for_role: {call.name}',
-                        }
-                    )
-                    continue
-                tool_result = self.tool_router.invoke(
-                    ToolRequest(
-                        name=call.name,
-                        args=call.arguments,
-                        metadata={
-                            'group': 'tool_call_protocol',
-                            'allowed_tools': allowed_tool_names,
-                            'agent_name': metadata.get('agent_name', ''),
-                            'trace_name': trace_name,
-                            'tool_round': round_index,
-                            **metadata,
-                        },
-                    )
+                tool_names=allowed_tool_names,
+                max_tool_rounds=effective_rounds,
+                fallback_to_plain_json=bool(policy.get('fallback_to_plain_json', True)),
+            ).final_output
+        except ToolLoopError as exc:
+            if bool(policy.get('fallback_to_plain_json', True)):
+                return self.invoke_json(
+                    trace_name=trace_name, system_prompt=system_prompt, user_payload=user_payload,
+                    metadata={**metadata, '_via_tool': True, 'tool_protocol_fallback': True},
                 )
-                round_calls.append(
-                    {
-                        'name': call.name,
-                        'arguments': call.arguments,
-                        'ok': tool_result.ok,
-                        'output': tool_result.output,
-                        'error_code': tool_result.error_code,
-                        'error_message': tool_result.error_message,
-                    }
-                )
-            history.append({'round': round_index, 'tool_calls': round_calls})
-
-        if bool(policy.get('fallback_to_plain_json', True)):
-            return self.invoke_json(
-                trace_name=trace_name,
-                system_prompt=system_prompt,
-                user_payload=user_payload,
-                metadata={**metadata, '_via_tool': True, 'tool_protocol_fallback': True},
-            )
-        raise LLMCallError(
-            reason='tool_round_exhausted',
-            message=f'tool call rounds exhausted: {effective_rounds}',
-            attempt_count=effective_rounds,
-            retry_count_used=0,
-        )
+            raise LLMCallError(reason=exc.code, message=str(exc), attempt_count=effective_rounds) from exc
 
     def _invoke_json_with_messages(
         self,
@@ -334,6 +237,7 @@ class AgentLLMClient:
         messages: list[dict[str, Any]],
         network_retries: int | None,
         temperature: float,
+        token_tracker: Any | None = None,
     ) -> dict[str, Any]:
         self._emit_hook(
             'before_llm',
@@ -352,6 +256,8 @@ class AgentLLMClient:
             'messages': messages,
             'temperature': temperature,
         }
+        if token_tracker is not None:
+            payload['max_tokens'] = token_tracker.before_request(messages)
 
         last_exc: Exception | None = None
         last_reason = 'unknown'
@@ -365,7 +271,7 @@ class AgentLLMClient:
             enabled=runtime.langsmith_enabled,
         )
 
-        with trace_ctx:
+        with trace_ctx as trace_span:
             for idx in range(attempts):
                 started_at = time.time()
                 try:
@@ -379,6 +285,8 @@ class AgentLLMClient:
                             retry_count_used=idx,
                         )
                     content = (choices[0].get('message') or {}).get('content', '{}')
+                    if token_tracker is not None:
+                        token_tracker.after_response(data.get('usage', {}), messages, content)
                     try:
                         parsed = _parse_json_content(content)
                     except ValueError:
@@ -399,6 +307,7 @@ class AgentLLMClient:
                         status='completed',
                         latency_ms=int((time.time() - started_at) * 1000),
                     )
+                    _finish_trace(trace_span, {'parsed_response': parsed})
                     return parsed
                 except LLMCallError as exc:
                     self._record_llm_trace(
@@ -420,6 +329,8 @@ class AgentLLMClient:
                         continue
                     break
                 except Exception as exc:
+                    if exc.__class__.__name__ == 'SubagentBudgetExceeded':
+                        raise
                     reason = _classify_error(exc)
                     self._record_llm_trace(
                         trace_name=trace_name,
@@ -567,6 +478,15 @@ class _NullTrace:
 
     def __exit__(self, exc_type, exc, tb):
         return False
+
+
+def _finish_trace(span: Any, outputs: dict[str, Any]) -> None:
+    if span is None or not hasattr(span, 'end'):
+        return
+    try:
+        span.end(outputs=outputs)
+    except Exception:
+        return
 
 
 def _trace_ctx(*, name: str, inputs: dict[str, Any], metadata: dict[str, Any], project: str, client: Any | None, enabled: bool):

@@ -8,39 +8,28 @@ from urllib.parse import urlparse
 from typing import Any
 
 from app.core.collector.normalizer import content_hash, normalize_url, recency_score
-from app.core.collector.provider_registry import ProviderRegistry
-from app.core.collector.providers import build_fetch_provider_catalog, build_search_provider_catalog
 from app.core.collector.query_planner import build_queries
-from app.core.collector.types import CollectorOutput, SearchHit
+from app.core.collector.types import CollectorOutput
 from app.core.collector.verifier import dedup_by_url_and_hash, verify_cross_source
 from app.core.config import AppConfig
 from app.core.models import AnalysisSchemaField
 from app.core.storage import SQLiteStore
-from app.core.tools import ToolRegistry, ToolRequest, ToolRouter
-from app.core.tools.handlers.core_handlers import WebExtractHandler, WebFetchHandler, WebSearchHandler
+from harness.tools import ToolRequest, ToolRouter
+from harness.tools.bootstrap import build_tool_runtime
+from harness.tools.providers import ProviderRegistry, SearchHit
 
 
 class CollectorPipeline:
-    def __init__(self, config: AppConfig, store: SQLiteStore, tool_router: ToolRouter | None = None):
+    def __init__(self, config: AppConfig, store: SQLiteStore, tool_router: ToolRouter | None = None, provider_registry: ProviderRegistry | None = None):
         self.config = config
         self.store = store
-        self.registry = ProviderRegistry(
-            search_catalog=build_search_provider_catalog(config),
-            fetch_catalog=build_fetch_provider_catalog(config),
-            search_order=config.collector_search_order_list,
-            fetch_order=config.collector_fetch_order_list,
-            strict_search_order=config.collector_search_order_strict,
-        )
-        self.tool_router = tool_router or self._build_default_tool_router()
-
-    def _build_default_tool_router(self) -> ToolRouter:
-        registry = ToolRegistry()
-        registry.register(WebSearchHandler(self.registry))
-        registry.register(WebFetchHandler(self.registry))
-        registry.register(WebExtractHandler())
-        return ToolRouter(registry)
+        runtime = build_tool_runtime(config) if tool_router is None else None
+        self.tool_router = tool_router or runtime.router
+        self.registry = provider_registry or (runtime.provider_registry if runtime is not None else None)
 
     def provider_health(self) -> dict:
+        if self.registry is None:
+            return {}
         search = [p.health().__dict__ for p in self.registry.ordered_search_providers()]
         fetch = [p.health().__dict__ for p in self.registry.ordered_fetch_providers()]
         return {
@@ -60,6 +49,7 @@ class CollectorPipeline:
         schema_plan: list[AnalysisSchemaField] | list[dict] | None = None,
         per_field_limit: int = 3,
         field_query_overrides: dict[str, list[str]] | None = None,
+        target_fields: set[str] | None = None,
     ) -> CollectorOutput:
         output = CollectorOutput()
         fields = self._resolve_schema_fields(
@@ -68,6 +58,8 @@ class CollectorPipeline:
             schema_plan=schema_plan,
             field_query_overrides=field_query_overrides,
         )
+        if target_fields:
+            fields = [item for item in fields if str(item.get('field_name', '')).strip() in target_fields]
         candidate_rows: list[dict] = []
         fallback_trace: list[dict] = []
         max_items = max_urls if max_urls is not None and max_urls > 0 else None

@@ -77,6 +77,13 @@ class AppConfig(BaseSettings):
     analyze_llm_max_workers: int = Field(default=6, ge=1, le=32)
     report_truncation_enabled: bool = False
     report_truncation_limits_json: str = ''
+    subagent_enabled: bool = True
+    subagent_max_rounds: int = Field(default=3, ge=1, le=10)
+    subagent_max_tool_calls: int = Field(default=6, ge=1, le=30)
+    subagent_max_tokens: int = Field(default=4000, ge=500, le=50000)
+    subagent_timeout_seconds: int = Field(default=90, ge=5, le=600)
+    subagent_max_concurrency: int = Field(default=3, ge=1, le=12)
+    subagent_max_tasks_per_collect: int = Field(default=12, ge=1, le=100)
 
     @property
     def sqlite_path_obj(self) -> Path:

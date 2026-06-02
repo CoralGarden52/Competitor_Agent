@@ -2,6 +2,7 @@
 
 import json
 import sqlite3
+from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -284,6 +285,31 @@ class SQLiteStore:
                     usage_source TEXT NOT NULL,
                     usage_details_json TEXT NOT NULL,
                     created_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS subagent_runs (
+                    subagent_id TEXT PRIMARY KEY,
+                    parent_run_id TEXT NOT NULL,
+                    attempt INTEGER NOT NULL,
+                    role TEXT NOT NULL,
+                    competitor TEXT NOT NULL,
+                    field_name TEXT NOT NULL,
+                    objective TEXT NOT NULL,
+                    seed_queries_json TEXT NOT NULL,
+                    budget_json TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    result_json TEXT NOT NULL,
+                    tool_history_json TEXT NOT NULL,
+                    prompt_tokens INTEGER NOT NULL,
+                    completion_tokens INTEGER NOT NULL,
+                    total_tokens INTEGER NOT NULL,
+                    latency_ms INTEGER NOT NULL,
+                    error_message TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
                 )
                 '''
             )
@@ -1071,6 +1097,86 @@ class SQLiteStore:
                 ),
             )
 
+    def save_subagent_run(self, *, request: Any, budget: Any, status: str, result: Any | None = None) -> None:
+        now = datetime.now(UTC).isoformat()
+        result_payload = result.to_dict() if result is not None else {}
+        usage = result_payload.get('usage', {}) if isinstance(result_payload, dict) else {}
+        tool_history = result_payload.get('tool_history', []) if isinstance(result_payload, dict) else []
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO subagent_runs (
+                    subagent_id, parent_run_id, attempt, role, competitor, field_name, objective,
+                    seed_queries_json, budget_json, status, result_json, tool_history_json,
+                    prompt_tokens, completion_tokens, total_tokens, latency_ms, error_message,
+                    created_at, updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(subagent_id) DO UPDATE SET
+                    status = excluded.status,
+                    result_json = excluded.result_json,
+                    tool_history_json = excluded.tool_history_json,
+                    prompt_tokens = excluded.prompt_tokens,
+                    completion_tokens = excluded.completion_tokens,
+                    total_tokens = excluded.total_tokens,
+                    latency_ms = excluded.latency_ms,
+                    error_message = excluded.error_message,
+                    updated_at = excluded.updated_at
+                ''',
+                (
+                    request.subagent_id,
+                    request.parent_run_id,
+                    request.attempt,
+                    'collector.deep_dive',
+                    request.competitor,
+                    request.field_name,
+                    request.objective,
+                    json.dumps(request.seed_queries, ensure_ascii=False),
+                    json.dumps(asdict(budget), ensure_ascii=False),
+                    status,
+                    json.dumps(result_payload, ensure_ascii=False),
+                    json.dumps(tool_history, ensure_ascii=False),
+                    int(usage.get('prompt_tokens', 0) or 0),
+                    int(usage.get('completion_tokens', 0) or 0),
+                    int(usage.get('total_tokens', 0) or 0),
+                    int(usage.get('latency_ms', 0) or 0),
+                    str(result_payload.get('error', '') or ''),
+                    now,
+                    now,
+                ),
+            )
+
+    def list_subagent_runs(self, parent_run_id: str) -> list[dict[str, Any]]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                'SELECT * FROM subagent_runs WHERE parent_run_id = ? ORDER BY created_at ASC',
+                (parent_run_id,),
+            ).fetchall()
+        return [
+            {
+                'subagent_id': row['subagent_id'],
+                'parent_run_id': row['parent_run_id'],
+                'attempt': row['attempt'],
+                'role': row['role'],
+                'competitor': row['competitor'],
+                'field_name': row['field_name'],
+                'objective': row['objective'],
+                'seed_queries': json.loads(row['seed_queries_json']),
+                'budget': json.loads(row['budget_json']),
+                'status': row['status'],
+                'result': json.loads(row['result_json']),
+                'tool_history': json.loads(row['tool_history_json']),
+                'prompt_tokens': row['prompt_tokens'],
+                'completion_tokens': row['completion_tokens'],
+                'total_tokens': row['total_tokens'],
+                'latency_ms': row['latency_ms'],
+                'error_message': row['error_message'],
+                'created_at': row['created_at'],
+                'updated_at': row['updated_at'],
+            }
+            for row in rows
+        ]
+
     def list_llm_calls(
         self,
         run_id: str,
@@ -1204,5 +1310,6 @@ class SQLiteStore:
                 'evidence_raw_contents',
             ):
                 conn.execute(f'DELETE FROM {table} WHERE run_id = ?', (run_id,))
+            conn.execute('DELETE FROM subagent_runs WHERE parent_run_id = ?', (run_id,))
             conn.execute('DELETE FROM runs WHERE run_id = ?', (run_id,))
         return True

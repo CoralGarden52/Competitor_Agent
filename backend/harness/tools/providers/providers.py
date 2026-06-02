@@ -11,7 +11,7 @@ import urllib.request
 from datetime import datetime, timezone
 from typing import Any
 
-from app.core.collector.types import FetchProvider, ProviderHealth, SearchHit, SearchProvider
+from harness.tools.providers.types import FetchProvider, ProviderHealth, SearchHit, SearchProvider
 from app.core.config import AppConfig
 
 DEFAULT_JINA_USER_AGENT = (
@@ -179,7 +179,8 @@ class ZhihuOfficialProvider:
                 },
                 timeout=self.config.collector_provider_timeout_sec,
             )
-            items = data.get('Data', {}).get('Items', []) if isinstance(data, dict) else []
+            payload = data.get('Data') or {} if isinstance(data, dict) else {}
+            items = payload.get('Items', []) if isinstance(payload, dict) else []
             hits = [
                 SearchHit(
                     query=query,

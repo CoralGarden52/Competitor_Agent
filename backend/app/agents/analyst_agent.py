@@ -177,10 +177,10 @@ class AnalystAgent:
 
         sys_prompt = (
             f"{ANALYZE_SYSTEM_PROMPT}\n\n"
-            "Analyze exactly one schema field and return strict JSON only:\n"
+            "只分析一个 schema 字段，并且只返回严格 JSON：\n"
             '{"summary":"...","normalized_value":{},"evidence_gaps":[]}\n'
-            "Summarize from evidence instead of copying raw text. Keep output field-specific. "
-            "If evidence is partial, provide confirmed facts first and list remaining gaps."
+            "请根据证据进行归纳，不要复制原始文本。输出内容必须聚焦当前字段。"
+            "如果证据不完整，请优先给出已确认事实，并列出剩余缺口。"
         )
         
         user_prompt = {
@@ -195,8 +195,8 @@ class AnalystAgent:
             },
             'evidences': evidence_contents,
             'instruction': (
-                f"Based on the evidence above, analyze the field [{field_name}]. "
-                "Use field_context to focus the summary, avoid hallucination, and return only JSON-compatible output."
+                f"请基于以上证据分析字段 [{field_name}]。"
+                "使用 field_context 聚焦归纳内容，避免编造，并且只返回符合 JSON 结构的输出。"
             ),
         }
         
@@ -280,9 +280,9 @@ class AnalystAgent:
                 result = self._invoke_llm_json(
                     trace_name='agent.analyze.field.pricing_model.chunk',
                     system_prompt=(
-                        "You are an enterprise software pricing analysis assistant. "
-                        "Extract any pricing facts from this evidence chunk and return JSON only. "
-                        "Keep partial but confirmed facts; do not hallucinate."
+                        "你是企业软件定价分析助手。"
+                        "请从当前证据分片中提取所有定价事实，并且只返回 JSON。"
+                        "保留不完整但已确认的事实；不要编造。"
                         "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
                         "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
                         "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
@@ -301,8 +301,8 @@ class AnalystAgent:
                         },
                         'evidences': chunk,
                         'instruction': (
-                            "Extract all pricing-relevant facts from this chunk, including partial facts "
-                            "such as plan names, billing cycle, seat limits, free tier, or any explicit prices."
+                            "提取当前分片中所有与定价相关的事实，包括不完整信息，"
+                            "例如套餐名称、计费周期、席位限制、免费套餐或任何明确价格。"
                         ),
                     },
                     metadata={
@@ -337,9 +337,9 @@ class AnalystAgent:
             final_result = self._invoke_llm_json(
                 trace_name='agent.analyze.field.pricing_model.reduce',
                 system_prompt=(
-                    "You are an enterprise software pricing analysis assistant. "
-                    "Merge chunk-level extraction results into one final pricing_model JSON. "
-                    "Preserve confirmed facts and avoid hallucination."
+                    "你是企业软件定价分析助手。"
+                    "请将各证据分片的提取结果合并为最终的 pricing_model JSON。"
+                    "保留已确认事实，避免编造。"
                     "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
                     "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
                     "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
@@ -350,7 +350,7 @@ class AnalystAgent:
                     'field_name': 'pricing_model',
                     'chunk_results': chunk_results,
                     'instruction': (
-                        "Merge chunk results and keep any confirmed plan/tier/pricing facts, even if partial."
+                        "合并各分片结果，并保留所有已确认的套餐、层级和定价事实，即使信息不完整。"
                     ),
                 },
                 metadata={

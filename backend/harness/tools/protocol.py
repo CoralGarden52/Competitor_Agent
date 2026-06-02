@@ -38,6 +38,6 @@ def tool_specs_for_prompt(specs: list[dict[str, Any]]) -> str:
     lines: list[str] = []
     for spec in specs:
         lines.append(
-            f"- {spec.get('name','')}: group={spec.get('group','')}; description={spec.get('description','')}; schema={spec.get('schema',{})}"
+            f"- {spec.get('name','')}：分组={spec.get('group','')}；说明={spec.get('description','')}；参数结构={spec.get('input_schema', spec.get('schema', {}))}"
         )
     return '\n'.join(lines)

@@ -2,6 +2,7 @@ from harness.tools.registry import ToolRegistry
 from harness.tools.router import ToolRouter
 from harness.tools.types import ToolError, ToolHandler, ToolRequest, ToolResult, ToolSpec
 from harness.tools.protocol import ToolCall, ToolCallTurn, parse_tool_call_turn, tool_specs_for_prompt
+from harness.tools.loop import ToolLoopError, ToolLoopExecutor, ToolLoopResult
 
 __all__ = [
     'ToolError',
@@ -15,4 +16,7 @@ __all__ = [
     'ToolCallTurn',
     'parse_tool_call_turn',
     'tool_specs_for_prompt',
+    'ToolLoopError',
+    'ToolLoopExecutor',
+    'ToolLoopResult',
 ]

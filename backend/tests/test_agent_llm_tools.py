@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from app.core.agent_llm import AgentLLMClient
 from app.core.config import AppConfig
-from app.core.tools import ToolRegistry, ToolRequest, ToolResult, ToolRouter, ToolSpec
+from harness.tools import ToolRegistry, ToolRequest, ToolResult, ToolRouter, ToolSpec
 
 
 class _EchoTool:
     def spec(self) -> ToolSpec:
-        return ToolSpec(name='web.search', group='web', description='search', schema={'q': 'string'})
+        return ToolSpec(name='web.search', group='web', description='search', input_schema={'q': 'string'})
 
     def handle(self, request: ToolRequest) -> ToolResult:
         q = str(request.args.get('q', ''))
@@ -16,7 +16,7 @@ class _EchoTool:
 
 def test_invoke_json_with_tools_roundtrip(monkeypatch) -> None:
     reg = ToolRegistry()
-    reg.register(_EchoTool())
+    reg.register(spec=_EchoTool().spec(), handler=_EchoTool())
     router = ToolRouter(reg)
     client = AgentLLMClient(
         AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m'),
@@ -49,7 +49,7 @@ def test_invoke_json_with_tools_roundtrip(monkeypatch) -> None:
 
 def test_invoke_json_with_tools_role_forbidden_tool(monkeypatch) -> None:
     reg = ToolRegistry()
-    reg.register(_EchoTool())
+    reg.register(spec=_EchoTool().spec(), handler=_EchoTool())
     router = ToolRouter(reg)
     client = AgentLLMClient(
         AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m'),
@@ -71,7 +71,7 @@ def test_invoke_json_with_tools_role_forbidden_tool(monkeypatch) -> None:
         trace_name='agent.test.tool_protocol.forbidden',
         system_prompt='test',
         user_payload={'question': 'q'},
-        metadata={'run_id': 'r1', 'agent_name': 'WriterAgent', 'node_name': 'draft'},
+        metadata={'run_id': 'r1', 'agent_name': 'AnalystAgent', 'node_name': 'analyze'},
         tool_names=['web.search'],
     )
     assert result['error_code'] == 'forbidden_tool'

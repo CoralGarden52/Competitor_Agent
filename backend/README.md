@@ -34,6 +34,9 @@ uv run uvicorn app.main:app --reload --port 8010
 - `COLLECTOR_PREVIEW_AUTO_SAVE_ENABLED`: auto-save every `/collector/preview` response as local JSON (default `true`).
 - `COLLECTOR_PREVIEW_SAVE_DIR`: auto-save directory (default `.data/collector_exports` under backend working directory).
 - Auto-saved file name format: `collector_preview_result_YYYYMMDD_HHMMSS_<6hex>.json`.
+- `SUBAGENT_ENABLED`: enable isolated collector deep-dive subagents for formal runs.
+- `SUBAGENT_MAX_ROUNDS`, `SUBAGENT_MAX_TOOL_CALLS`, `SUBAGENT_MAX_TOKENS`, `SUBAGENT_TIMEOUT_SECONDS`: per-subagent hard budgets.
+- `SUBAGENT_MAX_CONCURRENCY`, `SUBAGENT_MAX_TASKS_PER_COLLECT`: Collect-stage fan-out limits.
 
 ## Prompt-Only Preview
 
@@ -53,6 +56,8 @@ Response includes:
 - `candidates.direct` and `candidates.substitute` only (no `irrelevant`)
 - `analysis_schema_plan` (dynamic schema with core fields enforced)
 - `handoff_targets` for downstream deep-dive agents
+
+Set `"deep_dive": true` in `/collector/preview` payloads to explicitly run subagents during preview. Preview keeps this disabled by default.
 
 ## PowerShell Commands (No curl)
 

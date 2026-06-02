@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol
 
 
 @dataclass(frozen=True)
@@ -9,8 +9,15 @@ class ToolSpec:
     name: str
     group: str
     description: str
-    schema: dict[str, Any] = field(default_factory=dict)
+    input_schema: dict[str, Any] = field(default_factory=dict)
+    output_schema: dict[str, Any] = field(default_factory=dict)
+    visibility: Literal["model", "internal"] = "model"
     enabled: bool = True
+
+    @property
+    def schema(self) -> dict[str, Any]:
+        """Compatibility alias for prompt renderers."""
+        return self.input_schema
 
 
 @dataclass
@@ -41,6 +48,4 @@ class ToolError(RuntimeError):
 
 
 class ToolHandler(Protocol):
-    def spec(self) -> ToolSpec: ...
-
     def handle(self, request: ToolRequest) -> ToolResult: ...

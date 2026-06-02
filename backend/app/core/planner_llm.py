@@ -12,9 +12,9 @@ from typing import Any
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
 from app.core.storage import SQLiteStore
-from app.core.tools import ToolRequest, ToolRouter
+from harness.tools import ToolRequest, ToolRouter
+from harness.tools.bootstrap import build_tool_runtime
 from app.core.tracing_factory import get_tracing_runtime
-from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ def build_default_schema_plan(*, current_year: int | None = None) -> list[dict[s
         {
             'field_name': 'user_feedback',
             'query_templates': [
-                '{product} 评价',
+                '{product} 知乎 评价',
                 '{product} 点评',
                 '{product} 体验',
                 '{product} 反馈',
@@ -110,8 +110,17 @@ class PlannerLLMClient:
     def clear_trace_context(self) -> None:
         self._trace_context = {}
 
+    def _web_tool_router(self) -> ToolRouter:
+        if self.tool_router is None:
+            self.tool_router = build_tool_runtime(self.config).router
+        return self.tool_router
+
     def _chat_json(self, system_prompt: str, user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, Any]:
         if self.tool_router is not None:
+            try:
+                self.tool_router.registry.get_spec('llm.invoke_json')
+            except KeyError:
+                return self._chat_json_direct(system_prompt, user_prompt, trace_name=trace_name)
             routed = self.tool_router.invoke(
                 ToolRequest(
                     name='llm.invoke_json',
@@ -119,10 +128,10 @@ class PlannerLLMClient:
                         'trace_name': trace_name,
                         'system_prompt': system_prompt,
                         'user_payload': {'prompt': user_prompt},
-                        'metadata': {'_via_tool': True},
+                        'metadata': {**self._trace_context, '_via_tool': True},
                     },
                     max_retries=self.config.planner_llm_retry_count,
-                    metadata={'group': 'llm'},
+                    metadata={**self._trace_context, 'group': 'llm', 'agent_name': 'PlannerLLMClient'},
                 )
             )
             if routed.ok:
@@ -135,91 +144,36 @@ class PlannerLLMClient:
         return self._chat_json_direct(system_prompt, user_prompt, trace_name=trace_name)
 
     def _chat_json_direct(self, system_prompt: str, user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, Any]:
+        from app.core.agent_llm import AgentLLMClient
+
         base_url = self.config.openai_base_url.rstrip('/')
         endpoint = f'{base_url}/chat/completions' if base_url else ''
-        strict_system_prompt = (
-            f'{system_prompt}\n'
-            '只返回一个合法的 JSON 对象。'
-            '不要输出 markdown 代码块。'
-            '不要在 JSON 前后添加解释文本。'
-        )
-        max_attempts = max(1, self.config.planner_llm_retry_count + 1)
-        attempted_endpoints: list[str] = []
+        attempted_endpoints = [endpoint] if endpoint else []
         last_exc: Exception | None = None
-        last_http_status: int | None = None
-        last_error_text = 'unknown_error'
-
-        for attempt in range(1, max_attempts + 1):
-            if endpoint:
-                attempted_endpoints.append(endpoint)
-            started_at = time.time()
-            try:
-                client = OpenAI(
-                    api_key=self.config.openai_api_key,
-                    base_url=self.config.openai_base_url,
-                    timeout=self.config.request_timeout_seconds,
-                )
-                response = client.chat.completions.create(
-                    model=self.config.openai_model,
-                    messages=[
-                        {'role': 'system', 'content': strict_system_prompt},
-                        {'role': 'user', 'content': user_prompt},
-                    ],
-                    temperature=0.2,
-                )
-                choices = getattr(response, 'choices', None) or []
-                if not choices:
-                    raise ValueError('empty_choices')
-                message = getattr(choices[0], 'message', None)
-                content = getattr(message, 'content', '{}') if message is not None else '{}'
-                parsed = self._parse_json_content(content)
-                if not isinstance(parsed, dict):
-                    raise ValueError('json_parse_failed: parsed JSON is not an object')
-                self._record_llm_trace(
-                    trace_name=trace_name,
-                    system_prompt=system_prompt,
-                    user_prompt=user_prompt,
-                    raw_response=self._response_to_dict(response),
-                    parsed_response=parsed,
-                    status='completed',
-                    latency_ms=int((time.time() - started_at) * 1000),
-                )
-                self._last_call_status = {
-                    'success': True,
-                    'endpoint': endpoint,
-                    'http_status': 200,
-                    'error': '',
-                    'attempted_endpoints': attempted_endpoints,
-                }
-                return parsed
-            except Exception as exc:
-                http_status = getattr(exc, 'status_code', None)
-                error_text = str(exc) or exc.__class__.__name__
-                if 'json_parse_failed' not in error_text and isinstance(exc, (json.JSONDecodeError, ValueError, TypeError)):
-                    error_text = f'json_parse_failed: {error_text}'
-                last_exc = exc
-                last_http_status = http_status
-                last_error_text = error_text
-                if attempt < max_attempts and self._is_retryable_planner_error(exc, http_status=http_status, error_text=error_text):
-                    self._planner_retry_sleep(attempt - 1)
-                    continue
-                break
-
-        error_with_attempt = f'{last_error_text} (attempt={len(attempted_endpoints)}/{max_attempts})'
-        self._record_llm_trace(
-            trace_name=trace_name,
-            system_prompt=system_prompt,
-            user_prompt=user_prompt,
-            raw_response={},
-            parsed_response={},
-            status='failed',
-            latency_ms=0,
-            error_message=error_with_attempt,
-        )
+        try:
+            parsed = AgentLLMClient(self.config, self.store).invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload={'prompt': user_prompt},
+                metadata={**self._trace_context, '_via_tool': True},
+                network_retries=self.config.planner_llm_retry_count,
+            )
+            self._last_call_status = {
+                'success': True,
+                'endpoint': endpoint,
+                'http_status': 200,
+                'error': '',
+                'attempted_endpoints': attempted_endpoints,
+            }
+            return parsed
+        except Exception as exc:
+            last_exc = exc
+            error_text = str(exc) or exc.__class__.__name__
+        error_with_attempt = f'{error_text} (attempt={len(attempted_endpoints)}/{max(1, self.config.planner_llm_retry_count + 1)})'
         self._last_call_status = {
             'success': False,
             'endpoint': endpoint,
-            'http_status': last_http_status,
+            'http_status': None,
             'error': error_with_attempt,
             'attempted_endpoints': attempted_endpoints,
         }
@@ -647,10 +601,21 @@ class PlannerLLMClient:
             queries.append(cleaned)
 
         primary_anchor = self._short_query_anchor(topic or industry)
+        profile = product_profile or self._fallback_product_profile(
+            prompt=prompt,
+            industry=industry,
+            competitor_hints=competitor_hints,
+        )
+        target_users = [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else []
+        primary_use_cases = [str(x).strip() for x in profile.get('primary_use_cases', []) if str(x).strip()] if isinstance(profile.get('primary_use_cases', []), list) else []
 
         if primary_anchor:
             _add(f'{primary_anchor} 同类产品')
-            _add(f'{primary_anchor} 替代品')
+            _add(f'{primary_anchor} 替代方案')
+            if target_users:
+                _add(f'{target_users[0]} {primary_anchor}')
+            if primary_use_cases:
+                _add(f'{primary_use_cases[0]} {primary_anchor}')
             _add(f'{primary_anchor} 竞品')
         if seed:
             _add(f'{seed} 同类产品')
@@ -674,7 +639,6 @@ class PlannerLLMClient:
             ('在线音视频会议协作软件', '在线会议软件'),
             ('在线音视频会议协作', '在线会议'),
             ('音视频会议协作', '视频会议'),
-            ('线上会议', '在线会议'),
         )
         for source, target in replacements:
             text = text.replace(source, target)
@@ -683,7 +647,7 @@ class PlannerLLMClient:
         text = re.sub(r'\s+', ' ', text).strip(' ，,。')
         if not text:
             return ''
-        preferred = ('在线会议软件', '视频会议软件', '在线会议', '视频会议', '会议软件', '协作软件')
+        preferred = ('线上会议软件', '在线会议软件', '视频会议软件', '线上会议', '在线会议', '视频会议', '会议软件', '协作软件')
         for item in preferred:
             if item in text:
                 return item
@@ -896,41 +860,32 @@ class PlannerLLMClient:
 
     def _search_and_summarize(self, queries: list[str]) -> list[dict[str, Any]]:
         """执行搜索并优先使用搜索结果本身的标题与摘要。"""
-        from app.core.collector.pipeline import CollectorPipeline
-        from app.core.collector.providers import TavilySearchProvider
-        from app.core.collector.types import CollectorOutput
-        from app.core.storage import SQLiteStore
-
         results: list[dict[str, Any]] = []
-        tavily_provider = TavilySearchProvider(self.config)
-        collector = None
-        if not tavily_provider.health().available:
-            try:
-                collector = CollectorPipeline(self.config, SQLiteStore(self.config.sqlite_path_obj))
-            except Exception as e:
-                logger.warning(f"Failed to initialize collector: {e}")
-                return results
+        router = self._web_tool_router()
 
         def _run_query(query: str) -> list[dict[str, Any]]:
             query_results: list[dict[str, Any]] = []
             try:
-                if tavily_provider.health().available:
-                    hits, _errors = tavily_provider.search(query, max_results=min(8, self.config.collector_max_results_per_query + 3))
-                else:
-                    output = CollectorOutput()
-                    fallback_trace = []
-                    hits = collector._run_search_phase(query=query, output=output, fallback_trace=fallback_trace) if collector is not None else []
-
+                routed = router.invoke(
+                    ToolRequest(
+                        name='web.search',
+                        args={'query': query, 'max_results': min(8, self.config.collector_max_results_per_query + 3)},
+                        metadata={**self._trace_context, 'group': 'planner', 'agent_name': 'PlannerLLMClient'},
+                    )
+                )
+                hits = routed.output.get('hits', []) if routed.ok else []
                 for hit in hits[: min(8, self.config.collector_max_results_per_query + 3)]:
-                    summary = self._clean_search_summary(hit.snippet, hit.title)
+                    if not isinstance(hit, dict):
+                        continue
+                    summary = self._clean_search_summary(str(hit.get('snippet', '')), str(hit.get('title', '')))
                     if not summary:
                         continue
                     query_results.append({
                         'query': query,
-                        'url': hit.url,
-                        'title': hit.title,
+                        'url': str(hit.get('url', '')),
+                        'title': str(hit.get('title', '')),
                         'summary': summary,
-                        'source_provider': getattr(hit, 'source_provider', ''),
+                        'source_provider': str(hit.get('source_provider', '')),
                     })
             except Exception as e:
                 logger.warning(f"Failed to search for query {query}: {e}")
@@ -1211,6 +1166,8 @@ class PlannerLLMClient:
                     seen.add(key)
                     merged.append(cleaned_hint)
             for name in llm_candidates:
+                if self._looks_too_generic_for_candidate(name, product_profile=product_profile):
+                    continue
                 key = self._normalize_candidate_key(name)
                 if key in seen:
                     continue
@@ -1237,9 +1194,13 @@ class PlannerLLMClient:
                 return
             if prompt and self._normalize_candidate_key(prompt) == key:
                 return
+            if self._looks_too_generic_for_candidate(cleaned, product_profile=product_profile):
+                return
+            if doc_seen is not None and key in doc_seen:
+                return
             display_map.setdefault(key, cleaned)
             score_map[key] = score_map.get(key, 0) + score
-            if doc_seen is not None and key not in doc_seen:
+            if doc_seen is not None:
                 doc_seen.add(key)
                 doc_freq_map[key] = doc_freq_map.get(key, 0) + 1
 
@@ -1364,18 +1325,23 @@ class PlannerLLMClient:
         return [display_map[key] for key, _votes in ranked[: max(self.config.planner_schema_max_candidates, 6)]]
 
     def _build_llm_page_payloads(self, search_results: list[dict[str, Any]]) -> list[dict[str, str]]:
-        from app.core.collector.providers import TavilyExtractProvider
-
-        provider = TavilyExtractProvider(self.config)
+        router = self._web_tool_router()
 
         def _fetch_one(row: dict[str, Any]) -> dict[str, str]:
             title = str(row.get('title', '')).strip()
             url = str(row.get('url', '')).strip()
             summary = str(row.get('summary', '')).strip()[:600]
             content = ''
-            if provider.health().available and url:
+            if url:
                 try:
-                    fetched, _errors = provider.fetch(url)
+                    routed = router.invoke(
+                        ToolRequest(
+                            name='web.fetch',
+                            args={'url': url},
+                            metadata={**self._trace_context, 'group': 'planner', 'agent_name': 'PlannerLLMClient'},
+                        )
+                    )
+                    fetched = str(routed.output.get('content', '') or '') if routed.ok else ''
                     if fetched:
                         content = re.sub(r'\s+', ' ', str(fetched).strip())[:1800]
                 except Exception as exc:
@@ -1446,7 +1412,11 @@ class PlannerLLMClient:
         if not snippet:
             return []
 
-        matches = re.findall(r'(?:[一二三四五六七八九十0-9]+[、.．]\s*)([\u4e00-\u9fffA-Za-z][\u4e00-\u9fffA-Za-z0-9· ]{1,20})', snippet)
+        list_marker = r'[一二三四五六七八九十0-9]+[、.．]\s*'
+        matches = re.findall(
+            rf'(?:^|[。；;\s]){list_marker}(.+?)(?=(?:[。；;\s]{list_marker})|$)',
+            snippet,
+        )
         matches.extend(re.findall(r'(?:包括|包含|如|例如)[:：]?\s*([\u4e00-\u9fffA-Za-z0-9·、，, /]{4,120})', snippet))
 
         candidates: list[str] = []
@@ -1454,13 +1424,20 @@ class PlannerLLMClient:
         for item in matches:
             parts = re.split(r'[、，,/]|以及|和|及', item)
             for part in parts:
-                value = self._clean_candidate_name(part)
+                value = self._clean_candidate_name(self._leading_list_candidate(part))
                 key = self._normalize_candidate_key(value)
                 if not value or key in seen:
                     continue
                 seen.add(key)
                 candidates.append(value)
         return candidates
+
+    @staticmethod
+    def _leading_list_candidate(value: str) -> str:
+        text = re.sub(r'\s+', ' ', str(value).strip())
+        text = re.split(r'\s+(?=[\u4e00-\u9fffA-Za-z0-9·]+(?:是|孵化|提供|推出))', text, maxsplit=1)[0]
+        text = re.split(r'(?:是|孵化|提供|推出)', text, maxsplit=1)[0]
+        return text.strip()
 
     @staticmethod
     def _page_type_weight(*, title: str, url: str, summary: str) -> float:
@@ -1491,7 +1468,7 @@ class PlannerLLMClient:
         exact_stopwords = {
             '人人都', '无论', '此外', '这种情况下', '平台简介', '疫情期间', '资源池大',
             '产品经理', '秘密武器', '在线会议', '远程视频', '企业都在用', '多特手游',
-            '你用对了吗', '协同办公类saas产品',
+            '你用对了吗', '协同办公类saas产品', '以下',
         }
         leading_phrase_markers = (
             '没有', '为了', '对于', '由于', '如果', '随着', '通过', '使用', '支持',
@@ -1505,10 +1482,16 @@ class PlannerLLMClient:
         )
         generic_markers = (
             'official', 'docs', 'documentation', 'pricing', 'review', 'reviews', 'blog', 'news',
-            '官网', '价格', '评测', '下载', '登录',
+            '官网', '官方', '价格', '评测', '下载', '登录',
         )
         if text in exact_stopwords:
             return ''
+        text = re.sub(r'\s+\d+$', '', text).strip()
+        duplicate_match = re.fullmatch(r'(.{2,20})\s+\1', text)
+        if duplicate_match:
+            text = duplicate_match.group(1)
+        if '是' in text:
+            text = text.split('是', 1)[0].strip()
         if any(text.startswith(marker) for marker in leading_phrase_markers):
             return ''
         if any(marker in text for marker in generic_text_markers):
@@ -1518,8 +1501,6 @@ class PlannerLLMClient:
         if text.endswith(('网', '资讯', '财经', '产品经理')):
             return ''
         if re.search(r'[\u4e00-\u9fff]{8,}', text):
-            return ''
-        if re.fullmatch(r'[a-z0-9-]{2,}', lowered) and len(text) <= 5:
             return ''
         return text
 
@@ -1778,7 +1759,7 @@ class PlannerLLMClient:
                 f'{{product}} {year} 企业版 价格 元/年',
                 f'{{product}} {year} 收费 版本 对比 元/人/月',
             ],
-            'user_feedback': ['{product} 评价', '{product} 点评', '{product} 体验', '{product} 反馈'],
+            'user_feedback': ['{product} 知乎 评价', '{product} 点评', '{product} 体验', '{product} 反馈'],
         }
         return defaults.get(field_name, [f'{{product}} {field_name}', f'{{product}} {field_name} 官网'])
 

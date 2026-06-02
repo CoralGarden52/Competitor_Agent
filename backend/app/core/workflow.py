@@ -11,6 +11,7 @@ from app.agents import AnalystAgent, CollectorAgent, OrchestratorAgent, QACritic
 from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.approval_policy_engine import ApprovalPolicyEngine, PolicyContext
 from app.core.collector import CollectorPipeline
+from app.core.collector.deep_dive import CollectorDeepDiveCoordinator
 from app.core.config import get_config
 from app.core.langgraph_runtime import WorkflowLangGraphRuntime
 from app.core.planner_llm import PlannerLLMClient
@@ -59,8 +60,9 @@ from app.core.models import (
 from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, registry_snapshot
 from app.core.storage import SQLiteStore
 from app.core.todo import TodoStateManager
-from app.core.tools import ToolRegistry, ToolRouter
-from app.core.tools.handlers import LLMInvokeJsonHandler, WebExtractHandler, WebFetchHandler, WebSearchHandler
+from harness.subagents import SubagentExecutor
+from harness.subagents.tracing import subagent_trace
+from harness.tools.bootstrap import build_tool_runtime, register_internal_llm_tool
 
 
 logger = logging.getLogger(__name__)
@@ -70,22 +72,22 @@ class CompetitorWorkflowService:
     def __init__(self, store: SQLiteStore):
         self.store = store
         self.config = get_config()
-        self.tool_registry = ToolRegistry()
-        self.tool_router = ToolRouter(self.tool_registry, event_sink=self._tool_event_sink)
+        self.tools = build_tool_runtime(self.config, event_sink=self._tool_event_sink)
+        self.tool_registry = self.tools.registry
+        self.tool_router = self.tools.router
         self.hook_registry = HookRegistry()
         self.tool_router.hook_emitter = self._emit_hook
         self.planner_llm = PlannerLLMClient(self.config, self.store)
         self.agent_llm = AgentLLMClient(self.config, store, tool_router=self.tool_router)
         self.agent_llm.hook_registry = self.hook_registry
-        self.collector = CollectorPipeline(self.config, self.store, tool_router=self.tool_router)
-        self.tool_registry.register(WebSearchHandler(self.collector.registry))
-        self.tool_registry.register(WebFetchHandler(self.collector.registry))
-        self.tool_registry.register(WebExtractHandler())
-        self.tool_registry.register(LLMInvokeJsonHandler(self.agent_llm.invoke_json))
+        self.collector = CollectorPipeline(self.config, self.store, tool_router=self.tool_router, provider_registry=self.tools.provider_registry)
+        register_internal_llm_tool(self.tools, self.agent_llm.invoke_json)
         self.planner_llm.tool_router = self.tool_router
+        self.subagent_executor = SubagentExecutor(llm=self.agent_llm, tool_router=self.tool_router, store=self.store)
+        self.deep_dive = CollectorDeepDiveCoordinator(executor=self.subagent_executor, config=self.config)
         self.policy_engine = ApprovalPolicyEngine(store)
         self.orchestrator = OrchestratorAgent(max_rework_iterations=self.config.max_rework_iterations, planner=self.planner_llm)
-        self.collector_agent = CollectorAgent(self.collector, self.store)
+        self.collector_agent = CollectorAgent(self.collector, self.store, deep_dive=self.deep_dive)
         self.analyst_agent = AnalystAgent(self.agent_llm, self.store)
         self.writer_agent = WriterAgent(self.agent_llm)
         self.qa_critic_agent = QACriticAgent(self.agent_llm, self.store)
@@ -418,7 +420,14 @@ class CompetitorWorkflowService:
             return compact
         return f'{compact[:40]}...'
 
-    def collector_preview(self, *, prompt: str, industry_hint: str = '', competitor_hints: list[str] | None = None) -> dict:
+    def collector_preview(
+        self,
+        *,
+        prompt: str,
+        industry_hint: str = '',
+        competitor_hints: list[str] | None = None,
+        deep_dive: bool = False,
+    ) -> dict:
         import concurrent.futures
 
         dynamic_plan = self.orchestrator.generate_dynamic_plan(
@@ -459,6 +468,7 @@ class CompetitorWorkflowService:
                 'inferred_industry': inferred_industry,
                 'effective_max_urls': effective_max_urls,
                 'max_urls_note': 'server uses COLLECTOR_MAX_URLS from .env',
+                'deep_dive': deep_dive,
                 'candidate_groups': candidate_groups,
                 'candidates': candidate_groups,
                 'handoff_targets': {'direct': [], 'substitute': []},
@@ -492,6 +502,22 @@ class CompetitorWorkflowService:
                 schema_plan=analysis_schema_plan,
                 per_field_limit=self.config.collector_per_field_limit,
             )
+            if deep_dive:
+                rows = []
+                for item in result.evidences:
+                    item['competitor'] = competitor
+                    rows.append(item)
+                enriched = self.deep_dive.enrich(
+                    run_id='preview',
+                    attempt=0,
+                    industry=inferred_industry,
+                    competitors=[competitor],
+                    schema_plan=analysis_schema_plan,
+                    evidences=rows,
+                )
+                result.evidences = enriched.evidences
+                result.provider_events.extend(enriched.provider_events)
+                result.errors.extend(enriched.errors)
             search_events = [e for e in result.provider_events if str(e.get('event_type', '')).startswith('collector.search.')]
             fetch_events = [e for e in result.provider_events if str(e.get('event_type', '')).startswith('collector.fetch.')]
             fallback_trace = []
@@ -570,6 +596,7 @@ class CompetitorWorkflowService:
             'inferred_industry': inferred_industry,
             'effective_max_urls': effective_max_urls,
             'max_urls_note': 'server uses COLLECTOR_MAX_URLS from .env',
+            'deep_dive': deep_dive,
             'candidate_groups': candidate_groups,
             'candidates': candidate_groups,
             'handoff_targets': {
@@ -810,11 +837,17 @@ class CompetitorWorkflowService:
             reanalyze_targets = qa_collect_plan.get('reanalyze_targets', {})
             if isinstance(reanalyze_targets, dict) and reanalyze_targets:
                 state.planner_meta['qa_reanalyze_targets'] = reanalyze_targets
-        result: CollectOutput = self.collector_agent.run(
-            state,
-            target_competitors=qa_collect_plan.get('target_competitors') if qa_collect_plan else None,
-            field_query_overrides=qa_collect_plan.get('field_query_overrides') if qa_collect_plan else None,
-        )
+        with subagent_trace(
+            name='Collect',
+            run_type='chain',
+            inputs={'run_id': state.run_id, 'attempt': state.attempt},
+            metadata={'parent_run_id': state.run_id, 'attempt': state.attempt, 'stage': 'collect'},
+        ):
+            result: CollectOutput = self.collector_agent.run(
+                state,
+                target_competitors=qa_collect_plan.get('target_competitors') if qa_collect_plan else None,
+                field_query_overrides=qa_collect_plan.get('field_query_overrides') if qa_collect_plan else None,
+            )
         for pe in result.provider_events:
             self._save_and_event(state, StageName.collect, 'provider_event', pe)
         for te in result.tool_events:
