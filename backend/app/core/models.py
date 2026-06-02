@@ -51,6 +51,32 @@ class StageName(StrEnum):
     finalize = 'finalize'
 
 
+class TransitionReason(StrEnum):
+    stage_succeeded = 'stage_succeeded'
+    qa_passed = 'qa_passed'
+    qa_rework_collect = 'qa_rework_collect'
+    qa_recollect_skipped = 'qa_recollect_skipped'
+    retryable_error = 'retryable_error'
+    terminal_error = 'terminal_error'
+    max_turns_reached = 'max_turns_reached'
+    completed = 'completed'
+
+
+class RecoveryState(StrEnum):
+    none = 'none'
+    retrying = 'retrying'
+    fallback = 'fallback'
+    reworking = 'reworking'
+    halted = 'halted'
+
+
+class TodoTaskStatus(StrEnum):
+    pending = 'pending'
+    in_progress = 'in_progress'
+    completed = 'completed'
+    blocked = 'blocked'
+
+
 class EventType(StrEnum):
     plan_started = 'plan.started'
     collect_completed = 'collect.completed'
@@ -328,11 +354,35 @@ class RunRequest(BaseModel):
     timeframe: str = 'last_12_months'
 
 
+class TodoTask(BaseModel):
+    task_id: str
+    title: str
+    owner_agent: str
+    stage: StageName
+    status: TodoTaskStatus = TodoTaskStatus.pending
+    depends_on: list[str] = Field(default_factory=list)
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    notes: str = ''
+
+
+class TodoPlan(BaseModel):
+    tasks: list[TodoTask] = Field(default_factory=list)
+    current_task_id: str | None = None
+    version: int = 1
+
+
 class RunState(BaseModel):
     run_id: str = Field(default_factory=lambda: f'run_{uuid4().hex[:12]}')
     attempt: int = 1
     parent_attempt: int | None = None
     ticket_id: str | None = None
+    turn_count: int = 0
+    max_turns: int = 40
+    current_stage: StageName = StageName.plan
+    next_stage: StageName | None = StageName.plan
+    transition_reason: TransitionReason | None = None
+    recovery_state: RecoveryState = RecoveryState.none
+    last_error: dict[str, Any] = Field(default_factory=dict)
     industry: str
     competitors: list[str]
     user_prompt: str = ''
@@ -354,6 +404,7 @@ class RunState(BaseModel):
     tickets: list[ReworkTicket] = Field(default_factory=list)
     self_eval: dict[str, SelfEval] = Field(default_factory=dict)
     schema_evolution_proposals: list[SchemaEvolutionProposal] = Field(default_factory=list)
+    todo_plan: TodoPlan = Field(default_factory=TodoPlan)
     status: Literal['running', 'failed', 'completed'] = 'running'
 
 
@@ -391,6 +442,7 @@ class StageSnapshot(BaseModel):
 class CollectOutput(BaseModel):
     raw_evidences: list[RawEvidence] = Field(default_factory=list)
     provider_events: list[dict[str, Any]] = Field(default_factory=list)
+    tool_events: list[dict[str, Any]] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
 
 

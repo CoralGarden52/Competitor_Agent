@@ -12,6 +12,7 @@ from typing import Any
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
 from app.core.storage import SQLiteStore
+from app.core.tools import ToolRequest, ToolRouter
 from app.core.tracing_factory import get_tracing_runtime
 from openai import OpenAI
 
@@ -81,9 +82,10 @@ CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pr
 
 
 class PlannerLLMClient:
-    def __init__(self, config: AppConfig, store: SQLiteStore | None = None):
+    def __init__(self, config: AppConfig, store: SQLiteStore | None = None, tool_router: ToolRouter | None = None):
         self.config = config
         self.store = store
+        self.tool_router = tool_router
         self._last_call_status: dict[str, Any] = {
             'success': False,
             'endpoint': '',
@@ -109,6 +111,30 @@ class PlannerLLMClient:
         self._trace_context = {}
 
     def _chat_json(self, system_prompt: str, user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, Any]:
+        if self.tool_router is not None:
+            routed = self.tool_router.invoke(
+                ToolRequest(
+                    name='llm.invoke_json',
+                    args={
+                        'trace_name': trace_name,
+                        'system_prompt': system_prompt,
+                        'user_payload': {'prompt': user_prompt},
+                        'metadata': {'_via_tool': True},
+                    },
+                    max_retries=self.config.planner_llm_retry_count,
+                    metadata={'group': 'llm'},
+                )
+            )
+            if routed.ok:
+                parsed = routed.output.get('parsed', {})
+                if isinstance(parsed, dict):
+                    return parsed
+            error_text = routed.error_message or routed.error_code or 'llm_chat_failed'
+            raise RuntimeError(f'llm_chat_failed: {error_text}')
+
+        return self._chat_json_direct(system_prompt, user_prompt, trace_name=trace_name)
+
+    def _chat_json_direct(self, system_prompt: str, user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, Any]:
         base_url = self.config.openai_base_url.rstrip('/')
         endpoint = f'{base_url}/chat/completions' if base_url else ''
         strict_system_prompt = (
@@ -328,7 +354,11 @@ class PlannerLLMClient:
         retryable_markers = (
             'timed out',
             'timeout',
+            'connection error',
             'connection reset',
+            'connection aborted',
+            'unexpected eof',
+            'eof occurred in violation of protocol',
             'temporarily unavailable',
             'service unavailable',
             'rate limit',

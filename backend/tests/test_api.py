@@ -7,6 +7,8 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
+from app.core.deps import get_service
+from app.core.models import EventRecord, StageName
 from app.core.config import get_config
 from app.main import create_app
 
@@ -110,12 +112,83 @@ def test_replay_endpoint_includes_handoffs() -> None:
     assert replay_resp.status_code == 200
     body = replay_resp.json()
     assert isinstance(body['handoffs'], list)
+    assert isinstance(body.get('tool_events', []), list)
     assert any(item['handoff_type'] == 'PlanHandoff' for item in body['handoffs'])
 
     node_resp = client.get(f'/runs/{run_id}/nodes/analyze')
     assert node_resp.status_code == 200
     node_body = node_resp.json()
     assert isinstance(node_body['handoffs'], list)
+
+
+def test_runs_replay_workspace_export_include_tool_events_agent_aggregation() -> None:
+    app = create_app()
+    client = TestClient(app)
+    payload = {
+        'industry': 'saas',
+        'competitors': ['alpha'],
+        'language': 'zh-CN',
+        'timeframe': 'last_12_months',
+    }
+    create_resp = client.post('/runs', json=payload)
+    assert create_resp.status_code == 200
+    run_id = create_resp.json()['state']['run_id']
+
+    service = get_service()
+    service.store.append_event(
+        EventRecord(
+            run_id=run_id,
+            stage=StageName.analyze,
+            event_type='tool_event',
+            payload={
+                'event_type': 'tool.succeeded',
+                'tool_name': 'web.search',
+                'agent_name': 'AnalystAgent',
+                'trace_name': 'agent.analyze.field.feature_tree',
+                'tool_round': 1,
+                'error_code': '',
+            },
+        )
+    )
+    service.store.append_event(
+        EventRecord(
+            run_id=run_id,
+            stage=StageName.qa,
+            event_type='tool_event',
+            payload={
+                'event_type': 'tool.failed',
+                'tool_name': 'web.fetch',
+                'agent_name': 'QACriticAgent',
+                'trace_name': 'agent.qa.evaluate_report',
+                'tool_round': 2,
+                'error_code': 'http_429',
+            },
+        )
+    )
+
+    replay_resp = client.get(f'/runs/{run_id}/replay')
+    assert replay_resp.status_code == 200
+    replay_body = replay_resp.json()
+    replay_tool_events = replay_body.get('tool_events', [])
+    assert isinstance(replay_tool_events, list)
+    replay_agents = {str(item.get('agent_name', '')).strip() for item in replay_tool_events if isinstance(item, dict)}
+    assert {'AnalystAgent', 'QACriticAgent'}.issubset(replay_agents)
+
+    workspace_resp = client.get(f'/runs/{run_id}/workspace')
+    assert workspace_resp.status_code == 200
+    workspace_body = workspace_resp.json()
+    workspace_tool_events = workspace_body.get('observability', {}).get('tool_events', [])
+    assert isinstance(workspace_tool_events, list)
+    workspace_agents = {str(item.get('agent_name', '')).strip() for item in workspace_tool_events if isinstance(item, dict)}
+    assert {'AnalystAgent', 'QACriticAgent'}.issubset(workspace_agents)
+
+    export_resp = client.get(f'/runs/{run_id}/logs/export')
+    assert export_resp.status_code == 200
+    export_body = export_resp.json()
+    export_tool_events = export_body.get('tool_events', [])
+    assert isinstance(export_tool_events, list)
+    export_agents = {str(item.get('agent_name', '')).strip() for item in export_tool_events if isinstance(item, dict)}
+    assert {'AnalystAgent', 'QACriticAgent'}.issubset(export_agents)
 
 
 def test_delete_run_endpoint() -> None:

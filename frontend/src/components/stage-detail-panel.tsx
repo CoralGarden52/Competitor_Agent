@@ -20,6 +20,7 @@ type StageDetailPanelProps = {
   onToggleCall: (key: string) => void;
   expandedEventKeys: string[];
   onToggleEvent: (key: string) => void;
+  todoPlan?: Record<string, unknown> | null;
 };
 
 const STAGE_TITLES: Record<StageName, string> = {
@@ -78,10 +79,13 @@ export function StageDetailPanel({
   onToggleCall,
   expandedEventKeys,
   onToggleEvent,
+  todoPlan,
 }: StageDetailPanelProps) {
   const steps = trace?.steps ?? [];
   const llmCalls = steps.filter(isLlmCallStep);
   const workflowNodes = workflow?.nodes ?? [];
+  const todoTasks = Array.isArray(todoPlan?.tasks) ? (todoPlan.tasks as Array<Record<string, unknown>>) : [];
+  const stageTodoTasks = todoTasks.filter((task) => String(task.stage || "") === String(stage || ""));
 
   return (
     <aside className="workspace-panel stage-detail-panel" aria-label="阶段详情">
@@ -126,6 +130,21 @@ export function StageDetailPanel({
               <span>Events {trace?.summary?.event_count ?? events.length}</span>
               <span>Handoffs {trace?.summary?.handoff_count ?? 0}</span>
             </div>
+          </section>
+
+          <section className="detail-section">
+            <h3>Todo 任务</h3>
+            {!stageTodoTasks.length ? (
+              <p className="empty-state">当前阶段暂无 Todo 任务</p>
+            ) : (
+              <div className="highlight-row">
+                {stageTodoTasks.map((task, taskIndex) => (
+                  <span key={`${String(task.task_id || task.title || "task")}-${taskIndex}`}>
+                    {`${String(task.title || "task")} | ${String(task.owner_agent || "agent")} | ${String(task.status || "pending")}`}
+                  </span>
+                ))}
+              </div>
+            )}
           </section>
 
           <section className="detail-section">

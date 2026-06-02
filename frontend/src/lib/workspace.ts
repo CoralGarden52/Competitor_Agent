@@ -87,6 +87,7 @@ export interface WorkspacePayload {
     markdown: string
     sources: string[]
   }
+  todo_plan?: Record<string, unknown>
   observability: {
     llm_calls: Array<{
       trace_id?: string
@@ -117,6 +118,10 @@ export interface WorkspacePayload {
         llm_calls: Array<Record<string, unknown>>
       }
     >
+    tool_events?: Array<Record<string, unknown>>
+    todo_plan?: Record<string, unknown>
+    todo_events?: Array<Record<string, unknown>>
+    hook_events?: Array<Record<string, unknown>>
     events: Array<Record<string, unknown>>
     manual_interventions: Array<Record<string, unknown>>
     log_download_path: string

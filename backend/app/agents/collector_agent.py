@@ -71,6 +71,7 @@ class CollectorAgent:
                 
                 out.errors.extend(result.errors)
                 out.provider_events.extend(result.provider_events)
+                out.tool_events.extend(result.tool_events)
                 
                 for item in result.evidences:
                     ev = RawEvidence(

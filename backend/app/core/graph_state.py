@@ -3,7 +3,7 @@
 import hashlib
 import json
 from datetime import UTC, datetime
-from typing import NotRequired, TypedDict
+from typing import Any, NotRequired, TypedDict
 
 from app.core.models import AnalyzeOutput, CollectOutput, DraftOutput, QAOutput, RunRequest, StageName, StageSnapshot
 
@@ -14,6 +14,12 @@ class WorkflowGraphState(TypedDict):
     parent_attempt: int | None
     status: str
     current_stage: str
+    next_stage: str | None
+    turn_count: int
+    max_turns: int
+    transition_reason: str | None
+    recovery_state: str
+    last_error: dict[str, Any]
     industry: str
     competitors: list[str]
     user_prompt: str
@@ -56,6 +62,12 @@ def init_graph_state_from_run_request(*, request: RunRequest, run_id: str, core_
         'parent_attempt': None,
         'status': 'running',
         'current_stage': StageName.plan.value,
+        'next_stage': StageName.plan.value,
+        'turn_count': 0,
+        'max_turns': 40,
+        'transition_reason': None,
+        'recovery_state': 'none',
+        'last_error': {},
         'industry': request.industry.strip().lower(),
         'competitors': request.competitors,
         'user_prompt': request.user_prompt.strip(),

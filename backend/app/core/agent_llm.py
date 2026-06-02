@@ -14,6 +14,7 @@ from typing import Any
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
 from app.core.storage import SQLiteStore
+from app.core.tools import ToolRequest, ToolRouter, parse_tool_call_turn, tool_specs_for_prompt
 from app.core.tracing_factory import get_tracing_runtime
 
 logger = logging.getLogger(__name__)
@@ -31,9 +32,41 @@ class LLMCallError(RuntimeError):
 
 
 class AgentLLMClient:
-    def __init__(self, config: AppConfig, store: SQLiteStore | None = None):
+    def __init__(self, config: AppConfig, store: SQLiteStore | None = None, tool_router: ToolRouter | None = None):
         self.config = config
         self.store = store
+        self.tool_router = tool_router
+        self.hook_registry = None
+
+    def _emit_hook(
+        self,
+        hook_point: str,
+        *,
+        metadata: dict[str, Any],
+        trace_name: str,
+        payload: dict[str, Any],
+        error: dict[str, Any] | None = None,
+    ) -> None:
+        if self.hook_registry is None:
+            return
+        try:
+            from app.core.hooks import HookContext
+
+            self.hook_registry.emit(
+                hook_point,
+                HookContext(
+                    hook_point=hook_point,
+                    run_id=str(metadata.get('run_id', '') or ''),
+                    attempt=int(metadata.get('attempt', 0) or 0),
+                    stage=str(metadata.get('node_name', '') or ''),
+                    agent_name=str(metadata.get('agent_name', '') or ''),
+                    trace_name=trace_name,
+                    payload=payload,
+                    error=error,
+                ),
+            )
+        except Exception:
+            return
 
     def enabled(self) -> bool:
         return bool(self.config.openai_api_key and self.config.openai_base_url and self.config.openai_model)
@@ -47,6 +80,26 @@ class AgentLLMClient:
         metadata: dict[str, Any],
         network_retries: int | None = None,
     ) -> dict[str, Any]:
+        if self.tool_router is not None and not bool(metadata.get('_via_tool', False)):
+            routed = self.tool_router.invoke(
+                ToolRequest(
+                    name='llm.invoke_json',
+                    args={
+                        'trace_name': trace_name,
+                        'system_prompt': system_prompt,
+                        'user_payload': user_payload,
+                        'metadata': {**metadata, '_via_tool': True},
+                    },
+                    max_retries=network_retries if network_retries is not None else self.config.agent_llm_retry_count,
+                    metadata={'group': 'llm'},
+                )
+            )
+            if routed.ok:
+                parsed = routed.output.get('parsed', {})
+                if isinstance(parsed, dict):
+                    return parsed
+            raise LLMCallError(reason=routed.error_code or 'llm_invoke_failed', message=routed.error_message or 'llm_invoke_failed')
+
         if not self.enabled():
             raise LLMCallError(
                 reason='llm_not_configured',
@@ -123,6 +176,154 @@ class AgentLLMClient:
             temperature=0.0,
         )
 
+    def invoke_json_with_tools(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        tool_names: list[str],
+        max_tool_rounds: int = 4,
+        tool_policy: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        if self.tool_router is None:
+            return self.invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+            )
+        policy = dict(tool_policy or {})
+        disable_tools = bool(policy.get('disable_tools', False))
+        if disable_tools:
+            return self.invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+            )
+        effective_rounds = int(policy.get('max_tool_rounds', max_tool_rounds) or max_tool_rounds)
+        effective_rounds = max(1, effective_rounds)
+        denied_tools = {str(item).strip() for item in policy.get('denied_tools', []) if str(item).strip()} if isinstance(policy.get('denied_tools', []), list) else set()
+        allowed_tool_names = [name for name in tool_names if name not in denied_tools]
+
+        specs = []
+        for name in allowed_tool_names:
+            try:
+                spec = self.tool_router.registry.get_spec(name)
+            except Exception:
+                continue
+            specs.append(
+                {
+                    'name': spec.name,
+                    'group': spec.group,
+                    'description': spec.description,
+                    'schema': spec.schema,
+                }
+            )
+        if not specs:
+            return self.invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+            )
+
+        protocol_prompt = (
+            f"{system_prompt}\n\n"
+            "You can call tools before final answer.\n"
+            "Return strict JSON only with this schema:\n"
+            "{\"tool_calls\":[{\"name\":\"tool.name\",\"arguments\":{}}],\"final_output\":{}}\n"
+            "- If you need tools, set tool_calls and set final_output to null.\n"
+            "- If done, set tool_calls to [] and put answer in final_output.\n"
+            "Available tools:\n"
+            f"{tool_specs_for_prompt(specs)}"
+        )
+
+        history: list[dict[str, Any]] = []
+        consecutive_empty_calls = 0
+        for round_index in range(1, effective_rounds + 1):
+            payload = {
+                'task': user_payload,
+                'tool_history': history,
+                'round': round_index,
+                'max_rounds': effective_rounds,
+            }
+            model_result = self.invoke_json(
+                trace_name=f"{trace_name}.tool_round",
+                system_prompt=protocol_prompt,
+                user_payload=payload,
+                metadata={**metadata, '_via_tool': True, 'tool_round': round_index},
+            )
+            turn = parse_tool_call_turn(model_result)
+            if turn.final_output is not None and not turn.tool_calls:
+                return turn.final_output
+            if not turn.tool_calls:
+                consecutive_empty_calls += 1
+                if consecutive_empty_calls >= 2:
+                    raise LLMCallError(
+                        reason='tool_protocol_error',
+                        message='consecutive empty tool_calls without final_output',
+                        attempt_count=round_index,
+                        retry_count_used=0,
+                    )
+                return model_result if isinstance(model_result, dict) else {}
+
+            round_calls: list[dict[str, Any]] = []
+            for call in turn.tool_calls:
+                if call.name not in set(allowed_tool_names):
+                    round_calls.append(
+                        {
+                            'name': call.name,
+                            'arguments': call.arguments,
+                            'ok': False,
+                            'output': {},
+                            'error_code': 'forbidden_tool',
+                            'error_message': f'tool_not_allowed_for_role: {call.name}',
+                        }
+                    )
+                    continue
+                tool_result = self.tool_router.invoke(
+                    ToolRequest(
+                        name=call.name,
+                        args=call.arguments,
+                        metadata={
+                            'group': 'tool_call_protocol',
+                            'allowed_tools': allowed_tool_names,
+                            'agent_name': metadata.get('agent_name', ''),
+                            'trace_name': trace_name,
+                            'tool_round': round_index,
+                            **metadata,
+                        },
+                    )
+                )
+                round_calls.append(
+                    {
+                        'name': call.name,
+                        'arguments': call.arguments,
+                        'ok': tool_result.ok,
+                        'output': tool_result.output,
+                        'error_code': tool_result.error_code,
+                        'error_message': tool_result.error_message,
+                    }
+                )
+            history.append({'round': round_index, 'tool_calls': round_calls})
+
+        if bool(policy.get('fallback_to_plain_json', True)):
+            return self.invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata={**metadata, '_via_tool': True, 'tool_protocol_fallback': True},
+            )
+        raise LLMCallError(
+            reason='tool_round_exhausted',
+            message=f'tool call rounds exhausted: {effective_rounds}',
+            attempt_count=effective_rounds,
+            retry_count_used=0,
+        )
+
     def _invoke_json_with_messages(
         self,
         *,
@@ -134,6 +335,12 @@ class AgentLLMClient:
         network_retries: int | None,
         temperature: float,
     ) -> dict[str, Any]:
+        self._emit_hook(
+            'before_llm',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={'user_payload': user_payload, 'temperature': temperature},
+        )
         retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
         attempts = retries + 1
 
@@ -234,6 +441,13 @@ class AgentLLMClient:
                     break
 
         message = f'LLM call failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM call failed'
+        self._emit_hook(
+            'on_error',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={},
+            error={'reason': last_reason, 'message': message},
+        )
         raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
 
     def _post_chat_completion(self, *, url: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -243,6 +457,8 @@ class AgentLLMClient:
             headers={
                 'Content-Type': 'application/json',
                 'Authorization': f'Bearer {self.config.openai_api_key}',
+                'Accept': 'application/json',
+                'Connection': 'close',
             },
             method='POST',
         )
@@ -403,7 +619,7 @@ def _classify_error(exc: Exception) -> str:
         reason = str(exc.reason).lower()
         if 'timed out' in reason:
             return 'network_timeout'
-        if 'reset' in reason or 'closed' in reason:
+        if 'reset' in reason or 'closed' in reason or 'eof occurred in violation of protocol' in reason:
             return 'network_reset'
         return 'unknown_network'
     if isinstance(exc, json.JSONDecodeError):

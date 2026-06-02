@@ -62,11 +62,12 @@ class QACriticAgent:
             "attempt": state.attempt,
         }
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name="agent.qa.evaluate_report",
                 system_prompt=QA_SYSTEM_PROMPT,
                 user_payload=payload,
                 metadata=metadata,
+                tool_names=["web.search", "web.fetch"],
             )
         except Exception as exc:
             self._append_qa_log(
@@ -165,11 +166,12 @@ class QACriticAgent:
             },
         )
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name="agent.qa.analysis_review",
                 system_prompt=QA_ANALYSIS_REVIEW_SYSTEM_PROMPT,
                 user_payload=payload,
-                metadata={"agent_name": "QACriticAgent", "mode": "analysis_stage", "competitor": competitor},
+                metadata={"agent_name": "QACriticAgent", "mode": "analysis_stage", "competitor": competitor, "node_name": "qa"},
+                tool_names=["web.search", "web.fetch"],
             )
             self._append_qa_log(
                 event_type="qa_analysis_review_output",
@@ -190,6 +192,30 @@ class QACriticAgent:
                 },
             )
             raise
+
+    def _invoke_llm_json(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        tool_names: list[str],
+    ) -> dict[str, Any]:
+        if hasattr(self.llm, "invoke_json_with_tools"):
+            return self.llm.invoke_json_with_tools(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+                tool_names=tool_names,
+            )
+        return self.llm.invoke_json(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+        )
 
     @staticmethod
     def _build_field_evidence_summary(state: RunState) -> list[dict]:

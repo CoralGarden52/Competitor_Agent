@@ -108,6 +108,33 @@ function getStageTrace(workspace: WorkspacePayload | null, stage: StageName | nu
   return workspace.observability?.agent_traces?.find((item) => item.stage === stage) ?? null;
 }
 
+function stageLabel(stage: string): string {
+  const map: Record<string, string> = {
+    plan: "计划智能体",
+    collect: "采集智能体",
+    normalize: "标准化阶段",
+    analyze: "分析智能体",
+    qa: "QA智能体",
+    draft: "写作智能体",
+    finalize: "完成阶段",
+  };
+  return map[stage] || stage;
+}
+
+function toStepStatus(status?: string): "pending" | "running" | "done" | "failed" {
+  if (status === "completed") return "done";
+  if (status === "running") return "running";
+  if (status === "failed") return "failed";
+  return "pending";
+}
+
+function stepStatusText(status: "pending" | "running" | "done" | "failed"): string {
+  if (status === "running") return "执行中";
+  if (status === "done") return "已完成";
+  if (status === "failed") return "失败";
+  return "待执行";
+}
+
 export function HomeWorkspace() {
   const [activeMenu, setActiveMenu] = useState<"new" | "agent" | "history">("new");
   const [viewMode, setViewMode] = useState<ViewMode>("welcome");
@@ -152,10 +179,7 @@ export function HomeWorkspace() {
     : [];
   const hasReport = Boolean(workspaceData && (workspaceData.report?.markdown || "").trim());
   const referenceItems = workspaceData ? buildReferenceItems(workspaceData) : [];
-
-  useEffect(() => {
-    if (viewMode === "workspace" && scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [chatMessages, viewMode]);
+  const collectPreviewItems = referenceItems.slice(0, 6);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -337,7 +361,10 @@ export function HomeWorkspace() {
 
   async function fetchRunWorkspace(runId: string): Promise<WorkspacePayload> {
     const response = await fetch(`/runs/${runId}/workspace`);
-    if (!response.ok) throw new Error(`workspace fetch failed: ${response.status}`);
+    if (!response.ok) {
+      const body = await response.text().catch(() => "");
+      throw new Error(`workspace fetch failed: ${response.status}${body ? ` - ${body}` : ""}`);
+    }
     return (await response.json()) as WorkspacePayload;
   }
 
@@ -449,6 +476,19 @@ export function HomeWorkspace() {
     streamRef.current = source;
     if (!isReconnect) reconnectAttemptRef.current = 0;
 
+    source.addEventListener("open", () => {
+      // Hydrate workspace immediately after stream is connected,
+      // so execution cards do not wait for the next workspace SSE push.
+      void (async () => {
+        try {
+          const workspace = await fetchRunWorkspace(runId);
+          applyWorkspace(workspace);
+        } catch {
+          // keep waiting for stream/polling updates
+        }
+      })();
+    });
+
     source.addEventListener("workspace", (event) => {
       try {
         const payload = JSON.parse((event as MessageEvent<string>).data) as { workspace?: WorkspacePayload };
@@ -479,6 +519,9 @@ export function HomeWorkspace() {
             const workspace = await fetchRunWorkspace(currentRunId);
             applyWorkspace(workspace);
           }
+        } catch (error) {
+          // Avoid unhandled rejection noise when backend returns 5xx.
+          console.error("fetchRunWorkspace on run_done failed:", error);
         } finally {
           setStreamState("idle");
           stopRealtime();
@@ -502,7 +545,6 @@ export function HomeWorkspace() {
     setExpandedEventKeys([]);
     setExpandedCallKeys([]);
     setViewMode("workspace");
-    setActiveMenu("history");
     activeRunIdRef.current = session.active_run_id || "";
     if (session.active_run_id) {
       try {
@@ -625,6 +667,14 @@ export function HomeWorkspace() {
 
     setError("");
     setIsSubmitting(true);
+    // Optimistic UI transition: switch to workspace immediately after submit.
+    setViewMode("workspace");
+    setActiveMenu("history");
+    setExpandedEventKeys([]);
+    setExpandedCallKeys([]);
+    setWorkspaceData(null);
+    setEventFeed([]);
+    setSelectedStage(null);
     try {
       const competitorHints = parseHintList(competitorHintsText);
       const aspectHints = parseHintList(aspectHintsText);
@@ -660,18 +710,13 @@ export function HomeWorkspace() {
 
       const runId = runPayload.summary?.run_id || "";
       setTaskSummary(summary);
-      setViewMode("workspace");
-      setActiveMenu("history");
       setQuery("");
-      setWorkspaceData(null);
-      setSelectedStage(null);
-      setEventFeed([]);
       setStreamState("streaming");
-      setExpandedEventKeys([]);
-      setExpandedCallKeys([]);
       setCompetitorHintsText("");
       setAspectHintsText("");
       if (runId) {
+        setViewMode("workspace");
+        setActiveMenu("history");
         const refreshed = await fetchRuns(maxSessionCount);
         const mapped = refreshed.map(makeSessionFromRunSummary);
         setSessions((prev) => mergeSessionsPreserveState(mapped, prev));
@@ -716,6 +761,15 @@ export function HomeWorkspace() {
         setActiveSessionId(runId);
         activeRunIdRef.current = runId;
         startRunStream(runId);
+        // Proactively fetch initial workspace snapshot to avoid "needs refresh" UX.
+        void (async () => {
+          try {
+            const workspace = await fetchRunWorkspace(runId);
+            applyWorkspace(workspace);
+          } catch {
+            // stream fallback will continue updating
+          }
+        })();
       }
     } catch (submitError) {
       const message = submitError instanceof Error ? submitError.message : "提交失败，请稍后重试。";
@@ -926,11 +980,50 @@ export function HomeWorkspace() {
                               prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]
                             )
                           }
+                          todoPlan={workspaceData?.todo_plan ?? workspaceData?.observability?.todo_plan ?? null}
                         />
                       </div>
                     </>
                   ) : (
                     <>
+                      <section className="thought-chain-panel" aria-label="智能体执行卡片">
+                        <h2>智能体执行卡片</h2>
+                        {!stageCards.length ? (
+                          <p className="empty-state">等待智能体分析中...</p>
+                        ) : (
+                          <ol className="thought-list agent-card-list">
+                            {stageCards.map((step, index) => {
+                              const stepStatus = toStepStatus(step.status);
+                              return (
+                                <li key={`${step.stage}-${index}`} className="thought-item agent-card">
+                                  <div className="thought-head">
+                                    <span>{`${index + 1}. ${stageLabel(step.stage)}`}</span>
+                                    <span className={`status-pill ${stepStatus}`}>{stepStatusText(stepStatus)}</span>
+                                  </div>
+                                  <div className="agent-summary-block">
+                                    {step.summary?.trim() ? <p>{step.summary.trim()}</p> : <p>等待执行...</p>}
+                                    {step.handoff_summary?.trim() ? <p>{step.handoff_summary.trim()}</p> : null}
+                                  </div>
+                                  {step.stage === "collect" && collectPreviewItems.length ? (
+                                    <div className="collect-web-preview">
+                                      <strong>采集网页（前6条）</strong>
+                                      {collectPreviewItems.map((item, idx) => (
+                                        <p key={`collect-web-${idx}-${item.url}`}>
+                                          <a className="collect-web-link" href={item.url} target="_blank" rel="noreferrer">
+                                            {`${idx + 1}. ${item.label}`}
+                                          </a>
+                                        </p>
+                                      ))}
+                                      {referenceItems.length > 6 ? <p>......</p> : null}
+                                    </div>
+                                  ) : null}
+                                </li>
+                              );
+                            })}
+                          </ol>
+                        )}
+                      </section>
+
                       {hasReport ? (
                         <section className="workspace-panel report-card-section" aria-label="报告下载区">
                           <button type="button" className="report-card" onClick={() => setPreviewOpen(true)}>

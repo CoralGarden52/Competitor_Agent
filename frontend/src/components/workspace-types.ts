@@ -205,6 +205,10 @@ export type WorkspaceArtifacts = {
 
 export type WorkspaceObservability = {
   events?: WorkspaceEvent[];
+  tool_events?: Array<Record<string, unknown>>;
+  todo_plan?: Record<string, unknown>;
+  todo_events?: WorkspaceEvent[];
+  hook_events?: WorkspaceEvent[];
   stage_logs?: Record<string, unknown>;
   agent_traces?: AgentTrace[];
   manual_interventions?: Array<Record<string, unknown>>;
@@ -226,5 +230,6 @@ export type WorkspacePayload = {
   qa?: WorkspaceQa;
   report?: WorkspaceReport;
   artifacts?: WorkspaceArtifacts;
+  todo_plan?: Record<string, unknown>;
   observability?: WorkspaceObservability;
 };

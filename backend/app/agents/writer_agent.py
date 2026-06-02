@@ -62,7 +62,7 @@ class WriterAgent:
             'findings': [x.model_dump(mode='json') for x in state.findings],
             'evidences': [x.model_dump(mode='json') for x in state.evidences],
         }
-        result = self.llm.invoke_json(
+        result = self._invoke_llm_json(
             trace_name='agent.draft.generate_report',
             system_prompt=DRAFT_SYSTEM_PROMPT,
             user_payload=payload,
@@ -74,7 +74,10 @@ class WriterAgent:
                 'industry': state.industry,
                 'competitor_count': len(state.planned_competitors or state.competitors),
                 'attempt': state.attempt,
+                'agent_name': 'WriterAgent',
+                'node_name': 'draft',
             },
+            tool_names=['web.extract'],
         )
         try:
             parsed = DraftOutput.model_validate(result)
@@ -217,7 +220,7 @@ class WriterAgent:
             'output_schema': {'labels': {'field_name': '中文标签'}},
         }
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name='agent.draft.translate_schema_fields',
                 system_prompt='你是产品分析助手。请把输入的 schema 字段名翻译成简体中文展示标签，返回 JSON：{"labels":{"field":"中文"}}。',
                 user_payload=payload,
@@ -228,7 +231,10 @@ class WriterAgent:
                     'model': self.llm.config.openai_model,
                     'industry': state.industry,
                     'stage': 'schema_translation',
+                    'agent_name': 'WriterAgent',
+                    'node_name': 'draft',
                 },
+                tool_names=['web.extract'],
             )
             labels = result.get('labels', {}) if isinstance(result, dict) else {}
             if isinstance(labels, dict):
@@ -890,7 +896,7 @@ class WriterAgent:
         conclusion_text = self._conclusion_text_from_body(state, records, report.comparison_matrix)
         executive_summary = self._executive_summary_from_body(state, records, report.comparison_matrix)
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name='agent.draft.generate_overview',
                 system_prompt=DRAFT_OVERVIEW_SYSTEM_PROMPT,
                 user_payload=payload,
@@ -903,7 +909,10 @@ class WriterAgent:
                     'competitor_count': len(state.planned_competitors or state.competitors),
                     'attempt': state.attempt,
                     'stage': 'overview',
+                    'agent_name': 'WriterAgent',
+                    'node_name': 'draft',
                 },
+                tool_names=['web.extract'],
             )
             background_text = str(result.get('background_goal', '')).strip() or background_text
             conclusion_text = str(result.get('conclusion_advice', '')).strip() or conclusion_text
@@ -920,6 +929,30 @@ class WriterAgent:
         report.markdown = self._markdown_from_template(state, report)
         report.html = self._html_from_template(state, report)
         return DraftOutput(report=report)
+
+    def _invoke_llm_json(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict,
+        metadata: dict,
+        tool_names: list[str],
+    ) -> dict:
+        if hasattr(self.llm, 'invoke_json_with_tools'):
+            return self.llm.invoke_json_with_tools(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+                tool_names=tool_names,
+            )
+        return self.llm.invoke_json(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+        )
 
     def _inject_overview_sections(
         self,

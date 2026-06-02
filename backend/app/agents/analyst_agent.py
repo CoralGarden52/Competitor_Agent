@@ -37,6 +37,8 @@ class AnalystAgent:
     def __init__(self, llm: AgentLLMClient, store: SQLiteStore):
         self.llm = llm
         self.store = store
+        self._runtime_run_id = ''
+        self._runtime_attempt = 0
 
     def run_llm(
         self,
@@ -52,6 +54,8 @@ class AnalystAgent:
         should_reanalyze = bool(reanalyze_targets)
 
         tasks: list[tuple[int, int, str, FieldEvidenceBundle, AnalysisSchemaField | None]] = []
+        self._runtime_run_id = state.run_id
+        self._runtime_attempt = state.attempt
         for bundle_index, bundle in enumerate(bundles):
             print(f"  分析竞品: {bundle.product_name}")
             for field_index, field_bundle in enumerate(bundle.fields):
@@ -118,6 +122,8 @@ class AnalystAgent:
 
         profiles = [self._profile_from_record(state=state, record=record) for record in records]
         findings = self._build_findings_from_records(records)
+        self._runtime_run_id = ''
+        self._runtime_attempt = 0
         return AnalyzeOutput(competitors=records, profiles=profiles, findings=findings)
     def _analyze_single_field(
         self,
@@ -126,6 +132,8 @@ class AnalystAgent:
         evidences: list[RawEvidence],
         industry: str,
         schema_item: AnalysisSchemaField | None = None,
+        run_id: str = '',
+        attempt: int = 0,
     ) -> AnalysisFieldResult:
         """对单个字段进行分析，单独调用 LLM。"""
         if not evidences:
@@ -161,6 +169,8 @@ class AnalystAgent:
                 industry=industry,
                 schema_item=schema_item,
                 evidence_ids=evidence_ids,
+                run_id=run_id or str(getattr(self, '_runtime_run_id', '') or ''),
+                attempt=attempt or int(getattr(self, '_runtime_attempt', 0) or 0),
             )
             if pricing_result is not None:
                 return pricing_result
@@ -191,15 +201,21 @@ class AnalystAgent:
         }
         
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name=f'agent.analyze.field.{field_name}',
                 system_prompt=sys_prompt,
                 user_payload=user_prompt,
                 metadata={
+                    'run_id': run_id,
+                    'attempt': attempt,
+                    'model': str(getattr(getattr(self.llm, 'config', None), 'openai_model', '')),
                     'competitor': competitor,
                     'field_name': field_name,
                     'evidence_count': len(evidences),
+                    'agent_name': 'AnalystAgent',
+                    'node_name': 'analyze',
                 },
+                tool_names=['web.search', 'web.fetch', 'web.extract'],
             )
             summary = str(result.get('summary', '')).strip()
             normalized_value = self._coerce_normalized_value(
@@ -249,6 +265,8 @@ class AnalystAgent:
         industry: str,
         schema_item: AnalysisSchemaField | None,
         evidence_ids: list[str],
+        run_id: str,
+        attempt: int,
     ) -> AnalysisFieldResult | None:
         evidence_blocks = self._build_pricing_evidence_blocks(evidences)
         if not evidence_blocks:
@@ -259,7 +277,7 @@ class AnalystAgent:
 
         for chunk_index, chunk in enumerate(chunks, start=1):
             try:
-                result = self.llm.invoke_json(
+                result = self._invoke_llm_json(
                     trace_name='agent.analyze.field.pricing_model.chunk',
                     system_prompt=(
                         "You are an enterprise software pricing analysis assistant. "
@@ -288,12 +306,18 @@ class AnalystAgent:
                         ),
                     },
                     metadata={
+                        'run_id': run_id,
+                        'attempt': attempt,
+                        'model': str(getattr(getattr(self.llm, 'config', None), 'openai_model', '')),
                         'competitor': competitor,
                         'field_name': 'pricing_model',
                         'chunk_index': chunk_index,
                         'chunk_size': len(chunk),
                         'evidence_count': len(evidences),
+                        'agent_name': 'AnalystAgent',
+                        'node_name': 'analyze',
                     },
+                    tool_names=['web.search', 'web.fetch', 'web.extract'],
                 )
                 chunk_results.append(
                     {
@@ -310,7 +334,7 @@ class AnalystAgent:
             return None
 
         try:
-            final_result = self.llm.invoke_json(
+            final_result = self._invoke_llm_json(
                 trace_name='agent.analyze.field.pricing_model.reduce',
                 system_prompt=(
                     "You are an enterprise software pricing analysis assistant. "
@@ -330,11 +354,17 @@ class AnalystAgent:
                     ),
                 },
                 metadata={
+                    'run_id': run_id,
+                    'attempt': attempt,
+                    'model': str(getattr(getattr(self.llm, 'config', None), 'openai_model', '')),
                     'competitor': competitor,
                     'field_name': 'pricing_model',
                     'chunk_count': len(chunk_results),
                     'evidence_count': len(evidences),
+                    'agent_name': 'AnalystAgent',
+                    'node_name': 'analyze',
                 },
+                tool_names=['web.search', 'web.fetch', 'web.extract'],
             )
             summary = str(final_result.get('summary', '')).strip()
             normalized_value = self._coerce_normalized_value(
@@ -382,6 +412,30 @@ class AnalystAgent:
                 normalized_value=normalized_value,
                 evidence_gaps=merged_gaps,
             )
+
+    def _invoke_llm_json(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        tool_names: list[str],
+    ) -> dict[str, Any]:
+        if hasattr(self.llm, 'invoke_json_with_tools'):
+            return self.llm.invoke_json_with_tools(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+                tool_names=tool_names,
+            )
+        return self.llm.invoke_json(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+        )
 
     def _build_pricing_evidence_blocks(self, evidences: list[RawEvidence]) -> list[str]:
         blocks: list[str] = []

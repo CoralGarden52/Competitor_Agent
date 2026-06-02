@@ -15,6 +15,7 @@ from app.core.config import get_config
 from app.core.langgraph_runtime import WorkflowLangGraphRuntime
 from app.core.planner_llm import PlannerLLMClient
 from app.core.graph_state import WorkflowGraphState, init_graph_state_from_run_request, make_stage_snapshot
+from app.core.hooks import AuditHook, HookContext, HookRegistry
 from app.core.models import (
     AnalysisSchemaField,
     AnalyzeHandoff,
@@ -25,6 +26,7 @@ from app.core.models import (
     FieldRiskProfile,
     FieldEvidenceBundle,
     EventEnvelope,
+    EventRecord,
     EventType,
     FeatureNode,
     FeedbackSummary,
@@ -51,9 +53,14 @@ from app.core.models import (
     Severity,
     StageName,
     TicketStatus,
+    TransitionReason,
+    RecoveryState,
 )
 from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, registry_snapshot
 from app.core.storage import SQLiteStore
+from app.core.todo import TodoStateManager
+from app.core.tools import ToolRegistry, ToolRouter
+from app.core.tools.handlers import LLMInvokeJsonHandler, WebExtractHandler, WebFetchHandler, WebSearchHandler
 
 
 logger = logging.getLogger(__name__)
@@ -63,9 +70,19 @@ class CompetitorWorkflowService:
     def __init__(self, store: SQLiteStore):
         self.store = store
         self.config = get_config()
+        self.tool_registry = ToolRegistry()
+        self.tool_router = ToolRouter(self.tool_registry, event_sink=self._tool_event_sink)
+        self.hook_registry = HookRegistry()
+        self.tool_router.hook_emitter = self._emit_hook
         self.planner_llm = PlannerLLMClient(self.config, self.store)
-        self.agent_llm = AgentLLMClient(self.config, store)
-        self.collector = CollectorPipeline(self.config, self.store)
+        self.agent_llm = AgentLLMClient(self.config, store, tool_router=self.tool_router)
+        self.agent_llm.hook_registry = self.hook_registry
+        self.collector = CollectorPipeline(self.config, self.store, tool_router=self.tool_router)
+        self.tool_registry.register(WebSearchHandler(self.collector.registry))
+        self.tool_registry.register(WebFetchHandler(self.collector.registry))
+        self.tool_registry.register(WebExtractHandler())
+        self.tool_registry.register(LLMInvokeJsonHandler(self.agent_llm.invoke_json))
+        self.planner_llm.tool_router = self.tool_router
         self.policy_engine = ApprovalPolicyEngine(store)
         self.orchestrator = OrchestratorAgent(max_rework_iterations=self.config.max_rework_iterations, planner=self.planner_llm)
         self.collector_agent = CollectorAgent(self.collector, self.store)
@@ -73,8 +90,63 @@ class CompetitorWorkflowService:
         self.writer_agent = WriterAgent(self.agent_llm)
         self.qa_critic_agent = QACriticAgent(self.agent_llm, self.store)
         self.runtime = WorkflowLangGraphRuntime(self)
+        for hook_point in ('before_llm', 'before_tool', 'after_tool', 'after_stage', 'on_error'):
+            self.hook_registry.register(hook_point, AuditHook(lambda _event_type, payload: self._save_hook_event(payload)))
         self._run_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix='workflow-run')
         self._background_runs: dict[str, concurrent.futures.Future[None]] = {}
+
+    def _save_hook_event(self, payload: dict[str, object]) -> None:
+        run_id = str(payload.get('run_id', '') or '')
+        stage_name = str(payload.get('stage', '') or '')
+        if not run_id:
+            return
+        try:
+            stage = StageName(stage_name) if stage_name else StageName.plan
+        except Exception:
+            stage = StageName.plan
+        try:
+            self.store.append_event(EventRecord(run_id=run_id, stage=stage, event_type='hook_event', payload=payload))
+        except Exception:
+            return
+
+    def _emit_hook(self, hook_point: str, context: dict[str, object]) -> None:
+        metadata = context.get('metadata', {})
+        run_id = str(context.get('run_id', '') or '')
+        if not run_id and isinstance(metadata, dict):
+            run_id = str(metadata.get('run_id', '') or '')
+        hook_context = HookContext(
+            hook_point=hook_point,
+            run_id=run_id,
+            attempt=int(context.get('attempt', 0) or 0),
+            stage=str(context.get('stage', '') or ''),
+            agent_name=str(context.get('agent_name', '') or ''),
+            trace_name=str(context.get('trace_name', '') or ''),
+            payload=context.get('payload', {}) if isinstance(context.get('payload', {}), dict) else {},
+            error=context.get('error', None) if isinstance(context.get('error', None), dict) else None,
+        )
+        self.hook_registry.emit(hook_point, hook_context)
+
+    def _tool_event_sink(self, payload: dict[str, object]) -> None:
+        run_id = str(payload.get('metadata', {}).get('run_id', '') if isinstance(payload.get('metadata', {}), dict) else '')
+        if not run_id:
+            return
+        node_name = str(payload.get('metadata', {}).get('node_name', '') if isinstance(payload.get('metadata', {}), dict) else '')
+        stage_value = node_name.strip().lower() or 'collect'
+        try:
+            stage = StageName(stage_value)
+        except Exception:
+            stage = StageName.collect
+        try:
+            self.store.append_event(
+                EventRecord(
+                    run_id=run_id,
+                    stage=stage,
+                    event_type='tool_event',
+                    payload=payload,
+                )
+            )
+        except Exception:
+            return
 
     def start_run(self, request: RunRequest) -> RunResponse:
         state = self._initialize_run_state(request)
@@ -114,6 +186,7 @@ class CompetitorWorkflowService:
             timeframe=request.timeframe,
             core_schema_version=CORE_SCHEMA_VERSION,
             domain_schema_version=self.store.get_active_domain_schema(request.industry).get('version', 'v1'),
+            max_turns=self.config.runtime_max_turns,
         )
         _ = init_graph_state_from_run_request(
             request=request,
@@ -132,13 +205,34 @@ class CompetitorWorkflowService:
                 'aspect_hints': normalized_aspect_hints,
             },
         )
+        self._init_todo_plan(state)
         return state
+
+    def _init_todo_plan(self, state: RunState) -> None:
+        manager = TodoStateManager(state)
+        plan = manager.init_from_run_state()
+        self._save_and_event(state, StageName.plan, 'todo.plan.initialized', {'todo_plan': plan.model_dump(mode='json')})
 
     def _execute_run(self, state: RunState) -> RunState:
         state = self.runtime.execute(state)
         if state.status not in ('completed', 'failed'):
             state.status = 'failed'
-            self._save_and_event(state, StageName.qa, 'max_iterations_reached', {'iteration': state.attempt, 'reason': 'runtime_ended_without_terminal_status'})
+            state.transition_reason = TransitionReason.terminal_error
+            state.recovery_state = RecoveryState.halted
+            state.last_error = {'reason': 'runtime_ended_without_terminal_status'}
+            self._save_and_event(
+                state,
+                state.current_stage if isinstance(state.current_stage, StageName) else StageName.qa,
+                'runtime.turn.terminated',
+                {
+                    'turn': state.turn_count,
+                    'from_stage': state.current_stage.value if isinstance(state.current_stage, StageName) else str(state.current_stage),
+                    'to_stage': None,
+                    'transition_reason': TransitionReason.terminal_error.value,
+                    'recovery_state': RecoveryState.halted.value,
+                    'error': state.last_error,
+                },
+            )
         self.store.save_state(state)
         self._auto_save_demo_workspace(state.run_id)
         return state
@@ -182,7 +276,18 @@ class CompetitorWorkflowService:
         timeline = self.store.replay_timeline(run_id)
         handoffs = self.store.list_stage_handoffs(run_id)
         llm_calls = self.store.list_llm_calls(run_id)
-        return {'run_id': run_id, 'status': run.state.status, 'timeline': timeline, 'handoffs': handoffs, 'llm_calls': llm_calls}
+        events = self.list_run_events(run_id)
+        return {
+            'run_id': run_id,
+            'status': run.state.status,
+            'timeline': timeline,
+            'handoffs': handoffs,
+            'llm_calls': llm_calls,
+            'tool_events': self._extract_tool_events(events),
+            'todo_plan': run.state.todo_plan.model_dump(mode='json'),
+            'todo_events': self._extract_events_by_type(events, 'todo.'),
+            'hook_events': self._extract_events_by_type(events, 'hook_event'),
+        }
 
     def replay_node(self, run_id: str, node_name: str) -> dict[str, object]:
         run = self.get_run(run_id)
@@ -212,6 +317,7 @@ class CompetitorWorkflowService:
         timeline = replay.get('timeline', []) if isinstance(replay.get('timeline', []), list) else []
         handoffs = replay.get('handoffs', []) if isinstance(replay.get('handoffs', []), list) else []
         llm_calls = replay.get('llm_calls', []) if isinstance(replay.get('llm_calls', []), list) else []
+        tool_events = replay.get('tool_events', []) if isinstance(replay.get('tool_events', []), list) else self._extract_tool_events(events)
         stage_io = {stage: self.store.replay_node_io(run_id, stage) for stage in self._stage_names()}
         stage_logs = self._build_stage_observability(
             state=run.state,
@@ -227,6 +333,10 @@ class CompetitorWorkflowService:
             'timeline': timeline,
             'handoffs': handoffs,
             'llm_calls': llm_calls,
+            'tool_events': tool_events,
+            'todo_plan': run.state.todo_plan.model_dump(mode='json'),
+            'todo_events': self._extract_events_by_type(events, 'todo.'),
+            'hook_events': self._extract_events_by_type(events, 'hook_event'),
             'stage_logs': stage_logs,
             'manual_interventions': manual_interventions,
             'report_markdown': run.state.report.markdown if run.state.report else '',
@@ -401,6 +511,7 @@ class CompetitorWorkflowService:
                 'field_stats': field_stats,
                 'field_summaries': field_summaries,
                 'provider_events': result.provider_events,
+                'tool_events': result.tool_events,
                 'errors': result.errors,
             }
 
@@ -447,6 +558,9 @@ class CompetitorWorkflowService:
                     'field_summaries': result_data['field_summaries'],
                 })
                 for event in result_data['provider_events']:
+                    execution_timeline.append({'seq': seq, 'competitor': competitor, **event})
+                    seq += 1
+                for event in result_data.get('tool_events', []):
                     execution_timeline.append({'seq': seq, 'competitor': competitor, **event})
                     seq += 1
                 errors.extend(result_data['errors'])
@@ -703,6 +817,8 @@ class CompetitorWorkflowService:
         )
         for pe in result.provider_events:
             self._save_and_event(state, StageName.collect, 'provider_event', pe)
+        for te in result.tool_events:
+            self._save_and_event(state, StageName.collect, 'tool_event', te)
         if qa_collect_plan:
             # Re-collect mode: preserve prior evidence and append new evidence.
             state.evidences = list(state.evidences) + list(result.raw_evidences)
@@ -1263,9 +1379,9 @@ class CompetitorWorkflowService:
 
     @staticmethod
     def _should_print_event(*, stage: StageName, event_type: str) -> bool:
-        # `provider_event` is extremely high-frequency during collect and can flood terminal output.
-        # Keep persisting it to storage/events, but skip console print for readability.
-        if stage == StageName.collect and event_type == 'provider_event':
+        # High-frequency collect events can flood terminal output.
+        # Keep persisting them to storage/events, but skip console print for readability.
+        if stage == StageName.collect and event_type in {'provider_event', 'tool_event'}:
             return False
         return True
 
@@ -1281,6 +1397,7 @@ class CompetitorWorkflowService:
         timeline = replay.get('timeline', []) if isinstance(replay.get('timeline', []), list) else []
         handoffs = replay.get('handoffs', []) if isinstance(replay.get('handoffs', []), list) else []
         llm_calls = replay.get('llm_calls', []) if isinstance(replay.get('llm_calls', []), list) else []
+        tool_events = replay.get('tool_events', []) if isinstance(replay.get('tool_events', []), list) else self._extract_tool_events(events)
         stage_io = {stage: self.store.replay_node_io(state.run_id, stage) for stage in self._stage_names()}
         agent_workflows = self._build_agent_workflows(
             state=state,
@@ -1314,6 +1431,13 @@ class CompetitorWorkflowService:
             'run': {
                 'run_id': state.run_id,
                 'status': state.status,
+                'turn_count': state.turn_count,
+                'max_turns': state.max_turns,
+                'current_stage': state.current_stage.value if isinstance(state.current_stage, StageName) else str(state.current_stage),
+                'next_stage': state.next_stage.value if isinstance(state.next_stage, StageName) else (str(state.next_stage) if state.next_stage else None),
+                'transition_reason': state.transition_reason.value if isinstance(state.transition_reason, TransitionReason) else (str(state.transition_reason) if state.transition_reason else None),
+                'recovery_state': state.recovery_state.value if isinstance(state.recovery_state, RecoveryState) else str(state.recovery_state),
+                'last_error': state.last_error,
                 'industry': state.industry,
                 'planned_competitors': state.planned_competitors,
                 'schema_fields': [item.field_name for item in state.analysis_schema_plan],
@@ -1352,8 +1476,15 @@ class CompetitorWorkflowService:
                 'sources': state.report.appendix_sources if state.report else [],
             },
             'artifacts': self._build_workspace_artifacts(state),
+            'todo_plan': state.todo_plan.model_dump(mode='json'),
+            'todo_events': self._extract_events_by_type(events, 'todo.'),
+            'hook_events': self._extract_events_by_type(events, 'hook_event'),
             'observability': {
                 'llm_calls': llm_calls,
+                'tool_events': tool_events,
+                'todo_plan': state.todo_plan.model_dump(mode='json'),
+                'todo_events': self._extract_events_by_type(events, 'todo.'),
+                'hook_events': self._extract_events_by_type(events, 'hook_event'),
                 'stage_logs': stage_logs,
                 'agent_traces': self._build_agent_traces(
                     state=state,
@@ -1367,6 +1498,54 @@ class CompetitorWorkflowService:
                 'log_download_path': f'/runs/{state.run_id}/logs/export',
             },
         }
+
+    @staticmethod
+    def _extract_tool_events(events: list[dict]) -> list[dict]:
+        tool_events: list[dict] = []
+        for item in events:
+            if not isinstance(item, dict):
+                continue
+            if str(item.get('event_type', '')) != 'tool_event':
+                continue
+            payload = item.get('payload', {})
+            if isinstance(payload, dict):
+                tool_events.append(payload)
+        return tool_events
+
+    @staticmethod
+    def _extract_events_by_type(events: list[dict], event_type_prefix: str) -> list[dict]:
+        filtered: list[dict] = []
+        for item in events:
+            if not isinstance(item, dict):
+                continue
+            event_type = str(item.get('event_type', ''))
+            if event_type_prefix == 'hook_event':
+                if event_type == 'hook_event':
+                    filtered.append(item)
+            elif event_type.startswith(event_type_prefix):
+                filtered.append(item)
+        return filtered
+
+    def mark_todo_stage_started(self, state: RunState, stage: StageName, agent_name: str) -> None:
+        task = TodoStateManager(state).mark_stage_started(stage, agent_name=agent_name)
+        if task is None:
+            return
+        self._save_and_event(state, stage, 'todo.task.started', {'task': task.model_dump(mode='json')})
+        self._save_and_event(state, stage, 'todo.plan.updated', {'todo_plan': state.todo_plan.model_dump(mode='json')})
+
+    def mark_todo_stage_completed(self, state: RunState, stage: StageName, agent_name: str, notes: str = '') -> None:
+        task = TodoStateManager(state).mark_stage_completed(stage, agent_name=agent_name, notes=notes)
+        if task is None:
+            return
+        self._save_and_event(state, stage, 'todo.task.completed', {'task': task.model_dump(mode='json')})
+        self._save_and_event(state, stage, 'todo.plan.updated', {'todo_plan': state.todo_plan.model_dump(mode='json')})
+
+    def mark_todo_stage_blocked(self, state: RunState, stage: StageName, reason: str, agent_name: str) -> None:
+        task = TodoStateManager(state).mark_stage_blocked(stage, reason=reason, agent_name=agent_name)
+        if task is None:
+            return
+        self._save_and_event(state, stage, 'todo.task.blocked', {'task': task.model_dump(mode='json'), 'reason': reason})
+        self._save_and_event(state, stage, 'todo.plan.updated', {'todo_plan': state.todo_plan.model_dump(mode='json')})
 
     @staticmethod
     def _stage_names() -> list[str]:
@@ -1849,7 +2028,13 @@ class CompetitorWorkflowService:
             'attempt': state.attempt,
             'parent_attempt': state.parent_attempt,
             'status': state.status,
-            'current_stage': 'finalize' if state.status == 'completed' else 'running',
+            'current_stage': state.current_stage.value if isinstance(state.current_stage, StageName) else str(state.current_stage),
+            'next_stage': state.next_stage.value if isinstance(state.next_stage, StageName) else (str(state.next_stage) if state.next_stage else None),
+            'turn_count': state.turn_count,
+            'max_turns': state.max_turns,
+            'transition_reason': state.transition_reason.value if isinstance(state.transition_reason, TransitionReason) else (str(state.transition_reason) if state.transition_reason else None),
+            'recovery_state': state.recovery_state.value if isinstance(state.recovery_state, RecoveryState) else str(state.recovery_state),
+            'last_error': dict(state.last_error),
             'industry': state.industry,
             'competitors': state.competitors,
             'language': state.language,
@@ -1870,11 +2055,41 @@ class CompetitorWorkflowService:
 
     @staticmethod
     def graph_state_to_run_state(graph: WorkflowGraphState) -> RunState:
+        raw_current_stage = str(graph.get('current_stage', StageName.plan.value))
+        try:
+            current_stage = StageName(raw_current_stage)
+        except ValueError:
+            current_stage = StageName.finalize if str(graph.get('status', 'running')) == 'completed' else StageName.plan
+        raw_next_stage = graph.get('next_stage')
+        next_stage: StageName | None = None
+        if raw_next_stage is not None:
+            try:
+                next_stage = StageName(str(raw_next_stage))
+            except ValueError:
+                next_stage = None
+        raw_transition_reason = graph.get('transition_reason')
+        transition_reason = None
+        if raw_transition_reason is not None:
+            try:
+                transition_reason = TransitionReason(str(raw_transition_reason))
+            except ValueError:
+                transition_reason = None
+        try:
+            recovery_state = RecoveryState(str(graph.get('recovery_state', RecoveryState.none.value)))
+        except ValueError:
+            recovery_state = RecoveryState.none
         return RunState(
             run_id=graph['run_id'],
             attempt=graph['attempt'],
             parent_attempt=graph['parent_attempt'],
             ticket_id=graph.get('ticket_id'),
+            turn_count=int(graph.get('turn_count', 0) or 0),
+            max_turns=int(graph.get('max_turns', 40) or 40),
+            current_stage=current_stage,
+            next_stage=next_stage,
+            transition_reason=transition_reason,
+            recovery_state=recovery_state,
+            last_error=graph.get('last_error', {}) if isinstance(graph.get('last_error', {}), dict) else {},
             industry=graph['industry'],
             competitors=graph['competitors'],
             language=graph['language'],

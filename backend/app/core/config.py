@@ -23,6 +23,7 @@ class AppConfig(BaseSettings):
 
     sqlite_path: str = '.data/competitor_analysis.db'
     max_rework_iterations: int = Field(default=2, ge=1, le=5)
+    runtime_max_turns: int = Field(default=40, ge=5, le=500)
     enable_schema_evolution: bool = True
 
     # Runtime / OpenAI-compatible config
