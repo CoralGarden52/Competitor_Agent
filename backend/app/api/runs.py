@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from app.core.agent_llm import LLMCallError
 from app.core.deps import get_service
-from app.core.models import RunRequest, RunResponse, RunSummary
+from app.core.models import QuestionnaireDesign, RunRequest, RunResponse, RunSummary
 from app.core.workflow import CompetitorWorkflowService
 
 router = APIRouter(prefix='/runs', tags=['runs'])
@@ -24,6 +24,14 @@ class TaskSummaryRequest(BaseModel):
 class QuestionnaireDesignRequest(BaseModel):
     target_audience: str = '竞品相关潜在用户或现有用户'
     objective: str = '验证竞品差异点、用户感知与转化障碍'
+
+
+class ReportUpdateRequest(BaseModel):
+    markdown: str = Field(min_length=1)
+
+
+class QuestionnaireUpdateRequest(BaseModel):
+    markdown: str = Field(min_length=1)
 
 
 @router.post('', response_model=RunResponse)
@@ -114,6 +122,24 @@ def download_report_markdown(run_id: str, service: CompetitorWorkflowService = D
     )
 
 
+@router.patch('/{run_id}/report', response_model=RunResponse)
+def update_report_markdown(
+    run_id: str,
+    payload: ReportUpdateRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> RunResponse:
+    markdown = str(payload.markdown or '').strip()
+    if not markdown:
+        raise HTTPException(status_code=400, detail='markdown is required')
+    updated = service.update_report_markdown(run_id, markdown)
+    if updated is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='report not found')
+    return updated
+
+
 @router.post('/{run_id}/questionnaire')
 def design_questionnaire(
     run_id: str,
@@ -134,6 +160,24 @@ def design_questionnaire(
             raise HTTPException(status_code=404, detail='run not found')
         raise HTTPException(status_code=404, detail='report not found')
     return design.model_dump(mode='json')
+
+
+@router.patch('/{run_id}/questionnaire', response_model=QuestionnaireDesign)
+def update_questionnaire_markdown(
+    run_id: str,
+    payload: QuestionnaireUpdateRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> QuestionnaireDesign:
+    markdown = str(payload.markdown or '').strip()
+    if not markdown:
+        raise HTTPException(status_code=400, detail='markdown is required')
+    updated = service.update_questionnaire_markdown(run_id, markdown)
+    if updated is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='questionnaire not found')
+    return updated
 
 
 @router.get('/{run_id}/stream')

@@ -193,6 +193,17 @@ export type WorkspaceReport = {
   sources?: string[];
 };
 
+export type WorkspaceQuestionnaire = {
+  title?: string;
+  target_audience?: string;
+  objective?: string;
+  introduction?: string;
+  estimated_minutes?: number;
+  sections?: unknown[];
+  closing_message?: string;
+  markdown?: string;
+};
+
 export type EvidenceItem = {
   title?: string;
   source_url?: string;
@@ -229,6 +240,7 @@ export type WorkspacePayload = {
   };
   qa?: WorkspaceQa;
   report?: WorkspaceReport;
+  questionnaire?: WorkspaceQuestionnaire | null;
   artifacts?: WorkspaceArtifacts;
   todo_plan?: Record<string, unknown>;
   observability?: WorkspaceObservability;

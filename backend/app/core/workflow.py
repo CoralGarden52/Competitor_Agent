@@ -312,6 +312,18 @@ class CompetitorWorkflowService:
         manual_interventions = self.store.list_manual_interventions(run_id)
         return self._build_workspace_payload(run=run, replay=replay, events=events, manual_interventions=manual_interventions)
 
+    def update_report_markdown(self, run_id: str, markdown: str) -> RunResponse | None:
+        run = self.get_run(run_id)
+        if run is None:
+            return None
+        state = run.state
+        if state.report is None:
+            return None
+        state.report.markdown = markdown
+        state.report.html = ''
+        self.store.save_state(state)
+        return RunResponse(summary=self._summary_for(state), state=state)
+
     def design_questionnaire_from_report(
         self,
         run_id: str,
@@ -332,7 +344,23 @@ class CompetitorWorkflowService:
         )
         if not str(design.markdown or '').strip():
             design.markdown = self.questionnaire_agent._markdown_from_design(design)
+        state.questionnaire = design
+        self.store.save_state(state)
         return design
+
+    def update_questionnaire_markdown(self, run_id: str, markdown: str) -> QuestionnaireDesign | None:
+        run = self.get_run(run_id)
+        if run is None:
+            return None
+        state = run.state
+        if state.questionnaire is None:
+            return None
+        state.questionnaire.markdown = markdown
+        title = self._extract_markdown_title(markdown)
+        if title:
+            state.questionnaire.title = title
+        self.store.save_state(state)
+        return state.questionnaire
 
     def export_run_logs(self, run_id: str) -> dict[str, object]:
         run = self.get_run(run_id)
@@ -1473,6 +1501,17 @@ class CompetitorWorkflowService:
             updated_at=now,
         )
 
+    @staticmethod
+    def _extract_markdown_title(markdown: str) -> str:
+        for line in str(markdown or '').splitlines():
+            text = line.strip()
+            if not text:
+                continue
+            if text.startswith('#'):
+                return text.lstrip('#').strip()[:80]
+            return text[:80]
+        return ''
+
     def _save_and_event(self, state: RunState, stage: StageName, event_type: str, payload: dict) -> None:
         if self._should_print_event(stage=stage, event_type=event_type):
             print(
@@ -1598,6 +1637,7 @@ class CompetitorWorkflowService:
                 'markdown': state.report.markdown if state.report else '',
                 'sources': state.report.appendix_sources if state.report else [],
             },
+            'questionnaire': state.questionnaire.model_dump(mode='json') if state.questionnaire else None,
             'artifacts': self._build_workspace_artifacts(state),
             'todo_plan': state.todo_plan.model_dump(mode='json'),
             'todo_events': self._extract_events_by_type(events, 'todo.'),

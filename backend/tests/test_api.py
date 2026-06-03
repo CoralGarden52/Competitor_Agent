@@ -8,7 +8,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 from app.core.deps import get_service
-from app.core.models import EventRecord, StageName
+from app.core.models import EventRecord, QuestionnaireDesign, Report, RunState, StageName
 from app.core.config import get_config
 from app.main import create_app
 
@@ -156,6 +156,187 @@ def test_questionnaire_endpoint_from_report() -> None:
     assert isinstance(body['sections'], list)
     assert len(body['sections']) == 4
     assert body['markdown'].strip()
+
+
+def test_update_report_markdown_endpoint_persists() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        report=Report(executive_summary='old summary', markdown='# Old report', html='<h1>Old report</h1>'),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    response = client.patch(f'/runs/{state.run_id}/report', json={'markdown': '# Updated report\n\nnew body'})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body['state']['report']['markdown'] == '# Updated report\n\nnew body'
+    assert body['state']['report']['html'] == ''
+
+    get_response = client.get(f'/runs/{state.run_id}')
+    assert get_response.status_code == 200
+    assert get_response.json()['state']['report']['markdown'] == '# Updated report\n\nnew body'
+
+
+def test_update_report_markdown_endpoint_empty_markdown_422() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        report=Report(executive_summary='old summary', markdown='# Old report'),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    response = client.patch(f'/runs/{state.run_id}/report', json={'markdown': ''})
+
+    assert response.status_code == 422
+
+
+def test_update_report_markdown_endpoint_404_for_missing_run() -> None:
+    app = create_app()
+    client = TestClient(app)
+
+    response = client.patch('/runs/run_missing_report_update/report', json={'markdown': '# Updated'})
+
+    assert response.status_code == 404
+
+
+def test_update_report_markdown_endpoint_404_for_missing_report() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(industry='saas', competitors=['alpha'], status='completed')
+    service.store.save_state(state)
+
+    response = client.patch(f'/runs/{state.run_id}/report', json={'markdown': '# Updated'})
+
+    assert response.status_code == 404
+
+
+def test_questionnaire_endpoint_persists_design_to_run_and_workspace() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        report=Report(executive_summary='report summary', markdown='# Report\n\nbody'),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    original_run_llm = service.questionnaire_agent.run_llm
+
+    def fake_run_llm(*args, **kwargs) -> QuestionnaireDesign:  # noqa: ANN002, ANN003
+        return QuestionnaireDesign(
+            title='Saved Questionnaire',
+            target_audience=kwargs.get('target_audience', ''),
+            objective=kwargs.get('objective', ''),
+            introduction='intro',
+            markdown='# Saved Questionnaire\n\n1. question',
+        )
+
+    service.questionnaire_agent.run_llm = fake_run_llm
+    try:
+        response = client.post(
+            f'/runs/{state.run_id}/questionnaire',
+            json={'target_audience': 'users', 'objective': 'learn'},
+        )
+    finally:
+        service.questionnaire_agent.run_llm = original_run_llm
+
+    assert response.status_code == 200
+    assert response.json()['markdown'] == '# Saved Questionnaire\n\n1. question'
+
+    get_response = client.get(f'/runs/{state.run_id}')
+    assert get_response.status_code == 200
+    assert get_response.json()['state']['questionnaire']['markdown'] == '# Saved Questionnaire\n\n1. question'
+
+    workspace_response = client.get(f'/runs/{state.run_id}/workspace')
+    assert workspace_response.status_code == 200
+    assert workspace_response.json()['questionnaire']['title'] == 'Saved Questionnaire'
+    assert workspace_response.json()['questionnaire']['markdown'] == '# Saved Questionnaire\n\n1. question'
+
+
+def test_update_questionnaire_markdown_endpoint_persists() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        questionnaire=QuestionnaireDesign(
+            title='Old Questionnaire',
+            target_audience='users',
+            objective='learn',
+            introduction='intro',
+            markdown='# Old Questionnaire\n\nbody',
+        ),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    response = client.patch(f'/runs/{state.run_id}/questionnaire', json={'markdown': '# Updated Questionnaire\n\nnew body'})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body['title'] == 'Updated Questionnaire'
+    assert body['markdown'] == '# Updated Questionnaire\n\nnew body'
+
+    get_response = client.get(f'/runs/{state.run_id}')
+    assert get_response.status_code == 200
+    assert get_response.json()['state']['questionnaire']['markdown'] == '# Updated Questionnaire\n\nnew body'
+
+
+def test_update_questionnaire_markdown_endpoint_empty_markdown_422() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        questionnaire=QuestionnaireDesign(
+            title='Old Questionnaire',
+            target_audience='users',
+            objective='learn',
+            introduction='intro',
+            markdown='# Old Questionnaire',
+        ),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    response = client.patch(f'/runs/{state.run_id}/questionnaire', json={'markdown': ''})
+
+    assert response.status_code == 422
+
+
+def test_update_questionnaire_markdown_endpoint_404_for_missing_run() -> None:
+    app = create_app()
+    client = TestClient(app)
+
+    response = client.patch('/runs/run_missing_questionnaire_update/questionnaire', json={'markdown': '# Updated'})
+
+    assert response.status_code == 404
+
+
+def test_update_questionnaire_markdown_endpoint_404_for_missing_questionnaire() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(industry='saas', competitors=['alpha'], status='completed')
+    service.store.save_state(state)
+
+    response = client.patch(f'/runs/{state.run_id}/questionnaire', json={'markdown': '# Updated'})
+
+    assert response.status_code == 404
 
 
 def test_runs_replay_workspace_export_include_tool_events_agent_aggregation() -> None:
