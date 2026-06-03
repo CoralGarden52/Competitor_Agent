@@ -1,0 +1,256 @@
+{
+  "title": "Online Meeting用户调研问卷",
+  "target_audience": "竞品相关潜在用户或现有用户",
+  "objective": "验证竞品差异点、用户感知与转化障碍",
+  "introduction": "您好！我们正在进行一项竞品分析调研，希望了解您对相关产品的认知、使用体验和选择偏好。问卷预计 6-8 分钟完成，感谢您的支持。",
+  "estimated_minutes": 8,
+  "sections": [
+    {
+      "section_id": "profile_baseline",
+      "title": "一、受访者背景与当前使用情况",
+      "objective": "确认受访者与当前使用产品背景。",
+      "questions": [
+        {
+          "question_id": "q1_current_solution",
+          "question_type": "single_choice",
+          "title": "您当前主要使用哪一款产品或方案来满足这类需求？",
+          "intent": "确认当前主用方案。",
+          "options": [
+            "腾讯会议",
+            "飞书会议",
+            "Zoom"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": []
+        },
+        {
+          "question_id": "q2_usage_frequency",
+          "question_type": "single_choice",
+          "title": "您使用这类产品的频率大致如何？",
+          "intent": "了解使用频次与需求强度。",
+          "options": [
+            "每天都会使用",
+            "每周多次",
+            "偶尔使用",
+            "目前仅了解未使用"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": []
+        },
+        {
+          "question_id": "q3_usage_scenario",
+          "question_type": "multiple_choice",
+          "title": "您通常会在什么场景下使用这类产品？",
+          "intent": "了解主要使用场景。",
+          "options": [
+            "团队例会",
+            "客户沟通",
+            "跨地域协作",
+            "培训宣讲",
+            "大型活动/直播",
+            "其他"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": []
+        }
+      ]
+    },
+    {
+      "section_id": "awareness_selection",
+      "title": "二、竞品认知与选择",
+      "objective": "了解用户认知范围与选择原因。",
+      "questions": [
+        {
+          "question_id": "q4_known_brands",
+          "question_type": "multiple_choice",
+          "title": "在以下产品中，您听说过或评估过哪些？",
+          "intent": "识别竞品认知与比较池。",
+          "options": [
+            "腾讯会议",
+            "飞书会议",
+            "Zoom"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": []
+        },
+        {
+          "question_id": "q5_selection_reason",
+          "question_type": "open_text",
+          "title": "如果您最终选择了某款产品，最主要的原因是什么？",
+          "intent": "获取用户选择的关键决策因素。",
+          "options": [],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": [
+            "field_01_6bcf8e"
+          ]
+        },
+        {
+          "question_id": "q6_alternative_switch",
+          "question_type": "single_choice",
+          "title": "如果未来需要更换产品，您最可能优先考虑哪一类替代方案？",
+          "intent": "了解替代方向。",
+          "options": [
+            "腾讯会议",
+            "飞书会议",
+            "Zoom"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": []
+        }
+      ]
+    },
+    {
+      "section_id": "key_dimension_validation",
+      "title": "三、产品体验感知",
+      "objective": "了解用户对关键产品体验维度的真实感受。",
+      "questions": [
+        {
+          "question_id": "q7_primary_dimension",
+          "question_type": "scale",
+          "title": "从您的实际感受看，您对产品在“功能体系”方面的满意度如何？",
+          "intent": "验证关键维度满意度。",
+          "options": [],
+          "scale_min": 1,
+          "scale_max": 5,
+          "required": true,
+          "field_refs": [
+            "field_01_6bcf8e"
+          ]
+        },
+        {
+          "question_id": "q8_secondary_dimension",
+          "question_type": "scale",
+          "title": "如果需要长期使用，您对“会议稳定性”方面的接受度如何？",
+          "intent": "验证次关键维度接受度。",
+          "options": [],
+          "scale_min": 1,
+          "scale_max": 5,
+          "required": true,
+          "field_refs": [
+            "field_02_90b78f"
+          ]
+        },
+        {
+          "question_id": "q9_tertiary_dimension",
+          "question_type": "scale",
+          "title": "在您看来，“音视频编解码技术”对选择这类产品的重要程度如何？",
+          "intent": "验证第三关键维度重要性。",
+          "options": [],
+          "scale_min": 1,
+          "scale_max": 5,
+          "required": true,
+          "field_refs": [
+            "field_03_e4a55c"
+          ]
+        },
+        {
+          "question_id": "q10_quaternary_dimension",
+          "question_type": "scale",
+          "title": "如果两款产品功能接近，您会因为“网络传输协议”表现更好而优先选择它吗？",
+          "intent": "验证第四关键维度偏好影响。",
+          "options": [],
+          "scale_min": 1,
+          "scale_max": 5,
+          "required": true,
+          "field_refs": [
+            "field_04_e92c63"
+          ]
+        },
+        {
+          "question_id": "q11_dimension_comment",
+          "question_type": "open_text",
+          "title": "请举例说明：在功能、价格、体验或服务中，哪些地方最影响您的判断？",
+          "intent": "收集更细的主观解释。",
+          "options": [],
+          "scale_min": null,
+          "scale_max": null,
+          "required": false,
+          "field_refs": [
+            "field_01_6bcf8e",
+            "field_02_90b78f",
+            "field_03_e4a55c",
+            "field_04_e92c63"
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "decision_barrier_opportunity",
+      "title": "四、选择顾虑与改进建议",
+      "objective": "了解用户在选择产品时的顾虑与期待。",
+      "questions": [
+        {
+          "question_id": "q12_barrier",
+          "question_type": "multiple_choice",
+          "title": "如果让您在 腾讯会议、飞书会议、Zoom 之间做选择，您最大的顾虑通常是什么？",
+          "intent": "识别转化阻碍。",
+          "options": [
+            "价格或预算压力",
+            "核心功能不满足",
+            "学习成本高",
+            "稳定性或信任问题",
+            "迁移成本高",
+            "其他"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": [
+            "field_02_90b78f"
+          ]
+        },
+        {
+          "question_id": "q13_purchase_driver",
+          "question_type": "multiple_choice",
+          "title": "如果一款产品明显优于其他方案，最可能打动您付费或升级的因素是什么？",
+          "intent": "识别促成转化的关键因素。",
+          "options": [
+            "更稳定可靠",
+            "功能更完整",
+            "AI 辅助更实用",
+            "集成更顺畅",
+            "价格更合适",
+            "服务更专业"
+          ],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": [
+            "field_01_6bcf8e",
+            "field_02_90b78f"
+          ]
+        },
+        {
+          "question_id": "q14_opportunity",
+          "question_type": "open_text",
+          "title": "如果有一款产品能更好满足您的需求，您最希望它优先改进什么？",
+          "intent": "提炼产品机会点。",
+          "options": [],
+          "scale_min": null,
+          "scale_max": null,
+          "required": true,
+          "field_refs": [
+            "field_01_6bcf8e",
+            "field_02_90b78f",
+            "field_03_e4a55c",
+            "field_04_e92c63"
+          ]
+        }
+      ]
+    }
+  ],
+  "closing_message": "感谢您的填写！您的反馈将帮助我们更准确理解用户对竞品的真实认知与选择逻辑。",
+  "markdown": "# Online Meeting用户调研问卷\n\n目标用户：竞品相关潜在用户或现有用户\n调研目标：验证竞品差异点、用户感知与转化障碍\n预计时长：8 分钟\n\n您好！我们正在进行一项竞品分析调研，希望了解您对相关产品的认知、使用体验和选择偏好。问卷预计 6-8 分钟完成，感谢您的支持。\n\n## 一、受访者背景与当前使用情况\n\n1. 您当前主要使用哪一款产品或方案来满足这类需求？\n   - 选项：\n     - 腾讯会议\n     - 飞书会议\n     - Zoom\n\n2. 您使用这类产品的频率大致如何？\n   - 选项：\n     - 每天都会使用\n     - 每周多次\n     - 偶尔使用\n     - 目前仅了解未使用\n\n3. 您通常会在什么场景下使用这类产品？\n   - 选项：\n     - 团队例会\n     - 客户沟通\n     - 跨地域协作\n     - 培训宣讲\n     - 大型活动/直播\n     - 其他\n\n## 二、竞品认知与选择\n\n1. 在以下产品中，您听说过或评估过哪些？\n   - 选项：\n     - 腾讯会议\n     - 飞书会议\n     - Zoom\n\n2. 如果您最终选择了某款产品，最主要的原因是什么？\n\n3. 如果未来需要更换产品，您最可能优先考虑哪一类替代方案？\n   - 选项：\n     - 腾讯会议\n     - 飞书会议\n     - Zoom\n\n## 三、产品体验感知\n\n1. 从您的实际感受看，您对产品在“功能体系”方面的满意度如何？\n   - 请按 1 到 5 分进行评价\n\n2. 如果需要长期使用，您对“会议稳定性”方面的接受度如何？\n   - 请按 1 到 5 分进行评价\n\n3. 在您看来，“音视频编解码技术”对选择这类产品的重要程度如何？\n   - 请按 1 到 5 分进行评价\n\n4. 如果两款产品功能接近，您会因为“网络传输协议”表现更好而优先选择它吗？\n   - 请按 1 到 5 分进行评价\n\n5. 请举例说明：在功能、价格、体验或服务中，哪些地方最影响您的判断？\n\n## 四、选择顾虑与改进建议\n\n1. 如果让您在 腾讯会议、飞书会议、Zoom 之间做选择，您最大的顾虑通常是什么？\n   - 选项：\n     - 价格或预算压力\n     - 核心功能不满足\n     - 学习成本高\n     - 稳定性或信任问题\n     - 迁移成本高\n     - 其他\n\n2. 如果一款产品明显优于其他方案，最可能打动您付费或升级的因素是什么？\n   - 选项：\n     - 更稳定可靠\n     - 功能更完整\n     - AI 辅助更实用\n     - 集成更顺畅\n     - 价格更合适\n     - 服务更专业\n\n3. 如果有一款产品能更好满足您的需求，您最希望它优先改进什么？\n\n---\n\n感谢您的填写！您的反馈将帮助我们更准确理解用户对竞品的真实认知与选择逻辑。"
+}
