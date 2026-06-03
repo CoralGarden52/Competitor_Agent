@@ -217,6 +217,29 @@ def test_normalize_dynamic_schema_preserves_comparison_corpus_refs() -> None:
     assert deployment['corpus_refs'] == ['corpus_a']
 
 
+def test_normalize_dynamic_schema_never_trims_core_fields() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    raw_plan = [
+        {
+            'field_name': f'dynamic_field_{index}',
+            'query_templates': [f'{{product}} dynamic field {index}'],
+            'recommended_sources': ['public_web'],
+            'priority': index,
+        }
+        for index in range(1, 15)
+    ]
+
+    plan = planner._normalize_dynamic_schema(raw_plan)  # type: ignore[attr-defined]
+    fields = [item['field_name'] for item in plan]
+
+    assert len(plan) == 12
+    assert fields[: len(CORE_DYNAMIC_FIELDS)] == CORE_DYNAMIC_FIELDS
+    assert set(CORE_DYNAMIC_FIELDS).issubset(set(fields))
+    assert 'pricing_model' in fields
+    assert len([field for field in fields if field.startswith('dynamic_field_')]) == 7
+
+
 def test_parse_json_content_plain_json() -> None:
     parsed = PlannerLLMClient._parse_json_content('{"ok": true, "k": "v"}')
     assert parsed['ok'] is True

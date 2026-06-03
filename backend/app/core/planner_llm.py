@@ -1904,7 +1904,7 @@ class PlannerLLMClient:
         return output
 
     def _normalize_dynamic_schema(self, raw_plan: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        cleaned: list[dict[str, Any]] = []
+        cleaned_by_field: dict[str, dict[str, Any]] = {}
         seen: set[str] = set()
         for item in raw_plan:
             if not isinstance(item, dict):
@@ -1920,24 +1920,37 @@ class PlannerLLMClient:
             if not isinstance(sources, list):
                 sources = []
             rs = [self._repair_mojibake(str(x).strip().lower()) for x in sources if str(x).strip()]
-            priority = int(item.get('priority', len(cleaned) + 1))
+            priority = int(item.get('priority', len(cleaned_by_field) + 1))
             corpus_refs = [str(x).strip() for x in item.get('corpus_refs', []) if str(x).strip()] if isinstance(item.get('corpus_refs', []), list) else []
-            cleaned.append({'field_name': field_name, 'query_templates': q[:4], 'recommended_sources': rs[:5], 'priority': priority, 'corpus_refs': corpus_refs[:12]})
+            cleaned_by_field[field_name] = {'field_name': field_name, 'query_templates': q[:4], 'recommended_sources': rs[:5], 'priority': priority, 'corpus_refs': corpus_refs[:12]}
 
-        # Ensure core fields always exist.
+        # Ensure core fields always exist and are never trimmed by the dynamic-field limit.
         for field_name in CORE_DYNAMIC_FIELDS:
-            if field_name in seen:
+            if field_name in cleaned_by_field:
                 continue
             default_q = self._default_query_templates_for_field(field_name)
             default_sources = ['community', 'review'] if field_name == 'user_feedback' else ['official', 'public_web']
-            cleaned.append(
-                {'field_name': field_name, 'query_templates': default_q, 'recommended_sources': default_sources, 'priority': len(cleaned) + 1}
-            )
+            cleaned_by_field[field_name] = {
+                'field_name': field_name,
+                'query_templates': default_q,
+                'recommended_sources': default_sources,
+                'priority': len(cleaned_by_field) + 1,
+                'corpus_refs': [],
+            }
 
-        cleaned.sort(key=lambda x: int(x.get('priority', 999)))
+        core_fields = [cleaned_by_field[field_name] for field_name in CORE_DYNAMIC_FIELDS]
+        core_set = set(CORE_DYNAMIC_FIELDS)
+        dynamic_fields = [
+            item
+            for field_name, item in cleaned_by_field.items()
+            if field_name not in core_set
+        ]
+        dynamic_fields.sort(key=lambda x: int(x.get('priority', 999)))
+
+        cleaned = core_fields + dynamic_fields[: max(0, 12 - len(core_fields))]
         for index, item in enumerate(cleaned, start=1):
             item['priority'] = index
-        return cleaned[:12]
+        return cleaned
 
     def _normalize_extra_schema(self, raw_plan: list[dict[str, Any]], *, core_schema_fields: list[str]) -> list[dict[str, Any]]:
         core_set = {str(x).strip().lower() for x in core_schema_fields if str(x).strip()}
