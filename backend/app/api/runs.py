@@ -8,6 +8,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel, Field
 
+from app.core.agent_llm import LLMCallError
 from app.core.deps import get_service
 from app.core.models import RunRequest, RunResponse, RunSummary
 from app.core.workflow import CompetitorWorkflowService
@@ -18,6 +19,11 @@ router = APIRouter(prefix='/runs', tags=['runs'])
 class TaskSummaryRequest(BaseModel):
     text: str = Field(min_length=1)
     language: str = 'zh-CN'
+
+
+class QuestionnaireDesignRequest(BaseModel):
+    target_audience: str = '竞品相关潜在用户或现有用户'
+    objective: str = '验证竞品差异点、用户感知与转化障碍'
 
 
 @router.post('', response_model=RunResponse)
@@ -106,6 +112,28 @@ def download_report_markdown(run_id: str, service: CompetitorWorkflowService = D
         media_type='text/markdown; charset=utf-8',
         headers={'Content-Disposition': f'attachment; filename="{filename}"'},
     )
+
+
+@router.post('/{run_id}/questionnaire')
+def design_questionnaire(
+    run_id: str,
+    payload: QuestionnaireDesignRequest = Body(default_factory=QuestionnaireDesignRequest),
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> dict:
+    try:
+        design = service.design_questionnaire_from_report(
+            run_id,
+            target_audience=payload.target_audience,
+            objective=payload.objective,
+        )
+    except LLMCallError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    if design is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='report not found')
+    return design.model_dump(mode='json')
 
 
 @router.get('/{run_id}/stream')

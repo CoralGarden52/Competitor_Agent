@@ -1121,6 +1121,12 @@ body {
   border-radius: 10px;
   padding: 8px 12px;
   font-size: 13px;
+  cursor: pointer;
+}
+
+.report-download-btn:disabled {
+  opacity: 0.56;
+  cursor: not-allowed;
 }
 
 .report-preview-overlay {
@@ -1153,7 +1159,9 @@ body {
 .report-preview-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .report-preview-icon-btn {
@@ -1168,8 +1176,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 12px;
-  font-size: 22px;
-  line-height: 1;
+  font-size: 13px;
+  line-height: 1.2;
   text-decoration: none;
 }
 
@@ -1205,6 +1213,21 @@ body {
   color: #2f4365;
   font-size: 14px;
   line-height: 1.6;
+}
+
+.report-preview-editor {
+  width: 100%;
+  min-height: calc(100vh - 96px);
+  border: 1px solid rgba(126, 156, 212, 0.34);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #2f4365;
+  padding: 16px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
 }
 
 .reference-section details > summary {

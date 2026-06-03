@@ -121,6 +121,43 @@ def test_replay_endpoint_includes_handoffs() -> None:
     assert isinstance(node_body['handoffs'], list)
 
 
+def test_questionnaire_endpoint_from_report() -> None:
+    app = create_app()
+    client = TestClient(app)
+    payload = {
+        'industry': 'saas',
+        'competitors': ['alpha'],
+        'language': 'zh-CN',
+        'timeframe': 'last_12_months',
+    }
+    create_resp = client.post('/runs', json=payload)
+    assert create_resp.status_code == 200
+    run_id = create_resp.json()['state']['run_id']
+
+    final_body = create_resp.json()
+    for _ in range(40):
+        final_body = client.get(f'/runs/{run_id}').json()
+        if final_body['state']['status'] in ('completed', 'failed'):
+            break
+        time.sleep(0.05)
+
+    questionnaire_resp = client.post(
+        f'/runs/{run_id}/questionnaire',
+        json={
+            'target_audience': 'AI 产品潜在购买者',
+            'objective': '验证竞品差异与购买决策因素',
+        },
+    )
+    assert questionnaire_resp.status_code == 200
+    body = questionnaire_resp.json()
+    assert body['title'].strip()
+    assert body['target_audience'] == 'AI 产品潜在购买者'
+    assert body['objective'] == '验证竞品差异与购买决策因素'
+    assert isinstance(body['sections'], list)
+    assert len(body['sections']) == 4
+    assert body['markdown'].strip()
+
+
 def test_runs_replay_workspace_export_include_tool_events_agent_aggregation() -> None:
     app = create_app()
     client = TestClient(app)

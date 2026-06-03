@@ -252,6 +252,47 @@ class Report(BaseModel):
     html: str = ''
 
 
+class QuestionnaireQuestion(BaseModel):
+    question_id: str
+    question_type: Literal['single_choice', 'multiple_choice', 'scale', 'open_text', 'matrix'] = 'open_text'
+    title: str
+    intent: str = ''
+    options: list[str] = Field(default_factory=list)
+    scale_min: int | None = None
+    scale_max: int | None = None
+    required: bool = True
+    field_refs: list[str] = Field(default_factory=list)
+
+
+class QuestionnaireSection(BaseModel):
+    section_id: str
+    title: str
+    objective: str = ''
+    questions: list[QuestionnaireQuestion] = Field(default_factory=list)
+
+
+class QuestionnaireDesign(BaseModel):
+    title: str
+    target_audience: str
+    objective: str
+    introduction: str
+    estimated_minutes: int = 8
+    sections: list[QuestionnaireSection] = Field(default_factory=list)
+    closing_message: str = ''
+    markdown: str = ''
+
+
+class QuestionnaireSignalChunk(BaseModel):
+    chunk_id: str
+    chunk_title: str
+    key_points: list[str] = Field(default_factory=list)
+    candidate_dimensions: list[str] = Field(default_factory=list)
+    candidate_questions: list[str] = Field(default_factory=list)
+    user_phrases: list[str] = Field(default_factory=list)
+    decision_factors: list[str] = Field(default_factory=list)
+    risk_points: list[str] = Field(default_factory=list)
+
+
 class ReworkIssue(BaseModel):
     code: str
     message: str

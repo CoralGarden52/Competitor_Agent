@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
-from app.agents import AnalystAgent, CollectorAgent, OrchestratorAgent, QACriticAgent, WriterAgent
+from app.agents import AnalystAgent, CollectorAgent, OrchestratorAgent, QACriticAgent, QuestionnaireAgent, WriterAgent
 from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.approval_policy_engine import ApprovalPolicyEngine, PolicyContext
 from app.core.collector import CollectorPipeline
@@ -42,6 +42,7 @@ from app.core.models import (
     ProposalReviewRequest,
     ProposalStatus,
     QAOutput,
+    QuestionnaireDesign,
     ReworkIssue,
     ReworkTicket,
     Report,
@@ -91,6 +92,7 @@ class CompetitorWorkflowService:
         self.collector_agent = CollectorAgent(self.collector, self.store, deep_dive=self.deep_dive)
         self.analyst_agent = AnalystAgent(self.agent_llm, self.store)
         self.writer_agent = WriterAgent(self.agent_llm)
+        self.questionnaire_agent = QuestionnaireAgent(self.agent_llm)
         self.qa_critic_agent = QACriticAgent(self.agent_llm, self.store)
         self.runtime = WorkflowLangGraphRuntime(self)
         for hook_point in ('before_llm', 'before_tool', 'after_tool', 'after_stage', 'on_error'):
@@ -309,6 +311,28 @@ class CompetitorWorkflowService:
         events = self.list_run_events(run_id)
         manual_interventions = self.store.list_manual_interventions(run_id)
         return self._build_workspace_payload(run=run, replay=replay, events=events, manual_interventions=manual_interventions)
+
+    def design_questionnaire_from_report(
+        self,
+        run_id: str,
+        *,
+        target_audience: str = '竞品相关潜在用户或现有用户',
+        objective: str = '验证竞品差异点、用户感知与转化障碍',
+    ) -> QuestionnaireDesign | None:
+        run = self.get_run(run_id)
+        if run is None:
+            return None
+        state = run.state
+        if state.report is None or not str(state.report.markdown or '').strip():
+            return None
+        design = self.questionnaire_agent.run_llm(
+            state,
+            target_audience=target_audience,
+            objective=objective,
+        )
+        if not str(design.markdown or '').strip():
+            design.markdown = self.questionnaire_agent._markdown_from_design(design)
+        return design
 
     def export_run_logs(self, run_id: str) -> dict[str, object]:
         run = self.get_run(run_id)

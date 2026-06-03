@@ -132,6 +132,38 @@ class AgentLLMClient:
             token_tracker=token_tracker,
         )
 
+    def invoke_text(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        network_retries: int | None = None,
+        temperature: float = 0.2,
+    ) -> str:
+        if not self.enabled():
+            raise LLMCallError(
+                reason='llm_not_configured',
+                message='LLM is not configured: missing OPENAI_API_KEY/OPENAI_BASE_URL/OPENAI_MODEL',
+                attempt_count=0,
+                retry_count_used=0,
+            )
+
+        messages = [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
+        ]
+        return self._invoke_text_with_messages(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+            messages=messages,
+            network_retries=network_retries,
+            temperature=temperature,
+        )
+
     def invoke_json_multimodal(
         self,
         *,
@@ -309,6 +341,125 @@ class AgentLLMClient:
                     )
                     _finish_trace(trace_span, {'parsed_response': parsed})
                     return parsed
+                except LLMCallError as exc:
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=exc.reason,
+                        error_message=str(exc),
+                    )
+                    last_exc = exc
+                    last_reason = exc.reason
+                    if idx < attempts - 1 and _is_retryable_reason(exc.reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+                except Exception as exc:
+                    if exc.__class__.__name__ == 'SubagentBudgetExceeded':
+                        raise
+                    reason = _classify_error(exc)
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=reason,
+                        error_message=str(exc),
+                    )
+                    last_exc = exc
+                    last_reason = reason
+                    if idx < attempts - 1 and _is_retryable_reason(reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+
+        message = f'LLM call failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM call failed'
+        self._emit_hook(
+            'on_error',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={},
+            error={'reason': last_reason, 'message': message},
+        )
+        raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
+
+    def _invoke_text_with_messages(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        messages: list[dict[str, Any]],
+        network_retries: int | None,
+        temperature: float,
+    ) -> str:
+        self._emit_hook(
+            'before_llm',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={'user_payload': user_payload, 'temperature': temperature},
+        )
+        retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
+        attempts = retries + 1
+
+        runtime = get_tracing_runtime()
+        base_url = self.config.openai_base_url.rstrip('/')
+        url = f'{base_url}/chat/completions'
+        payload = {
+            'model': self.config.openai_model,
+            'messages': messages,
+            'temperature': temperature,
+        }
+
+        last_exc: Exception | None = None
+        last_reason = 'unknown'
+
+        trace_ctx = _trace_ctx(
+            name=trace_name,
+            inputs=user_payload,
+            metadata={'model': self.config.openai_model, **metadata},
+            project=runtime.project,
+            client=runtime.client,
+            enabled=runtime.langsmith_enabled,
+        )
+
+        with trace_ctx as trace_span:
+            for idx in range(attempts):
+                started_at = time.time()
+                try:
+                    data = self._post_chat_completion(url=url, payload=payload)
+                    choices = data.get('choices', [])
+                    if not choices:
+                        raise LLMCallError(
+                            reason='empty_choices',
+                            message='LLM response missing choices',
+                            attempt_count=idx + 1,
+                            retry_count_used=idx,
+                        )
+                    content = str((choices[0].get('message') or {}).get('content', '') or '')
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response=data,
+                        parsed_response={'text': content},
+                        status='completed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                    )
+                    _finish_trace(trace_span, {'text': content})
+                    return content
                 except LLMCallError as exc:
                     self._record_llm_trace(
                         trace_name=trace_name,
