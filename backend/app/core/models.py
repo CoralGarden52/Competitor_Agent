@@ -446,6 +446,7 @@ class RunState(BaseModel):
     findings: list[Finding] = Field(default_factory=list)
     report: Report | None = None
     questionnaire: QuestionnaireDesign | None = None
+    questionnaire_export: dict[str, Any] = Field(default_factory=dict)
     tickets: list[ReworkTicket] = Field(default_factory=list)
     self_eval: dict[str, SelfEval] = Field(default_factory=dict)
     schema_evolution_proposals: list[SchemaEvolutionProposal] = Field(default_factory=list)

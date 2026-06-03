@@ -85,10 +85,22 @@ class AppConfig(BaseSettings):
     subagent_timeout_seconds: int = Field(default=90, ge=5, le=600)
     subagent_max_concurrency: int = Field(default=3, ge=1, le=12)
     subagent_max_tasks_per_collect: int = Field(default=12, ge=1, le=100)
+    wjx_api_key: str = ''
+    wjx_base_url: str = 'https://www.wjx.cn'
+    wjx_cli_path: str = 'wjx'
+    wjx_export_enabled: bool = False
+    wjx_export_publish: bool = True
+    wjx_export_timeout_sec: int = Field(default=90, ge=5, le=600)
+    wjx_export_dir: str = '.data/wjx_exports'
 
     @property
     def sqlite_path_obj(self) -> Path:
         path = Path(self.sqlite_path)
+        return path if path.is_absolute() else _PROJECT_ROOT / path
+
+    @property
+    def wjx_export_dir_obj(self) -> Path:
+        path = Path(self.wjx_export_dir)
         return path if path.is_absolute() else _PROJECT_ROOT / path
 
     def has_openai_config(self) -> bool:

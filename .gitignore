@@ -61,3 +61,5 @@ frontend/node_modules/
 # Test outputs
 pytestdebug.log
 tsconfig.tsbuildinfo
+harness实现.md
+collector_exports/

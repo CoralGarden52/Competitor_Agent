@@ -64,3 +64,13 @@ AGENT_LLM_RETRY_BACKOFF_MS=400
 AGENT_LLM_RETRY_MAX_BACKOFF_MS=2000
 AGENT_LLM_FALLBACK_ENABLED=true
 AGENT_LLM_FALLBACK_ON_VALIDATION_ERROR=true
+
+# Wenjuanxing / WJX export
+# Requires Node.js >= 20 and wjx-cli: npm install -g wjx-cli
+WJX_EXPORT_ENABLED=false
+WJX_API_KEY=your_wjx_api_key_here
+WJX_BASE_URL=https://www.wjx.cn
+WJX_CLI_PATH=wjx
+WJX_EXPORT_PUBLISH=true
+WJX_EXPORT_TIMEOUT_SEC=90
+WJX_EXPORT_DIR=.data/wjx_exports

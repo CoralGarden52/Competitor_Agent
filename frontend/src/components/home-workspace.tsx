@@ -15,6 +15,7 @@ import type {
   WorkspaceEvent,
   WorkspacePayload,
   WorkspaceQuestionnaire,
+  WorkspaceQuestionnaireExport,
 } from "@/components/workspace-types";
 
 type ViewMode = "welcome" | "workspace";
@@ -169,6 +170,8 @@ export function HomeWorkspace() {
   const [isGeneratingQuestionnaire, setIsGeneratingQuestionnaire] = useState(false);
   const [isSavingReport, setIsSavingReport] = useState(false);
   const [isSavingQuestionnaire, setIsSavingQuestionnaire] = useState(false);
+  const [isExportingQuestionnaire, setIsExportingQuestionnaire] = useState(false);
+  const [questionnaireExport, setQuestionnaireExport] = useState<WorkspaceQuestionnaireExport | null>(null);
   const [questionnaireDraft, setQuestionnaireDraft] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -201,6 +204,7 @@ export function HomeWorkspace() {
     ? questionnaireDraft
     : questionnaireDraft || workspaceData?.questionnaire?.markdown || "";
   const hasQuestionnaire = Boolean(workspaceData?.questionnaire?.markdown?.trim());
+  const currentQuestionnaireExport = questionnaireExport || workspaceData?.questionnaire_export || null;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -234,6 +238,10 @@ export function HomeWorkspace() {
     if (isEditingQuestionnaire) return;
     setQuestionnaireDraft(workspaceData?.questionnaire?.markdown || "");
   }, [workspaceData?.run?.run_id, workspaceData?.questionnaire?.markdown, isEditingQuestionnaire]);
+
+  useEffect(() => {
+    setQuestionnaireExport(workspaceData?.questionnaire_export || null);
+  }, [workspaceData?.run?.run_id, workspaceData?.questionnaire_export]);
 
   function nowIso() {
     return new Date().toISOString();
@@ -343,6 +351,7 @@ export function HomeWorkspace() {
   }
 
   function syncQuestionnaireSnapshot(runId: string, questionnaire: WorkspaceQuestionnaire) {
+    setQuestionnaireExport(null);
     setWorkspaceData((previous) => {
       if (!previous) return previous;
       return {
@@ -351,6 +360,7 @@ export function HomeWorkspace() {
           ...(previous.questionnaire || {}),
           ...questionnaire,
         },
+        questionnaire_export: null,
       };
     });
     setSessions((previous) =>
@@ -365,6 +375,30 @@ export function HomeWorkspace() {
               ...(session.workspace_snapshot.questionnaire || {}),
               ...questionnaire,
             },
+            questionnaire_export: null,
+          },
+        };
+      })
+    );
+  }
+
+  function syncQuestionnaireExportSnapshot(runId: string, exportResult: WorkspaceQuestionnaireExport) {
+    setWorkspaceData((previous) => {
+      if (!previous) return previous;
+      return {
+        ...previous,
+        questionnaire_export: exportResult,
+      };
+    });
+    setSessions((previous) =>
+      previous.map((session) => {
+        if (session.active_run_id !== runId || !session.workspace_snapshot) return session;
+        return {
+          ...session,
+          updated_at: nowIso(),
+          workspace_snapshot: {
+            ...session.workspace_snapshot,
+            questionnaire_export: exportResult,
           },
         };
       })
@@ -453,6 +487,29 @@ export function HomeWorkspace() {
       setError(message);
     } finally {
       setIsSavingQuestionnaire(false);
+    }
+  }
+
+  async function handleExportQuestionnaireToWjx() {
+    const runId = activeRunIdRef.current;
+    if (!runId) return;
+    setError("");
+    setIsExportingQuestionnaire(true);
+    try {
+      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire/export/wenjuan`), {
+        method: "POST",
+      });
+      const payload = (await response.json().catch(() => ({}))) as WorkspaceQuestionnaireExport & { detail?: string };
+      if (!response.ok) {
+        throw new Error(payload.detail || "导出到问卷星失败，请稍后重试。");
+      }
+      setQuestionnaireExport(payload);
+      syncQuestionnaireExportSnapshot(runId, payload);
+    } catch (exportError) {
+      const message = exportError instanceof Error ? exportError.message : "导出到问卷星失败，请稍后重试。";
+      setError(message);
+    } finally {
+      setIsExportingQuestionnaire(false);
     }
   }
 
@@ -1355,6 +1412,24 @@ export function HomeWorkspace() {
                           >
                             下载
                           </button>
+                          <button
+                            type="button"
+                            className="report-download-btn"
+                            onClick={() => void handleExportQuestionnaireToWjx()}
+                            disabled={isExportingQuestionnaire || !currentQuestionnaireContent.trim()}
+                          >
+                            {isExportingQuestionnaire ? "导出中..." : "导出到问卷星"}
+                          </button>
+                          {currentQuestionnaireExport?.url ? (
+                            <a
+                              className="report-download-btn"
+                              href={currentQuestionnaireExport.url}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              打开问卷星
+                            </a>
+                          ) : null}
                         </section>
                       ) : null}
 
@@ -1513,6 +1588,24 @@ export function HomeWorkspace() {
                     >
                       下载
                     </button>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={() => void handleExportQuestionnaireToWjx()}
+                      disabled={isExportingQuestionnaire || !currentQuestionnaireContent.trim()}
+                    >
+                      {isExportingQuestionnaire ? "导出中..." : "导出到问卷星"}
+                    </button>
+                    {currentQuestionnaireExport?.url ? (
+                      <a
+                        className="report-preview-icon-btn"
+                        href={currentQuestionnaireExport.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        打开问卷星
+                      </a>
+                    ) : null}
                   </>
                 ) : (
                   <>

@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 from app.core.deps import get_service
 from app.core.models import EventRecord, QuestionnaireDesign, Report, RunState, StageName
 from app.core.config import get_config
+from app.core.wjx_export import WjxCliError
 from app.main import create_app
 
 
@@ -337,6 +338,132 @@ def test_update_questionnaire_markdown_endpoint_404_for_missing_questionnaire() 
     response = client.patch(f'/runs/{state.run_id}/questionnaire', json={'markdown': '# Updated'})
 
     assert response.status_code == 404
+
+
+def test_export_questionnaire_to_wenjuan_404_for_missing_run() -> None:
+    app = create_app()
+    client = TestClient(app)
+
+    response = client.post('/runs/run_missing_wjx_export/questionnaire/export/wenjuan')
+
+    assert response.status_code == 404
+
+
+def test_export_questionnaire_to_wenjuan_404_for_missing_questionnaire() -> None:
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    state = RunState(industry='saas', competitors=['alpha'], status='completed')
+    service.store.save_state(state)
+
+    response = client.post(f'/runs/{state.run_id}/questionnaire/export/wenjuan')
+
+    assert response.status_code == 404
+
+
+def test_export_questionnaire_to_wenjuan_503_when_disabled(monkeypatch) -> None:  # noqa: ANN001
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    monkeypatch.setattr(service.config, 'wjx_export_enabled', False)
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        questionnaire=QuestionnaireDesign(
+            title='Questionnaire',
+            target_audience='users',
+            objective='learn',
+            introduction='intro',
+            markdown='# Questionnaire\n\n1. Question?\nA. Yes\nB. No',
+        ),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    response = client.post(f'/runs/{state.run_id}/questionnaire/export/wenjuan')
+
+    assert response.status_code == 503
+    assert 'WJX_EXPORT_ENABLED' in response.json()['detail']
+
+
+def test_export_questionnaire_to_wenjuan_success_persists_result(monkeypatch) -> None:  # noqa: ANN001
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    monkeypatch.setattr(service.config, 'wjx_export_enabled', True)
+    monkeypatch.setattr(service.config, 'wjx_api_key', 'test-secret-key')
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        questionnaire=QuestionnaireDesign(
+            title='Questionnaire',
+            target_audience='users',
+            objective='learn',
+            introduction='intro',
+            markdown='# Questionnaire\n\n1. Question?\nA. Yes\nB. No',
+        ),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    def fake_export_questionnaire_with_wjx_cli(**kwargs):  # noqa: ANN003
+        assert kwargs['run_id'] == state.run_id
+        assert kwargs['api_key'] == 'test-secret-key'
+        return {
+            'provider': 'wjx',
+            'status': 'success',
+            'title': kwargs['title'],
+            'url': 'https://www.wjx.cn/vm/test.aspx',
+            'vid': 'test_vid',
+            'exported_at': '2026-06-03T00:00:00+00:00',
+            'jsonl_path': 'exports/questionnaire.jsonl',
+            'raw_response': {'url': 'https://www.wjx.cn/vm/test.aspx'},
+        }
+
+    monkeypatch.setattr('app.core.workflow.export_questionnaire_with_wjx_cli', fake_export_questionnaire_with_wjx_cli)
+
+    response = client.post(f'/runs/{state.run_id}/questionnaire/export/wenjuan')
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body['url'] == 'https://www.wjx.cn/vm/test.aspx'
+    get_response = client.get(f'/runs/{state.run_id}')
+    assert get_response.status_code == 200
+    assert get_response.json()['state']['questionnaire_export']['vid'] == 'test_vid'
+    workspace_response = client.get(f'/runs/{state.run_id}/workspace')
+    assert workspace_response.status_code == 200
+    assert workspace_response.json()['questionnaire_export']['url'] == 'https://www.wjx.cn/vm/test.aspx'
+
+
+def test_export_questionnaire_to_wenjuan_cli_failure_redacts_error(monkeypatch) -> None:  # noqa: ANN001
+    app = create_app()
+    client = TestClient(app)
+    service = get_service()
+    monkeypatch.setattr(service.config, 'wjx_export_enabled', True)
+    monkeypatch.setattr(service.config, 'wjx_api_key', 'test-secret-key')
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        questionnaire=QuestionnaireDesign(
+            title='Questionnaire',
+            target_audience='users',
+            objective='learn',
+            introduction='intro',
+            markdown='# Questionnaire\n\n1. Question?\nA. Yes\nB. No',
+        ),
+        status='completed',
+    )
+    service.store.save_state(state)
+
+    def fake_export_questionnaire_with_wjx_cli(**kwargs):  # noqa: ANN003
+        raise WjxCliError('问卷星 CLI 导出失败：API key *** rejected')
+
+    monkeypatch.setattr('app.core.workflow.export_questionnaire_with_wjx_cli', fake_export_questionnaire_with_wjx_cli)
+
+    response = client.post(f'/runs/{state.run_id}/questionnaire/export/wenjuan')
+
+    assert response.status_code == 502
+    assert 'test-secret-key' not in response.json()['detail']
 
 
 def test_runs_replay_workspace_export_include_tool_events_agent_aggregation() -> None:

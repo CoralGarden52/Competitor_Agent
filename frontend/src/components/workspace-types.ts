@@ -204,6 +204,15 @@ export type WorkspaceQuestionnaire = {
   markdown?: string;
 };
 
+export type WorkspaceQuestionnaireExport = {
+  provider?: string;
+  status?: string;
+  title?: string;
+  url?: string;
+  vid?: string;
+  exported_at?: string;
+};
+
 export type EvidenceItem = {
   title?: string;
   source_url?: string;
@@ -241,6 +250,7 @@ export type WorkspacePayload = {
   qa?: WorkspaceQa;
   report?: WorkspaceReport;
   questionnaire?: WorkspaceQuestionnaire | null;
+  questionnaire_export?: WorkspaceQuestionnaireExport | null;
   artifacts?: WorkspaceArtifacts;
   todo_plan?: Record<string, unknown>;
   observability?: WorkspaceObservability;

@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from app.core.agent_llm import LLMCallError
 from app.core.deps import get_service
 from app.core.models import QuestionnaireDesign, RunRequest, RunResponse, RunSummary
+from app.core.wjx_export import QuestionnaireExportError
 from app.core.workflow import CompetitorWorkflowService
 
 router = APIRouter(prefix='/runs', tags=['runs'])
@@ -178,6 +179,29 @@ def update_questionnaire_markdown(
             raise HTTPException(status_code=404, detail='run not found')
         raise HTTPException(status_code=404, detail='questionnaire not found')
     return updated
+
+
+@router.post('/{run_id}/questionnaire/export/wenjuan')
+def export_questionnaire_to_wenjuan(
+    run_id: str,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> dict[str, object]:
+    try:
+        result = service.export_questionnaire_to_wenjuan(run_id)
+    except QuestionnaireExportError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
+    if result is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    if not result:
+        raise HTTPException(status_code=404, detail='questionnaire not found')
+    return {
+        'provider': result.get('provider', 'wjx'),
+        'status': result.get('status', ''),
+        'title': result.get('title', ''),
+        'url': result.get('url', ''),
+        'vid': result.get('vid', ''),
+        'exported_at': result.get('exported_at', ''),
+    }
 
 
 @router.get('/{run_id}/stream')
