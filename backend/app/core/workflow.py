@@ -331,7 +331,26 @@ class CompetitorWorkflowService:
             and not bool(state.planner_meta.get('qa_collect_round_used', False))
         )
 
-        if report_ready and decision.action_type != ActionType.run_qa:
+        last_qa_checked = bool(state.planner_meta.get('last_qa_checked', False))
+        last_qa_passed = bool(state.planner_meta.get('last_qa_passed', False))
+        qa_collect_plan = state.planner_meta.get('qa_collect_plan') if isinstance(state.planner_meta, dict) else None
+        qa_collect_pending = isinstance(qa_collect_plan, dict) and bool(qa_collect_plan.get('enabled', False)) and not bool(state.planner_meta.get('qa_collect_round_used', False))
+        qa_reanalyze_targets = state.planner_meta.get('qa_reanalyze_targets') if isinstance(state.planner_meta, dict) else None
+        qa_reanalyze_pending = isinstance(qa_reanalyze_targets, dict) and any(
+            isinstance(fields, list) and fields for fields in qa_reanalyze_targets.values()
+        )
+        qa_collect_exhausted = last_qa_checked and not last_qa_passed and bool(state.planner_meta.get('qa_collect_round_used', False))
+        if report_ready and last_qa_passed and decision.action_type != ActionType.finalize_run:
+            replacement = (ActionType.finalize_run, 'Finalizer', 'content_first_report_qa_passed_to_finalize')
+        elif qa_reanalyze_pending and decision.action_type != ActionType.reanalyze_targets:
+            replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'content_first_qa_collect_to_reanalyze')
+        elif report_ready and last_qa_checked and not last_qa_passed and qa_collect_pending and decision.action_type != ActionType.collect_gap:
+            replacement = (ActionType.collect_gap, 'CollectorAgent', 'content_first_qa_failed_to_collect_gap')
+        elif report_ready and qa_collect_exhausted and not qa_reanalyze_pending and decision.action_type != ActionType.finalize_run:
+            replacement = (ActionType.finalize_run, 'Finalizer', 'qa_failed_collect_budget_exhausted_finalize_with_risk')
+        elif report_ready and not last_qa_passed and not qa_collect_exhausted and decision.action_type == ActionType.finalize_run:
+            replacement = (ActionType.run_qa, 'QACriticAgent', 'content_first_finalize_blocked_until_qa')
+        elif report_ready and not last_qa_checked and decision.action_type != ActionType.run_qa:
             replacement = (ActionType.run_qa, 'QACriticAgent', 'content_first_report_ready_to_qa')
         elif has_findings and decision.action_type != ActionType.redraft_report:
             replacement = (ActionType.redraft_report, 'WriterAgent', 'content_first_findings_to_draft')
@@ -1271,6 +1290,11 @@ class CompetitorWorkflowService:
             result = self._execute_draft_action(state, sections=sections)
         elif action_name == 'run_qa':
             qa_result = self._qa(state)
+            state.planner_meta['last_qa_checked'] = True
+            state.planner_meta['last_qa_passed'] = bool(qa_result.passed)
+            state.planner_meta['last_qa_issue_count'] = len(qa_result.issues)
+            if not qa_result.passed and qa_result.collect_plan is not None:
+                state.planner_meta['qa_collect_plan'] = qa_result.collect_plan.model_dump(mode='json')
             result = {
                 'status': 'completed',
                 'summary': 'qa completed' if qa_result.passed else 'qa flagged issues',
@@ -1279,6 +1303,12 @@ class CompetitorWorkflowService:
                 'next_hints': [qa_result.target_agent] if qa_result.target_agent else [],
             }
         elif action_name == 'finalize_run':
+            qa_passed = bool(state.planner_meta.get('last_qa_passed', False))
+            qa_issue_count = int(state.planner_meta.get('last_qa_issue_count', 0) or 0)
+            qa_finalize_with_risk = bool(state.planner_meta.get('last_qa_checked', False)) and not qa_passed
+            if qa_finalize_with_risk:
+                state.planner_meta['qa_exhausted'] = True
+                state.planner_meta['qa_finalize_with_risk'] = True
             self._finalize(state)
             state.status = 'completed'
             state.transition_reason = TransitionReason.completed
@@ -1286,7 +1316,13 @@ class CompetitorWorkflowService:
                 'status': 'completed',
                 'summary': 'run finalized',
                 'changed_fields': [],
-                'artifacts': {'ticket_count': len(state.tickets), 'report_ready': state.report is not None},
+                'artifacts': {
+                    'ticket_count': len(state.tickets),
+                    'report_ready': state.report is not None,
+                    'qa_passed': qa_passed,
+                    'qa_issue_count': qa_issue_count,
+                    'qa_finalize_with_risk': qa_finalize_with_risk,
+                },
                 'next_hints': [],
             }
         else:
@@ -1357,6 +1393,9 @@ class CompetitorWorkflowService:
         after_profiles = len(state.profiles)
         after_analysis_count = len(state.competitor_analyses)
         changed_fields = fields or [item.field_name for record in state.competitor_analyses for item in record.fields]
+        if 'qa_reanalyze_targets' in state.planner_meta:
+            state.planner_meta.pop('qa_reanalyze_targets', None)
+            state.planner_meta['qa_reanalyzed_after_collect'] = True
         next_hints = ['draft_report'] if after_findings > 0 else ['collect_gap']
         return {
             'status': 'completed',
@@ -1381,6 +1420,10 @@ class CompetitorWorkflowService:
         self._draft(state)
         after_ready = state.report is not None and bool(str(state.report.markdown if state.report else '').strip())
         after_sections = len(state.report.sections) if state.report else 0
+        if after_ready:
+            state.planner_meta['last_qa_checked'] = False
+            state.planner_meta['last_qa_passed'] = False
+            state.planner_meta['last_qa_issue_count'] = 0
         next_hints = ['finalize_run'] if after_ready else ['draft_report']
         return {
             'status': 'completed',

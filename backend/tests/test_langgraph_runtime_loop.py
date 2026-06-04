@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from app.core.langgraph_runtime import WorkflowLangGraphRuntime
-from app.core.models import QAOutput, RunState, StageName
+from app.core.models import ActionExecutionResult, ActionTarget, ActionType, ManagerDecision, QAOutput, RunState, StageName
 
 
 @dataclass
@@ -40,6 +40,15 @@ class _FakeService:
         self.calls: list[str] = []
         self.events: list[dict[str, Any]] = []
         self.qa_count = 0
+        self.actions = [
+            ActionType.plan_scope,
+            ActionType.collect_initial,
+            ActionType.normalize_evidence,
+            ActionType.reanalyze_targets,
+            ActionType.redraft_report,
+            ActionType.run_qa,
+            ActionType.finalize_run,
+        ]
 
     def _save_and_event(self, state: RunState, stage: StageName, event_type: str, payload: dict[str, Any]) -> None:  # noqa: ARG002
         self.events.append({'stage': stage.value, 'event_type': event_type, 'payload': payload, 'created_at': datetime.now(UTC).isoformat()})
@@ -81,6 +90,62 @@ class _FakeService:
         state.attempt += 1
         state.ticket_id = 'ticket_1'
 
+    def _manager_act(self, state: RunState) -> tuple[ManagerDecision, ActionExecutionResult]:
+        action_type = self.actions.pop(0)
+        target_agent = {
+            ActionType.plan_scope: 'OrchestratorAgent',
+            ActionType.collect_initial: 'CollectorAgent',
+            ActionType.normalize_evidence: 'Normalizer',
+            ActionType.reanalyze_targets: 'AnalystAgent',
+            ActionType.redraft_report: 'WriterAgent',
+            ActionType.run_qa: 'QACriticAgent',
+            ActionType.finalize_run: 'Finalizer',
+        }[action_type]
+        decision = ManagerDecision(
+            turn=state.turn_count,
+            action_type=action_type,
+            target_agent=target_agent,
+            targets=ActionTarget(),
+            reason='test_sequence',
+        )
+        stage = self._stage_for_action(action_type)
+        state.current_stage = stage
+
+        if action_type == ActionType.plan_scope:
+            self._plan(state)
+        elif action_type == ActionType.collect_initial:
+            self._collect(state)
+        elif action_type == ActionType.normalize_evidence:
+            self._normalize(state)
+        elif action_type == ActionType.reanalyze_targets:
+            self._analyze(state)
+        elif action_type == ActionType.redraft_report:
+            self._draft(state)
+        elif action_type == ActionType.run_qa:
+            self._qa(state)
+        elif action_type == ActionType.finalize_run:
+            self._finalize(state)
+            state.status = 'completed'
+
+        result = ActionExecutionResult(action_type=action_type, target_agent=target_agent, summary='ok')
+        state.last_action_result = result.model_dump(mode='json')
+        return decision, result
+
+    @staticmethod
+    def _stage_for_action(action_type: ActionType) -> StageName:
+        return {
+            ActionType.plan_scope: StageName.plan,
+            ActionType.collect_initial: StageName.collect,
+            ActionType.collect_gap: StageName.collect,
+            ActionType.normalize_evidence: StageName.normalize,
+            ActionType.analyze_targets: StageName.analyze,
+            ActionType.reanalyze_targets: StageName.analyze,
+            ActionType.draft_report: StageName.draft,
+            ActionType.redraft_report: StageName.draft,
+            ActionType.run_qa: StageName.qa,
+            ActionType.finalize_run: StageName.finalize,
+        }[action_type]
+
 
 def test_runtime_loop_executes_single_turn_node_until_end() -> None:
     service = _FakeService()
@@ -90,24 +155,19 @@ def test_runtime_loop_executes_single_turn_node_until_end() -> None:
     result = runtime.execute(run_state)
 
     assert result.status == 'completed'
-    assert result.turn_count == 11
-    assert result.attempt == 2
+    assert result.turn_count == 7
+    assert result.attempt == 1
     assert result.current_stage == StageName.finalize
     assert result.transition_reason.value == 'completed'
     assert result.recovery_state.value == 'none'
 
-    # First QA fails then recollects; second QA passes.
     assert service.calls == [
         'plan',
         'collect',
         'normalize',
         'analyze',
-        'qa',
-        'collect',
-        'normalize',
-        'analyze',
-        'qa',
         'draft',
+        'qa',
         'finalize',
     ]
 
