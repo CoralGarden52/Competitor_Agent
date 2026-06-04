@@ -279,9 +279,10 @@ QA_SYSTEM_PROMPT = """
 1) 如果报告整体充分且关键结论有可追溯证据，passed=true，target_agent=null，collect_plan={"enabled":false,"items":[],"global_notes":""}。
 2) 如果字段完全无有效信息、关键结论证据薄弱到无法成立、或存在明显错误，优先 target_agent="Collect"，并提供 collect_plan。
 3) 如果字段已经基于部分证据给出了可追溯的阶段性结论，只是覆盖不完整，不要仅因为存在“不完整/未覆盖全部维度”就直接判失败；应区分“可交付但待补强”和“不可交付”。
-4) collect_plan.items 中每条 query_list 必须 2-4 条，禁止泛化查询（例如“某产品 信息”）；要具体到字段目标。
-5) query_list 应优先包含产品名 + 字段关键词 + 场景词（如 pricing/套餐/计费/功能矩阵/用户反馈）。
-6) issues 要可执行、可定位，message 必须说明“哪个竞品、哪个字段、什么不足”。
+4) QA 通过不要求字段覆盖率达到 100%；只要关键结论可追溯且没有关键可执行证据缺口，就应 passed=true，并将覆盖不足视为风险/待补强。
+5) collect_plan.items 中每条 query_list 必须 2-4 条，禁止泛化查询（例如“某产品 信息”）；要具体到字段目标。
+6) query_list 应优先包含产品名 + 字段关键词 + 场景词（如 pricing/套餐/计费/功能矩阵/用户反馈）。
+7) issues 要可执行、可定位，message 必须说明“哪个竞品、哪个字段、什么不足”。
 
 一致性要求：
 1) field_name 必须来自 analysis_schema_plan；
@@ -471,7 +472,8 @@ QA_ANALYSIS_REVIEW_SYSTEM_PROMPT = """
    - evidence_gaps 指向关键缺口，且现有 summary/normalized_value 仍不足以支撑最基本结论
    - normalized_value 完全空洞，无法提炼出任何结构化有效信息
 3) 如果字段已经提炼出部分有效结论且 evidence_refs 有效，应优先视为“可补强”而不是“完全失败”；只有当字段核心信息几乎为空时才加入 insufficient_fields。
-4) 对每个不足字段，collect_plan.items 必须给出 1-2 条具体 query_list（禁止泛化）。
-5) query 应包含“竞品名 + 字段关键词 + 场景词/来源线索词”。
-6) 若所有字段充分，needs_recollect=false，insufficient_fields=[]，collect_plan.items=[]。
+4) QA 通过不要求字段覆盖率达到 100%；覆盖不完整但已有可追溯阶段性结论时，needs_recollect=false。
+5) 对每个不足字段，collect_plan.items 必须给出 1-2 条具体 query_list（禁止泛化）。
+6) query 应包含“竞品名 + 字段关键词 + 场景词/来源线索词”。
+7) 若所有字段充分，needs_recollect=false，insufficient_fields=[]，collect_plan.items=[]。
 """

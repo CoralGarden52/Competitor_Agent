@@ -1338,6 +1338,11 @@ class CompetitorWorkflowService:
             result = self._execute_draft_action(state, sections=sections)
         elif action_name == 'run_qa':
             qa_result = self._qa(state)
+            state.planner_meta['last_qa_checked'] = True
+            state.planner_meta['last_qa_passed'] = bool(qa_result.passed)
+            state.planner_meta['last_qa_issue_count'] = len(qa_result.issues)
+            if not qa_result.passed and qa_result.collect_plan is not None:
+                state.planner_meta['qa_collect_plan'] = qa_result.collect_plan.model_dump(mode='json')
             result = {
                 'status': 'completed',
                 'summary': 'qa completed' if qa_result.passed else 'qa flagged issues',
@@ -1346,6 +1351,12 @@ class CompetitorWorkflowService:
                 'next_hints': [qa_result.target_agent] if qa_result.target_agent else [],
             }
         elif action_name == 'finalize_run':
+            qa_passed = bool(state.planner_meta.get('last_qa_passed', False))
+            qa_issue_count = int(state.planner_meta.get('last_qa_issue_count', 0) or 0)
+            qa_finalize_with_risk = bool(state.planner_meta.get('last_qa_checked', False)) and not qa_passed
+            if qa_finalize_with_risk:
+                state.planner_meta['qa_exhausted'] = True
+                state.planner_meta['qa_finalize_with_risk'] = True
             self._finalize(state)
             state.status = 'completed'
             state.transition_reason = TransitionReason.completed
@@ -1353,7 +1364,13 @@ class CompetitorWorkflowService:
                 'status': 'completed',
                 'summary': 'run finalized',
                 'changed_fields': [],
-                'artifacts': {'ticket_count': len(state.tickets), 'report_ready': state.report is not None},
+                'artifacts': {
+                    'ticket_count': len(state.tickets),
+                    'report_ready': state.report is not None,
+                    'qa_passed': qa_passed,
+                    'qa_issue_count': qa_issue_count,
+                    'qa_finalize_with_risk': qa_finalize_with_risk,
+                },
                 'next_hints': [],
             }
         else:
@@ -1424,6 +1441,9 @@ class CompetitorWorkflowService:
         after_profiles = len(state.profiles)
         after_analysis_count = len(state.competitor_analyses)
         changed_fields = fields or [item.field_name for record in state.competitor_analyses for item in record.fields]
+        if 'qa_reanalyze_targets' in state.planner_meta:
+            state.planner_meta.pop('qa_reanalyze_targets', None)
+            state.planner_meta['qa_reanalyzed_after_collect'] = True
         next_hints = ['draft_report'] if after_findings > 0 else ['collect_gap']
         return {
             'status': 'completed',
@@ -1448,6 +1468,10 @@ class CompetitorWorkflowService:
         self._draft(state)
         after_ready = state.report is not None and bool(str(state.report.markdown if state.report else '').strip())
         after_sections = len(state.report.sections) if state.report else 0
+        if after_ready:
+            state.planner_meta['last_qa_checked'] = False
+            state.planner_meta['last_qa_passed'] = False
+            state.planner_meta['last_qa_issue_count'] = 0
         next_hints = ['finalize_run'] if after_ready else ['draft_report']
         return {
             'status': 'completed',
