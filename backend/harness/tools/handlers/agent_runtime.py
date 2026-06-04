@@ -18,6 +18,21 @@ class StateSnapshotHandler:
         state = service.store.get_run_state(str(request.args.get('run_id', '') or request.metadata.get('run_id', '') or ''))
         if state is None:
             return ToolResult(ok=True, output={'run': {}})
+        coverage = service._calc_analyze_coverage(state)
+        planned_competitors = state.planned_competitors or state.competitors
+        schema_fields = [item.field_name for item in state.analysis_schema_plan]
+        record_map = {record.product_name: record for record in state.competitor_analyses}
+        missing_competitors = [competitor for competitor in planned_competitors if competitor not in record_map]
+        missing_schema_fields: list[str] = []
+        for field_name in schema_fields:
+            if any(field_name not in {field.field_name for field in (record_map.get(competitor).fields if record_map.get(competitor) else [])} for competitor in planned_competitors):
+                missing_schema_fields.append(field_name)
+        latest_ticket = state.tickets[-1] if state.tickets else None
+        qa_collect_allowed = bool(
+            latest_ticket is not None
+            and latest_ticket.target_agent == 'Collect'
+            and not bool(state.planner_meta.get('qa_collect_round_used', False))
+        )
         return ToolResult(
             ok=True,
             output={
@@ -26,11 +41,20 @@ class StateSnapshotHandler:
                     'status': state.status,
                     'turn_count': state.turn_count,
                     'current_stage': state.current_stage.value,
-                    'planned_competitors': state.planned_competitors,
-                    'schema_fields': [item.field_name for item in state.analysis_schema_plan],
+                    'planned_competitors': planned_competitors,
+                    'schema_fields': schema_fields,
+                    'plan_ready': bool(planned_competitors) and bool(schema_fields),
                     'evidence_count': len(state.evidences),
+                    'collect_ready': bool(state.evidences),
+                    'competitor_analysis_count': len(state.competitor_analyses),
                     'finding_count': len(state.findings),
-                    'report_ready': state.report is not None,
+                    'analyze_ready': bool(state.competitor_analyses) and bool(state.findings),
+                    'report_ready': state.report is not None and bool(str(state.report.markdown).strip()) if state.report else False,
+                    'report_section_count': len(state.report.sections) if state.report else 0,
+                    'missing_competitors': missing_competitors,
+                    'missing_schema_fields': missing_schema_fields,
+                    'qa_collect_allowed': qa_collect_allowed,
+                    'coverage': coverage,
                 }
             },
         )

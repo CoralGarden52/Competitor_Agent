@@ -298,45 +298,42 @@ MANAGER_SYSTEM_PROMPT = """
 1) 读取当前运行上下文摘要，判断系统缺什么。
 2) 选择下一步最合适的动作，而不是机械按固定流程推进。
 3) 尽量以最小动作闭合当前缺口；避免无意义重复采集或重复分析。
-4) 你必须显式调用一个 action.* 工具来执行该动作，不能只给出决策建议。
+4) 你可以先调用 state.* 工具补充判断，再只输出一个动作决策；不要调用 action.* 工具。
 
 你必须输出严格 JSON：
 {
-  "decision": {
-    "action_type": "plan_scope|collect_initial|collect_gap|normalize_evidence|reanalyze_targets|redraft_report|run_qa|finalize_run",
-    "target_agent": "OrchestratorAgent|CollectorAgent|AnalystAgent|WriterAgent|QACriticAgent|Finalizer",
-    "targets": {
-      "competitors": ["..."],
-      "fields": ["..."],
-      "sections": ["..."],
-      "ticket_ids": ["..."]
-    },
-    "reason": "...",
-    "expected_outcome": "...",
-    "success_criteria": ["..."],
-    "priority": 1,
-    "metadata": {}
+  "action_type": "plan_scope|collect_initial|collect_gap|normalize_evidence|reanalyze_targets|redraft_report|run_qa|finalize_run",
+  "target_agent": "OrchestratorAgent|CollectorAgent|AnalystAgent|WriterAgent|QACriticAgent|Finalizer",
+  "targets": {
+    "competitors": ["..."],
+    "fields": ["..."],
+    "sections": ["..."],
+    "ticket_ids": ["..."]
   },
-  "action_result": {
-    "status": "completed|failed",
-    "summary": "...",
-    "changed_fields": ["..."],
-    "artifacts": {},
-    "next_hints": ["..."]
-  }
+  "reason": "...",
+  "expected_outcome": "...",
+  "success_criteria": ["..."],
+  "priority": 1,
+  "decision_basis": ["..."],
+  "rejected_actions": [{"action": "...", "reason": "..."}],
+  "confidence": 0.0,
+  "metadata": {}
 }
 
 决策规则：
 1) 若尚未形成 planned_competitors 或 analysis_schema_plan，优先选择 plan_scope。
-2) 若 evidence_count 很低、coverage 很低、或 gap_summary 明显，优先 collect_initial / collect_gap。
-3) 若证据已有但 competitor_analyses / findings 缺失，优先 reanalyze_targets。
-4) 若 findings 已有但 report 尚未生成，优先 redraft_report。
-5) 仅当报告、分析和核心覆盖度达到可交付状态时，才选择 finalize_run。
-6) 优先选择最小必要动作：例如只对缺口字段 collect_gap，而不是重新全量 collect。
-7) 在调用 action.* 工具前，可以先调用 state.* 工具补充判断。
-8) 每轮最多执行一个 action.* 工具；最终 JSON 中的 decision 必须与该 action.* 工具一致。
-9) 如果没有真实调用 action.* 工具，本轮任务视为失败。
-10) 不要输出解释性文本，不要输出 markdown，不要输出多余字段。
+2) 若 plan_ready=true 且 collect_ready=false，优先 collect_initial。
+3) 若 collect_ready=true 且 analyze_ready=false，优先 reanalyze_targets。
+4) 若 analyze_ready=true 且 report_ready=false，优先 redraft_report。
+5) 若 report_ready 为 true，优先 run_qa，而不是直接 finalize_run。
+6) 仅当 report_ready、qa_ready 都满足，且 routing_policy 明确允许时，才选择 finalize_run。
+7) 优先遵守 routing_policy 中的硬约束；若某动作被 policy 禁止，不要选择它。
+8) 除 QA 明确下发字段级补采 ticket 外，不要因为数量、覆盖率、阈值等软指标回退到 collect；主路径以阶段产物是否存在为准。
+9) 如果已存在更后阶段产物（如 analyze_ready=true 或 report_ready=true），不要仅因较早阶段字段缺失就倒退回 collect_initial。
+10) 调用 state.* 工具时，只补你当前决策真正缺失的判断信息。
+11) decision_basis 需要列出触发当前动作的事实标签，例如 plan_missing、collect_ready、report_ready。
+12) rejected_actions 需要列出至少 1 个你没有选的候选动作及原因，帮助回放。
+13) 不要输出解释性文本，不要输出 markdown，不要输出多余字段。
 """
 
 
@@ -377,11 +374,12 @@ MANAGER_ACT_SYSTEM_PROMPT = """
 }
 5) decision.action_type 必须和你真实调用的 action.* 工具一致。
 6) 若 context 中尚未形成 planned_competitors 或 analysis_schema_plan，优先 plan_scope。
-7) 若 evidence_count 很低或存在明显 gap，优先 collect_initial / collect_gap。
-8) 若证据已有但分析缺失，优先 reanalyze_targets。
-9) 若 findings 已有但 report 尚未生成，优先 redraft_report。
-10) 仅当报告、分析和覆盖度都达到交付要求时，才选择 finalize_run。
-11) 不要输出解释性文本，不要输出 markdown，不要输出多余字段。
+7) 若 plan_ready=true 且 collect_ready=false，优先 collect_initial。
+8) 若 collect_ready=true 且 analyze_ready=false，优先 reanalyze_targets。
+9) 若 analyze_ready=true 且 report_ready=false，优先 redraft_report。
+10) 若 report_ready=true 且 qa_ready=false，优先 run_qa；仅当 qa_ready=true 时才可 finalize_run。
+11) 如果已存在更后阶段产物，不要因为较早阶段产物缺失就回退到更早阶段。
+12) 不要输出解释性文本，不要输出 markdown，不要输出多余字段。
 """
 
 

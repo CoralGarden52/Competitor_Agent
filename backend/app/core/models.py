@@ -343,14 +343,28 @@ class DecisionContextSnapshot(BaseModel):
     current_stage: str = ''
     planned_competitors: list[str] = Field(default_factory=list)
     schema_fields: list[str] = Field(default_factory=list)
+    plan_ready: bool = False
+    collect_ready: bool = False
+    analyze_ready: bool = False
+    draft_ready: bool = False
+    qa_ready: bool = False
     evidence_count: int = 0
     competitor_analysis_count: int = 0
     finding_count: int = 0
     report_ready: bool = False
+    report_section_count: int = 0
+    missing_competitors: list[str] = Field(default_factory=list)
+    missing_schema_fields: list[str] = Field(default_factory=list)
+    reanalyze_candidates: list[dict[str, Any]] = Field(default_factory=list)
     coverage_summary: dict[str, Any] = Field(default_factory=dict)
     gap_summary: list[dict[str, Any]] = Field(default_factory=list)
     latest_ticket_summary: dict[str, Any] = Field(default_factory=dict)
     self_eval_summary: dict[str, Any] = Field(default_factory=dict)
+    last_action_type: str = ''
+    last_action_status: str = ''
+    last_action_changed_fields: list[str] = Field(default_factory=list)
+    qa_collect_allowed: bool = False
+    routing_policy: dict[str, Any] = Field(default_factory=dict)
     recent_failures: list[dict[str, Any]] = Field(default_factory=list)
 
 
@@ -364,6 +378,9 @@ class ManagerDecision(BaseModel):
     expected_outcome: str = ''
     success_criteria: list[str] = Field(default_factory=list)
     priority: int = Field(default=1, ge=1, le=10)
+    decision_basis: list[str] = Field(default_factory=list)
+    rejected_actions: list[dict[str, str]] = Field(default_factory=list)
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 

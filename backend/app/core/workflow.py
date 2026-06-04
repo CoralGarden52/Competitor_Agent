@@ -235,9 +235,10 @@ class CompetitorWorkflowService:
         self._save_and_event(state, StageName.plan, 'todo.plan.initialized', {'todo_plan': plan.model_dump(mode='json')})
 
     def _build_decision_context(self, state: RunState) -> DecisionContextSnapshot:
-        coverage = self._calc_analyze_coverage(state)
         gap_summary: list[dict[str, object]] = []
+        reanalyze_candidates: list[dict[str, object]] = []
         for record in state.competitor_analyses:
+            candidate_fields: list[str] = []
             for field in record.fields:
                 if field.evidence_gaps:
                     gap_summary.append(
@@ -247,6 +248,14 @@ class CompetitorWorkflowService:
                             'gaps': field.evidence_gaps,
                         }
                     )
+                    candidate_fields.append(field.field_name)
+            if candidate_fields:
+                reanalyze_candidates.append(
+                    {
+                        'competitor': record.product_name,
+                        'fields': sorted(set(candidate_fields)),
+                    }
+                )
         latest_ticket = state.tickets[-1] if state.tickets else None
         latest_ticket_summary = {}
         if latest_ticket is not None:
@@ -259,23 +268,110 @@ class CompetitorWorkflowService:
         recent_failures = []
         if state.last_error:
             recent_failures.append(state.last_error)
+        planned_competitors = state.planned_competitors or state.competitors
+        schema_fields = [item.field_name for item in state.analysis_schema_plan]
+        record_map = {record.product_name: record for record in state.competitor_analyses}
+        missing_competitors = [competitor for competitor in planned_competitors if competitor not in record_map]
+        missing_schema_fields: list[str] = []
+        for field_name in schema_fields:
+            if any(field_name not in {field.field_name for field in (record_map.get(competitor).fields if record_map.get(competitor) else [])} for competitor in planned_competitors):
+                missing_schema_fields.append(field_name)
+        report_section_count = len(state.report.sections) if state.report is not None else 0
+        report_ready = state.report is not None and bool(str(state.report.markdown).strip())
+        plan_ready = bool(planned_competitors) and bool(schema_fields)
+        collect_ready = bool(state.evidences)
+        analyze_ready = bool(state.competitor_analyses) and bool(state.findings)
+        draft_ready = report_ready
+        qa_collect_allowed = bool(
+            isinstance(latest_ticket_summary, dict)
+            and latest_ticket_summary.get('target_agent') == 'Collect'
+            and not bool(state.planner_meta.get('qa_collect_round_used', False))
+        )
+        qa_ready = draft_ready and state.attempt > 1
+        last_action_type = ''
+        last_action_status = ''
+        last_action_changed_fields: list[str] = []
+        if isinstance(state.latest_decision, ManagerDecision):
+            last_action_type = state.latest_decision.action_type.value
+        if isinstance(state.last_action_result, dict):
+            last_action_status = str(state.last_action_result.get('status', '') or '')
+            changed_fields = state.last_action_result.get('changed_fields', [])
+            if isinstance(changed_fields, list):
+                last_action_changed_fields = [str(item).strip() for item in changed_fields if str(item).strip()]
+        routing_policy = self._build_routing_policy(
+            plan_ready=plan_ready,
+            collect_ready=collect_ready,
+            analyze_ready=analyze_ready,
+            draft_ready=draft_ready,
+            qa_collect_allowed=qa_collect_allowed,
+            report_ready=report_ready,
+            qa_ready=qa_ready,
+        )
         return DecisionContextSnapshot(
             run_id=state.run_id,
             status=state.status,
             turn_count=state.turn_count,
             current_stage=state.current_stage.value if isinstance(state.current_stage, StageName) else str(state.current_stage),
-            planned_competitors=state.planned_competitors or state.competitors,
-            schema_fields=[item.field_name for item in state.analysis_schema_plan],
+            planned_competitors=planned_competitors,
+            schema_fields=schema_fields,
+            plan_ready=plan_ready,
+            collect_ready=collect_ready,
+            analyze_ready=analyze_ready,
+            draft_ready=draft_ready,
+            qa_ready=qa_ready,
             evidence_count=len(state.evidences),
             competitor_analysis_count=len(state.competitor_analyses),
             finding_count=len(state.findings),
-            report_ready=state.report is not None and bool(str(state.report.markdown).strip()),
-            coverage_summary=coverage,
+            report_ready=report_ready,
+            report_section_count=report_section_count,
+            missing_competitors=missing_competitors,
+            missing_schema_fields=missing_schema_fields,
+            reanalyze_candidates=reanalyze_candidates[:20],
+            coverage_summary=self._calc_analyze_coverage(state),
             gap_summary=gap_summary[:20],
             latest_ticket_summary=latest_ticket_summary,
             self_eval_summary={key: value.model_dump(mode='json') for key, value in state.self_eval.items()},
+            last_action_type=last_action_type,
+            last_action_status=last_action_status,
+            last_action_changed_fields=last_action_changed_fields,
+            qa_collect_allowed=qa_collect_allowed,
+            routing_policy=routing_policy,
             recent_failures=recent_failures,
         )
+
+    @staticmethod
+    def _build_routing_policy(
+        *,
+        plan_ready: bool,
+        collect_ready: bool,
+        analyze_ready: bool,
+        draft_ready: bool,
+        qa_collect_allowed: bool,
+        report_ready: bool,
+        qa_ready: bool,
+    ) -> dict[str, object]:
+        return {
+            'if_plan_missing_then_prefer': 'plan_scope',
+            'if_plan_ready_then_prefer': 'collect_initial',
+            'if_evidence_ready_but_analysis_missing_then_prefer': 'reanalyze_targets',
+            'if_findings_ready_but_report_missing_then_prefer': 'redraft_report',
+            'if_report_ready_then_prefer': 'run_qa',
+            'if_qa_ready_then_allow': 'finalize_run',
+            'collect_gap_requires_qa_ticket': True,
+            'qa_collect_allowed': qa_collect_allowed,
+            'allow_finalize_only_when': {
+                'report_ready': report_ready,
+                'analyze_ready': analyze_ready,
+                'qa_ready': qa_ready,
+            },
+            'stage_readiness': {
+                'plan_ready': plan_ready,
+                'collect_ready': collect_ready,
+                'analyze_ready': analyze_ready,
+                'draft_ready': draft_ready,
+                'qa_ready': qa_ready,
+            },
+        }
 
     def _manager_decide(self, state: RunState) -> ManagerDecision:
         context = self._build_decision_context(state)
@@ -319,47 +415,18 @@ class CompetitorWorkflowService:
         decision: ManagerDecision,
     ) -> ManagerDecision:
         replacement: tuple[ActionType, str, str] | None = None
-
-        has_plan_scope = bool(context.planned_competitors) and bool(context.schema_fields)
-        has_evidence = int(context.evidence_count) > 0
-        has_analyses = int(context.competitor_analysis_count) > 0
-        has_findings = int(context.finding_count) > 0
-        report_ready = bool(context.report_ready)
-        qa_collect_allowed = (
-            isinstance(context.latest_ticket_summary, dict)
-            and context.latest_ticket_summary.get('target_agent') == 'Collect'
-            and not bool(state.planner_meta.get('qa_collect_round_used', False))
-        )
-
-        if report_ready and decision.action_type != ActionType.run_qa:
-            replacement = (ActionType.run_qa, 'QACriticAgent', 'content_first_report_ready_to_qa')
-        elif has_findings and decision.action_type != ActionType.redraft_report:
-            replacement = (ActionType.redraft_report, 'WriterAgent', 'content_first_findings_to_draft')
-        elif has_evidence and (not has_findings or not has_analyses) and decision.action_type != ActionType.reanalyze_targets:
-            replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'content_first_evidence_to_reanalyze')
-        elif decision.action_type == ActionType.plan_scope and has_plan_scope:
-            if has_evidence and (not has_findings or not has_analyses):
-                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'plan_scope_blocked_after_plan_ready')
-            elif has_findings:
-                replacement = (ActionType.redraft_report, 'WriterAgent', 'plan_scope_blocked_after_plan_ready')
-            else:
-                replacement = (ActionType.collect_initial, 'CollectorAgent', 'plan_scope_blocked_after_plan_ready')
-        elif decision.action_type == ActionType.collect_initial and has_evidence:
-            if has_findings:
-                replacement = (ActionType.redraft_report, 'WriterAgent', 'collect_initial_blocked_after_content_ready')
-            else:
-                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'collect_initial_rewritten_to_reanalyze')
-        elif decision.action_type == ActionType.collect_gap and not qa_collect_allowed:
-            if has_findings:
-                replacement = (ActionType.redraft_report, 'WriterAgent', 'collect_gap_only_allowed_for_qa')
-            elif has_evidence:
-                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'collect_gap_only_allowed_for_qa')
-        elif decision.action_type == ActionType.reanalyze_targets and has_findings:
-            replacement = (ActionType.redraft_report, 'WriterAgent', 'reanalyze_rewritten_to_redraft')
-        elif decision.action_type == ActionType.redraft_report and report_ready:
-            replacement = (ActionType.run_qa, 'QACriticAgent', 'redraft_rewritten_to_run_qa')
-        elif decision.action_type == ActionType.run_qa and state.attempt > 1 and bool(state.planner_meta.get('qa_collect_round_used', False)):
-            replacement = (ActionType.finalize_run, 'Finalizer', 'qa_collect_budget_exhausted_finalize')
+        if decision.action_type == ActionType.collect_gap and not context.qa_collect_allowed:
+            replacement = (ActionType.collect_initial, 'CollectorAgent', 'collect_gap_requires_active_qa_ticket')
+        elif decision.action_type == ActionType.finalize_run:
+            allow_finalize = (
+                context.report_ready
+                and context.analyze_ready
+                and context.qa_ready
+            )
+            if not allow_finalize:
+                replacement = (ActionType.run_qa, 'QACriticAgent', 'finalize_requires_report_analysis_and_qa_ready')
+        elif decision.action_type == ActionType.run_qa and not context.report_ready:
+            replacement = (ActionType.redraft_report, 'WriterAgent', 'qa_requires_report_ready')
 
         if replacement is None:
             return decision
