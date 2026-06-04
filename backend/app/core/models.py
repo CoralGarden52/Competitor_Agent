@@ -613,6 +613,8 @@ class RunState(BaseModel):
     profiles: list[CompetitorProfile] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     report: Report | None = None
+    questionnaire: QuestionnaireDesign | None = None
+    questionnaire_export: dict[str, Any] = Field(default_factory=dict)
     tickets: list[ReworkTicket] = Field(default_factory=list)
     self_eval: dict[str, SelfEval] = Field(default_factory=dict)
     decision_history: list[ManagerDecision] = Field(default_factory=list)

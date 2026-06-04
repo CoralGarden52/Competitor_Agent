@@ -14,6 +14,8 @@ import type {
   StageName,
   WorkspaceEvent,
   WorkspacePayload,
+  WorkspaceQuestionnaire,
+  WorkspaceQuestionnaireExport,
 } from "@/components/workspace-types";
 
 type ViewMode = "welcome" | "workspace";
@@ -39,6 +41,11 @@ type StoredSession = {
 type StreamState = "idle" | "streaming" | "reconnecting" | "polling";
 
 const STAGE_ORDER: StageName[] = ["plan", "collect", "normalize", "analyze", "draft", "qa", "finalize"];
+const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8010").replace(/\/$/, "");
+
+function backendUrl(path: string) {
+  return `${BACKEND_BASE_URL}${path}`;
+}
 
 function isStageName(value: string): value is StageName {
   return STAGE_ORDER.includes(value as StageName);
@@ -159,8 +166,13 @@ export function HomeWorkspace() {
   const [originalReportContent, setOriginalReportContent] = useState("");
   const [reportDraft, setReportDraft] = useState("");
   const [questionnaireOpen, setQuestionnaireOpen] = useState(false);
+  const [isEditingQuestionnaire, setIsEditingQuestionnaire] = useState(false);
   const [isGeneratingQuestionnaire, setIsGeneratingQuestionnaire] = useState(false);
-  const [questionnaireMarkdown, setQuestionnaireMarkdown] = useState("");
+  const [isSavingReport, setIsSavingReport] = useState(false);
+  const [isSavingQuestionnaire, setIsSavingQuestionnaire] = useState(false);
+  const [isExportingQuestionnaire, setIsExportingQuestionnaire] = useState(false);
+  const [questionnaireExport, setQuestionnaireExport] = useState<WorkspaceQuestionnaireExport | null>(null);
+  const [questionnaireDraft, setQuestionnaireDraft] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -187,7 +199,12 @@ export function HomeWorkspace() {
   const hasReport = Boolean(workspaceData && (workspaceData.report?.markdown || "").trim());
   const referenceItems = workspaceData ? buildReferenceItems(workspaceData) : [];
   const collectPreviewItems = referenceItems.slice(0, 6);
-  const currentReportContent = reportDraft || workspaceData?.report?.markdown || "";
+  const currentReportContent = isEditingReport ? reportDraft : reportDraft || workspaceData?.report?.markdown || "";
+  const currentQuestionnaireContent = isEditingQuestionnaire
+    ? questionnaireDraft
+    : questionnaireDraft || workspaceData?.questionnaire?.markdown || "";
+  const hasQuestionnaire = Boolean(workspaceData?.questionnaire?.markdown?.trim());
+  const currentQuestionnaireExport = questionnaireExport || workspaceData?.questionnaire_export || null;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -217,21 +234,175 @@ export function HomeWorkspace() {
     }
   }, [workspaceData?.run?.run_id, workspaceData?.report?.markdown, reportSourceRunId, isEditingReport, reportDraft, originalReportContent]);
 
+  useEffect(() => {
+    if (isEditingQuestionnaire) return;
+    setQuestionnaireDraft(workspaceData?.questionnaire?.markdown || "");
+  }, [workspaceData?.run?.run_id, workspaceData?.questionnaire?.markdown, isEditingQuestionnaire]);
+
+  useEffect(() => {
+    setQuestionnaireExport(workspaceData?.questionnaire_export || null);
+  }, [workspaceData?.run?.run_id, workspaceData?.questionnaire_export]);
+
   function nowIso() {
     return new Date().toISOString();
   }
 
   function downloadReport(content: string, runId: string) {
+    downloadMarkdown(content, `report_${(runId || "latest").slice(0, 16)}`);
+  }
+
+  function downloadQuestionnaire(content: string, runId: string) {
+    downloadMarkdown(content, `questionnaire_${(runId || "latest").slice(0, 16)}`);
+  }
+
+  function downloadMarkdown(content: string, filenameStem: string) {
     if (!content.trim()) return;
     const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
     const objectUrl = window.URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = objectUrl;
-    anchor.download = `report_${(runId || "latest").slice(0, 16)}.md`;
+    anchor.download = `${filenameStem}.md`;
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
     window.URL.revokeObjectURL(objectUrl);
+  }
+
+  function startReportEdit() {
+    setReportDraft(workspaceData?.report?.markdown || originalReportContent || "");
+    setPreviewOpen(true);
+    setIsEditingReport(true);
+  }
+
+  function cancelReportEdit() {
+    setReportDraft(workspaceData?.report?.markdown || originalReportContent || "");
+    setIsEditingReport(false);
+  }
+
+  function closeReportPreview() {
+    if (isSavingReport) return;
+    if (isEditingReport) {
+      cancelReportEdit();
+    }
+    setPreviewOpen(false);
+  }
+
+  async function handleSaveReport() {
+    const runId = activeRunIdRef.current;
+    const markdown = reportDraft.trim();
+    if (!runId || !markdown) {
+      setError("报告内容不能为空。");
+      return;
+    }
+    setError("");
+    setIsSavingReport(true);
+    try {
+      const response = await fetch(backendUrl(`/runs/${runId}/report`), {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ markdown: reportDraft }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as {
+        detail?: string;
+        state?: { report?: { markdown?: string; appendix_sources?: string[] } };
+      };
+      if (!response.ok) {
+        throw new Error(payload.detail || "报告保存失败，请稍后重试。");
+      }
+      const savedMarkdown = payload.state?.report?.markdown ?? reportDraft;
+      const savedSources = payload.state?.report?.appendix_sources;
+      setWorkspaceData((previous) => {
+        if (!previous) return previous;
+        return {
+          ...previous,
+          report: {
+            ...(previous.report || {}),
+            markdown: savedMarkdown,
+            sources: savedSources ?? previous.report?.sources ?? [],
+          },
+        };
+      });
+      setSessions((previous) =>
+        previous.map((session) => {
+          if (session.active_run_id !== runId || !session.workspace_snapshot) return session;
+          return {
+            ...session,
+            updated_at: nowIso(),
+            workspace_snapshot: {
+              ...session.workspace_snapshot,
+              report: {
+                ...(session.workspace_snapshot.report || {}),
+                markdown: savedMarkdown,
+                sources: savedSources ?? session.workspace_snapshot.report?.sources ?? [],
+              },
+            },
+          };
+        })
+      );
+      setOriginalReportContent(savedMarkdown);
+      setReportDraft(savedMarkdown);
+      setIsEditingReport(false);
+    } catch (saveError) {
+      const message = saveError instanceof Error ? saveError.message : "报告保存失败，请稍后重试。";
+      setError(message);
+    } finally {
+      setIsSavingReport(false);
+    }
+  }
+
+  function syncQuestionnaireSnapshot(runId: string, questionnaire: WorkspaceQuestionnaire) {
+    setQuestionnaireExport(null);
+    setWorkspaceData((previous) => {
+      if (!previous) return previous;
+      return {
+        ...previous,
+        questionnaire: {
+          ...(previous.questionnaire || {}),
+          ...questionnaire,
+        },
+        questionnaire_export: null,
+      };
+    });
+    setSessions((previous) =>
+      previous.map((session) => {
+        if (session.active_run_id !== runId || !session.workspace_snapshot) return session;
+        return {
+          ...session,
+          updated_at: nowIso(),
+          workspace_snapshot: {
+            ...session.workspace_snapshot,
+            questionnaire: {
+              ...(session.workspace_snapshot.questionnaire || {}),
+              ...questionnaire,
+            },
+            questionnaire_export: null,
+          },
+        };
+      })
+    );
+  }
+
+  function syncQuestionnaireExportSnapshot(runId: string, exportResult: WorkspaceQuestionnaireExport) {
+    setWorkspaceData((previous) => {
+      if (!previous) return previous;
+      return {
+        ...previous,
+        questionnaire_export: exportResult,
+      };
+    });
+    setSessions((previous) =>
+      previous.map((session) => {
+        if (session.active_run_id !== runId || !session.workspace_snapshot) return session;
+        return {
+          ...session,
+          updated_at: nowIso(),
+          workspace_snapshot: {
+            ...session.workspace_snapshot,
+            questionnaire_export: exportResult,
+          },
+        };
+      })
+    );
   }
 
   async function handleGenerateQuestionnaire() {
@@ -240,7 +411,7 @@ export function HomeWorkspace() {
     setError("");
     setIsGeneratingQuestionnaire(true);
     try {
-      const response = await fetch(`/runs/${runId}/questionnaire`, {
+      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -248,17 +419,97 @@ export function HomeWorkspace() {
           objective: "验证竞品差异点、用户感知与转化障碍",
         }),
       });
-      const payload = (await response.json().catch(() => ({}))) as { detail?: string; markdown?: string };
+      const payload = (await response.json().catch(() => ({}))) as WorkspaceQuestionnaire & { detail?: string };
       if (!response.ok) {
         throw new Error(payload.detail || "问卷生成失败，请稍后重试。");
       }
-      setQuestionnaireMarkdown(payload.markdown || "");
+      syncQuestionnaireSnapshot(runId, payload);
+      setQuestionnaireDraft(payload.markdown || "");
+      setIsEditingQuestionnaire(false);
       setQuestionnaireOpen(true);
     } catch (questionnaireError) {
       const message = questionnaireError instanceof Error ? questionnaireError.message : "问卷生成失败，请稍后重试。";
       setError(message);
     } finally {
       setIsGeneratingQuestionnaire(false);
+    }
+  }
+
+  function openQuestionnairePreview() {
+    setQuestionnaireDraft(workspaceData?.questionnaire?.markdown || "");
+    setIsEditingQuestionnaire(false);
+    setQuestionnaireOpen(true);
+  }
+
+  function startQuestionnaireEdit() {
+    setQuestionnaireDraft(workspaceData?.questionnaire?.markdown || currentQuestionnaireContent || "");
+    setQuestionnaireOpen(true);
+    setIsEditingQuestionnaire(true);
+  }
+
+  function cancelQuestionnaireEdit() {
+    setQuestionnaireDraft(workspaceData?.questionnaire?.markdown || "");
+    setIsEditingQuestionnaire(false);
+  }
+
+  function closeQuestionnairePreview() {
+    if (isSavingQuestionnaire) return;
+    if (isEditingQuestionnaire) {
+      cancelQuestionnaireEdit();
+    }
+    setQuestionnaireOpen(false);
+  }
+
+  async function handleSaveQuestionnaire() {
+    const runId = activeRunIdRef.current;
+    const markdown = questionnaireDraft.trim();
+    if (!runId || !markdown) {
+      setError("问卷内容不能为空。");
+      return;
+    }
+    setError("");
+    setIsSavingQuestionnaire(true);
+    try {
+      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire`), {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ markdown: questionnaireDraft }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as WorkspaceQuestionnaire & { detail?: string };
+      if (!response.ok) {
+        throw new Error(payload.detail || "问卷保存失败，请稍后重试。");
+      }
+      syncQuestionnaireSnapshot(runId, payload);
+      setQuestionnaireDraft(payload.markdown || questionnaireDraft);
+      setIsEditingQuestionnaire(false);
+    } catch (saveError) {
+      const message = saveError instanceof Error ? saveError.message : "问卷保存失败，请稍后重试。";
+      setError(message);
+    } finally {
+      setIsSavingQuestionnaire(false);
+    }
+  }
+
+  async function handleExportQuestionnaireToWjx() {
+    const runId = activeRunIdRef.current;
+    if (!runId) return;
+    setError("");
+    setIsExportingQuestionnaire(true);
+    try {
+      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire/export/wenjuan`), {
+        method: "POST",
+      });
+      const payload = (await response.json().catch(() => ({}))) as WorkspaceQuestionnaireExport & { detail?: string };
+      if (!response.ok) {
+        throw new Error(payload.detail || "导出到问卷星失败，请稍后重试。");
+      }
+      setQuestionnaireExport(payload);
+      syncQuestionnaireExportSnapshot(runId, payload);
+    } catch (exportError) {
+      const message = exportError instanceof Error ? exportError.message : "导出到问卷星失败，请稍后重试。";
+      setError(message);
+    } finally {
+      setIsExportingQuestionnaire(false);
     }
   }
 
@@ -1110,6 +1361,14 @@ export function HomeWorkspace() {
                           <button
                             type="button"
                             className="report-download-btn"
+                            onClick={startReportEdit}
+                            disabled={!currentReportContent.trim()}
+                          >
+                            编辑
+                          </button>
+                          <button
+                            type="button"
+                            className="report-download-btn"
                             onClick={() => downloadReport(currentReportContent, activeRunIdRef.current)}
                             disabled={!currentReportContent.trim()}
                           >
@@ -1123,6 +1382,54 @@ export function HomeWorkspace() {
                           >
                             {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
                           </button>
+                        </section>
+                      ) : null}
+
+                      {hasQuestionnaire ? (
+                        <section className="workspace-panel report-card-section" aria-label="问卷预览区">
+                          <button type="button" className="report-card" onClick={openQuestionnairePreview}>
+                            <div className="report-card-main">
+                              <span className="report-card-icon" aria-hidden="true">📝</span>
+                              <div>
+                                <strong>{`questionnaire_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
+                                <small>{workspaceData?.questionnaire?.title || "Markdown file"}</small>
+                              </div>
+                            </div>
+                          </button>
+                          <button
+                            type="button"
+                            className="report-download-btn"
+                            onClick={startQuestionnaireEdit}
+                            disabled={!currentQuestionnaireContent.trim()}
+                          >
+                            编辑
+                          </button>
+                          <button
+                            type="button"
+                            className="report-download-btn"
+                            onClick={() => downloadQuestionnaire(currentQuestionnaireContent, activeRunIdRef.current)}
+                            disabled={!currentQuestionnaireContent.trim()}
+                          >
+                            下载
+                          </button>
+                          <button
+                            type="button"
+                            className="report-download-btn"
+                            onClick={() => void handleExportQuestionnaireToWjx()}
+                            disabled={isExportingQuestionnaire || !currentQuestionnaireContent.trim()}
+                          >
+                            {isExportingQuestionnaire ? "导出中..." : "导出到问卷星"}
+                          </button>
+                          {currentQuestionnaireExport?.url ? (
+                            <a
+                              className="report-download-btn"
+                              href={currentQuestionnaireExport.url}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              打开问卷星
+                            </a>
+                          ) : null}
                         </section>
                       ) : null}
 
@@ -1154,72 +1461,87 @@ export function HomeWorkspace() {
       </main>
 
       {previewOpen ? (
-        <div className="report-preview-overlay" onClick={() => setPreviewOpen(false)} role="presentation">
+        <div className="report-preview-overlay" onClick={closeReportPreview} role="presentation">
           <aside className="report-preview-drawer" onClick={(event) => event.stopPropagation()}>
             <div className="report-preview-header">
               <strong>{`report_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
               <div className="report-preview-actions">
-                <button
-                  className="report-preview-icon-btn"
-                  type="button"
-                  aria-label="恢复原始报告"
-                  title="恢复原始报告"
-                  onClick={() => {
-                    setReportDraft(originalReportContent);
-                    setIsEditingReport(false);
-                  }}
-                  disabled={!originalReportContent.trim()}
-                >
-                  恢复原始报告
-                </button>
                 {!isEditingReport ? (
-                  <button
-                    type="button"
-                    className="report-preview-icon-btn"
-                    onClick={() => setIsEditingReport(true)}
-                    aria-label="编辑报告"
-                    title="编辑报告"
-                    disabled={!currentReportContent.trim()}
-                  >
-                    编辑报告
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={startReportEdit}
+                      aria-label="编辑报告"
+                      title="编辑报告"
+                      disabled={!currentReportContent.trim()}
+                    >
+                      编辑报告
+                    </button>
+                    <button
+                      className="report-preview-icon-btn"
+                      type="button"
+                      aria-label="下载报告"
+                      title="下载报告"
+                      onClick={() => downloadReport(currentReportContent, activeRunIdRef.current)}
+                      disabled={!currentReportContent.trim()}
+                    >
+                      下载
+                    </button>
+                    <button
+                      className="report-preview-icon-btn"
+                      type="button"
+                      aria-label="生成问卷"
+                      title="生成问卷"
+                      onClick={() => void handleGenerateQuestionnaire()}
+                      disabled={isGeneratingQuestionnaire || !currentReportContent.trim()}
+                    >
+                      {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
+                    </button>
+                  </>
                 ) : (
-                  <button
-                    type="button"
-                    className="report-preview-icon-btn"
-                    onClick={() => setIsEditingReport(false)}
-                    aria-label="完成编辑"
-                    title="完成编辑"
-                  >
-                    完成编辑
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={() => void handleSaveReport()}
+                      aria-label="保存报告"
+                      title="保存报告"
+                      disabled={isSavingReport || !reportDraft.trim()}
+                    >
+                      {isSavingReport ? "保存中..." : "保存"}
+                    </button>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={cancelReportEdit}
+                      aria-label="取消编辑"
+                      title="取消编辑"
+                      disabled={isSavingReport}
+                    >
+                      取消
+                    </button>
+                    <button
+                      className="report-preview-icon-btn"
+                      type="button"
+                      aria-label="恢复原始报告"
+                      title="恢复原始报告"
+                      onClick={() => {
+                        setReportDraft(originalReportContent);
+                      }}
+                      disabled={isSavingReport || !originalReportContent.trim()}
+                    >
+                      恢复原始报告
+                    </button>
+                  </>
                 )}
                 <button
-                  className="report-preview-icon-btn"
-                  type="button"
-                  aria-label="下载报告"
-                  title="下载报告"
-                  onClick={() => downloadReport(currentReportContent, activeRunIdRef.current)}
-                  disabled={!currentReportContent.trim()}
-                >
-                  下载
-                </button>
-                <button
-                  className="report-preview-icon-btn"
-                  type="button"
-                  aria-label="生成问卷"
-                  title="生成问卷"
-                  onClick={() => void handleGenerateQuestionnaire()}
-                  disabled={isGeneratingQuestionnaire || !currentReportContent.trim()}
-                >
-                  {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
-                </button>
-                <button
                   type="button"
                   className="report-preview-icon-btn"
-                  onClick={() => setPreviewOpen(false)}
+                  onClick={closeReportPreview}
                   aria-label="关闭预览"
                   title="关闭预览"
+                  disabled={isSavingReport}
                 >
                   关闭
                 </button>
@@ -1232,6 +1554,7 @@ export function HomeWorkspace() {
                   value={reportDraft}
                   onChange={(event) => setReportDraft(event.target.value)}
                   aria-label="编辑报告内容"
+                  disabled={isSavingReport}
                 />
               ) : (
                 <pre>{currentReportContent || "暂无报告内容"}</pre>
@@ -1242,30 +1565,90 @@ export function HomeWorkspace() {
       ) : null}
 
       {questionnaireOpen ? (
-        <div className="report-preview-overlay" onClick={() => setQuestionnaireOpen(false)} role="presentation">
+        <div className="report-preview-overlay" onClick={closeQuestionnairePreview} role="presentation">
           <aside className="report-preview-drawer" onClick={(event) => event.stopPropagation()}>
             <div className="report-preview-header">
               <strong>{`questionnaire_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
               <div className="report-preview-actions">
+                {!isEditingQuestionnaire ? (
+                  <>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={startQuestionnaireEdit}
+                      disabled={!currentQuestionnaireContent.trim()}
+                    >
+                      编辑
+                    </button>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={() => downloadQuestionnaire(currentQuestionnaireContent, activeRunIdRef.current)}
+                      disabled={!currentQuestionnaireContent.trim()}
+                    >
+                      下载
+                    </button>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={() => void handleExportQuestionnaireToWjx()}
+                      disabled={isExportingQuestionnaire || !currentQuestionnaireContent.trim()}
+                    >
+                      {isExportingQuestionnaire ? "导出中..." : "导出到问卷星"}
+                    </button>
+                    {currentQuestionnaireExport?.url ? (
+                      <a
+                        className="report-preview-icon-btn"
+                        href={currentQuestionnaireExport.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        打开问卷星
+                      </a>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={() => void handleSaveQuestionnaire()}
+                      disabled={isSavingQuestionnaire || !questionnaireDraft.trim()}
+                    >
+                      {isSavingQuestionnaire ? "保存中..." : "保存"}
+                    </button>
+                    <button
+                      type="button"
+                      className="report-preview-icon-btn"
+                      onClick={cancelQuestionnaireEdit}
+                      disabled={isSavingQuestionnaire}
+                    >
+                      取消
+                    </button>
+                  </>
+                )}
                 <button
                   type="button"
                   className="report-preview-icon-btn"
-                  onClick={() => downloadReport(questionnaireMarkdown, `${activeRunIdRef.current || "latest"}_questionnaire`)}
-                  disabled={!questionnaireMarkdown.trim()}
-                >
-                  下载问卷
-                </button>
-                <button
-                  type="button"
-                  className="report-preview-icon-btn"
-                  onClick={() => setQuestionnaireOpen(false)}
+                  onClick={closeQuestionnairePreview}
+                  disabled={isSavingQuestionnaire}
                 >
                   关闭
                 </button>
               </div>
             </div>
             <div className="report-preview-body">
-              <pre>{questionnaireMarkdown || "暂无问卷内容"}</pre>
+              {isEditingQuestionnaire ? (
+                <textarea
+                  className="report-preview-editor"
+                  value={questionnaireDraft}
+                  onChange={(event) => setQuestionnaireDraft(event.target.value)}
+                  aria-label="编辑问卷内容"
+                  disabled={isSavingQuestionnaire}
+                />
+              ) : (
+                <pre>{currentQuestionnaireContent || "暂无问卷内容"}</pre>
+              )}
             </div>
           </aside>
         </div>
