@@ -111,9 +111,6 @@ class WorkflowLangGraphRuntime:
         if run_state.status in ('completed', 'failed'):
             return {'run_state': run_state, 'should_continue': False}
 
-        if run_state.next_stage is not None and run_state.current_stage != run_state.next_stage:
-            run_state.current_stage = run_state.next_stage
-
         run_state.turn_count += 1
         active_stage = run_state.current_stage
         if run_state.turn_count > run_state.max_turns:
@@ -150,10 +147,12 @@ class WorkflowLangGraphRuntime:
         stage_result: Any | None = None
         stage_error: Exception | None = None
         try:
-            handler = self._stage_handlers[active_stage]
-            self._call_optional('mark_todo_stage_started', run_state, active_stage, self._stage_agents.get(active_stage, active_stage.value))
-            stage_result = self._trace(active_stage.value, run_state, handler)
-            self._call_optional('mark_todo_stage_completed', run_state, active_stage, self._stage_agents.get(active_stage, active_stage.value))
+            decision, stage_result = self.service._manager_act(run_state)
+            active_stage = self.service._stage_for_action(decision.action_type)
+            run_state.current_stage = active_stage
+            self._call_optional('mark_todo_stage_started', run_state, active_stage, decision.target_agent)
+            stage_result = self._trace(active_stage.value, run_state, lambda _state: stage_result)
+            self._call_optional('mark_todo_stage_completed', run_state, active_stage, decision.target_agent)
             self._call_optional(
                 '_emit_hook',
                 'after_stage',
@@ -161,7 +160,7 @@ class WorkflowLangGraphRuntime:
                     'run_id': run_state.run_id,
                     'attempt': run_state.attempt,
                     'stage': active_stage.value,
-                    'agent_name': self._stage_agents.get(active_stage, active_stage.value),
+                    'agent_name': decision.target_agent,
                     'payload': {'status': run_state.status, 'turn': run_state.turn_count},
                 },
             )

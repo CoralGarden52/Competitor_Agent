@@ -5,7 +5,7 @@ import concurrent.futures
 from app.core.collector import CollectorPipeline
 from app.core.collector.deep_dive import CollectorDeepDiveCoordinator
 from app.core.config import get_config
-from app.core.models import CollectOutput, RawEvidence, RunState, StageName
+from app.core.models import CollectOutput, RawEvidence, RunState, StageName, TaskEnvelope, TaskResult
 from app.core.storage import SQLiteStore
 
 
@@ -141,6 +141,36 @@ class CollectorAgent:
                 )
         
         return out
+
+    def consume_task(self, task: TaskEnvelope, state: RunState) -> tuple[TaskResult, CollectOutput]:
+        payload = task.input_payload if isinstance(task.input_payload, dict) else {}
+        target_competitors = payload.get('target_competitors')
+        if not isinstance(target_competitors, list):
+            target_competitors = None
+        field_query_overrides = payload.get('field_query_overrides')
+        if not isinstance(field_query_overrides, dict):
+            field_query_overrides = None
+        result = self.run(
+            state,
+            target_competitors=[str(item).strip() for item in target_competitors if str(item).strip()] if target_competitors else None,
+            field_query_overrides=field_query_overrides,
+        )
+        active_competitors = target_competitors or state.planned_competitors or state.competitors
+        task_result = TaskResult(
+            task_id=task.task_id,
+            run_id=task.run_id,
+            owner_agent='CollectorAgent',
+            status='completed',
+            summary=f'collected {len(result.raw_evidences)} evidences for {len(active_competitors)} competitors',
+            output_payload={
+                'evidence_count': len(result.raw_evidences),
+                'error_count': len(result.errors),
+                'target_competitors': active_competitors,
+            },
+            changed_fields=[str(item.get('schema_field', '')).strip() for item in [ev.domain_extensions for ev in result.raw_evidences] if isinstance(item, dict) and str(item.get('schema_field', '')).strip()],
+            next_recommendations=['analyze_evidence'] if result.raw_evidences else ['collect_evidence'],
+        )
+        return task_result, result
 
     @staticmethod
     def _target_fields_for(competitor: str, overrides: dict[str, list[str]] | None) -> set[str] | None:

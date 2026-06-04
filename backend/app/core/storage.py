@@ -11,6 +11,7 @@ from app.core.models import (
     ApprovalPolicy,
     AnalyzeHandoff,
     CollectHandoff,
+    DraftHandoff,
     EventRecord,
     FieldRiskProfile,
     LLMCallTrace,
@@ -519,6 +520,10 @@ class SQLiteStore:
         if row is None:
             return None
         return RunState.model_validate_json(row['state_json'])
+
+    def get_run_state(self, run_id: str) -> RunState | None:
+        # Backward-compatible alias used by workflow action tools and tool handlers.
+        return self.get_state(run_id)
 
     def list_runs(self, limit: int = 20) -> list[RunSummary]:
         with self._connect() as conn:
@@ -1140,7 +1145,7 @@ class SQLiteStore:
         run_id: str,
         stage: StageName,
         attempt: int,
-        handoff: PlanHandoff | CollectHandoff | AnalyzeHandoff,
+        handoff: PlanHandoff | CollectHandoff | AnalyzeHandoff | DraftHandoff,
     ) -> None:
         now_s = datetime.now(UTC).isoformat()
         with self._connect() as conn:
@@ -1194,7 +1199,7 @@ class SQLiteStore:
         *,
         stage: StageName,
         attempt: int | None = None,
-    ) -> PlanHandoff | CollectHandoff | AnalyzeHandoff | None:
+    ) -> PlanHandoff | CollectHandoff | AnalyzeHandoff | DraftHandoff | None:
         sql = 'SELECT handoff_type, payload_json FROM stage_handoffs WHERE run_id = ? AND stage = ?'
         params: list[Any] = [run_id, stage.value]
         if attempt is not None:
@@ -1212,6 +1217,8 @@ class SQLiteStore:
             return CollectHandoff.model_validate_json(row['payload_json'])
         if type_name == 'AnalyzeHandoff':
             return AnalyzeHandoff.model_validate_json(row['payload_json'])
+        if type_name == 'DraftHandoff':
+            return DraftHandoff.model_validate_json(row['payload_json'])
         return None
 
     def save_llm_call(self, trace: LLMCallTrace) -> None:
