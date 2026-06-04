@@ -1981,18 +1981,12 @@ class PlannerLLMClient:
         cleaned: list[str] = []
         seen: set[str] = set()
         for template in raw_templates:
-            text = self._repair_mojibake(str(template).strip())
-            if not text:
-                continue
-            if '{product}' not in text:
-                text = f'{{product}} {text}'
-            if field_name == 'pricing_model':
-                text = self._ensure_pricing_query_has_year(text)
-            key = text.casefold()
-            if key in seen:
-                continue
-            seen.add(key)
-            cleaned.append(text)
+            for text in self._expand_query_template(field_name=field_name, template=template):
+                key = text.casefold()
+                if key in seen:
+                    continue
+                seen.add(key)
+                cleaned.append(text)
 
         if len(cleaned) < 2 or all(self._is_placeholder_query(field_name, item) for item in cleaned):
             for fallback in self._default_query_templates_for_field(field_name):
@@ -2002,6 +1996,36 @@ class PlannerLLMClient:
                 seen.add(key)
                 cleaned.append(fallback)
         return cleaned[:4]
+
+    def _expand_query_template(self, *, field_name: str, template: Any) -> list[str]:
+        text = self._repair_mojibake(str(template).strip())
+        if not text:
+            return []
+        if '{product}' not in text:
+            text = f'{{product}} {text}'
+        if field_name == 'pricing_model':
+            text = self._ensure_pricing_query_has_year(text)
+
+        expansions = [text]
+        if self._is_placeholder_query(field_name, text):
+            expansions = self._default_query_templates_for_field(field_name)
+        elif field_name not in CORE_DYNAMIC_FIELDS:
+            expansions.extend(self._dynamic_field_query_expansions(field_name))
+
+        output: list[str] = []
+        seen: set[str] = set()
+        for item in expansions:
+            normalized = self._repair_mojibake(str(item).strip())
+            if not normalized:
+                continue
+            if '{product}' not in normalized:
+                normalized = f'{{product}} {normalized}'
+            key = normalized.casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            output.append(normalized)
+        return output[:4]
 
     @staticmethod
     def _is_placeholder_query(field_name: str, query: str) -> bool:
@@ -2025,7 +2049,79 @@ class PlannerLLMClient:
             ],
             'user_feedback': ['{product} 知乎 评价', '{product} 点评', '{product} 体验', '{product} 反馈'],
         }
-        return defaults.get(field_name, [f'{{product}} {field_name}', f'{{product}} {field_name} 官网'])
+        return defaults.get(field_name, PlannerLLMClient._dynamic_field_query_expansions(field_name))
+
+    @staticmethod
+    def _dynamic_field_query_expansions(field_name: str) -> list[str]:
+        tokens = [part for part in str(field_name or '').strip().lower().split('_') if part]
+        if not tokens:
+            return ['{product} 官网', '{product} 文档']
+
+        zh_map = {
+            'security': '安全',
+            'compliance': '合规',
+            'capability': '能力',
+            'free': '免费版',
+            'version': '版本',
+            'core': '核心',
+            'params': '参数',
+            'enterprise': '企业版',
+            'level': '级别',
+            'service': '服务',
+            'deployment': '部署',
+            'support': '支持',
+            'admin': '管理',
+            'controls': '管控',
+            'pricing': '价格',
+            'feedback': '反馈',
+            'integration': '集成',
+            'ecosystem': '生态',
+            'localization': '本地化',
+            'ai': 'AI',
+        }
+        zh_tokens = ' '.join(zh_map.get(token, token) for token in tokens[:4])
+        keyword_tail = PlannerLLMClient._dynamic_field_keyword_tail(tokens)
+        return [
+            f'{{product}} {zh_tokens} {keyword_tail}'.strip(),
+            f'{{product}} 官网 文档 {zh_tokens}'.strip(),
+            f'{{product}} {zh_tokens} 对比 评测'.strip(),
+            f'{{product}} {zh_tokens} 功能 说明'.strip(),
+        ]
+
+    @staticmethod
+    def _dynamic_field_keyword_tail(tokens: list[str]) -> str:
+        semantic_groups = {
+            'security': ['安全认证', '数据加密', '权限管理', '审计日志'],
+            'compliance': ['合规认证', '监管要求', 'ISO', 'SOC2'],
+            'free': ['免费版', '试用', '功能限制', '人数限制'],
+            'version': ['版本对比', '套餐说明', '功能限制'],
+            'pricing': ['价格', '套餐', '计费', '版本对比'],
+            'enterprise': ['企业版', 'SLA', '管理员能力', '客户支持'],
+            'service': ['客服支持', '实施服务', '成功经理', '服务能力'],
+            'deployment': ['私有化', '公有云', '本地部署', '混合部署'],
+            'integration': ['集成', 'API', '插件', '生态'],
+            'ecosystem': ['生态', '集成', '开放平台', '合作伙伴'],
+            'localization': ['本地化', '多语言', '区域支持', '数据中心'],
+            'ai': ['AI 功能', '智能助手', '自动化', '生成式 AI'],
+            'support': ['技术支持', '客服支持', 'SLA', '响应时间'],
+            'admin': ['管理后台', '管理员', '权限配置', '组织管理'],
+            'controls': ['权限控制', '审计', '策略配置', '管理能力'],
+        }
+        collected: list[str] = []
+        seen: set[str] = set()
+        for token in tokens:
+            for phrase in semantic_groups.get(token, []):
+                if phrase in seen:
+                    continue
+                seen.add(phrase)
+                collected.append(phrase)
+                if len(collected) >= 4:
+                    break
+            if len(collected) >= 4:
+                break
+        if collected:
+            return ' '.join(collected)
+        return '官网 文档 评测 功能'
 
     @staticmethod
     def _ensure_pricing_query_has_year(template: str) -> str:

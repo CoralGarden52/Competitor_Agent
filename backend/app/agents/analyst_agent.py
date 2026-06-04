@@ -22,6 +22,8 @@ from app.core.models import (
     PricingTier,
     RawEvidence,
     RunState,
+    TaskEnvelope,
+    TaskResult,
 )
 from app.core.prompts.agent_prompts import ANALYZE_SYSTEM_PROMPT
 from app.core.schema_registry import get_domain_schema
@@ -31,6 +33,7 @@ logger = logging.getLogger(__name__)
 
 
 CORE_PROFILE_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
+CORE_ANALYSIS_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
 
 
 class AnalystAgent:
@@ -125,6 +128,38 @@ class AnalystAgent:
         self._runtime_run_id = ''
         self._runtime_attempt = 0
         return AnalyzeOutput(competitors=records, profiles=profiles, findings=findings)
+
+    def consume_task(self, task: TaskEnvelope, state: RunState) -> tuple[TaskResult, AnalyzeOutput]:
+        payload = task.input_payload if isinstance(task.input_payload, dict) else {}
+        raw_targets = payload.get('reanalyze_targets', {})
+        reanalyze_targets: dict[str, set[str]] | None = None
+        if isinstance(raw_targets, dict):
+            parsed: dict[str, set[str]] = {}
+            for competitor, fields in raw_targets.items():
+                if not isinstance(fields, list):
+                    continue
+                cleaned = {str(item).strip() for item in fields if str(item).strip()}
+                if cleaned:
+                    parsed[str(competitor).strip()] = cleaned
+            reanalyze_targets = parsed or None
+        previous_records = state.competitor_analyses if reanalyze_targets else None
+        result = self.run_llm(state, reanalyze_targets=reanalyze_targets, previous_records=previous_records)
+        changed_fields = [field.field_name for record in result.competitors for field in record.fields]
+        task_result = TaskResult(
+            task_id=task.task_id,
+            run_id=task.run_id,
+            owner_agent='AnalystAgent',
+            status='completed',
+            summary=f'analyzed {len(result.competitors)} competitors into {len(result.findings)} findings',
+            output_payload={
+                'competitor_count': len(result.competitors),
+                'profile_count': len(result.profiles),
+                'finding_count': len(result.findings),
+            },
+            changed_fields=changed_fields,
+            next_recommendations=['draft_report'] if result.findings else ['collect_evidence'],
+        )
+        return task_result, result
     def _analyze_single_field(
         self,
         competitor: str,
@@ -228,6 +263,7 @@ class AnalystAgent:
             
             # 只要 summary / normalized_value / evidence_gaps 任一部分有有效信息，就保留结果
             if not self._has_meaningful_field_output(
+                field_name=field_name,
                 summary=summary,
                 normalized_value=normalized_value,
                 evidence_gaps=evidence_gaps,
@@ -375,6 +411,7 @@ class AnalystAgent:
             )
             evidence_gaps = self._clean_evidence_gaps(final_result.get('evidence_gaps', []))
             if not self._has_meaningful_field_output(
+                field_name='pricing_model',
                 summary=summary,
                 normalized_value=normalized_value,
                 evidence_gaps=evidence_gaps,
@@ -478,6 +515,26 @@ class AnalystAgent:
     @staticmethod
     def _has_meaningful_field_output(
         *,
+        field_name: str,
+        summary: str,
+        normalized_value: dict[str, Any],
+        evidence_gaps: list[str],
+    ) -> bool:
+        if field_name in CORE_ANALYSIS_FIELDS:
+            return AnalystAgent._has_meaningful_core_field_output(
+                summary=summary,
+                normalized_value=normalized_value,
+                evidence_gaps=evidence_gaps,
+            )
+        return AnalystAgent._has_meaningful_dynamic_field_output(
+            summary=summary,
+            normalized_value=normalized_value,
+            evidence_gaps=evidence_gaps,
+        )
+
+    @staticmethod
+    def _has_meaningful_core_field_output(
+        *,
         summary: str,
         normalized_value: dict[str, Any],
         evidence_gaps: list[str],
@@ -485,6 +542,27 @@ class AnalystAgent:
         normalized_summary = str(summary or '').strip()
         if normalized_summary and normalized_summary.lower() not in {'none', 'unknown'}:
             return True
+        if AnalystAgent._normalized_value_has_signal(normalized_value):
+            return True
+        return bool(evidence_gaps)
+
+    @staticmethod
+    def _has_meaningful_dynamic_field_output(
+        *,
+        summary: str,
+        normalized_value: dict[str, Any],
+        evidence_gaps: list[str],
+    ) -> bool:
+        normalized_summary = str(summary or '').strip()
+        if normalized_summary and normalized_summary.lower() not in {'none', 'unknown'}:
+            return True
+        if isinstance(normalized_value, dict):
+            value_text = str(normalized_value.get('value', '')).strip()
+            if value_text and value_text.lower() not in {'none', 'unknown'}:
+                return True
+            observations = normalized_value.get('key_observations', [])
+            if isinstance(observations, list) and any(str(item).strip() for item in observations):
+                return True
         if AnalystAgent._normalized_value_has_signal(normalized_value):
             return True
         return bool(evidence_gaps)
@@ -536,7 +614,7 @@ class AnalystAgent:
             field_bundles: list[FieldEvidenceBundle] = []
             for field_name in field_names:
                 matches = [
-                    ev
+                    self._coerce_raw_evidence(ev)
                     for ev in state.evidences
                     if self._evidence_matches_competitor(ev, competitor) and self._evidence_matches_field(ev, field_name)
                 ]
@@ -544,6 +622,16 @@ class AnalystAgent:
                 field_bundles.append(FieldEvidenceBundle(field_name=field_name, evidences=matches))
             bundles.append(CompetitorEvidenceBundle(product_name=competitor, fields=field_bundles))
         return bundles
+
+    @staticmethod
+    def _coerce_raw_evidence(evidence: Any) -> RawEvidence:
+        if isinstance(evidence, RawEvidence):
+            return evidence
+        if hasattr(evidence, 'model_dump'):
+            return RawEvidence.model_validate(evidence.model_dump(mode='python'))
+        if isinstance(evidence, dict):
+            return RawEvidence.model_validate(evidence)
+        return RawEvidence.model_validate(evidence)
 
     def _ensure_analysis_consistency(
         self,
@@ -993,4 +1081,3 @@ class AnalystAgent:
         if non_generic:
             return non_generic[0][:220]
         return f'{record.product_name} market positioning inferred from public sources'
-

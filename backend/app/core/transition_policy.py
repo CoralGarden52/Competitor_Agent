@@ -6,16 +6,6 @@ from typing import Any
 from app.core.models import QAOutput, RecoveryState, RunState, StageName, TransitionReason
 
 
-_DEFAULT_STAGE_FLOW: dict[StageName, StageName | None] = {
-    StageName.plan: StageName.collect,
-    StageName.collect: StageName.normalize,
-    StageName.normalize: StageName.analyze,
-    StageName.analyze: StageName.qa,
-    StageName.qa: StageName.draft,
-    StageName.draft: StageName.finalize,
-    StageName.finalize: None,
-}
-
 _RETRYABLE_REASONS = {
     'network_error',
     'rate_limit',
@@ -66,28 +56,7 @@ class TransitionPolicy:
                 terminal_status='failed',
             )
 
-        if stage == StageName.qa and isinstance(stage_result, QAOutput):
-            if stage_result.passed:
-                return TransitionDecision(
-                    next_stage=StageName.draft,
-                    transition_reason=TransitionReason.qa_passed,
-                    recovery_state=RecoveryState.none,
-                )
-            if run_state.attempt <= 1 and stage_result.target_agent == 'Collect':
-                return TransitionDecision(
-                    next_stage=StageName.collect,
-                    transition_reason=TransitionReason.qa_rework_collect,
-                    recovery_state=RecoveryState.reworking,
-                    apply_rework_ticket=True,
-                )
-            return TransitionDecision(
-                next_stage=StageName.draft,
-                transition_reason=TransitionReason.qa_recollect_skipped,
-                recovery_state=RecoveryState.none,
-            )
-
-        next_stage = _DEFAULT_STAGE_FLOW.get(stage)
-        if stage == StageName.finalize:
+        if stage == StageName.finalize or run_state.status == 'completed':
             return TransitionDecision(
                 next_stage=None,
                 transition_reason=TransitionReason.completed,
@@ -95,7 +64,7 @@ class TransitionPolicy:
                 terminal_status='completed',
             )
         return TransitionDecision(
-            next_stage=next_stage,
+            next_stage=stage,
             transition_reason=TransitionReason.stage_succeeded,
             recovery_state=RecoveryState.none,
         )
@@ -109,4 +78,3 @@ class TransitionPolicy:
             return True
         error_name = error.__class__.__name__.lower()
         return 'timeout' in error_name or 'connection' in error_name
-

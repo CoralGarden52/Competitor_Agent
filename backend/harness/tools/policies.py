@@ -8,6 +8,22 @@ ROLE_TOOL_ALLOWLISTS: dict[str, frozenset[str]] = {
     "WriterAgent": frozenset({"web.extract"}),
     "QACriticAgent": frozenset({"web.search", "web.fetch"}),
     "CollectorDeepDiveSubagent": frozenset({"web.search", "web.fetch", "web.extract"}),
+    "ManagerAgent": frozenset(
+        {
+            "state.get_run_snapshot",
+            "state.get_coverage_summary",
+            "state.get_gap_summary",
+            "state.get_report_status",
+            "action.plan_scope",
+            "action.collect_initial",
+            "action.collect_gap",
+            "action.normalize_evidence",
+            "action.reanalyze_targets",
+            "action.redraft_report",
+            "action.run_qa",
+            "action.finalize_run",
+        }
+    ),
 }
 
 

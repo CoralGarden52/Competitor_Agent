@@ -15,6 +15,8 @@ from app.core.models import (
     ReportClaim,
     ReportSection,
     RunState,
+    TaskEnvelope,
+    TaskResult,
 )
 from app.core.prompts.agent_prompts import DRAFT_OVERVIEW_SYSTEM_PROMPT, DRAFT_SYSTEM_PROMPT
 
@@ -112,6 +114,27 @@ class WriterAgent:
         report.markdown = self._markdown_from_template(state, report)
         report.html = self._html_from_template(state, report)
         return self._synthesize_overview_sections(DraftOutput(report=report), state=state)
+
+    def consume_task(self, task: TaskEnvelope, state: RunState) -> tuple[TaskResult, DraftOutput]:
+        try:
+            drafted = self.run_llm(state)
+        except LLMCallError:
+            drafted = self.run_fallback(state)
+        report = drafted.report
+        task_result = TaskResult(
+            task_id=task.task_id,
+            run_id=task.run_id,
+            owner_agent='WriterAgent',
+            status='completed',
+            summary=f'drafted report with {len(report.sections)} sections',
+            output_payload={
+                'section_count': len(report.sections),
+                'report_ready': bool(str(report.markdown).strip()),
+            },
+            changed_fields=[section.field_name for section in report.sections if section.field_name],
+            next_recommendations=['finalize_run'] if bool(str(report.markdown).strip()) else ['draft_report'],
+        )
+        return task_result, drafted
 
     def _ensure_report_consistency(
         self,
