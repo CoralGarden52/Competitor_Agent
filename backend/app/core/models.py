@@ -227,6 +227,164 @@ class AnalyzeHandoff(BaseModel):
     evidence_gap_summary: list[dict[str, Any]] = Field(default_factory=list)
 
 
+class TaskType(StrEnum):
+    collect_evidence = 'collect_evidence'
+    analyze_evidence = 'analyze_evidence'
+    draft_report = 'draft_report'
+
+
+class TaskStatus(StrEnum):
+    queued = 'queued'
+    claimed = 'claimed'
+    in_progress = 'in_progress'
+    completed = 'completed'
+    blocked = 'blocked'
+    failed = 'failed'
+
+
+class HandoffType(StrEnum):
+    collect = 'collect'
+    analyze = 'analyze'
+    draft = 'draft'
+
+
+class AgentMessageType(StrEnum):
+    task_created = 'task_created'
+    task_claimed = 'task_claimed'
+    handoff_submitted = 'handoff_submitted'
+    task_completed = 'task_completed'
+    task_blocked = 'task_blocked'
+
+
+class TaskEnvelope(BaseModel):
+    task_id: str = Field(default_factory=lambda: f'tsk_{uuid4().hex[:10]}')
+    run_id: str
+    attempt: int
+    task_type: TaskType
+    status: TaskStatus = TaskStatus.queued
+    requester_agent: str
+    owner_agent: str
+    priority: int = Field(default=5, ge=1, le=10)
+    input_payload: dict[str, Any] = Field(default_factory=dict)
+    success_criteria: list[str] = Field(default_factory=list)
+    related_ticket_id: str | None = None
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class TaskResult(BaseModel):
+    task_id: str
+    run_id: str
+    owner_agent: str
+    status: Literal['completed', 'blocked', 'failed']
+    summary: str = ''
+    output_payload: dict[str, Any] = Field(default_factory=dict)
+    artifacts: dict[str, Any] = Field(default_factory=dict)
+    changed_fields: list[str] = Field(default_factory=list)
+    next_recommendations: list[str] = Field(default_factory=list)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class HandoffEnvelope(BaseModel):
+    handoff_id: str = Field(default_factory=lambda: f'hof_{uuid4().hex[:10]}')
+    run_id: str
+    attempt: int
+    handoff_type: HandoffType
+    from_agent: str
+    to_agent: str
+    related_task_id: str
+    payload_schema: str
+    payload: dict[str, Any]
+    trace_context: dict[str, Any] = Field(default_factory=dict)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class AgentMessage(BaseModel):
+    message_id: str = Field(default_factory=lambda: f'msg_{uuid4().hex[:10]}')
+    run_id: str
+    attempt: int
+    msg_type: AgentMessageType
+    from_agent: str
+    to_agent: str
+    task_id: str | None = None
+    handoff_id: str | None = None
+    payload: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class AgentMailbox(BaseModel):
+    inbox: list[AgentMessage] = Field(default_factory=list)
+    outbox: list[AgentMessage] = Field(default_factory=list)
+
+
+class ActionType(StrEnum):
+    plan_scope = 'plan_scope'
+    collect_initial = 'collect_initial'
+    collect_gap = 'collect_gap'
+    normalize_evidence = 'normalize_evidence'
+    analyze_targets = 'analyze_targets'
+    reanalyze_targets = 'reanalyze_targets'
+    draft_report = 'draft_report'
+    redraft_report = 'redraft_report'
+    run_qa = 'run_qa'
+    finalize_run = 'finalize_run'
+
+
+class ActionTarget(BaseModel):
+    competitors: list[str] = Field(default_factory=list)
+    fields: list[str] = Field(default_factory=list)
+    sections: list[str] = Field(default_factory=list)
+    ticket_ids: list[str] = Field(default_factory=list)
+
+
+class DecisionContextSnapshot(BaseModel):
+    run_id: str
+    status: str = 'running'
+    turn_count: int = 0
+    current_stage: str = ''
+    planned_competitors: list[str] = Field(default_factory=list)
+    schema_fields: list[str] = Field(default_factory=list)
+    evidence_count: int = 0
+    competitor_analysis_count: int = 0
+    finding_count: int = 0
+    report_ready: bool = False
+    coverage_summary: dict[str, Any] = Field(default_factory=dict)
+    gap_summary: list[dict[str, Any]] = Field(default_factory=list)
+    latest_ticket_summary: dict[str, Any] = Field(default_factory=dict)
+    self_eval_summary: dict[str, Any] = Field(default_factory=dict)
+    recent_failures: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class ManagerDecision(BaseModel):
+    decision_id: str = Field(default_factory=lambda: f'dec_{uuid4().hex[:10]}')
+    turn: int = Field(default=0, ge=0)
+    action_type: ActionType
+    target_agent: str
+    targets: ActionTarget = Field(default_factory=ActionTarget)
+    reason: str
+    expected_outcome: str = ''
+    success_criteria: list[str] = Field(default_factory=list)
+    priority: int = Field(default=1, ge=1, le=10)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class DecisionHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    turn: int
+    decision: ManagerDecision
+    context_snapshot: DecisionContextSnapshot
+
+
+class ActionExecutionResult(BaseModel):
+    action_type: ActionType
+    target_agent: str
+    status: Literal['completed', 'failed'] = 'completed'
+    summary: str = ''
+    changed_fields: list[str] = Field(default_factory=list)
+    artifacts: dict[str, Any] = Field(default_factory=dict)
+    next_hints: list[str] = Field(default_factory=list)
+
+
 class ReportClaim(BaseModel):
     statement: str
     evidence_refs: list[str] = Field(default_factory=list)
@@ -250,6 +408,16 @@ class Report(BaseModel):
     sections: list[ReportSection] = Field(default_factory=list)
     markdown: str = ''
     html: str = ''
+
+
+class DraftHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    competitors: list[str] = Field(default_factory=list)
+    report: Report | None = None
+    section_status: list[dict[str, Any]] = Field(default_factory=list)
+    claim_coverage: list[dict[str, Any]] = Field(default_factory=list)
+    unresolved_gaps: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class QuestionnaireQuestion(BaseModel):
@@ -447,6 +615,20 @@ class RunState(BaseModel):
     report: Report | None = None
     tickets: list[ReworkTicket] = Field(default_factory=list)
     self_eval: dict[str, SelfEval] = Field(default_factory=dict)
+    decision_history: list[ManagerDecision] = Field(default_factory=list)
+    latest_decision: ManagerDecision | None = None
+    last_action_result: dict[str, Any] = Field(default_factory=dict)
+    runtime_action_context: dict[str, Any] = Field(default_factory=dict)
+    task_board: list[TaskEnvelope] = Field(default_factory=list)
+    handoff_log: list[HandoffEnvelope] = Field(default_factory=list)
+    agent_mailboxes: dict[str, AgentMailbox] = Field(
+        default_factory=lambda: {
+            'ManagerAgent': AgentMailbox(),
+            'CollectorAgent': AgentMailbox(),
+            'AnalystAgent': AgentMailbox(),
+            'WriterAgent': AgentMailbox(),
+        }
+    )
     schema_evolution_proposals: list[SchemaEvolutionProposal] = Field(default_factory=list)
     todo_plan: TodoPlan = Field(default_factory=TodoPlan)
     status: Literal['running', 'failed', 'completed'] = 'running'

@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
-from app.agents import AnalystAgent, CollectorAgent, OrchestratorAgent, QACriticAgent, QuestionnaireAgent, WriterAgent
+from app.agents import AnalystAgent, CollectorAgent, ManagerAgent, OrchestratorAgent, QACriticAgent, QuestionnaireAgent, WriterAgent
 from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.approval_policy_engine import ApprovalPolicyEngine, PolicyContext
 from app.core.collector import CollectorPipeline
@@ -18,14 +18,23 @@ from app.core.planner_llm import PlannerLLMClient
 from app.core.graph_state import WorkflowGraphState, init_graph_state_from_run_request, make_stage_snapshot
 from app.core.hooks import AuditHook, HookContext, HookRegistry
 from app.core.models import (
+    ActionExecutionResult,
+    ActionTarget,
+    ActionType,
     AnalysisSchemaField,
     AnalyzeHandoff,
     ApprovalPolicy,
     CollectHandoff,
     CompetitorProfile,
     CompetitorEvidenceBundle,
+    DecisionContextSnapshot,
+    DecisionHandoff,
+    DraftHandoff,
     FieldRiskProfile,
+    ManagerDecision,
     FieldEvidenceBundle,
+    HandoffEnvelope,
+    HandoffType,
     EventEnvelope,
     EventRecord,
     EventType,
@@ -54,6 +63,10 @@ from app.core.models import (
     SelfEval,
     Severity,
     StageName,
+    TaskEnvelope,
+    TaskResult,
+    TaskStatus,
+    TaskType,
     TicketStatus,
     TransitionReason,
     RecoveryState,
@@ -64,7 +77,7 @@ from app.core.storage import SQLiteStore
 from app.core.todo import TodoStateManager
 from harness.subagents import SubagentExecutor
 from harness.subagents.tracing import subagent_trace
-from harness.tools.bootstrap import build_tool_runtime, register_internal_llm_tool
+from harness.tools.bootstrap import build_tool_runtime, register_internal_llm_tool, register_workflow_tools
 
 
 logger = logging.getLogger(__name__)
@@ -89,11 +102,13 @@ class CompetitorWorkflowService:
         self.deep_dive = CollectorDeepDiveCoordinator(executor=self.subagent_executor, config=self.config)
         self.policy_engine = ApprovalPolicyEngine(store)
         self.orchestrator = OrchestratorAgent(max_rework_iterations=self.config.max_rework_iterations, planner=self.planner_llm)
+        self.manager_agent = ManagerAgent(self.agent_llm, self.tool_router)
         self.collector_agent = CollectorAgent(self.collector, self.store, deep_dive=self.deep_dive)
         self.analyst_agent = AnalystAgent(self.agent_llm, self.store)
         self.writer_agent = WriterAgent(self.agent_llm)
         self.questionnaire_agent = QuestionnaireAgent(self.agent_llm)
         self.qa_critic_agent = QACriticAgent(self.agent_llm, self.store)
+        register_workflow_tools(self.tools, lambda: self)
         self.runtime = WorkflowLangGraphRuntime(self)
         for hook_point in ('before_llm', 'before_tool', 'after_tool', 'after_stage', 'on_error'):
             self.hook_registry.register(hook_point, AuditHook(lambda _event_type, payload: self._save_hook_event(payload)))
@@ -218,6 +233,281 @@ class CompetitorWorkflowService:
         plan = manager.init_from_run_state()
         self._save_and_event(state, StageName.plan, 'todo.plan.initialized', {'todo_plan': plan.model_dump(mode='json')})
 
+    def _build_decision_context(self, state: RunState) -> DecisionContextSnapshot:
+        coverage = self._calc_analyze_coverage(state)
+        gap_summary: list[dict[str, object]] = []
+        for record in state.competitor_analyses:
+            for field in record.fields:
+                if field.evidence_gaps:
+                    gap_summary.append(
+                        {
+                            'competitor': record.product_name,
+                            'field_name': field.field_name,
+                            'gaps': field.evidence_gaps,
+                        }
+                    )
+        latest_ticket = state.tickets[-1] if state.tickets else None
+        latest_ticket_summary = {}
+        if latest_ticket is not None:
+            latest_ticket_summary = {
+                'ticket_id': latest_ticket.ticket_id,
+                'target_agent': latest_ticket.target_agent,
+                'issue_count': len(latest_ticket.issues),
+                'status': latest_ticket.status.value,
+            }
+        recent_failures = []
+        if state.last_error:
+            recent_failures.append(state.last_error)
+        return DecisionContextSnapshot(
+            run_id=state.run_id,
+            status=state.status,
+            turn_count=state.turn_count,
+            current_stage=state.current_stage.value if isinstance(state.current_stage, StageName) else str(state.current_stage),
+            planned_competitors=state.planned_competitors or state.competitors,
+            schema_fields=[item.field_name for item in state.analysis_schema_plan],
+            evidence_count=len(state.evidences),
+            competitor_analysis_count=len(state.competitor_analyses),
+            finding_count=len(state.findings),
+            report_ready=state.report is not None and bool(str(state.report.markdown).strip()),
+            coverage_summary=coverage,
+            gap_summary=gap_summary[:20],
+            latest_ticket_summary=latest_ticket_summary,
+            self_eval_summary={key: value.model_dump(mode='json') for key, value in state.self_eval.items()},
+            recent_failures=recent_failures,
+        )
+
+    def _manager_decide(self, state: RunState) -> ManagerDecision:
+        context = self._build_decision_context(state)
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'manager.context.prepared',
+            {'context': context.model_dump(mode='json')},
+        )
+        metadata = {
+            'run_id': state.run_id,
+            'attempt': state.attempt,
+            'node_name': 'plan',
+            'agent_name': 'ManagerAgent',
+            'model': self.agent_llm.config.openai_model,
+        }
+        self._save_and_event(state, StageName.plan, 'manager.decision.started', {'turn': state.turn_count})
+        try:
+            decision = self.manager_agent.decide(context=context, metadata=metadata)
+        except Exception as exc:
+            logger.warning('manager decision failed, fallback used: %s', exc)
+            decision = self.manager_agent.fallback_decide(context=context)
+            decision.metadata['fallback_error'] = str(exc)
+        decision = self._guard_manager_decision(state=state, context=context, decision=decision)
+        state.latest_decision = decision
+        state.decision_history.append(decision)
+        handoff = DecisionHandoff(run_id=state.run_id, attempt=state.attempt, turn=state.turn_count, decision=decision, context_snapshot=context)
+        self._save_and_event(
+            state,
+            self._stage_for_action(decision.action_type),
+            'manager.decision.completed',
+            {'decision': handoff.model_dump(mode='json')},
+        )
+        return decision
+
+    def _guard_manager_decision(
+        self,
+        *,
+        state: RunState,
+        context: DecisionContextSnapshot,
+        decision: ManagerDecision,
+    ) -> ManagerDecision:
+        replacement: tuple[ActionType, str, str] | None = None
+
+        has_plan_scope = bool(context.planned_competitors) and bool(context.schema_fields)
+        has_evidence = int(context.evidence_count) > 0
+        has_analyses = int(context.competitor_analysis_count) > 0
+        has_findings = int(context.finding_count) > 0
+        report_ready = bool(context.report_ready)
+        qa_collect_allowed = (
+            isinstance(context.latest_ticket_summary, dict)
+            and context.latest_ticket_summary.get('target_agent') == 'Collect'
+            and not bool(state.planner_meta.get('qa_collect_round_used', False))
+        )
+
+        if report_ready and decision.action_type != ActionType.run_qa:
+            replacement = (ActionType.run_qa, 'QACriticAgent', 'content_first_report_ready_to_qa')
+        elif has_findings and decision.action_type != ActionType.redraft_report:
+            replacement = (ActionType.redraft_report, 'WriterAgent', 'content_first_findings_to_draft')
+        elif has_evidence and (not has_findings or not has_analyses) and decision.action_type != ActionType.reanalyze_targets:
+            replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'content_first_evidence_to_reanalyze')
+        elif decision.action_type == ActionType.plan_scope and has_plan_scope:
+            if has_evidence and (not has_findings or not has_analyses):
+                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'plan_scope_blocked_after_plan_ready')
+            elif has_findings:
+                replacement = (ActionType.redraft_report, 'WriterAgent', 'plan_scope_blocked_after_plan_ready')
+            else:
+                replacement = (ActionType.collect_initial, 'CollectorAgent', 'plan_scope_blocked_after_plan_ready')
+        elif decision.action_type == ActionType.collect_initial and has_evidence:
+            if has_findings:
+                replacement = (ActionType.redraft_report, 'WriterAgent', 'collect_initial_blocked_after_content_ready')
+            else:
+                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'collect_initial_rewritten_to_reanalyze')
+        elif decision.action_type == ActionType.collect_gap and not qa_collect_allowed:
+            if has_findings:
+                replacement = (ActionType.redraft_report, 'WriterAgent', 'collect_gap_only_allowed_for_qa')
+            elif has_evidence:
+                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'collect_gap_only_allowed_for_qa')
+        elif decision.action_type == ActionType.reanalyze_targets and has_findings:
+            replacement = (ActionType.redraft_report, 'WriterAgent', 'reanalyze_rewritten_to_redraft')
+        elif decision.action_type == ActionType.redraft_report and report_ready:
+            replacement = (ActionType.run_qa, 'QACriticAgent', 'redraft_rewritten_to_run_qa')
+        elif decision.action_type == ActionType.run_qa and state.attempt > 1 and bool(state.planner_meta.get('qa_collect_round_used', False)):
+            replacement = (ActionType.finalize_run, 'Finalizer', 'qa_collect_budget_exhausted_finalize')
+
+        if replacement is None:
+            return decision
+
+        action_type, target_agent, reason_code = replacement
+        guarded = ManagerDecision.model_validate(
+            {
+                **decision.model_dump(mode='json'),
+                'action_type': action_type.value,
+                'target_agent': target_agent,
+                'targets': decision.targets.model_dump(mode='json'),
+                'reason': f'{decision.reason}|guard:{reason_code}',
+                'metadata': {
+                    **decision.metadata,
+                    'guard_rewritten': True,
+                    'guard_reason': reason_code,
+                    'original_action_type': decision.action_type.value,
+                },
+            }
+        )
+        self._save_and_event(
+            state,
+            self._stage_for_action(guarded.action_type),
+            'manager.decision.guarded',
+            {
+                'original_action_type': decision.action_type.value,
+                'guarded_action_type': guarded.action_type.value,
+                'guard_reason': reason_code,
+                'turn': state.turn_count,
+            },
+        )
+        return guarded
+
+    def _manager_act(self, state: RunState) -> tuple[ManagerDecision, ActionExecutionResult]:
+        decision = self._manager_decide(state)
+        result = self._execute_decision(state, decision)
+        return decision, result
+
+    def _execute_decision(self, state: RunState, decision: ManagerDecision) -> ActionExecutionResult:
+        state.current_stage = self._stage_for_action(decision.action_type)
+        state.next_stage = state.current_stage
+        state.runtime_action_context = {
+            'targets': decision.targets.model_dump(mode='json'),
+            'decision_id': decision.decision_id,
+            'action_type': decision.action_type.value,
+            'target_agent': decision.target_agent,
+        }
+        self._save_and_event(
+            state,
+            state.current_stage,
+            'action.dispatch.started',
+            {'decision': decision.model_dump(mode='json')},
+        )
+        action_tool_name = self._action_tool_name(decision.action_type)
+        routed = self.tool_router.invoke(
+            self._tool_request_for_action(
+                state=state,
+                action_tool_name=action_tool_name,
+                decision=decision,
+            )
+        )
+        if not routed.ok:
+            raise RuntimeError(routed.error_message or routed.error_code or 'action_dispatch_failed')
+        payload = routed.output
+        self._refresh_runtime_state_from_store(state)
+        result = ActionExecutionResult.model_validate(
+            {
+                'action_type': decision.action_type,
+                'target_agent': decision.target_agent,
+                'status': payload.get('status', 'completed'),
+                'summary': payload.get('summary', ''),
+                'changed_fields': payload.get('changed_fields', []),
+                'artifacts': payload.get('artifacts', {}),
+                'next_hints': payload.get('next_hints', []),
+            }
+        )
+        state.last_action_result = result.model_dump(mode='json')
+        self._save_and_event(
+            state,
+            state.current_stage,
+            'action.dispatch.completed',
+            {'result': result.model_dump(mode='json')},
+        )
+        return result
+
+    def _refresh_runtime_state_from_store(self, state: RunState) -> None:
+        refreshed = self.store.get_state(state.run_id)
+        if refreshed is None:
+            return
+        refreshed_payload = refreshed.model_dump(mode='python')
+        current_payload = state.model_dump(mode='python')
+        current_payload.update(refreshed_payload)
+        synced = RunState.model_validate(current_payload)
+        state.__dict__.clear()
+        state.__dict__.update(synced.__dict__)
+
+    def _tool_request_for_action(self, *, state: RunState, action_tool_name: str, decision: ManagerDecision):
+        from harness.tools.types import ToolRequest
+
+        return ToolRequest(
+            name=action_tool_name,
+            args={
+                'competitors': decision.targets.competitors,
+                'fields': decision.targets.fields,
+                'sections': decision.targets.sections,
+                'reason': decision.reason,
+                'mode': decision.action_type.value,
+            },
+            metadata={
+                'run_id': state.run_id,
+                'attempt': state.attempt,
+                'node_name': self._stage_for_action(decision.action_type).value,
+                'agent_name': 'ManagerAgent',
+                'trace_name': f'manager.dispatch.{decision.action_type.value}',
+            },
+        )
+
+    @staticmethod
+    def _stage_for_action(action_type: ActionType) -> StageName:
+        mapping = {
+            ActionType.plan_scope: StageName.plan,
+            ActionType.collect_initial: StageName.collect,
+            ActionType.collect_gap: StageName.collect,
+            ActionType.normalize_evidence: StageName.normalize,
+            ActionType.analyze_targets: StageName.analyze,
+            ActionType.reanalyze_targets: StageName.analyze,
+            ActionType.draft_report: StageName.draft,
+            ActionType.redraft_report: StageName.draft,
+            ActionType.run_qa: StageName.qa,
+            ActionType.finalize_run: StageName.finalize,
+        }
+        return mapping[action_type]
+
+    @staticmethod
+    def _action_tool_name(action_type: ActionType) -> str:
+        mapping = {
+            ActionType.plan_scope: 'action.plan_scope',
+            ActionType.collect_initial: 'action.collect_initial',
+            ActionType.collect_gap: 'action.collect_gap',
+            ActionType.normalize_evidence: 'action.normalize_evidence',
+            ActionType.analyze_targets: 'action.reanalyze_targets',
+            ActionType.reanalyze_targets: 'action.reanalyze_targets',
+            ActionType.draft_report: 'action.redraft_report',
+            ActionType.redraft_report: 'action.redraft_report',
+            ActionType.run_qa: 'action.run_qa',
+            ActionType.finalize_run: 'action.finalize_run',
+        }
+        return mapping[action_type]
+
     def _execute_run(self, state: RunState) -> RunState:
         state = self.runtime.execute(state)
         if state.status not in ('completed', 'failed'):
@@ -288,6 +578,13 @@ class CompetitorWorkflowService:
             'timeline': timeline,
             'handoffs': handoffs,
             'llm_calls': llm_calls,
+            'decision_history': [item.model_dump(mode='json') for item in run.state.decision_history],
+            'last_action_result': run.state.last_action_result,
+            'decision_summary': {
+                'decision_count': len(run.state.decision_history),
+                'latest_decision': run.state.latest_decision.model_dump(mode='json') if run.state.latest_decision else None,
+                'action_result': run.state.last_action_result,
+            },
             'tool_events': self._extract_tool_events(events),
             'todo_plan': run.state.todo_plan.model_dump(mode='json'),
             'todo_events': self._extract_events_by_type(events, 'todo.'),
@@ -301,7 +598,14 @@ class CompetitorWorkflowService:
         io = self.store.replay_node_io(run_id, node_name)
         handoffs = self.store.list_stage_handoffs(run_id, stage=node_name)
         llm_calls = self.store.list_llm_calls(run_id, node_name=node_name)
-        return {'run_id': run_id, 'node_name': node_name, 'io': io, 'handoffs': handoffs, 'llm_calls': llm_calls}
+        return {
+            'run_id': run_id,
+            'node_name': node_name,
+            'io': io,
+            'handoffs': handoffs,
+            'llm_calls': llm_calls,
+            'decision_history': [item.model_dump(mode='json') for item in run.state.decision_history if self._stage_for_action(item.action_type).value == node_name],
+        }
 
     def workspace_payload(self, run_id: str) -> dict[str, object]:
         run = self.get_run(run_id)
@@ -881,23 +1185,202 @@ class CompetitorWorkflowService:
         )
         self._save_handoff(state, StageName.plan, self._build_plan_handoff(state))
 
+    def _run_action_tool(self, action_name: str, args: dict[str, object], metadata: dict[str, object]) -> dict[str, object]:
+        run_id = str(metadata.get('run_id', '') or '')
+        state = self.store.get_run_state(run_id)
+        if state is None:
+            return {'status': 'failed', 'summary': 'run_not_found', 'changed_fields': [], 'artifacts': {}, 'next_hints': []}
+        competitors = [str(item).strip() for item in args.get('competitors', []) if str(item).strip()] if isinstance(args.get('competitors', []), list) else []
+        fields = [str(item).strip() for item in args.get('fields', []) if str(item).strip()] if isinstance(args.get('fields', []), list) else []
+        sections = [str(item).strip() for item in args.get('sections', []) if str(item).strip()] if isinstance(args.get('sections', []), list) else []
+        state.runtime_action_context = {
+            **(state.runtime_action_context or {}),
+            'target_competitors': competitors,
+            'target_fields': fields,
+            'target_sections': sections,
+            'action_name': action_name,
+            'reason': str(args.get('reason', '') or ''),
+            'mode': str(args.get('mode', '') or ''),
+        }
+        if action_name == 'plan_scope':
+            result = self._execute_plan_action(state)
+        elif action_name == 'collect_initial':
+            result = self._execute_collect_action(state, competitors=competitors, fields=fields)
+        elif action_name == 'collect_gap':
+            result = self._execute_collect_action(state, competitors=competitors, fields=fields)
+        elif action_name == 'normalize_evidence':
+            result = self._execute_normalize_action(state)
+        elif action_name == 'reanalyze_targets':
+            result = self._execute_analyze_action(state, competitors=competitors, fields=fields)
+        elif action_name == 'redraft_report':
+            result = self._execute_draft_action(state, sections=sections)
+        elif action_name == 'run_qa':
+            qa_result = self._qa(state)
+            result = {
+                'status': 'completed',
+                'summary': 'qa completed' if qa_result.passed else 'qa flagged issues',
+                'changed_fields': [],
+                'artifacts': {'passed': qa_result.passed, 'issue_count': len(qa_result.issues)},
+                'next_hints': [qa_result.target_agent] if qa_result.target_agent else [],
+            }
+        elif action_name == 'finalize_run':
+            self._finalize(state)
+            state.status = 'completed'
+            state.transition_reason = TransitionReason.completed
+            result = {
+                'status': 'completed',
+                'summary': 'run finalized',
+                'changed_fields': [],
+                'artifacts': {'ticket_count': len(state.tickets), 'report_ready': state.report is not None},
+                'next_hints': [],
+            }
+        else:
+            raise ValueError(f'unsupported_action_tool: {action_name}')
+        self.store.save_state(state)
+        return result
+
+    def _execute_plan_action(self, state: RunState) -> dict[str, object]:
+        before_competitors = list(state.planned_competitors)
+        before_fields = [item.field_name for item in state.analysis_schema_plan]
+        self._plan(state)
+        after_competitors = list(state.planned_competitors)
+        after_fields = [item.field_name for item in state.analysis_schema_plan]
+        return {
+            'status': 'completed',
+            'summary': f'scope planned: {len(after_competitors)} competitors, {len(after_fields)} fields',
+            'changed_fields': after_fields,
+            'artifacts': {
+                'planned_competitors_before': before_competitors,
+                'planned_competitors_after': after_competitors,
+                'schema_fields_before': before_fields,
+                'schema_fields_after': after_fields,
+            },
+            'next_hints': ['collect_initial' if after_competitors else 'plan_scope'],
+        }
+
+    def _execute_collect_action(self, state: RunState, *, competitors: list[str], fields: list[str]) -> dict[str, object]:
+        before_evidence_count = len(state.evidences)
+        before_hosts = len({str(item.source_url) for item in state.evidences if item.source_url})
+        self._collect(state)
+        after_evidence_count = len(state.evidences)
+        after_hosts = len({str(item.source_url) for item in state.evidences if item.source_url})
+        added = max(0, after_evidence_count - before_evidence_count)
+        next_hints = ['analyze_targets'] if added > 0 else ['collect_gap']
+        return {
+            'status': 'completed',
+            'summary': f'evidence collected: +{added} evidences',
+            'changed_fields': fields,
+            'artifacts': {
+                'target_competitors': competitors,
+                'target_fields': fields,
+                'evidence_count_before': before_evidence_count,
+                'evidence_count_after': after_evidence_count,
+                'source_host_count_before': before_hosts,
+                'source_host_count_after': after_hosts,
+            },
+            'next_hints': next_hints,
+        }
+
+    def _execute_normalize_action(self, state: RunState) -> dict[str, object]:
+        before_count = len(state.evidences)
+        self._normalize(state)
+        after_count = len(state.evidences)
+        return {
+            'status': 'completed',
+            'summary': f'evidence normalized: {before_count} -> {after_count}',
+            'changed_fields': [],
+            'artifacts': {'evidence_count_before': before_count, 'evidence_count_after': after_count},
+            'next_hints': ['analyze_targets'],
+        }
+
+    def _execute_analyze_action(self, state: RunState, *, competitors: list[str], fields: list[str]) -> dict[str, object]:
+        before_findings = len(state.findings)
+        before_profiles = len(state.profiles)
+        before_analysis_count = len(state.competitor_analyses)
+        self._analyze(state)
+        after_findings = len(state.findings)
+        after_profiles = len(state.profiles)
+        after_analysis_count = len(state.competitor_analyses)
+        changed_fields = fields or [item.field_name for record in state.competitor_analyses for item in record.fields]
+        next_hints = ['draft_report'] if after_findings > 0 else ['collect_gap']
+        return {
+            'status': 'completed',
+            'summary': f'analysis updated: findings {before_findings}->{after_findings}',
+            'changed_fields': changed_fields,
+            'artifacts': {
+                'target_competitors': competitors,
+                'target_fields': fields,
+                'analysis_count_before': before_analysis_count,
+                'analysis_count_after': after_analysis_count,
+                'profile_count_before': before_profiles,
+                'profile_count_after': after_profiles,
+                'finding_count_before': before_findings,
+                'finding_count_after': after_findings,
+            },
+            'next_hints': next_hints,
+        }
+
+    def _execute_draft_action(self, state: RunState, *, sections: list[str]) -> dict[str, object]:
+        before_ready = state.report is not None and bool(str(state.report.markdown if state.report else '').strip())
+        before_sections = len(state.report.sections) if state.report else 0
+        self._draft(state)
+        after_ready = state.report is not None and bool(str(state.report.markdown if state.report else '').strip())
+        after_sections = len(state.report.sections) if state.report else 0
+        next_hints = ['finalize_run'] if after_ready else ['draft_report']
+        return {
+            'status': 'completed',
+            'summary': f'report drafted: sections {before_sections}->{after_sections}',
+            'changed_fields': sections,
+            'artifacts': {
+                'target_sections': sections,
+                'report_ready_before': before_ready,
+                'report_ready_after': after_ready,
+                'section_count_before': before_sections,
+                'section_count_after': after_sections,
+            },
+            'next_hints': next_hints,
+        }
+
     def _collect(self, state: RunState) -> None:
         qa_collect_plan = self._consume_qa_collect_plan(state)
+        action_context = state.runtime_action_context if isinstance(state.runtime_action_context, dict) else {}
+        action_competitors = action_context.get('target_competitors', [])
+        action_fields = action_context.get('target_fields', [])
+        if not qa_collect_plan and (action_competitors or action_fields):
+            qa_collect_plan = {
+                'target_competitors': list(action_competitors) if isinstance(action_competitors, list) else [],
+                'field_query_overrides': {},
+                'reanalyze_targets': {
+                    competitor: list(action_fields)
+                    for competitor in (action_competitors if isinstance(action_competitors, list) else [])
+                    if action_fields
+                },
+            }
         if qa_collect_plan and isinstance(state.planner_meta, dict):
             reanalyze_targets = qa_collect_plan.get('reanalyze_targets', {})
             if isinstance(reanalyze_targets, dict) and reanalyze_targets:
                 state.planner_meta['qa_reanalyze_targets'] = reanalyze_targets
+            state.planner_meta['qa_collect_round_used'] = True
+        elif isinstance(state.planner_meta, dict) and 'qa_collect_round_used' not in state.planner_meta:
+            state.planner_meta['qa_collect_round_used'] = False
+        task = self._create_stage_task(
+            state,
+            task_type=TaskType.collect_evidence,
+            owner_agent='CollectorAgent',
+            input_payload={
+                'target_competitors': qa_collect_plan.get('target_competitors') if qa_collect_plan else [],
+                'field_query_overrides': qa_collect_plan.get('field_query_overrides') if qa_collect_plan else {},
+            },
+            success_criteria=['collect_evidence_for_target_scope'],
+        )
         with subagent_trace(
             name='Collect',
             run_type='chain',
-            inputs={'run_id': state.run_id, 'attempt': state.attempt},
+            inputs={'run_id': state.run_id, 'attempt': state.attempt, 'task_id': task.task_id},
             metadata={'parent_run_id': state.run_id, 'attempt': state.attempt, 'stage': 'collect'},
         ):
-            result: CollectOutput = self.collector_agent.run(
-                state,
-                target_competitors=qa_collect_plan.get('target_competitors') if qa_collect_plan else None,
-                field_query_overrides=qa_collect_plan.get('field_query_overrides') if qa_collect_plan else None,
-            )
+            task_result, result = self.collector_agent.consume_task(task, state)
+        self._record_task_result(state, task_result)
         for pe in result.provider_events:
             self._save_and_event(state, StageName.collect, 'provider_event', pe)
         for te in result.tool_events:
@@ -919,14 +1402,25 @@ class CompetitorWorkflowService:
                 'qa_plan_used': bool(qa_collect_plan),
             },
         )
-        self._save_handoff(
+        collect_handoff = self._build_collect_handoff(
             state,
-            StageName.collect,
-            self._build_collect_handoff(
-                state,
-                provider_events=result.provider_events,
-                errors=result.errors,
-                qa_collect_plan_used=bool(qa_collect_plan),
+            provider_events=result.provider_events,
+            errors=result.errors,
+            qa_collect_plan_used=bool(qa_collect_plan),
+        )
+        self._save_handoff(state, StageName.collect, collect_handoff)
+        self._append_handoff_envelope(
+            state,
+            HandoffEnvelope(
+                run_id=state.run_id,
+                attempt=state.attempt,
+                handoff_type=HandoffType.collect,
+                from_agent='CollectorAgent',
+                to_agent='AnalystAgent',
+                related_task_id=task.task_id,
+                payload_schema='CollectHandoff',
+                payload=collect_handoff.model_dump(mode='json'),
+                trace_context={'stage': StageName.collect.value},
             ),
         )
 
@@ -983,6 +1477,11 @@ class CompetitorWorkflowService:
     def _analyze(self, state: RunState) -> None:
         self._save_and_event(state, StageName.analyze, 'agent.llm.started', {'agent': 'AnalystAgent', 'trace_name': 'agent.analyze.generate_profiles'})
         raw_targets = state.planner_meta.pop('qa_reanalyze_targets', None) if isinstance(state.planner_meta, dict) else None
+        if not raw_targets and isinstance(state.runtime_action_context, dict):
+            target_competitors = state.runtime_action_context.get('target_competitors', [])
+            target_fields = state.runtime_action_context.get('target_fields', [])
+            if isinstance(target_competitors, list) and isinstance(target_fields, list) and target_competitors and target_fields:
+                raw_targets = {str(item): [str(field) for field in target_fields if str(field).strip()] for item in target_competitors if str(item).strip()}
         reanalyze_targets: dict[str, set[str]] = {}
         if isinstance(raw_targets, dict):
             for competitor, fields in raw_targets.items():
@@ -994,12 +1493,18 @@ class CompetitorWorkflowService:
                     reanalyze_targets[c] = cleaned
         incremental_reanalyze = bool(reanalyze_targets)
         target_field_count = sum(len(v) for v in reanalyze_targets.values())
+        task = self._create_stage_task(
+            state,
+            task_type=TaskType.analyze_evidence,
+            owner_agent='AnalystAgent',
+            input_payload={
+                'reanalyze_targets': {competitor: sorted(fields) for competitor, fields in reanalyze_targets.items()},
+            },
+            success_criteria=['produce_competitor_analyses'],
+        )
         try:
-            analyzed = self.analyst_agent.run_llm(
-                state,
-                reanalyze_targets=reanalyze_targets or None,
-                previous_records=state.competitor_analyses if incremental_reanalyze else None,
-            )
+            task_result, analyzed = self.analyst_agent.consume_task(task, state)
+            self._record_task_result(state, task_result)
             self._save_and_event(
                 state,
                 StageName.analyze,
@@ -1083,7 +1588,22 @@ class CompetitorWorkflowService:
                 'coverage_total_units': total_units,
             },
         )
-        self._save_handoff(state, StageName.analyze, self._build_analyze_handoff(state))
+        analyze_handoff = self._build_analyze_handoff(state)
+        self._save_handoff(state, StageName.analyze, analyze_handoff)
+        self._append_handoff_envelope(
+            state,
+            HandoffEnvelope(
+                run_id=state.run_id,
+                attempt=state.attempt,
+                handoff_type=HandoffType.analyze,
+                from_agent='AnalystAgent',
+                to_agent='WriterAgent',
+                related_task_id=task.task_id,
+                payload_schema='AnalyzeHandoff',
+                payload=analyze_handoff.model_dump(mode='json'),
+                trace_context={'stage': StageName.analyze.value},
+            ),
+        )
 
     @staticmethod
     def _is_analysis_unit_passed(summary: object) -> bool:
@@ -1113,8 +1633,16 @@ class CompetitorWorkflowService:
 
     def _draft(self, state: RunState) -> None:
         self._save_and_event(state, StageName.draft, 'agent.llm.started', {'agent': 'WriterAgent', 'trace_name': 'agent.draft.generate_report'})
+        task = self._create_stage_task(
+            state,
+            task_type=TaskType.draft_report,
+            owner_agent='WriterAgent',
+            input_payload={},
+            success_criteria=['produce_report_markdown'],
+        )
         try:
-            drafted: DraftOutput = self.writer_agent.run_llm(state)
+            task_result, drafted = self.writer_agent.consume_task(task, state)
+            self._record_task_result(state, task_result)
             self._save_and_event(
                 state,
                 StageName.draft,
@@ -1170,6 +1698,22 @@ class CompetitorWorkflowService:
         state.report = drafted.report
         state.self_eval['draft'] = SelfEval(coverage=0.85, consistency=0.88, evidence_quality=0.76, uncertainty=0.2)
         self._save_and_event(state, StageName.draft, EventType.draft_completed.value, {'has_report': state.report is not None})
+        draft_handoff = self._build_draft_handoff(state)
+        self._save_handoff(state, StageName.draft, draft_handoff)
+        self._append_handoff_envelope(
+            state,
+            HandoffEnvelope(
+                run_id=state.run_id,
+                attempt=state.attempt,
+                handoff_type=HandoffType.draft,
+                from_agent='WriterAgent',
+                to_agent='QACriticAgent',
+                related_task_id=task.task_id,
+                payload_schema='DraftHandoff',
+                payload=draft_handoff.model_dump(mode='json'),
+                trace_context={'stage': StageName.draft.value},
+            ),
+        )
 
     def _qa(self, state: RunState) -> QAOutput:
         analyze_handoff = self.store.latest_stage_handoff(run_id=state.run_id, stage=StageName.analyze, attempt=state.attempt)
@@ -1351,7 +1895,7 @@ class CompetitorWorkflowService:
         self,
         state: RunState,
         stage: StageName,
-        handoff: PlanHandoff | CollectHandoff | AnalyzeHandoff,
+        handoff: PlanHandoff | CollectHandoff | AnalyzeHandoff | DraftHandoff,
     ) -> None:
         self.store.save_stage_handoff(
             run_id=state.run_id,
@@ -1368,6 +1912,40 @@ class CompetitorWorkflowService:
                 'attempt': state.attempt,
             },
         )
+
+    def _create_stage_task(
+        self,
+        state: RunState,
+        *,
+        task_type: TaskType,
+        owner_agent: str,
+        input_payload: dict[str, object],
+        success_criteria: list[str],
+    ) -> TaskEnvelope:
+        task = TaskEnvelope(
+            run_id=state.run_id,
+            attempt=state.attempt,
+            task_type=task_type,
+            requester_agent='ManagerAgent',
+            owner_agent=owner_agent,
+            input_payload=input_payload,
+            success_criteria=success_criteria,
+        )
+        state.task_board.append(task)
+        return task
+
+    @staticmethod
+    def _record_task_result(state: RunState, result: TaskResult) -> None:
+        for task in state.task_board:
+            if task.task_id != result.task_id:
+                continue
+            task.status = TaskStatus.completed if result.status == 'completed' else TaskStatus.failed
+            break
+        state.last_action_result = result.model_dump(mode='json')
+
+    @staticmethod
+    def _append_handoff_envelope(state: RunState, handoff: HandoffEnvelope) -> None:
+        state.handoff_log.append(handoff)
 
     @staticmethod
     def _build_plan_handoff(state: RunState) -> PlanHandoff:
@@ -1403,7 +1981,7 @@ class CompetitorWorkflowService:
             fields: list[FieldEvidenceBundle] = []
             for field_name in schema_fields:
                 matches = [
-                    ev
+                    self.analyst_agent._coerce_raw_evidence(ev)
                     for ev in state.evidences
                     if self.analyst_agent._evidence_matches_competitor(ev, competitor)
                     and self.analyst_agent._evidence_matches_field(ev, field_name)
@@ -1453,6 +2031,49 @@ class CompetitorWorkflowService:
             findings=state.findings,
             coverage_summary=coverage_summary,
             evidence_gap_summary=gap_summary,
+        )
+
+    @staticmethod
+    def _build_draft_handoff(state: RunState) -> DraftHandoff:
+        report = state.report
+        section_status: list[dict[str, Any]] = []
+        claim_coverage: list[dict[str, Any]] = []
+        unresolved_gaps: list[dict[str, Any]] = []
+        if report is not None:
+            for section in report.sections:
+                section_status.append(
+                    {
+                        'section_id': section.section_id,
+                        'title': section.title,
+                        'field_name': section.field_name,
+                        'claim_count': len(section.claims),
+                    }
+                )
+                for claim in section.claims:
+                    claim_coverage.append(
+                        {
+                            'section_id': section.section_id,
+                            'statement': claim.statement[:160],
+                            'evidence_ref_count': len(claim.evidence_refs),
+                            'confidence': claim.confidence,
+                        }
+                    )
+                    if not claim.evidence_refs:
+                        unresolved_gaps.append(
+                            {
+                                'section_id': section.section_id,
+                                'statement': claim.statement[:160],
+                                'reason': 'missing_evidence_refs',
+                            }
+                        )
+        return DraftHandoff(
+            run_id=state.run_id,
+            attempt=state.attempt,
+            competitors=state.planned_competitors or state.competitors,
+            report=report,
+            section_status=section_status,
+            claim_coverage=claim_coverage,
+            unresolved_gaps=unresolved_gaps,
         )
 
     def _finalize(self, state: RunState) -> None:
@@ -1567,6 +2188,8 @@ class CompetitorWorkflowService:
                 'evidence_count': len(state.evidences),
                 'finding_count': len(state.findings),
                 'competitor_count': len(state.competitors),
+                'latest_decision': state.latest_decision.model_dump(mode='json') if state.latest_decision else None,
+                'last_action_result': state.last_action_result,
             },
             'workflow': {
                 'dag': self._build_dag(timeline),
@@ -1574,6 +2197,7 @@ class CompetitorWorkflowService:
                 'agent_stages': self._build_agent_stage_cards(state=state, timeline=timeline, handoffs=handoffs),
                 'agent_workflows': agent_workflows,
                 'agent_handoffs': self._build_agent_handoffs(state=state, handoffs=handoffs, stage_io=stage_io),
+                'decision_history': [item.model_dump(mode='json') for item in state.decision_history],
                 'handoffs': [
                     {
                         'stage': item.get('stage', ''),
@@ -1603,6 +2227,8 @@ class CompetitorWorkflowService:
             'todo_events': self._extract_events_by_type(events, 'todo.'),
             'hook_events': self._extract_events_by_type(events, 'hook_event'),
             'observability': {
+                'decision_history': [item.model_dump(mode='json') for item in state.decision_history],
+                'last_action_result': state.last_action_result,
                 'llm_calls': llm_calls,
                 'tool_events': tool_events,
                 'todo_plan': state.todo_plan.model_dump(mode='json'),
@@ -2055,7 +2681,7 @@ class CompetitorWorkflowService:
             'collect': 'CollectHandoff',
             'normalize': 'CollectOutput',
             'analyze': 'AnalyzeHandoff',
-            'draft': 'Report',
+            'draft': 'DraftHandoff',
             'qa': 'QAOutput',
             'finalize': 'RunState',
         }
