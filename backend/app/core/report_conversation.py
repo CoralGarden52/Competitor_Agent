@@ -290,6 +290,11 @@ class ReportConversationService:
             content=request.message,
             metadata={'mode': request.mode, 'allow_web_collect': request.allow_web_collect, 'auto_apply': request.auto_apply},
         )
+        self._emit_turn_stream(
+            turn_id,
+            'chat_bootstrap',
+            {'run_id': run_id, 'conversation_id': conversation_id, 'turn_id': turn_id, 'status': 'running'},
+        )
         self._emit_event(state, 'chat_turn_started', {'conversation_id': conversation_id, 'turn_id': turn_id})
         self.workflow._run_executor.submit(self._execute_turn, run_id, conversation_id, turn_id, request)
         return ChatTurnResponse(
@@ -407,12 +412,24 @@ class ReportConversationService:
             result['memory_snapshot'] = memory
             result.pop('next_work_memory', None)
             self.store.update_conversation_turn(turn_id=turn_id, status='completed', result=result)
+            self._emit_turn_stream(
+                turn_id,
+                'chat_done',
+                {'run_id': run_id, 'conversation_id': conversation_id, 'turn_id': turn_id, 'result': result},
+            )
             self._emit_event(state, 'chat_turn_completed', {'conversation_id': conversation_id, 'turn_id': turn_id, 'result': result})
         except Exception as exc:
             self.store.update_conversation_turn(turn_id=turn_id, status='failed', result={'error_message': str(exc)}, error_message=str(exc))
+            self._emit_turn_stream(
+                turn_id,
+                'chat_error',
+                {'run_id': run_id, 'conversation_id': conversation_id, 'turn_id': turn_id, 'error': str(exc)},
+            )
             state = self.store.get_state(run_id)
             if state is not None:
                 self._emit_event(state, 'chat_turn_failed', {'conversation_id': conversation_id, 'turn_id': turn_id, 'error': str(exc)})
+        finally:
+            self.workflow.chat_stream_broker.close(turn_id)
 
     def _build_turn_result(
         self,
@@ -423,6 +440,7 @@ class ReportConversationService:
     ) -> dict[str, Any]:
         markdown = state.report.markdown if state.report is not None else ''
         self._emit_event(state, 'chat.context.loading', {'conversation_id': conversation_id, 'turn_id': turn_id})
+        self._emit_turn_stream(turn_id, 'chat_progress', {'stage': 'context_loading', 'message': '正在读取报告分片和对话 memory...'})
         chunks = split_report_chunks(markdown)
         selected_chunks = select_report_chunks(chunks, request.message)
         source_refs = [f'report:{chunk.chunk_id}:{chunk.heading_path}' for chunk in selected_chunks]
@@ -444,6 +462,11 @@ class ReportConversationService:
             ),
             actions_taken=['report.get_chunks'] if selected_chunks else [],
             source_refs=source_refs,
+        )
+        self._emit_turn_stream(
+            turn_id,
+            'chat_progress',
+            {'stage': 'report_chunks_loaded', 'message': f'已读取报告分片 {len(selected_chunks)} 个，正在检索相关语料。'},
         )
         self._emit_event(
             state,
@@ -467,6 +490,11 @@ class ReportConversationService:
                 'result_count': len(corpus_refs),
                 'sources': [str(item.get('source_url') or item.get('title') or '') for item in corpus_refs[:5]],
             },
+        )
+        self._emit_turn_stream(
+            turn_id,
+            'chat_tool',
+            {'tool': 'corpus.search', 'status': 'completed', 'count': len(corpus_refs)},
         )
         memory = self.store.get_conversation_memory(conversation_id)
         self._emit_event(
@@ -533,9 +561,23 @@ class ReportConversationService:
             actions_taken=self._progress_actions(selected_chunks=selected_chunks, corpus_refs=corpus_refs, web_refs=web_refs),
             source_refs=source_refs,
         )
+        self._emit_turn_stream(
+            turn_id,
+            'chat_progress',
+            {'stage': 'llm_preparing', 'message': '正在生成回答...'},
+        )
         allow_report_update = self._allows_report_update(request)
         self._emit_event(state, 'chat.llm.started', {'conversation_id': conversation_id, 'turn_id': turn_id, 'allow_report_update': allow_report_update})
-        llm_result = self._invoke_llm(state, request, selected_chunks, corpus_refs, web_refs, memory, allow_report_update=allow_report_update)
+        llm_result = self._invoke_llm(
+            state,
+            request,
+            selected_chunks,
+            corpus_refs,
+            web_refs,
+            memory,
+            allow_report_update=allow_report_update,
+            turn_id=turn_id,
+        )
         self._emit_event(
             state,
             'chat.llm.completed',
@@ -632,7 +674,18 @@ class ReportConversationService:
         memory: dict[str, Any],
         *,
         allow_report_update: bool,
+        turn_id: str | None = None,
     ) -> dict[str, Any]:
+        if not allow_report_update and request.mode == 'answer_only' and turn_id:
+            return self._invoke_llm_streaming_answer(
+                state,
+                request,
+                chunks,
+                corpus_refs,
+                web_refs,
+                memory,
+                turn_id=turn_id,
+            )
         payload = {
             'run_id': state.run_id,
             'industry': state.industry,
@@ -703,6 +756,92 @@ class ReportConversationService:
         except Exception:
             pass
         return self._fallback_result(state, request, chunks, corpus_refs, web_refs)
+
+    def _invoke_llm_streaming_answer(
+        self,
+        state: RunState,
+        request: ChatTurnRequest,
+        chunks: list[ReportChunk],
+        corpus_refs: list[dict[str, Any]],
+        web_refs: list[dict[str, Any]],
+        memory: dict[str, Any],
+        *,
+        turn_id: str,
+    ) -> dict[str, Any]:
+        system_prompt = (
+            'You are the answer agent for a multi-turn competitor-analysis chat. '
+            'Answer the user directly in the same language as the user. '
+            'Use the user message, conversation memory, selected report chunks, local corpus refs, and optional web refs. '
+            'Do not mention internal workflow or say you will answer later. '
+            'If evidence is insufficient, say what is missing briefly and avoid fabrication. '
+            'Do not output JSON, markdown code fences, or tool metadata. Return answer text only.'
+        )
+        payload = {
+            'run_id': state.run_id,
+            'industry': state.industry,
+            'user_message': request.message,
+            'memory': {
+                'short_window': memory.get('short_window', []),
+                'mid_summary': memory.get('mid_summary', ''),
+                'next_work_memory': memory.get('next_work_memory', ''),
+            },
+            'report_chunks': [{'chunk_id': item.chunk_id, 'heading_path': item.heading_path, 'text': item.text} for item in chunks],
+            'corpus_refs': [
+                {'title': item.get('title', ''), 'source_url': item.get('source_url', ''), 'summary': item.get('summary', '')}
+                for item in corpus_refs
+            ],
+            'web_refs': [
+                {
+                    'title': item.get('title', ''),
+                    'source_url': item.get('source_url', ''),
+                    'summary': item.get('summary', ''),
+                    'snippet': item.get('snippet', ''),
+                }
+                for item in web_refs
+            ],
+        }
+        actions_taken = self._progress_actions(selected_chunks=chunks, corpus_refs=corpus_refs, web_refs=web_refs)
+        if chunks and 'report.get_chunks' not in actions_taken:
+            actions_taken.insert(0, 'report.get_chunks')
+        source_refs = [f'report:{item.chunk_id}:{item.heading_path}' for item in chunks]
+        source_refs.extend([str(item.get('source_url') or item.get('corpus_id') or '') for item in corpus_refs if str(item.get('source_url') or item.get('corpus_id') or '').strip()])
+        source_refs.extend([str(item.get('source_url', '') or '') for item in web_refs if str(item.get('source_url', '') or '').strip()])
+        answer_parts: list[str] = []
+        try:
+            for delta in self.workflow.agent_llm.invoke_text_stream(
+                trace_name='report_conversation_turn_stream',
+                system_prompt=system_prompt,
+                user_payload=payload,
+                metadata={'run_id': state.run_id, 'node_name': 'chat', 'agent_name': 'ReportConversationManager'},
+                temperature=0.2,
+            ):
+                answer_parts.append(delta)
+                self._emit_turn_stream(turn_id, 'chat_delta', {'delta': delta})
+                if len(answer_parts) % 8 == 0:
+                    self._update_turn_progress(
+                        turn_id,
+                        assistant_answer=''.join(answer_parts),
+                        actions_taken=actions_taken,
+                        source_refs=source_refs,
+                    )
+        except Exception:
+            fallback = self._fallback_result(state, request, chunks, corpus_refs, web_refs)
+            answer = str(fallback.get('assistant_answer', '') or '')
+            for char in answer:
+                self._emit_turn_stream(turn_id, 'chat_delta', {'delta': char})
+            return fallback
+        answer = ''.join(answer_parts).strip()
+        if not answer:
+            return self._fallback_result(state, request, chunks, corpus_refs, web_refs)
+        return {
+            'intent': 'answer_only',
+            'assistant_answer': answer,
+            'report_updated': False,
+            'revised_markdown': '',
+            'patch_summary': '',
+            'actions_taken': actions_taken,
+            'next_work_memory': '等待用户下一轮追问，必要时补充外部证据或转为 edit_report。',
+        }
 
     def _fallback_result(
         self,
@@ -827,6 +966,9 @@ class ReportConversationService:
                 'source_refs': source_refs or [],
             },
         )
+
+    def _emit_turn_stream(self, turn_id: str, event_type: str, payload: dict[str, Any]) -> None:
+        self.workflow.chat_stream_broker.publish(turn_id, event_type, payload)
 
     def _safe_revised_markdown(
         self,

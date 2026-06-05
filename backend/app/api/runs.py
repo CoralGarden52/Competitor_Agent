@@ -176,6 +176,66 @@ def get_chat_turn(
     return result
 
 
+@router.get('/{run_id}/chat/{turn_id}/stream')
+async def stream_chat_turn(
+    run_id: str,
+    turn_id: str,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> StreamingResponse:
+    run = service.get_run(run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    existing = service.chat_turn_payload(run_id, turn_id)
+    if existing is None:
+        raise HTTPException(status_code=404, detail='turn not found')
+
+    async def event_generator():
+        queue = await service.chat_stream_broker.subscribe(turn_id)
+        try:
+            bootstrap = service.chat_turn_payload(run_id, turn_id)
+            if bootstrap is not None:
+                initial = {
+                    'run_id': run_id,
+                    'conversation_id': bootstrap.conversation_id,
+                    'turn_id': turn_id,
+                    'status': bootstrap.status,
+                    'assistant_answer': bootstrap.assistant_answer,
+                }
+                yield f"event: chat_bootstrap\ndata: {json.dumps(initial, ensure_ascii=False, default=str)}\n\n"
+                if bootstrap.assistant_answer:
+                    yield f"event: chat_snapshot\ndata: {json.dumps({'assistant_answer': bootstrap.assistant_answer}, ensure_ascii=False, default=str)}\n\n"
+                if bootstrap.status in ('completed', 'failed'):
+                    event_name = 'chat_done' if bootstrap.status == 'completed' else 'chat_error'
+                    payload = {'result': bootstrap.model_dump(mode='json')} if bootstrap.status == 'completed' else {'error': bootstrap.error_message}
+                    yield f"event: {event_name}\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"
+                    return
+            while True:
+                try:
+                    item = await asyncio.to_thread(queue.get, True, 15)
+                except Exception:
+                    yield "event: heartbeat\ndata: {\"ok\": true}\n\n"
+                    continue
+                event_name = str(item.get('event', '') or 'chat_progress')
+                data = item.get('data', {}) if isinstance(item.get('data', {}), dict) else {}
+                if event_name == 'chat_close':
+                    break
+                yield f"event: {event_name}\ndata: {json.dumps(data, ensure_ascii=False, default=str)}\n\n"
+                if event_name in {'chat_done', 'chat_error'}:
+                    break
+        finally:
+            await service.chat_stream_broker.unsubscribe(turn_id, queue)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'X-Accel-Buffering': 'no',
+        },
+    )
+
+
 @router.post('/{run_id}/questionnaire')
 def design_questionnaire(
     run_id: str,

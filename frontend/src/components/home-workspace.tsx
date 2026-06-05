@@ -342,6 +342,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const streamRef = useRef<EventSource | null>(null);
+  const reportChatStreamRef = useRef<EventSource | null>(null);
   const reconnectTimerRef = useRef<number | null>(null);
   const pollingTimerRef = useRef<number | null>(null);
   const sessionMenuRef = useRef<HTMLDivElement | null>(null);
@@ -886,7 +887,15 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     stopStream();
     stopPolling();
     stopReconnectTimer();
+    stopReportChatStream();
     setStreamState("idle");
+  }
+
+  function stopReportChatStream() {
+    if (reportChatStreamRef.current) {
+      reportChatStreamRef.current.close();
+      reportChatStreamRef.current = null;
+    }
   }
 
   async function fetchRunWorkspace(runId: string): Promise<WorkspacePayload> {
@@ -946,13 +955,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     return payload;
   }
 
-  async function fetchChatTurn(runId: string, turnId: string): Promise<ChatTurnResult> {
-    const response = await fetch(backendUrl(`/runs/${runId}/chat/${turnId}`));
-    const payload = (await response.json().catch(() => ({}))) as ChatTurnResult & { detail?: string };
-    if (!response.ok) throw new Error(payload.detail || `chat turn failed: ${response.status}`);
-    return payload;
-  }
-
   async function refreshReportChat(runId: string) {
     const payload = await fetchRunChat(runId);
     applyReportChatPayload(runId, payload);
@@ -964,26 +966,87 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     );
   }
 
-  function progressTextFromTurn(result: ChatTurnResult, attempt: number): string {
-    if (result.assistant_answer?.trim()) return result.assistant_answer.trim();
-    const fallback = [
-      "正在读取报告分片和对话 memory...",
-      "正在检索相关语料和公开证据...",
-      "正在判断是否需要网页采集...",
-      "正在生成可直接回复的答案...",
-    ];
-    return fallback[Math.min(fallback.length - 1, Math.floor(attempt / 3))];
+  function appendPendingReportMessage(runId: string, pendingAssistantId: string, delta: string) {
+    if (!delta) return;
+    syncMainChatMessages(runId, (previous) =>
+      previous.map((item) => {
+        if (item.id !== pendingAssistantId) return item;
+        const current = item.content || "";
+        const seed = current.startsWith("正在") ? "" : current;
+        return { ...item, content: `${seed}${delta}` };
+      })
+    );
   }
 
-  async function waitForChatTurn(runId: string, turnId: string, pendingAssistantId: string): Promise<ChatTurnResult> {
-    let latest: ChatTurnResult = { status: "running" };
-    for (let attempt = 0; attempt < 90; attempt += 1) {
-      latest = await fetchChatTurn(runId, turnId);
-      updatePendingReportMessage(runId, pendingAssistantId, progressTextFromTurn(latest, attempt));
-      if (latest.status === "completed" || latest.status === "failed") return latest;
-      await new Promise((resolve) => window.setTimeout(resolve, 1000));
-    }
-    return latest;
+  async function streamReportChatTurn(runId: string, turnId: string, pendingAssistantId: string): Promise<ChatTurnResult> {
+    return await new Promise<ChatTurnResult>((resolve, reject) => {
+      stopReportChatStream();
+      const source = new window.EventSource(backendUrl(`/runs/${runId}/chat/${turnId}/stream`));
+      reportChatStreamRef.current = source;
+      let latestResult: ChatTurnResult = { status: "running" };
+      let sawDelta = false;
+
+      source.addEventListener("chat_progress", (event) => {
+        try {
+          const payload = JSON.parse((event as MessageEvent<string>).data) as { message?: string };
+          if (!sawDelta && payload.message) updatePendingReportMessage(runId, pendingAssistantId, payload.message);
+        } catch {
+          return;
+        }
+      });
+
+      source.addEventListener("chat_snapshot", (event) => {
+        try {
+          const payload = JSON.parse((event as MessageEvent<string>).data) as { assistant_answer?: string };
+          if (payload.assistant_answer?.trim()) {
+            sawDelta = true;
+            updatePendingReportMessage(runId, pendingAssistantId, payload.assistant_answer);
+          }
+        } catch {
+          return;
+        }
+      });
+
+      source.addEventListener("chat_delta", (event) => {
+        try {
+          const payload = JSON.parse((event as MessageEvent<string>).data) as { delta?: string };
+          if (payload.delta) {
+            sawDelta = true;
+            appendPendingReportMessage(runId, pendingAssistantId, payload.delta);
+          }
+        } catch {
+          return;
+        }
+      });
+
+      source.addEventListener("chat_done", (event) => {
+        try {
+          const payload = JSON.parse((event as MessageEvent<string>).data) as { result?: ChatTurnResult };
+          latestResult = payload.result || { status: "completed" };
+          stopReportChatStream();
+          resolve(latestResult);
+        } catch (error) {
+          stopReportChatStream();
+          reject(error instanceof Error ? error : new Error("chat stream parse failed"));
+        }
+      });
+
+      source.addEventListener("chat_error", (event) => {
+        try {
+          const payload = JSON.parse((event as MessageEvent<string>).data) as { error?: string };
+          stopReportChatStream();
+          reject(new Error(payload.error || "报告追问处理失败。"));
+        } catch {
+          stopReportChatStream();
+          reject(new Error("报告追问处理失败。"));
+        }
+      });
+
+      source.addEventListener("error", () => {
+        stopReportChatStream();
+        reject(new Error("报告追问流中断，请稍后重试。"));
+      });
+    });
   }
 
   async function submitReportChatMessage(message: string) {
@@ -1011,7 +1074,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       const payload = (await response.json().catch(() => ({}))) as ChatTurnResponse & { detail?: string };
       if (!response.ok) throw new Error(payload.detail || "报告追问提交失败，请稍后重试。");
 
-      const result = await waitForChatTurn(runId, payload.turn_id, pendingAssistantId);
+      const result = await streamReportChatTurn(runId, payload.turn_id, pendingAssistantId);
       await refreshReportChat(runId);
       if (result.report_updated) {
         const workspace = await fetchRunWorkspace(runId);
@@ -1027,6 +1090,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       setError(messageText);
       syncMainChatMessages(runId, (previous) => previous.map((item) => (item.id === pendingAssistantId ? { ...item, content: messageText } : item)));
     } finally {
+      stopReportChatStream();
       setIsReportChatSubmitting(false);
     }
   }

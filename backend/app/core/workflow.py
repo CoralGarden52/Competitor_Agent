@@ -12,6 +12,7 @@ from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.approval_policy_engine import ApprovalPolicyEngine, PolicyContext
 from app.core.collector import CollectorPipeline
 from app.core.collector.deep_dive import CollectorDeepDiveCoordinator
+from app.core.chat_stream import ChatStreamBroker
 from app.core.config import get_config
 from app.core.langgraph_runtime import WorkflowLangGraphRuntime
 from app.core.planner_llm import PlannerLLMClient
@@ -119,6 +120,7 @@ class CompetitorWorkflowService:
             self.hook_registry.register(hook_point, AuditHook(lambda _event_type, payload: self._save_hook_event(payload)))
         self._run_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix='workflow-run')
         self._background_runs: dict[str, concurrent.futures.Future[None]] = {}
+        self.chat_stream_broker = ChatStreamBroker()
         self.report_conversation = ReportConversationService(self)
 
     def _save_hook_event(self, payload: dict[str, object]) -> None:
