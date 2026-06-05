@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from app.core.agent_llm import LLMCallError
 from app.core.deps import get_service
-from app.core.models import QuestionnaireDesign, RunRequest, RunResponse, RunSummary
+from app.core.models import ChatTurnRequest, ChatTurnResponse, ChatTurnResult, QuestionnaireDesign, RunRequest, RunResponse, RunSummary
 from app.core.wjx_export import QuestionnaireExportError
 from app.core.workflow import CompetitorWorkflowService
 
@@ -139,6 +139,41 @@ def update_report_markdown(
             raise HTTPException(status_code=404, detail='run not found')
         raise HTTPException(status_code=404, detail='report not found')
     return updated
+
+
+@router.post('/{run_id}/chat', response_model=ChatTurnResponse)
+def create_chat_turn(
+    run_id: str,
+    payload: ChatTurnRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> ChatTurnResponse:
+    response = service.start_chat_turn(run_id, payload)
+    if response is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    return response
+
+
+@router.get('/{run_id}/chat')
+def get_chat(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.chat_payload(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.get('/{run_id}/chat/{turn_id}', response_model=ChatTurnResult)
+def get_chat_turn(
+    run_id: str,
+    turn_id: str,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> ChatTurnResult:
+    result = service.chat_turn_payload(run_id, turn_id)
+    if result is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='turn not found')
+    return result
 
 
 @router.post('/{run_id}/questionnaire')

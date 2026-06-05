@@ -24,6 +24,9 @@ from app.core.models import (
     AnalysisSchemaField,
     AnalyzeHandoff,
     ApprovalPolicy,
+    ChatTurnRequest,
+    ChatTurnResponse,
+    ChatTurnResult,
     CollectHandoff,
     CompetitorProfile,
     CompetitorEvidenceBundle,
@@ -72,6 +75,7 @@ from app.core.models import (
     RecoveryState,
     RawEvidence,
 )
+from app.core.report_conversation import ReportConversationService
 from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, registry_snapshot
 from app.core.storage import SQLiteStore
 from app.core.todo import TodoStateManager
@@ -115,6 +119,7 @@ class CompetitorWorkflowService:
             self.hook_registry.register(hook_point, AuditHook(lambda _event_type, payload: self._save_hook_event(payload)))
         self._run_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix='workflow-run')
         self._background_runs: dict[str, concurrent.futures.Future[None]] = {}
+        self.report_conversation = ReportConversationService(self)
 
     def _save_hook_event(self, payload: dict[str, object]) -> None:
         run_id = str(payload.get('run_id', '') or '')
@@ -282,12 +287,64 @@ class CompetitorWorkflowService:
         collect_ready = bool(state.evidences)
         analyze_ready = bool(state.competitor_analyses) and bool(state.findings)
         draft_ready = report_ready
-        qa_collect_allowed = bool(
-            isinstance(latest_ticket_summary, dict)
-            and latest_ticket_summary.get('target_agent') == 'Collect'
-            and not bool(state.planner_meta.get('qa_collect_round_used', False))
+        qa_collect_round_used = bool(state.planner_meta.get('qa_collect_round_used', False))
+        latest_collect_ticket_pending = bool(
+            latest_ticket_summary.get('target_agent') == 'Collect'
         )
-        qa_ready = draft_ready and state.attempt > 1
+        last_qa_checked = bool(state.planner_meta.get('last_qa_checked', False))
+        last_qa_passed = bool(state.planner_meta.get('last_qa_passed', False))
+        try:
+            last_qa_issue_count = int(state.planner_meta.get('last_qa_issue_count', 0) or 0)
+        except Exception:
+            last_qa_issue_count = 0
+        qa_collect_plan = state.planner_meta.get('qa_collect_plan') if isinstance(state.planner_meta, dict) else None
+        qa_collect_items = qa_collect_plan.get('items', []) if isinstance(qa_collect_plan, dict) else []
+        qa_collect_item_count = len(qa_collect_items) if isinstance(qa_collect_items, list) else 0
+        qa_collect_pending = (
+            isinstance(qa_collect_plan, dict)
+            and bool(qa_collect_plan.get('enabled', False))
+            and isinstance(qa_collect_items, list)
+            and bool(qa_collect_items)
+            and not qa_collect_round_used
+        )
+        qa_reanalyze_targets = state.planner_meta.get('qa_reanalyze_targets') if isinstance(state.planner_meta, dict) else None
+        qa_reanalyze_pending = isinstance(qa_reanalyze_targets, dict) and any(
+            isinstance(fields, list) and bool(fields) for fields in qa_reanalyze_targets.values()
+        )
+        qa_collect_allowed = (latest_collect_ticket_pending or qa_collect_pending) and not qa_collect_round_used
+        qa_ready = draft_ready and last_qa_checked and last_qa_passed
+        coverage_summary = self._calc_analyze_coverage(state)
+        coverage = float(coverage_summary.get('coverage', 0.0) or 0.0)
+        critical_gaps_count = len(gap_summary)
+        analyze_eval = state.self_eval.get('analyze') if isinstance(state.self_eval, dict) else None
+        evidence_quality = float(getattr(analyze_eval, 'evidence_quality', 0.0) or 0.0) if analyze_eval is not None else (0.7 if analyze_ready else 0.0)
+        qa_delivery_approved = bool(report_ready and analyze_ready and last_qa_checked and last_qa_passed)
+        static_quality_approved = bool(report_ready and analyze_ready and coverage >= 0.8 and critical_gaps_count == 0)
+        quality_gate = {
+            'coverage_ok': coverage >= 0.8,
+            'coverage_threshold': 0.8,
+            'coverage': coverage,
+            'critical_gaps_count': critical_gaps_count,
+            'evidence_quality_ok': evidence_quality >= 0.7,
+            'evidence_quality': evidence_quality,
+            'qa_delivery_approved': qa_delivery_approved,
+            'static_quality_approved': static_quality_approved,
+            'finalize_eligible': qa_delivery_approved or static_quality_approved,
+        }
+        if qa_delivery_approved:
+            qa_recommendation = 'finalize_run'
+        elif qa_reanalyze_pending:
+            qa_recommendation = 'reanalyze_targets'
+        elif qa_collect_pending:
+            qa_recommendation = 'collect_gap'
+        elif quality_gate['finalize_eligible']:
+            qa_recommendation = 'finalize_run'
+        elif report_ready and not last_qa_checked:
+            qa_recommendation = 'run_qa'
+        elif report_ready:
+            qa_recommendation = 'redraft_report'
+        else:
+            qa_recommendation = 'redraft_report'
         last_action_type = ''
         last_action_status = ''
         last_action_changed_fields: list[str] = []
@@ -306,6 +363,7 @@ class CompetitorWorkflowService:
             qa_collect_allowed=qa_collect_allowed,
             report_ready=report_ready,
             qa_ready=qa_ready,
+            quality_gate=quality_gate,
         )
         return DecisionContextSnapshot(
             run_id=state.run_id,
@@ -327,14 +385,25 @@ class CompetitorWorkflowService:
             missing_competitors=missing_competitors,
             missing_schema_fields=missing_schema_fields,
             reanalyze_candidates=reanalyze_candidates[:20],
-            coverage_summary=self._calc_analyze_coverage(state),
+            coverage_summary=coverage_summary,
             gap_summary=gap_summary[:20],
             latest_ticket_summary=latest_ticket_summary,
             self_eval_summary={key: value.model_dump(mode='json') for key, value in state.self_eval.items()},
             last_action_type=last_action_type,
             last_action_status=last_action_status,
             last_action_changed_fields=last_action_changed_fields,
+            last_qa_checked=last_qa_checked,
+            last_qa_passed=last_qa_passed,
+            last_qa_issue_count=last_qa_issue_count,
+            qa_reviewed=last_qa_checked,
+            qa_passed=last_qa_passed,
+            qa_issue_count=last_qa_issue_count,
+            qa_collect_item_count=qa_collect_item_count,
+            qa_recommendation=qa_recommendation,
             qa_collect_allowed=qa_collect_allowed,
+            qa_collect_pending=qa_collect_pending,
+            qa_reanalyze_pending=qa_reanalyze_pending,
+            quality_gate=quality_gate,
             routing_policy=routing_policy,
             recent_failures=recent_failures,
         )
@@ -349,20 +418,21 @@ class CompetitorWorkflowService:
         qa_collect_allowed: bool,
         report_ready: bool,
         qa_ready: bool,
+        quality_gate: dict[str, object],
     ) -> dict[str, object]:
         return {
             'if_plan_missing_then_prefer': 'plan_scope',
             'if_plan_ready_then_prefer': 'collect_initial',
             'if_evidence_ready_but_analysis_missing_then_prefer': 'reanalyze_targets',
             'if_findings_ready_but_report_missing_then_prefer': 'redraft_report',
-            'if_report_ready_then_prefer': 'run_qa',
-            'if_qa_ready_then_allow': 'finalize_run',
+            'if_report_ready_then_evaluate_quality': ['run_qa', 'collect_gap', 'reanalyze_targets', 'redraft_report', 'finalize_run'],
+            'if_quality_gate_finalize_eligible_then_allow': 'finalize_run',
             'collect_gap_requires_qa_ticket': True,
             'qa_collect_allowed': qa_collect_allowed,
             'allow_finalize_only_when': {
                 'report_ready': report_ready,
                 'analyze_ready': analyze_ready,
-                'qa_ready': qa_ready,
+                'quality_gate_finalize_eligible': bool(quality_gate.get('finalize_eligible', False)),
             },
             'stage_readiness': {
                 'plan_ready': plan_ready,
@@ -371,6 +441,7 @@ class CompetitorWorkflowService:
                 'draft_ready': draft_ready,
                 'qa_ready': qa_ready,
             },
+            'quality_gate': quality_gate,
         }
 
     def _manager_decide(self, state: RunState) -> ManagerDecision:
@@ -417,14 +488,30 @@ class CompetitorWorkflowService:
         replacement: tuple[ActionType, str, str] | None = None
         if decision.action_type == ActionType.collect_gap and not context.qa_collect_allowed:
             replacement = (ActionType.collect_initial, 'CollectorAgent', 'collect_gap_requires_active_qa_ticket')
+        elif (
+            decision.action_type == ActionType.run_qa
+            and context.qa_reviewed
+            and context.last_action_type == ActionType.run_qa.value
+            and context.last_action_status == 'completed'
+        ):
+            if context.qa_reanalyze_pending:
+                replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'repeat_qa_blocked_reanalyze_pending')
+            elif context.qa_collect_pending and context.qa_collect_allowed:
+                replacement = (ActionType.collect_gap, 'CollectorAgent', 'repeat_qa_blocked_collect_pending')
+            elif bool(context.quality_gate.get('finalize_eligible', False)) or context.qa_passed:
+                replacement = (ActionType.finalize_run, 'Finalizer', 'repeat_qa_blocked_finalize_ready')
+            else:
+                replacement = (ActionType.redraft_report, 'WriterAgent', 'repeat_qa_blocked_quality_not_met')
         elif decision.action_type == ActionType.finalize_run:
             allow_finalize = (
                 context.report_ready
                 and context.analyze_ready
-                and context.qa_ready
             )
             if not allow_finalize:
-                replacement = (ActionType.run_qa, 'QACriticAgent', 'finalize_requires_report_analysis_and_qa_ready')
+                if not context.analyze_ready:
+                    replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'finalize_requires_analysis_and_report')
+                else:
+                    replacement = (ActionType.redraft_report, 'WriterAgent', 'finalize_requires_analysis_and_report')
         elif decision.action_type == ActionType.run_qa and not context.report_ready:
             replacement = (ActionType.redraft_report, 'WriterAgent', 'qa_requires_report_ready')
 
@@ -695,6 +782,15 @@ class CompetitorWorkflowService:
         state.report.html = ''
         self.store.save_state(state)
         return RunResponse(summary=self._summary_for(state), state=state)
+
+    def start_chat_turn(self, run_id: str, request: ChatTurnRequest) -> ChatTurnResponse | None:
+        return self.report_conversation.start_turn(run_id, request)
+
+    def chat_payload(self, run_id: str) -> dict[str, object]:
+        return self.report_conversation.conversation_payload(run_id)
+
+    def chat_turn_payload(self, run_id: str, turn_id: str) -> ChatTurnResult | None:
+        return self.report_conversation.turn_payload(run_id, turn_id)
 
     def design_questionnaire_from_report(
         self,
@@ -2381,6 +2477,7 @@ class CompetitorWorkflowService:
             },
             'questionnaire': state.questionnaire.model_dump(mode='json') if state.questionnaire else None,
             'questionnaire_export': state.questionnaire_export,
+            'chat': self.report_conversation.conversation_payload(state.run_id),
             'artifacts': self._build_workspace_artifacts(state),
             'todo_plan': state.todo_plan.model_dump(mode='json'),
             'todo_events': self._extract_events_by_type(events, 'todo.'),

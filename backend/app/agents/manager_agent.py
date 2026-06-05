@@ -201,14 +201,30 @@ class ManagerAgent:
             target_agent = 'OrchestratorAgent'
             reason = 'missing_competitor_scope_or_schema'
         elif context.report_ready:
-            if not context.qa_ready:
-                action_type = 'run_qa'
-                target_agent = 'QACriticAgent'
-                reason = 'qa_pending_after_report_ready'
-            else:
+            if context.qa_reviewed and context.qa_passed:
                 action_type = 'finalize_run'
                 target_agent = 'Finalizer'
-                reason = 'qa_ready_for_finalize'
+                reason = 'qa_approved_for_delivery'
+            elif context.qa_reanalyze_pending:
+                action_type = 'reanalyze_targets'
+                target_agent = 'AnalystAgent'
+                reason = 'qa_reanalyze_pending'
+            elif context.qa_collect_pending and context.qa_collect_allowed:
+                action_type = 'collect_gap'
+                target_agent = 'CollectorAgent'
+                reason = 'qa_collect_plan_pending'
+            elif bool(context.quality_gate.get('finalize_eligible', False)):
+                action_type = 'finalize_run'
+                target_agent = 'Finalizer'
+                reason = 'quality_gate_finalize_eligible'
+            elif not context.qa_reviewed:
+                action_type = 'run_qa'
+                target_agent = 'QACriticAgent'
+                reason = 'qa_review_needed_for_report_quality'
+            else:
+                action_type = 'redraft_report'
+                target_agent = 'WriterAgent'
+                reason = 'quality_gate_not_met_after_qa'
         elif context.analyze_ready:
             action_type = 'redraft_report'
             target_agent = 'WriterAgent'
@@ -236,6 +252,7 @@ class ManagerAgent:
                 f'analyze_ready={context.analyze_ready}',
                 f'report_ready={context.report_ready}',
                 f'qa_ready={context.qa_ready}',
+                f'quality_gate_finalize_eligible={bool(context.quality_gate.get("finalize_eligible", False))}',
             ],
             confidence=0.4,
             metadata={'fallback': True},

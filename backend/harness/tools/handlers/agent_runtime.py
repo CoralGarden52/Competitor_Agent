@@ -28,11 +28,43 @@ class StateSnapshotHandler:
             if any(field_name not in {field.field_name for field in (record_map.get(competitor).fields if record_map.get(competitor) else [])} for competitor in planned_competitors):
                 missing_schema_fields.append(field_name)
         latest_ticket = state.tickets[-1] if state.tickets else None
-        qa_collect_allowed = bool(
-            latest_ticket is not None
-            and latest_ticket.target_agent == 'Collect'
-            and not bool(state.planner_meta.get('qa_collect_round_used', False))
+        qa_collect_round_used = bool(state.planner_meta.get('qa_collect_round_used', False))
+        qa_collect_plan = state.planner_meta.get('qa_collect_plan') if isinstance(state.planner_meta, dict) else None
+        qa_collect_items = qa_collect_plan.get('items', []) if isinstance(qa_collect_plan, dict) else []
+        qa_collect_pending = (
+            isinstance(qa_collect_plan, dict)
+            and bool(qa_collect_plan.get('enabled', False))
+            and isinstance(qa_collect_items, list)
+            and bool(qa_collect_items)
+            and not qa_collect_round_used
         )
+        qa_collect_allowed = bool(
+            (
+                latest_ticket is not None
+                and latest_ticket.target_agent == 'Collect'
+            )
+            or qa_collect_pending
+        ) and not qa_collect_round_used
+        coverage_value = float(coverage.get('coverage', 0.0) or 0.0) if isinstance(coverage, dict) else 0.0
+        gap_count = len(service._build_decision_context(state).gap_summary)
+        report_ready = bool(state.report is not None and bool(str(state.report.markdown).strip()) if state.report else False)
+        analyze_ready = bool(state.competitor_analyses) and bool(state.findings)
+        qa_delivery_approved = report_ready and analyze_ready and bool(state.planner_meta.get('last_qa_checked', False)) and bool(state.planner_meta.get('last_qa_passed', False))
+        static_quality_approved = report_ready and analyze_ready and coverage_value >= 0.8 and gap_count == 0
+        quality_gate = {
+            'coverage_ok': coverage_value >= 0.8,
+            'coverage_threshold': 0.8,
+            'coverage': coverage_value,
+            'critical_gaps_count': gap_count,
+            'qa_delivery_approved': qa_delivery_approved,
+            'static_quality_approved': static_quality_approved,
+            'finalize_eligible': qa_delivery_approved or static_quality_approved,
+        }
+        qa_recommendation = 'collect_gap' if qa_collect_pending else ('finalize_run' if quality_gate['finalize_eligible'] else 'run_qa')
+        if bool(state.planner_meta.get('qa_reanalyze_targets', {})):
+            qa_recommendation = 'reanalyze_targets'
+        if bool(state.planner_meta.get('last_qa_checked', False)) and not bool(state.planner_meta.get('last_qa_passed', False)) and not qa_collect_pending:
+            qa_recommendation = 'redraft_report'
         return ToolResult(
             ok=True,
             output={
@@ -54,6 +86,13 @@ class StateSnapshotHandler:
                     'missing_competitors': missing_competitors,
                     'missing_schema_fields': missing_schema_fields,
                     'qa_collect_allowed': qa_collect_allowed,
+                    'qa_reviewed': bool(state.planner_meta.get('last_qa_checked', False)),
+                    'qa_passed': bool(state.planner_meta.get('last_qa_passed', False)),
+                    'qa_issue_count': int(state.planner_meta.get('last_qa_issue_count', 0) or 0),
+                    'qa_collect_pending': qa_collect_pending,
+                    'qa_collect_item_count': len(qa_collect_items) if isinstance(qa_collect_items, list) else 0,
+                    'qa_recommendation': qa_recommendation,
+                    'quality_gate': quality_gate,
                     'coverage': coverage,
                 }
             },

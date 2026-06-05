@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { startTransition, type FormEvent, useEffect, useRef, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { Bot, History, MessageSquarePlus } from "lucide-react";
 import { EventStreamPanel } from "@/components/event-stream-panel";
 import { StageDetailPanel } from "@/components/stage-detail-panel";
@@ -25,6 +26,24 @@ type SubmitResponse = { summary_text: string };
 type RunStatusResponse = { state?: { status?: string } };
 type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; user_prompt?: string; created_at: string; updated_at: string };
 type ChatMessage = { id: string; role: "user" | "assistant" | "system"; content: string };
+type ReportChatPayload = {
+  run_id: string;
+  conversation?: { conversation_id?: string };
+  messages?: Array<{ message_id?: string; turn_id?: string; role?: "user" | "assistant" | "system" | "tool"; content?: string; created_at?: string }>;
+  turns?: Array<{ turn_id?: string; status?: string }>;
+  memory?: { next_work_memory?: string; mid_summary?: string };
+  report_revisions?: Array<{ revision_id?: string; patch_summary?: string; created_at?: string }>;
+};
+type ChatTurnResponse = { run_id: string; conversation_id: string; turn_id: string; status: string; message: string };
+type ChatTurnResult = {
+  status: string;
+  assistant_answer?: string;
+  actions_taken?: string[];
+  report_updated?: boolean;
+  report_revision_id?: string;
+  source_refs?: string[];
+  error_message?: string;
+};
 type ReferenceLinkItem = { label: string; url: string };
 
 type StoredSession = {
@@ -142,9 +161,153 @@ function stepStatusText(status: "pending" | "running" | "done" | "failed"): stri
   return "待执行";
 }
 
-export function HomeWorkspace() {
-  const [activeMenu, setActiveMenu] = useState<"new" | "agent" | "history">("new");
-  const [viewMode, setViewMode] = useState<ViewMode>("welcome");
+function isReportFollowupMessage(message: ChatMessage): boolean {
+  return (
+    message.id.startsWith("report-chat:") ||
+    message.id.startsWith("local-report-chat:") ||
+    message.id.startsWith("pending-report-chat:")
+  );
+}
+
+type ParsedAssistantContent = {
+  answer: string;
+  operations: string;
+  basisLines: string[];
+  webUrls: string[];
+  corpusLines: string[];
+  reportLines: string[];
+};
+
+function isUrl(value: string): boolean {
+  return /^https?:\/\//i.test(value.trim());
+}
+
+function parseAssistantContent(content: string): ParsedAssistantContent {
+  const lines = content.split(/\r?\n/);
+  const answerLines: string[] = [];
+  const basisLines: string[] = [];
+  const webUrls: string[] = [];
+  const corpusLines: string[] = [];
+  const reportLines: string[] = [];
+  let operations = "";
+  let section: "answer" | "basis" | "web" | "corpus" | "report" = "answer";
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) {
+      if (section === "answer" && answerLines.length) answerLines.push("");
+      continue;
+    }
+    if (line.startsWith("本轮操作：")) {
+      operations = line.replace(/^本轮操作：/, "").trim();
+      section = "basis";
+      continue;
+    }
+    if (line === "本轮依据：") {
+      section = "basis";
+      continue;
+    }
+    if (line === "新采集网页：") {
+      section = "web";
+      continue;
+    }
+    if (line === "本地语料：") {
+      section = "corpus";
+      continue;
+    }
+    if (line === "报告上下文：") {
+      section = "report";
+      continue;
+    }
+
+    if (section === "answer") {
+      answerLines.push(line);
+    } else if (section === "basis") {
+      basisLines.push(line);
+    } else if (section === "web") {
+      const cleaned = line.replace(/^\d+\.\s*/, "").trim();
+      if (isUrl(cleaned)) webUrls.push(cleaned);
+    } else if (section === "corpus") {
+      corpusLines.push(line);
+    } else if (section === "report") {
+      reportLines.push(line);
+    }
+  }
+
+  return { answer: answerLines.join("\n").trim(), operations, basisLines, webUrls, corpusLines, reportLines };
+}
+
+function ChatMessageContent({ message }: { message: ChatMessage }) {
+  if (message.role !== "assistant") {
+    return <>{message.content}</>;
+  }
+  const parsed = parseAssistantContent(message.content);
+  const hasMeta = Boolean(parsed.operations || parsed.basisLines.length || parsed.webUrls.length || parsed.corpusLines.length || parsed.reportLines.length);
+  if (!hasMeta) {
+    return <>{message.content}</>;
+  }
+  return (
+    <div className="assistant-rich-message">
+      {parsed.answer ? <div className="assistant-answer">{parsed.answer}</div> : null}
+      <section className="assistant-evidence-card" aria-label="本轮操作和依据">
+        {parsed.operations ? (
+          <div className="assistant-evidence-block">
+            <h3>本轮操作</h3>
+            <p>{parsed.operations}</p>
+          </div>
+        ) : null}
+        {parsed.basisLines.length ? (
+          <div className="assistant-evidence-block">
+            <h3>本轮依据</h3>
+            <ul>
+              {parsed.basisLines.map((line, index) => <li key={`basis-${index}`}>{line.replace(/^-\s*/, "")}</li>)}
+            </ul>
+          </div>
+        ) : null}
+        {parsed.webUrls.length ? (
+          <div className="assistant-evidence-block">
+            <h3>新采集网页</h3>
+            <ol>
+              {parsed.webUrls.map((url) => (
+                <li key={url}>
+                  <a href={url} target="_blank" rel="noreferrer">{url}</a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ) : null}
+        {parsed.corpusLines.length ? (
+          <div className="assistant-evidence-block compact">
+            <h3>本地语料</h3>
+            <ol>
+              {parsed.corpusLines.map((line, index) => <li key={`corpus-${index}`}>{line.replace(/^\d+\.\s*/, "")}</li>)}
+            </ol>
+          </div>
+        ) : null}
+        {parsed.reportLines.length ? (
+          <div className="assistant-evidence-block compact">
+            <h3>报告上下文</h3>
+            <ol>
+              {parsed.reportLines.map((line, index) => <li key={`report-${index}`}>{line.replace(/^\d+\.\s*/, "")}</li>)}
+            </ol>
+          </div>
+        ) : null}
+      </section>
+    </div>
+  );
+}
+
+type HomeWorkspaceProps = {
+  initialRunId?: string;
+};
+
+export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
+  const router = useRouter();
+  const params = useParams<{ runId?: string }>();
+  const routeRunId = typeof params?.runId === "string" ? params.runId : "";
+  const requestedInitialRunId = (routeRunId || initialRunId).trim();
+  const [activeMenu, setActiveMenu] = useState<"new" | "agent" | "history">(requestedInitialRunId ? "history" : "new");
+  const [viewMode, setViewMode] = useState<ViewMode>(requestedInitialRunId ? "workspace" : "welcome");
   const [query, setQuery] = useState("");
   const [competitorHintsText, setCompetitorHintsText] = useState("");
   const [aspectHintsText, setAspectHintsText] = useState("");
@@ -157,6 +320,7 @@ export function HomeWorkspace() {
   const [expandedEventKeys, setExpandedEventKeys] = useState<string[]>([]);
   const [expandedCallKeys, setExpandedCallKeys] = useState<string[]>([]);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [isReportChatSubmitting, setIsReportChatSubmitting] = useState(false);
   const [sessions, setSessions] = useState<StoredSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState("");
   const [openSessionMenuId, setOpenSessionMenuId] = useState<string | null>(null);
@@ -205,6 +369,9 @@ export function HomeWorkspace() {
     : questionnaireDraft || workspaceData?.questionnaire?.markdown || "";
   const hasQuestionnaire = Boolean(workspaceData?.questionnaire?.markdown?.trim());
   const currentQuestionnaireExport = questionnaireExport || workspaceData?.questionnaire_export || null;
+  const topChatMessages = chatMessages.filter((message) => !isReportFollowupMessage(message));
+  const reportFollowupMessages = chatMessages.filter(isReportFollowupMessage);
+  const isRouteSessionLoading = Boolean(requestedInitialRunId && viewMode === "workspace" && !workspaceData && !error);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -240,11 +407,44 @@ export function HomeWorkspace() {
   }, [workspaceData?.run?.run_id, workspaceData?.questionnaire?.markdown, isEditingQuestionnaire]);
 
   useEffect(() => {
+    const runId = workspaceData?.run?.run_id || "";
+    if (!runId) {
+      return;
+    }
+    let canceled = false;
+    void (async () => {
+      try {
+        const payload = await fetchRunChat(runId);
+        if (!canceled) applyReportChatPayload(runId, payload);
+      } catch {
+        // keep existing local messages if chat history is unavailable
+      }
+    })();
+    return () => {
+      canceled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [workspaceData?.run?.run_id]);
+
+  useEffect(() => {
     setQuestionnaireExport(workspaceData?.questionnaire_export || null);
   }, [workspaceData?.run?.run_id, workspaceData?.questionnaire_export]);
 
   function nowIso() {
     return new Date().toISOString();
+  }
+
+  function pushRunRoute(runId: string) {
+    if (!runId.trim()) return;
+    router.push(`/chats/${runId}` as never);
+  }
+
+  function pushHomeRoute() {
+    router.push("/" as never);
+  }
+
+  function isActiveRun(runId: string): boolean {
+    return Boolean(runId) && activeRunIdRef.current === runId;
   }
 
   function downloadReport(content: string, runId: string) {
@@ -631,6 +831,17 @@ export function HomeWorkspace() {
     };
   }
 
+  function makeSessionPlaceholder(runId: string): StoredSession {
+    return makeSessionFromRunSummary({
+      run_id: runId,
+      industry: "",
+      status: "running",
+      competitor_count: 0,
+      created_at: nowIso(),
+      updated_at: nowIso(),
+    });
+  }
+
   function resolveSessionTitle(args: { runId: string; prompt?: string; taskSummary?: string; currentTitle?: string }): string {
     const runId = (args.runId || "").trim();
     const prompt = (args.prompt || "").trim();
@@ -693,6 +904,133 @@ export function HomeWorkspace() {
     return (await response.json()) as RunStatusResponse;
   }
 
+  function mapReportChatPayload(payload: ReportChatPayload): ChatMessage[] {
+    const messages = payload.messages ?? [];
+    return messages
+      .filter((item) => typeof item.content === "string" && item.content.trim())
+      .map((item) => ({
+        id: `report-chat:${item.message_id || `${item.turn_id || "turn"}:${item.role || "assistant"}:${item.created_at || ""}`}`,
+        role: item.role === "user" || item.role === "system" ? item.role : "assistant",
+        content: item.content || "",
+      }));
+  }
+
+  function syncMainChatMessages(runId: string, updater: (previous: ChatMessage[]) => ChatMessage[]) {
+    setChatMessages((previous) => {
+      const next = updater(previous);
+      writeStoredMessages(runId, next);
+      return next;
+    });
+    setSessions((previous) =>
+      previous.map((session) => {
+        if (session.session_id !== runId) return session;
+        const nextMessages = updater(session.chat_messages || []);
+        writeStoredMessages(runId, nextMessages);
+        return { ...session, chat_messages: nextMessages, updated_at: nowIso() };
+      })
+    );
+  }
+
+  function applyReportChatPayload(runId: string, payload: ReportChatPayload) {
+    const mapped = mapReportChatPayload(payload);
+    syncMainChatMessages(runId, (previous) => [
+      ...previous.filter((item) => !item.id.startsWith("report-chat:") && !item.id.startsWith("local-report-chat:") && !item.id.startsWith("pending-report-chat:")),
+      ...mapped,
+    ]);
+  }
+
+  async function fetchRunChat(runId: string): Promise<ReportChatPayload> {
+    const response = await fetch(backendUrl(`/runs/${runId}/chat`));
+    const payload = (await response.json().catch(() => ({}))) as ReportChatPayload & { detail?: string };
+    if (!response.ok) throw new Error(payload.detail || `chat fetch failed: ${response.status}`);
+    return payload;
+  }
+
+  async function fetchChatTurn(runId: string, turnId: string): Promise<ChatTurnResult> {
+    const response = await fetch(backendUrl(`/runs/${runId}/chat/${turnId}`));
+    const payload = (await response.json().catch(() => ({}))) as ChatTurnResult & { detail?: string };
+    if (!response.ok) throw new Error(payload.detail || `chat turn failed: ${response.status}`);
+    return payload;
+  }
+
+  async function refreshReportChat(runId: string) {
+    const payload = await fetchRunChat(runId);
+    applyReportChatPayload(runId, payload);
+  }
+
+  function updatePendingReportMessage(runId: string, pendingAssistantId: string, content: string) {
+    syncMainChatMessages(runId, (previous) =>
+      previous.map((item) => (item.id === pendingAssistantId ? { ...item, content } : item))
+    );
+  }
+
+  function progressTextFromTurn(result: ChatTurnResult, attempt: number): string {
+    if (result.assistant_answer?.trim()) return result.assistant_answer.trim();
+    const fallback = [
+      "正在读取报告分片和对话 memory...",
+      "正在检索相关语料和公开证据...",
+      "正在判断是否需要网页采集...",
+      "正在生成可直接回复的答案...",
+    ];
+    return fallback[Math.min(fallback.length - 1, Math.floor(attempt / 3))];
+  }
+
+  async function waitForChatTurn(runId: string, turnId: string, pendingAssistantId: string): Promise<ChatTurnResult> {
+    let latest: ChatTurnResult = { status: "running" };
+    for (let attempt = 0; attempt < 90; attempt += 1) {
+      latest = await fetchChatTurn(runId, turnId);
+      updatePendingReportMessage(runId, pendingAssistantId, progressTextFromTurn(latest, attempt));
+      if (latest.status === "completed" || latest.status === "failed") return latest;
+      await new Promise((resolve) => window.setTimeout(resolve, 1000));
+    }
+    return latest;
+  }
+
+  async function submitReportChatMessage(message: string) {
+    const runId = activeRunIdRef.current;
+    if (!runId || !message) return;
+    setError("");
+    setIsReportChatSubmitting(true);
+    const pendingAssistantId = `pending-report-chat:${Date.now()}`;
+    syncMainChatMessages(runId, (previous) => [
+      ...previous,
+      { id: `local-report-chat:user:${Date.now()}`, role: "user", content: message },
+      { id: pendingAssistantId, role: "assistant", content: "正在读取报告、memory 和相关语料..." },
+    ]);
+    try {
+      const response = await fetch(backendUrl(`/runs/${runId}/chat`), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message,
+          mode: "answer_only",
+          allow_web_collect: true,
+          auto_apply: false,
+        }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as ChatTurnResponse & { detail?: string };
+      if (!response.ok) throw new Error(payload.detail || "报告追问提交失败，请稍后重试。");
+
+      const result = await waitForChatTurn(runId, payload.turn_id, pendingAssistantId);
+      await refreshReportChat(runId);
+      if (result.report_updated) {
+        const workspace = await fetchRunWorkspace(runId);
+        applyWorkspace(workspace);
+        setOriginalReportContent(workspace.report?.markdown || "");
+        setReportDraft(workspace.report?.markdown || "");
+      }
+      if (result.status === "failed") {
+        setError(result.error_message || "报告追问处理失败。");
+      }
+    } catch (chatError) {
+      const messageText = chatError instanceof Error ? chatError.message : "报告追问提交失败，请稍后重试。";
+      setError(messageText);
+      syncMainChatMessages(runId, (previous) => previous.map((item) => (item.id === pendingAssistantId ? { ...item, content: messageText } : item)));
+    } finally {
+      setIsReportChatSubmitting(false);
+    }
+  }
+
   function buildReferenceItems(workspace: WorkspacePayload): ReferenceLinkItem[] {
     const items: ReferenceLinkItem[] = [];
     const evidences = workspace.artifacts?.evidences ?? [];
@@ -713,6 +1051,8 @@ export function HomeWorkspace() {
   }
 
   function applyWorkspace(workspace: WorkspacePayload, options?: { preserveSelectedStage?: boolean }) {
+    const runId = workspace.run?.run_id || "";
+    if (runId && activeRunIdRef.current && runId !== activeRunIdRef.current) return;
     const preserveSelectedStage = options?.preserveSelectedStage ?? true;
     startTransition(() => {
       setWorkspaceData(workspace);
@@ -722,35 +1062,35 @@ export function HomeWorkspace() {
         return getDefaultSelectedStage(workspace);
       });
     });
-    const runId = workspace.run?.run_id || activeRunIdRef.current;
+    const targetRunId = runId || activeRunIdRef.current;
     const prompt = (workspace.request?.user_prompt || "").trim();
-    if (runId) {
+    if (targetRunId) {
       setSessions((prev) => {
         const next = prev.map((s) =>
-          s.session_id === runId
+          s.session_id === targetRunId
             ? {
                 ...s,
-                active_run_id: runId,
+                active_run_id: targetRunId,
                 workspace_snapshot: workspace,
                 task_summary: s.task_summary || prompt,
                 title: resolveSessionTitle({
-                  runId,
+                  runId: targetRunId,
                   prompt,
                   taskSummary: s.task_summary || prompt,
                   currentTitle: s.title,
                 }),
-                chat_messages: ensureInitialPromptMessage(runId, s.chat_messages || [], prompt),
+                chat_messages: ensureInitialPromptMessage(targetRunId, s.chat_messages || [], prompt),
                 updated_at: nowIso(),
               }
             : s
         );
-        const updated = next.find((s) => s.session_id === runId);
-        if (updated) writeStoredMessages(runId, updated.chat_messages);
+        const updated = next.find((s) => s.session_id === targetRunId);
+        if (updated) writeStoredMessages(targetRunId, updated.chat_messages);
         return next;
       });
       setChatMessages((prev) => {
-        const next = ensureInitialPromptMessage(runId, prev, prompt);
-        writeStoredMessages(runId, next);
+        const next = ensureInitialPromptMessage(targetRunId, prev, prompt);
+        writeStoredMessages(targetRunId, next);
         return next;
       });
     }
@@ -763,6 +1103,7 @@ export function HomeWorkspace() {
     pollingTimerRef.current = window.setInterval(async () => {
       try {
         const [workspace, status] = await Promise.all([fetchRunWorkspace(runId), fetchRunStatus(runId)]);
+        if (!isActiveRun(runId)) return;
         applyWorkspace(workspace);
         const runStatus = status.state?.status;
         if (runStatus === "completed" || runStatus === "failed") stopPolling();
@@ -773,6 +1114,7 @@ export function HomeWorkspace() {
   }
 
   function scheduleReconnect(runId: string) {
+    if (!isActiveRun(runId)) return;
     stopReconnectTimer();
     reconnectAttemptRef.current += 1;
     setStreamState("reconnecting");
@@ -786,6 +1128,7 @@ export function HomeWorkspace() {
 
   function startRunStream(runId: string, isReconnect = false) {
     if (typeof window === "undefined" || !runId) return;
+    if (isReconnect && activeRunIdRef.current && activeRunIdRef.current !== runId) return;
     stopStream();
     stopPolling();
     stopReconnectTimer();
@@ -801,6 +1144,7 @@ export function HomeWorkspace() {
       void (async () => {
         try {
           const workspace = await fetchRunWorkspace(runId);
+          if (!isActiveRun(runId)) return;
           applyWorkspace(workspace);
         } catch {
           // keep waiting for stream/polling updates
@@ -812,6 +1156,7 @@ export function HomeWorkspace() {
       try {
         const payload = JSON.parse((event as MessageEvent<string>).data) as { workspace?: WorkspacePayload };
         if (payload.workspace) {
+          if (!isActiveRun(runId)) return;
           applyWorkspace(payload.workspace);
           reconnectAttemptRef.current = 0;
           setStreamState("streaming");
@@ -822,6 +1167,7 @@ export function HomeWorkspace() {
     });
 
     source.addEventListener("run_event", (event) => {
+      if (!isActiveRun(runId)) return;
       try {
         const payload = JSON.parse((event as MessageEvent<string>).data) as WorkspaceEvent;
         setEventFeed((prev) => mergeEvents(prev, [payload]));
@@ -834,45 +1180,55 @@ export function HomeWorkspace() {
       const currentRunId = activeRunIdRef.current;
       void (async () => {
         try {
-          if (currentRunId) {
+          if (currentRunId && isActiveRun(currentRunId)) {
             const workspace = await fetchRunWorkspace(currentRunId);
+            if (!isActiveRun(currentRunId)) return;
             applyWorkspace(workspace);
           }
         } catch (error) {
           // Avoid unhandled rejection noise when backend returns 5xx.
           console.error("fetchRunWorkspace on run_done failed:", error);
         } finally {
-          setStreamState("idle");
-          stopRealtime();
+          if (currentRunId && isActiveRun(currentRunId)) {
+            setStreamState("idle");
+            stopRealtime();
+          }
         }
       })();
     });
 
     source.addEventListener("error", () => {
+      if (!isActiveRun(runId)) return;
       stopStream();
       scheduleReconnect(runId);
     });
   }
 
-  async function loadSessionToUI(session: StoredSession) {
+  async function loadSessionToUI(session: StoredSession, options?: { missingRunMessage?: string; clearWhenMissingSnapshot?: boolean }) {
     setActiveSessionId(session.session_id);
+    setActiveMenu("history");
     setTaskSummary(session.task_summary || "");
     setChatMessages(session.chat_messages?.length ? session.chat_messages : readStoredMessages(session.session_id));
-    setWorkspaceData(session.workspace_snapshot || null);
-    setEventFeed(session.workspace_snapshot?.observability?.events ?? []);
-    setSelectedStage(getDefaultSelectedStage(session.workspace_snapshot));
+    if (session.workspace_snapshot || options?.clearWhenMissingSnapshot) {
+      setWorkspaceData(session.workspace_snapshot || null);
+      setEventFeed(session.workspace_snapshot?.observability?.events ?? []);
+      setSelectedStage(getDefaultSelectedStage(session.workspace_snapshot));
+    }
     setExpandedEventKeys([]);
     setExpandedCallKeys([]);
     setViewMode("workspace");
     activeRunIdRef.current = session.active_run_id || "";
     if (session.active_run_id) {
+      let shouldStartStream = Boolean(session.workspace_snapshot);
       try {
         const latestWorkspace = await fetchRunWorkspace(session.active_run_id);
+        if (!isActiveRun(session.active_run_id)) return;
         applyWorkspace(latestWorkspace, { preserveSelectedStage: false });
+        shouldStartStream = true;
       } catch {
-        // keep known state if workspace fetch fails
+        setError(options?.missingRunMessage || "加载该会话失败，可能已被删除或后端不可用。");
       } finally {
-        startRunStream(session.active_run_id);
+        if (shouldStartStream && isActiveRun(session.active_run_id)) startRunStream(session.active_run_id);
       }
     }
   }
@@ -882,6 +1238,7 @@ export function HomeWorkspace() {
     const target = sessions.find((item) => item.session_id === sessionId);
     if (!target) return;
     stopRealtime();
+    pushRunRoute(sessionId);
     void loadSessionToUI(target);
   }
 
@@ -908,7 +1265,7 @@ export function HomeWorkspace() {
     return merged;
   }
 
-  function handleNewConversation() {
+  function resetNewConversationState() {
     stopRealtime();
     setOpenSessionMenuId(null);
     setActiveSessionId("");
@@ -929,10 +1286,16 @@ export function HomeWorkspace() {
     setReportSourceRunId("");
     setOriginalReportContent("");
     setReportDraft("");
+    setIsReportChatSubmitting(false);
     setChatMessages([]);
     setError("");
     setPreviewOpen(false);
     activeRunIdRef.current = "";
+  }
+
+  function handleNewConversation() {
+    pushHomeRoute();
+    resetNewConversationState();
   }
 
   async function handleDeleteSession(sessionId: string) {
@@ -944,7 +1307,11 @@ export function HomeWorkspace() {
       setOpenSessionMenuId(null);
       await deleteRunById(sessionId);
       const remaining = await refreshSessions();
-      if (!remaining.length) handleNewConversation();
+      if (!remaining.length) {
+        handleNewConversation();
+      } else if (sessionId === activeSessionId) {
+        pushRunRoute(remaining[0].session_id);
+      }
     } catch (deleteError) {
       const message = deleteError instanceof Error ? deleteError.message : "删除失败，请稍后重试。";
       setError(message);
@@ -953,32 +1320,52 @@ export function HomeWorkspace() {
 
   useEffect(() => {
     let canceled = false;
+    const effectRunId = requestedInitialRunId;
     void (async () => {
       try {
+        const requestedRunId = requestedInitialRunId;
+        if (requestedRunId) {
+          const placeholder = makeSessionPlaceholder(requestedRunId);
+          setSessions((prev) => {
+            const merged = mergeSessionsPreserveState([placeholder], prev);
+            return merged.some((item) => item.session_id === requestedRunId) ? merged : [placeholder, ...prev].slice(0, maxSessionCount);
+          });
+          void (async () => {
+            try {
+              const runs = await fetchRuns(maxSessionCount);
+              if (canceled) return;
+              const mapped = runs.map(makeSessionFromRunSummary);
+              setSessions((prev) => mergeSessionsPreserveState(mapped, prev));
+            } catch {
+              // keep the requested session visible while the sidebar refresh recovers
+            }
+          })();
+          await loadSessionToUI(placeholder, {
+            missingRunMessage: `未找到会话 ${requestedRunId}，请确认链接是否正确。`,
+            clearWhenMissingSnapshot: true,
+          });
+          return;
+        }
         const runs = await fetchRuns(maxSessionCount);
         if (canceled) return;
         const mapped = runs.map(makeSessionFromRunSummary);
         const merged = mergeSessionsPreserveState(mapped, []);
         setSessions(merged);
-        if (!merged.length) {
-          handleNewConversation();
-          return;
-        }
-        await loadSessionToUI(merged[0]);
+        resetNewConversationState();
       } catch (initError) {
         if (canceled) return;
         const message = initError instanceof Error ? initError.message : "加载历史会话失败";
         setError(message);
-        handleNewConversation();
+        resetNewConversationState();
       }
     })();
 
     return () => {
       canceled = true;
-      stopRealtime();
+      if (!effectRunId || activeRunIdRef.current === effectRunId) stopRealtime();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [requestedInitialRunId]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -989,6 +1376,18 @@ export function HomeWorkspace() {
     }
 
     setError("");
+    const activeRunId = activeRunIdRef.current;
+    if (viewMode === "workspace" && activeRunId && hasReport) {
+      setQuery("");
+      setIsSubmitting(true);
+      try {
+        await submitReportChatMessage(text);
+      } finally {
+        setIsSubmitting(false);
+      }
+      return;
+    }
+
     setIsSubmitting(true);
     // Optimistic UI transition: switch to workspace immediately after submit.
     setViewMode("workspace");
@@ -1001,38 +1400,37 @@ export function HomeWorkspace() {
     try {
       const competitorHints = parseHintList(competitorHintsText);
       const aspectHints = parseHintList(aspectHintsText);
-      const [summaryResponse, runResponse] = await Promise.all([
-        fetch("/runs/summary", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, language: "zh-CN" }),
+      const summaryPromise = fetch("/runs/summary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, language: "zh-CN" }),
+      })
+        .then(async (response) => {
+          if (!response.ok) return "";
+          const payload = (await response.json().catch(() => ({}))) as SubmitResponse;
+          return payload.summary_text?.trim() || "";
+        })
+        .catch(() => "");
+      const runResponse = await fetch("/runs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          industry: "",
+          competitors: [],
+          user_prompt: text,
+          language: "zh-CN",
+          timeframe: "last_12_months",
+          competitor_hints: competitorHints,
+          aspect_hints: aspectHints,
         }),
-        fetch("/runs", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            industry: "",
-            competitors: [],
-            user_prompt: text,
-            language: "zh-CN",
-            timeframe: "last_12_months",
-            competitor_hints: competitorHints,
-            aspect_hints: aspectHints,
-          }),
-        }),
-      ]);
+      });
 
       const runPayload = (await runResponse.json().catch(() => ({}))) as { message?: string; summary?: { run_id?: string } };
       if (!runResponse.ok) throw new Error(runPayload.message || "任务提交失败，请稍后重试。");
 
-      let summary = text.length <= 40 ? text : `${text.slice(0, 40)}...`;
-      if (summaryResponse.ok) {
-        const payload = (await summaryResponse.json().catch(() => ({}))) as SubmitResponse;
-        summary = payload.summary_text?.trim() || summary;
-      }
-
       const runId = runPayload.summary?.run_id || "";
-      setTaskSummary(summary);
+      const fallbackSummary = text.length <= 40 ? text : `${text.slice(0, 40)}...`;
+      setTaskSummary(fallbackSummary);
       setQuery("");
       setStreamState("streaming");
       setCompetitorHintsText("");
@@ -1040,10 +1438,7 @@ export function HomeWorkspace() {
       if (runId) {
         setViewMode("workspace");
         setActiveMenu("history");
-        const refreshed = await fetchRuns(maxSessionCount);
-        const mapped = refreshed.map(makeSessionFromRunSummary);
-        setSessions((prev) => mergeSessionsPreserveState(mapped, prev));
-        const next = mapped.find((item) => item.session_id === runId) || makeSessionFromRunSummary({
+        const next = makeSessionFromRunSummary({
           run_id: runId,
           industry: "",
           status: "running",
@@ -1060,11 +1455,11 @@ export function HomeWorkspace() {
                     title: resolveSessionTitle({
                       runId,
                       prompt: text,
-                      taskSummary: item.task_summary || summary,
+                      taskSummary: item.task_summary || fallbackSummary,
                       currentTitle: item.title,
                     }),
                     chat_messages: item.chat_messages || [],
-                    task_summary: item.task_summary || summary,
+                    task_summary: item.task_summary || fallbackSummary,
                   }
                 : item
             );
@@ -1074,15 +1469,16 @@ export function HomeWorkspace() {
             title: resolveSessionTitle({
               runId,
               prompt: text,
-              taskSummary: summary,
+              taskSummary: fallbackSummary,
               currentTitle: next.title,
             }),
-            task_summary: summary,
+            task_summary: fallbackSummary,
             chat_messages: next.chat_messages || [],
           }, ...prev].slice(0, maxSessionCount);
         });
         setActiveSessionId(runId);
         activeRunIdRef.current = runId;
+        pushRunRoute(runId);
         startRunStream(runId);
         // Proactively fetch initial workspace snapshot to avoid "needs refresh" UX.
         void (async () => {
@@ -1093,6 +1489,38 @@ export function HomeWorkspace() {
             // stream fallback will continue updating
           }
         })();
+        void (async () => {
+          try {
+            const refreshed = await fetchRuns(maxSessionCount);
+            const mapped = refreshed.map(makeSessionFromRunSummary);
+            setSessions((prev) => {
+              const merged = mergeSessionsPreserveState(mapped, prev);
+              return merged.some((item) => item.session_id === runId) ? merged : prev;
+            });
+          } catch {
+            // optimistic session remains visible
+          }
+        })();
+        void summaryPromise.then((generatedSummary) => {
+          const finalSummary = generatedSummary || fallbackSummary;
+          if (activeRunIdRef.current === runId) setTaskSummary(finalSummary);
+          setSessions((prev) =>
+            prev.map((item) =>
+              item.session_id === runId
+                ? {
+                    ...item,
+                    title: resolveSessionTitle({
+                      runId,
+                      prompt: text,
+                      taskSummary: finalSummary,
+                      currentTitle: item.title,
+                    }),
+                    task_summary: finalSummary,
+                  }
+                : item
+            )
+          );
+        });
       }
     } catch (submitError) {
       const message = submitError instanceof Error ? submitError.message : "提交失败，请稍后重试。";
@@ -1221,9 +1649,17 @@ export function HomeWorkspace() {
             </header>
             <div className="workspace-scroll" ref={scrollRef}>
               {error ? <div className="error-banner" role="alert">{error}</div> : null}
+              {isRouteSessionLoading ? (
+                <div className="workspace-conversation">
+                  <section className="thought-chain-panel" aria-label="演示对话加载中">
+                    <h2>正在加载演示对话</h2>
+                    <p className="empty-state">正在同步会话内容与运行状态...</p>
+                  </section>
+                </div>
+              ) : (
               <div className="workspace-conversation">
-                {chatMessages.map((message) => (
-                  <div key={message.id} className={`message-row ${message.role}`}><div className={`message-bubble ${message.role}`}>{message.content}</div></div>
+                {topChatMessages.map((message) => (
+                  <div key={message.id} className={`message-row ${message.role}`}><div className={`message-bubble ${message.role}`}><ChatMessageContent message={message} /></div></div>
                 ))}
                 <div className="workspace-lower">
                   {activeMenu === "agent" ? (
@@ -1445,15 +1881,32 @@ export function HomeWorkspace() {
                           </details>
                         </section>
                       ) : null}
+
+                      {reportFollowupMessages.length ? (
+                        <div className="report-followup-thread" aria-label="报告后续对话">
+                          {reportFollowupMessages.map((message) => (
+                            <div key={message.id} className={`message-row ${message.role}`}>
+                              <div className={`message-bubble ${message.role}`}><ChatMessageContent message={message} /></div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
                     </>
                   )}
                 </div>
               </div>
+              )}
             </div>
             <div className="workspace-composer">
               <form className="composer-box" onSubmit={handleSubmit}>
-                <input aria-label="聊天输入" placeholder="继续输入分析需求或追问..." value={query} onChange={(event) => setQuery(event.target.value)} disabled={isSubmitting} />
-                <button type="submit" aria-label="发送" disabled={isSubmitting}>{isSubmitting ? "…" : "↑"}</button>
+                <input
+                  aria-label="聊天输入"
+                  placeholder={hasReport ? "继续追问，或要求补充/修改报告..." : "继续输入分析需求或追问..."}
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  disabled={isSubmitting || isReportChatSubmitting}
+                />
+                <button type="submit" aria-label="发送" disabled={isSubmitting || isReportChatSubmitting}>{isSubmitting || isReportChatSubmitting ? "…" : "↑"}</button>
               </form>
             </div>
           </section>

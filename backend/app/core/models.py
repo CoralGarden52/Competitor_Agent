@@ -363,7 +363,18 @@ class DecisionContextSnapshot(BaseModel):
     last_action_type: str = ''
     last_action_status: str = ''
     last_action_changed_fields: list[str] = Field(default_factory=list)
+    last_qa_checked: bool = False
+    last_qa_passed: bool = False
+    last_qa_issue_count: int = 0
+    qa_reviewed: bool = False
+    qa_passed: bool = False
+    qa_issue_count: int = 0
+    qa_collect_item_count: int = 0
+    qa_recommendation: str = ''
     qa_collect_allowed: bool = False
+    qa_collect_pending: bool = False
+    qa_reanalyze_pending: bool = False
+    quality_gate: dict[str, Any] = Field(default_factory=dict)
     routing_policy: dict[str, Any] = Field(default_factory=dict)
     recent_failures: list[dict[str, Any]] = Field(default_factory=list)
 
@@ -811,3 +822,32 @@ class QAResult(BaseModel):
         if not self.passed and self.target_agent is None:
             raise ValueError('target_agent is required when QA fails')
         return self
+
+
+class ChatTurnRequest(BaseModel):
+    message: str = Field(min_length=1)
+    mode: Literal['auto', 'answer_only', 'edit_report'] = 'auto'
+    allow_web_collect: bool = True
+    auto_apply: bool = True
+
+
+class ChatTurnResponse(BaseModel):
+    run_id: str
+    conversation_id: str
+    turn_id: str
+    status: str
+    message: str
+
+
+class ChatTurnResult(BaseModel):
+    run_id: str
+    conversation_id: str
+    turn_id: str
+    status: str
+    assistant_answer: str = ''
+    actions_taken: list[str] = Field(default_factory=list)
+    report_updated: bool = False
+    report_revision_id: str = ''
+    source_refs: list[str] = Field(default_factory=list)
+    memory_snapshot: dict[str, Any] = Field(default_factory=dict)
+    error_message: str = ''

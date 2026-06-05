@@ -6,6 +6,7 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 from app.core.models import (
     ApprovalPolicy,
@@ -356,6 +357,89 @@ class SQLiteStore:
             )
             conn.execute(
                 '''
+                CREATE TABLE IF NOT EXISTS run_conversations (
+                    conversation_id TEXT PRIMARY KEY,
+                    run_id TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS conversation_messages (
+                    message_id TEXT PRIMARY KEY,
+                    conversation_id TEXT NOT NULL,
+                    run_id TEXT NOT NULL,
+                    turn_id TEXT NOT NULL,
+                    role TEXT NOT NULL,
+                    content TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS conversation_turns (
+                    turn_id TEXT PRIMARY KEY,
+                    conversation_id TEXT NOT NULL,
+                    run_id TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    mode TEXT NOT NULL,
+                    allow_web_collect INTEGER NOT NULL,
+                    auto_apply INTEGER NOT NULL,
+                    user_message TEXT NOT NULL,
+                    result_json TEXT NOT NULL,
+                    error_message TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS conversation_memory (
+                    conversation_id TEXT PRIMARY KEY,
+                    run_id TEXT NOT NULL,
+                    short_window_json TEXT NOT NULL,
+                    mid_summary TEXT NOT NULL,
+                    long_archive_refs_json TEXT NOT NULL,
+                    next_work_memory TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                )
+                '''
+            )
+            conn.execute(
+                '''
+                CREATE TABLE IF NOT EXISTS report_revisions (
+                    revision_id TEXT PRIMARY KEY,
+                    run_id TEXT NOT NULL,
+                    conversation_id TEXT NOT NULL,
+                    turn_id TEXT NOT NULL,
+                    before_hash TEXT NOT NULL,
+                    after_hash TEXT NOT NULL,
+                    patch_summary TEXT NOT NULL,
+                    reason TEXT NOT NULL,
+                    source_refs_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                '''
+            )
+            self._ensure_column(conn, 'conversation_turns', 'allow_web_collect', 'INTEGER NOT NULL DEFAULT 1')
+            self._ensure_column(conn, 'conversation_turns', 'auto_apply', 'INTEGER NOT NULL DEFAULT 1')
+            self._ensure_column(conn, 'conversation_memory', 'short_window_json', "TEXT NOT NULL DEFAULT '[]'")
+            self._ensure_column(conn, 'conversation_memory', 'mid_summary', "TEXT NOT NULL DEFAULT ''")
+            self._ensure_column(conn, 'conversation_memory', 'long_archive_refs_json', "TEXT NOT NULL DEFAULT '[]'")
+            self._ensure_column(conn, 'conversation_memory', 'next_work_memory', "TEXT NOT NULL DEFAULT ''")
+            self._ensure_column(conn, 'report_revisions', 'reason', "TEXT NOT NULL DEFAULT ''")
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_run_conversations_run ON run_conversations(run_id, updated_at)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_conversation_messages_conversation ON conversation_messages(conversation_id, created_at)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_conversation_turns_conversation ON conversation_turns(conversation_id, created_at)')
+            conn.execute('CREATE INDEX IF NOT EXISTS idx_report_revisions_run ON report_revisions(run_id, created_at)')
+            conn.execute(
+                '''
                 CREATE INDEX IF NOT EXISTS idx_llm_calls_run_node_attempt
                 ON llm_calls(run_id, node_name, attempt, created_at)
                 '''
@@ -363,6 +447,12 @@ class SQLiteStore:
             self._seed_default_schema_versions(conn)
             self._seed_default_policies(conn)
             self._seed_default_field_risks(conn)
+
+    def _ensure_column(self, conn: sqlite3.Connection, table: str, column: str, definition: str) -> None:
+        rows = conn.execute(f'PRAGMA table_info({table})').fetchall()
+        if any(str(row['name']) == column for row in rows):
+            return
+        conn.execute(f'ALTER TABLE {table} ADD COLUMN {column} {definition}')
 
     def _seed_default_schema_versions(self, conn: sqlite3.Connection) -> None:
         defaults = {
@@ -1025,6 +1115,393 @@ class SQLiteStore:
             for row in rows
         ]
 
+    def get_or_create_conversation(self, run_id: str) -> dict[str, Any]:
+        now_s = datetime.now(UTC).isoformat()
+        with self._connect() as conn:
+            row = conn.execute(
+                '''
+                SELECT conversation_id, run_id, title, created_at, updated_at
+                FROM run_conversations
+                WHERE run_id = ?
+                ORDER BY created_at ASC
+                LIMIT 1
+                ''',
+                (run_id,),
+            ).fetchone()
+            if row is None:
+                conversation_id = f'conv_{uuid4().hex[:12]}'
+                conn.execute(
+                    '''
+                    INSERT INTO run_conversations (conversation_id, run_id, title, created_at, updated_at)
+                    VALUES (?, ?, ?, ?, ?)
+                    ''',
+                    (conversation_id, run_id, 'default', now_s, now_s),
+                )
+                conn.execute(
+                    '''
+                    INSERT OR REPLACE INTO conversation_memory
+                    (conversation_id, run_id, short_window_json, mid_summary, long_archive_refs_json, next_work_memory, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ''',
+                    (conversation_id, run_id, '[]', '', '[]', '', now_s),
+                )
+                return {
+                    'conversation_id': conversation_id,
+                    'run_id': run_id,
+                    'title': 'default',
+                    'created_at': now_s,
+                    'updated_at': now_s,
+                }
+        return dict(row)
+
+    def create_conversation_turn(
+        self,
+        *,
+        run_id: str,
+        conversation_id: str,
+        mode: str,
+        allow_web_collect: bool,
+        auto_apply: bool,
+        user_message: str,
+        status: str = 'queued',
+    ) -> dict[str, Any]:
+        now_s = datetime.now(UTC).isoformat()
+        turn_id = f'turn_{uuid4().hex[:12]}'
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO conversation_turns
+                (turn_id, conversation_id, run_id, status, mode, allow_web_collect, auto_apply, user_message, result_json, error_message, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''',
+                (
+                    turn_id,
+                    conversation_id,
+                    run_id,
+                    status,
+                    mode,
+                    1 if allow_web_collect else 0,
+                    1 if auto_apply else 0,
+                    user_message,
+                    '{}',
+                    '',
+                    now_s,
+                    now_s,
+                ),
+            )
+            conn.execute('UPDATE run_conversations SET updated_at = ? WHERE conversation_id = ?', (now_s, conversation_id))
+        return {
+            'turn_id': turn_id,
+            'conversation_id': conversation_id,
+            'run_id': run_id,
+            'status': status,
+            'mode': mode,
+            'allow_web_collect': allow_web_collect,
+            'auto_apply': auto_apply,
+            'user_message': user_message,
+            'result': {},
+            'error_message': '',
+            'created_at': now_s,
+            'updated_at': now_s,
+        }
+
+    def update_conversation_turn(
+        self,
+        *,
+        turn_id: str,
+        status: str,
+        result: dict[str, Any] | None = None,
+        error_message: str = '',
+    ) -> None:
+        now_s = datetime.now(UTC).isoformat()
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                UPDATE conversation_turns
+                SET status = ?, result_json = COALESCE(?, result_json), error_message = ?, updated_at = ?
+                WHERE turn_id = ?
+                ''',
+                (
+                    status,
+                    json.dumps(result, ensure_ascii=False) if result is not None else None,
+                    error_message,
+                    now_s,
+                    turn_id,
+                ),
+            )
+            row = conn.execute('SELECT conversation_id FROM conversation_turns WHERE turn_id = ?', (turn_id,)).fetchone()
+            if row is not None:
+                conn.execute('UPDATE run_conversations SET updated_at = ? WHERE conversation_id = ?', (now_s, row['conversation_id']))
+
+    def append_conversation_message(
+        self,
+        *,
+        run_id: str,
+        conversation_id: str,
+        turn_id: str,
+        role: str,
+        content: str,
+        metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        now_s = datetime.now(UTC).isoformat()
+        message_id = f'msg_{uuid4().hex[:12]}'
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO conversation_messages
+                (message_id, conversation_id, run_id, turn_id, role, content, metadata_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ''',
+                (
+                    message_id,
+                    conversation_id,
+                    run_id,
+                    turn_id,
+                    role,
+                    content,
+                    json.dumps(metadata or {}, ensure_ascii=False),
+                    now_s,
+                ),
+            )
+            conn.execute('UPDATE run_conversations SET updated_at = ? WHERE conversation_id = ?', (now_s, conversation_id))
+        return {
+            'message_id': message_id,
+            'conversation_id': conversation_id,
+            'run_id': run_id,
+            'turn_id': turn_id,
+            'role': role,
+            'content': content,
+            'metadata': metadata or {},
+            'created_at': now_s,
+        }
+
+    def list_conversation_messages(
+        self,
+        *,
+        run_id: str,
+        conversation_id: str = '',
+        limit: int = 200,
+    ) -> list[dict[str, Any]]:
+        sql = '''
+            SELECT message_id, conversation_id, run_id, turn_id, role, content, metadata_json, created_at
+            FROM conversation_messages
+            WHERE run_id = ?
+        '''
+        params: list[Any] = [run_id]
+        if conversation_id:
+            sql += ' AND conversation_id = ?'
+            params.append(conversation_id)
+        sql += ' ORDER BY created_at ASC LIMIT ?'
+        params.append(max(1, min(int(limit), 1000)))
+        with self._connect() as conn:
+            rows = conn.execute(sql, tuple(params)).fetchall()
+        return [
+            {
+                'message_id': row['message_id'],
+                'conversation_id': row['conversation_id'],
+                'run_id': row['run_id'],
+                'turn_id': row['turn_id'],
+                'role': row['role'],
+                'content': row['content'],
+                'metadata': json.loads(row['metadata_json'] or '{}'),
+                'created_at': row['created_at'],
+            }
+            for row in rows
+        ]
+
+    def get_conversation_turn(self, turn_id: str) -> dict[str, Any] | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                '''
+                SELECT turn_id, conversation_id, run_id, status, mode, allow_web_collect, auto_apply,
+                       user_message, result_json, error_message, created_at, updated_at
+                FROM conversation_turns
+                WHERE turn_id = ?
+                ''',
+                (turn_id,),
+            ).fetchone()
+        if row is None:
+            return None
+        return {
+            'turn_id': row['turn_id'],
+            'conversation_id': row['conversation_id'],
+            'run_id': row['run_id'],
+            'status': row['status'],
+            'mode': row['mode'],
+            'allow_web_collect': bool(row['allow_web_collect']),
+            'auto_apply': bool(row['auto_apply']),
+            'user_message': row['user_message'],
+            'result': json.loads(row['result_json'] or '{}'),
+            'error_message': row['error_message'],
+            'created_at': row['created_at'],
+            'updated_at': row['updated_at'],
+        }
+
+    def list_conversation_turns(
+        self,
+        *,
+        run_id: str,
+        conversation_id: str = '',
+        limit: int = 100,
+    ) -> list[dict[str, Any]]:
+        sql = '''
+            SELECT turn_id
+            FROM conversation_turns
+            WHERE run_id = ?
+        '''
+        params: list[Any] = [run_id]
+        if conversation_id:
+            sql += ' AND conversation_id = ?'
+            params.append(conversation_id)
+        sql += ' ORDER BY created_at ASC LIMIT ?'
+        params.append(max(1, min(int(limit), 500)))
+        with self._connect() as conn:
+            rows = conn.execute(sql, tuple(params)).fetchall()
+        return [turn for row in rows if (turn := self.get_conversation_turn(row['turn_id'])) is not None]
+
+    def get_conversation_memory(self, conversation_id: str) -> dict[str, Any]:
+        with self._connect() as conn:
+            row = conn.execute(
+                '''
+                SELECT conversation_id, run_id, short_window_json, mid_summary, long_archive_refs_json, next_work_memory, updated_at
+                FROM conversation_memory
+                WHERE conversation_id = ?
+                ''',
+                (conversation_id,),
+            ).fetchone()
+        if row is None:
+            return {
+                'conversation_id': conversation_id,
+                'run_id': '',
+                'short_window': [],
+                'mid_summary': '',
+                'long_archive_refs': [],
+                'next_work_memory': '',
+                'updated_at': '',
+            }
+        return {
+            'conversation_id': row['conversation_id'],
+            'run_id': row['run_id'],
+            'short_window': json.loads(row['short_window_json'] or '[]'),
+            'mid_summary': row['mid_summary'],
+            'long_archive_refs': json.loads(row['long_archive_refs_json'] or '[]'),
+            'next_work_memory': row['next_work_memory'],
+            'updated_at': row['updated_at'],
+        }
+
+    def save_conversation_memory(
+        self,
+        *,
+        conversation_id: str,
+        run_id: str,
+        short_window: list[dict[str, Any]],
+        mid_summary: str,
+        long_archive_refs: list[dict[str, Any]],
+        next_work_memory: str,
+    ) -> None:
+        now_s = datetime.now(UTC).isoformat()
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO conversation_memory
+                (conversation_id, run_id, short_window_json, mid_summary, long_archive_refs_json, next_work_memory, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(conversation_id) DO UPDATE SET
+                    run_id=excluded.run_id,
+                    short_window_json=excluded.short_window_json,
+                    mid_summary=excluded.mid_summary,
+                    long_archive_refs_json=excluded.long_archive_refs_json,
+                    next_work_memory=excluded.next_work_memory,
+                    updated_at=excluded.updated_at
+                ''',
+                (
+                    conversation_id,
+                    run_id,
+                    json.dumps(short_window, ensure_ascii=False),
+                    mid_summary,
+                    json.dumps(long_archive_refs, ensure_ascii=False),
+                    next_work_memory,
+                    now_s,
+                ),
+            )
+
+    def save_report_revision(
+        self,
+        *,
+        run_id: str,
+        conversation_id: str,
+        turn_id: str,
+        before_hash: str,
+        after_hash: str,
+        patch_summary: str,
+        reason: str,
+        source_refs: list[str],
+    ) -> dict[str, Any]:
+        now_s = datetime.now(UTC).isoformat()
+        revision_id = f'rev_{uuid4().hex[:12]}'
+        with self._connect() as conn:
+            conn.execute(
+                '''
+                INSERT INTO report_revisions
+                (revision_id, run_id, conversation_id, turn_id, before_hash, after_hash, patch_summary, reason, source_refs_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''',
+                (
+                    revision_id,
+                    run_id,
+                    conversation_id,
+                    turn_id,
+                    before_hash,
+                    after_hash,
+                    patch_summary,
+                    reason,
+                    json.dumps(source_refs, ensure_ascii=False),
+                    now_s,
+                ),
+            )
+        return {
+            'revision_id': revision_id,
+            'run_id': run_id,
+            'conversation_id': conversation_id,
+            'turn_id': turn_id,
+            'before_hash': before_hash,
+            'after_hash': after_hash,
+            'patch_summary': patch_summary,
+            'reason': reason,
+            'source_refs': source_refs,
+            'created_at': now_s,
+        }
+
+    def list_report_revisions(self, *, run_id: str, conversation_id: str = '') -> list[dict[str, Any]]:
+        sql = '''
+            SELECT revision_id, run_id, conversation_id, turn_id, before_hash, after_hash,
+                   patch_summary, reason, source_refs_json, created_at
+            FROM report_revisions
+            WHERE run_id = ?
+        '''
+        params: list[Any] = [run_id]
+        if conversation_id:
+            sql += ' AND conversation_id = ?'
+            params.append(conversation_id)
+        sql += ' ORDER BY created_at ASC'
+        with self._connect() as conn:
+            rows = conn.execute(sql, tuple(params)).fetchall()
+        return [
+            {
+                'revision_id': row['revision_id'],
+                'run_id': row['run_id'],
+                'conversation_id': row['conversation_id'],
+                'turn_id': row['turn_id'],
+                'before_hash': row['before_hash'],
+                'after_hash': row['after_hash'],
+                'patch_summary': row['patch_summary'],
+                'reason': row['reason'],
+                'source_refs': json.loads(row['source_refs_json'] or '[]'),
+                'created_at': row['created_at'],
+            }
+            for row in rows
+        ]
+
     def trace_node_started(self, *, run_id: str, node_name: str, attempt: int) -> int:
         now = datetime.now(UTC).isoformat()
         with self._connect() as conn:
@@ -1471,6 +1948,11 @@ class SQLiteStore:
                 'llm_calls',
                 'evidence_raw_contents',
                 'run_comparison_corpus_links',
+                'run_conversations',
+                'conversation_messages',
+                'conversation_turns',
+                'conversation_memory',
+                'report_revisions',
             ):
                 conn.execute(f'DELETE FROM {table} WHERE run_id = ?', (run_id,))
             conn.execute('DELETE FROM subagent_runs WHERE parent_run_id = ?', (run_id,))

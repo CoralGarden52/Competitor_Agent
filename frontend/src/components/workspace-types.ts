@@ -251,6 +251,7 @@ export type WorkspacePayload = {
   report?: WorkspaceReport;
   questionnaire?: WorkspaceQuestionnaire | null;
   questionnaire_export?: WorkspaceQuestionnaireExport | null;
+  chat?: Record<string, unknown>;
   artifacts?: WorkspaceArtifacts;
   todo_plan?: Record<string, unknown>;
   observability?: WorkspaceObservability;

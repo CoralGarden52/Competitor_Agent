@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.core.models import AnalysisFieldResult, AnalysisSchemaField, CompetitorAnalysisRecord, Finding, RawEvidence, Report, ReportSection, RunState
+from app.core.models import AnalysisFieldResult, AnalysisSchemaField, CompetitorAnalysisRecord, DecisionContextSnapshot, Finding, RawEvidence, Report, ReportSection, RunState
 from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
 from app.agents.manager_agent import ManagerAgent
@@ -258,7 +258,7 @@ def test_manager_decide_allows_finalize_after_qa_ready(monkeypatch, tmp_path) ->
         competitors=['alpha'],
         planned_competitors=['alpha'],
         user_prompt='finalize alpha',
-        attempt=2,
+        planner_meta={'last_qa_checked': True, 'last_qa_passed': True, 'last_qa_issue_count': 0},
     )
     state.analysis_schema_plan = [AnalysisSchemaField(field_name='pricing_model')]
     state.competitor_analyses = [
@@ -301,3 +301,89 @@ def test_manager_decide_allows_finalize_after_qa_ready(monkeypatch, tmp_path) ->
     assert decision.action_type.value == 'finalize_run'
     assert decision.target_agent == 'Finalizer'
     assert decision.decision_basis == ['report_ready', 'analysis_ready', 'qa_ready']
+
+
+def test_manager_fallback_finalizes_when_quality_gate_allows(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_finalize.db'))
+    context = DecisionContextSnapshot(
+        run_id='run_test',
+        turn_count=5,
+        plan_ready=True,
+        collect_ready=True,
+        analyze_ready=True,
+        report_ready=True,
+        quality_gate={'finalize_eligible': True},
+    )
+
+    decision = service.manager_agent.fallback_decide(context=context)
+
+    assert decision.action_type.value == 'finalize_run'
+    assert decision.target_agent == 'Finalizer'
+    assert decision.reason == 'quality_gate_finalize_eligible'
+
+
+def test_manager_fallback_finalizes_when_qa_passed_even_if_quality_gate_static_false(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_qa_passed.db'))
+    context = DecisionContextSnapshot(
+        run_id='run_test',
+        turn_count=5,
+        plan_ready=True,
+        collect_ready=True,
+        analyze_ready=True,
+        report_ready=True,
+        qa_reviewed=True,
+        qa_passed=True,
+        quality_gate={'finalize_eligible': False},
+    )
+
+    decision = service.manager_agent.fallback_decide(context=context)
+
+    assert decision.action_type.value == 'finalize_run'
+    assert decision.target_agent == 'Finalizer'
+    assert decision.reason == 'qa_approved_for_delivery'
+
+
+def test_manager_fallback_uses_pending_qa_collect_plan(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_collect.db'))
+    context = DecisionContextSnapshot(
+        run_id='run_test',
+        turn_count=5,
+        plan_ready=True,
+        collect_ready=True,
+        analyze_ready=True,
+        report_ready=True,
+        qa_reviewed=True,
+        qa_passed=False,
+        qa_collect_pending=True,
+        qa_collect_allowed=True,
+        quality_gate={'finalize_eligible': False},
+    )
+
+    decision = service.manager_agent.fallback_decide(context=context)
+
+    assert decision.action_type.value == 'collect_gap'
+    assert decision.target_agent == 'CollectorAgent'
+    assert decision.reason == 'qa_collect_plan_pending'
+
+
+def test_manager_fallback_does_not_auto_finalize_after_qa_collect_budget_used(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_no_auto_finalize.db'))
+    context = DecisionContextSnapshot(
+        run_id='run_test',
+        turn_count=5,
+        plan_ready=True,
+        collect_ready=True,
+        analyze_ready=True,
+        report_ready=True,
+        qa_reviewed=True,
+        qa_passed=False,
+        qa_collect_pending=False,
+        qa_collect_allowed=False,
+        quality_gate={'finalize_eligible': False},
+    )
+
+    decision = service.manager_agent.fallback_decide(context=context)
+
+    assert decision.action_type.value == 'redraft_report'
+    assert decision.target_agent == 'WriterAgent'
+    assert decision.reason == 'quality_gate_not_met_after_qa'
