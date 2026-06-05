@@ -315,6 +315,11 @@ class CompetitorWorkflowService:
         )
         qa_collect_allowed = (latest_collect_ticket_pending or qa_collect_pending) and not qa_collect_round_used
         qa_ready = draft_ready and last_qa_checked and last_qa_passed
+        redraft_attempt_count = sum(
+            1
+            for item in state.decision_history
+            if isinstance(item, ManagerDecision) and item.action_type == ActionType.redraft_report
+        )
         coverage_summary = self._calc_analyze_coverage(state)
         coverage = float(coverage_summary.get('coverage', 0.0) or 0.0)
         critical_gaps_count = len(gap_summary)
@@ -333,17 +338,39 @@ class CompetitorWorkflowService:
             'static_quality_approved': static_quality_approved,
             'finalize_eligible': qa_delivery_approved or static_quality_approved,
         }
+        qa_target_agent = str(latest_ticket_summary.get('target_agent', '') or '')
+        if qa_collect_pending or latest_collect_ticket_pending or qa_target_agent == 'Collect':
+            qa_failure_kind = 'collect_gap'
+        elif qa_reanalyze_pending or qa_target_agent == 'Analyze':
+            qa_failure_kind = 'analysis_gap'
+        elif report_ready and last_qa_checked and not last_qa_passed:
+            qa_failure_kind = 'report_gap'
+        else:
+            qa_failure_kind = 'unknown'
+        finalize_with_risk_eligible = bool(
+            report_ready
+            and analyze_ready
+            and last_qa_checked
+            and not last_qa_passed
+            and qa_failure_kind == 'collect_gap'
+            and not qa_collect_allowed
+            and not qa_reanalyze_pending
+            and redraft_attempt_count >= 1
+            and bool(quality_gate.get('coverage_ok', False))
+        )
         if qa_delivery_approved:
             qa_recommendation = 'finalize_run'
         elif qa_reanalyze_pending:
             qa_recommendation = 'reanalyze_targets'
         elif qa_collect_pending:
             qa_recommendation = 'collect_gap'
+        elif finalize_with_risk_eligible:
+            qa_recommendation = 'finalize_run'
         elif quality_gate['finalize_eligible']:
             qa_recommendation = 'finalize_run'
         elif report_ready and not last_qa_checked:
             qa_recommendation = 'run_qa'
-        elif report_ready:
+        elif report_ready and qa_failure_kind == 'report_gap':
             qa_recommendation = 'redraft_report'
         else:
             qa_recommendation = 'redraft_report'
@@ -401,10 +428,14 @@ class CompetitorWorkflowService:
             qa_passed=last_qa_passed,
             qa_issue_count=last_qa_issue_count,
             qa_collect_item_count=qa_collect_item_count,
+            qa_target_agent=qa_target_agent,
             qa_recommendation=qa_recommendation,
             qa_collect_allowed=qa_collect_allowed,
             qa_collect_pending=qa_collect_pending,
             qa_reanalyze_pending=qa_reanalyze_pending,
+            qa_failure_kind=qa_failure_kind,
+            redraft_attempt_count=redraft_attempt_count,
+            finalize_with_risk_eligible=finalize_with_risk_eligible,
             quality_gate=quality_gate,
             routing_policy=routing_policy,
             recent_failures=recent_failures,
@@ -429,6 +460,8 @@ class CompetitorWorkflowService:
             'if_findings_ready_but_report_missing_then_prefer': 'redraft_report',
             'if_report_ready_then_evaluate_quality': ['run_qa', 'collect_gap', 'reanalyze_targets', 'redraft_report', 'finalize_run'],
             'if_quality_gate_finalize_eligible_then_allow': 'finalize_run',
+            'if_collect_gap_blocked_after_redraft_then_finalize_with_risk': True,
+            'redraft_only_for_report_gap': True,
             'collect_gap_requires_qa_ticket': True,
             'qa_collect_allowed': qa_collect_allowed,
             'allow_finalize_only_when': {
@@ -500,10 +533,17 @@ class CompetitorWorkflowService:
                 replacement = (ActionType.reanalyze_targets, 'AnalystAgent', 'repeat_qa_blocked_reanalyze_pending')
             elif context.qa_collect_pending and context.qa_collect_allowed:
                 replacement = (ActionType.collect_gap, 'CollectorAgent', 'repeat_qa_blocked_collect_pending')
+            elif context.finalize_with_risk_eligible:
+                replacement = (ActionType.finalize_run, 'Finalizer', 'repeat_qa_blocked_finalize_with_risk')
             elif bool(context.quality_gate.get('finalize_eligible', False)) or context.qa_passed:
                 replacement = (ActionType.finalize_run, 'Finalizer', 'repeat_qa_blocked_finalize_ready')
             else:
                 replacement = (ActionType.redraft_report, 'WriterAgent', 'repeat_qa_blocked_quality_not_met')
+        elif decision.action_type == ActionType.redraft_report:
+            if context.report_ready and context.finalize_with_risk_eligible:
+                replacement = (ActionType.finalize_run, 'Finalizer', 'redraft_blocked_collect_gap_finalize_with_risk')
+            elif context.report_ready and context.qa_failure_kind not in {'report_gap', 'unknown'}:
+                replacement = (ActionType.finalize_run, 'Finalizer', 'redraft_reserved_for_report_gap')
         elif decision.action_type == ActionType.finalize_run:
             allow_finalize = (
                 context.report_ready

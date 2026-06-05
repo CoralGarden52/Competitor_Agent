@@ -213,6 +213,10 @@ class ManagerAgent:
                 action_type = 'collect_gap'
                 target_agent = 'CollectorAgent'
                 reason = 'qa_collect_plan_pending'
+            elif context.finalize_with_risk_eligible:
+                action_type = 'finalize_run'
+                target_agent = 'Finalizer'
+                reason = 'collect_gap_blocked_finalize_with_risk'
             elif bool(context.quality_gate.get('finalize_eligible', False)):
                 action_type = 'finalize_run'
                 target_agent = 'Finalizer'
@@ -221,10 +225,14 @@ class ManagerAgent:
                 action_type = 'run_qa'
                 target_agent = 'QACriticAgent'
                 reason = 'qa_review_needed_for_report_quality'
-            else:
+            elif context.qa_failure_kind == 'report_gap':
                 action_type = 'redraft_report'
                 target_agent = 'WriterAgent'
-                reason = 'quality_gate_not_met_after_qa'
+                reason = 'report_quality_gap_after_qa'
+            else:
+                action_type = 'finalize_run'
+                target_agent = 'Finalizer'
+                reason = 'qa_failed_without_collect_path_finalize_with_risk'
         elif context.analyze_ready:
             action_type = 'redraft_report'
             target_agent = 'WriterAgent'

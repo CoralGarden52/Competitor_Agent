@@ -370,10 +370,14 @@ class DecisionContextSnapshot(BaseModel):
     qa_passed: bool = False
     qa_issue_count: int = 0
     qa_collect_item_count: int = 0
+    qa_target_agent: str = ''
     qa_recommendation: str = ''
     qa_collect_allowed: bool = False
     qa_collect_pending: bool = False
     qa_reanalyze_pending: bool = False
+    qa_failure_kind: str = 'unknown'
+    redraft_attempt_count: int = 0
+    finalize_with_risk_eligible: bool = False
     quality_gate: dict[str, Any] = Field(default_factory=dict)
     routing_policy: dict[str, Any] = Field(default_factory=dict)
     recent_failures: list[dict[str, Any]] = Field(default_factory=list)

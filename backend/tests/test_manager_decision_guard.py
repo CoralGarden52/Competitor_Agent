@@ -126,6 +126,52 @@ def test_decision_context_marks_quality_gate_finalize_eligible(tmp_path) -> None
     assert context.quality_gate["finalize_eligible"] is True
 
 
+def test_decision_context_marks_finalize_with_risk_for_collect_gap_after_redraft(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
+    state = RunState(
+        industry="general",
+        competitors=["alpha"],
+        planned_competitors=["alpha"],
+        user_prompt="test",
+        planner_meta={
+            "last_qa_checked": True,
+            "last_qa_passed": False,
+            "last_qa_issue_count": 1,
+            "qa_collect_plan": {
+                "enabled": True,
+                "items": [{"competitor": "alpha", "field_name": "pricing_model", "reason": "missing", "query_list": ["a", "b"], "priority": 1}],
+            },
+            "qa_collect_round_used": True,
+        },
+    )
+    state.report = Report(executive_summary="summary", markdown="# Report\n\nbody")
+    state.analysis_schema_plan = [AnalysisSchemaField(field_name="pricing_model")]
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[AnalysisFieldResult(field_name="pricing_model", summary="tiered", evidence_refs=["evd_1"])],
+        )
+    ]
+    state.findings = [Finding(statement="alpha has tiered pricing", category="pricing", evidence_refs=["evd_1"])]
+    state.decision_history = [
+        ManagerDecision(
+            turn=3,
+            action_type=ActionType.redraft_report,
+            target_agent="WriterAgent",
+            targets=ActionTarget(),
+            reason="prior_redraft",
+        )
+    ]
+
+    context = service._build_decision_context(state)
+
+    assert context.qa_failure_kind == "collect_gap"
+    assert context.redraft_attempt_count == 1
+    assert context.qa_collect_allowed is False
+    assert context.finalize_with_risk_eligible is True
+    assert context.qa_recommendation == "finalize_run"
+
+
 def test_decision_context_treats_passed_qa_as_finalize_eligible(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
     state = RunState(
@@ -345,6 +391,38 @@ def test_guard_blocks_immediate_repeated_failed_qa_without_pending_work(tmp_path
     assert guarded.action_type == ActionType.redraft_report
     assert guarded.target_agent == "WriterAgent"
     assert guarded.metadata["guard_reason"] == "repeat_qa_blocked_quality_not_met"
+
+
+def test_guard_rewrites_redraft_to_finalize_when_collect_gap_is_blocked(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
+    state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
+    context = DecisionContextSnapshot(
+        run_id=state.run_id,
+        turn_count=6,
+        report_ready=True,
+        analyze_ready=True,
+        qa_reviewed=True,
+        qa_passed=False,
+        qa_failure_kind="collect_gap",
+        qa_collect_allowed=False,
+        qa_collect_pending=True,
+        redraft_attempt_count=1,
+        finalize_with_risk_eligible=True,
+        quality_gate={"coverage_ok": True, "finalize_eligible": False},
+    )
+    decision = ManagerDecision(
+        turn=6,
+        action_type=ActionType.redraft_report,
+        target_agent="WriterAgent",
+        targets=ActionTarget(),
+        reason="llm_selected_redraft",
+    )
+
+    guarded = service._guard_manager_decision(state=state, context=context, decision=decision)
+
+    assert guarded.action_type == ActionType.finalize_run
+    assert guarded.target_agent == "Finalizer"
+    assert guarded.metadata["guard_reason"] == "redraft_blocked_collect_gap_finalize_with_risk"
 
 
 def test_guard_allows_manager_finalize_after_failed_qa_when_report_and_analysis_exist(tmp_path) -> None:
