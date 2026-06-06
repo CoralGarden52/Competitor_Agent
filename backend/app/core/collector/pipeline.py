@@ -4,6 +4,7 @@ import concurrent.futures
 import re
 from datetime import UTC, datetime
 from pathlib import Path
+import time
 from urllib.parse import urlparse
 from typing import Any
 
@@ -88,7 +89,13 @@ class CollectorPipeline:
                     search_strategy = 'default_fallback'
                 search_tasks.append((field_name, query, recommended_sources, per_field_limit, provider_allowlist, search_strategy))
 
-        def _search_one(task: tuple[str, str, list[str], int, list[str] | None, str]) -> list[tuple[str, str, str, list[str], str, str, str]]:
+        def _search_one(
+            task: tuple[str, str, list[str], int, list[str] | None, str],
+            *,
+            startup_delay_sec: float = 0.0,
+        ) -> list[tuple[str, str, str, list[str], str, str, str]]:
+            if startup_delay_sec > 0:
+                time.sleep(startup_delay_sec)
             field_name, query, recommended_sources, _, provider_allowlist, search_strategy = task
             local_fallback_trace: list[dict] = []
             search_hits = self._run_search_phase(
@@ -108,8 +115,16 @@ class CollectorPipeline:
 
         all_search_results: list[tuple[str, str, str, list[str], str, str, str]] = []
         if search_tasks:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(search_tasks), 3)) as executor:
-                futures = [executor.submit(_search_one, task) for task in search_tasks]
+            search_max_workers = min(len(search_tasks), 6)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=search_max_workers) as executor:
+                futures = [
+                    executor.submit(
+                        _search_one,
+                        task,
+                        startup_delay_sec=(index % search_max_workers) * 0.5,
+                    )
+                    for index, task in enumerate(search_tasks)
+                ]
                 for future in concurrent.futures.as_completed(futures):
                     all_search_results.extend(future.result())
         all_search_results = self._prioritize_search_results(all_search_results, output, competitor)
@@ -452,13 +467,14 @@ class CollectorPipeline:
         field_name: str,
         strategy: str,
     ) -> list[SearchHit]:
+        max_results = self._search_max_results(field_name=field_name)
         result = self.tool_router.invoke(
             ToolRequest(
                 name='web.search',
                 args={
                     'query': query,
                     'provider_allowlist': provider_allowlist,
-                    'max_results': 8,
+                    'max_results': max_results,
                 },
                 metadata={'group': 'web'},
             )
@@ -475,6 +491,7 @@ class CollectorPipeline:
                     'field_name': field_name,
                     'strategy': strategy,
                     'provider_allowlist': provider_allowlist,
+                    'max_results': max_results,
                 }
             )
         fallback_trace.extend(trace)
@@ -488,8 +505,14 @@ class CollectorPipeline:
                 'source_provider': hit.source_provider,
                 'field_name': field_name,
                 'strategy': strategy,
+                'max_results': max_results,
             })
         return hits
+
+    def _search_max_results(self, *, field_name: str) -> int:
+        if field_name == 'pricing_model':
+            return 8
+        return 4
 
     @staticmethod
     def _coerce_search_hits(raw_hits: Any, *, query: str) -> list[SearchHit]:

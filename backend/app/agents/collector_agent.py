@@ -22,7 +22,7 @@ class CollectorAgent:
         *,
         target_competitors: list[str] | None = None,
         field_query_overrides: dict[str, list[str]] | None = None,
-        enable_deep_dive: bool = True,
+        enable_deep_dive: bool = False,
     ) -> CollectOutput:
         out = CollectOutput()
         active_competitors = target_competitors or state.planned_competitors or state.competitors
