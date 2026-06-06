@@ -500,7 +500,11 @@ class CompetitorWorkflowService:
         }
         self._save_and_event(state, StageName.plan, 'manager.decision.started', {'turn': state.turn_count})
         try:
-            decision = self.manager_agent.decide(context=context, metadata=metadata)
+            if not context.plan_ready and state.turn_count <= 1:
+                decision = self.manager_agent.fallback_decide(context=context)
+                decision.metadata['rule_shortcut'] = 'initial_plan_scope'
+            else:
+                decision = self.manager_agent.decide(context=context, metadata=metadata)
         except Exception as exc:
             logger.warning('manager decision failed, fallback used: %s', exc)
             decision = self.manager_agent.fallback_decide(context=context)
@@ -1448,6 +1452,9 @@ class CompetitorWorkflowService:
         comparison_corpus = dynamic_plan.get('comparison_corpus', [])
         state.planner_meta['comparison_corpus_count'] = len(comparison_corpus) if isinstance(comparison_corpus, list) else 0
         state.planner_meta['comparison_decision_evidence_refs'] = dynamic_plan.get('comparison_decision_evidence_refs', [])
+        plan_llm_calls = self.store.list_llm_calls(state.run_id, node_name='plan')
+        state.planner_meta['plan_llm_call_count'] = len(plan_llm_calls)
+        state.planner_meta['plan_total_latency_ms'] = sum(int(item.get('latency_ms', 0) or 0) for item in plan_llm_calls)
         if isinstance(comparison_corpus, list):
             state.evidences = self._comparison_corpus_evidences(comparison_corpus)
         split_strategy = 'by_competitor' if len(state.competitors) <= 4 else 'by_topic'
@@ -1462,6 +1469,49 @@ class CompetitorWorkflowService:
                 'aspect_hint_count': len(state.aspect_hints),
                 'competitor_hints': state.competitor_hints,
                 'aspect_hints': state.aspect_hints,
+            },
+        )
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'search_plan_generated',
+            {
+                'comparison_search_plan': state.planner_meta.get('comparison_search_plan', {}),
+                'pipeline_version': state.planner_meta.get('plan_pipeline_version', 'plan_v2_corpus_reduce'),
+            },
+        )
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'comparison_corpus_selected',
+            {
+                'target_count': state.planner_meta.get('comparison_corpus_target_count', '10-12'),
+                'selected_count': len(comparison_corpus) if isinstance(comparison_corpus, list) else 0,
+            },
+        )
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'comparison_corpus_saved',
+            {
+                'saved_docs': state.planner_meta.get('comparison_corpus_saved_count', len(comparison_corpus) if isinstance(comparison_corpus, list) else 0),
+                'documents': [
+                    {
+                        'corpus_id': item.get('corpus_id', ''),
+                        'title': item.get('title', ''),
+                        'url': item.get('source_url', ''),
+                        'published_at': item.get('published_at', ''),
+                    }
+                    for item in comparison_corpus[:12]
+                ] if isinstance(comparison_corpus, list) else [],
+            },
+        )
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'comparison_corpus_summarized',
+            {
+                'summarized_docs': state.planner_meta.get('comparison_corpus_summarized_count', len(comparison_corpus) if isinstance(comparison_corpus, list) else 0),
             },
         )
         self._save_and_event(
@@ -1489,15 +1539,32 @@ class CompetitorWorkflowService:
         self._save_and_event(
             state,
             StageName.plan,
-            'plan.competitors_generated',
-            {'planned_competitors': state.planned_competitors, 'planner_meta': state.planner_meta},
+            'plan_competitors_decided',
+            {
+                'planned_competitors': state.planned_competitors,
+                'decision_evidence_refs': state.planner_meta.get('comparison_decision_evidence_refs', []),
+            },
         )
         self._save_and_event(
             state,
             StageName.plan,
-            'plan.schema_generated',
-            {'analysis_schema_plan': [item.model_dump(mode='json') for item in state.analysis_schema_plan]},
+            'plan_schema_decided',
+            {
+                'analysis_schema_plan': [item.model_dump(mode='json') for item in state.analysis_schema_plan],
+                'dynamic_fields': [
+                    item.field_name for item in state.analysis_schema_plan
+                    if item.field_name not in {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
+                ],
+                'dynamic_fields_count': state.planner_meta.get('dynamic_field_actual_count', 0),
+            },
         )
+        if state.planner_meta.get('plan_fallback_reason'):
+            self._save_and_event(
+                state,
+                StageName.plan,
+                'plan_fallback_used',
+                {'reason': state.planner_meta.get('plan_fallback_reason', '')},
+            )
         self._save_handoff(state, StageName.plan, self._build_plan_handoff(state))
 
     def _run_action_tool(self, action_name: str, args: dict[str, object], metadata: dict[str, object]) -> dict[str, object]:

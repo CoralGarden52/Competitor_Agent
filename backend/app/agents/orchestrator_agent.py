@@ -95,15 +95,8 @@ class OrchestratorAgent:
             candidate_groups = discover_result.get('competitors', {'direct': [], 'substitute': []})
             search_results = discover_result.get('search_results', [])
 
-            # 基于真实搜索结果生成 schema
-            schema = self.planner.plan_dynamic_schema(
-                prompt=prompt_text,
-                industry=inferred_industry,
-                candidates=[item['name'] for item in candidate_groups.get('direct', []) + candidate_groups.get('substitute', [])],
-                search_results=search_results,  # 传入搜索结果
-            )
             schema = self.planner._normalize_dynamic_schema(
-                schema + list(discover_result.get('comparison_schema_fields', []))
+                self.planner._core_schema_plan_only() + list(discover_result.get('comparison_schema_fields', []))
             )
 
         direct = [str(item.get('name', '')).strip() for item in candidate_groups.get('direct', []) if str(item.get('name', '')).strip()]
@@ -113,17 +106,7 @@ class OrchestratorAgent:
 
         user_aspect_fields = self._aspect_hints_to_schema_fields(aspect_hints or [])
         merged_schema = self._merge_schema_plan(schema, user_aspect_fields)
-        final_refine_status = 'fallback'
-        if self.planner is not None:
-            refined = self.planner.refine_final_plan_lists(
-                prompt=prompt_text,
-                competitors=merged_competitors,
-                schema_plan=merged_schema,
-            )
-            if refined is not None:
-                merged_competitors = self._dedupe_competitors(refined.get('planned_competitors', merged_competitors))
-                merged_schema = refined.get('analysis_schema_plan', merged_schema)
-                final_refine_status = 'success'
+        final_refine_status = 'skipped'
 
         planner_meta = {}
         if self.planner is not None:
@@ -132,6 +115,13 @@ class OrchestratorAgent:
             planner_meta['candidate_policy'] = 'direct_substitute_only'
             planner_meta['comparison_search_plan'] = discover_result.get('comparison_search_plan', {})
             planner_meta['comparison_corpus_count'] = len(discover_result.get('comparison_corpus', []))
+            planner_meta['comparison_corpus_target_count'] = '10-12'
+            planner_meta['comparison_corpus_saved_count'] = len(discover_result.get('comparison_corpus', []))
+            planner_meta['comparison_corpus_summarized_count'] = len(discover_result.get('comparison_corpus', []))
+            planner_meta['dynamic_field_target_count'] = '5-7'
+            planner_meta['dynamic_field_actual_count'] = max(0, len([x for x in merged_schema if x.get('field_name') not in CORE_DYNAMIC_FIELDS]))
+            planner_meta['plan_pipeline_version'] = 'plan_v2_corpus_reduce'
+            planner_meta['plan_fallback_reason'] = str(discover_result.get('fallback_reason', '') or '')
         else:
             planner_meta['llm_enabled'] = False
             planner_meta['reason'] = 'planner_missing'

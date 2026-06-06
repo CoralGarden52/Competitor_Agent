@@ -79,6 +79,11 @@ def build_default_schema_plan(*, current_year: int | None = None) -> list[dict[s
 DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = build_default_schema_plan()
 
 CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
+MIN_COMPARISON_CORPUS_DOCS = 10
+MAX_COMPARISON_CORPUS_DOCS = 12
+MIN_DYNAMIC_FIELD_COUNT = 5
+MAX_DYNAMIC_FIELD_COUNT = 7
+PLAN_PIPELINE_VERSION = 'plan_v2_corpus_reduce'
 
 
 class PlannerLLMClient:
@@ -439,7 +444,7 @@ class PlannerLLMClient:
             }
 
         normalized_industry = str(industry or '').strip().lower()
-        product_profile = self.infer_product_profile(
+        product_profile = self._fallback_product_profile(
             prompt=prompt,
             industry=normalized_industry,
             competitor_hints=competitor_hints,
@@ -502,6 +507,7 @@ class PlannerLLMClient:
             industry=normalized_industry,
             competitor_hints=competitor_hints,
             comparison_corpus=comparison_corpus,
+            candidate_pool=candidate_pool,
         )
         if corpus_decision:
             corpus_decision['direct'] = self._clean_candidates(
@@ -560,6 +566,7 @@ class PlannerLLMClient:
             'comparison_corpus': comparison_corpus,
             'comparison_schema_fields': corpus_decision.get('extra_schema_fields', []),
             'comparison_decision_evidence_refs': corpus_decision.get('decision_evidence_refs', []),
+            'fallback_reason': corpus_decision.get('fallback_reason', ''),
         }
 
     def _generate_search_queries(
@@ -605,7 +612,7 @@ class PlannerLLMClient:
                 expansions = [str(q).strip() for q in expansion_queries if str(q).strip()] if isinstance(expansion_queries, list) else []
                 queries = self._dedupe_query_list(
                     [self._ensure_recent_comparison_query(query) for query in [primary_query] + expansions]
-                )[:4]
+                )[:3]
                 self._last_comparison_search_plan = {
                     'primary_query': queries[0],
                     'expansion_queries': queries[1:],
@@ -622,7 +629,7 @@ class PlannerLLMClient:
             competitor_hints=competitor_hints,
             product_profile=product_profile,
         )
-        fallback = self._dedupe_query_list([self._ensure_recent_comparison_query(query) for query in fallback])[:4]
+        fallback = self._dedupe_query_list([self._ensure_recent_comparison_query(query) for query in fallback])[:3]
         self._last_comparison_search_plan = {
             'primary_query': fallback[0] if fallback else '',
             'expansion_queries': fallback[1:],
@@ -733,6 +740,12 @@ class PlannerLLMClient:
             if item in text:
                 return item
         return text[:24]
+
+    @staticmethod
+    def _normalize_field_name(value: str) -> str:
+        token = re.sub(r'[^a-zA-Z0-9\u4e00-\u9fff]+', '_', str(value or '').strip().lower())
+        token = re.sub(r'_+', '_', token).strip('_')
+        return token
 
     def _extract_generic_topic(self, prompt: str, *, industry: str) -> str:
         text = re.sub(r'\s+', ' ', str(prompt).strip())
@@ -1231,20 +1244,28 @@ class PlannerLLMClient:
         plan = self._last_comparison_search_plan
         topic_key = str(plan.get('topic_key', '') or '').strip()
         keywords = [str(x).strip() for x in plan.get('keywords', []) if str(x).strip()] if isinstance(plan.get('keywords', []), list) else []
-        max_docs = self.config.planner_comparison_corpus_max_docs
+        max_docs = max(MIN_COMPARISON_CORPUS_DOCS, min(self.config.planner_comparison_corpus_max_docs, MAX_COMPARISON_CORPUS_DOCS))
         selected_rows = self._dedupe_search_results(search_results)[:max_docs]
         router = self._web_tool_router()
         reused_documents = self.store.search_comparison_corpus(
             topic_key=topic_key,
             industry=industry,
             keywords=keywords,
-            limit=4,
+            limit=max_docs,
         ) if self.store is not None else []
+        reused_by_url = {
+            str(item.get('source_url', '')).strip(): item
+            for item in reused_documents
+            if str(item.get('source_url', '')).strip()
+        }
 
         def _collect_one(row: dict[str, Any]) -> dict[str, Any] | None:
             url = str(row.get('url', '') or '').strip()
             if not url:
                 return None
+            cached = reused_by_url.get(url)
+            if cached is not None and self._comparison_extract_ready(cached.get('llm_extract', {})):
+                return cached
             content = ''
             source_provider = str(row.get('source_provider', '') or '')
             try:
@@ -1296,7 +1317,7 @@ class PlannerLLMClient:
                     self.store.link_run_comparison_corpus(run_id=run_id, corpus_id=document['corpus_id'])
             return document
 
-        documents: list[dict[str, Any]] = list(reused_documents)
+        documents: list[dict[str, Any]] = []
         if selected_rows:
             with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(selected_rows), 4)) as executor:
                 futures = [executor.submit(_collect_one, row) for row in selected_rows]
@@ -1311,24 +1332,127 @@ class PlannerLLMClient:
                 deduped[key] = document
         return list(deduped.values())[:max_docs]
 
+    @staticmethod
+    def _comparison_extract_ready(payload: Any) -> bool:
+        if not isinstance(payload, dict):
+            return False
+        required = {
+            'mentioned_competitors',
+            'comparison_dimensions',
+            'dimension_evidence_pairs',
+            'supporting_excerpts',
+            'relevance_score',
+            'is_horizontal_comparison',
+            'page_type',
+            'quality_flags',
+            'corpus_refs',
+        }
+        return required.issubset(payload.keys())
+
     def _summarize_comparison_document(self, *, title: str, url: str, summary: str, content: str) -> dict[str, Any]:
         if not self.enabled():
             return {}
+        normalized_content = self._select_comparison_content_window(title=title, summary=summary, content=content)
         sys_prompt = (
             '你负责逐篇阅读横向竞品对比网页。'
-            '只提取网页中明确出现的信息，不要补充常识，不要编造。只返回严格 JSON。'
+            '只提取网页中明确出现的信息，不要补充常识，不要编造。'
+            '你输出的结果将直接用于后续竞品决策和动态字段定义。只返回严格 JSON。'
         )
         user_prompt = (
-            f'标题：{title}\nURL：{url}\n搜索摘要：{summary[:800]}\n正文节选：{content[:6000]}\n'
-            '请提取网页中明确出现的竞品名称、可用于横向对比的分析维度和简短依据。'
+            f'标题：{title}\nURL：{url}\n搜索摘要：{summary[:800]}\n正文节选：{normalized_content}\n'
+            '请提取网页中明确出现的竞品名称、横向对比维度、每个维度对应的依据、可引用证据片段，并判断是否属于真正的横向对比页面。'
             '返回 JSON：{"mentioned_competitors":[],"comparison_dimensions":[],'
-            '"supporting_excerpts":[],"relevance_score":0.0}'
+            '"dimension_evidence_pairs":[{"dimension":"","evidence":"","competitors":[]}],'
+            '"supporting_excerpts":[],"relevance_score":0.0,"is_horizontal_comparison":true,'
+            '"page_type":"comparison_article","quality_flags":[],"corpus_refs":[]}'
         )
         try:
-            return self._chat_json(sys_prompt, user_prompt, trace_name='planner.comparison_corpus.extract_page')
+            result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.comparison_corpus.page_summary')
+            return self._normalize_comparison_extract(result, url=url)
         except Exception as exc:
             logger.warning('Failed to summarize comparison corpus page %s: %s', url, exc)
-            return {}
+            return self._fallback_comparison_extract(title=title, url=url, summary=summary, content=normalized_content)
+
+    @staticmethod
+    def _select_comparison_content_window(*, title: str, summary: str, content: str) -> str:
+        text = re.sub(r'\s+', ' ', str(content or '').strip())
+        if not text:
+            return str(summary or '').strip()[:1600]
+        segments = re.split(r'(?<=[。！？!?])', text)
+        keepers: list[str] = []
+        keywords = ('对比', '竞品', '替代', '优势', '劣势', '价格', '定价', '功能', '场景', '适合', '排行', '盘点', '评测')
+        for segment in segments:
+            piece = segment.strip()
+            if not piece:
+                continue
+            if any(keyword in piece for keyword in keywords):
+                keepers.append(piece)
+            if len(' '.join(keepers)) >= 2600:
+                break
+        selected = ' '.join(keepers) if keepers else text[:2600]
+        prefix = f"{title[:200]} {summary[:600]}".strip()
+        merged = f'{prefix}\n{selected}'.strip()
+        return merged[:3200]
+
+    def _normalize_comparison_extract(self, payload: Any, *, url: str) -> dict[str, Any]:
+        data = payload if isinstance(payload, dict) else {}
+        mentioned = [self._clean_candidate_name(str(item).strip()) for item in data.get('mentioned_competitors', []) if str(item).strip()]
+        dimensions = [self._normalize_field_name(str(item).strip()) for item in data.get('comparison_dimensions', []) if str(item).strip()]
+        pairs: list[dict[str, Any]] = []
+        for item in data.get('dimension_evidence_pairs', []):
+            if not isinstance(item, dict):
+                continue
+            dimension = self._normalize_field_name(str(item.get('dimension', '')).strip())
+            evidence = str(item.get('evidence', '') or '').strip()[:280]
+            competitors = [self._clean_candidate_name(str(x).strip()) for x in item.get('competitors', []) if str(x).strip()]
+            if not dimension or not evidence:
+                continue
+            pairs.append({'dimension': dimension, 'evidence': evidence, 'competitors': [x for x in competitors if x]})
+        excerpts = [str(item).strip()[:280] for item in data.get('supporting_excerpts', []) if str(item).strip()]
+        flags = [str(item).strip()[:80] for item in data.get('quality_flags', []) if str(item).strip()]
+        try:
+            relevance = float(data.get('relevance_score', 0.0) or 0.0)
+        except Exception:
+            relevance = 0.0
+        return {
+            'mentioned_competitors': [item for item in mentioned if item],
+            'comparison_dimensions': [item for item in dimensions if item],
+            'dimension_evidence_pairs': pairs,
+            'supporting_excerpts': excerpts,
+            'relevance_score': max(0.0, min(1.0, relevance)),
+            'is_horizontal_comparison': bool(data.get('is_horizontal_comparison', False)),
+            'page_type': str(data.get('page_type', '') or 'comparison_article')[:80],
+            'quality_flags': flags,
+            'corpus_refs': [url] if url else [],
+        }
+
+    def _fallback_comparison_extract(self, *, title: str, url: str, summary: str, content: str) -> dict[str, Any]:
+        dimensions = []
+        heuristics = {
+            'pricing_model': ('价格', '定价', '套餐', '收费'),
+            'feature_tree': ('功能', '能力', '特性'),
+            'strengths': ('优势', '亮点', '卖点'),
+            'weaknesses': ('缺点', '不足', '短板'),
+            'user_feedback': ('评价', '反馈', '口碑'),
+        }
+        haystack = f'{title} {summary} {content}'
+        for field_name, tokens in heuristics.items():
+            if any(token in haystack for token in tokens):
+                dimensions.append(field_name)
+        return {
+            'mentioned_competitors': self._extract_list_candidates(f'{title} {summary}')[:8],
+            'comparison_dimensions': dimensions,
+            'dimension_evidence_pairs': [
+                {'dimension': field_name, 'evidence': str(summary or title)[:180], 'competitors': []}
+                for field_name in dimensions
+            ],
+            'supporting_excerpts': [str(summary or title)[:240]] if str(summary or title).strip() else [],
+            'relevance_score': 0.45,
+            'is_horizontal_comparison': True,
+            'page_type': 'fallback_summary',
+            'quality_flags': ['llm_unavailable_or_failed'],
+            'corpus_refs': [url] if url else [],
+        }
 
     def _synthesize_comparison_corpus(
         self,
@@ -1337,43 +1461,272 @@ class PlannerLLMClient:
         industry: str,
         competitor_hints: list[str],
         comparison_corpus: list[dict[str, Any]],
+        candidate_pool: list[str],
     ) -> dict[str, Any]:
-        if not self.enabled() or not comparison_corpus:
-            return {}
-        extracts = [
-            {
+        if not comparison_corpus:
+            return self._fallback_synthesize_comparison_corpus(
+                competitor_hints=competitor_hints,
+                candidate_pool=candidate_pool,
+                comparison_corpus=[],
+            )
+        extracts = self._build_synthesis_extracts(comparison_corpus, compact=False)
+        compact_extracts = self._build_synthesis_extracts(comparison_corpus, compact=True)
+        if not self.enabled():
+            return self._fallback_synthesize_comparison_corpus(
+                competitor_hints=competitor_hints,
+                candidate_pool=candidate_pool,
+                comparison_corpus=extracts,
+            )
+        sys_prompt = (
+            '你是竞品分析 Plan 智能体。你必须根据已抓取的横向对比语料决定竞品和增量分析字段。'
+            '只选择语料中有依据的产品和字段，不要硬凑。'
+            f'必须输出 {MIN_DYNAMIC_FIELD_COUNT}-{MAX_DYNAMIC_FIELD_COUNT} 个动态字段，并且每个动态字段都要带 corpus_refs。只返回严格 JSON。'
+        )
+        prompts = [
+            self._build_synthesis_prompt(
+                prompt=prompt,
+                industry=industry,
+                competitor_hints=competitor_hints,
+                candidate_pool=candidate_pool,
+                extracts=extracts,
+            ),
+            self._build_synthesis_prompt(
+                prompt=prompt,
+                industry=industry,
+                competitor_hints=competitor_hints,
+                candidate_pool=candidate_pool,
+                extracts=compact_extracts,
+            ),
+        ]
+        last_exc: Exception | None = None
+        for index, user_prompt in enumerate(prompts):
+            try:
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.comparison_corpus.synthesize')
+                self._record_step_status('comparison_corpus_synthesize')
+                normalized = self._normalize_synthesis_result(result, candidate_pool=candidate_pool)
+                if normalized.get('extra_schema_fields'):
+                    return normalized
+            except Exception as exc:
+                last_exc = exc
+                logger.warning('Failed to synthesize comparison corpus (attempt=%s): %s', index + 1, exc)
+        self._record_step_status('comparison_corpus_synthesize')
+        fallback = self._fallback_synthesize_comparison_corpus(
+            competitor_hints=competitor_hints,
+            candidate_pool=candidate_pool,
+            comparison_corpus=compact_extracts,
+        )
+        if last_exc is not None:
+            fallback['fallback_reason'] = str(last_exc)
+        return fallback
+
+    def _build_synthesis_extracts(self, comparison_corpus: list[dict[str, Any]], *, compact: bool) -> list[dict[str, Any]]:
+        extracts: list[dict[str, Any]] = []
+        for item in comparison_corpus:
+            if item.get('date_confidence') == 'out_of_range':
+                continue
+            llm_extract = item.get('llm_extract', {}) if isinstance(item.get('llm_extract', {}), dict) else {}
+            row = {
                 'corpus_id': item.get('corpus_id', ''),
                 'title': item.get('title', ''),
                 'url': item.get('source_url', ''),
                 'published_at': item.get('published_at', ''),
                 'date_confidence': item.get('date_confidence', 'unknown'),
-                'llm_extract': item.get('llm_extract', {}),
+                'mentioned_competitors': llm_extract.get('mentioned_competitors', []),
+                'comparison_dimensions': llm_extract.get('comparison_dimensions', []),
+                'supporting_excerpts': llm_extract.get('supporting_excerpts', [])[: (1 if compact else 3)],
+                'relevance_score': llm_extract.get('relevance_score', 0.0),
+                'is_horizontal_comparison': llm_extract.get('is_horizontal_comparison', False),
+                'page_type': llm_extract.get('page_type', ''),
             }
-            for item in comparison_corpus
-            if item.get('date_confidence') != 'out_of_range'
-        ]
-        sys_prompt = (
-            '你是竞品分析 Plan 智能体。你必须根据已抓取的横向对比语料决定竞品和增量分析字段。'
-            '只选择语料中有依据的产品和字段，不要硬凑。只返回严格 JSON。'
-        )
-        user_prompt = (
-            f'用户需求：{prompt}\n行业：{industry}\n用户竞品线索：{competitor_hints}\n'
+            if not compact:
+                row['dimension_evidence_pairs'] = llm_extract.get('dimension_evidence_pairs', [])[:6]
+            extracts.append(row)
+        return extracts
+
+    def _build_synthesis_prompt(
+        self,
+        *,
+        prompt: str,
+        industry: str,
+        competitor_hints: list[str],
+        candidate_pool: list[str],
+        extracts: list[dict[str, Any]],
+    ) -> str:
+        return (
+            f'用户需求：{prompt}\n行业：{industry}\n用户竞品线索：{competitor_hints}\n候选竞品池：{candidate_pool}\n'
             f'逐篇语料提炼：{json.dumps(extracts, ensure_ascii=False)}\n'
-            '请综合确认直接竞品、替代竞品和高价值增量字段。每个结论保留 corpus_id 引用。'
+            f'请综合确认直接竞品、替代竞品和 {MIN_DYNAMIC_FIELD_COUNT}-{MAX_DYNAMIC_FIELD_COUNT} 个高价值动态字段。'
+            '每个结论保留 corpus_id 引用，动态字段必须来源于横向对比语料。'
             '返回 JSON：{"direct":[{"name":"","reason":"","confidence":0.0,"corpus_refs":[]}],'
             '"substitute":[{"name":"","reason":"","confidence":0.0,"corpus_refs":[]}],'
             '"extra_schema_fields":[{"field_name":"","query_templates":["{product} ..."],'
             '"recommended_sources":["public_web"],"priority":1,"corpus_refs":[]}],'
             '"decision_evidence_refs":[]}'
         )
-        try:
-            result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.comparison_corpus.synthesize')
-            self._record_step_status('comparison_corpus_synthesize')
-            return result if isinstance(result, dict) else {}
-        except Exception as exc:
-            logger.warning('Failed to synthesize comparison corpus: %s', exc)
-            self._record_step_status('comparison_corpus_synthesize')
-            return {}
+
+    def _normalize_synthesis_result(self, payload: Any, *, candidate_pool: list[str]) -> dict[str, Any]:
+        data = payload if isinstance(payload, dict) else {}
+        direct = self._clean_candidates(
+            data.get('direct', []),
+            fallback_hints=candidate_pool,
+            default_fit='direct',
+            allowed_names=candidate_pool or None,
+        )
+        substitute = self._clean_candidates(
+            data.get('substitute', []),
+            fallback_hints=[],
+            default_fit='substitute',
+            allowed_names=candidate_pool or None,
+        )
+        extra = self._normalize_extra_schema(
+            data.get('extra_schema_fields', []),
+            core_schema_fields=CORE_DYNAMIC_FIELDS,
+            target_count=MAX_DYNAMIC_FIELD_COUNT,
+        )
+        evidence_refs = [str(item).strip() for item in data.get('decision_evidence_refs', []) if str(item).strip()]
+        if len(extra) < MIN_DYNAMIC_FIELD_COUNT:
+            existing = {item.get('field_name', '') for item in extra}
+            while len(extra) < MIN_DYNAMIC_FIELD_COUNT:
+                idx = len(extra) + 1
+                field_name = f'dynamic_comparison_dimension_{idx}'
+                if field_name in existing:
+                    continue
+                extra.append(
+                    {
+                        'field_name': field_name,
+                        'query_templates': [f'{{product}} {field_name.replace("_", " ")} 对比'],
+                        'recommended_sources': ['public_web'],
+                        'priority': len(CORE_DYNAMIC_FIELDS) + idx,
+                        'corpus_refs': evidence_refs[:4],
+                    }
+                )
+                existing.add(field_name)
+        return {
+            'direct': direct,
+            'substitute': substitute,
+            'extra_schema_fields': extra[:MAX_DYNAMIC_FIELD_COUNT],
+            'decision_evidence_refs': evidence_refs,
+        }
+
+    def _fallback_synthesize_comparison_corpus(
+        self,
+        *,
+        competitor_hints: list[str],
+        candidate_pool: list[str],
+        comparison_corpus: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        ranked_candidates = self._rank_candidates_from_corpus(
+            candidate_pool=candidate_pool,
+            competitor_hints=competitor_hints,
+            comparison_corpus=comparison_corpus,
+        )
+        dynamic_fields = self._build_dynamic_fields_from_corpus(comparison_corpus)
+        direct = [
+            self._make_candidate(name=name, fit_type='direct', reason='corpus_frequency_fallback', confidence=0.66, corpus_refs=refs)
+            for name, refs in ranked_candidates[:2]
+        ]
+        substitute = [
+            self._make_candidate(name=name, fit_type='substitute', reason='corpus_frequency_fallback', confidence=0.55, corpus_refs=refs)
+            for name, refs in ranked_candidates[2:3]
+        ]
+        evidence_refs = sorted({ref for _name, refs in ranked_candidates for ref in refs})
+        return {
+            'direct': direct,
+            'substitute': substitute,
+            'extra_schema_fields': dynamic_fields,
+            'decision_evidence_refs': evidence_refs,
+        }
+
+    def _rank_candidates_from_corpus(
+        self,
+        *,
+        candidate_pool: list[str],
+        competitor_hints: list[str],
+        comparison_corpus: list[dict[str, Any]],
+    ) -> list[tuple[str, list[str]]]:
+        scores: dict[str, float] = {}
+        refs_by_name: dict[str, set[str]] = {}
+        display: dict[str, str] = {}
+        allowed = {self._normalize_candidate_key(item): item for item in candidate_pool if str(item).strip()}
+        for hint in competitor_hints:
+            key = self._normalize_candidate_key(hint)
+            if key:
+                scores[key] = scores.get(key, 0.0) + 5.0
+                display[key] = str(hint).strip()
+        for item in comparison_corpus:
+            corpus_id = str(item.get('corpus_id', '') or '')
+            mentioned = item.get('mentioned_competitors', []) if 'mentioned_competitors' in item else item.get('llm_extract', {}).get('mentioned_competitors', [])
+            relevance = 0.0
+            try:
+                relevance = float(item.get('relevance_score', item.get('llm_extract', {}).get('relevance_score', 0.0)) or 0.0)
+            except Exception:
+                relevance = 0.0
+            for raw in mentioned if isinstance(mentioned, list) else []:
+                name = self._clean_candidate_name(str(raw).strip())
+                key = self._normalize_candidate_key(name)
+                if not name or (allowed and key not in allowed):
+                    continue
+                display.setdefault(key, allowed.get(key, name) if allowed else name)
+                scores[key] = scores.get(key, 0.0) + max(0.5, relevance)
+                refs_by_name.setdefault(key, set()).add(corpus_id)
+        ranked = sorted(scores.items(), key=lambda item: (-item[1], item[0]))
+        return [(display[key], sorted(refs_by_name.get(key, set()))) for key, _score in ranked if display.get(key)]
+
+    def _build_dynamic_fields_from_corpus(self, comparison_corpus: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        dimension_scores: dict[str, float] = {}
+        refs_by_dimension: dict[str, set[str]] = {}
+        evidence_by_dimension: dict[str, str] = {}
+        for item in comparison_corpus:
+            corpus_id = str(item.get('corpus_id', '') or '')
+            llm_extract = item.get('llm_extract', item) if isinstance(item, dict) else {}
+            relevance = 0.0
+            try:
+                relevance = float(llm_extract.get('relevance_score', 0.0) or 0.0)
+            except Exception:
+                relevance = 0.0
+            dimensions = llm_extract.get('comparison_dimensions', [])
+            for dimension in dimensions if isinstance(dimensions, list) else []:
+                field_name = self._normalize_field_name(str(dimension).strip())
+                if not field_name or field_name in CORE_DYNAMIC_FIELDS:
+                    continue
+                dimension_scores[field_name] = dimension_scores.get(field_name, 0.0) + max(0.5, relevance)
+                refs_by_dimension.setdefault(field_name, set()).add(corpus_id)
+            for pair in llm_extract.get('dimension_evidence_pairs', []) if isinstance(llm_extract.get('dimension_evidence_pairs', []), list) else []:
+                if not isinstance(pair, dict):
+                    continue
+                field_name = self._normalize_field_name(str(pair.get('dimension', '')).strip())
+                evidence = str(pair.get('evidence', '') or '').strip()
+                if field_name and evidence and field_name not in evidence_by_dimension:
+                    evidence_by_dimension[field_name] = evidence
+        ranked = sorted(dimension_scores.items(), key=lambda item: (-item[1], item[0]))
+        output: list[dict[str, Any]] = []
+        for index, (field_name, _score) in enumerate(ranked[:MAX_DYNAMIC_FIELD_COUNT], start=1):
+            evidence = evidence_by_dimension.get(field_name, field_name.replace('_', ' '))
+            output.append(
+                {
+                    'field_name': field_name,
+                    'query_templates': [
+                        f'{{product}} {field_name.replace("_", " ")}',
+                        f'{{product}} {evidence[:40]}',
+                    ],
+                    'recommended_sources': ['public_web', 'official', 'review'],
+                    'priority': len(CORE_DYNAMIC_FIELDS) + index,
+                    'corpus_refs': sorted(refs_by_dimension.get(field_name, set())),
+                }
+            )
+        while len(output) < MIN_DYNAMIC_FIELD_COUNT:
+            idx = len(output) + 1
+            field_name = f'dynamic_comparison_dimension_{idx}'
+            output.append(
+                {
+                    'field_name': field_name,
+                    'query_templates': [f'{{product}} {field_name.replace("_", " ")} 对比'],
+                    'recommended_sources': ['public_web'],
+                    'priority': len(CORE_DYNAMIC_FIELDS) + idx,
+                    'corpus_refs': [],
+                }
+            )
+        return output
 
     @staticmethod
     def _extract_published_at(text: str) -> tuple[str, str]:
@@ -1398,32 +1751,6 @@ class PlannerLLMClient:
         search_results: list[dict[str, Any]],
         product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
-        llm_candidates = self._extract_candidates_with_llm(
-            prompt=prompt,
-            industry=industry,
-            competitor_hints=competitor_hints,
-            search_results=search_results,
-            product_profile=product_profile,
-        )
-        if llm_candidates:
-            merged: list[str] = []
-            seen: set[str] = set()
-            for hint in competitor_hints:
-                cleaned_hint = self._clean_candidate_name(hint)
-                key = self._normalize_candidate_key(cleaned_hint)
-                if cleaned_hint and key not in seen:
-                    seen.add(key)
-                    merged.append(cleaned_hint)
-            for name in llm_candidates:
-                if self._looks_too_generic_for_candidate(name, product_profile=product_profile):
-                    continue
-                key = self._normalize_candidate_key(name)
-                if key in seen:
-                    continue
-                seen.add(key)
-                merged.append(name)
-            return merged[: max(self.config.planner_schema_max_candidates, 6)]
-
         score_map: dict[str, float] = {}
         display_map: dict[str, str] = {}
         doc_freq_map: dict[str, int] = {}
@@ -1952,7 +2279,13 @@ class PlannerLLMClient:
             item['priority'] = index
         return cleaned
 
-    def _normalize_extra_schema(self, raw_plan: list[dict[str, Any]], *, core_schema_fields: list[str]) -> list[dict[str, Any]]:
+    def _normalize_extra_schema(
+        self,
+        raw_plan: list[dict[str, Any]],
+        *,
+        core_schema_fields: list[str],
+        target_count: int = 6,
+    ) -> list[dict[str, Any]]:
         core_set = {str(x).strip().lower() for x in core_schema_fields if str(x).strip()}
         cleaned: list[dict[str, Any]] = []
         seen: set[str] = set()
@@ -1974,7 +2307,7 @@ class PlannerLLMClient:
         cleaned.sort(key=lambda x: int(x.get('priority', 999)))
         for index, item in enumerate(cleaned, start=1):
             item['priority'] = index
-        return cleaned[:6]
+        return cleaned[: max(0, int(target_count))]
 
     def _normalize_query_templates(self, *, field_name: str, templates: Any) -> list[str]:
         raw_templates = templates if isinstance(templates, list) else []
@@ -2133,8 +2466,21 @@ class PlannerLLMClient:
         return f'{text} {{current_year}}'
 
     @staticmethod
-    def _make_candidate(*, name: str, fit_type: str, reason: str, confidence: float = 0.7) -> dict[str, Any]:
-        return {'name': name.strip(), 'fit_type': fit_type, 'reason': reason, 'confidence': float(confidence)}
+    def _make_candidate(
+        *,
+        name: str,
+        fit_type: str,
+        reason: str,
+        confidence: float = 0.7,
+        corpus_refs: list[str] | None = None,
+    ) -> dict[str, Any]:
+        return {
+            'name': name.strip(),
+            'fit_type': fit_type,
+            'reason': reason,
+            'confidence': float(confidence),
+            'corpus_refs': list(corpus_refs or []),
+        }
 
     def _clean_candidates(
         self,
