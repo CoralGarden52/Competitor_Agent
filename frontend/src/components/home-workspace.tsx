@@ -160,6 +160,58 @@ function stepStatusText(status: "pending" | "running" | "done" | "failed"): stri
   return "待执行";
 }
 
+function deriveDraftPreviewFromEvents(events: WorkspaceEvent[]): {
+  hasActivity: boolean;
+  isStreaming: boolean;
+  markdown: string;
+  error: string;
+} {
+  let hasStarted = false;
+  let hasCompleted = false;
+  let hasFailed = false;
+  let markdown = "";
+  let error = "";
+
+  for (const event of events) {
+    const eventType = String(event.event_type || "");
+    const payload = event.payload && typeof event.payload === "object" ? event.payload : {};
+    if (eventType === "draft_markdown.started") {
+      hasStarted = true;
+      hasCompleted = false;
+      hasFailed = false;
+      markdown = "";
+      error = "";
+      continue;
+    }
+    if (eventType === "draft_markdown.delta") {
+      const delta = typeof payload.delta === "string" ? payload.delta : "";
+      if (delta) {
+        hasStarted = true;
+        markdown += delta;
+      }
+      continue;
+    }
+    if (eventType === "draft_markdown.completed") {
+      hasCompleted = true;
+      hasFailed = false;
+      error = "";
+      continue;
+    }
+    if (eventType === "draft_markdown.failed") {
+      hasFailed = true;
+      hasCompleted = false;
+      error = typeof payload.error === "string" ? payload.error : "报告生成失败，请稍后重试。";
+    }
+  }
+
+  return {
+    hasActivity: hasStarted || Boolean(markdown) || hasCompleted || hasFailed,
+    isStreaming: (hasStarted || Boolean(markdown)) && !hasCompleted && !hasFailed,
+    markdown,
+    error,
+  };
+}
+
 function isReportFollowupMessage(message: ChatMessage): boolean {
   return (
     message.id.startsWith("report-chat:") ||
@@ -310,7 +362,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const [query, setQuery] = useState("");
   const [competitorHintsText, setCompetitorHintsText] = useState("");
   const [aspectHintsText, setAspectHintsText] = useState("");
-  const [taskSummary, setTaskSummary] = useState("");
   const [workspaceData, setWorkspaceData] = useState<WorkspacePayload | null>(null);
   const [selectedStage, setSelectedStage] = useState<StageName | null>(null);
   const [eventFeed, setEventFeed] = useState<WorkspaceEvent[]>([]);
@@ -326,6 +377,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [isEditingReport, setIsEditingReport] = useState(false);
   const [isDraftStreaming, setIsDraftStreaming] = useState(false);
+  const [draftStreamError, setDraftStreamError] = useState("");
   const [reportSourceRunId, setReportSourceRunId] = useState("");
   const [originalReportContent, setOriginalReportContent] = useState("");
   const [reportDraft, setReportDraft] = useState("");
@@ -351,8 +403,14 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
 
   const maxReconnectAttempts = 4;
   const maxSessionCount = 30;
-  const displaySummary = taskSummary.replace(/^任务(目标|分析)\s*[:：]\s*/u, "").trim();
   const sessionChatStoragePrefix = "home_workspace_chat_messages:";
+  const activeRunId = (workspaceData?.run?.run_id || activeRunIdRef.current || "").trim();
+  const activeSession =
+    sessions.find((item) => item.session_id === activeSessionId)
+    || sessions.find((item) => item.active_run_id === activeRunId)
+    || null;
+  const activeSessionTaskSummary = (activeSession?.task_summary || "").trim();
+  const displaySummary = activeSessionTaskSummary.replace(/^任务(目标|分析)\s*[:：]\s*/u, "").trim();
   const stageCards = workspaceData?.workflow?.agent_stages ?? [];
   const selectedStageCard = getStageCard(workspaceData, selectedStage);
   const selectedStageWorkflow = getStageWorkflow(workspaceData, selectedStage);
@@ -361,10 +419,40 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const selectedStageEvents = selectedStage
     ? eventFeed.filter((item) => item.stage === selectedStage)
     : [];
+  const qaStageCard = getStageCard(workspaceData, "qa");
+  const draftStageCard = getStageCard(workspaceData, "draft");
   const hasReport = Boolean(workspaceData && (workspaceData.report?.markdown || "").trim());
+  const hasStreamingReportPreview = Boolean(reportDraft.trim());
+  const shouldShowReportCard = Boolean(
+    hasReport
+    || hasStreamingReportPreview
+    || draftStreamError
+    || isDraftStreaming
+    || qaStageCard?.status === "completed"
+    || draftStageCard?.status === "running"
+    || draftStageCard?.status === "completed"
+    || draftStageCard?.status === "failed"
+  );
   const referenceItems = workspaceData ? buildReferenceItems(workspaceData) : [];
   const collectPreviewItems = referenceItems.slice(0, 6);
   const currentReportContent = isEditingReport ? reportDraft : reportDraft || workspaceData?.report?.markdown || "";
+  const reportCardStatusText = hasReport
+    ? "Markdown file"
+    : isDraftStreaming
+      ? "报告生成中..."
+      : draftStreamError
+        ? "生成失败，可查看已生成内容"
+        : draftStageCard?.status === "running"
+          ? "写作阶段进行中，等待流式输出..."
+          : draftStageCard?.status === "completed"
+            ? "报告已生成，等待同步..."
+            : "报告待生成";
+  const reportPreviewBody = currentReportContent
+    || (isDraftStreaming
+      ? "正在通过 SSE 流式生成报告..."
+      : draftStreamError
+        ? draftStreamError
+        : "报告尚未开始生成，进入写作阶段后会在这里流式输出。");
   const currentQuestionnaireContent = isEditingQuestionnaire
     ? questionnaireDraft
     : questionnaireDraft || workspaceData?.questionnaire?.markdown || "";
@@ -372,7 +460,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const currentQuestionnaireExport = questionnaireExport || workspaceData?.questionnaire_export || null;
   const topChatMessages = chatMessages.filter((message) => !isReportFollowupMessage(message));
   const reportFollowupMessages = chatMessages.filter(isReportFollowupMessage);
-  const isRouteSessionLoading = Boolean(requestedInitialRunId && viewMode === "workspace" && !workspaceData && !error && !taskSummary && chatMessages.length === 0);
+  const isRouteSessionLoading = Boolean(requestedInitialRunId && viewMode === "workspace" && !workspaceData && !error && !activeSessionTaskSummary && chatMessages.length === 0);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -393,6 +481,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       setOriginalReportContent(incomingReport);
       setReportDraft(incomingReport);
       setIsEditingReport(false);
+      setDraftStreamError("");
       return;
     }
 
@@ -404,8 +493,29 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       setOriginalReportContent(incomingReport);
       setReportDraft(incomingReport);
       setIsDraftStreaming(false);
+      setDraftStreamError("");
     }
   }, [workspaceData?.run?.run_id, workspaceData?.report?.markdown, reportSourceRunId, isEditingReport, isDraftStreaming, reportDraft, originalReportContent]);
+
+  useEffect(() => {
+    const runId = workspaceData?.run?.run_id || "";
+    if (!runId || isEditingReport) return;
+    const finalReport = (workspaceData?.report?.markdown || "").trim();
+    if (finalReport) return;
+
+    const derived = deriveDraftPreviewFromEvents(eventFeed);
+    if (!derived.hasActivity) return;
+
+    if (isDraftStreaming !== derived.isStreaming) {
+      setIsDraftStreaming(derived.isStreaming);
+    }
+    if (draftStreamError !== derived.error) {
+      setDraftStreamError(derived.error);
+    }
+    if (derived.markdown && reportDraft !== derived.markdown) {
+      setReportDraft(derived.markdown);
+    }
+  }, [workspaceData?.run?.run_id, workspaceData?.report?.markdown, eventFeed, isEditingReport, isDraftStreaming, draftStreamError, reportDraft]);
 
   useEffect(() => {
     if (isEditingQuestionnaire) return;
@@ -1161,7 +1271,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         return next;
       });
     }
-    if (workspaceTaskSummary && !taskSummary) setTaskSummary(workspaceTaskSummary);
   }
 
   function startPolling(runId: string) {
@@ -1239,7 +1348,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         const payload = JSON.parse((event as MessageEvent<string>).data) as { run_id?: string; task_summary?: string };
         const nextSummary = (payload.task_summary || "").trim();
         if (!nextSummary) return;
-        setTaskSummary(nextSummary);
         setSessions((prev) =>
           prev.map((item) =>
             item.session_id === runId
@@ -1270,18 +1378,25 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         if (eventType === "draft_markdown.started") {
           if (!isEditingReport) {
             setIsDraftStreaming(true);
+            setDraftStreamError("");
             setReportDraft("");
+            setPreviewOpen(true);
           }
         } else if (eventType === "draft_markdown.delta") {
           const delta = typeof eventPayload.delta === "string" ? eventPayload.delta : "";
           if (delta && !isEditingReport) {
             setIsDraftStreaming(true);
+            setDraftStreamError("");
+            setPreviewOpen(true);
             setReportDraft((prev) => `${prev}${delta}`);
           }
         } else if (eventType === "draft_markdown.completed") {
           setIsDraftStreaming(false);
+          setDraftStreamError("");
         } else if (eventType === "draft_markdown.failed") {
           setIsDraftStreaming(false);
+          setPreviewOpen(true);
+          setDraftStreamError(typeof eventPayload.error === "string" ? eventPayload.error : "报告生成失败，请稍后重试。");
         }
         setEventFeed((prev) => mergeEvents(prev, [payload]));
       } catch {
@@ -1320,7 +1435,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   async function loadSessionToUI(session: StoredSession, options?: { missingRunMessage?: string; clearWhenMissingSnapshot?: boolean }) {
     setActiveSessionId(session.session_id);
     setActiveMenu("history");
-    setTaskSummary(session.task_summary || "");
     setChatMessages(session.chat_messages?.length ? session.chat_messages : readStoredMessages(session.session_id));
     setWorkspaceData(session.workspace_snapshot || null);
     setEventFeed(session.workspace_snapshot?.observability?.events ?? []);
@@ -1385,7 +1499,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setQuery("");
     setCompetitorHintsText("");
     setAspectHintsText("");
-    setTaskSummary("");
     setWorkspaceData(null);
     setSelectedStage(null);
     setEventFeed([]);
@@ -1397,6 +1510,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setReportSourceRunId("");
     setOriginalReportContent("");
     setReportDraft("");
+    setDraftStreamError("");
     setIsReportChatSubmitting(false);
     setChatMessages([]);
     setError("");
@@ -1511,7 +1625,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     try {
       const competitorHints = parseHintList(competitorHintsText);
       const aspectHints = parseHintList(aspectHintsText);
-      setTaskSummary("");
       const runResponse = await fetch("/runs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1531,7 +1644,6 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
 
       const runId = runPayload.summary?.run_id || "";
       const initialSummary = runPayload.summary?.task_summary?.trim() || "";
-      setTaskSummary(initialSummary);
       setQuery("");
       setStreamState("streaming");
       setCompetitorHintsText("");
@@ -1872,14 +1984,14 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                         )}
                       </section>
 
-                      {hasReport ? (
-                        <section className="workspace-panel report-card-section" aria-label="报告下载区">
+                      {shouldShowReportCard ? (
+                        <section className="workspace-panel report-card-section workspace-panel-narrow" aria-label="报告下载区">
                           <button type="button" className="report-card" onClick={() => setPreviewOpen(true)}>
                             <div className="report-card-main">
                               <span className="report-card-icon" aria-hidden="true">📖</span>
                               <div>
                                 <strong>{`report_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
-                                <small>Markdown file</small>
+                                <small>{reportCardStatusText}</small>
                               </div>
                             </div>
                           </button>
@@ -1887,7 +1999,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                             type="button"
                             className="report-download-btn"
                             onClick={startReportEdit}
-                            disabled={!currentReportContent.trim()}
+                            disabled={isDraftStreaming || !currentReportContent.trim()}
                           >
                             编辑
                           </button>
@@ -1895,7 +2007,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                             type="button"
                             className="report-download-btn"
                             onClick={() => downloadReport(currentReportContent, activeRunIdRef.current)}
-                            disabled={!currentReportContent.trim()}
+                            disabled={isDraftStreaming || !currentReportContent.trim()}
                           >
                             下载
                           </button>
@@ -1903,7 +2015,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                             type="button"
                             className="report-download-btn"
                             onClick={() => void handleGenerateQuestionnaire()}
-                            disabled={isGeneratingQuestionnaire || !currentReportContent.trim()}
+                            disabled={isDraftStreaming || isGeneratingQuestionnaire || !currentReportContent.trim()}
                           >
                             {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
                           </button>
@@ -1911,7 +2023,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       ) : null}
 
                       {hasQuestionnaire ? (
-                        <section className="workspace-panel report-card-section" aria-label="问卷预览区">
+                        <section className="workspace-panel report-card-section workspace-panel-narrow" aria-label="问卷预览区">
                           <button type="button" className="report-card" onClick={openQuestionnairePreview}>
                             <div className="report-card-main">
                               <span className="report-card-icon" aria-hidden="true">📝</span>
@@ -1959,7 +2071,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       ) : null}
 
                       {referenceItems.length ? (
-                        <section className="workspace-panel reference-section" aria-label="参考文献">
+                        <section className="workspace-panel reference-section workspace-panel-narrow" aria-label="参考文献">
                           <details>
                             <summary>全部参考资料</summary>
                             <div className="reference-list">
@@ -1972,7 +2084,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       ) : null}
 
                       {reportFollowupMessages.length ? (
-                        <div className="report-followup-thread" aria-label="报告后续对话">
+                        <div className="report-followup-thread report-followup-thread-narrow" aria-label="报告后续对话">
                           {reportFollowupMessages.map((message) => (
                             <div key={message.id} className={`message-row ${message.role}`}>
                               <div className={`message-bubble ${message.role}`}><ChatMessageContent message={message} /></div>
@@ -1986,18 +2098,20 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
               </div>
               )}
             </div>
-            <div className="workspace-composer">
-              <form className="composer-box" onSubmit={handleSubmit}>
-                <input
-                  aria-label="聊天输入"
-                  placeholder={hasReport ? "继续追问，或要求补充/修改报告..." : "继续输入分析需求或追问..."}
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  disabled={isSubmitting || isReportChatSubmitting}
-                />
-                <button type="submit" aria-label="发送" disabled={isSubmitting || isReportChatSubmitting}>{isSubmitting || isReportChatSubmitting ? "…" : "↑"}</button>
-              </form>
-            </div>
+            {activeMenu === "agent" ? null : (
+              <div className="workspace-composer">
+                <form className="composer-box composer-box-narrow" onSubmit={handleSubmit}>
+                  <input
+                    aria-label="聊天输入"
+                    placeholder={hasReport ? "继续追问，或要求补充/修改报告..." : "继续输入分析需求或追问..."}
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    disabled={isSubmitting || isReportChatSubmitting}
+                  />
+                  <button type="submit" aria-label="发送" disabled={isSubmitting || isReportChatSubmitting}>{isSubmitting || isReportChatSubmitting ? "…" : "↑"}</button>
+                </form>
+              </div>
+            )}
           </section>
         )}
       </main>
@@ -2005,7 +2119,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       {previewOpen ? (
         <div className="report-preview-overlay" onClick={closeReportPreview} role="presentation">
           <aside className="report-preview-drawer" onClick={(event) => event.stopPropagation()}>
-            <div className="report-preview-header">
+                    <div className="report-preview-header">
               <strong>{`report_${(activeRunIdRef.current || "latest").slice(0, 16)}.md`}</strong>
               <div className="report-preview-actions">
                 {!isEditingReport ? (
@@ -2016,7 +2130,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       onClick={startReportEdit}
                       aria-label="编辑报告"
                       title="编辑报告"
-                      disabled={!currentReportContent.trim()}
+                      disabled={isDraftStreaming || !currentReportContent.trim()}
                     >
                       编辑报告
                     </button>
@@ -2026,7 +2140,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       aria-label="下载报告"
                       title="下载报告"
                       onClick={() => downloadReport(currentReportContent, activeRunIdRef.current)}
-                      disabled={!currentReportContent.trim()}
+                      disabled={isDraftStreaming || !currentReportContent.trim()}
                     >
                       下载
                     </button>
@@ -2036,7 +2150,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       aria-label="生成问卷"
                       title="生成问卷"
                       onClick={() => void handleGenerateQuestionnaire()}
-                      disabled={isGeneratingQuestionnaire || !currentReportContent.trim()}
+                      disabled={isDraftStreaming || isGeneratingQuestionnaire || !currentReportContent.trim()}
                     >
                       {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
                     </button>
@@ -2090,6 +2204,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
               </div>
             </div>
             <div className="report-preview-body">
+              {isDraftStreaming ? <p className="report-preview-status">正在通过 SSE 流式生成报告...</p> : null}
+              {!isDraftStreaming && draftStreamError ? <p className="report-preview-status error">{draftStreamError}</p> : null}
               {isEditingReport ? (
                 <textarea
                   className="report-preview-editor"
@@ -2099,7 +2215,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                   disabled={isSavingReport}
                 />
               ) : (
-                <pre>{currentReportContent || "暂无报告内容"}</pre>
+                <pre>{reportPreviewBody}</pre>
               )}
             </div>
           </aside>

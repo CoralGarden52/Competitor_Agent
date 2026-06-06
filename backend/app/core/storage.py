@@ -710,8 +710,17 @@ class PostgresStore:
     def save_state(self, state: RunState) -> None:
         now = datetime.now(UTC).isoformat()
         with self._connect() as conn:
-            existing = conn.execute('SELECT run_id, created_at FROM runs WHERE run_id = ?', (state.run_id,)).fetchone()
+            existing = conn.execute('SELECT run_id, created_at, state_json FROM runs WHERE run_id = ?', (state.run_id,)).fetchone()
             created_at = existing['created_at'] if existing else now
+            if existing and not str(state.task_summary or '').strip():
+                try:
+                    existing_payload = json.loads(existing.get('state_json') or '{}')
+                except Exception:
+                    existing_payload = {}
+                if isinstance(existing_payload, dict):
+                    existing_summary = str(existing_payload.get('task_summary', '') or '').strip()
+                    if existing_summary:
+                        state.task_summary = existing_summary
             conn.execute(
                 '''
                 INSERT INTO runs (run_id, industry, status, competitor_count, state_json, created_at, updated_at)

@@ -311,8 +311,8 @@ body {
 }
 
 .workspace-conversation {
-  width: min(980px, 100%);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -421,29 +421,40 @@ body {
 }
 
 .workspace-composer .composer-box {
-  width: min(980px, 100%);
+  width: 100%;
 }
 
 .workspace-lower {
+  width: 100%;
   padding-top: 2px;
 }
 
 .report-followup-thread {
-  width: min(1320px, 100%);
-  margin: 16px auto 0;
+  width: 100%;
+  margin: 16px 0 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
+.report-followup-thread-narrow {
+  width: min(980px, 100%);
+  margin: 16px auto 0;
+}
+
 .workspace-panel {
-  width: min(1320px, 100%);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   border: 1px solid rgba(126, 156, 212, 0.3);
   background: rgba(255, 255, 255, 0.82);
   border-radius: 18px;
   padding: 16px 18px;
   overflow: hidden;
+}
+
+.workspace-panel-narrow {
+  width: min(980px, 100%);
+  margin: 0 auto;
 }
 
 .workspace-panel-header {
@@ -511,7 +522,7 @@ body {
 .workspace-dag-board {
   display: grid;
   gap: 16px;
-  width: min(1320px, 100%);
+  width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -644,8 +655,8 @@ body {
 }
 
 .workspace-detail-grid {
-  width: min(1320px, 100%);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 16px;
@@ -1020,6 +1031,11 @@ body {
   font-size: 20px;
 }
 
+.workspace-composer .composer-box.composer-box-narrow {
+  width: min(980px, 100%);
+  margin: 0 auto;
+}
+
 .thought-list {
   margin: 0;
   padding-left: 20px;
@@ -1270,6 +1286,17 @@ body {
   flex: 1;
   overflow: auto;
   padding: 16px;
+}
+
+.report-preview-status {
+  margin: 0 0 12px;
+  color: #4b678f;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.report-preview-status.error {
+  color: #a23636;
 }
 
 .report-preview-body pre {

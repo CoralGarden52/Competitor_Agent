@@ -104,6 +104,30 @@ def test_storage_populates_run_state_and_runs_list_cache(tmp_path: Path) -> None
     assert cached_runs[0]['run_id'] == state.run_id
 
 
+def test_save_state_preserves_existing_task_summary_when_incoming_state_is_stale(tmp_path: Path) -> None:
+    cache = _build_cache()
+    store = SQLiteStore(tmp_path / 'store_cache.db', cache_backend=cache)
+    state = RunState(industry='saas', competitors=['alpha'], status='running', user_prompt='在线会议软件竞品分析')
+
+    store.save_state(state)
+    store.update_run_task_summary(state.run_id, '在线会议软件竞品分析')
+
+    state.status = 'completed'
+    store.save_state(state)
+
+    persisted = store.get_state(state.run_id)
+    assert persisted is not None
+    assert persisted.task_summary == '在线会议软件竞品分析'
+
+    cached_state = cache.get_run_state(state.run_id)
+    assert isinstance(cached_state, dict)
+    assert cached_state['task_summary'] == '在线会议软件竞品分析'
+
+    cached_summary = cache.get_run_summary(state.run_id)
+    assert isinstance(cached_summary, dict)
+    assert cached_summary['task_summary'] == '在线会议软件竞品分析'
+
+
 def test_app_config_exposes_redis_settings() -> None:
     config = AppConfig()
     assert isinstance(config.redis_enabled, bool)
