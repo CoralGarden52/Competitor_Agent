@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import UTC, datetime
 import json
+import logging
 from pathlib import Path
 import re
 from typing import Any
@@ -285,7 +286,7 @@ class QACriticAgent:
             with target.open("a", encoding="utf-8") as fh:
                 fh.write(json.dumps(record, ensure_ascii=False, default=str) + "\n")
         except Exception as exc:  # noqa: BLE001
-            print(f"[QACriticAgent] failed to write qa log: {exc}")
+            logging.getLogger(__name__).warning("[QACriticAgent] failed to write qa log: %s", exc)
 
     @classmethod
     def _mask_sensitive(cls, obj: Any, *, parent_key: str = "") -> Any:

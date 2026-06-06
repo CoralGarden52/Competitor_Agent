@@ -463,7 +463,21 @@ def resume_run(run_id: str, service: CompetitorWorkflowService = Depends(get_ser
 @router.post('/{run_id}/ops/intervene', response_model=RunResponse)
 def intervene_run(
     run_id: str,
-    payload: dict = Body(..., example={'node_name': 'plan', 'action': 'edit_schema', 'actor': 'judge', 'reason': 'manual approve', 'patch': {'analysis_schema_plan': []}}),
+    payload: dict = Body(
+        ...,
+        examples={
+            'default': {
+                'summary': 'Manual intervention payload',
+                'value': {
+                    'node_name': 'plan',
+                    'action': 'edit_schema',
+                    'actor': 'judge',
+                    'reason': 'manual approve',
+                    'patch': {'analysis_schema_plan': []},
+                },
+            }
+        },
+    ),
     service: CompetitorWorkflowService = Depends(get_service),
 ) -> RunResponse:
     result = service.manual_intervene(

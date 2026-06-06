@@ -18,6 +18,7 @@ from app.core.chat_stream import BaseChatStreamBroker, InMemoryChatStreamBroker
 from app.core.config import get_config
 from app.core.langgraph_runtime import WorkflowLangGraphRuntime
 from app.core.planner_llm import PlannerLLMClient
+from app.core.run_logging import ensure_run_logger, log_run_output
 from app.core.graph_state import WorkflowGraphState, init_graph_state_from_run_request, make_stage_snapshot
 from app.core.hooks import AuditHook, HookContext, HookRegistry
 from app.core.models import (
@@ -247,6 +248,7 @@ class CompetitorWorkflowService:
                 'aspect_hints': normalized_aspect_hints,
             },
         )
+        ensure_run_logger(state.run_id)
         self._init_todo_plan(state)
         return state
 
@@ -2012,7 +2014,7 @@ class CompetitorWorkflowService:
         coverage = float(coverage_stats['coverage'])
         passed_units = int(coverage_stats['passed_units'])
         total_units = int(coverage_stats['total_units'])
-        print(f"Analyze coverage: {passed_units}/{total_units} ({coverage:.2%})")
+        log_run_output(state.run_id, f"Analyze coverage: {passed_units}/{total_units} ({coverage:.2%})")
         state.self_eval['analyze'] = SelfEval(coverage=coverage, consistency=0.8, evidence_quality=0.7, uncertainty=0.3)
         self._save_and_event(
             state,
@@ -2664,9 +2666,10 @@ class CompetitorWorkflowService:
 
     def _save_and_event(self, state: RunState, stage: StageName, event_type: str, payload: dict) -> None:
         if self._should_print_event(stage=stage, event_type=event_type):
-            print(
+            log_run_output(
+                state.run_id,
                 f"[{datetime.now().strftime('%H:%M:%S')}] EVENT: {stage.value} -> {event_type} "
-                f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})"
+                f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})",
             )
         envelope = EventEnvelope(
             event_type=event_type,

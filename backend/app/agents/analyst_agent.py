@@ -26,6 +26,7 @@ from app.core.models import (
     TaskResult,
 )
 from app.core.prompts.agent_prompts import ANALYZE_SYSTEM_PROMPT
+from app.core.run_logging import log_run_output
 from app.core.schema_registry import get_domain_schema
 from app.core.storage import PostgresStore
 
@@ -60,13 +61,13 @@ class AnalystAgent:
         self._runtime_run_id = state.run_id
         self._runtime_attempt = state.attempt
         for bundle_index, bundle in enumerate(bundles):
-            print(f"  分析竞品: {bundle.product_name}")
+            log_run_output(state.run_id, f"  分析竞品: {bundle.product_name}")
             for field_index, field_bundle in enumerate(bundle.fields):
                 if should_reanalyze:
                     target_fields = reanalyze_targets.get(bundle.product_name, set()) if reanalyze_targets else set()
                     if field_bundle.field_name not in target_fields:
                         continue
-                print(f"    分析字段: {field_bundle.field_name}")
+                log_run_output(state.run_id, f"    分析字段: {field_bundle.field_name}")
                 tasks.append(
                     (
                         bundle_index,

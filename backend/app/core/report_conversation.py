@@ -9,6 +9,7 @@ from typing import Any
 
 from app.core.agent_llm import LLMCallError
 from app.core.models import ChatTurnRequest, ChatTurnResponse, ChatTurnResult, EventRecord, RunState, StageName
+from app.core.run_logging import log_run_output
 from harness.tools import ToolRequest
 
 
@@ -1454,9 +1455,10 @@ class ReportConversationService:
         return chunks
 
     def _emit_event(self, state: RunState, event_type: str, payload: dict[str, Any]) -> None:
-        print(
+        log_run_output(
+            state.run_id,
             f"[{datetime.now().strftime('%H:%M:%S')}] EVENT: chat -> {event_type} "
-            f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})"
+            f"(attempt={state.attempt}, status={state.status}, evidences={len(state.evidences)}, findings={len(state.findings)})",
         )
         self.store.append_event(EventRecord(run_id=state.run_id, stage=StageName.draft, event_type=event_type, payload=payload))
 

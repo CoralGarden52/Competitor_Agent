@@ -107,10 +107,20 @@ class AppConfig(BaseSettings):
     redis_workspace_ttl_seconds: int = Field(default=60, ge=1, le=86400)
     redis_chat_ttl_seconds: int = Field(default=300, ge=1, le=86400)
     redis_report_chunks_ttl_seconds: int = Field(default=1800, ge=1, le=86400)
+    backend_log_dir: str = 'log'
+    backend_log_filename: str = 'backend.log'
+    backend_log_level: str = 'INFO'
+    backend_log_max_bytes: int = Field(default=10 * 1024 * 1024, ge=1024, le=1024 * 1024 * 1024)
+    backend_log_backup_count: int = Field(default=5, ge=1, le=50)
 
     @property
     def sqlite_path_obj(self) -> Path:
         path = Path(self.sqlite_path)
+        return path if path.is_absolute() else _PROJECT_ROOT / path
+
+    @property
+    def backend_log_dir_obj(self) -> Path:
+        path = Path(self.backend_log_dir)
         return path if path.is_absolute() else _PROJECT_ROOT / path
 
     @property

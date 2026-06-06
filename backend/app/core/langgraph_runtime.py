@@ -5,6 +5,7 @@ from typing import Any, TypedDict
 from langgraph.graph import END, StateGraph
 
 from app.core.models import QAOutput, RecoveryState, RunState, StageName, TransitionReason
+from app.core.run_logging import log_run_output
 from app.core.transition_policy import TransitionDecision, TransitionPolicy
 
 
@@ -59,7 +60,7 @@ class WorkflowLangGraphRuntime:
         import time
 
         start_time = time.time()
-        print(f"[{time.strftime('%H:%M:%S')}] START: {node_name} (run_id={run_state.run_id[:8]})")
+        log_run_output(run_state.run_id, f"[{time.strftime('%H:%M:%S')}] START: {node_name} (run_id={run_state.run_id[:8]})")
 
         trace_id = self.service.store.trace_node_started(run_id=run_state.run_id, node_name=node_name, attempt=run_state.attempt)
         self.service.store.trace_node_input(
@@ -78,7 +79,10 @@ class WorkflowLangGraphRuntime:
         try:
             result = fn(run_state)
             elapsed = time.time() - start_time
-            print(f"[{time.strftime('%H:%M:%S')}] END:   {node_name} (elapsed={elapsed:.2f}s, evidences={len(run_state.evidences)}, profiles={len(run_state.profiles)})")
+            log_run_output(
+                run_state.run_id,
+                f"[{time.strftime('%H:%M:%S')}] END:   {node_name} (elapsed={elapsed:.2f}s, evidences={len(run_state.evidences)}, profiles={len(run_state.profiles)})",
+            )
 
             self.service.store.trace_node_completed(
                 trace_id=trace_id,
@@ -102,7 +106,10 @@ class WorkflowLangGraphRuntime:
             return result
         except Exception as exc:
             elapsed = time.time() - start_time
-            print(f"[{time.strftime('%H:%M:%S')}] FAIL:  {node_name} (elapsed={elapsed:.2f}s, error={str(exc)})")
+            log_run_output(
+                run_state.run_id,
+                f"[{time.strftime('%H:%M:%S')}] FAIL:  {node_name} (elapsed={elapsed:.2f}s, error={str(exc)})",
+            )
             self.service.store.trace_node_failed(trace_id=trace_id, error_text=str(exc))
             raise
 
