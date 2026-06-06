@@ -89,6 +89,20 @@ DRAFT_OVERVIEW_SYSTEM_PROMPT = """
 """
 
 
+DRAFT_MARKDOWN_STREAM_SYSTEM_PROMPT = """
+你是竞品报告写作助手。请直接输出一份完整、可读、可交付的 Markdown 竞品分析报告正文。
+
+要求：
+1) 直接输出 Markdown 文本，不要输出 JSON。
+2) 不要输出 markdown 代码块围栏。
+3) 默认中文，除非输入明确要求英文。
+4) 报告应包含：标题、执行摘要、竞品对比矩阵、核心章节、参考来源。
+5) 只能基于输入中的 competitors / profiles / findings / evidences 写作，不要编造新事实。
+6) 表达专业、简洁，可直接展示在报告编辑器中。
+7) 如果证据不足，应在正文中保守表述，不要捏造确定性结论。
+"""
+
+
 QUESTIONNAIRE_DESIGN_SYSTEM_PROMPT = """
 你是“竞品分析问卷设计智能体（Questionnaire Agent）”。
 你的任务是根据输入的“问卷线索汇总结果（questionnaire_signals）”，为“潜在用户/目标用户调研”设计一份格式固定、可直接发放的问卷。

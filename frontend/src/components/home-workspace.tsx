@@ -325,6 +325,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const [openSessionMenuId, setOpenSessionMenuId] = useState<string | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [isEditingReport, setIsEditingReport] = useState(false);
+  const [isDraftStreaming, setIsDraftStreaming] = useState(false);
   const [reportSourceRunId, setReportSourceRunId] = useState("");
   const [originalReportContent, setOriginalReportContent] = useState("");
   const [reportDraft, setReportDraft] = useState("");
@@ -395,11 +396,16 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       return;
     }
 
-    if (!isEditingReport && reportDraft === originalReportContent && incomingReport !== originalReportContent) {
+    if (!isEditingReport && !isDraftStreaming && reportDraft === originalReportContent && incomingReport !== originalReportContent) {
       setOriginalReportContent(incomingReport);
       setReportDraft(incomingReport);
     }
-  }, [workspaceData?.run?.run_id, workspaceData?.report?.markdown, reportSourceRunId, isEditingReport, reportDraft, originalReportContent]);
+    if (incomingReport && isDraftStreaming) {
+      setOriginalReportContent(incomingReport);
+      setReportDraft(incomingReport);
+      setIsDraftStreaming(false);
+    }
+  }, [workspaceData?.run?.run_id, workspaceData?.report?.markdown, reportSourceRunId, isEditingReport, isDraftStreaming, reportDraft, originalReportContent]);
 
   useEffect(() => {
     if (isEditingQuestionnaire) return;
@@ -1259,6 +1265,24 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       if (!isActiveRun(runId)) return;
       try {
         const payload = JSON.parse((event as MessageEvent<string>).data) as WorkspaceEvent;
+        const eventType = String(payload.event_type || "");
+        const eventPayload = payload.payload && typeof payload.payload === "object" ? payload.payload : {};
+        if (eventType === "draft_markdown.started") {
+          if (!isEditingReport) {
+            setIsDraftStreaming(true);
+            setReportDraft("");
+          }
+        } else if (eventType === "draft_markdown.delta") {
+          const delta = typeof eventPayload.delta === "string" ? eventPayload.delta : "";
+          if (delta && !isEditingReport) {
+            setIsDraftStreaming(true);
+            setReportDraft((prev) => `${prev}${delta}`);
+          }
+        } else if (eventType === "draft_markdown.completed") {
+          setIsDraftStreaming(false);
+        } else if (eventType === "draft_markdown.failed") {
+          setIsDraftStreaming(false);
+        }
         setEventFeed((prev) => mergeEvents(prev, [payload]));
       } catch {
         // ignore malformed event

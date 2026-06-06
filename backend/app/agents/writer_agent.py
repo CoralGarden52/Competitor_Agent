@@ -18,7 +18,7 @@ from app.core.models import (
     TaskEnvelope,
     TaskResult,
 )
-from app.core.prompts.agent_prompts import DRAFT_OVERVIEW_SYSTEM_PROMPT, DRAFT_SYSTEM_PROMPT
+from app.core.prompts.agent_prompts import DRAFT_MARKDOWN_STREAM_SYSTEM_PROMPT, DRAFT_OVERVIEW_SYSTEM_PROMPT, DRAFT_SYSTEM_PROMPT
 
 
 TEMPLATE_SECTION_ORDER: list[tuple[str, str, str]] = [
@@ -92,6 +92,50 @@ class WriterAgent:
                 attempt_count=self.llm.config.agent_llm_retry_count + 1,
                 retry_count_used=self.llm.config.agent_llm_retry_count,
             ) from exc
+
+    def run_markdown_stream(self, state: RunState, *, on_delta) -> str:
+        self._refresh_dynamic_schema_labels(state)
+        records = self._records(state)
+        payload = {
+            'industry': state.industry,
+            'language': state.language,
+            'write_language': 'en' if str(state.language).lower().startswith('en') else 'zh',
+            'analysis_schema_plan': [x.model_dump(mode='json') for x in state.analysis_schema_plan],
+            'template_section_order': [
+                {'section_id': sid, 'title': title, 'field_name': field_name}
+                for sid, title, field_name in self._section_specs(state, include_overview_sections=True)
+            ],
+            'competitors': [x.model_dump(mode='json') for x in state.competitor_analyses],
+            'profiles': [x.model_dump(mode='json') for x in state.profiles],
+            'findings': [x.model_dump(mode='json') for x in state.findings],
+            'evidences': [x.model_dump(mode='json') for x in state.evidences[:24]],
+            'report_requirements': {
+                'must_include_matrix': True,
+                'must_include_sources': True,
+                'markdown_only': True,
+            },
+        }
+        chunks: list[str] = []
+        for delta in self.llm.invoke_text_stream(
+            trace_name='agent.draft.generate_markdown_stream',
+            system_prompt=DRAFT_MARKDOWN_STREAM_SYSTEM_PROMPT,
+            user_payload=payload,
+            metadata={
+                'run_id': state.run_id,
+                'node_name': 'draft',
+                'agent_name': 'WriterAgent',
+                'model': self.llm.config.openai_model,
+                'industry': state.industry,
+                'competitor_count': len(records),
+                'attempt': state.attempt,
+            },
+            temperature=0.2,
+        ):
+            if not delta:
+                continue
+            chunks.append(delta)
+            on_delta(delta)
+        return ''.join(chunks).strip()
 
     def run_fallback(self, state: RunState) -> DraftOutput:
         self._refresh_dynamic_schema_labels(state)

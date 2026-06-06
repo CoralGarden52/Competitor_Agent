@@ -2088,6 +2088,34 @@ class CompetitorWorkflowService:
 
     def _draft(self, state: RunState) -> None:
         self._save_and_event(state, StageName.draft, 'agent.llm.started', {'agent': 'WriterAgent', 'trace_name': 'agent.draft.generate_report'})
+        self._save_and_event(state, StageName.draft, 'draft_markdown.started', {'status': 'running'})
+        preview_markdown = ''
+
+        def _on_markdown_delta(delta: str) -> None:
+            nonlocal preview_markdown
+            preview_markdown += delta
+            self._save_and_event(
+                state,
+                StageName.draft,
+                'draft_markdown.delta',
+                {'delta': delta},
+            )
+
+        try:
+            preview_markdown = self.writer_agent.run_markdown_stream(state, on_delta=_on_markdown_delta)
+            self._save_and_event(
+                state,
+                StageName.draft,
+                'draft_markdown.completed',
+                {'length': len(preview_markdown)},
+            )
+        except Exception as exc:  # noqa: BLE001
+            self._save_and_event(
+                state,
+                StageName.draft,
+                'draft_markdown.failed',
+                {'error': str(exc)},
+            )
         task = self._create_stage_task(
             state,
             task_type=TaskType.draft_report,
