@@ -3,6 +3,13 @@ OPENAI_API_KEY=your_openai_api_key_here
 OPENAI_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
 OPENAI_MODEL=your_model_id_here
 
+# PostgreSQL runtime
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5433
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=root
+POSTGRES_DB=competitor_analysis
+
 # Search / Fetch providers (deer-flow style)
 # Tavily: API key only (no base_url required in deer-flow community tool)
 TAVILY_API_KEY=your_tavily_api_key_here

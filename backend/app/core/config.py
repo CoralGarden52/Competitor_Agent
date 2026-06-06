@@ -22,6 +22,11 @@ class AppConfig(BaseSettings):
     )
 
     sqlite_path: str = '.data/competitor_analysis.db'
+    postgres_host: str = 'localhost'
+    postgres_port: int = Field(default=5433, ge=1, le=65535)
+    postgres_user: str = 'postgres'
+    postgres_password: str = 'root'
+    postgres_db: str = 'competitor_analysis'
     max_rework_iterations: int = Field(default=2, ge=1, le=5)
     runtime_max_turns: int = Field(default=40, ge=5, le=500)
     enable_schema_evolution: bool = True
@@ -92,11 +97,31 @@ class AppConfig(BaseSettings):
     wjx_export_publish: bool = True
     wjx_export_timeout_sec: int = Field(default=90, ge=5, le=600)
     wjx_export_dir: str = '.data/wjx_exports'
+    redis_enabled: bool = False
+    redis_host: str = '127.0.0.1'
+    redis_port: int = Field(default=6379, ge=1, le=65535)
+    redis_password: str = ''
+    redis_db: int = Field(default=0, ge=0, le=15)
+    redis_max_connections: int = Field(default=10, ge=1, le=200)
+    redis_default_ttl_seconds: int = Field(default=300, ge=1, le=86400)
+    redis_workspace_ttl_seconds: int = Field(default=60, ge=1, le=86400)
+    redis_chat_ttl_seconds: int = Field(default=300, ge=1, le=86400)
+    redis_report_chunks_ttl_seconds: int = Field(default=1800, ge=1, le=86400)
 
     @property
     def sqlite_path_obj(self) -> Path:
         path = Path(self.sqlite_path)
         return path if path.is_absolute() else _PROJECT_ROOT / path
+
+    @property
+    def postgres_dsn(self) -> str:
+        return (
+            f"host={self.postgres_host} "
+            f"port={self.postgres_port} "
+            f"user={self.postgres_user} "
+            f"password={self.postgres_password} "
+            f"dbname={self.postgres_db}"
+        )
 
     @property
     def wjx_export_dir_obj(self) -> Path:

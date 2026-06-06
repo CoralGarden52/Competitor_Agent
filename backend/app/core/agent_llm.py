@@ -13,7 +13,7 @@ from typing import Any, Iterator
 
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 from harness.tools import ToolLoopError, ToolLoopExecutor, ToolRequest, ToolRouter
 from app.core.tracing_factory import get_tracing_runtime
 
@@ -32,7 +32,7 @@ class LLMCallError(RuntimeError):
 
 
 class AgentLLMClient:
-    def __init__(self, config: AppConfig, store: SQLiteStore | None = None, tool_router: ToolRouter | None = None):
+    def __init__(self, config: AppConfig, store: PostgresStore | None = None, tool_router: ToolRouter | None = None):
         self.config = config
         self.store = store
         self.tool_router = tool_router

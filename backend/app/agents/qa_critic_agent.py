@@ -14,14 +14,14 @@ from app.core.prompts.agent_prompts import (
     QA_ANALYSIS_REVIEW_SYSTEM_PROMPT,
     QA_SYSTEM_PROMPT,
 )
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 
 class QACriticAgent:
     _SENSITIVE_KEYS = {"api_key", "token", "secret", "password", "authorization"}
     _URL_SENSITIVE_KEYS = {"token", "sig", "signature", "key", "api_key", "access_token"}
 
-    def __init__(self, llm: AgentLLMClient, store: SQLiteStore):
+    def __init__(self, llm: AgentLLMClient, store: PostgresStore):
         self.llm = llm
         self.store = store
 

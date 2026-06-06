@@ -4,7 +4,7 @@ from collections import Counter
 
 from app.core.models import QAResult, ReworkIssue, RunState, StageName
 from app.core.schema_registry import get_domain_schema
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 
 def validate_core_fields(state: RunState) -> list[ReworkIssue]:
@@ -63,7 +63,7 @@ def validate_core_fields(state: RunState) -> list[ReworkIssue]:
     return issues
 
 
-def validate_domain_extensions(state: RunState, store: SQLiteStore) -> list[ReworkIssue]:
+def validate_domain_extensions(state: RunState, store: PostgresStore) -> list[ReworkIssue]:
     schema = get_domain_schema(store, state.industry)
     issues: list[ReworkIssue] = []
     if not schema.required_extension_fields:
@@ -124,7 +124,7 @@ def target_agent_from_issues(issues: list[ReworkIssue]) -> str:
     return 'Draft'
 
 
-def run_qa_gate(state: RunState, store: SQLiteStore) -> QAResult:
+def run_qa_gate(state: RunState, store: PostgresStore) -> QAResult:
     issues = []
     issues.extend(validate_core_fields(state))
     issues.extend(validate_domain_extensions(state, store))

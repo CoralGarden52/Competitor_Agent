@@ -306,12 +306,17 @@ class ReportConversationService:
         )
 
     def conversation_payload(self, run_id: str) -> dict[str, Any]:
+        cache = getattr(self.workflow, 'cache', None)
+        if cache is not None:
+            cached = cache.get_chat_payload(run_id)
+            if isinstance(cached, dict):
+                return cached
         state = self.store.get_state(run_id)
         if state is None:
             return {'run_id': run_id, 'status': 'not_found'}
         conversation = self.store.get_or_create_conversation(run_id)
         conversation_id = str(conversation['conversation_id'])
-        return {
+        payload = {
             'run_id': run_id,
             'conversation': conversation,
             'messages': self.store.list_conversation_messages(run_id=run_id, conversation_id=conversation_id),
@@ -319,6 +324,9 @@ class ReportConversationService:
             'memory': self.store.get_conversation_memory(conversation_id),
             'report_revisions': self.store.list_report_revisions(run_id=run_id, conversation_id=conversation_id),
         }
+        if cache is not None:
+            cache.set_chat_payload(run_id, payload)
+        return payload
 
     def turn_payload(self, run_id: str, turn_id: str) -> ChatTurnResult | None:
         turn = self.store.get_conversation_turn(turn_id)
@@ -441,7 +449,7 @@ class ReportConversationService:
         markdown = state.report.markdown if state.report is not None else ''
         self._emit_event(state, 'chat.context.loading', {'conversation_id': conversation_id, 'turn_id': turn_id})
         self._emit_turn_stream(turn_id, 'chat_progress', {'stage': 'context_loading', 'message': '正在读取报告分片和对话 memory...'})
-        chunks = split_report_chunks(markdown)
+        chunks = self._get_report_chunks(run_id=state.run_id, markdown=markdown)
         selected_chunks = select_report_chunks(chunks, request.message)
         source_refs = [f'report:{chunk.chunk_id}:{chunk.heading_path}' for chunk in selected_chunks]
         self._emit_event(
@@ -676,16 +684,6 @@ class ReportConversationService:
         allow_report_update: bool,
         turn_id: str | None = None,
     ) -> dict[str, Any]:
-        if not allow_report_update and request.mode == 'answer_only' and turn_id:
-            return self._invoke_llm_streaming_answer(
-                state,
-                request,
-                chunks,
-                corpus_refs,
-                web_refs,
-                memory,
-                turn_id=turn_id,
-            )
         payload = {
             'run_id': state.run_id,
             'industry': state.industry,
@@ -1433,6 +1431,27 @@ class ReportConversationService:
             return self.store.search_comparison_corpus(industry=state.industry, keywords=keywords, limit=4)
         except Exception:
             return []
+
+    def _get_report_chunks(self, *, run_id: str, markdown: str) -> list[ReportChunk]:
+        report_hash = hashlib.sha1(str(markdown or '').encode('utf-8')).hexdigest()
+        cache = getattr(self.workflow, 'cache', None)
+        if cache is not None:
+            cached = cache.get_report_chunks(run_id, report_hash)
+            if isinstance(cached, list):
+                chunks: list[ReportChunk] = []
+                for item in cached:
+                    if not isinstance(item, dict):
+                        continue
+                    try:
+                        chunks.append(ReportChunk(**item))
+                    except Exception:
+                        continue
+                if chunks:
+                    return chunks
+        chunks = split_report_chunks(markdown)
+        if cache is not None:
+            cache.set_report_chunks(run_id, report_hash, [item.__dict__ for item in chunks])
+        return chunks
 
     def _emit_event(self, state: RunState, event_type: str, payload: dict[str, Any]) -> None:
         print(

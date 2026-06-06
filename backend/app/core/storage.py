@@ -1,12 +1,19 @@
 ﻿from __future__ import annotations
 
 import json
-import sqlite3
+from collections.abc import Iterable
 from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
+import re
+import textwrap
 from typing import Any
 from uuid import uuid4
+
+import psycopg
+from psycopg.rows import dict_row
+
+from app.core.config import get_config
 
 from app.core.models import (
     ApprovalPolicy,
@@ -26,17 +33,146 @@ from app.core.models import (
     StageName,
 )
 
+class _CompatCursor:
+    def __init__(self, cursor: Any, *, prefetched_row: dict[str, Any] | None = None, lastrowid: int | None = None):
+        self._cursor = cursor
+        self._prefetched_row = prefetched_row
+        self.lastrowid = lastrowid
 
-class SQLiteStore:
-    def __init__(self, db_path: Path):
-        self.db_path = db_path
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+    def fetchone(self) -> dict[str, Any] | None:
+        if self._prefetched_row is not None:
+            row = self._prefetched_row
+            self._prefetched_row = None
+            return row
+        return self._cursor.fetchone()
+
+    def fetchall(self) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        if self._prefetched_row is not None:
+            rows.append(self._prefetched_row)
+            self._prefetched_row = None
+        rows.extend(self._cursor.fetchall())
+        return rows
+
+
+class _CompatConnection:
+    _REPLACE_CONFLICT_COLUMNS = {
+        'conversation_memory': ('conversation_id',),
+        'evidence_raw_contents': ('content_hash',),
+        'llm_calls': ('trace_id',),
+    }
+    _IGNORE_CONFLICT_COLUMNS = {
+        'run_comparison_corpus_links': ('run_id', 'corpus_id', 'usage_type'),
+    }
+    _RETURNING_ID_TABLES = {'agent_runs', 'events'}
+
+    def __init__(self, conninfo: str):
+        self._raw = psycopg.connect(conninfo, row_factory=dict_row)
+
+    def __enter__(self) -> _CompatConnection:
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        if exc_type is None:
+            self._raw.commit()
+        else:
+            self._raw.rollback()
+        self._raw.close()
+
+    def execute(self, sql: str, params: Iterable[Any] | None = None) -> _CompatCursor:
+        normalized_sql, returning_id = self._normalize_sql(sql)
+        cursor = self._raw.execute(normalized_sql, tuple(params or ()))
+        prefetched_row = None
+        lastrowid = None
+        if returning_id:
+            prefetched_row = cursor.fetchone()
+            if prefetched_row is not None:
+                lastrowid = int(prefetched_row['id'])
+        return _CompatCursor(cursor, prefetched_row=prefetched_row, lastrowid=lastrowid)
+
+    def _normalize_sql(self, sql: str) -> tuple[str, bool]:
+        normalized = textwrap.dedent(sql).strip()
+        normalized = re.sub(r'\bid\s+INTEGER PRIMARY KEY AUTOINCREMENT\b', 'id BIGSERIAL PRIMARY KEY', normalized, flags=re.IGNORECASE)
+        normalized = re.sub(r'\bINTEGER PRIMARY KEY AUTOINCREMENT\b', 'BIGSERIAL PRIMARY KEY', normalized, flags=re.IGNORECASE)
+
+        replace_match = re.match(
+            r'^INSERT\s+OR\s+REPLACE\s+INTO\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)\s*VALUES\s*\((.*?)\)$',
+            normalized,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        if replace_match:
+            table = replace_match.group(1)
+            columns_block = replace_match.group(2)
+            values_block = replace_match.group(3)
+            conflict_columns = self._REPLACE_CONFLICT_COLUMNS.get(table)
+            if conflict_columns:
+                columns = [item.strip() for item in columns_block.split(',')]
+                update_columns = [item for item in columns if item not in conflict_columns]
+                assignments = ', '.join(f'{column}=excluded.{column}' for column in update_columns)
+                normalized = (
+                    f"INSERT INTO {table} ({', '.join(columns)}) VALUES ({values_block}) "
+                    f"ON CONFLICT ({', '.join(conflict_columns)}) DO UPDATE SET {assignments}"
+                )
+
+        ignore_match = re.match(
+            r'^INSERT\s+OR\s+IGNORE\s+INTO\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*?)\)\s*VALUES\s*\((.*?)\)$',
+            normalized,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        if ignore_match:
+            table = ignore_match.group(1)
+            columns_block = ignore_match.group(2)
+            values_block = ignore_match.group(3)
+            conflict_columns = self._IGNORE_CONFLICT_COLUMNS.get(table)
+            if conflict_columns:
+                normalized = (
+                    f"INSERT INTO {table} ({columns_block}) VALUES ({values_block}) "
+                    f"ON CONFLICT ({', '.join(conflict_columns)}) DO NOTHING"
+                )
+
+        returning_id = False
+        insert_match = re.match(r'^INSERT\s+INTO\s+([a-zA-Z_][a-zA-Z0-9_]*)\b', normalized, flags=re.IGNORECASE)
+        if insert_match:
+            table = insert_match.group(1).lower()
+            if table in self._RETURNING_ID_TABLES and 'RETURNING' not in normalized.upper():
+                normalized = f'{normalized} RETURNING id'
+                returning_id = True
+
+        normalized = normalized.replace('?', '%s')
+        return normalized, returning_id
+
+
+class PostgresStore:
+    def __init__(self, conninfo: str | Path | None = None, cache_backend: Any | None = None):
+        if isinstance(conninfo, Path):
+            conninfo = None
+        self.conninfo = str(conninfo or get_config().postgres_dsn)
+        self.cache = cache_backend
+        self._ensure_database_exists()
         self._init_db()
 
-    def _connect(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
+    def set_cache_backend(self, cache_backend: Any | None) -> None:
+        self.cache = cache_backend
+
+    def _ensure_database_exists(self) -> None:
+        conn = psycopg.conninfo.conninfo_to_dict(self.conninfo)
+        target_db = str(conn.get('dbname') or '')
+        if not target_db:
+            raise ValueError('postgres database name is required')
+        admin_conninfo = psycopg.conninfo.make_conninfo(
+            host=conn.get('host'),
+            port=conn.get('port'),
+            user=conn.get('user'),
+            password=conn.get('password'),
+            dbname='postgres',
+        )
+        with psycopg.connect(admin_conninfo, autocommit=True) as admin:
+            row = admin.execute('SELECT 1 FROM pg_database WHERE datname = %s', (target_db,)).fetchone()
+            if row is None:
+                admin.execute(f'CREATE DATABASE "{target_db}"')
+
+    def _connect(self) -> _CompatConnection:
+        return _CompatConnection(self.conninfo)
 
     def _init_db(self) -> None:
         with self._connect() as conn:
@@ -448,13 +584,20 @@ class SQLiteStore:
             self._seed_default_policies(conn)
             self._seed_default_field_risks(conn)
 
-    def _ensure_column(self, conn: sqlite3.Connection, table: str, column: str, definition: str) -> None:
-        rows = conn.execute(f'PRAGMA table_info({table})').fetchall()
+    def _ensure_column(self, conn: _CompatConnection, table: str, column: str, definition: str) -> None:
+        rows = conn.execute(
+            '''
+            SELECT column_name AS name
+            FROM information_schema.columns
+            WHERE table_schema = 'public' AND table_name = %s
+            ''',
+            (table,),
+        ).fetchall()
         if any(str(row['name']) == column for row in rows):
             return
         conn.execute(f'ALTER TABLE {table} ADD COLUMN {column} {definition}')
 
-    def _seed_default_schema_versions(self, conn: sqlite3.Connection) -> None:
+    def _seed_default_schema_versions(self, conn: _CompatConnection) -> None:
         defaults = {
             'saas': ('v1', ['deployment_model', 'compliance_support']),
             'ecommerce': ('v1', ['fulfillment_capability', 'seller_ecosystem']),
@@ -476,7 +619,7 @@ class SQLiteStore:
                 (industry, version, json.dumps(fields, ensure_ascii=False), now),
             )
 
-    def _seed_default_policies(self, conn: sqlite3.Connection) -> None:
+    def _seed_default_policies(self, conn: _CompatConnection) -> None:
         now = datetime.now(UTC).isoformat()
         defaults = [
             ApprovalPolicy(
@@ -533,7 +676,7 @@ class SQLiteStore:
                 ),
             )
 
-    def _seed_default_field_risks(self, conn: sqlite3.Connection) -> None:
+    def _seed_default_field_risks(self, conn: _CompatConnection) -> None:
         now = datetime.now(UTC).isoformat()
         defaults = [
             FieldRiskProfile(profile_id='frp_global_compliance', industry='global', field_name='compliance_support', risk_level='high', notes='Compliance claims are high risk'),
@@ -590,10 +733,29 @@ class SQLiteStore:
                     now,
                 ),
             )
+        if self.cache is not None:
+            state_payload = state.model_dump(mode='json')
+            self.cache.set_run_state(state.run_id, state_payload)
+            self.cache.set_run_summary(
+                state.run_id,
+                {
+                    'run_id': state.run_id,
+                    'industry': state.industry,
+                    'status': state.status,
+                    'competitor_count': len(state.competitors),
+                    'user_prompt': state.user_prompt,
+                    'task_summary': state.task_summary,
+                    'created_at': created_at,
+                    'updated_at': now,
+                },
+            )
+            self.cache.invalidate_runs_lists()
+            self.cache.invalidate_workspace(state.run_id)
+            self.cache.invalidate_chat_payload(state.run_id)
 
     def append_event(self, event: EventRecord) -> None:
         with self._connect() as conn:
-            conn.execute(
+            cur = conn.execute(
                 'INSERT INTO events (run_id, stage, event_type, payload_json, created_at) VALUES (?, ?, ?, ?, ?)',
                 (
                     event.run_id,
@@ -603,13 +765,36 @@ class SQLiteStore:
                     event.created_at.isoformat(),
                 ),
             )
+        event_id = int(cur.lastrowid or 0)
+        if self.cache is not None:
+            self.cache.invalidate_workspace(event.run_id)
+            self.cache.publish_run_event(
+                event.run_id,
+                {
+                    'event_id': event_id,
+                    'stage': event.stage.value,
+                    'event_type': event.event_type,
+                    'payload': event.payload,
+                    'created_at': event.created_at.isoformat(),
+                },
+            )
 
     def get_state(self, run_id: str) -> RunState | None:
+        if self.cache is not None:
+            cached = self.cache.get_run_state(run_id)
+            if isinstance(cached, dict):
+                try:
+                    return RunState.model_validate(cached)
+                except Exception:
+                    pass
         with self._connect() as conn:
             row = conn.execute('SELECT state_json FROM runs WHERE run_id = ?', (run_id,)).fetchone()
         if row is None:
             return None
-        return RunState.model_validate_json(row['state_json'])
+        state = RunState.model_validate_json(row['state_json'])
+        if self.cache is not None:
+            self.cache.set_run_state(run_id, state.model_dump(mode='json'))
+        return state
 
     def get_run_state(self, run_id: str) -> RunState | None:
         # Backward-compatible alias used by workflow action tools and tool handlers.
@@ -635,8 +820,42 @@ class SQLiteStore:
                 'UPDATE runs SET state_json = ?, updated_at = ? WHERE run_id = ?',
                 (json.dumps(payload, ensure_ascii=False), now, run_id),
             )
+        if self.cache is not None:
+            cached_state = self.cache.get_run_state(run_id)
+            if isinstance(cached_state, dict):
+                cached_state['task_summary'] = cleaned
+                self.cache.set_run_state(run_id, cached_state)
+            cached_summary = self.cache.get_run_summary(run_id)
+            if isinstance(cached_summary, dict):
+                cached_summary['task_summary'] = cleaned
+                cached_summary['updated_at'] = now
+                self.cache.set_run_summary(run_id, cached_summary)
+            else:
+                state = self.get_state(run_id)
+                if state is not None:
+                    self.cache.set_run_summary(
+                        run_id,
+                        {
+                            'run_id': state.run_id,
+                            'industry': state.industry,
+                            'status': state.status,
+                            'competitor_count': len(state.competitors),
+                            'user_prompt': state.user_prompt,
+                            'task_summary': state.task_summary,
+                            'created_at': now,
+                            'updated_at': now,
+                        },
+                    )
+            self.cache.invalidate_runs_lists()
 
     def list_runs(self, limit: int = 20) -> list[RunSummary]:
+        if self.cache is not None:
+            cached = self.cache.get_runs_list(limit)
+            if isinstance(cached, list):
+                try:
+                    return [RunSummary.model_validate(item) for item in cached if isinstance(item, dict)]
+                except Exception:
+                    pass
         with self._connect() as conn:
             rows = conn.execute(
                 'SELECT run_id, industry, status, competitor_count, state_json, created_at, updated_at FROM runs ORDER BY updated_at DESC LIMIT ?',
@@ -654,7 +873,7 @@ class SQLiteStore:
                 return str(payload.get('task_summary', '') or '').strip()
             except Exception:
                 return ''
-        return [
+        output = [
             RunSummary(
                 run_id=row['run_id'],
                 industry=row['industry'],
@@ -667,6 +886,9 @@ class SQLiteStore:
             )
             for row in rows
         ]
+        if self.cache is not None:
+            self.cache.set_runs_list(limit, [item.model_dump(mode='json') for item in output])
+        return output
 
     def list_events(self, run_id: str, *, after_id: int = 0, limit: int | None = None) -> list[dict[str, Any]]:
         sql = 'SELECT id, stage, event_type, payload_json, created_at FROM events WHERE run_id = ?'
@@ -974,6 +1196,10 @@ class SQLiteStore:
             )
 
     def get_cached_page(self, url: str) -> dict[str, Any] | None:
+        if self.cache is not None:
+            cached = self.cache.get_webpage(url)
+            if isinstance(cached, dict):
+                return cached
         with self._connect() as conn:
             row = conn.execute(
                 '''
@@ -985,7 +1211,7 @@ class SQLiteStore:
             ).fetchone()
         if row is None:
             return None
-        return {
+        payload = {
             'url': row['url'],
             'content': row['content'],
             'content_hash': row['content_hash'],
@@ -996,6 +1222,9 @@ class SQLiteStore:
             'etag': row['etag'],
             'last_modified': row['last_modified'],
         }
+        if self.cache is not None:
+            self.cache.set_webpage(url, payload)
+        return payload
 
     def upsert_cached_page(
         self,
@@ -1026,6 +1255,21 @@ class SQLiteStore:
                     last_modified=excluded.last_modified
                 ''',
                 (url, content, content_hash, source_provider, fetched_at, now, http_status, etag, last_modified),
+            )
+        if self.cache is not None:
+            self.cache.set_webpage(
+                url,
+                {
+                    'url': url,
+                    'content': content,
+                    'content_hash': content_hash,
+                    'source_provider': source_provider,
+                    'fetched_at': fetched_at,
+                    'last_checked_at': now,
+                    'http_status': http_status,
+                    'etag': etag,
+                    'last_modified': last_modified,
+                },
             )
 
     def upsert_comparison_corpus_document(self, document: dict[str, Any]) -> str:
@@ -1079,7 +1323,10 @@ class SQLiteStore:
                 'SELECT corpus_id FROM comparison_corpus_documents WHERE source_url = ? AND content_hash = ?',
                 (str(document.get('source_url', '')), str(document.get('content_hash', ''))),
             ).fetchone()
-        return str(row['corpus_id']) if row is not None else corpus_id
+        final_id = str(row['corpus_id']) if row is not None else corpus_id
+        if self.cache is not None:
+            self.cache.invalidate_corpus_industry(str(document.get('industry', '') or ''))
+        return final_id
 
     def link_run_comparison_corpus(self, *, run_id: str, corpus_id: str, usage_type: str = 'plan_selected') -> None:
         with self._connect() as conn:
@@ -1099,6 +1346,11 @@ class SQLiteStore:
         keywords: list[str] | None = None,
         limit: int = 8,
     ) -> list[dict[str, Any]]:
+        keyword_items = [str(item).strip() for item in (keywords or []) if str(item).strip()]
+        if self.cache is not None and industry.strip() and keyword_items:
+            cached = self.cache.get_corpus_search(industry=industry.strip(), keywords=keyword_items[:6], limit=limit)
+            if isinstance(cached, list):
+                return [item for item in cached if isinstance(item, dict)]
         clauses: list[str] = []
         params: list[Any] = []
         if topic_key.strip():
@@ -1107,7 +1359,6 @@ class SQLiteStore:
         if industry.strip():
             clauses.append('(industry = ? OR industry = ?)')
             params.extend([industry.strip(), 'general'])
-        keyword_items = [str(item).strip() for item in (keywords or []) if str(item).strip()]
         if keyword_items:
             keyword_clauses = []
             for keyword in keyword_items[:6]:
@@ -1122,7 +1373,7 @@ class SQLiteStore:
         params.append(max(1, min(int(limit), 20)))
         with self._connect() as conn:
             rows = conn.execute(sql, params).fetchall()
-        return [
+        output = [
             {
                 'corpus_id': row['corpus_id'],
                 'source_url': row['source_url'],
@@ -1142,8 +1393,15 @@ class SQLiteStore:
             }
             for row in rows
         ]
+        if self.cache is not None and industry.strip() and keyword_items:
+            self.cache.set_corpus_search(industry=industry.strip(), keywords=keyword_items[:6], limit=limit, payload=output)
+        return output
 
     def get_or_create_conversation(self, run_id: str) -> dict[str, Any]:
+        if self.cache is not None:
+            cached = self.cache.get_conversation(run_id)
+            if isinstance(cached, dict):
+                return cached
         now_s = datetime.now(UTC).isoformat()
         with self._connect() as conn:
             row = conn.execute(
@@ -1173,14 +1431,21 @@ class SQLiteStore:
                     ''',
                     (conversation_id, run_id, '[]', '', '[]', '', now_s),
                 )
-                return {
+                payload = {
                     'conversation_id': conversation_id,
                     'run_id': run_id,
                     'title': 'default',
                     'created_at': now_s,
                     'updated_at': now_s,
                 }
-        return dict(row)
+                if self.cache is not None:
+                    self.cache.set_conversation(run_id, payload)
+                    self.cache.invalidate_chat_payload(run_id)
+                return payload
+        payload = dict(row)
+        if self.cache is not None:
+            self.cache.set_conversation(run_id, payload)
+        return payload
 
     def create_conversation_turn(
         self,
@@ -1218,7 +1483,18 @@ class SQLiteStore:
                 ),
             )
             conn.execute('UPDATE run_conversations SET updated_at = ? WHERE conversation_id = ?', (now_s, conversation_id))
-        return {
+        if self.cache is not None:
+            self.cache.set_conversation(
+                run_id,
+                {
+                    'conversation_id': conversation_id,
+                    'run_id': run_id,
+                    'title': 'default',
+                    'created_at': now_s,
+                    'updated_at': now_s,
+                },
+            )
+        payload = {
             'turn_id': turn_id,
             'conversation_id': conversation_id,
             'run_id': run_id,
@@ -1232,6 +1508,10 @@ class SQLiteStore:
             'created_at': now_s,
             'updated_at': now_s,
         }
+        if self.cache is not None:
+            self.cache.set_turn_result(turn_id, payload)
+            self.cache.invalidate_chat_payload(run_id)
+        return payload
 
     def update_conversation_turn(
         self,
@@ -1260,6 +1540,11 @@ class SQLiteStore:
             row = conn.execute('SELECT conversation_id FROM conversation_turns WHERE turn_id = ?', (turn_id,)).fetchone()
             if row is not None:
                 conn.execute('UPDATE run_conversations SET updated_at = ? WHERE conversation_id = ?', (now_s, row['conversation_id']))
+        if self.cache is not None:
+            turn = self._get_conversation_turn_from_db(turn_id)
+            if turn is not None:
+                self.cache.set_turn_result(turn_id, turn)
+                self.cache.invalidate_chat_payload(str(turn.get('run_id', '') or ''))
 
     def append_conversation_message(
         self,
@@ -1292,7 +1577,7 @@ class SQLiteStore:
                 ),
             )
             conn.execute('UPDATE run_conversations SET updated_at = ? WHERE conversation_id = ?', (now_s, conversation_id))
-        return {
+        payload = {
             'message_id': message_id,
             'conversation_id': conversation_id,
             'run_id': run_id,
@@ -1302,6 +1587,9 @@ class SQLiteStore:
             'metadata': metadata or {},
             'created_at': now_s,
         }
+        if self.cache is not None:
+            self.cache.invalidate_chat_payload(run_id)
+        return payload
 
     def list_conversation_messages(
         self,
@@ -1338,6 +1626,16 @@ class SQLiteStore:
         ]
 
     def get_conversation_turn(self, turn_id: str) -> dict[str, Any] | None:
+        if self.cache is not None:
+            cached = self.cache.get_turn_result(turn_id)
+            if isinstance(cached, dict):
+                return cached
+        payload = self._get_conversation_turn_from_db(turn_id)
+        if payload is not None and self.cache is not None:
+            self.cache.set_turn_result(turn_id, payload)
+        return payload
+
+    def _get_conversation_turn_from_db(self, turn_id: str) -> dict[str, Any] | None:
         with self._connect() as conn:
             row = conn.execute(
                 '''
@@ -1452,6 +1750,8 @@ class SQLiteStore:
                     now_s,
                 ),
             )
+        if self.cache is not None:
+            self.cache.invalidate_chat_payload(run_id)
 
     def save_report_revision(
         self,
@@ -1487,7 +1787,7 @@ class SQLiteStore:
                     now_s,
                 ),
             )
-        return {
+        payload = {
             'revision_id': revision_id,
             'run_id': run_id,
             'conversation_id': conversation_id,
@@ -1499,6 +1799,9 @@ class SQLiteStore:
             'source_refs': source_refs,
             'created_at': now_s,
         }
+        if self.cache is not None:
+            self.cache.invalidate_chat_payload(run_id)
+        return payload
 
     def list_report_revisions(self, *, run_id: str, conversation_id: str = '') -> list[dict[str, Any]]:
         sql = '''
@@ -1985,4 +2288,9 @@ class SQLiteStore:
                 conn.execute(f'DELETE FROM {table} WHERE run_id = ?', (run_id,))
             conn.execute('DELETE FROM subagent_runs WHERE parent_run_id = ?', (run_id,))
             conn.execute('DELETE FROM runs WHERE run_id = ?', (run_id,))
+        if self.cache is not None:
+            self.cache.delete_run(run_id)
         return True
+
+
+SQLiteStore = PostgresStore

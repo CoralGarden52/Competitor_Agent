@@ -6,11 +6,11 @@ from app.core.collector import CollectorPipeline
 from app.core.collector.deep_dive import CollectorDeepDiveCoordinator
 from app.core.config import get_config
 from app.core.models import CollectOutput, RawEvidence, RunState, StageName, TaskEnvelope, TaskResult
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 
 class CollectorAgent:
-    def __init__(self, pipeline: CollectorPipeline, store: SQLiteStore, deep_dive: CollectorDeepDiveCoordinator | None = None):
+    def __init__(self, pipeline: CollectorPipeline, store: PostgresStore, deep_dive: CollectorDeepDiveCoordinator | None = None):
         self.pipeline = pipeline
         self.store = store
         self.deep_dive = deep_dive

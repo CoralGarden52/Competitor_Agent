@@ -13,7 +13,8 @@ from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.approval_policy_engine import ApprovalPolicyEngine, PolicyContext
 from app.core.collector import CollectorPipeline
 from app.core.collector.deep_dive import CollectorDeepDiveCoordinator
-from app.core.chat_stream import ChatStreamBroker
+from app.core.cache import WorkflowCache
+from app.core.chat_stream import BaseChatStreamBroker, InMemoryChatStreamBroker
 from app.core.config import get_config
 from app.core.langgraph_runtime import WorkflowLangGraphRuntime
 from app.core.planner_llm import PlannerLLMClient
@@ -79,7 +80,7 @@ from app.core.models import (
 )
 from app.core.report_conversation import ReportConversationService
 from app.core.schema_registry import CORE_SCHEMA_VERSION, get_domain_schema, registry_snapshot
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 from app.core.todo import TodoStateManager
 from app.core.wjx_export import WjxExportUnavailableError, export_questionnaire_with_wjx_cli
 from harness.subagents import SubagentExecutor
@@ -91,9 +92,17 @@ logger = logging.getLogger(__name__)
 
 
 class CompetitorWorkflowService:
-    def __init__(self, store: SQLiteStore):
+    def __init__(
+        self,
+        store: PostgresStore,
+        *,
+        cache: WorkflowCache | None = None,
+        chat_stream_broker: BaseChatStreamBroker | None = None,
+    ):
         self.store = store
         self.config = get_config()
+        self.cache = cache
+        self.store.set_cache_backend(cache)
         self.tools = build_tool_runtime(self.config, event_sink=self._tool_event_sink, store=self.store)
         self.tool_registry = self.tools.registry
         self.tool_router = self.tools.router
@@ -122,7 +131,7 @@ class CompetitorWorkflowService:
         self._run_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix='workflow-run')
         self._summary_executor = concurrent.futures.ThreadPoolExecutor(max_workers=2, thread_name_prefix='task-summary')
         self._background_runs: dict[str, concurrent.futures.Future[None]] = {}
-        self.chat_stream_broker = ChatStreamBroker()
+        self.chat_stream_broker = chat_stream_broker or InMemoryChatStreamBroker()
         self.report_conversation = ReportConversationService(self)
 
     def _save_hook_event(self, payload: dict[str, object]) -> None:
@@ -837,13 +846,20 @@ class CompetitorWorkflowService:
         }
 
     def workspace_payload(self, run_id: str) -> dict[str, object]:
+        if self.cache is not None:
+            cached = self.cache.get_workspace(run_id)
+            if isinstance(cached, dict):
+                return cached
         run = self.get_run(run_id)
         if run is None:
             return {'run_id': run_id, 'status': 'not_found'}
         replay = self.replay_run(run_id)
         events = self.list_run_events(run_id)
         manual_interventions = self.store.list_manual_interventions(run_id)
-        return self._build_workspace_payload(run=run, replay=replay, events=events, manual_interventions=manual_interventions)
+        payload = self._build_workspace_payload(run=run, replay=replay, events=events, manual_interventions=manual_interventions)
+        if self.cache is not None:
+            self.cache.set_workspace(run_id, payload)
+        return payload
 
     def update_report_markdown(self, run_id: str, markdown: str) -> RunResponse | None:
         run = self.get_run(run_id)

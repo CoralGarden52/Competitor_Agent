@@ -13,14 +13,14 @@ from app.core.collector.types import CollectorOutput
 from app.core.collector.verifier import dedup_by_url_and_hash, verify_cross_source
 from app.core.config import AppConfig
 from app.core.models import AnalysisSchemaField
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 from harness.tools import ToolRequest, ToolRouter
 from harness.tools.bootstrap import build_tool_runtime
 from harness.tools.providers import ProviderRegistry, SearchHit
 
 
 class CollectorPipeline:
-    def __init__(self, config: AppConfig, store: SQLiteStore, tool_router: ToolRouter | None = None, provider_registry: ProviderRegistry | None = None):
+    def __init__(self, config: AppConfig, store: PostgresStore, tool_router: ToolRouter | None = None, provider_registry: ProviderRegistry | None = None):
         self.config = config
         self.store = store
         runtime = build_tool_runtime(config) if tool_router is None else None

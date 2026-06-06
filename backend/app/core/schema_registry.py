@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 CORE_SCHEMA_VERSION = 'core_v1'
 
@@ -14,7 +14,7 @@ class DomainSchema:
     required_extension_fields: tuple[str, ...]
 
 
-def get_domain_schema(store: SQLiteStore, industry: str) -> DomainSchema:
+def get_domain_schema(store: PostgresStore, industry: str) -> DomainSchema:
     row = store.get_active_domain_schema(industry)
     return DomainSchema(
         industry=row['industry'],
@@ -23,7 +23,7 @@ def get_domain_schema(store: SQLiteStore, industry: str) -> DomainSchema:
     )
 
 
-def registry_snapshot(store: SQLiteStore, industry: str | None = None) -> dict[str, object]:
+def registry_snapshot(store: PostgresStore, industry: str | None = None) -> dict[str, object]:
     if industry:
         current = store.get_active_domain_schema(industry)
         return {

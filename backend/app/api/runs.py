@@ -308,6 +308,8 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
     async def event_generator():
         last_event_id = 0
         workspace_signature: str | None = None
+        run_stream_subscription = await service.cache.subscribe_run_stream(run_id) if getattr(service, 'cache', None) is not None else None
+        run_stream_queue = run_stream_subscription.stream_queue if run_stream_subscription is not None else None
 
         def _workspace_signature(workspace: dict, fallback_status: str = 'running') -> str:
             run_block = workspace.get('run', {}) if isinstance(workspace, dict) else {}
@@ -364,7 +366,29 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
                 yield f"event: error\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
                 break
 
-            new_events = service.list_run_events(run_id, after_id=last_event_id, limit=200)
+            new_events: list[dict] = []
+            if run_stream_queue is not None:
+                try:
+                    first_item = await asyncio.to_thread(run_stream_queue.get, True, 1)
+                    if isinstance(first_item, dict):
+                        new_events.append(first_item)
+                    while True:
+                        try:
+                            item = run_stream_queue.get_nowait()
+                        except Exception:
+                            break
+                        if isinstance(item, dict):
+                            new_events.append(item)
+                except Exception:
+                    pass
+            db_events = service.list_run_events(run_id, after_id=last_event_id, limit=200)
+            seen_event_ids = {int(item.get('event_id', 0) or 0) for item in new_events if isinstance(item, dict)}
+            for item in db_events:
+                event_id = int(item.get('event_id', 0) or 0)
+                if event_id and event_id in seen_event_ids:
+                    continue
+                new_events.append(item)
+            new_events.sort(key=lambda item: int(item.get('event_id', 0) or 0))
             for item in new_events:
                 last_event_id = max(last_event_id, int(item.get('event_id', 0) or 0))
                 yield f"event: run_event\ndata: {json.dumps(item, ensure_ascii=False, default=str)}\n\n"
@@ -395,7 +419,11 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
                 break
 
             yield "event: heartbeat\ndata: {\"ok\": true}\n\n"
-            await asyncio.sleep(1)
+            if run_stream_queue is None:
+                await asyncio.sleep(1)
+
+        if run_stream_subscription is not None:
+            await run_stream_subscription.close()
 
     return StreamingResponse(
         event_generator(),

@@ -42,7 +42,7 @@ def get_tracing_runtime() -> TracingRuntime:
 
     if cfg.langsmith.enabled and missing and mode == 'relaxed':
         logger.warning(
-            'LangSmith tracing requested but incomplete config detected (%s). Falling back to local SQLite tracing only.',
+            'LangSmith tracing requested but incomplete config detected (%s). Falling back to local tracing only.',
             ', '.join(missing),
         )
         logger.info('Tracing runtime: mode=%s providers=none', mode)

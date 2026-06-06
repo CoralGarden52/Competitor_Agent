@@ -11,7 +11,7 @@ from typing import Any
 
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 from harness.tools import ToolRequest, ToolRouter
 from harness.tools.bootstrap import build_tool_runtime
 from app.core.tracing_factory import get_tracing_runtime
@@ -82,7 +82,7 @@ CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pr
 
 
 class PlannerLLMClient:
-    def __init__(self, config: AppConfig, store: SQLiteStore | None = None, tool_router: ToolRouter | None = None):
+    def __init__(self, config: AppConfig, store: PostgresStore | None = None, tool_router: ToolRouter | None = None):
         self.config = config
         self.store = store
         self.tool_router = tool_router

@@ -27,7 +27,7 @@ from app.core.models import (
 )
 from app.core.prompts.agent_prompts import ANALYZE_SYSTEM_PROMPT
 from app.core.schema_registry import get_domain_schema
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ CORE_ANALYSIS_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_mode
 
 
 class AnalystAgent:
-    def __init__(self, llm: AgentLLMClient, store: SQLiteStore):
+    def __init__(self, llm: AgentLLMClient, store: PostgresStore):
         self.llm = llm
         self.store = store
         self._runtime_run_id = ''
