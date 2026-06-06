@@ -137,6 +137,24 @@ class WriterAgent:
             on_delta(delta)
         return ''.join(chunks).strip()
 
+    def build_report_from_markdown(self, state: RunState, markdown: str) -> DraftOutput:
+        cleaned_markdown = str(markdown or '').strip()
+        records = self._records(state)
+        sections = self._sections_from_markdown(state, cleaned_markdown)
+        report = Report(
+            executive_summary=self._executive_summary_from_markdown(state, records, cleaned_markdown, sections),
+            comparison_matrix=self._comparison_matrix(state, records),
+            opportunities=self._opportunity_bullets(records),
+            appendix_sources=self._appendix_sources(state),
+            sections=sections,
+            markdown=cleaned_markdown,
+        )
+        drafted = DraftOutput(report=report)
+        drafted = self._ensure_report_consistency(drafted, state=state, include_overview_sections=True)
+        drafted.report.markdown = cleaned_markdown or drafted.report.markdown
+        drafted.report.html = self._html_from_template(state, drafted.report)
+        return drafted
+
     def run_fallback(self, state: RunState) -> DraftOutput:
         self._refresh_dynamic_schema_labels(state)
         records = self._records(state)
@@ -159,6 +177,22 @@ class WriterAgent:
         report.html = self._html_from_template(state, report)
         return self._synthesize_overview_sections(DraftOutput(report=report), state=state)
 
+    def build_task_result(self, task: TaskEnvelope, drafted: DraftOutput) -> TaskResult:
+        report = drafted.report
+        return TaskResult(
+            task_id=task.task_id,
+            run_id=task.run_id,
+            owner_agent='WriterAgent',
+            status='completed',
+            summary=f'drafted report with {len(report.sections)} sections',
+            output_payload={
+                'section_count': len(report.sections),
+                'report_ready': bool(str(report.markdown).strip()),
+            },
+            changed_fields=[section.field_name for section in report.sections if section.field_name],
+            next_recommendations=['finalize_run'] if bool(str(report.markdown).strip()) else ['draft_report'],
+        )
+
     def consume_task(self, task: TaskEnvelope, state: RunState) -> tuple[TaskResult, DraftOutput]:
         try:
             drafted = self.run_llm(state)
@@ -179,6 +213,71 @@ class WriterAgent:
             next_recommendations=['finalize_run'] if bool(str(report.markdown).strip()) else ['draft_report'],
         )
         return task_result, drafted
+
+    def _sections_from_markdown(self, state: RunState, markdown: str) -> list[ReportSection]:
+        specs = self._section_specs(state, include_overview_sections=True)
+        if not markdown.strip():
+            return []
+        title_map = {title.strip(): (section_id, field_name) for section_id, title, field_name in specs}
+        matched: list[tuple[str, str, str]] = []
+        pattern = re.compile(r'(?m)^##\s+(.+?)\s*$')
+        hits = list(pattern.finditer(markdown))
+        for index, hit in enumerate(hits):
+            title = hit.group(1).strip()
+            start = hit.end()
+            end = hits[index + 1].start() if index + 1 < len(hits) else len(markdown)
+            body = markdown[start:end].strip()
+            if title == '参考来源':
+                continue
+            spec = title_map.get(title)
+            if spec is None:
+                continue
+            section_id, field_name = spec
+            matched.append((section_id, title, body if body else '暂无内容'))
+        if not matched:
+            return []
+        by_section_id = {section_id: (title, body) for section_id, title, body in matched}
+        records = self._records(state)
+        sections: list[ReportSection] = []
+        for section_id, title, field_name in specs:
+            entry = by_section_id.get(section_id)
+            if entry is None:
+                continue
+            actual_title, body = entry
+            claims = self._claims_and_content_for_section(
+                state,
+                records,
+                section_id=section_id,
+                title=actual_title,
+                field_name=field_name,
+            )[0]
+            sections.append(
+                ReportSection(
+                    section_id=section_id,
+                    title=actual_title,
+                    field_name=field_name,
+                    claims=claims,
+                    content_markdown=body,
+                )
+            )
+        return sections
+
+    def _executive_summary_from_markdown(
+        self,
+        state: RunState,
+        records: list[CompetitorAnalysisRecord],
+        markdown: str,
+        sections: list[ReportSection],
+    ) -> str:
+        for section in sections:
+            if section.section_id == 'conclusion_advice':
+                text = re.sub(r'(?m)^\s*[-*]\s*', '', section.content_markdown or '').strip()
+                if text:
+                    return text.split('\n', 1)[0][:280]
+        lines = [line.strip() for line in markdown.splitlines() if line.strip() and not line.strip().startswith('#')]
+        if lines:
+            return lines[0][:280]
+        return self._executive_summary(state, records)
 
     def _ensure_report_consistency(
         self,

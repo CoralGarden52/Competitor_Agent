@@ -5,7 +5,7 @@
 1. 不依赖真实 LLM，不打外网。
 2. 用 mock data 直接触发 draft 阶段。
 3. 验证 run 级 draft_markdown.* 事件是否连续产生，
-   并且最终 workspace.report.markdown 会被正式报告覆盖。
+   并且最终 workspace.report.markdown 与流式预览一致。
 
 运行：
     cd /home/wyz/Competitor_Agent
@@ -186,13 +186,7 @@ def install_fakes(service: CompetitorWorkflowService) -> tuple[str, str]:
         "## 二、核心结论\n"
         "产品能力较完整。"
     )
-    final_markdown = (
-        "# 竞品分析报告\n\n"
-        "## 一、研究范围与目标\n"
-        "这是正式落库版本。\n\n"
-        "## 二、核心结论\n"
-        "产品能力较完整，建议继续补强定价证据。"
-    )
+    final_markdown = preview_markdown
 
     def _fake_run_markdown_stream(state: RunState, *, on_delta) -> str:  # noqa: ARG001
         for char in preview_markdown:
@@ -329,8 +323,6 @@ def main() -> int:
         failures.append(
             f"persisted workspace markdown mismatch: expected={expected_final!r} actual={persisted_markdown!r}"
         )
-    if expected_preview == expected_final:
-        failures.append("preview and final markdown should differ in this smoke test")
 
     print("=" * 80)
     print("event_types:", seen_event_types)

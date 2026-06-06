@@ -4,7 +4,6 @@ import concurrent.futures
 import re
 from datetime import UTC, datetime
 from pathlib import Path
-import time
 from urllib.parse import urlparse
 from typing import Any
 
@@ -91,11 +90,7 @@ class CollectorPipeline:
 
         def _search_one(
             task: tuple[str, str, list[str], int, list[str] | None, str],
-            *,
-            startup_delay_sec: float = 0.0,
         ) -> list[tuple[str, str, str, list[str], str, str, str]]:
-            if startup_delay_sec > 0:
-                time.sleep(startup_delay_sec)
             field_name, query, recommended_sources, _, provider_allowlist, search_strategy = task
             local_fallback_trace: list[dict] = []
             search_hits = self._run_search_phase(
@@ -115,16 +110,9 @@ class CollectorPipeline:
 
         all_search_results: list[tuple[str, str, str, list[str], str, str, str]] = []
         if search_tasks:
-            search_max_workers = min(len(search_tasks), 6)
+            search_max_workers = min(len(search_tasks), 4)
             with concurrent.futures.ThreadPoolExecutor(max_workers=search_max_workers) as executor:
-                futures = [
-                    executor.submit(
-                        _search_one,
-                        task,
-                        startup_delay_sec=(index % search_max_workers) * 0.5,
-                    )
-                    for index, task in enumerate(search_tasks)
-                ]
+                futures = [executor.submit(_search_one, task) for task in search_tasks]
                 for future in concurrent.futures.as_completed(futures):
                     all_search_results.extend(future.result())
         all_search_results = self._prioritize_search_results(all_search_results, output, competitor)

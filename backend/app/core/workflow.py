@@ -2199,7 +2199,15 @@ class CompetitorWorkflowService:
             success_criteria=['produce_report_markdown'],
         )
         try:
-            task_result, drafted = self.writer_agent.consume_task(task, state)
+            if not preview_markdown.strip():
+                raise LLMCallError(
+                    reason='empty_markdown_preview',
+                    message='draft markdown stream produced empty output',
+                    attempt_count=1 + self.config.agent_llm_retry_count,
+                    retry_count_used=self.config.agent_llm_retry_count,
+                )
+            drafted = self.writer_agent.build_report_from_markdown(state, preview_markdown)
+            task_result = self.writer_agent.build_task_result(task, drafted)
             self._record_task_result(state, task_result)
             self._save_and_event(
                 state,
