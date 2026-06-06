@@ -300,7 +300,13 @@ class CompetitorWorkflowService:
         report_section_count = len(state.report.sections) if state.report is not None else 0
         report_ready = state.report is not None and bool(str(state.report.markdown).strip())
         plan_ready = bool(planned_competitors) and bool(schema_fields)
-        collect_ready = bool(state.evidences)
+        collect_ready = any(
+            not (
+                isinstance(getattr(ev, 'domain_extensions', {}), dict)
+                and str(getattr(ev, 'domain_extensions', {}).get('origin', '') or '') == 'plan_comparison_corpus'
+            )
+            for ev in state.evidences
+        )
         analyze_ready = bool(state.competitor_analyses) and bool(state.findings)
         draft_ready = report_ready
         qa_collect_round_used = bool(state.planner_meta.get('qa_collect_round_used', False))

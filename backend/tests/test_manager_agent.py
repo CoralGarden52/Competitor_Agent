@@ -99,6 +99,34 @@ def test_manager_decide_uses_state_tools_and_picks_reanalyze_when_evidence_ready
     assert decision.metadata['tool_calls'] == 1
 
 
+def test_manager_does_not_treat_plan_comparison_corpus_as_collect_ready(monkeypatch, tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_plan_corpus.db'))
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        planned_competitors=['alpha'],
+        user_prompt='analyze alpha',
+    )
+    state.analysis_schema_plan = [AnalysisSchemaField(field_name='pricing_model')]
+    state.evidences = [
+        RawEvidence(
+            source_url='https://example.com/comparison',
+            snippet='cross competitor comparison summary',
+            domain_extensions={'origin': 'plan_comparison_corpus'},
+        )
+    ]
+    service.store.save_state(state)
+
+    context = service._build_decision_context(state)
+    assert context.plan_ready is True
+    assert context.collect_ready is False
+
+    decision = service.manager_agent.fallback_decide(context=context)
+
+    assert decision.action_type.value == 'collect_initial'
+    assert decision.target_agent == 'CollectorAgent'
+
+
 def test_manager_decide_picks_run_qa_when_findings_ready_but_report_missing(monkeypatch, tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_draft_guard.db'))
     state = RunState(
