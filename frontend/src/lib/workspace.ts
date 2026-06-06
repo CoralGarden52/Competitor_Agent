@@ -18,12 +18,14 @@ export interface WorkspacePayload {
     industry: string
     status: string
     competitor_count: number
+    task_summary?: string
     created_at: string
     updated_at: string
   }
   request: {
     industry: string
     user_prompt: string
+    task_summary?: string
     competitors: string[]
     language: string
     timeframe: string
@@ -31,6 +33,7 @@ export interface WorkspacePayload {
   run: {
     run_id: string
     status: string
+    task_summary?: string
     industry: string
     planned_competitors: string[]
     schema_fields: string[]

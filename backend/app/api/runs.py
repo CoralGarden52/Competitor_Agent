@@ -332,6 +332,7 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
 
             basis = {
                 'status': str(run_block.get('status', fallback_status)) if isinstance(run_block, dict) else fallback_status,
+                'task_summary': str(run_block.get('task_summary', '')) if isinstance(run_block, dict) else '',
                 'evidence_count': int(run_block.get('evidence_count', 0) or 0) if isinstance(run_block, dict) else 0,
                 'finding_count': int(run_block.get('finding_count', 0) or 0) if isinstance(run_block, dict) else 0,
                 'stage_digest': stage_digest,
@@ -367,6 +368,12 @@ async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(g
             for item in new_events:
                 last_event_id = max(last_event_id, int(item.get('event_id', 0) or 0))
                 yield f"event: run_event\ndata: {json.dumps(item, ensure_ascii=False, default=str)}\n\n"
+                if item.get('event_type') == 'task.summary.refined':
+                    event_payload = item.get('payload', {})
+                    task_summary = str(event_payload.get('task_summary', '') if isinstance(event_payload, dict) else '').strip()
+                    if task_summary:
+                        payload = {'run_id': run_id, 'task_summary': task_summary}
+                        yield f"event: task_summary\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"
 
             should_refresh_workspace = bool(new_events) or current_run.state.status in ('completed', 'failed')
             if should_refresh_workspace:

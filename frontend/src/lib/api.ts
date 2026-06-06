@@ -18,6 +18,7 @@ import type {
 interface ApiRunState {
   run_id: string
   industry: string
+  task_summary?: string
   competitors: string[]
   analysis_schema_plan?: Array<{ field_name: string }>
   evidences?: unknown[]
@@ -84,6 +85,7 @@ function normalizeSummary(run: ApiRunResponse): RunSummarySnapshot {
   return {
     run_id: state.run_id,
     industry: state.industry,
+    task_summary: state.task_summary || run.summary.task_summary || '',
     competitors: state.competitors ?? [],
     schema_fields: (state.analysis_schema_plan ?? []).map((item) => item.field_name),
     evidence_count: state.evidences?.length ?? 0,
@@ -207,10 +209,10 @@ function buildRoles(): RoleCard[] {
       protocol: ['CompetitorAnalysisRecord', 'AnalyzeHandoff']
     },
     {
-      name: 'Writer / QA',
-      stage: 'draft+qa',
+      name: 'QA',
+      stage: 'qa',
       responsibility: '生成报告并在失败时打回 Collect / Analyze。',
-      protocol: ['Report', 'ReworkTicket']
+      protocol: ['QAOutput', 'ReworkTicket']
     }
   ]
 }

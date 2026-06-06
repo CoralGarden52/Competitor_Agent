@@ -34,8 +34,10 @@ class OrchestratorAgent:
         collect_handler(state)
         normalize_handler(state)
         analyze_handler(state)
-        draft_handler(state)
-        return qa_handler(state)
+        qa_result = qa_handler(state)
+        if qa_result.passed:
+            draft_handler(state)
+        return qa_result
 
     def route(self, *, qa_result: QAOutput, iteration: int) -> RouteDecision:
         return route_after_qa(qa_result=qa_result, iteration=iteration, max_rework_iterations=self.max_rework_iterations)
@@ -192,4 +194,4 @@ class OrchestratorAgent:
 
     @staticmethod
     def stage_order() -> list[StageName]:
-        return [StageName.plan, StageName.collect, StageName.normalize, StageName.analyze, StageName.draft, StageName.qa, StageName.finalize]
+        return [StageName.plan, StageName.collect, StageName.normalize, StageName.analyze, StageName.qa, StageName.draft, StageName.finalize]

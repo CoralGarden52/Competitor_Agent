@@ -21,10 +21,8 @@ import type {
 
 type ViewMode = "welcome" | "workspace";
 
-type SubmitResponse = { summary_text: string };
-
 type RunStatusResponse = { state?: { status?: string } };
-type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; user_prompt?: string; created_at: string; updated_at: string };
+type RunListItem = { run_id: string; industry: string; status: string; competitor_count: number; user_prompt?: string; task_summary?: string; created_at: string; updated_at: string };
 type ChatMessage = { id: string; role: "user" | "assistant" | "system"; content: string };
 type ReportChatPayload = {
   run_id: string;
@@ -59,8 +57,9 @@ type StoredSession = {
 
 type StreamState = "idle" | "streaming" | "reconnecting" | "polling";
 
-const STAGE_ORDER: StageName[] = ["plan", "collect", "normalize", "analyze", "draft", "qa", "finalize"];
+const STAGE_ORDER: StageName[] = ["plan", "collect", "normalize", "analyze", "qa", "draft", "finalize"];
 const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8010").replace(/\/$/, "");
+const PENDING_TASK_TITLE = "生成标题中";
 
 function backendUrl(path: string) {
   return `${BACKEND_BASE_URL}${path}`;
@@ -372,7 +371,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const currentQuestionnaireExport = questionnaireExport || workspaceData?.questionnaire_export || null;
   const topChatMessages = chatMessages.filter((message) => !isReportFollowupMessage(message));
   const reportFollowupMessages = chatMessages.filter(isReportFollowupMessage);
-  const isRouteSessionLoading = Boolean(requestedInitialRunId && viewMode === "workspace" && !workspaceData && !error);
+  const isRouteSessionLoading = Boolean(requestedInitialRunId && viewMode === "workspace" && !workspaceData && !error && !taskSummary && chatMessages.length === 0);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -796,7 +795,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         });
         return cached.length ? { ...item, title, chat_messages: cached } : { ...item, title };
       }
-      const taskSummary = existing.task_summary || item.task_summary;
+      const taskSummary = item.task_summary || existing.task_summary;
       const title = resolveSessionTitle({
         runId: item.session_id,
         prompt: promptFromSnapshot,
@@ -817,7 +816,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     const title = resolveSessionTitle({
       runId: run.run_id,
       prompt: run.user_prompt || "",
-      taskSummary: "",
+      taskSummary: run.task_summary || "",
       currentTitle: run.run_id,
     });
     return {
@@ -826,7 +825,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       created_at: run.created_at || nowIso(),
       updated_at: run.updated_at || run.created_at || nowIso(),
       active_run_id: run.run_id,
-      task_summary: "",
+      task_summary: run.task_summary || "",
       chat_messages: [],
       workspace_snapshot: null,
     };
@@ -844,11 +843,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   }
 
   function resolveSessionTitle(args: { runId: string; prompt?: string; taskSummary?: string; currentTitle?: string }): string {
-    const runId = (args.runId || "").trim();
-    const prompt = (args.prompt || "").trim();
     const taskSummary = (args.taskSummary || "").trim();
-    const currentTitle = (args.currentTitle || "").trim();
-    return prompt || taskSummary || currentTitle || runId || "未命名会话";
+    return taskSummary || PENDING_TASK_TITLE;
   }
 
   async function fetchRuns(limit = maxSessionCount): Promise<RunListItem[]> {
@@ -1128,6 +1124,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     });
     const targetRunId = runId || activeRunIdRef.current;
     const prompt = (workspace.request?.user_prompt || "").trim();
+    const workspaceTaskSummary = (workspace.request?.task_summary || workspace.run?.task_summary || workspace.summary?.task_summary || "").trim();
     if (targetRunId) {
       setSessions((prev) => {
         const next = prev.map((s) =>
@@ -1136,11 +1133,11 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                 ...s,
                 active_run_id: targetRunId,
                 workspace_snapshot: workspace,
-                task_summary: s.task_summary || prompt,
+                task_summary: workspaceTaskSummary || s.task_summary,
                 title: resolveSessionTitle({
                   runId: targetRunId,
                   prompt,
-                  taskSummary: s.task_summary || prompt,
+                  taskSummary: workspaceTaskSummary || s.task_summary,
                   currentTitle: s.title,
                 }),
                 chat_messages: ensureInitialPromptMessage(targetRunId, s.chat_messages || [], prompt),
@@ -1158,7 +1155,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         return next;
       });
     }
-    if (prompt && !taskSummary) setTaskSummary(prompt);
+    if (workspaceTaskSummary && !taskSummary) setTaskSummary(workspaceTaskSummary);
   }
 
   function startPolling(runId: string) {
@@ -1230,6 +1227,34 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       }
     });
 
+    source.addEventListener("task_summary", (event) => {
+      if (!isActiveRun(runId)) return;
+      try {
+        const payload = JSON.parse((event as MessageEvent<string>).data) as { run_id?: string; task_summary?: string };
+        const nextSummary = (payload.task_summary || "").trim();
+        if (!nextSummary) return;
+        setTaskSummary(nextSummary);
+        setSessions((prev) =>
+          prev.map((item) =>
+            item.session_id === runId
+              ? {
+                  ...item,
+                  task_summary: nextSummary,
+                  title: resolveSessionTitle({
+                    runId,
+                    taskSummary: nextSummary,
+                    currentTitle: item.title,
+                  }),
+                  updated_at: nowIso(),
+                }
+              : item
+          )
+        );
+      } catch {
+        // ignore malformed event
+      }
+    });
+
     source.addEventListener("run_event", (event) => {
       if (!isActiveRun(runId)) return;
       try {
@@ -1273,11 +1298,9 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setActiveMenu("history");
     setTaskSummary(session.task_summary || "");
     setChatMessages(session.chat_messages?.length ? session.chat_messages : readStoredMessages(session.session_id));
-    if (session.workspace_snapshot || options?.clearWhenMissingSnapshot) {
-      setWorkspaceData(session.workspace_snapshot || null);
-      setEventFeed(session.workspace_snapshot?.observability?.events ?? []);
-      setSelectedStage(getDefaultSelectedStage(session.workspace_snapshot));
-    }
+    setWorkspaceData(session.workspace_snapshot || null);
+    setEventFeed(session.workspace_snapshot?.observability?.events ?? []);
+    setSelectedStage(getDefaultSelectedStage(session.workspace_snapshot));
     setExpandedEventKeys([]);
     setExpandedCallKeys([]);
     setViewMode("workspace");
@@ -1464,17 +1487,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     try {
       const competitorHints = parseHintList(competitorHintsText);
       const aspectHints = parseHintList(aspectHintsText);
-      const summaryPromise = fetch("/runs/summary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, language: "zh-CN" }),
-      })
-        .then(async (response) => {
-          if (!response.ok) return "";
-          const payload = (await response.json().catch(() => ({}))) as SubmitResponse;
-          return payload.summary_text?.trim() || "";
-        })
-        .catch(() => "");
+      setTaskSummary("");
       const runResponse = await fetch("/runs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1489,12 +1502,12 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         }),
       });
 
-      const runPayload = (await runResponse.json().catch(() => ({}))) as { message?: string; summary?: { run_id?: string } };
+      const runPayload = (await runResponse.json().catch(() => ({}))) as { message?: string; summary?: { run_id?: string; task_summary?: string } };
       if (!runResponse.ok) throw new Error(runPayload.message || "任务提交失败，请稍后重试。");
 
       const runId = runPayload.summary?.run_id || "";
-      const fallbackSummary = text.length <= 40 ? text : `${text.slice(0, 40)}...`;
-      setTaskSummary(fallbackSummary);
+      const initialSummary = runPayload.summary?.task_summary?.trim() || "";
+      setTaskSummary(initialSummary);
       setQuery("");
       setStreamState("streaming");
       setCompetitorHintsText("");
@@ -1507,6 +1520,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
           industry: "",
           status: "running",
           competitor_count: 0,
+          task_summary: initialSummary,
           created_at: nowIso(),
           updated_at: nowIso(),
         });
@@ -1519,11 +1533,11 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                     title: resolveSessionTitle({
                       runId,
                       prompt: text,
-                      taskSummary: item.task_summary || fallbackSummary,
+                      taskSummary: item.task_summary || initialSummary,
                       currentTitle: item.title,
                     }),
                     chat_messages: item.chat_messages || [],
-                    task_summary: item.task_summary || fallbackSummary,
+                    task_summary: item.task_summary || initialSummary,
                   }
                 : item
             );
@@ -1533,10 +1547,10 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
             title: resolveSessionTitle({
               runId,
               prompt: text,
-              taskSummary: fallbackSummary,
+              taskSummary: initialSummary,
               currentTitle: next.title,
             }),
-            task_summary: fallbackSummary,
+            task_summary: initialSummary,
             chat_messages: next.chat_messages || [],
           }, ...prev].slice(0, maxSessionCount);
         });
@@ -1553,7 +1567,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
             // stream fallback will continue updating
           }
         })();
-        void (async () => {
+        window.setTimeout(() => {
+          void (async () => {
           try {
             const refreshed = await fetchRuns(maxSessionCount);
             const mapped = refreshed.map(makeSessionFromRunSummary);
@@ -1564,27 +1579,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
           } catch {
             // optimistic session remains visible
           }
-        })();
-        void summaryPromise.then((generatedSummary) => {
-          const finalSummary = generatedSummary || fallbackSummary;
-          if (activeRunIdRef.current === runId) setTaskSummary(finalSummary);
-          setSessions((prev) =>
-            prev.map((item) =>
-              item.session_id === runId
-                ? {
-                    ...item,
-                    title: resolveSessionTitle({
-                      runId,
-                      prompt: text,
-                      taskSummary: finalSummary,
-                      currentTitle: item.title,
-                    }),
-                    task_summary: finalSummary,
-                  }
-                : item
-            )
-          );
-        });
+          })();
+        }, 1200);
       }
     } catch (submitError) {
       const message = submitError instanceof Error ? submitError.message : "提交失败，请稍后重试。";
@@ -1632,8 +1628,13 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
             {sessions.filter(shouldShowSession).map((session) => (
               <div key={session.session_id} className={session.session_id === activeSessionId ? "session-row active" : "session-row"}>
                 <div className={session.session_id === activeSessionId ? "session-item active" : "session-item"}>
-                  <button type="button" className="session-title-btn" onClick={() => handleSwitchSession(session.session_id)}>
-                    {session.title || "未命名会话"}
+                  <button
+                    type="button"
+                    className="session-title-btn"
+                    aria-label={session.title || PENDING_TASK_TITLE}
+                    onClick={() => handleSwitchSession(session.session_id)}
+                  >
+                    {session.title || PENDING_TASK_TITLE}
                   </button>
                   <div className="session-actions" ref={openSessionMenuId === session.session_id ? sessionMenuRef : null}>
                     <button
@@ -1703,7 +1704,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         ) : (
           <section className="workspace-chat-shell" aria-label="演示对话工作区">
             <header className="workspace-topbar">
-              <h1>{displaySummary || "分析进行中"}</h1>
+              <h1>{displaySummary || PENDING_TASK_TITLE}</h1>
               {activeMenu === "agent" ? (
                 <div className="workspace-topbar-status">
                   <span className="workspace-topbar-label">Stream</span>

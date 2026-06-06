@@ -19,7 +19,7 @@ ROLE_TOOL_ALLOWLISTS: dict[str, frozenset[str]] = {
             "action.collect_gap",
             "action.normalize_evidence",
             "action.reanalyze_targets",
-            "action.redraft_report",
+            "action.draft_report",
             "action.run_qa",
             "action.finalize_run",
         }

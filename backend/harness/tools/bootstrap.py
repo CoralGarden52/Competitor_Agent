@@ -24,7 +24,7 @@ from harness.tools.specs import (
     ACTION_FINALIZE_RUN_SPEC,
     ACTION_NORMALIZE_EVIDENCE_SPEC,
     ACTION_PLAN_SCOPE_SPEC,
-    ACTION_REDRAFT_REPORT_SPEC,
+    ACTION_DRAFT_REPORT_SPEC,
     ACTION_REANALYZE_TARGETS_SPEC,
     ACTION_RUN_QA_SPEC,
     CORPUS_SEARCH_SPEC,
@@ -77,6 +77,6 @@ def register_workflow_tools(runtime: ToolRuntime, get_service: Callable[[], Any]
     runtime.registry.register(spec=ACTION_COLLECT_GAP_SPEC, handler=WorkflowActionHandler(get_service, 'collect_gap'))
     runtime.registry.register(spec=ACTION_NORMALIZE_EVIDENCE_SPEC, handler=WorkflowActionHandler(get_service, 'normalize_evidence'))
     runtime.registry.register(spec=ACTION_REANALYZE_TARGETS_SPEC, handler=WorkflowActionHandler(get_service, 'reanalyze_targets'))
-    runtime.registry.register(spec=ACTION_REDRAFT_REPORT_SPEC, handler=WorkflowActionHandler(get_service, 'redraft_report'))
+    runtime.registry.register(spec=ACTION_DRAFT_REPORT_SPEC, handler=WorkflowActionHandler(get_service, 'draft_report'))
     runtime.registry.register(spec=ACTION_RUN_QA_SPEC, handler=WorkflowActionHandler(get_service, 'run_qa'))
     runtime.registry.register(spec=ACTION_FINALIZE_RUN_SPEC, handler=WorkflowActionHandler(get_service, 'finalize_run'))

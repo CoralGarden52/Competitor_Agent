@@ -3,6 +3,7 @@ export type DataMode = 'mock' | 'api'
 export interface RunSummarySnapshot {
   run_id: string
   industry: string
+  task_summary?: string
   competitors: string[]
   schema_fields: string[]
   evidence_count: number
@@ -170,6 +171,8 @@ export interface ApiRunListItem {
   industry: string
   status: string
   competitor_count: number
+  user_prompt?: string
+  task_summary?: string
   created_at: string
   updated_at: string
 }

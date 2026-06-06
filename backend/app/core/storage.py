@@ -615,6 +615,27 @@ class SQLiteStore:
         # Backward-compatible alias used by workflow action tools and tool handlers.
         return self.get_state(run_id)
 
+    def update_run_task_summary(self, run_id: str, task_summary: str) -> None:
+        cleaned = str(task_summary or '').strip()
+        if not run_id or not cleaned:
+            return
+        now = datetime.now(UTC).isoformat()
+        with self._connect() as conn:
+            row = conn.execute('SELECT state_json FROM runs WHERE run_id = ?', (run_id,)).fetchone()
+            if row is None:
+                return
+            try:
+                payload = json.loads(row['state_json'] or '{}')
+            except Exception:
+                return
+            if not isinstance(payload, dict):
+                return
+            payload['task_summary'] = cleaned
+            conn.execute(
+                'UPDATE runs SET state_json = ?, updated_at = ? WHERE run_id = ?',
+                (json.dumps(payload, ensure_ascii=False), now, run_id),
+            )
+
     def list_runs(self, limit: int = 20) -> list[RunSummary]:
         with self._connect() as conn:
             rows = conn.execute(
@@ -627,6 +648,12 @@ class SQLiteStore:
                 return str(payload.get('user_prompt', '') or '').strip()
             except Exception:
                 return ''
+        def _extract_task_summary(state_json: str) -> str:
+            try:
+                payload = json.loads(state_json or '{}')
+                return str(payload.get('task_summary', '') or '').strip()
+            except Exception:
+                return ''
         return [
             RunSummary(
                 run_id=row['run_id'],
@@ -634,6 +661,7 @@ class SQLiteStore:
                 status=row['status'],
                 competitor_count=row['competitor_count'],
                 user_prompt=_extract_user_prompt(row['state_json']),
+                task_summary=_extract_task_summary(row['state_json']),
                 created_at=datetime.fromisoformat(row['created_at']),
                 updated_at=datetime.fromisoformat(row['updated_at']),
             )

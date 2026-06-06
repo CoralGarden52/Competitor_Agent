@@ -136,6 +136,13 @@ def _event_brief(event: dict[str, Any]) -> str:
     return '; '.join(parts)
 
 
+def _event_payload(event: dict[str, Any]) -> dict[str, Any]:
+    payload = event.get('payload') if isinstance(event.get('payload'), dict) else {}
+    envelope = payload.get('envelope') if isinstance(payload.get('envelope'), dict) else {}
+    inner = envelope.get('payload') if isinstance(envelope.get('payload'), dict) else None
+    return inner or payload
+
+
 def _stage_stats(events: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for event in events:
@@ -154,6 +161,114 @@ def _stage_stats(events: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             'ended_at': last.isoformat() if last else '',
             'elapsed_seconds': _elapsed_seconds(first, last),
             'event_types': [str(item.get('event_type') or '') for item in items],
+        }
+    return stats
+
+
+def _stage_turn_episodes(events: list[dict[str, Any]], final_run_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    ordered_events = sorted(
+        events,
+        key=lambda item: (
+            int(item.get('event_id') or 0),
+            str(item.get('created_at') or ''),
+        ),
+    )
+    open_turns: dict[int, dict[str, Any]] = {}
+    episodes: list[dict[str, Any]] = []
+    last_event_at: datetime | None = None
+
+    for event in ordered_events:
+        event_type = str(event.get('event_type') or '')
+        event_at = _parse_time(str(event.get('created_at') or ''))
+        if event_at is not None:
+            last_event_at = event_at
+        payload = _event_payload(event)
+        turn = int(payload.get('turn') or 0)
+        if turn <= 0:
+            continue
+
+        if event_type == 'runtime.turn.started':
+            stage = str(payload.get('from_stage') or event.get('stage') or 'unknown')
+            open_turns[turn] = {
+                'turn': turn,
+                'stage': stage,
+                'started_at_dt': event_at,
+                'started_at': event_at.isoformat() if event_at else str(event.get('created_at') or ''),
+                'start_event_id': event.get('event_id'),
+            }
+            continue
+
+        if event_type != 'runtime.turn.transitioned':
+            continue
+
+        stage = str(payload.get('from_stage') or event.get('stage') or 'unknown')
+        start = open_turns.pop(turn, {})
+        start_dt = start.get('started_at_dt') if isinstance(start.get('started_at_dt'), datetime) else None
+        episodes.append(
+            {
+                'turn': turn,
+                'stage': stage,
+                'label': STAGE_LABELS.get(stage, stage),
+                'started_at': start.get('started_at', ''),
+                'ended_at': event_at.isoformat() if event_at else str(event.get('created_at') or ''),
+                'elapsed_seconds': _elapsed_seconds(start_dt, event_at),
+                'status': 'completed',
+                'start_event_id': start.get('start_event_id'),
+                'end_event_id': event.get('event_id'),
+                'to_stage': payload.get('to_stage', ''),
+                'decision': payload.get('decision', ''),
+                'reason': payload.get('reason', ''),
+            }
+        )
+
+    state = final_run_payload.get('state') if isinstance(final_run_payload.get('state'), dict) else {}
+    fallback_stage = str(state.get('current_stage') or state.get('next_stage') or 'unknown')
+    for turn, start in sorted(open_turns.items()):
+        start_dt = start.get('started_at_dt') if isinstance(start.get('started_at_dt'), datetime) else None
+        stage = str(start.get('stage') or fallback_stage)
+        end_dt = last_event_at
+        episodes.append(
+            {
+                'turn': turn,
+                'stage': stage,
+                'label': STAGE_LABELS.get(stage, stage),
+                'started_at': start.get('started_at', ''),
+                'ended_at': end_dt.isoformat() if end_dt else '',
+                'elapsed_seconds': _elapsed_seconds(start_dt, end_dt),
+                'status': 'running',
+                'start_event_id': start.get('start_event_id'),
+                'end_event_id': '',
+                'to_stage': '',
+                'decision': '',
+                'reason': 'open turn at probe stop; ended_at is last observed event time',
+            }
+        )
+
+    return sorted(episodes, key=lambda item: (int(item.get('turn') or 0), str(item.get('started_at') or '')))
+
+
+def _stage_duration_stats_from_episodes(episodes: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for episode in episodes:
+        grouped[str(episode.get('stage') or 'unknown')].append(episode)
+
+    stats: dict[str, dict[str, Any]] = {}
+    for stage, items in grouped.items():
+        starts = [_parse_time(str(item.get('started_at') or '')) for item in items]
+        ends = [_parse_time(str(item.get('ended_at') or '')) for item in items]
+        starts = [item for item in starts if item is not None]
+        ends = [item for item in ends if item is not None]
+        stats[stage] = {
+            'stage': stage,
+            'label': STAGE_LABELS.get(stage, stage),
+            'run_count': len(items),
+            'event_count': len(items),
+            'started_at': min(starts).isoformat() if starts else '',
+            'ended_at': max(ends).isoformat() if ends else '',
+            'elapsed_seconds': sum(float(item.get('elapsed_seconds') or 0) for item in items),
+            'completed_runs': sum(1 for item in items if item.get('status') == 'completed'),
+            'running_runs': sum(1 for item in items if item.get('status') == 'running'),
+            'turns': [int(item.get('turn') or 0) for item in items],
         }
     return stats
 
@@ -212,7 +327,7 @@ def _plan_diagnostics(
     replay: dict[str, Any],
     workspace: dict[str, Any],
     event_stage_stats: dict[str, dict[str, Any]],
-    timeline_stage_stats: dict[str, dict[str, Any]],
+    turn_stage_stats: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     plan_events = [item for item in events if str(item.get('stage') or '') == 'plan']
     llm_calls = replay.get('llm_calls', []) if isinstance(replay.get('llm_calls'), list) else []
@@ -250,7 +365,7 @@ def _plan_diagnostics(
 
     return {
         'plan_event_timing': event_stage_stats.get('plan', {}),
-        'plan_timeline_timing': timeline_stage_stats.get('plan', {}),
+        'plan_turn_timing': turn_stage_stats.get('plan', {}),
         'plan_event_count': len(plan_events),
         'plan_events': plan_events,
         'plan_llm_call_count': len(plan_llm_calls),
@@ -290,7 +405,31 @@ def _print_stage_duration_summary(stats: dict[str, dict[str, Any]], *, title: st
         seen.add(stage)
         item = stats[stage]
         seconds = float(item.get('elapsed_seconds') or item.get('duration_seconds') or 0)
-        print(f'{STAGE_LABELS.get(stage, stage)}: {seconds:.2f}s')
+        run_count = item.get('run_count')
+        run_suffix = f' ({run_count} runs)' if run_count not in (None, '') else ''
+        print(f'{STAGE_LABELS.get(stage, stage)}: {seconds:.2f}s{run_suffix}')
+
+
+def _print_stage_runs(episodes: list[dict[str, Any]]) -> None:
+    print('\n=== Stage Runs ===')
+    if not episodes:
+        print('No runtime turn events were captured.')
+        return
+    print(f'{"turn":>4}  {"stage":<28} {"started_at":<32} {"ended_at":<32} {"duration":>10}  status')
+    print('-' * 126)
+    for item in episodes:
+        status = str(item.get('status') or '')
+        ended_at = str(item.get('ended_at') or '')
+        if status == 'running':
+            ended_at = f'last seen {ended_at}' if ended_at else 'running'
+        print(
+            f'{int(item.get("turn") or 0):>4}  '
+            f'{str(item.get("label") or item.get("stage") or ""):<28} '
+            f'{str(item.get("started_at") or ""):<32} '
+            f'{ended_at:<32} '
+            f'{float(item.get("elapsed_seconds") or 0):>8.2f}s  '
+            f'{status}'
+        )
 
 
 def _print_new_events(events: list[dict[str, Any]]) -> None:
@@ -407,23 +546,23 @@ def run_probe(base_url: str, *, poll_interval: float, timeout_seconds: float, ve
         workspace_payload = {'workspace_fetch_error': 'workspace request failed after retries'}
         _write_json(workspace_path, workspace_payload)
 
-    stats = _stage_stats(all_events)
-    timeline_stats = _stage_timeline_stats(replay_payload.get('timeline', []) if isinstance(replay_payload.get('timeline'), list) else [])
+    event_stage_stats = _stage_stats(all_events)
+    stage_turn_episodes = _stage_turn_episodes(all_events, final_run_payload)
+    stage_duration_stats = _stage_duration_stats_from_episodes(stage_turn_episodes)
+    runtime_trace_stage_stats = _stage_timeline_stats(replay_payload.get('timeline', []) if isinstance(replay_payload.get('timeline'), list) else [])
     plan_diagnostics = _plan_diagnostics(
         events=all_events,
         replay=replay_payload,
         workspace=workspace_payload,
-        event_stage_stats=stats,
-        timeline_stage_stats=timeline_stats,
+        event_stage_stats=event_stage_stats,
+        turn_stage_stats=stage_duration_stats,
     )
     _write_json(plan_diagnostics_path, plan_diagnostics)
-    if timeline_stats:
-        _print_stage_duration_summary(timeline_stats, title='Stage Durations')
-    else:
-        _print_stage_duration_summary(stats, title='Stage Durations (event timestamps)')
+    _print_stage_runs(stage_turn_episodes)
+    _print_stage_duration_summary(stage_duration_stats, title='Stage Total Durations')
     print('\n=== Plan Diagnostics ===')
     print(f"plan_event_elapsed_seconds: {plan_diagnostics.get('plan_event_timing', {}).get('elapsed_seconds', 0)}")
-    print(f"plan_runtime_duration_ms: {plan_diagnostics.get('plan_timeline_timing', {}).get('duration_ms', 0)}")
+    print(f"plan_turn_elapsed_seconds: {plan_diagnostics.get('plan_turn_timing', {}).get('elapsed_seconds', 0)}")
     print(f"plan_llm_call_count: {plan_diagnostics.get('plan_llm_call_count', 0)}")
     print(f"plan_llm_total_latency_ms: {plan_diagnostics.get('plan_llm_total_latency_ms', 0)}")
     print(f"plan_llm_total_tokens: {plan_diagnostics.get('plan_llm_total_tokens', 0)}")
@@ -450,8 +589,10 @@ def run_probe(base_url: str, *, poll_interval: float, timeout_seconds: float, ve
         'run_id': run_id,
         'final_status': final_status,
         'total_wall_seconds': total_elapsed,
-        'stage_stats': stats,
-        'timeline_stage_stats': timeline_stats,
+        'stage_stats': stage_duration_stats,
+        'stage_turn_episodes': stage_turn_episodes,
+        'event_stage_stats': event_stage_stats,
+        'runtime_trace_stage_stats': runtime_trace_stage_stats,
         'plan_diagnostics': plan_diagnostics,
         'state_summary': final_summary,
         'workspace_agent_stages': workspace_payload.get('workflow', {}).get('agent_stages', []) if isinstance(workspace_payload, dict) else [],

@@ -35,18 +35,19 @@ class _FakeStore:
 
 
 class _FakeService:
-    def __init__(self):
+    def __init__(self, *, actions: list[ActionType] | None = None, qa_fail_once: bool = False):
         self.store = _FakeStore()
         self.calls: list[str] = []
         self.events: list[dict[str, Any]] = []
         self.qa_count = 0
-        self.actions = [
+        self.qa_fail_once = qa_fail_once
+        self.actions = actions or [
             ActionType.plan_scope,
             ActionType.collect_initial,
             ActionType.normalize_evidence,
             ActionType.reanalyze_targets,
-            ActionType.redraft_report,
             ActionType.run_qa,
+            ActionType.draft_report,
             ActionType.finalize_run,
         ]
 
@@ -74,7 +75,7 @@ class _FakeService:
     def _qa(self, state: RunState) -> QAOutput:  # noqa: ARG002
         self.calls.append('qa')
         self.qa_count += 1
-        if self.qa_count == 1:
+        if self.qa_fail_once and self.qa_count == 1:
             return QAOutput.model_validate(
                 {
                     'passed': False,
@@ -95,9 +96,10 @@ class _FakeService:
         target_agent = {
             ActionType.plan_scope: 'OrchestratorAgent',
             ActionType.collect_initial: 'CollectorAgent',
+            ActionType.collect_gap: 'CollectorAgent',
             ActionType.normalize_evidence: 'Normalizer',
             ActionType.reanalyze_targets: 'AnalystAgent',
-            ActionType.redraft_report: 'WriterAgent',
+            ActionType.draft_report: 'WriterAgent',
             ActionType.run_qa: 'QACriticAgent',
             ActionType.finalize_run: 'Finalizer',
         }[action_type]
@@ -115,11 +117,13 @@ class _FakeService:
             self._plan(state)
         elif action_type == ActionType.collect_initial:
             self._collect(state)
+        elif action_type == ActionType.collect_gap:
+            self._collect(state)
         elif action_type == ActionType.normalize_evidence:
             self._normalize(state)
         elif action_type == ActionType.reanalyze_targets:
             self._analyze(state)
-        elif action_type == ActionType.redraft_report:
+        elif action_type == ActionType.draft_report:
             self._draft(state)
         elif action_type == ActionType.run_qa:
             self._qa(state)
@@ -141,7 +145,6 @@ class _FakeService:
             ActionType.analyze_targets: StageName.analyze,
             ActionType.reanalyze_targets: StageName.analyze,
             ActionType.draft_report: StageName.draft,
-            ActionType.redraft_report: StageName.draft,
             ActionType.run_qa: StageName.qa,
             ActionType.finalize_run: StageName.finalize,
         }[action_type]
@@ -166,8 +169,8 @@ def test_runtime_loop_executes_single_turn_node_until_end() -> None:
         'collect',
         'normalize',
         'analyze',
-        'draft',
         'qa',
+        'draft',
         'finalize',
     ]
 
@@ -175,6 +178,44 @@ def test_runtime_loop_executes_single_turn_node_until_end() -> None:
     assert 'runtime.turn.started' in event_types
     assert 'runtime.turn.transitioned' in event_types
     assert 'runtime.turn.terminated' in event_types
+
+
+def test_runtime_loop_recollects_and_reanalyzes_after_failed_pre_draft_qa() -> None:
+    service = _FakeService(
+        actions=[
+            ActionType.plan_scope,
+            ActionType.collect_initial,
+            ActionType.normalize_evidence,
+            ActionType.reanalyze_targets,
+            ActionType.run_qa,
+            ActionType.collect_gap,
+            ActionType.reanalyze_targets,
+            ActionType.run_qa,
+            ActionType.draft_report,
+            ActionType.finalize_run,
+        ],
+        qa_fail_once=True,
+    )
+    runtime = WorkflowLangGraphRuntime(service)
+    run_state = RunState(industry='saas', competitors=['alpha'], user_prompt='x')
+
+    result = runtime.execute(run_state)
+
+    assert result.status == 'completed'
+    assert service.calls == [
+        'plan',
+        'collect',
+        'normalize',
+        'analyze',
+        'qa',
+        'collect',
+        'analyze',
+        'qa',
+        'draft',
+        'finalize',
+    ]
+    call_pairs = list(zip(service.calls, service.calls[1:]))
+    assert ('draft', 'qa') not in call_pairs
 
 
 def test_runtime_loop_stops_on_max_turns_before_stage_execution() -> None:

@@ -324,7 +324,6 @@ class ActionType(StrEnum):
     analyze_targets = 'analyze_targets'
     reanalyze_targets = 'reanalyze_targets'
     draft_report = 'draft_report'
-    redraft_report = 'redraft_report'
     run_qa = 'run_qa'
     finalize_run = 'finalize_run'
 
@@ -376,7 +375,6 @@ class DecisionContextSnapshot(BaseModel):
     qa_collect_pending: bool = False
     qa_reanalyze_pending: bool = False
     qa_failure_kind: str = 'unknown'
-    redraft_attempt_count: int = 0
     finalize_with_risk_eligible: bool = False
     quality_gate: dict[str, Any] = Field(default_factory=dict)
     routing_policy: dict[str, Any] = Field(default_factory=dict)
@@ -630,6 +628,7 @@ class RunState(BaseModel):
     industry: str
     competitors: list[str]
     user_prompt: str = ''
+    task_summary: str = ''
     competitor_hints: list[str] = Field(default_factory=list)
     aspect_hints: list[str] = Field(default_factory=list)
     language: str = 'zh-CN'
@@ -682,6 +681,7 @@ class RunSummary(BaseModel):
     status: str
     competitor_count: int
     user_prompt: str = ''
+    task_summary: str = ''
     created_at: datetime
     updated_at: datetime
 

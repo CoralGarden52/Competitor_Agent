@@ -39,4 +39,4 @@ def test_orchestrator_stage_execution_order() -> None:
     )
 
     assert result.passed is True
-    assert calls == ['plan', 'collect', 'normalize', 'analyze', 'draft', 'qa']
+    assert calls == ['plan', 'collect', 'normalize', 'analyze', 'qa', 'draft']

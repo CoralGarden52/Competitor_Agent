@@ -6,7 +6,7 @@ from harness.tools.types import ToolSpec
 WEB_SEARCH_SPEC = ToolSpec(
     name="web.search",
     group="web",
-    description="使用已配置的服务提供方搜索公开网络来源。",
+    description="Search public web sources with the configured providers.",
     input_schema={
         "type": "object",
         "properties": {
@@ -22,7 +22,7 @@ WEB_SEARCH_SPEC = ToolSpec(
 WEB_FETCH_SPEC = ToolSpec(
     name="web.fetch",
     group="web",
-    description="获取公开 URL 的可读内容。",
+    description="Fetch readable content from a public URL.",
     input_schema={
         "type": "object",
         "properties": {
@@ -37,7 +37,7 @@ WEB_FETCH_SPEC = ToolSpec(
 WEB_EXTRACT_SPEC = ToolSpec(
     name="web.extract",
     group="web",
-    description="清理输入文本并提取结构化字段。",
+    description="Clean input text and extract structured fields.",
     input_schema={
         "type": "object",
         "properties": {
@@ -53,7 +53,7 @@ WEB_EXTRACT_SPEC = ToolSpec(
 CORPUS_SEARCH_SPEC = ToolSpec(
     name="corpus.search",
     group="corpus",
-    description="按结构化标签检索已持久化的横向竞品对比语料。",
+    description="Search persisted cross-competitor comparison corpus by structured tags.",
     input_schema={
         "type": "object",
         "properties": {
@@ -70,7 +70,7 @@ CORPUS_SEARCH_SPEC = ToolSpec(
 LLM_INVOKE_JSON_SPEC = ToolSpec(
     name="llm.invoke_json",
     group="llm",
-    description="内部 JSON 格式大模型调用网关。",
+    description="Internal JSON LLM gateway.",
     input_schema={
         "type": "object",
         "properties": {
@@ -88,7 +88,7 @@ LLM_INVOKE_JSON_SPEC = ToolSpec(
 STATE_GET_RUN_SNAPSHOT_SPEC = ToolSpec(
     name="state.get_run_snapshot",
     group="state",
-    description="读取当前运行的高层摘要状态，供管理智能体决策。",
+    description="Read the high-level run state for manager decisions.",
     input_schema={"type": "object", "properties": {"run_id": {"type": "string"}}},
     output_schema={"type": "object", "properties": {"run": {"type": "object"}}},
 )
@@ -96,7 +96,7 @@ STATE_GET_RUN_SNAPSHOT_SPEC = ToolSpec(
 STATE_GET_COVERAGE_SUMMARY_SPEC = ToolSpec(
     name="state.get_coverage_summary",
     group="state",
-    description="读取当前运行的分析覆盖率摘要。",
+    description="Read analysis coverage summary for the current run.",
     input_schema={"type": "object", "properties": {"run_id": {"type": "string"}}},
     output_schema={"type": "object", "properties": {"coverage": {"type": "object"}}},
 )
@@ -104,7 +104,7 @@ STATE_GET_COVERAGE_SUMMARY_SPEC = ToolSpec(
 STATE_GET_GAP_SUMMARY_SPEC = ToolSpec(
     name="state.get_gap_summary",
     group="state",
-    description="读取当前运行的字段缺口摘要。",
+    description="Read field gap summary for the current run.",
     input_schema={"type": "object", "properties": {"run_id": {"type": "string"}}},
     output_schema={"type": "object", "properties": {"gaps": {"type": "array"}}},
 )
@@ -112,7 +112,7 @@ STATE_GET_GAP_SUMMARY_SPEC = ToolSpec(
 STATE_GET_REPORT_STATUS_SPEC = ToolSpec(
     name="state.get_report_status",
     group="state",
-    description="读取当前报告是否已具备交付条件。",
+    description="Read whether the current report is ready for delivery.",
     input_schema={"type": "object", "properties": {"run_id": {"type": "string"}}},
     output_schema={"type": "object", "properties": {"report": {"type": "object"}}},
 )
@@ -137,11 +137,11 @@ def _action_spec(name: str, description: str) -> ToolSpec:
     )
 
 
-ACTION_PLAN_SCOPE_SPEC = _action_spec("action.plan_scope", "执行范围规划与 schema 规划动作。")
-ACTION_COLLECT_INITIAL_SPEC = _action_spec("action.collect_initial", "对计划范围执行初始证据采集动作。")
-ACTION_COLLECT_GAP_SPEC = _action_spec("action.collect_gap", "对目标竞品/字段缺口执行补充采集动作。")
-ACTION_NORMALIZE_EVIDENCE_SPEC = _action_spec("action.normalize_evidence", "执行证据标准化与去重动作。")
-ACTION_REANALYZE_TARGETS_SPEC = _action_spec("action.reanalyze_targets", "对目标竞品/字段执行增量重分析动作。")
-ACTION_REDRAFT_REPORT_SPEC = _action_spec("action.redraft_report", "执行报告重写或局部重写动作。")
-ACTION_RUN_QA_SPEC = _action_spec("action.run_qa", "执行质量审查动作。")
-ACTION_FINALIZE_RUN_SPEC = _action_spec("action.finalize_run", "执行最终收尾与完成动作。")
+ACTION_PLAN_SCOPE_SPEC = _action_spec("action.plan_scope", "Execute scope and schema planning.")
+ACTION_COLLECT_INITIAL_SPEC = _action_spec("action.collect_initial", "Execute initial evidence collection.")
+ACTION_COLLECT_GAP_SPEC = _action_spec("action.collect_gap", "Collect additional evidence for QA gaps.")
+ACTION_NORMALIZE_EVIDENCE_SPEC = _action_spec("action.normalize_evidence", "Normalize and deduplicate evidence.")
+ACTION_REANALYZE_TARGETS_SPEC = _action_spec("action.reanalyze_targets", "Analyze or re-analyze target competitors and fields.")
+ACTION_DRAFT_REPORT_SPEC = _action_spec("action.draft_report", "Generate the single final report draft.")
+ACTION_RUN_QA_SPEC = _action_spec("action.run_qa", "Run the pre-draft quality gate.")
+ACTION_FINALIZE_RUN_SPEC = _action_spec("action.finalize_run", "Finalize the completed run.")

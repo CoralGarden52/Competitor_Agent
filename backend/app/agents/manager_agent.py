@@ -22,7 +22,7 @@ class ManagerAgent:
         'action.collect_gap',
         'action.normalize_evidence',
         'action.reanalyze_targets',
-        'action.redraft_report',
+        'action.draft_report',
         'action.run_qa',
         'action.finalize_run',
     ]
@@ -200,12 +200,34 @@ class ManagerAgent:
             action_type = 'plan_scope'
             target_agent = 'OrchestratorAgent'
             reason = 'missing_competitor_scope_or_schema'
-        elif context.report_ready:
-            if context.qa_reviewed and context.qa_passed:
+        elif context.qa_reviewed and context.qa_passed:
+            if context.report_ready:
                 action_type = 'finalize_run'
                 target_agent = 'Finalizer'
                 reason = 'qa_approved_for_delivery'
-            elif context.qa_reanalyze_pending:
+            else:
+                action_type = 'draft_report'
+                target_agent = 'WriterAgent'
+                reason = 'qa_approved_for_draft'
+        elif context.qa_reviewed and not context.qa_passed:
+            if context.qa_reanalyze_pending:
+                action_type = 'reanalyze_targets'
+                target_agent = 'AnalystAgent'
+                reason = 'qa_failed_reanalyze_pending'
+            elif context.qa_collect_pending and context.qa_collect_allowed:
+                action_type = 'collect_gap'
+                target_agent = 'CollectorAgent'
+                reason = 'qa_failed_collect_plan_pending'
+            else:
+                action_type = 'collect_gap'
+                target_agent = 'CollectorAgent'
+                reason = 'qa_failed_requires_recollect'
+        elif context.analyze_ready:
+            action_type = 'run_qa'
+            target_agent = 'QACriticAgent'
+            reason = 'analysis_ready_requires_pre_draft_qa'
+        elif context.report_ready:
+            if context.qa_reanalyze_pending:
                 action_type = 'reanalyze_targets'
                 target_agent = 'AnalystAgent'
                 reason = 'qa_reanalyze_pending'
@@ -224,19 +246,11 @@ class ManagerAgent:
             elif not context.qa_reviewed:
                 action_type = 'run_qa'
                 target_agent = 'QACriticAgent'
-                reason = 'qa_review_needed_for_report_quality'
-            elif context.qa_failure_kind == 'report_gap':
-                action_type = 'redraft_report'
-                target_agent = 'WriterAgent'
-                reason = 'report_quality_gap_after_qa'
+                reason = 'qa_review_needed_before_finalize'
             else:
                 action_type = 'finalize_run'
                 target_agent = 'Finalizer'
                 reason = 'qa_failed_without_collect_path_finalize_with_risk'
-        elif context.analyze_ready:
-            action_type = 'redraft_report'
-            target_agent = 'WriterAgent'
-            reason = 'report_artifact_missing_after_analysis_ready'
         elif context.collect_ready:
             action_type = 'reanalyze_targets'
             target_agent = 'AnalystAgent'
@@ -274,7 +288,7 @@ class ManagerAgent:
             'action.collect_gap': 'collect_gap',
             'action.normalize_evidence': 'normalize_evidence',
             'action.reanalyze_targets': 'reanalyze_targets',
-            'action.redraft_report': 'redraft_report',
+            'action.draft_report': 'draft_report',
             'action.run_qa': 'run_qa',
             'action.finalize_run': 'finalize_run',
         }

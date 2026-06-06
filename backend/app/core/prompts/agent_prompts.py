@@ -303,7 +303,7 @@ MANAGER_SYSTEM_PROMPT = """
 
 你必须输出严格 JSON：
 {
-  "action_type": "plan_scope|collect_initial|collect_gap|normalize_evidence|reanalyze_targets|redraft_report|run_qa|finalize_run",
+  "action_type": "plan_scope|collect_initial|collect_gap|normalize_evidence|reanalyze_targets|draft_report|run_qa|finalize_run",
   "target_agent": "OrchestratorAgent|CollectorAgent|AnalystAgent|WriterAgent|QACriticAgent|Finalizer",
   "targets": {
     "competitors": ["..."],
@@ -325,14 +325,15 @@ MANAGER_SYSTEM_PROMPT = """
 1) 若尚未形成 planned_competitors 或 analysis_schema_plan，优先选择 plan_scope。
 2) 若 plan_ready=true 且 collect_ready=false，优先 collect_initial。
 3) 若 collect_ready=true 且 analyze_ready=false，优先 reanalyze_targets。
-4) 若 analyze_ready=true 且 report_ready=false，优先 redraft_report。
-5) 若 report_ready=true，先阅读 quality_gate、coverage_summary、gap_summary、qa_* 字段，再决定 run_qa、collect_gap、reanalyze_targets、redraft_report 或 finalize_run。
-6) 若 qa_reviewed=true 且 qa_passed=true，说明 QA LLM 已判定报告可交付，应优先选择 finalize_run。
-6.1) 当 quality_gate.finalize_eligible=true，且没有待处理 qa_collect_pending / qa_reanalyze_pending 时，也可以选择 finalize_run。
+4) 若 analyze_ready=true 且 qa_reviewed=false，必须优先 run_qa；QA 审查的是 analyze 后的字段，不需要 report_ready。
+5) 若 qa_reviewed=true 且 qa_passed=false，禁止 draft_report / finalize_run；若 qa_collect_pending=true 选择 collect_gap，若 qa_reanalyze_pending=true 选择 reanalyze_targets。
+6) 若 qa_reviewed=true 且 qa_passed=true 且 report_ready=false，选择 draft_report。
+6.1) 若 qa_reviewed=true 且 qa_passed=true 且 report_ready=true，选择 finalize_run。
 7) 优先遵守 routing_policy 中的硬约束；若某动作被 policy 禁止，不要选择它。
-8) 若 QA 已给出有效 qa_collect_plan 且 qa_collect_allowed=true，可以选择 collect_gap；若 qa_reanalyze_pending=true，可以选择 reanalyze_targets。
+8) 若 QA 已给出有效 qa_collect_plan 且 qa_collect_allowed=true，可以选择 collect_gap；采集后必须 reanalyze_targets，再回到 run_qa。
 9) 如果已存在更后阶段产物（如 analyze_ready=true 或 report_ready=true），不要仅因较早阶段字段缺失就倒退回 collect_initial。
-10) 若 qa_reviewed=true 且 last_action_type=run_qa 且 last_action_status=completed，禁止再次选择 run_qa；应在 finalize_run、collect_gap、reanalyze_targets、redraft_report 中选择。
+10) 若 qa_reviewed=true 且 last_action_type=run_qa 且 last_action_status=completed，禁止再次选择 run_qa；通过则 draft_report/finalize_run，失败则 collect_gap/reanalyze_targets。
+10.1) 禁止形成 qa -> draft -> qa 循环；draft 只在 QA 通过后执行，draft 后直接 finalize_run。
 11) 调用 state.* 工具时，只补你当前决策真正缺失的判断信息。
 12) decision_basis 需要列出触发当前动作的事实标签，例如 plan_missing、collect_ready、report_ready。
 13) rejected_actions 需要列出至少 1 个你没有选的候选动作及原因，帮助回放。
@@ -353,7 +354,7 @@ MANAGER_ACT_SYSTEM_PROMPT = """
 4) action.* 工具执行完成后，你再返回严格 JSON：
 {
   "decision": {
-    "action_type": "plan_scope|collect_initial|collect_gap|normalize_evidence|reanalyze_targets|redraft_report|run_qa|finalize_run",
+    "action_type": "plan_scope|collect_initial|collect_gap|normalize_evidence|reanalyze_targets|draft_report|run_qa|finalize_run",
     "target_agent": "OrchestratorAgent|CollectorAgent|AnalystAgent|WriterAgent|QACriticAgent|Finalizer",
     "targets": {
       "competitors": ["..."],
@@ -379,11 +380,12 @@ MANAGER_ACT_SYSTEM_PROMPT = """
 6) 若 context 中尚未形成 planned_competitors 或 analysis_schema_plan，优先 plan_scope。
 7) 若 plan_ready=true 且 collect_ready=false，优先 collect_initial。
 8) 若 collect_ready=true 且 analyze_ready=false，优先 reanalyze_targets。
-9) 若 analyze_ready=true 且 report_ready=false，优先 redraft_report。
-10) 若 report_ready=true，必须根据 quality_gate、coverage_summary、gap_summary 和 qa_* 字段决定下一步；不要机械重复 run_qa。
-11) 若 qa_reviewed=true 且 qa_passed=true，说明 QA LLM 已判定报告可交付，应优先选择 finalize_run。
-11.1) 当 quality_gate.finalize_eligible=true 且没有待处理 QA 补采/重分析建议时，也可以选择 finalize_run。
+9) 若 analyze_ready=true 且 qa_reviewed=false，必须优先 run_qa；QA 审查 analyze 后字段，不需要报告已生成。
+10) 若 qa_reviewed=true 且 qa_passed=false，禁止 draft_report / finalize_run；选择 collect_gap 或 reanalyze_targets。
+11) 若 qa_reviewed=true 且 qa_passed=true 且 report_ready=false，选择 draft_report。
+11.1) 若 qa_reviewed=true 且 qa_passed=true 且 report_ready=true，选择 finalize_run。
 12) 若 qa_reviewed=true 且 last_action_type=run_qa 且 last_action_status=completed，禁止再次选择 run_qa。
+12.1) 禁止 qa -> draft -> qa 循环；draft 后应 finalize_run。
 13) 如果已存在更后阶段产物，不要因为较早阶段产物缺失就回退到更早阶段。
 14) 不要输出解释性文本，不要输出 markdown，不要输出多余字段。
 """

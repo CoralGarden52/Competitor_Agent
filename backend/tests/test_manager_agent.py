@@ -10,7 +10,7 @@ def test_manager_infers_new_action_types_from_tools() -> None:
     assert ManagerAgent._infer_action_type_from_tool('action.collect_initial') == 'collect_initial'
     assert ManagerAgent._infer_action_type_from_tool('action.collect_gap') == 'collect_gap'
     assert ManagerAgent._infer_action_type_from_tool('action.reanalyze_targets') == 'reanalyze_targets'
-    assert ManagerAgent._infer_action_type_from_tool('action.redraft_report') == 'redraft_report'
+    assert ManagerAgent._infer_action_type_from_tool('action.draft_report') == 'draft_report'
 
 
 def test_manager_decide_picks_plan_scope_for_fresh_run(monkeypatch, tmp_path) -> None:
@@ -99,8 +99,8 @@ def test_manager_decide_uses_state_tools_and_picks_reanalyze_when_evidence_ready
     assert decision.metadata['tool_calls'] == 1
 
 
-def test_manager_decide_picks_redraft_when_findings_ready_but_report_missing(monkeypatch, tmp_path) -> None:
-    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_redraft.db'))
+def test_manager_decide_picks_run_qa_when_findings_ready_but_report_missing(monkeypatch, tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_draft_guard.db'))
     state = RunState(
         industry='saas',
         competitors=['alpha'],
@@ -121,7 +121,7 @@ def test_manager_decide_picks_redraft_when_findings_ready_but_report_missing(mon
         return {
             'tool_calls': [],
             'final_output': {
-                'action_type': 'redraft_report',
+                'action_type': 'draft_report',
                 'target_agent': 'WriterAgent',
                 'targets': {'competitors': ['alpha'], 'sections': ['pricing_strategy']},
                 'reason': 'findings_ready_report_missing',
@@ -139,10 +139,10 @@ def test_manager_decide_picks_redraft_when_findings_ready_but_report_missing(mon
 
     decision = service._manager_decide(state)
 
-    assert decision.action_type.value == 'redraft_report'
-    assert decision.target_agent == 'WriterAgent'
-    assert decision.targets.sections == ['pricing_strategy']
-    assert decision.decision_basis == ['findings_ready', 'report_missing']
+    assert decision.action_type.value == 'run_qa'
+    assert decision.target_agent == 'QACriticAgent'
+    assert decision.metadata['guard_rewritten'] is True
+    assert decision.metadata['guard_reason'] == 'draft_requires_pre_draft_qa'
 
 
 def test_manager_decide_picks_run_qa_when_report_ready(monkeypatch, tmp_path) -> None:
@@ -303,7 +303,7 @@ def test_manager_decide_allows_finalize_after_qa_ready(monkeypatch, tmp_path) ->
     assert decision.decision_basis == ['report_ready', 'analysis_ready', 'qa_ready']
 
 
-def test_manager_fallback_finalizes_when_quality_gate_allows(tmp_path) -> None:
+def test_manager_fallback_runs_qa_when_quality_gate_allows_but_qa_missing(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_finalize.db'))
     context = DecisionContextSnapshot(
         run_id='run_test',
@@ -317,9 +317,9 @@ def test_manager_fallback_finalizes_when_quality_gate_allows(tmp_path) -> None:
 
     decision = service.manager_agent.fallback_decide(context=context)
 
-    assert decision.action_type.value == 'finalize_run'
-    assert decision.target_agent == 'Finalizer'
-    assert decision.reason == 'quality_gate_finalize_eligible'
+    assert decision.action_type.value == 'run_qa'
+    assert decision.target_agent == 'QACriticAgent'
+    assert decision.reason == 'analysis_ready_requires_pre_draft_qa'
 
 
 def test_manager_fallback_finalizes_when_qa_passed_even_if_quality_gate_static_false(tmp_path) -> None:
@@ -343,6 +343,27 @@ def test_manager_fallback_finalizes_when_qa_passed_even_if_quality_gate_static_f
     assert decision.reason == 'qa_approved_for_delivery'
 
 
+def test_manager_fallback_drafts_when_qa_passed_before_report(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_qa_passed_draft.db'))
+    context = DecisionContextSnapshot(
+        run_id='run_test',
+        turn_count=5,
+        plan_ready=True,
+        collect_ready=True,
+        analyze_ready=True,
+        report_ready=False,
+        qa_reviewed=True,
+        qa_passed=True,
+        quality_gate={'finalize_eligible': False},
+    )
+
+    decision = service.manager_agent.fallback_decide(context=context)
+
+    assert decision.action_type.value == 'draft_report'
+    assert decision.target_agent == 'WriterAgent'
+    assert decision.reason == 'qa_approved_for_draft'
+
+
 def test_manager_fallback_uses_pending_qa_collect_plan(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_fallback_collect.db'))
     context = DecisionContextSnapshot(
@@ -363,7 +384,7 @@ def test_manager_fallback_uses_pending_qa_collect_plan(tmp_path) -> None:
 
     assert decision.action_type.value == 'collect_gap'
     assert decision.target_agent == 'CollectorAgent'
-    assert decision.reason == 'qa_collect_plan_pending'
+    assert decision.reason == 'qa_failed_collect_plan_pending'
 
 
 def test_manager_fallback_does_not_auto_finalize_after_qa_collect_budget_used(tmp_path) -> None:
@@ -384,6 +405,6 @@ def test_manager_fallback_does_not_auto_finalize_after_qa_collect_budget_used(tm
 
     decision = service.manager_agent.fallback_decide(context=context)
 
-    assert decision.action_type.value == 'redraft_report'
-    assert decision.target_agent == 'WriterAgent'
-    assert decision.reason == 'quality_gate_not_met_after_qa'
+    assert decision.action_type.value == 'collect_gap'
+    assert decision.target_agent == 'CollectorAgent'
+    assert decision.reason == 'qa_failed_requires_recollect'

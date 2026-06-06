@@ -64,7 +64,7 @@ class StateSnapshotHandler:
         if bool(state.planner_meta.get('qa_reanalyze_targets', {})):
             qa_recommendation = 'reanalyze_targets'
         if bool(state.planner_meta.get('last_qa_checked', False)) and not bool(state.planner_meta.get('last_qa_passed', False)) and not qa_collect_pending:
-            qa_recommendation = 'redraft_report'
+            qa_recommendation = 'collect_gap'
         return ToolResult(
             ok=True,
             output={
