@@ -95,6 +95,73 @@ export type WorkspaceEvent = {
   payload?: Record<string, unknown>;
 };
 
+export type PlanCardCompetitorsPayload = {
+  card_event?: boolean;
+  planned_competitors?: string[];
+  count?: number;
+  display_text?: string;
+};
+
+export type PlanCardSchemaPayload = {
+  card_event?: boolean;
+  schema_fields?: string[];
+  schema_field_labels?: Record<string, string>;
+  count?: number;
+  display_text?: string;
+};
+
+export type CollectCardSourceFoundPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  field_name?: string;
+  field_label?: string;
+  title?: string;
+  source_url?: string;
+  source_provider?: string;
+  rank?: number;
+  total_found?: number;
+};
+
+export type AnalyzeCardFieldSummaryPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  field_name?: string;
+  field_label?: string;
+  summary?: string;
+  confidence?: number;
+  evidence_ref_count?: number;
+  is_incremental?: boolean;
+};
+
+export type AnalyzeCardCompetitorSummaryPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  summary_lines?: string[];
+  field_count?: number;
+};
+
+export type QaCardReviewStartedPayload = {
+  card_event?: boolean;
+  competitor_count?: number;
+  schema_field_count?: number;
+};
+
+export type QaCardReviewSummaryPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  needs_recollect?: boolean;
+  insufficient_fields?: Array<Record<string, unknown>>;
+  summary_text?: string;
+};
+
+export type QaCardFinalSummaryPayload = {
+  card_event?: boolean;
+  passed?: boolean;
+  issue_count?: number;
+  collect_item_count?: number;
+  summary_text?: string;
+};
+
 export type AgentTraceSummary = {
   llm_call_count?: number;
   total_tokens?: number;
@@ -191,9 +258,32 @@ export type WorkspaceQa = {
   }>;
 };
 
+export type WorkspaceReportCitation = {
+  citation_id?: string;
+  label?: string;
+  url?: string;
+  evidence_refs?: string[];
+  source_title?: string;
+};
+
+export type WorkspaceReportBlock = {
+  block_id?: string;
+  block_type?: "title" | "executive_summary" | "comparison_matrix" | "section_paragraph" | "section_bullets" | "reference_list";
+  section_id?: string;
+  title?: string;
+  order?: number;
+  content?: unknown;
+  citations?: WorkspaceReportCitation[];
+  status?: "draft" | "completed";
+};
+
 export type WorkspaceReport = {
   markdown?: string;
+  html?: string;
   sources?: string[];
+  blocks?: WorkspaceReportBlock[];
+  citations?: WorkspaceReportCitation[];
+  render_version?: string;
 };
 
 export type WorkspaceQuestionnaire = {

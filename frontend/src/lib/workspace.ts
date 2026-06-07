@@ -88,7 +88,11 @@ export interface WorkspacePayload {
   }
   report: {
     markdown: string
+    html?: string
     sources: string[]
+    blocks?: Array<Record<string, unknown>>
+    citations?: Array<Record<string, unknown>>
+    render_version?: string
   }
   todo_plan?: Record<string, unknown>
   observability: {
@@ -263,7 +267,11 @@ function adaptMockWorkspace() {
         },
         report: {
           markdown: bundle.reportMarkdown,
+          html: '',
           sources: bundle.sources.map((item) => item.url),
+          blocks: [],
+          citations: [],
+          render_version: 'v1_mock',
         },
         observability: {
           llm_calls: bundle.traces.map((item) => ({

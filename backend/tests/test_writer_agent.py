@@ -121,6 +121,38 @@ def test_dynamic_field_section_uses_pricing_normalized_value_when_summary_unknow
     assert '定价模式为 subscription；存在免费层；可观察到的套餐包括 商业版、企业版。' in text
 
 
+def test_schema_field_labels_use_local_mapping_without_translation_call() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='meeting_software',
+        competitors=['腾讯会议'],
+        analysis_schema_plan=[
+            AnalysisSchemaField(field_name='feature_tree', priority=1),
+            AnalysisSchemaField(field_name='pricing_model', priority=2),
+            AnalysisSchemaField(field_name='部署方式', priority=3),
+        ],
+        competitor_analyses=[
+            CompetitorAnalysisRecord(
+                product_name='腾讯会议',
+                fields=[
+                    AnalysisFieldResult(field_name='feature_tree', summary='能力完整', evidence_refs=[], confidence=0.7, normalized_value={}),
+                    AnalysisFieldResult(field_name='部署方式', summary='支持公有云与私有化', evidence_refs=[], confidence=0.7, normalized_value={}),
+                ],
+            )
+        ],
+    )
+
+    agent._refresh_dynamic_schema_labels(state)
+
+    assert agent._schema_field_label('product') == '产品'
+    assert agent._schema_field_label('feature_tree') == '功能体系'
+    assert agent._schema_field_label('strengths') == '优势'
+    assert agent._schema_field_label('weaknesses') == '劣势'
+    assert agent._schema_field_label('pricing_model') == '定价模式'
+    assert agent._schema_field_label('user_feedback') == '用户反馈'
+    assert agent._schema_field_label('部署方式') == '部署方式'
+
+
 def test_report_text_not_truncated_by_default() -> None:
     cfg = get_config()
     old_enabled = cfg.report_truncation_enabled

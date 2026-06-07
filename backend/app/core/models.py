@@ -421,6 +421,25 @@ class ReportClaim(BaseModel):
     confidence: float = Field(default=0.7, ge=0.0, le=1.0)
 
 
+class ReportCitation(BaseModel):
+    citation_id: str
+    label: str
+    url: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    source_title: str = ''
+
+
+class ReportBlock(BaseModel):
+    block_id: str
+    block_type: Literal['title', 'executive_summary', 'comparison_matrix', 'section_paragraph', 'section_bullets', 'reference_list']
+    section_id: str = ''
+    title: str = ''
+    order: int = 0
+    content: Any = ''
+    citations: list[ReportCitation] = Field(default_factory=list)
+    status: Literal['draft', 'completed'] = 'completed'
+
+
 class ReportSection(BaseModel):
     section_id: str
     title: str
@@ -436,6 +455,9 @@ class Report(BaseModel):
     opportunities: list[str] = Field(default_factory=list)
     appendix_sources: list[str] = Field(default_factory=list)
     sections: list[ReportSection] = Field(default_factory=list)
+    blocks: list[ReportBlock] = Field(default_factory=list)
+    citations: list[ReportCitation] = Field(default_factory=list)
+    render_version: str = 'v2_structured'
     markdown: str = ''
     html: str = ''
 

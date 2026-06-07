@@ -110,6 +110,62 @@ def test_default_fallback_behavior_unchanged_for_other_fields() -> None:
     assert any(item.get("provider") == "qianfan" and item.get("status") == "success" for item in trace)
 
 
+def test_provider_priority_prefers_zhihu_before_other_providers() -> None:
+    query = "notion 用户评价"
+    tavily = _FakeSearchProvider("tavily", hits=[_make_hit(query=query, provider="tavily", url="https://example.com/reviews")])
+    zhihu = _FakeSearchProvider("zhihu_official", hits=[_make_hit(query=query, provider="zhihu_official", url="https://zhihu.com/q/3")])
+    registry = ProviderRegistry(
+        search_catalog={"tavily": tavily, "zhihu_official": zhihu},
+        fetch_catalog={},
+        search_order=["tavily", "zhihu_official"],
+        fetch_order=[],
+    )
+
+    fallback_trace: list[dict] = []
+    hits, trace = search_with_fallback(
+        query=query,
+        registry=registry,
+        fallback_trace=fallback_trace,
+        provider_priority=["zhihu_official"],
+    )
+
+    assert len(hits) == 1
+    assert hits[0].source_provider == "zhihu_official"
+    assert zhihu.calls == 1
+    assert tavily.calls == 0
+    assert trace[0].get("provider") == "zhihu_official"
+    assert trace[0].get("status") == "success"
+
+
+def test_provider_priority_falls_back_after_zhihu_empty() -> None:
+    query = "notion 用户体验"
+    tavily = _FakeSearchProvider("tavily", hits=[_make_hit(query=query, provider="tavily", url="https://example.com/experience")])
+    zhihu = _FakeSearchProvider("zhihu_official", hits=[], errors=["empty"])
+    registry = ProviderRegistry(
+        search_catalog={"tavily": tavily, "zhihu_official": zhihu},
+        fetch_catalog={},
+        search_order=["tavily", "zhihu_official"],
+        fetch_order=[],
+    )
+
+    fallback_trace: list[dict] = []
+    hits, trace = search_with_fallback(
+        query=query,
+        registry=registry,
+        fallback_trace=fallback_trace,
+        provider_priority=["zhihu_official"],
+    )
+
+    assert len(hits) == 1
+    assert hits[0].source_provider == "tavily"
+    assert zhihu.calls == 1
+    assert tavily.calls == 1
+    assert trace[0].get("provider") == "zhihu_official"
+    assert trace[0].get("status") == "empty"
+    assert trace[1].get("provider") == "tavily"
+    assert trace[1].get("status") == "success"
+
+
 def test_zhihu_empty_payload_returns_no_hits(monkeypatch) -> None:
     monkeypatch.setattr(providers, "_http_get_json", lambda *_args, **_kwargs: {"Data": None})
     provider = providers.ZhihuOfficialProvider(AppConfig(zhihu_search_access_secret="secret"))

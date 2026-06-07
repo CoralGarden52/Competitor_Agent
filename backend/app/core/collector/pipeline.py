@@ -65,7 +65,7 @@ class CollectorPipeline:
         max_items = max_urls if max_urls is not None and max_urls > 0 else None
 
         fetch_tasks: list[tuple[str, str, str, list[str], str, str, str]] = []
-        search_tasks: list[tuple[str, str, list[str], int, list[str] | None, str]] = []
+        search_tasks: list[tuple[str, str, list[str], int, list[str] | None, list[str] | None, str]] = []
 
         for field_plan in fields:
             field_name = field_plan['field_name']
@@ -82,22 +82,29 @@ class CollectorPipeline:
             for query in queries:
                 if field_name == 'pricing_model':
                     provider_allowlist = ['tavily']
+                    provider_priority = None
                     search_strategy = 'strict_tavily_only'
+                elif field_name == 'user_feedback':
+                    provider_allowlist = None
+                    provider_priority = ['zhihu_official']
+                    search_strategy = 'prefer_zhihu_then_fallback'
                 else:
                     provider_allowlist = None
+                    provider_priority = None
                     search_strategy = 'default_fallback'
-                search_tasks.append((field_name, query, recommended_sources, per_field_limit, provider_allowlist, search_strategy))
+                search_tasks.append((field_name, query, recommended_sources, per_field_limit, provider_allowlist, provider_priority, search_strategy))
 
         def _search_one(
-            task: tuple[str, str, list[str], int, list[str] | None, str],
+            task: tuple[str, str, list[str], int, list[str] | None, list[str] | None, str],
         ) -> list[tuple[str, str, str, list[str], str, str, str]]:
-            field_name, query, recommended_sources, _, provider_allowlist, search_strategy = task
+            field_name, query, recommended_sources, _, provider_allowlist, provider_priority, search_strategy = task
             local_fallback_trace: list[dict] = []
             search_hits = self._run_search_phase(
                 query=query,
                 output=output,
                 fallback_trace=local_fallback_trace,
                 provider_allowlist=provider_allowlist,
+                provider_priority=provider_priority,
                 field_name=field_name,
                 strategy=search_strategy,
             )
@@ -452,6 +459,7 @@ class CollectorPipeline:
         output: CollectorOutput,
         fallback_trace: list[dict],
         provider_allowlist: list[str] | None,
+        provider_priority: list[str] | None,
         field_name: str,
         strategy: str,
     ) -> list[SearchHit]:
@@ -462,6 +470,7 @@ class CollectorPipeline:
                 args={
                     'query': query,
                     'provider_allowlist': provider_allowlist,
+                    'provider_priority': provider_priority,
                     'max_results': max_results,
                 },
                 metadata={'group': 'web'},
@@ -471,7 +480,7 @@ class CollectorPipeline:
         hits = self._coerce_search_hits(raw_hits, query=query)
         trace = result.output.get('trace', []) if result.ok else []
         output.tool_events.append({'event_type': 'collector.tool.search', 'tool_name': 'web.search', 'ok': result.ok})
-        if provider_allowlist:
+        if provider_allowlist or provider_priority:
             output.provider_events.append(
                 {
                     'event_type': 'collector.search.strategy',
@@ -479,6 +488,7 @@ class CollectorPipeline:
                     'field_name': field_name,
                     'strategy': strategy,
                     'provider_allowlist': provider_allowlist,
+                    'provider_priority': provider_priority,
                     'max_results': max_results,
                 }
             )

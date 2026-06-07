@@ -21,11 +21,13 @@ from app.core.planner_llm import PlannerLLMClient
 from app.core.run_logging import ensure_run_logger, log_run_output
 from app.core.graph_state import WorkflowGraphState, init_graph_state_from_run_request, make_stage_snapshot
 from app.core.hooks import AuditHook, HookContext, HookRegistry
+from app.core.field_labels import field_label_zh
 from app.core.models import (
     ActionExecutionResult,
     ActionTarget,
     ActionType,
     AnalysisSchemaField,
+    AnalysisFieldResult,
     AnalyzeHandoff,
     ApprovalPolicy,
     ChatTurnRequest,
@@ -882,6 +884,9 @@ class CompetitorWorkflowService:
             return None
         state.report.markdown = markdown
         state.report.html = ''
+        state.report.blocks = []
+        state.report.citations = []
+        state.report.render_version = 'v2_structured_manual_markdown'
         self.store.save_state(state)
         return RunResponse(summary=self._summary_for(state), state=state)
 
@@ -1556,6 +1561,18 @@ class CompetitorWorkflowService:
         self._save_and_event(
             state,
             StageName.plan,
+            'plan.card.competitors_stream',
+            self._card_event_payload(
+                {
+                    'planned_competitors': list(state.planned_competitors),
+                    'count': len(state.planned_competitors),
+                    'display_text': '已选竞品：' + ('、'.join(state.planned_competitors) if state.planned_competitors else '暂无'),
+                }
+            ),
+        )
+        self._save_and_event(
+            state,
+            StageName.plan,
             'plan_schema_decided',
             {
                 'analysis_schema_plan': [item.model_dump(mode='json') for item in state.analysis_schema_plan],
@@ -1565,6 +1582,24 @@ class CompetitorWorkflowService:
                 ],
                 'dynamic_fields_count': state.planner_meta.get('dynamic_field_actual_count', 0),
             },
+        )
+        schema_field_labels = {item.field_name: field_label_zh(item.field_name) for item in state.analysis_schema_plan}
+        self._save_and_event(
+            state,
+            StageName.plan,
+            'plan.card.schema_stream',
+            self._card_event_payload(
+                {
+                    'schema_fields': [item.field_name for item in state.analysis_schema_plan],
+                    'schema_field_labels': schema_field_labels,
+                    'count': len(state.analysis_schema_plan),
+                    'display_text': '已规划字段：' + (
+                        '、'.join(schema_field_labels[item.field_name] for item in state.analysis_schema_plan)
+                        if state.analysis_schema_plan
+                        else '暂无'
+                    ),
+                }
+            ),
         )
         if state.planner_meta.get('plan_fallback_reason'):
             self._save_and_event(
@@ -1827,8 +1862,34 @@ class CompetitorWorkflowService:
         ):
             task_result, result = self.collector_agent.consume_task(task, state)
         self._record_task_result(state, task_result)
+        collect_card_seen_urls: set[str] = set()
+        collect_card_rank = 0
         for pe in result.provider_events:
             self._save_and_event(state, StageName.collect, 'provider_event', pe)
+            if str(pe.get('event_type', '')).strip() == 'collector.search.hit':
+                source_url = str(pe.get('url', '') or '').strip()
+                if not source_url or source_url in collect_card_seen_urls:
+                    continue
+                collect_card_seen_urls.add(source_url)
+                collect_card_rank += 1
+                field_name = str(pe.get('field_name', '') or '').strip()
+                self._save_and_event(
+                    state,
+                    StageName.collect,
+                    'collect.card.source_found',
+                    self._card_event_payload(
+                        {
+                            'competitor': '',
+                            'field_name': field_name,
+                            'field_label': field_label_zh(field_name),
+                            'title': str(pe.get('title', '') or '').strip(),
+                            'source_url': source_url,
+                            'source_provider': str(pe.get('source_provider', '') or '').strip(),
+                            'rank': collect_card_rank,
+                            'total_found': collect_card_rank,
+                        }
+                    ),
+                )
         for te in result.tool_events:
             self._save_and_event(state, StageName.collect, 'tool_event', te)
         # Preserve Plan comparison-corpus evidence and append field-level collection.
@@ -1948,8 +2009,30 @@ class CompetitorWorkflowService:
             },
             success_criteria=['produce_competitor_analyses'],
         )
+        competitor_field_summaries: dict[str, list[str]] = {}
+
+        def _emit_analysis_field_summary(competitor: str, result: AnalysisFieldResult) -> None:
+            field_name = str(result.field_name or '').strip()
+            field_summary = self._build_analysis_card_summary(field_name, str(result.summary or '').strip())
+            competitor_field_summaries.setdefault(competitor, []).append(f'{field_label_zh(field_name)}：{field_summary}')
+            self._save_and_event(
+                state,
+                StageName.analyze,
+                'analyze.card.field_summary',
+                self._card_event_payload(
+                    {
+                        'competitor': competitor,
+                        'field_name': field_name,
+                        'field_label': field_label_zh(field_name),
+                        'summary': field_summary,
+                        'confidence': float(result.confidence or 0.0),
+                        'evidence_ref_count': len(result.evidence_refs),
+                        'is_incremental': incremental_reanalyze,
+                    }
+                ),
+            )
         try:
-            task_result, analyzed = self.analyst_agent.consume_task(task, state)
+            task_result, analyzed = self.analyst_agent.consume_task(task, state, progress_callback=_emit_analysis_field_summary)
             self._record_task_result(state, task_result)
             self._save_and_event(
                 state,
@@ -2009,6 +2092,26 @@ class CompetitorWorkflowService:
         state.competitor_analyses = analyzed.competitors
         state.profiles = analyzed.profiles
         state.findings = analyzed.findings
+        for record in state.competitor_analyses:
+            summary_lines = competitor_field_summaries.get(record.product_name, [])
+            if not summary_lines:
+                summary_lines = [
+                    f'{field_label_zh(field.field_name)}：{self._build_analysis_card_summary(field.field_name, str(field.summary or "").strip())}'
+                    for field in record.fields
+                    if str(field.summary or '').strip()
+                ]
+            self._save_and_event(
+                state,
+                StageName.analyze,
+                'analyze.card.competitor_summary',
+                self._card_event_payload(
+                    {
+                        'competitor': record.product_name,
+                        'summary_lines': summary_lines[:12],
+                        'field_count': len(record.fields),
+                    }
+                ),
+            )
         domain = get_domain_schema(self.store, state.industry)
         coverage_stats = self._calc_analyze_coverage(state)
         coverage = float(coverage_stats['coverage'])
@@ -2162,35 +2265,10 @@ class CompetitorWorkflowService:
         }
 
     def _draft(self, state: RunState) -> None:
-        self._save_and_event(state, StageName.draft, 'agent.llm.started', {'agent': 'WriterAgent', 'trace_name': 'agent.draft.generate_report'})
+        self._save_and_event(state, StageName.draft, 'draft_report.started', {'status': 'running'})
         self._save_and_event(state, StageName.draft, 'draft_markdown.started', {'status': 'running'})
+        stream_interrupted = False
         preview_markdown = ''
-
-        def _on_markdown_delta(delta: str) -> None:
-            nonlocal preview_markdown
-            preview_markdown += delta
-            self._save_and_event(
-                state,
-                StageName.draft,
-                'draft_markdown.delta',
-                {'delta': delta},
-            )
-
-        try:
-            preview_markdown = self.writer_agent.run_markdown_stream(state, on_delta=_on_markdown_delta)
-            self._save_and_event(
-                state,
-                StageName.draft,
-                'draft_markdown.completed',
-                {'length': len(preview_markdown)},
-            )
-        except Exception as exc:  # noqa: BLE001
-            self._save_and_event(
-                state,
-                StageName.draft,
-                'draft_markdown.failed',
-                {'error': str(exc)},
-            )
         task = self._create_stage_task(
             state,
             task_type=TaskType.draft_report,
@@ -2199,71 +2277,73 @@ class CompetitorWorkflowService:
             success_criteria=['produce_report_markdown'],
         )
         try:
-            if not preview_markdown.strip():
-                raise LLMCallError(
-                    reason='empty_markdown_preview',
-                    message='draft markdown stream produced empty output',
-                    attempt_count=1 + self.config.agent_llm_retry_count,
-                    retry_count_used=self.config.agent_llm_retry_count,
-                )
-            drafted = self.writer_agent.build_report_from_markdown(state, preview_markdown)
-            task_result = self.writer_agent.build_task_result(task, drafted)
-            self._record_task_result(state, task_result)
-            self._save_and_event(
-                state,
-                StageName.draft,
-                'agent.llm.completed',
-                {
-                    'agent': 'WriterAgent',
-                    'trace_name': 'agent.draft.generate_report',
-                    'attempt_count': 1 + self.config.agent_llm_retry_count,
-                    'retry_count_used': self.config.agent_llm_retry_count,
-                    'fallback_used': False,
-                },
-            )
-        except LLMCallError as exc:
-            fail_payload = {
-                'agent': 'WriterAgent',
-                'trace_name': 'agent.draft.generate_report',
-                'error': str(exc),
-                'failure_reason': exc.reason,
-                'attempt_count': exc.attempt_count,
-                'retry_count_used': exc.retry_count_used,
-                'fallback_used': False,
-            }
-            self._save_and_event(state, StageName.draft, 'agent.llm.failed', fail_payload)
-            allow_fallback = self.config.agent_llm_fallback_enabled and (
-                exc.reason != 'validation_error' or self.config.agent_llm_fallback_on_validation_error
-            )
-            if not allow_fallback:
-                state.status = 'failed'
-                raise
-            self._save_and_event(
-                state,
-                StageName.draft,
-                'agent.llm.fallback.started',
-                {'agent': 'WriterAgent', 'fallback_reason': exc.reason, 'fallback_used': True},
-            )
-            try:
-                drafted = self.writer_agent.run_fallback(state)
-            except Exception as fb_exc:
-                state.status = 'failed'
+            drafted = self.writer_agent.build_streamable_report(state)
+            for block in drafted.report.blocks:
+                block_payload = block.model_dump(mode='json')
                 self._save_and_event(
                     state,
                     StageName.draft,
-                    'agent.llm.fallback.failed',
-                    {'agent': 'WriterAgent', 'error': str(fb_exc), 'fallback_reason': exc.reason, 'fallback_used': True},
+                    'draft_report.block_delta',
+                    {'block': block_payload},
                 )
-                raise
+                fragment = self.writer_agent.block_markdown_fragment(block)
+                if fragment:
+                    preview_markdown += fragment
+                    self._save_and_event(
+                        state,
+                        StageName.draft,
+                        'draft_markdown.delta',
+                        {'delta': fragment},
+                    )
+                self._save_and_event(
+                    state,
+                    StageName.draft,
+                    'draft_report.block_completed',
+                    {'block': block_payload},
+                )
             self._save_and_event(
                 state,
                 StageName.draft,
-                'agent.llm.fallback.completed',
-                {'agent': 'WriterAgent', 'fallback_reason': exc.reason, 'fallback_used': True},
+                'draft_report.completed',
+                {'block_count': len(drafted.report.blocks)},
             )
+            self._save_and_event(
+                state,
+                StageName.draft,
+                'draft_markdown.completed',
+                {'length': len(preview_markdown)},
+            )
+            task_result = self.writer_agent.build_task_result(task, drafted)
+            self._record_task_result(state, task_result)
+        except Exception as exc:
+            stream_interrupted = True
+            self._save_and_event(
+                state,
+                StageName.draft,
+                'draft_report.failed',
+                {'error': str(exc), 'terminal': True},
+            )
+            self._save_and_event(
+                state,
+                StageName.draft,
+                'draft_markdown.failed',
+                {'error': str(exc), 'terminal': True, 'will_continue': False, 'preview_length': len(preview_markdown)},
+            )
+            state.status = 'failed'
+            raise
         state.report = drafted.report
         state.self_eval['draft'] = SelfEval(coverage=0.85, consistency=0.88, evidence_quality=0.76, uncertainty=0.2)
-        self._save_and_event(state, StageName.draft, EventType.draft_completed.value, {'has_report': state.report is not None})
+        self._save_and_event(
+            state,
+            StageName.draft,
+            EventType.draft_completed.value,
+            {
+                'has_report': state.report is not None,
+                'stream_recovered': stream_interrupted and state.report is not None,
+                'preview_length': len(preview_markdown),
+                'block_count': len(state.report.blocks) if state.report is not None else 0,
+            },
+        )
         draft_handoff = self._build_draft_handoff(state)
         self._save_handoff(state, StageName.draft, draft_handoff)
         self._append_handoff_envelope(
@@ -2290,6 +2370,17 @@ class CompetitorWorkflowService:
             StageName.qa,
             'qa.analysis_review.started',
             {'competitor_count': len(active_analyses), 'handoff_used': bool(handoff_analyses)},
+        )
+        self._save_and_event(
+            state,
+            StageName.qa,
+            'qa.card.review_started',
+            self._card_event_payload(
+                {
+                    'competitor_count': len(active_analyses),
+                    'schema_field_count': len([item.field_name for item in state.analysis_schema_plan if item.field_name]),
+                }
+            ),
         )
         if not active_analyses:
             result = QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
@@ -2321,9 +2412,44 @@ class CompetitorWorkflowService:
                     review = future.result()
                     reviews.append({'competitor': competitor, 'review': review})
                     self._save_and_event(state, StageName.qa, 'qa.analysis_review.completed', {'competitor': competitor})
+                    review_dict = review if isinstance(review, dict) else {}
+                    insufficient_fields = review_dict.get('insufficient_fields', []) if isinstance(review_dict.get('insufficient_fields', []), list) else []
+                    insufficient_names = [field_label_zh(str(item.get('field_name', '') or '').strip()) for item in insufficient_fields if isinstance(item, dict) and str(item.get('field_name', '') or '').strip()]
+                    needs_recollect = bool(review_dict.get('needs_recollect', False))
+                    summary_text = (
+                        f'{competitor} 质检通过，已审查 {len(schema_fields)} 个字段，未发现需回采项。'
+                        if not needs_recollect
+                        else f'{competitor} 质检发现证据不足字段：{"、".join(insufficient_names) if insufficient_names else "待补充字段"}。'
+                    )
+                    self._save_and_event(
+                        state,
+                        StageName.qa,
+                        'qa.card.review_summary',
+                        self._card_event_payload(
+                            {
+                                'competitor': competitor,
+                                'needs_recollect': needs_recollect,
+                                'insufficient_fields': insufficient_fields,
+                                'summary_text': summary_text,
+                            }
+                        ),
+                    )
                 except Exception as exc:  # noqa: BLE001
                     review_errors.append({'competitor': competitor, 'error': str(exc)})
                     self._save_and_event(state, StageName.qa, 'qa.analysis_review.failed', {'competitor': competitor, 'error': str(exc)})
+                    self._save_and_event(
+                        state,
+                        StageName.qa,
+                        'qa.card.review_summary',
+                        self._card_event_payload(
+                            {
+                                'competitor': competitor,
+                                'needs_recollect': True,
+                                'insufficient_fields': [],
+                                'summary_text': f'{competitor} 质检失败：{str(exc)}',
+                            }
+                        ),
+                    )
 
         collect_items: list[dict] = []
         for review_row in reviews:
@@ -2363,6 +2489,19 @@ class CompetitorWorkflowService:
         if not normalized_items:
             result = QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
             self._save_and_event(state, StageName.qa, 'qa_checked', {'passed': True, 'issue_count': 0, 'review_errors': review_errors})
+            self._save_and_event(
+                state,
+                StageName.qa,
+                'qa.card.final_summary',
+                self._card_event_payload(
+                    {
+                        'passed': True,
+                        'issue_count': 0,
+                        'collect_item_count': 0,
+                        'summary_text': 'QA 质检通过，当前无需补充采集。',
+                    }
+                ),
+            )
             return result
 
         issues = [
@@ -2393,6 +2532,19 @@ class CompetitorWorkflowService:
                 'collect_item_count': len(normalized_items),
                 'review_errors': review_errors,
             },
+        )
+        self._save_and_event(
+            state,
+            StageName.qa,
+            'qa.card.final_summary',
+            self._card_event_payload(
+                {
+                    'passed': False,
+                    'issue_count': len(result.issues),
+                    'collect_item_count': len(normalized_items),
+                    'summary_text': f'QA 质检发现 {len(result.issues)} 个问题，已生成 {len(normalized_items)} 条补采项。',
+                }
+            ),
         )
         return result
 
@@ -2701,6 +2853,67 @@ class CompetitorWorkflowService:
         self.store.save_state(state)
 
     @staticmethod
+    def _card_event_payload(raw_payload: dict[str, object]) -> dict[str, object]:
+        return {'card_event': True, **raw_payload}
+
+    @staticmethod
+    def _build_analysis_card_summary(field_name: str, summary: str, *, max_length: int = 30) -> str:
+        cleaned = re.sub(r'\s+', ' ', str(summary or '').strip())
+        if not cleaned or cleaned.lower() == 'unknown':
+            return 'unknown'
+
+        normalized = re.sub(r'https?://\S+', '', cleaned)
+        units = [
+            CompetitorWorkflowService._clean_summary_unit(item)
+            for item in re.split(r'[\n\r]+|(?<=。)|(?<=；)|(?<=;)', normalized)
+        ]
+        units = [item for item in units if item]
+        if len(units) > 1:
+            topics: list[str] = []
+            seen: set[str] = set()
+            for item in units:
+                topic = CompetitorWorkflowService._extract_summary_topic(item)
+                if not topic:
+                    continue
+                key = topic.casefold()
+                if key in seen:
+                    continue
+                candidate = f'{len(units)}点：{"、".join([*topics, topic])}等'
+                if len(candidate) > max_length:
+                    break
+                seen.add(key)
+                topics.append(topic)
+            if topics:
+                return f'{len(units)}点：{"、".join(topics)}等'
+
+        topic = CompetitorWorkflowService._extract_summary_topic(units[0] if units else normalized)
+        if topic and len(topic) <= max_length:
+            return topic
+        base = (units[0] if units else normalized)[:max_length].rstrip('、，；;:： ')
+        return base + ('…' if len(units[0] if units else normalized) > max_length else '')
+
+    @staticmethod
+    def _clean_summary_unit(text: str) -> str:
+        value = str(text or '').strip()
+        if not value:
+            return ''
+        value = re.sub(r'^\d+\s*[\.\):：、，]\s*', '', value)
+        value = re.sub(r'^[\-•*]+\s*', '', value)
+        value = re.sub(r'^第\d+[点项条]\s*', '', value)
+        return value.strip(' ，；;。:：')
+
+    @staticmethod
+    def _extract_summary_topic(text: str) -> str:
+        value = CompetitorWorkflowService._clean_summary_unit(text)
+        if not value:
+            return ''
+        topic = re.split(r'[，,；;。:：、（）()]', value, maxsplit=1)[0].strip()
+        topic = re.sub(r'[“”"\'\[\]{}]+', '', topic).strip()
+        if len(topic) > 12:
+            topic = topic[:12].rstrip('、，；;:： ')
+        return topic
+
+    @staticmethod
     def _should_print_event(*, stage: StageName, event_type: str) -> bool:
         # High-frequency collect events can flood terminal output.
         # Keep persisting them to storage/events, but skip console print for readability.
@@ -2801,7 +3014,11 @@ class CompetitorWorkflowService:
             },
             'report': {
                 'markdown': state.report.markdown if state.report else '',
+                'html': state.report.html if state.report else '',
                 'sources': state.report.appendix_sources if state.report else [],
+                'blocks': [item.model_dump(mode='json') for item in state.report.blocks] if state.report else [],
+                'citations': [item.model_dump(mode='json') for item in state.report.citations] if state.report else [],
+                'render_version': state.report.render_version if state.report else '',
             },
             'questionnaire': state.questionnaire.model_dump(mode='json') if state.questionnaire else None,
             'questionnaire_export': state.questionnaire_export,
@@ -2910,6 +3127,7 @@ class CompetitorWorkflowService:
     def _build_agent_stage_cards(self, *, state: RunState, timeline: list[dict], handoffs: list[dict]) -> list[dict[str, object]]:
         timeline_map = {str(item.get('node_name', '')): item for item in timeline}
         handoff_map = {str(item.get('stage', '')): item for item in handoffs}
+        llm_calls = self.store.list_llm_calls(state.run_id)
         stage_meta = [
             ('plan', 'Planner Agent'),
             ('collect', 'Collector Agent'),
@@ -2922,12 +3140,17 @@ class CompetitorWorkflowService:
         for stage, label in stage_meta:
             timeline_row = timeline_map.get(stage, {})
             handoff_row = handoff_map.get(stage, {})
+            duration_ms = timeline_row.get('duration_ms')
+            llm_duration_ms = self._stage_llm_duration_ms(stage=stage, llm_calls=llm_calls)
+            if llm_duration_ms is not None:
+                if duration_ms is None or stage == 'draft':
+                    duration_ms = llm_duration_ms
             cards.append(
                 {
                     'stage': stage,
                     'agent': label,
                     'status': timeline_row.get('status', 'pending'),
-                    'duration_ms': timeline_row.get('duration_ms'),
+                    'duration_ms': duration_ms,
                     'summary': self._summarize_stage(stage, state),
                     'handoff_type': handoff_row.get('handoff_type', ''),
                     'handoff_summary': self._summarize_handoff_payload(handoff_row.get('payload', {})),
@@ -3278,6 +3501,20 @@ class CompetitorWorkflowService:
         if stage_inputs:
             return 'running' if run_status == 'running' else run_status
         return 'pending'
+
+    @staticmethod
+    def _stage_llm_duration_ms(*, stage: str, llm_calls: list[dict]) -> int | None:
+        stage_calls = [item for item in llm_calls if str(item.get('node_name', '')).strip() == stage]
+        if not stage_calls:
+            return None
+        if stage == 'draft':
+            draft_stream_calls = [
+                item for item in stage_calls
+                if str(item.get('trace_name', '')).strip() == 'agent.draft.generate_markdown_stream'
+            ]
+            if draft_stream_calls:
+                return max(int(item.get('latency_ms', 0) or 0) for item in draft_stream_calls)
+        return sum(int(item.get('latency_ms', 0) or 0) for item in stage_calls)
 
     @staticmethod
     def _summarize_stage(stage: str, state: RunState) -> str:

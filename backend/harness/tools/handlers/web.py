@@ -16,6 +16,7 @@ class WebSearchHandler:
     def handle(self, request: ToolRequest) -> ToolResult:
         query = str(request.args.get("query", "")).strip()
         allowlist = request.args.get("provider_allowlist")
+        provider_priority = request.args.get("provider_priority")
         trace: list[dict] = []
         hits, local_trace = search_with_fallback(
             query=query,
@@ -23,6 +24,7 @@ class WebSearchHandler:
             fallback_trace=trace,
             max_results=int(request.args.get("max_results", 8) or 8),
             provider_allowlist=allowlist if isinstance(allowlist, list) else None,
+            provider_priority=provider_priority if isinstance(provider_priority, list) else None,
         )
         provider = next((str(item.get("provider", "")) for item in local_trace if item.get("status") == "success"), "")
         serialized_hits: list[dict[str, Any]] = []

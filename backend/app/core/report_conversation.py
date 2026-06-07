@@ -919,6 +919,9 @@ class ReportConversationService:
             return ''
         state.report.markdown = after_markdown
         state.report.html = ''
+        state.report.blocks = []
+        state.report.citations = []
+        state.report.render_version = 'v2_structured_manual_markdown'
         if isinstance(state.planner_meta, dict):
             state.planner_meta['last_qa_checked'] = False
             state.planner_meta['last_qa_passed'] = False
