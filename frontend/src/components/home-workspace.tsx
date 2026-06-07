@@ -85,6 +85,7 @@ type AgentCardStreams = Partial<Record<StageName, AgentCardStreamState>>;
 const STAGE_ORDER: StageName[] = ["plan", "collect", "normalize", "analyze", "qa", "draft", "finalize"];
 const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8010").replace(/\/$/, "");
 const PENDING_TASK_TITLE = "生成标题中";
+const COLLECT_PREVIEW_LIMIT = 6;
 
 function backendUrl(path: string) {
   return `${BACKEND_BASE_URL}${path}`;
@@ -195,7 +196,7 @@ function dedupeLines(lines: string[]): string[] {
   });
 }
 
-function trimLines(lines: string[], limit = 12): string[] {
+function trimLines(lines: string[], limit = 20): string[] {
   return dedupeLines(lines).slice(-limit);
 }
 
@@ -386,6 +387,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const [isReportChatSubmitting, setIsReportChatSubmitting] = useState(false);
   const [sessions, setSessions] = useState<StoredSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState("");
+  const [isManagingSessions, setIsManagingSessions] = useState(false);
+  const [selectedSessionIds, setSelectedSessionIds] = useState<string[]>([]);
   const [openSessionMenuId, setOpenSessionMenuId] = useState<string | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [isEditingReport, setIsEditingReport] = useState(false);
@@ -422,6 +425,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     sessions.find((item) => item.session_id === activeSessionId)
     || sessions.find((item) => item.active_run_id === activeRunId)
     || null;
+  const visibleSessions = sessions.filter(shouldShowSession);
   const activeSessionTaskSummary = (activeSession?.task_summary || "").trim();
   const displaySummary = activeSessionTaskSummary.replace(/^任务(目标|分析)\s*[:：]\s*/u, "").trim();
   const stageCards = workspaceData?.workflow?.agent_stages ?? [];
@@ -460,7 +464,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     || draftStageCard?.status === "failed"
   );
   const referenceItems = workspaceData ? buildReferenceItems(workspaceData) : [];
-  const collectPreviewItems = referenceItems.slice(0, 20);
+  const collectPreviewItems = referenceItems.slice(0, COLLECT_PREVIEW_LIMIT);
   const currentReportContent = isEditingReport ? reportDraft : reportDraft || workspaceData?.report?.markdown || "";
   const reportCardStatusText = hasReport
     ? "Structured report"
@@ -961,6 +965,15 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     }
   }
 
+  function clearStoredMessages(runId: string) {
+    if (typeof window === "undefined" || !runId) return;
+    try {
+      window.localStorage.removeItem(storageKeyForRun(runId));
+    } catch {
+      // ignore storage errors
+    }
+  }
+
   function mergeSessionsPreserveState(mapped: StoredSession[], previous: StoredSession[]): StoredSession[] {
     const previousById = new Map(previous.map((item) => [item.session_id, item]));
     return mapped.map((item) => {
@@ -1326,6 +1339,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
               label: String(data.title || data.source_url || "").trim(),
               url: String(data.source_url || ""),
             },
+            COLLECT_PREVIEW_LIMIT,
           ),
           isStreaming: true,
         };
@@ -1661,6 +1675,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   }
 
   function handleSwitchSession(sessionId: string) {
+    if (isManagingSessions) return;
     setOpenSessionMenuId(null);
     const target = sessions.find((item) => item.session_id === sessionId);
     if (!target) return;
@@ -1695,6 +1710,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   function resetNewConversationState() {
     stopRealtime();
     setOpenSessionMenuId(null);
+    setIsManagingSessions(false);
+    setSelectedSessionIds([]);
     setActiveSessionId("");
     setViewMode("welcome");
     setActiveMenu("new");
@@ -1725,6 +1742,34 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     resetNewConversationState();
   }
 
+  function toggleSessionManagement() {
+    setOpenSessionMenuId(null);
+    setIsManagingSessions((prev) => {
+      if (prev) setSelectedSessionIds([]);
+      return !prev;
+    });
+  }
+
+  function toggleSessionSelection(sessionId: string) {
+    setSelectedSessionIds((prev) => (
+      prev.includes(sessionId)
+        ? prev.filter((item) => item !== sessionId)
+        : [...prev, sessionId]
+    ));
+  }
+
+  function clearDeletedSessions(sessionIds: string[]) {
+    if (!sessionIds.length) return;
+    sessionIds.forEach(clearStoredMessages);
+    setSessions((prev) => prev.filter((item) => !sessionIds.includes(item.session_id)));
+    setSelectedSessionIds((prev) => prev.filter((item) => !sessionIds.includes(item)));
+    if (sessionIds.includes(activeSessionId)) {
+      setActiveSessionId("");
+      setChatMessages([]);
+      activeRunIdRef.current = "";
+    }
+  }
+
   async function handleDeleteSession(sessionId: string) {
     const target = sessions.find((item) => item.session_id === sessionId);
     if (!target) return;
@@ -1733,6 +1778,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     try {
       setOpenSessionMenuId(null);
       await deleteRunById(sessionId);
+      clearDeletedSessions([sessionId]);
       const remaining = await refreshSessions();
       if (!remaining.length) {
         handleNewConversation();
@@ -1741,6 +1787,28 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       }
     } catch (deleteError) {
       const message = deleteError instanceof Error ? deleteError.message : "删除失败，请稍后重试。";
+      setError(message);
+    }
+  }
+
+  async function handleBatchDeleteSessions() {
+    if (!selectedSessionIds.length) return;
+    const confirmed = window.confirm(`确认删除选中的 ${selectedSessionIds.length} 个会话？`);
+    if (!confirmed) return;
+    try {
+      setOpenSessionMenuId(null);
+      const deletingIds = [...selectedSessionIds];
+      await Promise.all(deletingIds.map((sessionId) => deleteRunById(sessionId)));
+      clearDeletedSessions(deletingIds);
+      setIsManagingSessions(false);
+      const remaining = await refreshSessions();
+      if (!remaining.length) {
+        handleNewConversation();
+      } else if (deletingIds.includes(activeSessionId)) {
+        pushRunRoute(remaining[0].session_id);
+      }
+    } catch (deleteError) {
+      const message = deleteError instanceof Error ? deleteError.message : "批量删除失败，请稍后重试。";
       setError(message);
     }
   }
@@ -1962,47 +2030,84 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
             </button>
           </nav>
 
+          <div className="session-manage-bar">
+            <button type="button" className={isManagingSessions ? "session-manage-btn active" : "session-manage-btn"} onClick={toggleSessionManagement}>
+              {isManagingSessions ? "完成管理" : "管理对话"}
+            </button>
+            {isManagingSessions ? (
+              <div className="session-manage-actions">
+                <button
+                  type="button"
+                  className="session-batch-btn"
+                  onClick={() => setSelectedSessionIds(selectedSessionIds.length === visibleSessions.length ? [] : visibleSessions.map((item) => item.session_id))}
+                >
+                  {selectedSessionIds.length === visibleSessions.length && visibleSessions.length ? "取消全选" : "全选"}
+                </button>
+                <button
+                  type="button"
+                  className="session-batch-btn danger"
+                  disabled={!selectedSessionIds.length}
+                  onClick={() => void handleBatchDeleteSessions()}
+                >
+                  批量删除（{selectedSessionIds.length}）
+                </button>
+              </div>
+            ) : null}
+          </div>
+
           <div className="session-list" aria-label="历史会话列表">
-            {sessions.filter(shouldShowSession).map((session) => (
+            {visibleSessions.map((session) => (
               <div key={session.session_id} className={session.session_id === activeSessionId ? "session-row active" : "session-row"}>
                 <div className={session.session_id === activeSessionId ? "session-item active" : "session-item"}>
+                  {isManagingSessions ? (
+                    <label className="session-select-toggle" aria-label={`选择会话 ${session.title || PENDING_TASK_TITLE}`}>
+                      <input
+                        type="checkbox"
+                        checked={selectedSessionIds.includes(session.session_id)}
+                        onChange={() => toggleSessionSelection(session.session_id)}
+                      />
+                    </label>
+                  ) : null}
                   <button
                     type="button"
                     className="session-title-btn"
                     aria-label={session.title || PENDING_TASK_TITLE}
                     onClick={() => handleSwitchSession(session.session_id)}
+                    disabled={isManagingSessions}
                   >
                     {session.title || PENDING_TASK_TITLE}
                   </button>
-                  <div className="session-actions" ref={openSessionMenuId === session.session_id ? sessionMenuRef : null}>
-                    <button
-                      type="button"
-                      className="session-more-btn"
-                      aria-label="会话操作"
-                      aria-expanded={openSessionMenuId === session.session_id}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        setOpenSessionMenuId((prev) => (prev === session.session_id ? null : session.session_id));
-                      }}
-                    >
-                      ⋮
-                    </button>
-                    {openSessionMenuId === session.session_id ? (
-                      <div className="session-menu" role="menu">
-                        <button
-                          type="button"
-                          className="session-menu-danger"
-                          role="menuitem"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            void handleDeleteSession(session.session_id);
-                          }}
-                        >
-                          删除会话
-                        </button>
-                      </div>
-                    ) : null}
-                  </div>
+                  {!isManagingSessions ? (
+                    <div className="session-actions" ref={openSessionMenuId === session.session_id ? sessionMenuRef : null}>
+                      <button
+                        type="button"
+                        className="session-more-btn"
+                        aria-label="会话操作"
+                        aria-expanded={openSessionMenuId === session.session_id}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setOpenSessionMenuId((prev) => (prev === session.session_id ? null : session.session_id));
+                        }}
+                      >
+                        ⋮
+                      </button>
+                      {openSessionMenuId === session.session_id ? (
+                        <div className="session-menu" role="menu">
+                          <button
+                            type="button"
+                            className="session-menu-danger"
+                            role="menuitem"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              void handleDeleteSession(session.session_id);
+                            }}
+                          >
+                            删除会话
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -2159,7 +2264,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                               const streamCard = agentCardStreams[step.stage as StageName];
                               const summaryLines = streamCard?.lines?.length
                                 ? streamCard.lines
-                                : [step.summary?.trim() || "", step.handoff_summary?.trim() || ""].filter(Boolean);
+                                : [step.summary?.trim() || ""].filter(Boolean);
                               const collectTotalCount = step.stage === "collect"
                                 ? (streamCard?.totalCount || referenceItems.length)
                                 : 0;
@@ -2167,7 +2272,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                                 ? (streamCard?.urls?.length ? streamCard.urls : collectPreviewItems)
                                 : [];
                               return (
-                                <li key={`${step.stage}-${index}`} className="thought-item agent-card">
+                                <li key={`${step.stage}-${index}`} className={`thought-item agent-card stage-${step.stage}`}>
                                   <div className="thought-head">
                                     <span>{`${index + 1}. ${stageLabel(step.stage)}`}</span>
                                     <span className={`status-pill ${stepStatus}`}>{stepStatusText(stepStatus)}</span>

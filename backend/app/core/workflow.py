@@ -2857,40 +2857,41 @@ class CompetitorWorkflowService:
         return {'card_event': True, **raw_payload}
 
     @staticmethod
-    def _build_analysis_card_summary(field_name: str, summary: str, *, max_length: int = 30) -> str:
+    def _build_analysis_card_summary(field_name: str, summary: str, *, max_length: int = 120) -> str:
         cleaned = re.sub(r'\s+', ' ', str(summary or '').strip())
         if not cleaned or cleaned.lower() == 'unknown':
             return 'unknown'
-
         normalized = re.sub(r'https?://\S+', '', cleaned)
         units = [
-            CompetitorWorkflowService._clean_summary_unit(item)
-            for item in re.split(r'[\n\r]+|(?<=。)|(?<=；)|(?<=;)', normalized)
+            CompetitorWorkflowService._clean_analysis_card_unit(item)
+            for item in re.split(r'[\n\r]+|(?<=。)|(?<=！)|(?<=？)|(?<=；)|(?<=;)', normalized)
         ]
-        units = [item for item in units if item]
-        if len(units) > 1:
-            topics: list[str] = []
-            seen: set[str] = set()
-            for item in units:
-                topic = CompetitorWorkflowService._extract_summary_topic(item)
-                if not topic:
-                    continue
-                key = topic.casefold()
-                if key in seen:
-                    continue
-                candidate = f'{len(units)}点：{"、".join([*topics, topic])}等'
-                if len(candidate) > max_length:
-                    break
-                seen.add(key)
-                topics.append(topic)
-            if topics:
-                return f'{len(units)}点：{"、".join(topics)}等'
+        units = [item for item in units if item and item.lower() != 'unknown']
+        if not units:
+            return 'unknown'
 
-        topic = CompetitorWorkflowService._extract_summary_topic(units[0] if units else normalized)
-        if topic and len(topic) <= max_length:
-            return topic
-        base = (units[0] if units else normalized)[:max_length].rstrip('、，；;:： ')
-        return base + ('…' if len(units[0] if units else normalized) > max_length else '')
+        selected: list[str] = []
+        seen: set[str] = set()
+        for item in units:
+            key = item.casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            selected.append(item)
+            if len(selected) >= 3:
+                break
+
+        if len(selected) == 1:
+            return CompetitorWorkflowService._truncate_analysis_card_summary(selected[0], max_length=max_length)
+
+        combined = '；'.join(selected)
+        if len(combined) <= max_length:
+            return combined
+        if len(selected) >= 2:
+            first_two = '；'.join(selected[:2])
+            if len(first_two) <= max_length:
+                return first_two
+        return CompetitorWorkflowService._truncate_analysis_card_summary(selected[0], max_length=max_length)
 
     @staticmethod
     def _clean_summary_unit(text: str) -> str:
@@ -2901,6 +2902,36 @@ class CompetitorWorkflowService:
         value = re.sub(r'^[\-•*]+\s*', '', value)
         value = re.sub(r'^第\d+[点项条]\s*', '', value)
         return value.strip(' ，；;。:：')
+
+    @staticmethod
+    def _clean_analysis_card_unit(text: str) -> str:
+        value = CompetitorWorkflowService._clean_summary_unit(text)
+        if not value:
+            return ''
+        prefixes = [
+            r'^基于当前已获取的全部公开(?:信息|证据|评测)?[，,:：\s]*',
+            r'^基于当前已获取的(?:有限)?公开(?:信息|证据|评测)?[，,:：\s]*',
+            r'^基于当前(?:有限)?公开(?:信息|证据|评测)?[，,:：\s]*',
+            r'^基于现有公开(?:信息|证据|评测)?[，,:：\s]*',
+            r'^基于现有公开测评信息[，,:：\s]*',
+            r'^基于当前可获取的公开[，,:：\s]*',
+            r'^已确认的相关[，,:：\s]*',
+            r'^已确认[，,:：\s]*',
+            r'^现有已获取的公开评测[，,:：\s]*',
+            r'^当前暂未获取到[^，。；;]*[，,:：\s]*',
+        ]
+        for pattern in prefixes:
+            value = re.sub(pattern, '', value)
+        value = re.sub(r'^\d+点[:：]\s*', '', value)
+        value = re.sub(r'^(一是|二是|三是|首先|其次|另外)[，,:：\s]*', '', value)
+        return value.strip(' ，；;。:：')
+
+    @staticmethod
+    def _truncate_analysis_card_summary(text: str, *, max_length: int) -> str:
+        cleaned = str(text or '').strip().rstrip('、，；;:： ')
+        if len(cleaned) <= max_length:
+            return cleaned
+        return cleaned[:max_length].rstrip('、，；;:： ') + '…'
 
     @staticmethod
     def _extract_summary_topic(text: str) -> str:
@@ -3153,7 +3184,7 @@ class CompetitorWorkflowService:
                     'duration_ms': duration_ms,
                     'summary': self._summarize_stage(stage, state),
                     'handoff_type': handoff_row.get('handoff_type', ''),
-                    'handoff_summary': self._summarize_handoff_payload(handoff_row.get('payload', {})),
+                    'handoff_summary': '',
                 }
             )
         return cards
@@ -3535,7 +3566,7 @@ class CompetitorWorkflowService:
     @staticmethod
     def _summarize_handoff_payload(payload: object) -> str:
         if not isinstance(payload, dict) or not payload:
-            return '暂无交接摘要。'
+            return ''
         if 'planned_competitors' in payload:
             competitors = payload.get('planned_competitors', [])
             return f'向下游交接 {len(competitors) if isinstance(competitors, list) else 0} 个竞品候选与 schema。'
@@ -3544,7 +3575,7 @@ class CompetitorWorkflowService:
         if 'findings' in payload:
             findings = payload.get('findings', [])
             return f'向报告与 QA 交接分析结果，findings {len(findings) if isinstance(findings, list) else 0} 条。'
-        return f'交接字段：{", ".join(list(payload.keys())[:4])}'
+        return ''
 
     @staticmethod
     def _handoff_highlights(payload: object) -> list[str]:

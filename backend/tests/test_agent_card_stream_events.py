@@ -34,12 +34,12 @@ from app.core.models import (
     CompetitorAnalysisRecord,
     CompetitorProfile,
     FeatureNode,
+    FeedbackSummary,
     Finding,
     PricingModel,
     RawEvidence,
     RunState,
     TaskResult,
-    FeedbackSummary,
 )
 from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
@@ -47,7 +47,11 @@ from app.core.workflow import CompetitorWorkflowService
 
 def _event_payload(events: list[dict], event_type: str) -> dict:
     event = next(item for item in events if item["event_type"] == event_type)
-    snapshot = event.get("payload", {}).get("snapshot", {})
+    payload = event.get("payload", {})
+    envelope = payload.get("envelope", {}) if isinstance(payload, dict) else {}
+    if isinstance(envelope, dict) and isinstance(envelope.get("payload"), dict):
+        return envelope["payload"]
+    snapshot = payload.get("snapshot", {}) if isinstance(payload, dict) else {}
     return snapshot.get("output_payload", {}) if isinstance(snapshot, dict) else {}
 
 
@@ -76,7 +80,7 @@ def test_plan_emits_card_stream_events(tmp_path) -> None:
     schema_payload = _event_payload(events, "plan.card.schema_stream")
 
     assert competitors_payload["planned_competitors"] == ["alpha", "beta"]
-    assert competitors_payload["display_text"] == "已选竞品：alpha、beta"
+    assert "alpha" in competitors_payload["display_text"]
     assert schema_payload["schema_field_labels"]["feature_tree"] == "功能树"
     assert schema_payload["schema_field_labels"]["user_feedback"] == "用户反馈"
 
@@ -184,7 +188,7 @@ def test_analyze_emits_field_summary_card_events(tmp_path) -> None:
     assert competitor_payload["summary_lines"]
 
 
-def test_analyze_card_summary_is_compact(tmp_path) -> None:
+def test_analyze_card_summary_is_summarized_not_point_prefix(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / "analyze_card_compact.db"))
     state = RunState(
         industry="general",
@@ -197,7 +201,7 @@ def test_analyze_card_summary_is_compact(tmp_path) -> None:
     def _fake_consume_task(_task, _state, *, progress_callback=None):
         result = AnalysisFieldResult(
             field_name="weaknesses",
-            summary="1. 免费版限制严格；2. 国内访问和合规适配不足；3. 更新频繁且兼容性波动明显。",
+            summary="1. 免费版限制严格；2. 国内访问与合规适配不足；3. 更新频繁且兼容性波动明显。",
             evidence_refs=["ev1"],
             confidence=0.88,
         )
@@ -216,9 +220,45 @@ def test_analyze_card_summary_is_compact(tmp_path) -> None:
     field_payload = _event_payload(events, "analyze.card.field_summary")
     competitor_payload = _event_payload(events, "analyze.card.competitor_summary")
 
-    assert field_payload["summary"].startswith("3点：")
-    assert len(field_payload["summary"]) <= 30
+    assert not field_payload["summary"].startswith("3点：")
+    assert "免费版限制严格" in field_payload["summary"]
+    assert "合规适配不足" in field_payload["summary"]
     assert competitor_payload["summary_lines"] == [f'劣势：{field_payload["summary"]}']
+
+
+def test_analyze_card_summary_strips_evidence_preface(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "analyze_card_clean.db"))
+    state = RunState(
+        industry="general",
+        competitors=["alpha"],
+        planned_competitors=["alpha"],
+        user_prompt="test",
+        analysis_schema_plan=[AnalysisSchemaField(field_name="feature_tree")],
+    )
+
+    def _fake_consume_task(_task, _state, *, progress_callback=None):
+        result = AnalysisFieldResult(
+            field_name="feature_tree",
+            summary="基于当前有限公开证据，金山文档依托 WPS 产品体系，支持协作编辑、云端同步和权限管控。",
+            evidence_refs=["ev1"],
+            confidence=0.88,
+        )
+        if progress_callback is not None:
+            progress_callback("alpha", result)
+        record = CompetitorAnalysisRecord(product_name="alpha", fields=[result])
+        return (
+            TaskResult(task_id="t2", run_id=state.run_id, owner_agent="AnalystAgent", status="completed"),
+            type("AnalyzeOut", (), {"competitors": [record], "profiles": [], "findings": []})(),
+        )
+
+    service.analyst_agent.consume_task = _fake_consume_task  # type: ignore[method-assign]
+    service._analyze(state)
+    events = service.list_run_events(state.run_id)
+
+    field_payload = _event_payload(events, "analyze.card.field_summary")
+
+    assert "基于当前有限公开证据" not in field_payload["summary"]
+    assert "WPS" in field_payload["summary"]
 
 
 def test_qa_emits_review_summary_card_events(tmp_path) -> None:
