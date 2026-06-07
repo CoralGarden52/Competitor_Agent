@@ -802,11 +802,13 @@ class RunState(BaseModel):
         _append(self.target_product, 'target', is_target=True)
 
         candidate_groups = self.planner_meta.get('candidate_groups', {}) if isinstance(self.planner_meta, dict) else {}
+        candidate_policy = str(self.planner_meta.get('candidate_policy', '')).strip() if isinstance(self.planner_meta, dict) else ''
         if isinstance(candidate_groups, dict):
             target_item = candidate_groups.get('target')
             if isinstance(target_item, dict):
                 _append(str(target_item.get('name', '')).strip(), 'target', is_target=True)
-            for role in ('direct', 'substitute'):
+            roles_to_include = ('direct',) if candidate_policy == 'direct_only_analysis' else ('direct', 'substitute')
+            for role in roles_to_include:
                 items = candidate_groups.get(role, [])
                 if not isinstance(items, list):
                     continue

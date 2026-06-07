@@ -180,6 +180,36 @@ def test_discover_competitors_grouped_prefers_comparison_corpus_over_search_resu
     result = planner.discover_competitors_grouped(prompt='腾讯会议竞品分析', industry='video meeting saas', competitor_hints=[])
 
     assert [item['name'] for item in result['competitors']['direct']] == ['Zoom']
+    assert [item['name'] for item in result['comparison_decision']['direct']] == ['Zoom']
+
+
+def test_discover_competitors_grouped_does_not_fallback_when_corpus_synthesis_is_empty() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._generate_search_queries = lambda *_args, **_kwargs: ['meeting software recent comparison']  # type: ignore[method-assign]
+    planner._search_and_summarize = lambda *_args, **_kwargs: [  # type: ignore[method-assign]
+        {'title': '2026 meeting software comparison', 'url': 'https://example.com/a', 'summary': 'Zoom vs Teams'}
+    ]
+    planner._build_candidate_pool = lambda **_kwargs: ['Zoom', 'Teams']  # type: ignore[method-assign]
+    planner._collect_comparison_corpus = lambda **_kwargs: [  # type: ignore[method-assign]
+        {'corpus_id': 'corpus_1', 'llm_extract': {'mentioned_competitors': ['Zoom'], 'comparison_dimensions': ['feature_tree']}}
+    ]
+    planner._synthesize_comparison_corpus = lambda **_kwargs: {  # type: ignore[method-assign]
+        'direct': [],
+        'substitute': [],
+        'extra_schema_fields': [],
+        'decision_evidence_refs': ['corpus_1'],
+    }
+
+    def _unexpected_discover(*_args, **_kwargs):
+        raise AssertionError('search-result fallback should not run when comparison corpus already exists')
+
+    planner._discover_from_search_results = _unexpected_discover  # type: ignore[method-assign]
+
+    result = planner.discover_competitors_grouped(prompt='腾讯会议竞品分析', industry='video meeting saas', competitor_hints=[])
+
+    assert result['competitors'] == {'direct': [], 'substitute': []}
+    assert result['comparison_decision']['decision_evidence_refs'] == ['corpus_1']
 
 
 def test_fallback_synthesize_comparison_corpus_does_not_emit_placeholder_dimensions() -> None:

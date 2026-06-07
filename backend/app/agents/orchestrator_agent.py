@@ -51,8 +51,8 @@ class OrchestratorAgent:
         industry_hint: str | None = None,
         competitor_hints: list[str] | None = None,
         aspect_hints: list[str] | None = None,
-        max_direct: int = 3,
-        max_substitute: int = 1,
+        max_direct: int = 2,
+        max_substitute: int = 3,
     ) -> dict[str, Any]:
         raw_competitors = competitors or competitor_hints or []
         base = self._dedupe_competitors(raw_competitors)
@@ -93,6 +93,22 @@ class OrchestratorAgent:
                 max_substitute=max_substitute,
             )
             candidate_groups = discover_result.get('competitors', {'direct': [], 'substitute': []})
+            comparison_decision = discover_result.get('comparison_decision', {})
+            if isinstance(comparison_decision, dict):
+                authoritative_groups = {
+                    'direct': (
+                        list(comparison_decision.get('direct', []))[:max_direct]
+                        if isinstance(comparison_decision.get('direct', []), list)
+                        else []
+                    ),
+                    'substitute': (
+                        list(comparison_decision.get('substitute', []))[:max_substitute]
+                        if isinstance(comparison_decision.get('substitute', []), list)
+                        else []
+                    ),
+                }
+                if authoritative_groups['direct'] or authoritative_groups['substitute']:
+                    candidate_groups = authoritative_groups
             discovered_profile = discover_result.get('product_profile', {})
             if isinstance(discovered_profile, dict):
                 merged_profile = dict(discovered_profile)
@@ -100,8 +116,7 @@ class OrchestratorAgent:
                 product_profile = merged_profile
             planned_names = [
                 str(item.get('name', '')).strip()
-                for fit_type in ('direct', 'substitute')
-                for item in candidate_groups.get(fit_type, [])
+                for item in candidate_groups.get('direct', [])
                 if isinstance(item, dict) and str(item.get('name', '')).strip()
             ]
             schema_seed = self.planner._normalize_dynamic_schema(
@@ -142,7 +157,7 @@ class OrchestratorAgent:
         if self.planner is not None:
             planner_meta['llm_call_status'] = self.planner.last_call_status()
             planner_meta['llm_call_status_by_step'] = self.planner.step_call_status()
-            planner_meta['candidate_policy'] = 'direct_substitute_only'
+            planner_meta['candidate_policy'] = 'direct_only_analysis'
             planner_meta['comparison_search_plan'] = discover_result.get('comparison_search_plan', {})
             planner_meta['comparison_corpus_count'] = len(discover_result.get('comparison_corpus', []))
             planner_meta['comparison_corpus_target_count'] = '6 (>=3 timely within 18 months)'
@@ -163,7 +178,7 @@ class OrchestratorAgent:
             planner_meta['reason'] = 'planner_missing'
 
         return {
-            'planned_competitors': planned or base,
+            'planned_competitors': direct or base,
             'candidate_groups': candidate_groups,
             'analysis_schema_plan': merged_schema,
             'inferred_industry': inferred_industry,

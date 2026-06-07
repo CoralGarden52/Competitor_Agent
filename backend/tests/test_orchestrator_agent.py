@@ -76,7 +76,7 @@ def test_generate_dynamic_plan_does_not_merge_competitor_hints_into_planned_comp
         competitor_hints=['并与 Google 日历、Google Meet：为 Workspace'],
     )
 
-    assert plan['planned_competitors'] == ['Zoom', 'Google Meet']
+    assert plan['planned_competitors'] == ['Zoom']
 
 
 def test_generate_dynamic_plan_skips_plan_schema_when_no_competitors_confirmed() -> None:
@@ -111,3 +111,66 @@ def test_generate_dynamic_plan_skips_plan_schema_when_no_competitors_confirmed()
 
     assert plan['planned_competitors'] == []
     assert [item['field_name'] for item in plan['analysis_schema_plan'][:5]] == ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
+
+
+def test_generate_dynamic_plan_prefers_comparison_corpus_synthesis_result() -> None:
+    planner = PlannerLLMClient(AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m'))
+    orchestrator = OrchestratorAgent(max_rework_iterations=2, planner=planner)
+
+    planner.infer_industry_from_prompt = lambda **_kwargs: 'video_meeting_saas'  # type: ignore[method-assign]
+    planner.infer_product_profile = lambda **_kwargs: {  # type: ignore[method-assign]
+        'target_product': '腾讯会议',
+        'target_product_description': '视频会议 SaaS',
+        'intent_summary': '分析腾讯会议竞品',
+        'product_category': '视频会议 SaaS',
+    }
+    planner.discover_competitors_grouped = lambda **_kwargs: {  # type: ignore[method-assign]
+        'competitors': {
+            'direct': [{'name': '未来'}],
+            'substitute': [{'name': '总之'}],
+        },
+        'comparison_decision': {
+            'direct': [
+                {'name': '钉钉会议'},
+                {'name': 'Microsoft Teams'},
+                {'name': 'Zoom'},
+                {'name': '华为云会议'},
+            ],
+            'substitute': [
+                {'name': '喧喧私有化部署方案'},
+                {'name': '全时云会议'},
+                {'name': 'Webex（思科）'},
+            ],
+        },
+        'comparison_schema_fields': [],
+        'comparison_search_plan': {},
+        'comparison_corpus': [],
+        'comparison_decision_evidence_refs': [],
+        'product_profile': {},
+        'fallback_reason': '',
+    }
+    planner.plan_schema = lambda **_kwargs: planner._core_schema_plan_only()  # type: ignore[method-assign]
+    planner.last_call_status = lambda: {}  # type: ignore[method-assign]
+    planner.step_call_status = lambda: {}  # type: ignore[method-assign]
+
+    plan = orchestrator.generate_dynamic_plan(prompt='分析腾讯会议竞品')
+
+    assert plan['planned_competitors'] == [
+        '钉钉会议',
+        'Microsoft Teams',
+    ]
+    assert [item['name'] for item in plan['candidate_groups']['direct']] == ['钉钉会议', 'Microsoft Teams']
+    assert [item['name'] for item in plan['candidate_groups']['substitute']] == ['喧喧私有化部署方案', '全时云会议', 'Webex（思科）']
+    assert plan['planner_meta']['candidate_policy'] == 'direct_only_analysis'
+
+    state = RunState(
+        industry='video_meeting_saas',
+        competitors=[],
+        planned_competitors=plan['planned_competitors'],
+        planner_meta={
+            'candidate_groups': plan['candidate_groups'],
+            'candidate_policy': plan['planner_meta']['candidate_policy'],
+        },
+        target_product='腾讯会议',
+    )
+    assert state.effective_analysis_subject_names() == ['腾讯会议', '钉钉会议', 'Microsoft Teams']

@@ -515,34 +515,22 @@ class PlannerLLMClient:
             comparison_corpus=comparison_corpus,
             candidate_pool=candidate_pool,
         )
-        if corpus_decision:
-            corpus_decision['direct'] = self._clean_candidates(
-                corpus_decision.get('direct', []),
-                fallback_hints=competitor_hints,
-                default_fit='direct',
-                allowed_names=candidate_pool or competitor_hints or None,
-            )
-            corpus_decision['substitute'] = self._clean_candidates(
-                corpus_decision.get('substitute', []),
-                fallback_hints=[],
-                default_fit='substitute',
-                allowed_names=candidate_pool or competitor_hints or None,
-            )
-        corpus_candidates = [
-            str(item.get('name', '')).strip()
-            for fit_type in ('direct', 'substitute')
-            for item in corpus_decision.get(fit_type, [])
-            if isinstance(item, dict) and str(item.get('name', '')).strip()
-        ]
-        if corpus_candidates:
-            candidate_pool = self._dedupe_competitors_by_key(list(competitor_hints) + corpus_candidates + candidate_pool)
+        authoritative_decision = corpus_decision if isinstance(corpus_decision, dict) else {}
+        direct_from_corpus = list(authoritative_decision.get('direct', [])) if isinstance(authoritative_decision.get('direct', []), list) else []
+        substitute_from_corpus = list(authoritative_decision.get('substitute', [])) if isinstance(authoritative_decision.get('substitute', []), list) else []
 
-        # 步骤3: 基于搜索结果发现竞品
-        competitors = {
-            'direct': list(corpus_decision.get('direct', []))[:max_direct],
-            'substitute': list(corpus_decision.get('substitute', []))[:max_substitute],
-        }
-        if not comparison_corpus and not competitors['direct'] and not competitors['substitute']:
+        # Comparison Corpus / Synthesize 一旦给出结果，就直接作为最终竞品来源，
+        # 不再让普通候选池、搜索结果抽取或兜底逻辑回写覆盖。
+        if direct_from_corpus or substitute_from_corpus:
+            competitors = {
+                'direct': direct_from_corpus[:max_direct],
+                'substitute': substitute_from_corpus[:max_substitute],
+            }
+        else:
+            competitors = {'direct': [], 'substitute': []}
+
+        # 步骤3: 仅在没有语料综合结果时，才回退到搜索结果发现链路
+        if not competitors['direct'] and not competitors['substitute'] and not comparison_corpus:
             competitors = self._discover_from_search_results(
                 prompt,
                 normalized_industry,
@@ -565,6 +553,12 @@ class PlannerLLMClient:
 
         return {
             'competitors': competitors,
+            'comparison_decision': {
+                'direct': direct_from_corpus,
+                'substitute': substitute_from_corpus,
+                'extra_schema_fields': list(authoritative_decision.get('extra_schema_fields', [])) if isinstance(authoritative_decision.get('extra_schema_fields', []), list) else [],
+                'decision_evidence_refs': list(authoritative_decision.get('decision_evidence_refs', [])) if isinstance(authoritative_decision.get('decision_evidence_refs', []), list) else [],
+            },
             'search_results': search_results,
             'candidate_pool': candidate_pool,
             'product_profile': product_profile,
