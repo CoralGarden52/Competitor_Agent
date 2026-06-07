@@ -310,3 +310,34 @@ def test_qa_emits_review_summary_card_events(tmp_path) -> None:
     assert "劣势" in review_payload["summary_text"]
     assert final_payload["passed"] is False
     assert final_payload["collect_items"][0]["field_name"] == "weaknesses"
+def test_workspace_qa_improvement_details_prefer_frozen_snapshot(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "qa_improvement_snapshot.db"))
+    state = RunState(industry="general", competitors=["alpha"], planned_competitors=["alpha"], user_prompt="test")
+    state.planner_meta = {
+        "qa_last_improvement_details": [
+            {
+                "competitor": "alpha",
+                "field_name": "strengths",
+                "field_label": "浼樺娍",
+                "before_summary": "old summary",
+                "after_summary": "new summary",
+                "before_evidence_ref_count": 1,
+                "after_evidence_ref_count": 2,
+            }
+        ],
+        "qa_last_failed_analysis_snapshot": {
+            "alpha": {"strengths": {"summary": "mutated old", "evidence_ref_count": 3, "confidence": 0.4}}
+        },
+        "qa_last_collect_items": [{"competitor": "alpha", "field_name": "strengths"}],
+    }
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[AnalysisFieldResult(field_name="strengths", summary="mutated new", evidence_refs=["ev1", "ev2"])],
+        )
+    ]
+
+    details = service._qa_improvement_details_for_display(state)
+
+    assert details[0]["before_summary"] == "old summary"
+    assert details[0]["after_summary"] == "new summary"

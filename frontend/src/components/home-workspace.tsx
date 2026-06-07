@@ -2386,7 +2386,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                                       </div>
                                       {qaImprovementDetails.length ? (
                                         <div className="collect-web-preview">
-                                          <strong>质检后字段内容</strong>
+                                          <strong>质检前后字段内容</strong>
                                           {qaImprovementDetails.map((item, itemIndex) => (
                                             <div key={`qa-after-${itemIndex}`}>
                                               <p>{`${item.competitor || "分析对象"} · ${item.field_label || item.field_name || "字段"}`}</p>

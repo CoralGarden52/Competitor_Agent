@@ -24,7 +24,7 @@ type StageDetailPanelProps = {
 };
 
 const STAGE_TITLES: Record<StageName, string> = {
-  plan: "计划智能体",
+  plan: "规划智能体",
   confirm_plan: "确认节点",
   collect: "采集智能体",
   normalize: "标准化阶段",
@@ -175,10 +175,20 @@ export function StageDetailPanel({
             </section>
 
             <section className="detail-section">
-              <h3>工作流节点</h3>
+              <div className="detail-section-heading">
+                <h3>工作流节点</h3>
+                <span className="detail-section-count">{workflowNodes.length}</span>
+              </div>
               {workflowNodes.length ? (
-                <div className="chip-row">
-                  {workflowNodes.map((node) => <span key={node} className="info-chip">{node}</span>)}
+                <div className="workflow-node-rail" aria-label="workflow nodes">
+                  {workflowNodes.map((node, index) => (
+                    <div key={`${node}-${index}`} className="workflow-node-segment">
+                      <div className="workflow-node-label" title={node}>
+                        {node}
+                      </div>
+                      {index < workflowNodes.length - 1 ? <div className="workflow-node-line" aria-hidden="true" /> : null}
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <p className="empty-state">暂无工作流节点。</p>
@@ -186,7 +196,10 @@ export function StageDetailPanel({
             </section>
 
             <section className="detail-section">
-              <h3>待办任务</h3>
+              <div className="detail-section-heading">
+                <h3>待办任务</h3>
+                <span className="detail-section-count">{stageTodoTasks.length}</span>
+              </div>
               {stageTodoTasks.length ? (
                 <div className="detail-list">
                   {stageTodoTasks.map((task, index) => (
@@ -202,12 +215,14 @@ export function StageDetailPanel({
             </section>
 
             <section className="detail-section">
-              <h3>阶段交接</h3>
+              <div className="detail-section-heading">
+                <h3>阶段交接（点击即可展开）</h3>
+                <span className="detail-section-count">{handoff ? 1 : 0}</span>
+              </div>
               {handoff ? (
                 <details className="detail-disclosure">
                   <summary>
                     <span>{handoff.handoff_summary || "已生成阶段交接数据。"}</span>
-                    <span className="detail-disclosure-hint">展开详情…</span>
                   </summary>
                   {renderJsonBlock(handoff.output_schema?.payload)}
                 </details>
@@ -217,7 +232,9 @@ export function StageDetailPanel({
             </section>
 
             <section className="detail-section">
-              <h3>LLM 调用</h3>
+              <div className="detail-section-heading">
+                <h3>{`LLM 调用（${llmCalls.length}）`}</h3>
+              </div>
               {llmCalls.length ? (
                 <div className="detail-list">
                   {llmCalls.map((call, index) => {
@@ -225,17 +242,24 @@ export function StageDetailPanel({
                     const expanded = expandedCallKeys.includes(key);
                     return (
                       <article key={key} className="detail-item-card">
-                        <button type="button" className="detail-toggle" onClick={() => onToggleCall(key)}>
+                        <div className="detail-toggle-static">
                           <span className="detail-toggle-main">
                             <strong>{compactTraceName(call.display_name || call.trace_name || `LLM Call ${index + 1}`)}</strong>
                             <small>{call.model || "model"}</small>
                           </span>
-                          <span className="detail-toggle-action">{expanded ? "收起" : "展开"}</span>
-                        </button>
-                        <div className="detail-meta-row">
+                        </div>
+                        <div className="detail-meta-row detail-meta-row-with-action">
                           <span>{`${call.total_tokens || 0} tokens`}</span>
                           <span>{formatDuration(call.latency_ms)}</span>
                           {call.finish_reason ? <span>{call.finish_reason}</span> : null}
+                          <button
+                            type="button"
+                            className="detail-toggle-action detail-toggle-action-inline"
+                            onClick={() => onToggleCall(key)}
+                            aria-expanded={expanded}
+                          >
+                            {expanded ? "收起" : "展开"}
+                          </button>
                         </div>
                         {expanded ? renderJsonBlock(call.parsed_response || call.raw_response || {}) : null}
                       </article>
@@ -248,7 +272,9 @@ export function StageDetailPanel({
             </section>
 
             <section className="detail-section">
-              <h3>阶段事件</h3>
+              <div className="detail-section-heading">
+                <h3>{`阶段事件（${events.length}）`}</h3>
+              </div>
               {events.length ? (
                 <div className="detail-list">
                   {events.map((event, index) => {
@@ -257,17 +283,24 @@ export function StageDetailPanel({
                     const tokenCount = extractTokenCount(event.payload);
                     return (
                       <article key={key} className="detail-item-card">
-                        <button type="button" className="detail-toggle" onClick={() => onToggleEvent(key)}>
+                        <div className="detail-toggle-static">
                           <span className="detail-toggle-main">
                             <strong>{compactEventName(String(event.event_type || "event"))}</strong>
                             <small>{String(event.stage || stage || "")}</small>
                           </span>
-                          <span className="detail-toggle-action">{expanded ? "收起" : "展开"}</span>
-                        </button>
-                        <div className="detail-meta-row">
+                        </div>
+                        <div className="detail-meta-row detail-meta-row-with-action">
                           <span>{formatEventTime(event.created_at)}</span>
                           {tokenCount !== null ? <span>{`tokens ${tokenCount}`}</span> : null}
                           {typeof event.event_id === "number" ? <span>{`#${event.event_id}`}</span> : null}
+                          <button
+                            type="button"
+                            className="detail-toggle-action detail-toggle-action-inline"
+                            onClick={() => onToggleEvent(key)}
+                            aria-expanded={expanded}
+                          >
+                            {expanded ? "收起" : "展开"}
+                          </button>
                         </div>
                         {expanded ? renderJsonBlock(event.payload || {}) : null}
                       </article>

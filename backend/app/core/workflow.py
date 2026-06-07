@@ -819,6 +819,15 @@ class CompetitorWorkflowService:
         finally:
             self._background_runs.pop(state.run_id, None)
 
+    def _has_active_background_run(self, run_id: str) -> bool:
+        future = self._background_runs.get(run_id)
+        if future is None:
+            return False
+        if future.done():
+            self._background_runs.pop(run_id, None)
+            return False
+        return True
+
     def _refine_task_summary_background(self, state: RunState, prompt: str, language: str) -> None:
         try:
             refined = self.summarize_task(text=prompt, language=language, allow_fallback=False).get('summary_text', '').strip()
@@ -933,6 +942,8 @@ class CompetitorWorkflowService:
         state = self.store.get_state(run_id)
         if state is None:
             return None
+        if self._has_active_background_run(run_id):
+            return RunResponse(summary=self._summary_for(state), state=state)
         state.plan_confirmation.status = PlanConfirmationStatus.confirmed
         state.plan_confirmation.confirmed_at = datetime.now(UTC).isoformat()
         state.plan_confirmation.updated_at = state.plan_confirmation.confirmed_at
@@ -953,6 +964,8 @@ class CompetitorWorkflowService:
         state = self.store.get_state(run_id)
         if state is None:
             return None
+        if self._has_active_background_run(run_id):
+            return RunResponse(summary=self._summary_for(state), state=state)
         cleaned = str(message or '').strip()
         if not cleaned:
             return RunResponse(summary=self._summary_for(state), state=state)
@@ -1158,7 +1171,7 @@ class CompetitorWorkflowService:
                     '你是一个竞品分析任务摘要助手。'
                     '请将用户输入的任务压缩成一句简洁明确的中文短标题，突出分析目标和对象。'
                     '输出 JSON：{"summary_text":"..."}。'
-                    'summary_text 必须不超过 12 个汉字或中文字符。'
+                    'summary_text 应简洁自然，准确概括用户请求。'
                     '不要使用标点、引号、换行或解释。'
                 ),
                 user_payload={'text': cleaned, 'language': language},
@@ -1182,7 +1195,7 @@ class CompetitorWorkflowService:
     def _normalize_task_summary(text: str) -> str:
         compact = re.sub(r'[\s"“”‘’\'`]+', '', str(text or '').strip())
         compact = re.sub(r'[。！？!?，,；;：:、]+$', '', compact)
-        return compact[:12]
+        return compact[:40]
 
     def collector_preview(
         self,
@@ -1577,19 +1590,21 @@ class CompetitorWorkflowService:
             competitor_parts.append(f"目标产品：{state.target_product.strip()}")
         if direct:
             competitor_parts.append(f"直接竞品：{'、'.join(direct)}")
+        elif state.target_product.strip():
+            competitor_parts.append("直接竞品：当前未通过横向语料确认到有效结果")
         if substitute:
             competitor_parts.append(f"替代竞品：{'、'.join(substitute)}")
-        if len(competitor_parts) <= 1 and state.planned_competitors:
+        if len(competitor_parts) <= 1 and state.planned_competitors and not direct and not substitute:
             competitor_parts.append('竞品：' + '、'.join(state.planned_competitors))
         schema_text = '、'.join(self._schema_labels(state.analysis_schema_plan))
         return (
             f"收到，我将为您生成一份《{state.target_product or '目标产品'} 竞品分析报告》，包含竞品对比矩阵和 SWOT 分析。\n\n"
             "首先，请确认分析目标与范围：\n"
-            f"- **核心目的**：{goal or '围绕目标产品完成竞品分析确认'}\n"
-            f"- **目标行业/场景**：{industry_text or state.industry or '待确认'}\n"
-            f"- **目标产品**：{target_text or state.target_product or '待补充'}\n"
-            f"- **分析对象**：{'；'.join(competitor_parts) if competitor_parts else '待确认'}\n"
-            f"- **分析字段**：{schema_text or '待确认'}\n\n"
+            f"核心目的：{goal or '围绕目标产品完成竞品分析确认'}\n"
+            f"目标行业/场景：{industry_text or state.industry or '待确认'}\n"
+            f"目标产品：{target_text or state.target_product or '待补充'}\n"
+            f"分析对象：{'；'.join(competitor_parts) if competitor_parts else '待确认'}\n"
+            f"分析字段：{schema_text or '待确认'}\n\n"
             "确认以上信息是否正确？确认后我们将进入信息收集阶段。"
         )
 
@@ -1745,11 +1760,20 @@ class CompetitorWorkflowService:
             state,
             StageName.plan,
             'comparison_corpus_selected',
-            {
-                'target_count': state.planner_meta.get('comparison_corpus_target_count', '10-12'),
-                'selected_count': len(comparison_corpus) if isinstance(comparison_corpus, list) else 0,
-            },
-        )
+                {
+                    'target_count': state.planner_meta.get('comparison_corpus_target_count', '10-12'),
+                    'selected_count': len(comparison_corpus) if isinstance(comparison_corpus, list) else 0,
+                    'timely_count': state.planner_meta.get(
+                        'comparison_corpus_timely_count',
+                        len(
+                            [
+                                item for item in (comparison_corpus if isinstance(comparison_corpus, list) else [])
+                                if str(item.get('date_confidence', '') or '').strip() in {'parsed', 'fallback_18m'}
+                            ]
+                        ),
+                    ),
+                },
+            )
         self._save_and_event(
             state,
             StageName.plan,
@@ -2089,7 +2113,8 @@ class CompetitorWorkflowService:
         }
 
     def _collect(self, state: RunState) -> None:
-        qa_collect_plan = self._consume_qa_collect_plan(state)
+        consumed_qa_collect_plan = self._consume_qa_collect_plan(state)
+        qa_collect_plan = consumed_qa_collect_plan
         action_context = state.runtime_action_context if isinstance(state.runtime_action_context, dict) else {}
         action_competitors = action_context.get('target_competitors', [])
         action_fields = action_context.get('target_fields', [])
@@ -2103,8 +2128,9 @@ class CompetitorWorkflowService:
                     if action_fields
                 },
             }
-        if qa_collect_plan and isinstance(state.planner_meta, dict):
-            reanalyze_targets = qa_collect_plan.get('reanalyze_targets', {})
+        is_qa_recollect = consumed_qa_collect_plan is not None
+        if is_qa_recollect and isinstance(state.planner_meta, dict):
+            reanalyze_targets = consumed_qa_collect_plan.get('reanalyze_targets', {})
             if isinstance(reanalyze_targets, dict) and reanalyze_targets:
                 state.planner_meta['qa_reanalyze_targets'] = reanalyze_targets
             state.planner_meta['qa_collect_round_used'] = True
@@ -2158,9 +2184,9 @@ class CompetitorWorkflowService:
                 )
         for te in result.tool_events:
             self._save_and_event(state, StageName.collect, 'tool_event', te)
-        if qa_collect_plan and isinstance(state.planner_meta, dict):
+        if is_qa_recollect and isinstance(state.planner_meta, dict):
             qa_url_map: dict[str, dict[str, list[str]]] = {}
-            for item in qa_collect_plan.get('items', []) if isinstance(qa_collect_plan.get('items', []), list) else []:
+            for item in consumed_qa_collect_plan.get('items', []) if isinstance(consumed_qa_collect_plan.get('items', []), list) else []:
                 if not isinstance(item, dict):
                     continue
                 competitor = str(item.get('competitor', '') or '').strip()
@@ -2188,14 +2214,14 @@ class CompetitorWorkflowService:
                 'evidence_count': len(state.evidences),
                 'error_count': len(result.errors),
                 'errors': result.errors[:5],
-                'qa_plan_used': bool(qa_collect_plan),
+                'qa_plan_used': is_qa_recollect,
             },
         )
         collect_handoff = self._build_collect_handoff(
             state,
             provider_events=result.provider_events,
             errors=result.errors,
-            qa_collect_plan_used=bool(qa_collect_plan),
+            qa_collect_plan_used=is_qa_recollect,
         )
         self._save_handoff(state, StageName.collect, collect_handoff)
         self._append_handoff_envelope(
@@ -2527,6 +2553,24 @@ class CompetitorWorkflowService:
                 }
             )
         return details
+
+    @staticmethod
+    def _stored_qa_improvement_details(state: RunState) -> list[dict[str, object]] | None:
+        planner_meta = state.planner_meta if isinstance(state.planner_meta, dict) else {}
+        details = planner_meta.get('qa_last_improvement_details', None)
+        if not isinstance(details, list):
+            return None
+        normalized: list[dict[str, object]] = []
+        for item in details:
+            if isinstance(item, dict):
+                normalized.append(dict(item))
+        return normalized
+
+    def _qa_improvement_details_for_display(self, state: RunState) -> list[dict[str, object]]:
+        stored = self._stored_qa_improvement_details(state)
+        if stored is not None:
+            return stored
+        return self._build_qa_improvement_details(state)
 
     def _apply_qa_coverage_gate(
         self,
@@ -2877,6 +2921,8 @@ class CompetitorWorkflowService:
 
         if not normalized_items:
             improvement_details = self._build_qa_improvement_details(state)
+            if isinstance(state.planner_meta, dict):
+                state.planner_meta['qa_last_improvement_details'] = improvement_details
             result = QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
             self._save_and_event(state, StageName.qa, 'qa_checked', {'passed': True, 'issue_count': 0, 'review_errors': review_errors})
             self._save_and_event(
@@ -2928,6 +2974,7 @@ class CompetitorWorkflowService:
             state.planner_meta['qa_last_failed_analysis_snapshot'] = analysis_snapshot
             state.planner_meta['qa_last_review_details'] = review_details
             state.planner_meta['qa_last_collect_items'] = normalized_items
+            state.planner_meta['qa_last_improvement_details'] = []
         self._save_and_event(
             state,
             StageName.qa,
@@ -3380,12 +3427,12 @@ class CompetitorWorkflowService:
             llm_calls=llm_calls,
             stage_io=stage_io,
         )
-        qa_ticket = state.tickets[0] if state.tickets else None
+        qa_ticket = state.tickets[-1] if state.tickets else None
         qa_collect_items = []
         if qa_ticket is not None and isinstance(qa_ticket.domain_extensions, dict):
-            qa_collect_items = qa_ticket.domain_extensions.get('collect_plan', {}).get('items', [])
+            qa_collect_items = qa_ticket.domain_extensions.get('qa_collect_plan', {}).get('items', [])
         qa_review_details = state.planner_meta.get('qa_last_review_details', []) if isinstance(state.planner_meta, dict) else []
-        qa_improvement_details = self._build_qa_improvement_details(state) if isinstance(state.planner_meta, dict) else []
+        qa_improvement_details = self._qa_improvement_details_for_display(state) if isinstance(state.planner_meta, dict) else []
         qa_collect_urls = state.planner_meta.get('qa_last_collect_urls', {}) if isinstance(state.planner_meta, dict) else {}
         enriched_collect_items: list[dict[str, object]] = []
         for item in qa_collect_items if isinstance(qa_collect_items, list) else []:

@@ -108,7 +108,7 @@ class OrchestratorAgent:
                 self.planner._core_schema_plan_only() + list(discover_result.get('comparison_schema_fields', []))
             )
             target_product = str(product_profile.get('target_product', '') or '').strip()
-            if target_product:
+            if target_product and planned_names:
                 schema = self.planner._normalize_dynamic_schema(
                     self.planner.plan_schema(
                         industry=inferred_industry,
@@ -122,7 +122,6 @@ class OrchestratorAgent:
         direct = [str(item.get('name', '')).strip() for item in candidate_groups.get('direct', []) if str(item.get('name', '')).strip()]
         substitute = [str(item.get('name', '')).strip() for item in candidate_groups.get('substitute', []) if str(item.get('name', '')).strip()]
         planned = self._dedupe_competitors(direct + substitute)
-        merged_competitors = self._dedupe_competitors(planned + (competitor_hints or []))
         target_product_name = str(product_profile.get('target_product', '') or '').strip()
         if target_product_name:
             candidate_groups = {
@@ -146,9 +145,15 @@ class OrchestratorAgent:
             planner_meta['candidate_policy'] = 'direct_substitute_only'
             planner_meta['comparison_search_plan'] = discover_result.get('comparison_search_plan', {})
             planner_meta['comparison_corpus_count'] = len(discover_result.get('comparison_corpus', []))
-            planner_meta['comparison_corpus_target_count'] = '10-12'
+            planner_meta['comparison_corpus_target_count'] = '6 (>=3 timely within 18 months)'
             planner_meta['comparison_corpus_saved_count'] = len(discover_result.get('comparison_corpus', []))
             planner_meta['comparison_corpus_summarized_count'] = len(discover_result.get('comparison_corpus', []))
+            planner_meta['comparison_corpus_timely_count'] = len(
+                [
+                    item for item in discover_result.get('comparison_corpus', [])
+                    if str(item.get('date_confidence', '') or '').strip() in {'parsed', 'fallback_18m'}
+                ]
+            )
             planner_meta['dynamic_field_target_count'] = '5-7'
             planner_meta['dynamic_field_actual_count'] = max(0, len([x for x in merged_schema if x.get('field_name') not in CORE_DYNAMIC_FIELDS]))
             planner_meta['plan_pipeline_version'] = 'plan_v2_corpus_reduce'
@@ -158,7 +163,7 @@ class OrchestratorAgent:
             planner_meta['reason'] = 'planner_missing'
 
         return {
-            'planned_competitors': merged_competitors or planned or base,
+            'planned_competitors': planned or base,
             'candidate_groups': candidate_groups,
             'analysis_schema_plan': merged_schema,
             'inferred_industry': inferred_industry,

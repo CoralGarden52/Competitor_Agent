@@ -825,10 +825,31 @@ body {
 }
 
 .detail-section h3 {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 16px;
   color: #25406b;
   overflow-wrap: anywhere;
+}
+
+.detail-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.detail-section-count {
+  flex: 0 0 auto;
+  min-width: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 151, 210, 0.26);
+  background: rgba(236, 245, 255, 0.78);
+  padding: 4px 10px;
+  color: #305c9c;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .detail-copy {
@@ -891,8 +912,9 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .detail-disclosure > summary::-webkit-details-marker {
@@ -911,6 +933,13 @@ body {
   border: 1px solid rgba(122, 155, 216, 0.18);
   background: rgba(255, 255, 255, 0.82);
   padding: 12px;
+}
+
+.detail-toggle-static {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .detail-toggle {
@@ -962,12 +991,59 @@ body {
   margin-top: 10px;
 }
 
+.detail-meta-row-with-action {
+  align-items: center;
+}
+
 .detail-meta-row span {
   border-radius: 999px;
   background: rgba(240, 246, 255, 0.92);
   padding: 4px 9px;
   color: #587298;
   font-size: 12px;
+}
+
+.detail-toggle-action-inline {
+  background: rgba(229, 239, 255, 0.95);
+  cursor: pointer;
+}
+
+.workflow-node-rail {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding: 6px 2px 2px;
+  min-width: 0;
+}
+
+.workflow-node-segment {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.workflow-node-label {
+  max-width: 220px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(118, 150, 210, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  color: #36547f;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workflow-node-line {
+  width: 44px;
+  height: 2px;
+  margin: 0 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(126, 157, 214, 0.3), rgba(80, 121, 191, 0.72));
 }
 
 .json-block,

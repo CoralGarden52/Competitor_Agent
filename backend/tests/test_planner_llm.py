@@ -47,13 +47,13 @@ def test_generate_search_queries_uses_recent_comparison_templates_when_llm_fails
     planner._chat_json = lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError('boom'))  # type: ignore[method-assign]
     queries = planner._generate_search_queries('线上会议软件竞品分析', [], industry='')
     assert queries[:4] == [
-        '线上会议软件 同类产品 近一年 对比',
-        '线上会议软件 替代方案 近一年',
-        '企业团队 线上会议软件 近一年 对比',
-        '远程会议 线上会议软件 近一年 对比',
+        '线上会议软件 近一年 对比',
+        '线上会议软件 近一年 替代方案',
+        '线上会议软件 近一年 排行榜',
     ]
-    assert len(queries) == 4
+    assert len(queries) == 3
     assert planner._last_comparison_search_plan['source'] == 'rule_fallback'  # type: ignore[attr-defined]
+    assert planner._last_comparison_search_plan['strategy'] == 'industry_recent_comparison_corpus'  # type: ignore[attr-defined]
 
 
 def test_generate_search_queries_prefers_llm_comparison_search_plan() -> None:
@@ -72,14 +72,49 @@ def test_generate_search_queries_prefers_llm_comparison_search_plan() -> None:
         '主流在线会议软件盘点 近一年',
     ]
     assert planner._last_comparison_search_plan['source'] == 'llm'  # type: ignore[attr-defined]
+    assert planner._last_comparison_search_plan['strategy'] == 'industry_recent_comparison_corpus'  # type: ignore[attr-defined]
 
 
-def test_build_expansion_queries_uses_hints_and_candidate_pool() -> None:
+def test_generate_search_queries_uses_industry_anchor_not_target_product_name() -> None:
     cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
     planner = PlannerLLMClient(cfg)
-    queries = planner._build_expansion_queries(competitor_hints=['飞书'], candidate_pool=['腾讯会议', '钉钉'])  # type: ignore[attr-defined]
-    assert '飞书 替代品' in queries
-    assert '腾讯会议 竞品' in queries
+
+    captured: dict[str, str] = {}
+
+    def _fake_chat(_system_prompt: str, user_prompt: str, **_kwargs) -> dict[str, object]:
+        captured['user_prompt'] = user_prompt
+        return {
+            'primary_query': '智能客服 SaaS 近一年 对比',
+            'expansion_queries': ['智能客服 SaaS 主流产品 近一年'],
+            'topic_key': 'customer_service_saas',
+            'keywords': ['智能客服 SaaS'],
+        }
+
+    planner._chat_json = _fake_chat  # type: ignore[method-assign]
+    queries = planner._generate_search_queries(
+        '请分析纷享销客AI客服的竞品情况',
+        ['Zendesk'],
+        industry='智能客服 SaaS',
+        product_profile={'product_category': 'AI客服'},
+    )
+
+    assert queries[0] == '智能客服 SaaS 近一年 对比'
+    assert '行业搜索锚点：智能客服 SaaS' in captured['user_prompt']
+    assert '不要把搜索目标放在单个产品的信息收集上' in captured['user_prompt']
+
+
+def test_build_expansion_queries_stays_on_industry_level() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    queries = planner._build_expansion_queries(  # type: ignore[attr-defined]
+        prompt='线上会议软件竞品分析',
+        industry='',
+        competitor_hints=['飞书'],
+        candidate_pool=['腾讯会议', '钉钉'],
+    )
+    assert '线上会议软件 近一年 主流产品' in queries
+    assert '线上会议软件 近一年 市场格局' in queries
+    assert all('飞书' not in query and '腾讯会议' not in query for query in queries)
     assert len(queries) == 4
 
 
@@ -94,17 +129,87 @@ def test_discover_competitors_grouped_filters_names_outside_candidate_pool() -> 
             'summary': 'OpenAI provides ChatGPT and enterprise AI assistant workflows.',
         }
     ]
-    planner._chat_json = lambda *_args, **_kwargs: {  # type: ignore[method-assign]
-        'direct': [
-            {'name': 'ImaginaryAI', 'reason': 'hallucinated name', 'confidence': 0.9},
-            {'name': 'OpenAI', 'reason': 'seen in search results', 'confidence': 0.8},
-        ],
+    planner._build_candidate_pool = lambda **_kwargs: ['OpenAI']  # type: ignore[method-assign]
+    planner._collect_comparison_corpus = lambda **_kwargs: []  # type: ignore[method-assign]
+    planner._synthesize_comparison_corpus = lambda **_kwargs: {  # type: ignore[method-assign]
+        'direct': [],
+        'substitute': [],
+        'extra_schema_fields': [],
+        'decision_evidence_refs': [],
+    }
+    planner._discover_from_search_results = lambda *_args, **_kwargs: {  # type: ignore[method-assign]
+        'direct': planner._clean_candidates(  # type: ignore[attr-defined]
+            [
+                {'name': 'ImaginaryAI', 'reason': 'hallucinated name', 'confidence': 0.9},
+                {'name': 'OpenAI', 'reason': 'seen in search results', 'confidence': 0.8},
+            ],
+            fallback_hints=[],
+            default_fit='direct',
+            allowed_names=['OpenAI'],
+        ),
         'substitute': [],
     }
     result = planner.discover_competitors_grouped(prompt='AI assistant', industry='saas', competitor_hints=[])
     direct_names = [item['name'] for item in result['competitors']['direct']]
     assert 'OpenAI' in result['candidate_pool']
     assert direct_names == ['OpenAI']
+
+
+def test_discover_competitors_grouped_prefers_comparison_corpus_over_search_result_name_extraction() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._generate_search_queries = lambda *_args, **_kwargs: ['meeting software recent comparison']  # type: ignore[method-assign]
+    planner._search_and_summarize = lambda *_args, **_kwargs: [  # type: ignore[method-assign]
+        {'title': '2026 meeting software comparison', 'url': 'https://example.com/a', 'summary': 'Zoom vs Teams'}
+    ]
+    planner._build_candidate_pool = lambda **_kwargs: ['Zoom', 'SnippetNameB']  # type: ignore[method-assign]
+    planner._collect_comparison_corpus = lambda **_kwargs: [  # type: ignore[method-assign]
+        {'corpus_id': 'corpus_1', 'llm_extract': {'mentioned_competitors': ['Zoom'], 'comparison_dimensions': ['feature_tree']}}
+    ]
+    planner._synthesize_comparison_corpus = lambda **_kwargs: {  # type: ignore[method-assign]
+        'direct': [{'name': 'Zoom', 'reason': 'corpus', 'confidence': 0.8, 'corpus_refs': ['corpus_1']}],
+        'substitute': [],
+        'extra_schema_fields': [],
+        'decision_evidence_refs': ['corpus_1'],
+    }
+    planner._discover_from_search_results = lambda *_args, **_kwargs: {  # type: ignore[method-assign]
+        'direct': [{'name': 'WrongSnippetCompetitor', 'reason': 'search', 'confidence': 0.7}],
+        'substitute': [],
+    }
+
+    result = planner.discover_competitors_grouped(prompt='腾讯会议竞品分析', industry='video meeting saas', competitor_hints=[])
+
+    assert [item['name'] for item in result['competitors']['direct']] == ['Zoom']
+
+
+def test_fallback_synthesize_comparison_corpus_does_not_emit_placeholder_dimensions() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+
+    result = planner._fallback_synthesize_comparison_corpus(  # type: ignore[attr-defined]
+        competitor_hints=[],
+        candidate_pool=[],
+        comparison_corpus=[],
+    )
+
+    assert result['extra_schema_fields'] == []
+
+
+def test_normalize_synthesis_result_does_not_backfill_placeholder_dimensions() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+
+    result = planner._normalize_synthesis_result(  # type: ignore[attr-defined]
+        {
+            'direct': [],
+            'substitute': [],
+            'extra_schema_fields': [{'field_name': 'feature_comparison', 'query_templates': ['{product} 功能对比'], 'recommended_sources': ['public_web'], 'priority': 6, 'corpus_refs': ['corpus_1']}],
+            'decision_evidence_refs': ['corpus_1'],
+        },
+        candidate_pool=[],
+    )
+
+    assert [item['field_name'] for item in result['extra_schema_fields']] == ['feature_comparison']
 
 
 def test_build_candidate_pool_extracts_names_from_search_snippets() -> None:

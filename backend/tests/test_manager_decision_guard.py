@@ -9,9 +9,12 @@ from app.core.models import (
     DecisionContextSnapshot,
     Finding,
     ManagerDecision,
+    PlanConfirmationState,
+    PlanConfirmationStatus,
     QAOutput,
     Report,
     RunState,
+    StageName,
 )
 from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
@@ -875,3 +878,43 @@ def test_finalize_action_exposes_qa_risk_artifacts(tmp_path) -> None:
     assert saved is not None
     assert saved.planner_meta["qa_exhausted"] is True
     assert saved.planner_meta["qa_finalize_with_risk"] is True
+
+
+def test_confirm_plan_confirmation_is_idempotent_while_background_run_is_active(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / "guard.db")
+    service = CompetitorWorkflowService(store)
+    state = RunState(
+        industry="general",
+        competitors=["alpha"],
+        user_prompt="test",
+        current_stage=StageName.confirm_plan,
+        next_stage=StageName.confirm_plan,
+        plan_confirmation=PlanConfirmationState(
+            status=PlanConfirmationStatus.awaiting_user_confirmation,
+            revision_number=1,
+        ),
+    )
+    store.save_state(state)
+
+    class _FakeFuture:
+        def done(self) -> bool:
+            return False
+
+    submissions: list[str] = []
+
+    class _FakeExecutor:
+        def submit(self, fn, arg):  # noqa: ANN001
+            submissions.append(arg.run_id)
+            return _FakeFuture()
+
+    service._run_executor = _FakeExecutor()  # type: ignore[assignment]
+
+    first = service.confirm_plan_confirmation(state.run_id)
+    second = service.confirm_plan_confirmation(state.run_id)
+
+    assert first is not None
+    assert second is not None
+    assert submissions == [state.run_id]
+    saved = store.get_state(state.run_id)
+    assert saved is not None
+    assert saved.plan_confirmation.status == PlanConfirmationStatus.confirmed

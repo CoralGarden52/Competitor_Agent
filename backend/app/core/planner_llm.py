@@ -79,8 +79,9 @@ def build_default_schema_plan(*, current_year: int | None = None) -> list[dict[s
 DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = build_default_schema_plan()
 
 CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
-MIN_COMPARISON_CORPUS_DOCS = 10
-MAX_COMPARISON_CORPUS_DOCS = 12
+TARGET_COMPARISON_CORPUS_DOCS = 6
+MIN_TIMELY_COMPARISON_CORPUS_DOCS = 3
+MAX_COMPARISON_CORPUS_CANDIDATE_DOCS = 12
 MIN_DYNAMIC_FIELD_COUNT = 5
 MAX_DYNAMIC_FIELD_COUNT = 7
 PLAN_PIPELINE_VERSION = 'plan_v2_corpus_reduce'
@@ -486,6 +487,8 @@ class PlannerLLMClient:
             )
 
         expansion_queries = self._build_expansion_queries(
+            prompt=prompt,
+            industry=normalized_industry,
             competitor_hints=competitor_hints,
             candidate_pool=candidate_pool,
             product_profile=product_profile,
@@ -539,7 +542,7 @@ class PlannerLLMClient:
             'direct': list(corpus_decision.get('direct', []))[:max_direct],
             'substitute': list(corpus_decision.get('substitute', []))[:max_substitute],
         }
-        if not competitors['direct'] and not competitors['substitute']:
+        if not comparison_corpus and not competitors['direct'] and not competitors['substitute']:
             competitors = self._discover_from_search_results(
                 prompt,
                 normalized_industry,
@@ -549,7 +552,7 @@ class PlannerLLMClient:
                 product_profile=product_profile,
                 max_direct=max_direct, max_substitute=max_substitute
             )
-        if not competitors.get('direct') and not competitors.get('substitute') and candidate_pool:
+        if not comparison_corpus and not competitors.get('direct') and not competitors.get('substitute') and candidate_pool:
             fallback_direct = [
                 self._make_candidate(name=name, fit_type='direct', reason='domain_fallback', confidence=0.66)
                 for name in candidate_pool[:max_direct]
@@ -580,15 +583,21 @@ class PlannerLLMClient:
         industry: str = '',
         product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
-        """让 LLM 优先生成横向竞品对比语料的搜索计划。"""
-        sys_prompt = """你是一位专业的竞品分析专家，擅长为竞品发现生成有效的搜索关键词。
+        """让 LLM 优先生成以行业近一年横向对比语料为核心的搜索计划。"""
+        industry_anchor = self._comparison_query_anchor(
+            prompt=prompt,
+            industry=industry,
+            product_profile=product_profile,
+        )
+        sys_prompt = """你是一位专业的竞品分析专家，擅长为 Plan 阶段生成行业横向对比语料的搜索关键词。
 
 任务要求：
 1. 根据用户的研究需求和产品画像，生成1个主搜索词和0-3个扩展搜索词
 2. 搜索词应该优先找到最近一年发布的横向竞品对比、盘点、排行榜或替代方案文章
-3. 搜索词应该精准定位目标竞品，避免歧义
-4. 搜索词应该围绕核心功能、目标用户、使用场景和产品定位来写
-5. 同时提取稳定的主题标签 topic_key 和可用于复用历史语料的 keywords
+3. 搜索词必须以行业/赛道词为核心，不要把目标产品名称当作主锚点
+4. 这一步是为了收集能识别行业竞品格局和分析字段的语料，不是为了深挖某个目标产品
+5. 搜索词应该围绕核心功能、目标用户、使用场景和产品定位来写
+6. 同时提取稳定的主题标签 topic_key 和可用于复用历史语料的 keywords
 
 输出格式：
 {"primary_query":"主搜索词","expansion_queries":["扩展词"],"topic_key":"snake_case主题","keywords":["关键词"]}
@@ -596,14 +605,17 @@ class PlannerLLMClient:
 注意事项：
 - 搜索词应该简洁明了，优先使用短词组
 - 搜索词中明确包含“近一年”以及“对比、盘点、排行榜、主流、替代方案”之一
-- 如果用户提到了具体产品或品牌，在搜索词中包含该产品名
+- 优先从用户输入中提炼行业词/赛道词作为搜索锚点
+- 除非缺少行业词，否则不要在搜索词中放入具体产品名
 - 优先体现目标用户和典型场景"""
         user_prompt = (
             f'用户研究需求：{prompt}\n'
             f'行业上下文：{industry}\n'
+            f'行业搜索锚点：{industry_anchor}\n'
             f'已知的竞品线索：{competitor_hints}\n'
             f'产品画像：{self._profile_context_text(product_profile)}\n'
-            '请生成横向竞品对比语料的搜索计划。\n'
+            '请生成用于 Plan 阶段预研的横向竞品对比语料搜索计划。\n'
+            '要求：优先搜集行业近一年横向对比网页，用来确定竞品名单和分析字段 schema；不要把搜索目标放在单个产品的信息收集上。\n'
             '输出格式：{"primary_query":"","expansion_queries":[],"topic_key":"","keywords":[]}'
         )
         try:
@@ -622,6 +634,7 @@ class PlannerLLMClient:
                     'topic_key': str(result.get('topic_key', '') or '').strip(),
                     'keywords': [str(x).strip() for x in result.get('keywords', []) if str(x).strip()] if isinstance(result.get('keywords', []), list) else [],
                     'source': 'llm',
+                    'strategy': 'industry_recent_comparison_corpus',
                 }
                 return queries
         except Exception as e:
@@ -636,9 +649,10 @@ class PlannerLLMClient:
         self._last_comparison_search_plan = {
             'primary_query': fallback[0] if fallback else '',
             'expansion_queries': fallback[1:],
-            'topic_key': self._normalize_candidate_key(self._extract_generic_topic(prompt, industry=industry) or industry),
-            'keywords': [self._short_query_anchor(self._extract_generic_topic(prompt, industry=industry) or industry)],
+            'topic_key': self._normalize_candidate_key(industry_anchor or self._extract_generic_topic(prompt, industry=industry) or industry),
+            'keywords': [self._short_query_anchor(industry_anchor or self._extract_generic_topic(prompt, industry=industry) or industry)],
             'source': 'rule_fallback',
+            'strategy': 'industry_recent_comparison_corpus',
         }
         return fallback
 
@@ -673,11 +687,9 @@ class PlannerLLMClient:
         competitor_hints: list[str],
         product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
-        topic = self._extract_generic_topic(prompt, industry=industry)
-        if not topic and not industry and not competitor_hints:
+        topic = self._comparison_query_anchor(prompt=prompt, industry=industry, product_profile=product_profile)
+        if not topic and not industry:
             return []
-
-        seed = competitor_hints[0].strip() if competitor_hints else ''
         queries: list[str] = []
         seen: set[str] = set()
 
@@ -692,27 +704,32 @@ class PlannerLLMClient:
             queries.append(cleaned)
 
         primary_anchor = self._short_query_anchor(topic or industry)
-        profile = product_profile or self._fallback_product_profile(
-            prompt=prompt,
-            industry=industry,
-            competitor_hints=competitor_hints,
-        )
-        target_users = [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else []
-        primary_use_cases = [str(x).strip() for x in profile.get('primary_use_cases', []) if str(x).strip()] if isinstance(profile.get('primary_use_cases', []), list) else []
-
         if primary_anchor:
-            _add(f'{primary_anchor} 同类产品')
-            _add(f'{primary_anchor} 替代方案')
-            if target_users:
-                _add(f'{target_users[0]} {primary_anchor}')
-            if primary_use_cases:
-                _add(f'{primary_use_cases[0]} {primary_anchor}')
-            _add(f'{primary_anchor} 竞品')
-        if seed:
-            _add(f'{seed} 同类产品')
-            _add(f'{seed} 替代品')
+            _add(f'{primary_anchor} 近一年 对比')
+            _add(f'{primary_anchor} 近一年 替代方案')
+            _add(f'{primary_anchor} 近一年 排行榜')
+            _add(f'{primary_anchor} 近一年 盘点')
 
         return queries[:4]
+
+    def _comparison_query_anchor(
+        self,
+        *,
+        prompt: str,
+        industry: str,
+        product_profile: dict[str, Any] | None = None,
+    ) -> str:
+        normalized_industry = self._repair_mojibake(str(industry or '').strip())
+        if normalized_industry:
+            return normalized_industry
+        topic = self._extract_generic_topic(prompt, industry='')
+        if topic:
+            return topic
+        profile = product_profile or {}
+        category = self._repair_mojibake(str(profile.get('product_category', '')).strip())
+        if category:
+            return category
+        return ''
 
     def _short_query_anchor(self, value: str) -> str:
         text = self._repair_mojibake(str(value).strip())
@@ -1010,15 +1027,17 @@ class PlannerLLMClient:
     def _build_expansion_queries(
         self,
         *,
+        prompt: str = '',
+        industry: str = '',
         competitor_hints: list[str],
         candidate_pool: list[str],
         product_profile: dict[str, Any] | None = None,
     ) -> list[str]:
         queries: list[str] = []
         seen: set[str] = set()
-        profile = product_profile or {}
-        category = str(profile.get('product_category', '')).strip()
-        target_users = [str(x).strip() for x in profile.get('target_users', []) if str(x).strip()] if isinstance(profile.get('target_users', []), list) else []
+        anchor = self._short_query_anchor(
+            self._comparison_query_anchor(prompt=prompt, industry=industry, product_profile=product_profile)
+        )
 
         def _add(query: str) -> None:
             cleaned = re.sub(r'\s+', ' ', query.strip())
@@ -1030,15 +1049,11 @@ class PlannerLLMClient:
             seen.add(key)
             queries.append(cleaned)
 
-        seed_candidates = [name for name in competitor_hints if name.strip()]
-        seed_candidates.extend(candidate_pool[:2])
-        for name in seed_candidates[:2]:
-            _add(f'{name} 替代品')
-            _add(f'{name} 竞品')
-            if category:
-                _add(f'{name} {category}')
-        if category and target_users:
-            _add(f'{target_users[0]} {category} 替代')
+        if anchor:
+            _add(f'{anchor} 近一年 主流产品')
+            _add(f'{anchor} 近一年 选型')
+            _add(f'{anchor} 近一年 评测')
+            _add(f'{anchor} 近一年 市场格局')
         return queries[:4]
 
     def _dedupe_search_results(self, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1260,14 +1275,15 @@ class PlannerLLMClient:
         plan = self._last_comparison_search_plan
         topic_key = str(plan.get('topic_key', '') or '').strip()
         keywords = [str(x).strip() for x in plan.get('keywords', []) if str(x).strip()] if isinstance(plan.get('keywords', []), list) else []
-        max_docs = max(MIN_COMPARISON_CORPUS_DOCS, min(self.config.planner_comparison_corpus_max_docs, MAX_COMPARISON_CORPUS_DOCS))
-        selected_rows = self._dedupe_search_results(search_results)[:max_docs]
+        target_docs = min(self.config.planner_comparison_corpus_max_docs, TARGET_COMPARISON_CORPUS_DOCS)
+        candidate_limit = max(target_docs, min(self.config.planner_comparison_corpus_max_docs, MAX_COMPARISON_CORPUS_CANDIDATE_DOCS))
+        selected_rows = self._dedupe_search_results(search_results)[:candidate_limit]
         router = self._web_tool_router()
         reused_documents = self.store.search_comparison_corpus(
             topic_key=topic_key,
             industry=industry,
             keywords=keywords,
-            limit=max_docs,
+            limit=candidate_limit,
         ) if self.store is not None else []
         reused_by_url = {
             str(item.get('source_url', '')).strip(): item
@@ -1346,7 +1362,52 @@ class PlannerLLMClient:
             key = str(document.get('content_hash', '') or document.get('source_url', ''))
             if key:
                 deduped[key] = document
-        return list(deduped.values())[:max_docs]
+        return self._select_comparison_corpus_documents(
+            list(deduped.values()),
+            target_docs=target_docs,
+            min_timely_docs=MIN_TIMELY_COMPARISON_CORPUS_DOCS,
+        )
+
+    @staticmethod
+    def _is_timely_comparison_document(document: dict[str, Any]) -> bool:
+        return str(document.get('date_confidence', '') or '').strip() in {'parsed', 'fallback_18m'}
+
+    @classmethod
+    def _select_comparison_corpus_documents(
+        cls,
+        documents: list[dict[str, Any]],
+        *,
+        target_docs: int,
+        min_timely_docs: int,
+    ) -> list[dict[str, Any]]:
+        timely = [doc for doc in documents if cls._is_timely_comparison_document(doc)]
+        unknown = [doc for doc in documents if str(doc.get('date_confidence', '') or '').strip() == 'unknown']
+        stale = [doc for doc in documents if str(doc.get('date_confidence', '') or '').strip() == 'out_of_range']
+
+        selected: list[dict[str, Any]] = []
+        selected.extend(timely[:target_docs])
+
+        if len(selected) < target_docs:
+            selected.extend(unknown[: target_docs - len(selected)])
+
+        if len(selected) < target_docs and len(timely) < min_timely_docs:
+            missing_timely = min(min_timely_docs, len(timely)) - len([doc for doc in selected if cls._is_timely_comparison_document(doc)])
+            if missing_timely > 0:
+                remaining_timely = [doc for doc in timely if doc not in selected]
+                selected.extend(remaining_timely[:missing_timely])
+
+        if len(selected) < target_docs:
+            selected.extend(stale[: target_docs - len(selected)])
+
+        deduped: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for doc in selected:
+            key = str(doc.get('corpus_id', '') or doc.get('content_hash', '') or doc.get('source_url', '')).strip()
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            deduped.append(doc)
+        return deduped[:target_docs]
 
     @staticmethod
     def _comparison_extract_ready(payload: Any) -> bool:
@@ -1495,8 +1556,8 @@ class PlannerLLMClient:
             )
         sys_prompt = (
             '你是竞品分析 Plan 智能体。你必须根据已抓取的横向对比语料决定竞品和增量分析字段。'
-            '只选择语料中有依据的产品和字段，不要硬凑。'
-            f'必须输出 {MIN_DYNAMIC_FIELD_COUNT}-{MAX_DYNAMIC_FIELD_COUNT} 个动态字段，并且每个动态字段都要带 corpus_refs。只返回严格 JSON。'
+            '只选择语料中有依据的产品和字段，不要硬凑，不要生成占位字段。'
+            f'可以输出 0-{MAX_DYNAMIC_FIELD_COUNT} 个真实动态字段，并且每个动态字段都要带 corpus_refs。只返回严格 JSON。'
         )
         prompts = [
             self._build_synthesis_prompt(
@@ -1571,8 +1632,8 @@ class PlannerLLMClient:
         return (
             f'用户需求：{prompt}\n行业：{industry}\n用户竞品线索：{competitor_hints}\n候选竞品池：{candidate_pool}\n'
             f'逐篇语料提炼：{json.dumps(extracts, ensure_ascii=False)}\n'
-            f'请综合确认直接竞品、替代竞品和 {MIN_DYNAMIC_FIELD_COUNT}-{MAX_DYNAMIC_FIELD_COUNT} 个高价值动态字段。'
-            '每个结论保留 corpus_id 引用，动态字段必须来源于横向对比语料。'
+            f'请综合确认直接竞品、替代竞品和 0-{MAX_DYNAMIC_FIELD_COUNT} 个高价值动态字段。'
+            '每个结论保留 corpus_id 引用，动态字段必须来源于横向对比语料；如果证据不足，可以少输出，不要虚构占位字段。'
             '返回 JSON：{"direct":[{"name":"","reason":"","confidence":0.0,"corpus_refs":[]}],'
             '"substitute":[{"name":"","reason":"","confidence":0.0,"corpus_refs":[]}],'
             '"extra_schema_fields":[{"field_name":"","query_templates":["{product} ..."],'
@@ -1600,23 +1661,6 @@ class PlannerLLMClient:
             target_count=MAX_DYNAMIC_FIELD_COUNT,
         )
         evidence_refs = [str(item).strip() for item in data.get('decision_evidence_refs', []) if str(item).strip()]
-        if len(extra) < MIN_DYNAMIC_FIELD_COUNT:
-            existing = {item.get('field_name', '') for item in extra}
-            while len(extra) < MIN_DYNAMIC_FIELD_COUNT:
-                idx = len(extra) + 1
-                field_name = f'dynamic_comparison_dimension_{idx}'
-                if field_name in existing:
-                    continue
-                extra.append(
-                    {
-                        'field_name': field_name,
-                        'query_templates': [f'{{product}} {field_name.replace("_", " ")} 对比'],
-                        'recommended_sources': ['public_web'],
-                        'priority': len(CORE_DYNAMIC_FIELDS) + idx,
-                        'corpus_refs': evidence_refs[:4],
-                    }
-                )
-                existing.add(field_name)
         return {
             'direct': direct,
             'substitute': substitute,
@@ -1730,18 +1774,6 @@ class PlannerLLMClient:
                     'corpus_refs': sorted(refs_by_dimension.get(field_name, set())),
                 }
             )
-        while len(output) < MIN_DYNAMIC_FIELD_COUNT:
-            idx = len(output) + 1
-            field_name = f'dynamic_comparison_dimension_{idx}'
-            output.append(
-                {
-                    'field_name': field_name,
-                    'query_templates': [f'{{product}} {field_name.replace("_", " ")} 对比'],
-                    'recommended_sources': ['public_web'],
-                    'priority': len(CORE_DYNAMIC_FIELDS) + idx,
-                    'corpus_refs': [],
-                }
-            )
         return output
 
     @staticmethod
@@ -1754,8 +1786,10 @@ class PlannerLLMClient:
             parsed = datetime(int(year), int(month), int(day or '1'), tzinfo=UTC)
         except ValueError:
             return '', 'unknown'
-        if parsed < datetime.now(UTC) - timedelta(days=365):
+        if parsed < datetime.now(UTC) - timedelta(days=30 * 18):
             return parsed.date().isoformat(), 'out_of_range'
+        if parsed < datetime.now(UTC) - timedelta(days=365):
+            return parsed.date().isoformat(), 'fallback_18m'
         return parsed.date().isoformat(), 'parsed'
 
     def _build_candidate_pool(
@@ -1824,8 +1858,31 @@ class PlannerLLMClient:
             ranked_rows,
             key=lambda item: (-item[1], -doc_freq_map.get(item[0], 0), len(display_map.get(item[0], '')), display_map.get(item[0], '').casefold()),
         )
-        candidates = [display_map[key] for key, _score in ranked]
+        candidates = self._drop_substring_shadow_candidates([display_map[key] for key, _score in ranked])
         return candidates[: max(self.config.planner_schema_max_candidates, 6)]
+
+    @staticmethod
+    def _drop_substring_shadow_candidates(candidates: list[str]) -> list[str]:
+        output: list[str] = []
+        for candidate in candidates:
+            normalized = str(candidate or '').strip()
+            if not normalized:
+                continue
+            lowered = normalized.casefold()
+            shadowed = False
+            for existing in candidates:
+                existing_text = str(existing or '').strip()
+                if not existing_text or existing_text == normalized:
+                    continue
+                existing_lowered = existing_text.casefold()
+                if lowered == existing_lowered:
+                    continue
+                if ' ' not in lowered and len(lowered) <= 8 and existing_lowered.endswith(lowered) and ' ' in existing_lowered:
+                    shadowed = True
+                    break
+            if not shadowed:
+                output.append(normalized)
+        return output
 
     def _extract_candidates_with_llm(
         self,

@@ -11,8 +11,11 @@ from app.core.models import (
     QACollectPlanItem,
     QAOutput,
     ReworkIssue,
+    ReworkTicket,
     RunState,
+    Severity,
     StageName,
+    TicketStatus,
 )
 from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
@@ -113,6 +116,32 @@ def test_collect_uses_targeted_qa_plan(tmp_path) -> None:
     assert "qa_collect_plan" not in state.planner_meta
 
 
+def test_collect_action_scope_does_not_consume_qa_recollect_budget(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / "test.db")
+    service = CompetitorWorkflowService(store)
+    state = RunState(industry="saas", competitors=["alpha", "beta"])
+    state.runtime_action_context = {
+        "target_competitors": ["alpha"],
+        "target_fields": ["pricing_model"],
+        "action_name": "collect_initial",
+    }
+
+    captured: dict = {}
+
+    def _fake_run(_state, *, target_competitors=None, field_query_overrides=None):
+        captured["target_competitors"] = target_competitors
+        captured["field_query_overrides"] = field_query_overrides
+        return CollectOutput(raw_evidences=[], provider_events=[], errors=[])
+
+    service.collector_agent.run = _fake_run  # type: ignore[method-assign]
+    service._collect(state)
+
+    assert captured["target_competitors"] == ["alpha"]
+    assert captured["field_query_overrides"] == {}
+    assert state.planner_meta["qa_collect_round_used"] is False
+    assert "qa_reanalyze_targets" not in state.planner_meta
+
+
 def test_consume_qa_collect_plan_returns_reanalyze_targets(tmp_path) -> None:
     store = SQLiteStore(tmp_path / "test.db")
     service = CompetitorWorkflowService(store)
@@ -142,6 +171,65 @@ def test_consume_qa_collect_plan_returns_reanalyze_targets(tmp_path) -> None:
     assert consumed["target_competitors"] == ["alpha"]
     assert consumed["field_query_overrides"]["alpha::pricing_model"] == ["alpha pricing", "alpha pricing plans official"]
     assert consumed["reanalyze_targets"] == {"alpha": ["pricing_model", "feature_tree"]}
+
+
+def test_workspace_payload_reads_latest_qa_collect_plan_from_ticket_extensions(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / "test.db")
+    service = CompetitorWorkflowService(store)
+    state = RunState(industry="saas", competitors=["alpha", "beta"], user_prompt="qa collect urls")
+    state.tickets.extend(
+        [
+            ReworkTicket(
+                target_agent="Collect",
+                issues=[ReworkIssue(code="old", message="old issue", stage=StageName.collect)],
+                status=TicketStatus.in_progress,
+                severity=Severity.medium,
+                domain_extensions={
+                    "qa_collect_plan": {
+                        "enabled": True,
+                        "items": [
+                            {
+                                "competitor": "alpha",
+                                "field_name": "pricing_model",
+                                "reason": "old",
+                                "query_list": ["old-a", "old-b"],
+                                "priority": 1,
+                            }
+                        ],
+                    }
+                },
+            ),
+            ReworkTicket(
+                target_agent="Collect",
+                issues=[ReworkIssue(code="latest", message="latest issue", stage=StageName.collect)],
+                status=TicketStatus.in_progress,
+                severity=Severity.high,
+                domain_extensions={
+                    "qa_collect_plan": {
+                        "enabled": True,
+                        "items": [
+                            {
+                                "competitor": "beta",
+                                "field_name": "feature_tree",
+                                "reason": "latest",
+                                "query_list": ["beta-a", "beta-b"],
+                                "priority": 2,
+                            }
+                        ],
+                    }
+                },
+            ),
+        ]
+    )
+    state.planner_meta["qa_last_collect_urls"] = {"beta": {"feature_tree": ["https://example.com/beta-feature"]}}
+    store.save_state(state)
+
+    payload = service.workspace_payload(state.run_id)
+
+    assert payload["qa"]["issue_count"] == 1
+    assert len(payload["qa"]["collect_items"]) == 1
+    assert payload["qa"]["collect_items"][0]["competitor"] == "beta"
+    assert payload["qa"]["collect_items"][0]["collected_urls"] == ["https://example.com/beta-feature"]
 
 
 def test_analyze_incremental_only_recomputes_target_fields(tmp_path) -> None:
@@ -178,7 +266,7 @@ def test_analyze_incremental_only_recomputes_target_fields(tmp_path) -> None:
 
     captured: dict = {}
 
-    def _fake_run_llm(run_state, *, reanalyze_targets=None, previous_records=None):
+    def _fake_run_llm(run_state, *, reanalyze_targets=None, previous_records=None, progress_callback=None):
         captured["reanalyze_targets"] = reanalyze_targets
         captured["previous_records"] = previous_records
         return service.analyst_agent.run_fallback(

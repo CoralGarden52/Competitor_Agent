@@ -1,7 +1,9 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from app.agents.orchestrator_agent import OrchestratorAgent
+from app.core.config import AppConfig
 from app.core.models import QAOutput, RunState
+from app.core.planner_llm import PlannerLLMClient
 
 
 def test_orchestrator_stage_execution_order() -> None:
@@ -40,3 +42,72 @@ def test_orchestrator_stage_execution_order() -> None:
 
     assert result.passed is True
     assert calls == ['plan', 'collect', 'normalize', 'analyze', 'qa', 'draft']
+
+
+def test_generate_dynamic_plan_does_not_merge_competitor_hints_into_planned_competitors() -> None:
+    planner = PlannerLLMClient(AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m'))
+    orchestrator = OrchestratorAgent(max_rework_iterations=2, planner=planner)
+
+    planner.infer_industry_from_prompt = lambda **_kwargs: 'video_meeting_saas'  # type: ignore[method-assign]
+    planner.infer_product_profile = lambda **_kwargs: {  # type: ignore[method-assign]
+        'target_product': '腾讯会议',
+        'target_product_description': '云视频会议 SaaS',
+        'intent_summary': '分析腾讯会议竞品',
+        'product_category': '云视频会议 SaaS',
+    }
+    planner.discover_competitors_grouped = lambda **_kwargs: {  # type: ignore[method-assign]
+        'competitors': {
+            'direct': [{'name': 'Zoom'}],
+            'substitute': [{'name': 'Google Meet'}],
+        },
+        'comparison_schema_fields': [],
+        'comparison_search_plan': {},
+        'comparison_corpus': [],
+        'comparison_decision_evidence_refs': [],
+        'product_profile': {},
+        'fallback_reason': '',
+    }
+    planner.plan_schema = lambda **_kwargs: planner._core_schema_plan_only()  # type: ignore[method-assign]
+    planner.last_call_status = lambda: {}  # type: ignore[method-assign]
+    planner.step_call_status = lambda: {}  # type: ignore[method-assign]
+
+    plan = orchestrator.generate_dynamic_plan(
+        prompt='分析腾讯会议竞品',
+        competitor_hints=['并与 Google 日历、Google Meet：为 Workspace'],
+    )
+
+    assert plan['planned_competitors'] == ['Zoom', 'Google Meet']
+
+
+def test_generate_dynamic_plan_skips_plan_schema_when_no_competitors_confirmed() -> None:
+    planner = PlannerLLMClient(AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m'))
+    orchestrator = OrchestratorAgent(max_rework_iterations=2, planner=planner)
+
+    planner.infer_industry_from_prompt = lambda **_kwargs: 'video_meeting_saas'  # type: ignore[method-assign]
+    planner.infer_product_profile = lambda **_kwargs: {  # type: ignore[method-assign]
+        'target_product': '腾讯会议',
+        'target_product_description': '云视频会议 SaaS',
+        'intent_summary': '分析腾讯会议竞品',
+        'product_category': '云视频会议 SaaS',
+    }
+    planner.discover_competitors_grouped = lambda **_kwargs: {  # type: ignore[method-assign]
+        'competitors': {'direct': [], 'substitute': []},
+        'comparison_schema_fields': [],
+        'comparison_search_plan': {},
+        'comparison_corpus': [],
+        'comparison_decision_evidence_refs': [],
+        'product_profile': {},
+        'fallback_reason': '',
+    }
+    planner.last_call_status = lambda: {}  # type: ignore[method-assign]
+    planner.step_call_status = lambda: {}  # type: ignore[method-assign]
+
+    def _unexpected_plan_schema(**_kwargs):
+        raise AssertionError('plan_schema should not be called when no competitors are confirmed')
+
+    planner.plan_schema = _unexpected_plan_schema  # type: ignore[method-assign]
+
+    plan = orchestrator.generate_dynamic_plan(prompt='分析腾讯会议竞品')
+
+    assert plan['planned_competitors'] == []
+    assert [item['field_name'] for item in plan['analysis_schema_plan'][:5]] == ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
