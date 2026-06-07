@@ -1651,7 +1651,12 @@ class CompetitorWorkflowService:
             except Exception:
                 previous_failed_coverage = None
             coverage_threshold = 0.8
-            if previous_failed_coverage is None:
+            qa_collect_round_used = bool(state.planner_meta.get('qa_collect_round_used', False))
+            if qa_collect_round_used:
+                coverage_passed = current_coverage > coverage_threshold or (
+                    previous_failed_coverage is not None and current_coverage > previous_failed_coverage
+                )
+            elif previous_failed_coverage is None:
                 coverage_passed = current_coverage >= coverage_threshold
             else:
                 coverage_passed = current_coverage > previous_failed_coverage
@@ -2190,6 +2195,17 @@ class CompetitorWorkflowService:
         previous_failed_coverage: float | None,
         coverage_threshold: float,
     ) -> QAOutput:
+        qa_collect_round_used = bool(state.planner_meta.get('qa_collect_round_used', False))
+
+        # First-round QA failures must trigger recollection and reanalysis.
+        # After the QA-triggered recollection round has already been used once,
+        # coverage can override remaining QA recollection items and let the run
+        # proceed to draft.
+        if not qa_result.passed:
+            if qa_collect_round_used and coverage_passed:
+                return QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
+            return qa_result
+
         if coverage_passed:
             return QAOutput(passed=True, issues=[], target_agent=None, ticket=None, collect_plan=None)
 

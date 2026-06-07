@@ -666,6 +666,154 @@ def test_run_qa_action_persists_failed_qa_collect_plan(tmp_path) -> None:
     assert saved.planner_meta["qa_collect_plan"]["enabled"] is True
 
 
+def test_run_qa_action_keeps_failed_result_when_coverage_is_high(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / "guard.db")
+    service = CompetitorWorkflowService(store)
+    state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
+    state.analysis_schema_plan = [
+        AnalysisSchemaField(field_name="pricing_model", display_name="Pricing"),
+    ]
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[
+                AnalysisFieldResult(
+                    field_name="pricing_model",
+                    summary="pricing exists",
+                    evidence_refs=["evd_1"],
+                )
+            ],
+        )
+    ]
+    state.findings = [Finding(statement="alpha pricing exists", category="pricing", evidence_refs=["evd_1"])]
+    store.save_state(state)
+    service._qa = lambda _state: QAOutput.model_validate(  # type: ignore[method-assign]
+        {
+            "passed": False,
+            "issues": [{"code": "pricing_evidence_thin", "message": "need stronger pricing evidence", "stage": "collect"}],
+            "target_agent": "Collect",
+            "collect_plan": {
+                "enabled": True,
+                "items": [{"competitor": "alpha", "field_name": "pricing_model", "reason": "evidence_thin", "query_list": ["a", "b"], "priority": 1}],
+            },
+        }
+    )
+
+    result = service._run_action_tool("run_qa", {}, {"run_id": state.run_id})
+    saved = store.get_state(state.run_id)
+
+    assert result["artifacts"]["qa_current_coverage"] == 1.0
+    assert result["artifacts"]["passed"] is False
+    assert result["artifacts"]["issue_count"] == 1
+    assert saved is not None
+    assert saved.planner_meta["last_qa_checked"] is True
+    assert saved.planner_meta["last_qa_passed"] is False
+    assert saved.planner_meta["last_qa_issue_count"] == 1
+    assert saved.planner_meta["qa_collect_plan"]["enabled"] is True
+
+
+def test_run_qa_action_second_round_allows_draft_when_coverage_is_high(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / "guard.db")
+    service = CompetitorWorkflowService(store)
+    state = RunState(
+        industry="general",
+        competitors=["alpha"],
+        user_prompt="test",
+        planner_meta={"qa_collect_round_used": True, "qa_last_failed_coverage": 0.4},
+    )
+    state.analysis_schema_plan = [
+        AnalysisSchemaField(field_name="pricing_model", display_name="Pricing"),
+    ]
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[
+                AnalysisFieldResult(
+                    field_name="pricing_model",
+                    summary="pricing exists",
+                    evidence_refs=["evd_1"],
+                )
+            ],
+        )
+    ]
+    state.findings = [Finding(statement="alpha pricing exists", category="pricing", evidence_refs=["evd_1"])]
+    store.save_state(state)
+    service._qa = lambda _state: QAOutput.model_validate(  # type: ignore[method-assign]
+        {
+            "passed": False,
+            "issues": [{"code": "pricing_evidence_thin", "message": "need stronger pricing evidence", "stage": "collect"}],
+            "target_agent": "Collect",
+            "collect_plan": {
+                "enabled": True,
+                "items": [{"competitor": "alpha", "field_name": "pricing_model", "reason": "evidence_thin", "query_list": ["a", "b"], "priority": 1}],
+            },
+        }
+    )
+
+    result = service._run_action_tool("run_qa", {}, {"run_id": state.run_id})
+    saved = store.get_state(state.run_id)
+
+    assert result["artifacts"]["qa_current_coverage"] == 1.0
+    assert result["artifacts"]["passed"] is True
+    assert result["artifacts"]["issue_count"] == 0
+    assert saved is not None
+    assert saved.planner_meta["last_qa_checked"] is True
+    assert saved.planner_meta["last_qa_passed"] is True
+    assert saved.planner_meta["last_qa_issue_count"] == 0
+    assert "qa_collect_plan" not in saved.planner_meta
+
+
+def test_run_qa_action_second_round_allows_draft_when_coverage_improves(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / "guard.db")
+    service = CompetitorWorkflowService(store)
+    state = RunState(
+        industry="general",
+        competitors=["alpha"],
+        user_prompt="test",
+        planner_meta={"qa_collect_round_used": True, "qa_last_failed_coverage": 0.4},
+    )
+    state.analysis_schema_plan = [
+        AnalysisSchemaField(field_name="pricing_model", display_name="Pricing"),
+        AnalysisSchemaField(field_name="feature_tree", display_name="Feature Tree"),
+    ]
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[
+                AnalysisFieldResult(
+                    field_name="pricing_model",
+                    summary="pricing exists",
+                    evidence_refs=["evd_1"],
+                )
+            ],
+        )
+    ]
+    state.findings = [Finding(statement="alpha pricing exists", category="pricing", evidence_refs=["evd_1"])]
+    store.save_state(state)
+    service._qa = lambda _state: QAOutput.model_validate(  # type: ignore[method-assign]
+        {
+            "passed": False,
+            "issues": [{"code": "feature_evidence_thin", "message": "need stronger feature evidence", "stage": "collect"}],
+            "target_agent": "Collect",
+            "collect_plan": {
+                "enabled": True,
+                "items": [{"competitor": "alpha", "field_name": "feature_tree", "reason": "evidence_thin", "query_list": ["a", "b"], "priority": 1}],
+            },
+        }
+    )
+
+    result = service._run_action_tool("run_qa", {}, {"run_id": state.run_id})
+    saved = store.get_state(state.run_id)
+
+    assert result["artifacts"]["qa_current_coverage"] == 0.5
+    assert result["artifacts"]["qa_previous_coverage"] == 0.4
+    assert result["artifacts"]["passed"] is True
+    assert result["artifacts"]["issue_count"] == 0
+    assert saved is not None
+    assert saved.planner_meta["last_qa_passed"] is True
+    assert "qa_collect_plan" not in saved.planner_meta
+
+
 def test_draft_action_preserves_previous_qa_status(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
     state = RunState(
