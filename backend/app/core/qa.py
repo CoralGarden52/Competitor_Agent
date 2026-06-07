@@ -10,7 +10,7 @@ from app.core.storage import PostgresStore
 def validate_core_fields(state: RunState) -> list[ReworkIssue]:
     issues: list[ReworkIssue] = []
     expected_fields = [item.field_name for item in state.analysis_schema_plan]
-    expected_competitors = state.planned_competitors or state.competitors
+    expected_competitors = state.effective_analysis_subject_names()
     analysis_map = {item.product_name: {field.field_name for field in item.fields} for item in state.competitor_analyses}
 
     for competitor in expected_competitors:

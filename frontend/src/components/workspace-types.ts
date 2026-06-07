@@ -1,5 +1,6 @@
 export type StageName =
   | "plan"
+  | "confirm_plan"
   | "collect"
   | "normalize"
   | "analyze"
@@ -33,7 +34,10 @@ export type WorkspaceRun = {
   status?: string;
   task_summary?: string;
   industry?: string;
+  target_product?: string;
+  plan_revision?: number;
   planned_competitors?: string[];
+  analysis_subjects?: Array<{ name?: string; role?: string; is_target?: boolean }>;
   schema_fields?: string[];
   evidence_count?: number;
   finding_count?: number;
@@ -93,6 +97,85 @@ export type WorkspaceEvent = {
   event_type?: string;
   created_at?: string;
   payload?: Record<string, unknown>;
+};
+
+export type PlanCardCompetitorsPayload = {
+  card_event?: boolean;
+  planned_competitors?: string[];
+  analysis_subjects?: Array<{ name?: string; role?: string; is_target?: boolean }>;
+  count?: number;
+  display_text?: string;
+};
+
+export type PlanCardSchemaPayload = {
+  card_event?: boolean;
+  schema_fields?: string[];
+  schema_field_labels?: Record<string, string>;
+  count?: number;
+  display_text?: string;
+};
+
+export type ConfirmPlanCardSummaryPayload = {
+  card_event?: boolean;
+  revision_number?: number;
+  delta?: string;
+  message?: string;
+};
+
+export type CollectCardSourceFoundPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  field_name?: string;
+  field_label?: string;
+  title?: string;
+  source_url?: string;
+  source_provider?: string;
+  rank?: number;
+  total_found?: number;
+};
+
+export type AnalyzeCardFieldSummaryPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  field_name?: string;
+  field_label?: string;
+  summary?: string;
+  confidence?: number;
+  evidence_ref_count?: number;
+  is_incremental?: boolean;
+};
+
+export type AnalyzeCardCompetitorSummaryPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  summary_lines?: string[];
+  field_count?: number;
+};
+
+export type QaCardReviewStartedPayload = {
+  card_event?: boolean;
+  competitor_count?: number;
+  schema_field_count?: number;
+};
+
+export type QaCardReviewSummaryPayload = {
+  card_event?: boolean;
+  competitor?: string;
+  needs_recollect?: boolean;
+  insufficient_fields?: Array<Record<string, unknown>>;
+  field_reviews?: Array<Record<string, unknown>>;
+  summary_text?: string;
+};
+
+export type QaCardFinalSummaryPayload = {
+  card_event?: boolean;
+  passed?: boolean;
+  issue_count?: number;
+  collect_item_count?: number;
+  review_details?: Array<Record<string, unknown>>;
+  collect_items?: Array<Record<string, unknown>>;
+  improvement_details?: Array<Record<string, unknown>>;
+  summary_text?: string;
 };
 
 export type AgentTraceSummary = {
@@ -188,12 +271,62 @@ export type WorkspaceQa = {
     reason?: string;
     query_list?: string[];
     priority?: number;
+    field_label?: string;
+    collected_urls?: string[];
   }>;
+  review_details?: Array<{
+    competitor?: string;
+    needs_recollect?: boolean;
+    field_reviews?: Array<{
+      field_name?: string;
+      field_label?: string;
+      reason?: string;
+      priority?: number;
+      before_summary?: string;
+      before_evidence_ref_count?: number;
+      before_confidence?: number;
+    }>;
+  }>;
+  improvement_details?: Array<{
+    competitor?: string;
+    field_name?: string;
+    field_label?: string;
+    before_summary?: string;
+    after_summary?: string;
+    before_evidence_ref_count?: number;
+    after_evidence_ref_count?: number;
+    before_confidence?: number;
+    after_confidence?: number;
+    collected_urls?: string[];
+  }>;
+};
+
+export type WorkspaceReportCitation = {
+  citation_id?: string;
+  label?: string;
+  url?: string;
+  evidence_refs?: string[];
+  source_title?: string;
+};
+
+export type WorkspaceReportBlock = {
+  block_id?: string;
+  block_type?: "title" | "executive_summary" | "comparison_matrix" | "section_paragraph" | "section_bullets" | "reference_list";
+  section_id?: string;
+  title?: string;
+  order?: number;
+  content?: unknown;
+  citations?: WorkspaceReportCitation[];
+  status?: "draft" | "completed";
 };
 
 export type WorkspaceReport = {
   markdown?: string;
+  html?: string;
   sources?: string[];
+  blocks?: WorkspaceReportBlock[];
+  citations?: WorkspaceReportCitation[];
+  render_version?: string;
 };
 
 export type WorkspaceQuestionnaire = {
@@ -224,6 +357,24 @@ export type EvidenceItem = {
 
 export type WorkspaceArtifacts = {
   evidences?: EvidenceItem[];
+  plan_revisions?: Array<Record<string, unknown>>;
+  pre_research_snapshot?: Record<string, unknown>;
+  supplement_requests?: Array<Record<string, unknown>>;
+  analysis_subjects?: Array<Record<string, unknown>>;
+};
+
+export type WorkflowPlanConfirmation = {
+  status?: string;
+  confirmation_message?: string;
+  goal_summary?: string;
+  industry_summary?: string;
+  target_product_summary?: string;
+  competitor_summary?: string;
+  schema_summary?: string;
+  revision_number?: number;
+  supplement_request?: string;
+  confirmed_at?: string;
+  updated_at?: string;
 };
 
 export type WorkspaceObservability = {
@@ -248,6 +399,7 @@ export type WorkspacePayload = {
     agent_stages?: AgentStageCard[];
     agent_workflows?: Record<string, AgentWorkflow>;
     agent_handoffs?: AgentHandoff[];
+    plan_confirmation?: WorkflowPlanConfirmation;
     handoffs?: Array<Record<string, unknown>>;
   };
   qa?: WorkspaceQa;

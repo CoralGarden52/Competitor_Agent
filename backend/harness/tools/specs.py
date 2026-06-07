@@ -13,6 +13,7 @@ WEB_SEARCH_SPEC = ToolSpec(
             "query": {"type": "string"},
             "max_results": {"type": "integer", "minimum": 1, "maximum": 20},
             "provider_allowlist": {"type": "array", "items": {"type": "string"}},
+            "provider_priority": {"type": "array", "items": {"type": "string"}},
         },
         "required": ["query"],
     },

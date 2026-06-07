@@ -5,6 +5,7 @@ from typing import Any, TypedDict
 from langgraph.graph import END, StateGraph
 
 from app.core.models import QAOutput, RecoveryState, RunState, StageName, TransitionReason
+from app.core.run_logging import log_run_output
 from app.core.transition_policy import TransitionDecision, TransitionPolicy
 
 
@@ -19,6 +20,7 @@ class WorkflowLangGraphRuntime:
         self.graph = self._build_graph()
         self._stage_handlers: dict[StageName, Any] = {
             StageName.plan: self.service._plan,
+            StageName.confirm_plan: self.service._confirm_plan_stage,
             StageName.collect: self.service._collect,
             StageName.normalize: self.service._normalize,
             StageName.analyze: self.service._analyze,
@@ -28,6 +30,7 @@ class WorkflowLangGraphRuntime:
         }
         self._stage_agents: dict[StageName, str] = {
             StageName.plan: 'OrchestratorAgent',
+            StageName.confirm_plan: 'ConfirmationAgent',
             StageName.collect: 'CollectorAgent',
             StageName.normalize: 'Normalizer',
             StageName.analyze: 'AnalystAgent',
@@ -59,7 +62,7 @@ class WorkflowLangGraphRuntime:
         import time
 
         start_time = time.time()
-        print(f"[{time.strftime('%H:%M:%S')}] START: {node_name} (run_id={run_state.run_id[:8]})")
+        log_run_output(run_state.run_id, f"[{time.strftime('%H:%M:%S')}] START: {node_name} (run_id={run_state.run_id[:8]})")
 
         trace_id = self.service.store.trace_node_started(run_id=run_state.run_id, node_name=node_name, attempt=run_state.attempt)
         self.service.store.trace_node_input(
@@ -78,7 +81,10 @@ class WorkflowLangGraphRuntime:
         try:
             result = fn(run_state)
             elapsed = time.time() - start_time
-            print(f"[{time.strftime('%H:%M:%S')}] END:   {node_name} (elapsed={elapsed:.2f}s, evidences={len(run_state.evidences)}, profiles={len(run_state.profiles)})")
+            log_run_output(
+                run_state.run_id,
+                f"[{time.strftime('%H:%M:%S')}] END:   {node_name} (elapsed={elapsed:.2f}s, evidences={len(run_state.evidences)}, profiles={len(run_state.profiles)})",
+            )
 
             self.service.store.trace_node_completed(
                 trace_id=trace_id,
@@ -102,13 +108,18 @@ class WorkflowLangGraphRuntime:
             return result
         except Exception as exc:
             elapsed = time.time() - start_time
-            print(f"[{time.strftime('%H:%M:%S')}] FAIL:  {node_name} (elapsed={elapsed:.2f}s, error={str(exc)})")
+            log_run_output(
+                run_state.run_id,
+                f"[{time.strftime('%H:%M:%S')}] FAIL:  {node_name} (elapsed={elapsed:.2f}s, error={str(exc)})",
+            )
             self.service.store.trace_node_failed(trace_id=trace_id, error_text=str(exc))
             raise
 
     def _node_turn(self, state: GraphExecState) -> GraphExecState:
         run_state = state['run_state']
         if run_state.status in ('completed', 'failed'):
+            return {'run_state': run_state, 'should_continue': False}
+        if self.service.is_waiting_for_plan_confirmation(run_state):
             return {'run_state': run_state, 'should_continue': False}
 
         run_state.turn_count += 1
@@ -193,7 +204,10 @@ class WorkflowLangGraphRuntime:
             decision=decision,
         )
 
-        should_continue = run_state.status not in ('completed', 'failed')
+        should_continue = (
+            run_state.status not in ('completed', 'failed')
+            and not self.service.is_waiting_for_plan_confirmation(run_state)
+        )
         return {'run_state': run_state, 'should_continue': should_continue}
 
     def _apply_transition(

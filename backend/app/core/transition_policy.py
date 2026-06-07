@@ -63,6 +63,15 @@ class TransitionPolicy:
                 recovery_state=RecoveryState.none,
                 terminal_status='completed',
             )
+        if (
+            stage == StageName.plan
+            and run_state.plan_confirmation.status.value == 'awaiting_user_confirmation'
+        ):
+            return TransitionDecision(
+                next_stage=StageName.confirm_plan,
+                transition_reason=TransitionReason.stage_succeeded,
+                recovery_state=RecoveryState.none,
+            )
         return TransitionDecision(
             next_stage=stage,
             transition_reason=TransitionReason.stage_succeeded,

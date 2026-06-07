@@ -6,6 +6,7 @@ from app.core.collector import CollectorPipeline
 from app.core.collector.deep_dive import CollectorDeepDiveCoordinator
 from app.core.config import get_config
 from app.core.models import CollectOutput, RawEvidence, RunState, StageName, TaskEnvelope, TaskResult
+from app.core.run_logging import log_run_output
 from app.core.storage import PostgresStore
 
 
@@ -25,7 +26,7 @@ class CollectorAgent:
         enable_deep_dive: bool = False,
     ) -> CollectOutput:
         out = CollectOutput()
-        active_competitors = target_competitors or state.planned_competitors or state.competitors
+        active_competitors = target_competitors or state.effective_analysis_subject_names()
         
         if not active_competitors:
             return out
@@ -33,7 +34,7 @@ class CollectorAgent:
         
         # 定义单个竞品的采集函数
         def _collect_one(competitor: str):
-            print(f"[{__import__('time').strftime('%H:%M:%S')}] 开始采集: {competitor}")
+            log_run_output(state.run_id, f"[{__import__('time').strftime('%H:%M:%S')}] 开始采集: {competitor}")
             start = __import__('time').time()
             self.store.append_stage_event(
                 state.run_id,
@@ -53,7 +54,10 @@ class CollectorAgent:
             )
             
             elapsed = __import__('time').time() - start
-            print(f"[{__import__('time').strftime('%H:%M:%S')}] 完成采集: {competitor} (耗时={elapsed:.2f}s, 证据数={len(result.evidences)})")
+            log_run_output(
+                state.run_id,
+                f"[{__import__('time').strftime('%H:%M:%S')}] 完成采集: {competitor} (耗时={elapsed:.2f}s, 证据数={len(result.evidences)})",
+            )
             self.store.append_stage_event(
                 state.run_id,
                 StageName.collect,
@@ -155,7 +159,7 @@ class CollectorAgent:
             target_competitors=[str(item).strip() for item in target_competitors if str(item).strip()] if target_competitors else None,
             field_query_overrides=field_query_overrides,
         )
-        active_competitors = target_competitors or state.planned_competitors or state.competitors
+        active_competitors = target_competitors or state.effective_analysis_subject_names()
         task_result = TaskResult(
             task_id=task.task_id,
             run_id=task.run_id,

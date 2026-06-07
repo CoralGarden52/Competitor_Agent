@@ -79,6 +79,11 @@ def markdown_to_survey_spec(markdown: str) -> SurveySpec:
         nonlocal current_question
         if current_question is None:
             return
+        if not current_question.options and not current_question.rows:
+            inline_title, inline_options = _extract_inline_lettered_options(current_question.title)
+            if inline_options:
+                current_question.title = inline_title
+                current_question.options = inline_options
         current_question.question_type = infer_question_type_with_rows(
             current_question.title,
             current_question.options,
@@ -149,6 +154,41 @@ def infer_question_type_with_rows(title: str, options: list[str], rows: list[str
     if re.search(r'多选|可多选|选择多项|选择.*项|哪些|以下.*哪些|最多|至少', text):
         return 'multiple'
     return 'single'
+
+
+def _extract_inline_lettered_options(text: str) -> tuple[str, list[str]]:
+    candidate = str(text or '').strip()
+    if not candidate or not re.search(r'(?:^|\s)A(?:[\.\u3001\)]|\s+)', candidate):
+        return candidate, []
+
+    pattern = re.compile(
+        r'(?:^|\s)([A-Za-z\uff21-\uff3a])(?:[\.\u3001\)]|\s+)(.+?)(?=(?:\s+[A-Za-z\uff21-\uff3a](?:[\.\u3001\)]|\s+))|$)'
+    )
+    matches = list(pattern.finditer(candidate))
+    if len(matches) < 2:
+        return candidate, []
+
+    letters = [_normalize_option_letter(match.group(1)) for match in matches]
+    if letters[0] != 'A':
+        return candidate, []
+    if any(ord(curr) != ord(prev) + 1 for prev, curr in zip(letters, letters[1:])):
+        return candidate, []
+
+    title = candidate[: matches[0].start(1)].strip()
+    options = [match.group(2).strip() for match in matches if match.group(2).strip()]
+    if not title or len(options) < 2:
+        return candidate, []
+    return title, options
+
+
+def _normalize_option_letter(letter: str) -> str:
+    char = str(letter or '').strip()
+    if not char:
+        return ''
+    codepoint = ord(char)
+    if 0xFF21 <= codepoint <= 0xFF3A:
+        return chr(codepoint - 0xFEE0)
+    return char.upper()
 
 
 def survey_spec_to_jsonl(spec: SurveySpec) -> str:

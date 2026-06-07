@@ -4,7 +4,7 @@ import concurrent.futures
 import logging
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.models import (
@@ -26,6 +26,7 @@ from app.core.models import (
     TaskResult,
 )
 from app.core.prompts.agent_prompts import ANALYZE_SYSTEM_PROMPT
+from app.core.run_logging import log_run_output
 from app.core.schema_registry import get_domain_schema
 from app.core.storage import PostgresStore
 
@@ -49,6 +50,7 @@ class AnalystAgent:
         *,
         reanalyze_targets: dict[str, set[str]] | None = None,
         previous_records: list[CompetitorAnalysisRecord] | None = None,
+        progress_callback: Callable[[str, AnalysisFieldResult], None] | None = None,
     ) -> AnalyzeOutput:
         schema_plan = self._schema_plan(state)
         schema_map = {item.field_name: item for item in schema_plan}
@@ -60,13 +62,13 @@ class AnalystAgent:
         self._runtime_run_id = state.run_id
         self._runtime_attempt = state.attempt
         for bundle_index, bundle in enumerate(bundles):
-            print(f"  分析竞品: {bundle.product_name}")
+            log_run_output(state.run_id, f"  分析竞品: {bundle.product_name}")
             for field_index, field_bundle in enumerate(bundle.fields):
                 if should_reanalyze:
                     target_fields = reanalyze_targets.get(bundle.product_name, set()) if reanalyze_targets else set()
                     if field_bundle.field_name not in target_fields:
                         continue
-                print(f"    分析字段: {field_bundle.field_name}")
+                log_run_output(state.run_id, f"    分析字段: {field_bundle.field_name}")
                 tasks.append(
                     (
                         bundle_index,
@@ -93,10 +95,12 @@ class AnalystAgent:
 
         if tasks:
             with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-                futures = [executor.submit(_run_task, task) for task in tasks]
-                for future in concurrent.futures.as_completed(futures):
+                future_map = {executor.submit(_run_task, task): task[2] for task in tasks}
+                for future in concurrent.futures.as_completed(future_map):
                     key, result = future.result()
                     field_results[key] = result
+                    if progress_callback is not None:
+                        progress_callback(future_map[future], result)
 
         records = []
         for bundle_index, bundle in enumerate(bundles):
@@ -129,7 +133,13 @@ class AnalystAgent:
         self._runtime_attempt = 0
         return AnalyzeOutput(competitors=records, profiles=profiles, findings=findings)
 
-    def consume_task(self, task: TaskEnvelope, state: RunState) -> tuple[TaskResult, AnalyzeOutput]:
+    def consume_task(
+        self,
+        task: TaskEnvelope,
+        state: RunState,
+        *,
+        progress_callback: Callable[[str, AnalysisFieldResult], None] | None = None,
+    ) -> tuple[TaskResult, AnalyzeOutput]:
         payload = task.input_payload if isinstance(task.input_payload, dict) else {}
         raw_targets = payload.get('reanalyze_targets', {})
         reanalyze_targets: dict[str, set[str]] | None = None
@@ -143,14 +153,19 @@ class AnalystAgent:
                     parsed[str(competitor).strip()] = cleaned
             reanalyze_targets = parsed or None
         previous_records = state.competitor_analyses if reanalyze_targets else None
-        result = self.run_llm(state, reanalyze_targets=reanalyze_targets, previous_records=previous_records)
+        result = self.run_llm(
+            state,
+            reanalyze_targets=reanalyze_targets,
+            previous_records=previous_records,
+            progress_callback=progress_callback,
+        )
         changed_fields = [field.field_name for record in result.competitors for field in record.fields]
         task_result = TaskResult(
             task_id=task.task_id,
             run_id=task.run_id,
             owner_agent='AnalystAgent',
             status='completed',
-            summary=f'analyzed {len(result.competitors)} competitors into {len(result.findings)} findings',
+            summary=f'analyzed {len(result.competitors)} analysis subjects into {len(result.findings)} findings',
             output_payload={
                 'competitor_count': len(result.competitors),
                 'profile_count': len(result.profiles),
@@ -607,7 +622,7 @@ class AnalystAgent:
         state: RunState,
         schema_plan: list[AnalysisSchemaField],
     ) -> list[CompetitorEvidenceBundle]:
-        active_competitors = state.planned_competitors or state.competitors
+        active_competitors = state.effective_analysis_subject_names()
         field_names = [item.field_name for item in schema_plan]
         bundles: list[CompetitorEvidenceBundle] = []
         for competitor in active_competitors:
@@ -646,6 +661,8 @@ class AnalystAgent:
         else:
             bundles = self._build_competitor_evidence_bundles(state, schema_plan)
             records = [self._fallback_record(bundle, schema_plan) for bundle in bundles]
+        order_map = {name: index for index, name in enumerate(state.effective_analysis_subject_names())}
+        records.sort(key=lambda item: order_map.get(item.product_name, len(order_map)))
 
         profiles = analyzed.profiles or [self._profile_from_record(state=state, record=record) for record in records]
         findings = analyzed.findings or self._build_findings_from_records(records)

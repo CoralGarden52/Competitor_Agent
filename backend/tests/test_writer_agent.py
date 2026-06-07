@@ -50,20 +50,29 @@ def test_comparison_matrix_labels_direct_and_substitute_competitors() -> None:
     state = RunState(
         industry='collaboration_software',
         competitors=['A', 'B'],
+        target_product='Target',
+        analysis_subjects=[
+            {'name': 'Target', 'role': 'target', 'is_target': True},
+            {'name': 'A', 'role': 'direct', 'is_target': False},
+            {'name': 'B', 'role': 'substitute', 'is_target': False},
+        ],
         planner_meta={
             'candidate_groups': {
+                'target': {'name': 'Target'},
                 'direct': [{'name': 'A'}],
                 'substitute': [{'name': 'B'}],
             }
         },
     )
     records = [
+        CompetitorAnalysisRecord(product_name='Target', fields=[AnalysisFieldResult(field_name='feature_tree', summary='t', evidence_refs=[], confidence=0.8, normalized_value={})]),
         CompetitorAnalysisRecord(product_name='A', fields=[AnalysisFieldResult(field_name='feature_tree', summary='x', evidence_refs=[], confidence=0.8, normalized_value={})]),
         CompetitorAnalysisRecord(product_name='B', fields=[AnalysisFieldResult(field_name='feature_tree', summary='y', evidence_refs=[], confidence=0.8, normalized_value={})]),
     ]
     matrix = agent._comparison_matrix(state, records)
-    assert '直接竞品' in matrix[0]['product']
-    assert '间接竞品' in matrix[1]['product']
+    assert '目标产品' in matrix[0]['product']
+    assert '直接竞品' in matrix[1]['product']
+    assert '间接竞品' in matrix[2]['product']
 
 
 def test_dynamic_field_section_uses_normalized_value_when_summary_unknown() -> None:
@@ -121,6 +130,38 @@ def test_dynamic_field_section_uses_pricing_normalized_value_when_summary_unknow
     assert '定价模式为 subscription；存在免费层；可观察到的套餐包括 商业版、企业版。' in text
 
 
+def test_schema_field_labels_use_local_mapping_without_translation_call() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='meeting_software',
+        competitors=['腾讯会议'],
+        analysis_schema_plan=[
+            AnalysisSchemaField(field_name='feature_tree', priority=1),
+            AnalysisSchemaField(field_name='pricing_model', priority=2),
+            AnalysisSchemaField(field_name='部署方式', priority=3),
+        ],
+        competitor_analyses=[
+            CompetitorAnalysisRecord(
+                product_name='腾讯会议',
+                fields=[
+                    AnalysisFieldResult(field_name='feature_tree', summary='能力完整', evidence_refs=[], confidence=0.7, normalized_value={}),
+                    AnalysisFieldResult(field_name='部署方式', summary='支持公有云与私有化', evidence_refs=[], confidence=0.7, normalized_value={}),
+                ],
+            )
+        ],
+    )
+
+    agent._refresh_dynamic_schema_labels(state)
+
+    assert agent._schema_field_label('product') == '产品'
+    assert agent._schema_field_label('feature_tree') == '功能体系'
+    assert agent._schema_field_label('strengths') == '优势'
+    assert agent._schema_field_label('weaknesses') == '劣势'
+    assert agent._schema_field_label('pricing_model') == '定价模式'
+    assert agent._schema_field_label('user_feedback') == '用户反馈'
+    assert agent._schema_field_label('部署方式') == '部署方式'
+
+
 def test_report_text_not_truncated_by_default() -> None:
     cfg = get_config()
     old_enabled = cfg.report_truncation_enabled
@@ -135,7 +176,7 @@ def test_report_text_not_truncated_by_default() -> None:
         matrix = agent._comparison_matrix(state, records)
         overview = agent._comparison_overview_text(records)
         strengths_weaknesses = agent._strengths_weaknesses_text(state, records)
-        actions = agent._opportunity_bullets(records)
+        actions = agent._opportunity_bullets(records, state=state)
 
         assert matrix[0]['feature_tree'] == long_text
         assert '…' not in matrix[0]['feature_tree']
@@ -164,7 +205,7 @@ def test_report_text_truncated_when_enabled_with_custom_limits() -> None:
         matrix = agent._comparison_matrix(state, records)
         overview = agent._comparison_overview_text(records)
         strengths_weaknesses = agent._strengths_weaknesses_text(state, records)
-        actions = agent._opportunity_bullets(records)
+        actions = agent._opportunity_bullets(records, state=state)
         highlights = agent._matrix_overview_bullets([{'product': 'alpha', 'feature_tree': long_text, 'pricing_model': long_text}])
 
         assert matrix[0]['feature_tree'].endswith('…')
@@ -176,3 +217,51 @@ def test_report_text_truncated_when_enabled_with_custom_limits() -> None:
     finally:
         cfg.report_truncation_enabled = old_enabled
         cfg.report_truncation_limits_json = old_limits_json
+
+
+def test_records_and_report_prioritize_target_product() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state = RunState(
+        industry='knowledge_base',
+        competitors=['Comp A', 'Comp B'],
+        planned_competitors=['Comp A', 'Comp B'],
+        target_product='My Product',
+        analysis_subjects=[
+            {'name': 'My Product', 'role': 'target', 'is_target': True},
+            {'name': 'Comp A', 'role': 'direct', 'is_target': False},
+            {'name': 'Comp B', 'role': 'substitute', 'is_target': False},
+        ],
+        competitor_analyses=[
+            CompetitorAnalysisRecord(
+                product_name='Comp A',
+                fields=[
+                    AnalysisFieldResult(field_name='strengths', summary='生态完整', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='weaknesses', summary='价格较高', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+            CompetitorAnalysisRecord(
+                product_name='My Product',
+                fields=[
+                    AnalysisFieldResult(field_name='strengths', summary='AI 问答体验更聚焦', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='weaknesses', summary='品牌认知仍需提升', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+            CompetitorAnalysisRecord(
+                product_name='Comp B',
+                fields=[
+                    AnalysisFieldResult(field_name='strengths', summary='客户基础较大', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+        ],
+        evidences=[Evidence(source_url='https://example.com/1', snippet='evidence', evidence_id='ev1')],
+    )
+
+    records = agent._records(state)
+    matrix = agent._comparison_matrix(state, records)
+    report = agent.build_streamable_report(state).report
+
+    assert records[0].product_name == 'My Product'
+    assert matrix[0]['role'] == 'target'
+    assert '目标产品' in matrix[0]['product']
+    assert report.comparison_matrix[0]['role'] == 'target'
+    assert 'My Product' in report.executive_summary

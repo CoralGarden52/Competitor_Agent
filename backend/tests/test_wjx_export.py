@@ -73,6 +73,25 @@ B. 使用者
     assert 'options' not in rows[1]
 
 
+def test_markdown_to_wjx_jsonl_parses_inline_lettered_options() -> None:
+    _, jsonl = markdown_to_wjx_jsonl(
+        """# 在线会议工具使用体验调研问卷
+
+1. 您目前是否使用过Zoom或其他同类在线会议产品？ A 正在使用Zoom作为主要会议工具 B 曾经使用过Zoom，现在已经切换为其他产品 C 从未使用过Zoom，正在使用其他同类在线会议产品 D 还没使用过任何付费在线会议产品
+"""
+    )
+
+    rows = [json.loads(line) for line in jsonl.splitlines()]
+    assert rows[1]['qtype'] == '单选'
+    assert rows[1]['title'] == '您目前是否使用过Zoom或其他同类在线会议产品？'
+    assert rows[1]['select'] == [
+        '正在使用Zoom作为主要会议工具',
+        '曾经使用过Zoom，现在已经切换为其他产品',
+        '从未使用过Zoom，正在使用其他同类在线会议产品',
+        '还没使用过任何付费在线会议产品',
+    ]
+
+
 def test_subjective_question_with_which_keyword_exports_as_short_answer() -> None:
     _, jsonl = markdown_to_wjx_jsonl(
         """# 问卷

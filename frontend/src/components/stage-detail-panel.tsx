@@ -25,6 +25,7 @@ type StageDetailPanelProps = {
 
 const STAGE_TITLES: Record<StageName, string> = {
   plan: "计划智能体",
+  confirm_plan: "确认节点",
   collect: "采集智能体",
   normalize: "标准化阶段",
   analyze: "分析智能体",
@@ -47,6 +48,8 @@ function formatEventTime(input?: string): string {
 
 function statusText(status?: string): string {
   if (status === "completed") return "已完成";
+  if (status === "awaiting_user_confirmation") return "待确认";
+  if (status === "replanning") return "重规划中";
   if (status === "running") return "进行中";
   if (status === "failed") return "失败";
   return "待执行";
@@ -66,6 +69,53 @@ function isLlmCallStep(step: AgentTraceStep): step is AgentTraceLlmCallStep {
 function renderJsonBlock(payload: unknown) {
   if (!payload) return <p className="empty-state">暂无数据</p>;
   return <pre className="json-block">{JSON.stringify(payload, null, 2)}</pre>;
+}
+
+function compactTraceName(value?: string): string {
+  const text = String(value || "").trim();
+  if (!text) return "LLM Call";
+  return text
+    .replace(/^agent\./i, "")
+    .replace(/\./g, " / ")
+    .replace(/\bpricing_model\b/gi, "Pricing Model")
+    .replace(/\bfeature_tree\b/gi, "Feature Tree")
+    .replace(/\buser_feedback\b/gi, "User Feedback");
+}
+
+function compactEventName(value?: string): string {
+  const text = String(value || "").trim();
+  if (!text) return "event";
+  return text.replace(/^runtime\./, "").replace(/^agent\./, "");
+}
+
+function readNumber(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return null;
+}
+
+function extractTokenCount(payload: unknown): number | null {
+  if (!payload || typeof payload !== "object") return null;
+  const queue: unknown[] = [payload];
+  while (queue.length) {
+    const current = queue.shift();
+    if (!current || typeof current !== "object") continue;
+    const record = current as Record<string, unknown>;
+    const total = readNumber(record.total_tokens);
+    if (total !== null && total > 0) return total;
+    const prompt = readNumber(record.prompt_tokens);
+    const completion = readNumber(record.completion_tokens);
+    if (prompt !== null || completion !== null) {
+      return Math.max(0, (prompt || 0) + (completion || 0));
+    }
+    for (const value of Object.values(record)) {
+      if (value && typeof value === "object") queue.push(value);
+    }
+  }
+  return null;
 }
 
 export function StageDetailPanel({
@@ -94,9 +144,7 @@ export function StageDetailPanel({
           <p className="workspace-eyebrow">Selected Stage</p>
           <h2>{stage ? STAGE_TITLES[stage] : "阶段详情"}</h2>
         </div>
-        {stageCard?.status ? (
-          <span className={`status-pill ${stageCard.status}`}>{statusText(stageCard.status)}</span>
-        ) : null}
+        {stageCard?.status ? <span className={`status-pill ${stageCard.status}`}>{statusText(stageCard.status)}</span> : null}
       </div>
 
       <div className="panel-scroll-body compact-scroll">
@@ -104,225 +152,132 @@ export function StageDetailPanel({
           <p className="empty-state">请选择一个阶段查看协作细节。</p>
         ) : (
           <div className="detail-stack">
-          <section className="detail-section">
-            <div className="detail-grid">
-              <article>
-                <span>Agent</span>
-                <strong>{stageCard.agent || stage}</strong>
-              </article>
-              <article>
-                <span>Duration</span>
-                <strong>{formatDuration(stageCard.duration_ms)}</strong>
-              </article>
-              <article>
-                <span>LLM Calls</span>
-                <strong>{trace?.summary?.llm_call_count ?? 0}</strong>
-              </article>
-              <article>
-                <span>Total Tokens</span>
-                <strong>{trace?.summary?.total_tokens ?? 0}</strong>
-              </article>
-            </div>
-            <p className="detail-copy">{stageCard.summary || "暂无阶段摘要。"}</p>
-            <div className="token-strip">
-              <span>Prompt {trace?.summary?.prompt_tokens ?? 0}</span>
-              <span>Completion {trace?.summary?.completion_tokens ?? 0}</span>
-              <span>Events {trace?.summary?.event_count ?? events.length}</span>
-              <span>Handoffs {trace?.summary?.handoff_count ?? 0}</span>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <h3>Todo 任务</h3>
-            {!stageTodoTasks.length ? (
-              <p className="empty-state">当前阶段暂无 Todo 任务</p>
-            ) : (
-              <div className="highlight-row">
-                {stageTodoTasks.map((task, taskIndex) => (
-                  <span key={`${String(task.task_id || task.title || "task")}-${taskIndex}`}>
-                    {`${String(task.title || "task")} | ${String(task.owner_agent || "agent")} | ${String(task.status || "pending")}`}
-                  </span>
-                ))}
+            <section className="detail-section">
+              <div className="detail-grid">
+                <article>
+                  <span>Agent</span>
+                  <strong>{stageCard.agent || stage}</strong>
+                </article>
+                <article>
+                  <span>Duration</span>
+                  <strong>{formatDuration(stageCard.duration_ms)}</strong>
+                </article>
+                <article>
+                  <span>LLM Calls</span>
+                  <strong>{trace?.summary?.llm_call_count ?? 0}</strong>
+                </article>
+                <article>
+                  <span>Events</span>
+                  <strong>{events.length}</strong>
+                </article>
               </div>
-            )}
-          </section>
+              {stageCard.summary ? <p>{stageCard.summary}</p> : null}
+            </section>
 
-          <section className="detail-section">
-            <h3>输入 {"->"} 输出</h3>
-            {handoff ? (
-              <>
-                <div className="schema-flow-card">
-                  <div className="schema-flow-node">
-                    <span>Input</span>
-                    <strong>{handoff.input_schema?.schema_name || "UnknownInput"}</strong>
-                  </div>
-                  <div className="schema-flow-arrow" aria-hidden="true">
-                    →
-                  </div>
-                  <div className="schema-flow-node">
-                    <span>Output</span>
-                    <strong>{handoff.output_schema?.schema_name || "UnknownOutput"}</strong>
-                  </div>
+            <section className="detail-section">
+              <h3>工作流节点</h3>
+              {workflowNodes.length ? (
+                <div className="chip-row">
+                  {workflowNodes.map((node) => <span key={node} className="info-chip">{node}</span>)}
                 </div>
-                <p className="detail-copy">{handoff.handoff_summary || "暂无交接摘要。"}</p>
-                {handoff.handoff_highlights?.length ? (
-                  <div className="highlight-row">
-                    {handoff.handoff_highlights.map((item) => (
-                      <span key={item}>{item}</span>
-                    ))}
-                  </div>
-                ) : null}
+              ) : (
+                <p className="empty-state">暂无工作流节点。</p>
+              )}
+            </section>
+
+            <section className="detail-section">
+              <h3>待办任务</h3>
+              {stageTodoTasks.length ? (
+                <div className="detail-list">
+                  {stageTodoTasks.map((task, index) => (
+                    <article key={`todo-${index}`}>
+                      <strong>{String(task.title || "任务")}</strong>
+                      <p>{String(task.status || "pending")}</p>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <p className="empty-state">暂无阶段待办。</p>
+              )}
+            </section>
+
+            <section className="detail-section">
+              <h3>阶段交接</h3>
+              {handoff ? (
                 <details className="detail-disclosure">
-                  <summary>查看交接原始负载</summary>
-                  {renderJsonBlock({
-                    input: handoff.input_schema?.payload || {},
-                    output: handoff.output_schema?.payload || {},
-                  })}
+                  <summary>
+                    <span>{handoff.handoff_summary || "已生成阶段交接数据。"}</span>
+                    <span className="detail-disclosure-hint">展开详情…</span>
+                  </summary>
+                  {renderJsonBlock(handoff.output_schema?.payload)}
                 </details>
-              </>
-            ) : (
-              <p className="empty-state">该阶段暂无 handoff 数据。</p>
-            )}
-          </section>
-
-          <section className="detail-section">
-            <h3>内部流程</h3>
-            {workflowNodes.length ? (
-              <div className="mini-flow compact-scroll" role="list">
-                {workflowNodes.map((node, index) => (
-                  <div key={`${node}-${index}`} className="mini-flow-segment" role="listitem">
-                    <span className="mini-flow-node">{node}</span>
-                    {index < workflowNodes.length - 1 ? <span className="mini-flow-link" aria-hidden="true" /> : null}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="empty-state">该阶段暂无内部流程结构。</p>
-            )}
-          </section>
-
-          <section className="detail-section">
-            <details className="detail-disclosure">
-              <summary>{`LLM Calls (${llmCalls.length})`}</summary>
-              {!llmCalls.length ? (
-                <p className="empty-state">该阶段没有记录到 LLM 调用。</p>
               ) : (
-                <div className="call-list compact-scroll">
+                <p className="empty-state">暂无 handoff。</p>
+              )}
+            </section>
+
+            <section className="detail-section">
+              <h3>LLM 调用</h3>
+              {llmCalls.length ? (
+                <div className="detail-list">
                   {llmCalls.map((call, index) => {
-                    const callKey = buildStepKey(call, index);
-                    const expanded = expandedCallKeys.includes(callKey);
+                    const key = buildStepKey(call, index);
+                    const expanded = expandedCallKeys.includes(key);
                     return (
-                      <article key={callKey} className="call-card compact">
-                        <div className="call-card-head">
-                          <div>
-                            <strong>{call.display_name || call.trace_name || `Call ${index + 1}`}</strong>
-                            <p>{call.model || "unknown model"}</p>
-                          </div>
-                          <div className="call-stats">
-                            <span>{call.total_tokens ?? 0} tok</span>
-                            <span>{call.latency_ms ?? 0} ms</span>
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          className="inline-toggle"
-                          onClick={() => onToggleCall(callKey)}
-                        >
-                          {expanded ? "收起完整调用" : "展开完整调用"}
+                      <article key={key} className="detail-item-card">
+                        <button type="button" className="detail-toggle" onClick={() => onToggleCall(key)}>
+                          <span className="detail-toggle-main">
+                            <strong>{compactTraceName(call.display_name || call.trace_name || `LLM Call ${index + 1}`)}</strong>
+                            <small>{call.model || "model"}</small>
+                          </span>
+                          <span className="detail-toggle-action">{expanded ? "收起" : "展开"}</span>
                         </button>
-                        {expanded ? (
-                          <div className="call-expanded">
-                            <div className="call-preview-grid">
-                              <div>
-                                <span>Input Preview</span>
-                                <pre>{call.input_preview || "暂无输入预览"}</pre>
-                              </div>
-                              <div>
-                                <span>Output Preview</span>
-                                <pre>{call.output_preview || "暂无输出预览"}</pre>
-                              </div>
-                            </div>
-                            <div className="detail-grid compact">
-                              <article>
-                                <span>Prompt Tokens</span>
-                                <strong>{call.prompt_tokens ?? 0}</strong>
-                              </article>
-                              <article>
-                                <span>Completion Tokens</span>
-                                <strong>{call.completion_tokens ?? 0}</strong>
-                              </article>
-                              <article>
-                                <span>Finish Reason</span>
-                                <strong>{call.finish_reason || "--"}</strong>
-                              </article>
-                              <article>
-                                <span>Status</span>
-                                <strong>{call.status || "--"}</strong>
-                              </article>
-                            </div>
-                            <details className="detail-disclosure">
-                              <summary>System Prompt</summary>
-                              <pre className="json-block text-block">{call.system_prompt || "暂无 system prompt"}</pre>
-                            </details>
-                            <details className="detail-disclosure">
-                              <summary>User Payload</summary>
-                              {renderJsonBlock(call.user_payload || {})}
-                            </details>
-                            <details className="detail-disclosure">
-                              <summary>Parsed Response</summary>
-                              {renderJsonBlock(call.parsed_response || {})}
-                            </details>
-                            <details className="detail-disclosure">
-                              <summary>Raw Response</summary>
-                              {renderJsonBlock(call.raw_response || {})}
-                            </details>
-                          </div>
-                        ) : null}
-                      </article>
-                    );
-                  })}
-                </div>
-              )}
-            </details>
-          </section>
-
-          <section className="detail-section">
-            <details className="detail-disclosure">
-              <summary>{`阶段事件 (${events.length})`}</summary>
-              {!events.length ? (
-                <p className="empty-state">该阶段暂无事件。</p>
-              ) : (
-                <div className="event-list stage-event-list compact-scroll" role="list">
-                  {events.map((event, index) => {
-                    const eventKey = `${event.event_id || "stage"}:${event.created_at || index}:${event.event_type || "event"}`;
-                    const expanded = expandedEventKeys.includes(eventKey);
-                    const preview = event.payload ? JSON.stringify(event.payload).slice(0, 120) : "";
-                    return (
-                      <article key={eventKey} className="event-row compact" role="listitem">
-                        <div className="event-row-meta">
-                          <span>{formatEventTime(event.created_at)}</span>
-                          <strong>{event.event_type || "event"}</strong>
+                        <div className="detail-meta-row">
+                          <span>{`${call.total_tokens || 0} tokens`}</span>
+                          <span>{formatDuration(call.latency_ms)}</span>
+                          {call.finish_reason ? <span>{call.finish_reason}</span> : null}
                         </div>
-                        {preview ? <p className="event-inline-preview">{preview}{preview.length >= 120 ? "..." : ""}</p> : null}
-                        {event.payload ? (
-                          <>
-                            <button
-                              type="button"
-                              className="inline-toggle"
-                              onClick={() => onToggleEvent(eventKey)}
-                            >
-                              {expanded ? "收起详情" : "查看详情"}
-                            </button>
-                            {expanded ? renderJsonBlock(event.payload) : null}
-                          </>
-                        ) : null}
+                        {expanded ? renderJsonBlock(call.parsed_response || call.raw_response || {}) : null}
                       </article>
                     );
                   })}
                 </div>
+              ) : (
+                <p className="empty-state">暂无 LLM 调用记录。</p>
               )}
-            </details>
-          </section>
+            </section>
+
+            <section className="detail-section">
+              <h3>阶段事件</h3>
+              {events.length ? (
+                <div className="detail-list">
+                  {events.map((event, index) => {
+                    const key = `${event.event_id || index}:${event.event_type || "event"}`;
+                    const expanded = expandedEventKeys.includes(key);
+                    const tokenCount = extractTokenCount(event.payload);
+                    return (
+                      <article key={key} className="detail-item-card">
+                        <button type="button" className="detail-toggle" onClick={() => onToggleEvent(key)}>
+                          <span className="detail-toggle-main">
+                            <strong>{compactEventName(String(event.event_type || "event"))}</strong>
+                            <small>{String(event.stage || stage || "")}</small>
+                          </span>
+                          <span className="detail-toggle-action">{expanded ? "收起" : "展开"}</span>
+                        </button>
+                        <div className="detail-meta-row">
+                          <span>{formatEventTime(event.created_at)}</span>
+                          {tokenCount !== null ? <span>{`tokens ${tokenCount}`}</span> : null}
+                          {typeof event.event_id === "number" ? <span>{`#${event.event_id}`}</span> : null}
+                        </div>
+                        {expanded ? renderJsonBlock(event.payload || {}) : null}
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="empty-state">暂无事件记录。</p>
+              )}
+            </section>
           </div>
         )}
       </div>

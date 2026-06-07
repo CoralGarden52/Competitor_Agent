@@ -13,6 +13,7 @@ def search_with_fallback(
     fallback_trace: list[dict],
     max_results: int = 8,
     provider_allowlist: list[str] | None = None,
+    provider_priority: list[str] | None = None,
 ) -> tuple[list[SearchHit], list[dict]]:
     """
     使用 fallback 机制执行搜索。
@@ -46,6 +47,13 @@ def search_with_fallback(
             )
             fallback_trace.extend(trace)
             return [], trace
+    if provider_priority:
+        priority_names = [str(name).strip() for name in provider_priority if str(name).strip()]
+        if priority_names:
+            priority_set = set(priority_names)
+            prioritized = [provider for name in priority_names for provider in providers if provider.name() == name]
+            remaining = [provider for provider in providers if provider.name() not in priority_set]
+            providers = prioritized + remaining
 
     for provider in providers:
         try:
