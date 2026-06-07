@@ -200,6 +200,10 @@ class ManagerAgent:
             action_type = 'plan_scope'
             target_agent = 'OrchestratorAgent'
             reason = 'missing_competitor_scope_or_schema'
+        elif context.awaiting_user_confirmation and not context.confirmation_approved:
+            action_type = 'plan_scope'
+            target_agent = 'OrchestratorAgent'
+            reason = 'awaiting_plan_confirmation'
         elif context.qa_reviewed and context.qa_passed:
             if context.report_ready:
                 action_type = 'finalize_run'

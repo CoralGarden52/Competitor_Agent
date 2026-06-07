@@ -57,7 +57,7 @@ function MatrixBlock({ block }: { block: WorkspaceReportBlock }) {
   if (!rows.length) {
     return (
       <section className="report-block-card">
-        <h2>{block.title || "竞品对比矩阵"}</h2>
+        <h2>{block.title || "分析对象对比矩阵"}</h2>
         <p className="empty-state">暂无对比矩阵。</p>
       </section>
     );
@@ -65,7 +65,7 @@ function MatrixBlock({ block }: { block: WorkspaceReportBlock }) {
   const headers = Object.keys(rows[0] || {});
   return (
     <section className="report-block-card">
-      <h2>{block.title || "竞品对比矩阵"}</h2>
+      <h2>{block.title || "分析对象对比矩阵"}</h2>
       <div className="report-matrix-table">
         <table>
           <thead>

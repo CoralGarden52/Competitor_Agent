@@ -20,6 +20,7 @@ import type {
   AnalyzeCardCompetitorSummaryPayload,
   AnalyzeCardFieldSummaryPayload,
   CollectCardSourceFoundPayload,
+  ConfirmPlanCardSummaryPayload,
   AgentWorkflow,
   EvidenceItem,
   PlanCardCompetitorsPayload,
@@ -82,7 +83,7 @@ type AgentCardStreamState = {
 
 type AgentCardStreams = Partial<Record<StageName, AgentCardStreamState>>;
 
-const STAGE_ORDER: StageName[] = ["plan", "collect", "normalize", "analyze", "qa", "draft", "finalize"];
+const STAGE_ORDER: StageName[] = ["plan", "confirm_plan", "collect", "normalize", "analyze", "qa", "draft", "finalize"];
 const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8010").replace(/\/$/, "");
 const PENDING_TASK_TITLE = "生成标题中";
 const COLLECT_PREVIEW_LIMIT = 6;
@@ -162,6 +163,7 @@ function getStageTrace(workspace: WorkspacePayload | null, stage: StageName | nu
 function stageLabel(stage: string): string {
   const map: Record<string, string> = {
     plan: "计划智能体",
+    confirm_plan: "确认节点",
     collect: "采集智能体",
     normalize: "标准化阶段",
     analyze: "分析智能体",
@@ -200,6 +202,14 @@ function trimLines(lines: string[], limit = 20): string[] {
   return dedupeLines(lines).slice(-limit);
 }
 
+function stripLinksFromSummary(value: string): string {
+  return String(value || "")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/gi, "$1")
+    .replace(/https?:\/\/\S+/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function mergeCardUrls(
   previous: Array<{ label: string; url: string }> | undefined,
   nextItem: { label: string; url: string },
@@ -213,6 +223,7 @@ function mergeCardUrls(
 
 function toStepStatus(status?: string): "pending" | "running" | "done" | "failed" {
   if (status === "completed") return "done";
+  if (status === "awaiting_user_confirmation" || status === "replanning") return "running";
   if (status === "running") return "running";
   if (status === "failed") return "failed";
   return "pending";
@@ -406,6 +417,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const [questionnaireExport, setQuestionnaireExport] = useState<WorkspaceQuestionnaireExport | null>(null);
   const [questionnaireDraft, setQuestionnaireDraft] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [planSupplementText, setPlanSupplementText] = useState("");
+  const [isSubmittingPlanConfirmation, setIsSubmittingPlanConfirmation] = useState(false);
   const [error, setError] = useState("");
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -421,6 +434,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   const maxSessionCount = 30;
   const sessionChatStoragePrefix = "home_workspace_chat_messages:";
   const activeRunId = (workspaceData?.run?.run_id || activeRunIdRef.current || "").trim();
+  const planConfirmation = workspaceData?.workflow?.plan_confirmation;
+  const showPlanConfirmationDialog = planConfirmation?.status === "awaiting_user_confirmation";
   const activeSession =
     sessions.find((item) => item.session_id === activeSessionId)
     || sessions.find((item) => item.active_run_id === activeRunId)
@@ -545,6 +560,12 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     relevantEvents.forEach((event) => applyAgentCardEvent(event));
     if (workspaceData) finalizeAgentCardStreams(workspaceData);
   }, [workspaceData?.run?.run_id]);
+
+  useEffect(() => {
+    if (!showPlanConfirmationDialog) {
+      setPlanSupplementText("");
+    }
+  }, [showPlanConfirmationDialog, workspaceData?.run?.run_id]);
 
   useEffect(() => {
     const runId = workspaceData?.run?.run_id || "";
@@ -898,6 +919,44 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     }
   }
 
+  async function handleConfirmPlan() {
+    const runId = activeRunIdRef.current;
+    if (!runId) return;
+    setError("");
+    setIsSubmittingPlanConfirmation(true);
+    try {
+      await confirmPlanAndContinue(runId);
+      const workspace = await fetchRunWorkspace(runId);
+      applyWorkspace(workspace);
+      startRunStream(runId);
+    } catch (confirmationError) {
+      const message = confirmationError instanceof Error ? confirmationError.message : "确认采集结果失败，请稍后重试。";
+      setError(message);
+    } finally {
+      setIsSubmittingPlanConfirmation(false);
+    }
+  }
+
+  async function handleSubmitPlanSupplement() {
+    const runId = activeRunIdRef.current;
+    const message = planSupplementText.trim();
+    if (!runId || !message) return;
+    setError("");
+    setIsSubmittingPlanConfirmation(true);
+    try {
+      await submitPlanSupplement(runId, message);
+      setPlanSupplementText("");
+      const workspace = await fetchRunWorkspace(runId);
+      applyWorkspace(workspace);
+      startRunStream(runId);
+    } catch (supplementError) {
+      const messageText = supplementError instanceof Error ? supplementError.message : "补充要求提交失败，请稍后重试。";
+      setError(messageText);
+    } finally {
+      setIsSubmittingPlanConfirmation(false);
+    }
+  }
+
   function parseHintList(input: string): string[] {
     const parts = String(input || "").split(/[,\n，、;；]+/);
     const output: string[] = [];
@@ -1101,6 +1160,22 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     const response = await fetch(`/runs/${runId}`);
     if (!response.ok) throw new Error(`run status failed: ${response.status}`);
     return (await response.json()) as RunStatusResponse;
+  }
+
+  async function confirmPlanAndContinue(runId: string): Promise<void> {
+    const response = await fetch(backendUrl(`/runs/${runId}/plan-confirmation/confirm`), { method: "POST" });
+    const payload = (await response.json().catch(() => ({}))) as { detail?: string };
+    if (!response.ok) throw new Error(payload.detail || "确认采集结果失败，请稍后重试。");
+  }
+
+  async function submitPlanSupplement(runId: string, message: string): Promise<void> {
+    const response = await fetch(backendUrl(`/runs/${runId}/plan-confirmation/supplement`), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+    });
+    const payload = (await response.json().catch(() => ({}))) as { detail?: string };
+    if (!response.ok) throw new Error(payload.detail || "补充要求提交失败，请稍后重试。");
   }
 
   function mapReportChatPayload(payload: ReportChatPayload): ChatMessage[] {
@@ -1311,10 +1386,13 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       const next: AgentCardStreams = { ...prev };
       if (eventType === "plan.card.competitors_stream") {
         const data = payload as PlanCardCompetitorsPayload;
+        const subjectNames = (data.analysis_subjects || [])
+          .map((item) => String(item.name || "").trim())
+          .filter(Boolean);
         next.plan = {
           ...(next.plan || {}),
           isStreaming: true,
-          lines: trimLines([`已选竞品：${(data.planned_competitors || []).join("、") || "暂无"}`], 2),
+          lines: trimLines([`已规划分析对象：${subjectNames.join("、") || (data.planned_competitors || []).join("、") || "暂无"}`], 2),
         };
       } else if (eventType === "plan.card.schema_stream") {
         const data = payload as PlanCardSchemaPayload;
@@ -1324,12 +1402,33 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
           isStreaming: true,
           lines: trimLines([...(next.plan?.lines || []).slice(0, 1), `已规划字段：${labels.join("、") || "暂无"}`], 2),
         };
+      } else if (eventType === "confirm_plan.card.summary_started") {
+        next.confirm_plan = {
+          ...(next.confirm_plan || {}),
+          isStreaming: true,
+          lines: [],
+        };
+      } else if (eventType === "confirm_plan.card.summary_delta") {
+        const data = payload as ConfirmPlanCardSummaryPayload;
+        next.confirm_plan = {
+          ...(next.confirm_plan || {}),
+          isStreaming: true,
+          lines: trimLines([...(next.confirm_plan?.lines || []), String(data.delta || "").trim()].filter(Boolean), 12),
+        };
+      } else if (eventType === "confirm_plan.card.summary_completed") {
+        const data = payload as ConfirmPlanCardSummaryPayload;
+        const finalLines = String(data.message || "").split(/\r?\n/).map((item) => item.trim()).filter(Boolean);
+        next.confirm_plan = {
+          ...(next.confirm_plan || {}),
+          isStreaming: false,
+          lines: trimLines(finalLines.length ? finalLines : next.confirm_plan?.lines || [], 12),
+        };
       } else if (eventType === "collect.card.source_found") {
         const data = payload as CollectCardSourceFoundPayload;
         const nextCount = Number(data.total_found || data.rank || (next.collect?.totalCount || 0) + 1);
         next.collect = {
           lines: trimLines([
-            `正在采集网页，已发现 ${nextCount} 条候选来源。`,
+            `正在采集网页，已纳入 ${nextCount} 条来源。`,
             ...(next.collect?.lines || []).filter((line) => !line.startsWith("正在采集网页")),
           ]),
           totalCount: nextCount,
@@ -1368,21 +1467,21 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         next.qa = {
           ...(next.qa || {}),
           isStreaming: true,
-          lines: trimLines([`正在质检 ${Number(data.competitor_count || 0)} 个竞品、${Number(data.schema_field_count || 0)} 个字段。`]),
+          lines: trimLines([`正在质检 ${Number(data.competitor_count || 0)} 个分析对象、${Number(data.schema_field_count || 0)} 个字段。`], 80),
         };
       } else if (eventType === "qa.card.review_summary") {
         const data = payload as QaCardReviewSummaryPayload;
         next.qa = {
           ...(next.qa || {}),
           isStreaming: true,
-          lines: trimLines([...(next.qa?.lines || []), String(data.summary_text || "").trim()].filter(Boolean)),
+          lines: trimLines([...(next.qa?.lines || []), String(data.summary_text || "").trim()].filter(Boolean), 80),
         };
       } else if (eventType === "qa.card.final_summary") {
         const data = payload as QaCardFinalSummaryPayload;
         next.qa = {
           ...(next.qa || {}),
           isStreaming: false,
-          lines: trimLines([...(next.qa?.lines || []), String(data.summary_text || "").trim()].filter(Boolean)),
+          lines: trimLines([...(next.qa?.lines || []), String(data.summary_text || "").trim()].filter(Boolean), 80),
         };
       }
       return next;
@@ -2122,7 +2221,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
             <p>多智能体协同收集信息、深度分析竞品、生成结构化洞察与报告，助力更明智的决策。</p>
             {error ? <div className="error-banner" role="alert">{error}</div> : null}
             <form className="query-box" onSubmit={handleSubmit}>
-              <input aria-label="分析任务输入" placeholder="输入竞品、行业或分析任务" value={query} onChange={(event) => setQuery(event.target.value)} disabled={isSubmitting} />
+              <input aria-label="分析任务输入" placeholder="输入目标产品、竞品、行业或分析任务" value={query} onChange={(event) => setQuery(event.target.value)} disabled={isSubmitting} />
               <button type="submit" aria-label="提交" disabled={isSubmitting}>{isSubmitting ? "…" : "↑"}</button>
             </form>
             <div className="query-hint-grid">
@@ -2271,15 +2370,57 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                               const collectUrls = step.stage === "collect"
                                 ? (streamCard?.urls?.length ? streamCard.urls : collectPreviewItems)
                                 : [];
+                              const qaImprovementDetails = step.stage === "qa" ? (workspaceData?.qa?.improvement_details || []) : [];
+                              const qaCollectItems = step.stage === "qa" ? (workspaceData?.qa?.collect_items || []) : [];
                               return (
                                 <li key={`${step.stage}-${index}`} className={`thought-item agent-card stage-${step.stage}`}>
                                   <div className="thought-head">
                                     <span>{`${index + 1}. ${stageLabel(step.stage)}`}</span>
                                     <span className={`status-pill ${stepStatus}`}>{stepStatusText(stepStatus)}</span>
                                   </div>
-                                  <div className="agent-summary-block">
-                                    {summaryLines.length ? summaryLines.map((line, lineIndex) => <p key={`${step.stage}-line-${lineIndex}`}>{line}</p>) : <p>等待执行...</p>}
-                                  </div>
+                                  {step.stage === "qa" ? (
+                                    <div className="qa-card-details">
+                                      <div className="collect-web-preview">
+                                        <strong>质检过程与结果</strong>
+                                        {summaryLines.length ? summaryLines.map((line, lineIndex) => <p key={`${step.stage}-line-${lineIndex}`}>{line}</p>) : <p>等待执行...</p>}
+                                      </div>
+                                      {qaImprovementDetails.length ? (
+                                        <div className="collect-web-preview">
+                                          <strong>质检后字段内容</strong>
+                                          {qaImprovementDetails.map((item, itemIndex) => (
+                                            <div key={`qa-after-${itemIndex}`}>
+                                              <p>{`${item.competitor || "分析对象"} · ${item.field_label || item.field_name || "字段"}`}</p>
+                                              <p>{`质检前：${stripLinksFromSummary(String(item.before_summary || "unknown"))}（证据 ${item.before_evidence_ref_count || 0} 条）`}</p>
+                                              <p>{`质检后：${stripLinksFromSummary(String(item.after_summary || "unknown"))}（证据 ${item.after_evidence_ref_count || 0} 条）`}</p>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      ) : null}
+                                      {qaCollectItems.length ? (
+                                        <div className="collect-web-preview">
+                                          <strong>质检补采后的链接</strong>
+                                          {qaCollectItems.map((item, itemIndex) => (
+                                            <div key={`qa-collect-${itemIndex}`}>
+                                              <p>{`${item.competitor || "分析对象"} · ${item.field_label || item.field_name || "字段"}`}</p>
+                                              {(item.collected_urls || []).length ? (
+                                                item.collected_urls?.map((url, urlIndex) => (
+                                                  <p key={`qa-collect-url-${itemIndex}-${urlIndex}`}>
+                                                    <a className="collect-web-link" href={url} target="_blank" rel="noreferrer">{url}</a>
+                                                  </p>
+                                                ))
+                                              ) : (
+                                                <p>补采待执行或当前未返回 URL。</p>
+                                              )}
+                                            </div>
+                                          ))}
+                                        </div>
+                                      ) : null}
+                                    </div>
+                                  ) : (
+                                    <div className="agent-summary-block">
+                                      {summaryLines.length ? summaryLines.map((line, lineIndex) => <p key={`${step.stage}-line-${lineIndex}`}>{line}</p>) : <p>等待执行...</p>}
+                                    </div>
+                                  )}
                                   {step.stage === "collect" && collectUrls.length ? (
                                     <div className="collect-web-preview">
                                       <strong>{`采集网页（已展示 ${collectUrls.length} 条，共 ${collectTotalCount} 条）`}</strong>
@@ -2423,6 +2564,44 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
           </section>
         )}
       </main>
+
+      {showPlanConfirmationDialog ? (
+        <div className="plan-confirmation-overlay" role="presentation">
+          <div className="plan-confirmation-dialog" role="dialog" aria-modal="true" aria-labelledby="plan-confirmation-title">
+            <div className="plan-confirmation-header">
+              <h2 id="plan-confirmation-title">确认采集结果</h2>
+              <span>{`Plan v${planConfirmation?.revision_number || workspaceData?.run?.plan_revision || 1}`}</span>
+            </div>
+            <div className="plan-confirmation-body">
+              <pre className="plan-confirmation-message">{planConfirmation?.confirmation_message || ""}</pre>
+              <textarea
+                className="plan-confirmation-input"
+                value={planSupplementText}
+                onChange={(event) => setPlanSupplementText(event.target.value)}
+                disabled={isSubmittingPlanConfirmation}
+              />
+            </div>
+            <div className="plan-confirmation-actions">
+              <button
+                type="button"
+                className="plan-confirmation-btn secondary"
+                onClick={() => void handleSubmitPlanSupplement()}
+                disabled={isSubmittingPlanConfirmation || !planSupplementText.trim()}
+              >
+                {isSubmittingPlanConfirmation ? "提交中..." : "补充要求并重新规划"}
+              </button>
+              <button
+                type="button"
+                className="plan-confirmation-btn primary"
+                onClick={() => void handleConfirmPlan()}
+                disabled={isSubmittingPlanConfirmation}
+              >
+                {isSubmittingPlanConfirmation ? "处理中..." : "确认并继续"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {previewOpen ? (
         <div className="report-preview-overlay" onClick={closeReportPreview} role="presentation">

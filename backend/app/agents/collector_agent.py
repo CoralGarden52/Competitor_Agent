@@ -26,7 +26,7 @@ class CollectorAgent:
         enable_deep_dive: bool = False,
     ) -> CollectOutput:
         out = CollectOutput()
-        active_competitors = target_competitors or state.planned_competitors or state.competitors
+        active_competitors = target_competitors or state.effective_analysis_subject_names()
         
         if not active_competitors:
             return out
@@ -159,7 +159,7 @@ class CollectorAgent:
             target_competitors=[str(item).strip() for item in target_competitors if str(item).strip()] if target_competitors else None,
             field_query_overrides=field_query_overrides,
         )
-        active_competitors = target_competitors or state.planned_competitors or state.competitors
+        active_competitors = target_competitors or state.effective_analysis_subject_names()
         task_result = TaskResult(
             task_id=task.task_id,
             run_id=task.run_id,

@@ -57,10 +57,11 @@ def _event_payload(events: list[dict], event_type: str) -> dict:
 
 def test_plan_emits_card_stream_events(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / "plan_card.db"))
-    state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
+    state = RunState(industry="general", competitors=["alpha"], user_prompt="test", target_product="target")
 
     service.orchestrator.generate_dynamic_plan = lambda **_kwargs: {  # type: ignore[method-assign]
         "inferred_industry": "general",
+        "target_product": "target",
         "planned_competitors": ["alpha", "beta"],
         "analysis_schema_plan": [
             {"field_name": "feature_tree", "query_templates": [], "recommended_sources": ["official"], "priority": 1},
@@ -80,7 +81,9 @@ def test_plan_emits_card_stream_events(tmp_path) -> None:
     schema_payload = _event_payload(events, "plan.card.schema_stream")
 
     assert competitors_payload["planned_competitors"] == ["alpha", "beta"]
+    assert competitors_payload["analysis_subjects"][0]["name"] == "target"
     assert "alpha" in competitors_payload["display_text"]
+    assert "target" in competitors_payload["display_text"]
     assert schema_payload["schema_field_labels"]["feature_tree"] == "功能树"
     assert schema_payload["schema_field_labels"]["user_feedback"] == "用户反馈"
 
@@ -101,14 +104,14 @@ def test_collect_emits_source_found_card_events(tmp_path) -> None:
             CollectOutput(
                 provider_events=[
                     {
-                        "event_type": "collector.search.hit",
+                        "event_type": "collector.fetch.scheduled",
                         "field_name": "feature_tree",
                         "title": "Alpha feature overview",
                         "url": "https://example.com/alpha/features",
                         "source_provider": "tavily",
                     },
                     {
-                        "event_type": "collector.search.hit",
+                        "event_type": "collector.fetch.scheduled",
                         "field_name": "feature_tree",
                         "title": "Alpha feature overview",
                         "url": "https://example.com/alpha/features",
@@ -302,5 +305,8 @@ def test_qa_emits_review_summary_card_events(tmp_path) -> None:
     assert result.passed is False
     assert review_payload["competitor"] == "alpha"
     assert review_payload["needs_recollect"] is True
+    assert review_payload["field_reviews"][0]["field_name"] == "weaknesses"
+    assert review_payload["field_reviews"][0]["before_summary"] == "unknown"
     assert "劣势" in review_payload["summary_text"]
     assert final_payload["passed"] is False
+    assert final_payload["collect_items"][0]["field_name"] == "weaknesses"

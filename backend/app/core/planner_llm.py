@@ -401,6 +401,9 @@ class PlannerLLMClient:
             '重点关注：核心功能、目标用户、主要使用场景、产品类别、市场定位、交付/部署风格。\n'
             '返回 JSON：'
             '{"product_profile":{'
+            '"target_product":"",'
+            '"target_product_description":"",'
+            '"intent_summary":"",'
             '"product_category":"",'
             '"core_capabilities":[""],'
             '"target_users":[""],'
@@ -792,6 +795,9 @@ class PlannerLLMClient:
             return rows[:limit]
 
         profile = {
+            'target_product': self._repair_mojibake(str(payload.get('target_product', '')).strip())[:80],
+            'target_product_description': self._repair_mojibake(str(payload.get('target_product_description', '')).strip())[:200],
+            'intent_summary': self._repair_mojibake(str(payload.get('intent_summary', '')).strip())[:160],
             'product_category': self._repair_mojibake(str(payload.get('product_category', '')).strip())[:80],
             'core_capabilities': _clean_list(payload.get('core_capabilities', [])),
             'target_users': _clean_list(payload.get('target_users', [])),
@@ -842,7 +848,17 @@ class PlannerLLMClient:
 
         if not capabilities and category:
             capabilities.append(category)
+        target_product = ''
+        match = re.search(r'([\w\u4e00-\u9fff][\w\u4e00-\u9fff\s\-·]{1,40})(?:的|产品|平台|系统|工具)', text)
+        if match:
+            target_product = self._repair_mojibake(match.group(1).strip())[:80]
+        if not target_product and competitor_hints:
+            target_product = competitor_hints[0][:80]
+        intent_summary = text[:120]
         return {
+            'target_product': target_product,
+            'target_product_description': category[:120],
+            'intent_summary': intent_summary,
             'product_category': category[:80],
             'core_capabilities': capabilities[:4],
             'target_users': users[:4],

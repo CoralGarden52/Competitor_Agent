@@ -165,7 +165,7 @@ class AnalystAgent:
             run_id=task.run_id,
             owner_agent='AnalystAgent',
             status='completed',
-            summary=f'analyzed {len(result.competitors)} competitors into {len(result.findings)} findings',
+            summary=f'analyzed {len(result.competitors)} analysis subjects into {len(result.findings)} findings',
             output_payload={
                 'competitor_count': len(result.competitors),
                 'profile_count': len(result.profiles),
@@ -622,7 +622,7 @@ class AnalystAgent:
         state: RunState,
         schema_plan: list[AnalysisSchemaField],
     ) -> list[CompetitorEvidenceBundle]:
-        active_competitors = state.planned_competitors or state.competitors
+        active_competitors = state.effective_analysis_subject_names()
         field_names = [item.field_name for item in schema_plan]
         bundles: list[CompetitorEvidenceBundle] = []
         for competitor in active_competitors:
@@ -661,6 +661,8 @@ class AnalystAgent:
         else:
             bundles = self._build_competitor_evidence_bundles(state, schema_plan)
             records = [self._fallback_record(bundle, schema_plan) for bundle in bundles]
+        order_map = {name: index for index, name in enumerate(state.effective_analysis_subject_names())}
+        records.sort(key=lambda item: order_map.get(item.product_name, len(order_map)))
 
         profiles = analyzed.profiles or [self._profile_from_record(state=state, record=record) for record in records]
         findings = analyzed.findings or self._build_findings_from_records(records)

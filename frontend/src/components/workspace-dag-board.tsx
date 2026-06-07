@@ -9,6 +9,7 @@ type WorkspaceDagBoardProps = {
 
 const STAGE_LABELS: Record<StageName, string> = {
   plan: "Plan",
+  confirm_plan: "Confirm",
   collect: "Collect",
   normalize: "Normalize",
   analyze: "Analyze",
@@ -23,6 +24,8 @@ function isStageName(value: string): value is StageName {
 
 function formatStatus(status?: string): string {
   if (status === "completed") return "完成";
+  if (status === "awaiting_user_confirmation") return "待确认";
+  if (status === "replanning") return "重规划";
   if (status === "running") return "进行中";
   if (status === "failed") return "失败";
   return "待执行";

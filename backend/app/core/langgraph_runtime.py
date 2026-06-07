@@ -20,6 +20,7 @@ class WorkflowLangGraphRuntime:
         self.graph = self._build_graph()
         self._stage_handlers: dict[StageName, Any] = {
             StageName.plan: self.service._plan,
+            StageName.confirm_plan: self.service._confirm_plan_stage,
             StageName.collect: self.service._collect,
             StageName.normalize: self.service._normalize,
             StageName.analyze: self.service._analyze,
@@ -29,6 +30,7 @@ class WorkflowLangGraphRuntime:
         }
         self._stage_agents: dict[StageName, str] = {
             StageName.plan: 'OrchestratorAgent',
+            StageName.confirm_plan: 'ConfirmationAgent',
             StageName.collect: 'CollectorAgent',
             StageName.normalize: 'Normalizer',
             StageName.analyze: 'AnalystAgent',
@@ -117,6 +119,8 @@ class WorkflowLangGraphRuntime:
         run_state = state['run_state']
         if run_state.status in ('completed', 'failed'):
             return {'run_state': run_state, 'should_continue': False}
+        if self.service.is_waiting_for_plan_confirmation(run_state):
+            return {'run_state': run_state, 'should_continue': False}
 
         run_state.turn_count += 1
         active_stage = run_state.current_stage
@@ -200,7 +204,10 @@ class WorkflowLangGraphRuntime:
             decision=decision,
         )
 
-        should_continue = run_state.status not in ('completed', 'failed')
+        should_continue = (
+            run_state.status not in ('completed', 'failed')
+            and not self.service.is_waiting_for_plan_confirmation(run_state)
+        )
         return {'run_state': run_state, 'should_continue': should_continue}
 
     def _apply_transition(

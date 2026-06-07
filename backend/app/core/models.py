@@ -43,6 +43,7 @@ class PolicyDecision(StrEnum):
 
 class StageName(StrEnum):
     plan = 'plan'
+    confirm_plan = 'confirm_plan'
     collect = 'collect'
     normalize = 'normalize'
     analyze = 'analyze'
@@ -83,6 +84,14 @@ class EventType(StrEnum):
     analyze_completed = 'analyze.completed'
     draft_completed = 'draft.completed'
     qa_rework_ticket_created = 'qa.rework_ticket_created'
+
+
+class PlanConfirmationStatus(StrEnum):
+    pending = 'pending'
+    awaiting_user_confirmation = 'awaiting_user_confirmation'
+    confirmed = 'confirmed'
+    supplement_requested = 'supplement_requested'
+    replanning = 'replanning'
 
 
 class FeatureNode(BaseModel):
@@ -191,11 +200,18 @@ class CompetitorAnalysisRecord(BaseModel):
     fields: list[AnalysisFieldResult] = Field(default_factory=list)
 
 
+class AnalysisSubject(BaseModel):
+    name: str
+    role: Literal['target', 'direct', 'substitute'] = 'direct'
+    is_target: bool = False
+
+
 class PlanHandoff(BaseModel):
     run_id: str
     attempt: int
     inferred_industry: str
     planned_competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     candidate_groups: dict[str, Any] = Field(default_factory=dict)
     analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
     split_strategy: str = 'by_competitor'
@@ -208,6 +224,7 @@ class CollectHandoff(BaseModel):
     run_id: str
     attempt: int
     competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     schema_fields: list[str] = Field(default_factory=list)
     evidence_bundles: list[CompetitorEvidenceBundle] = Field(default_factory=list)
     provider_events: list[dict[str, Any]] = Field(default_factory=list)
@@ -220,11 +237,69 @@ class AnalyzeHandoff(BaseModel):
     run_id: str
     attempt: int
     competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     competitor_analyses: list[CompetitorAnalysisRecord] = Field(default_factory=list)
     profiles: list[CompetitorProfile] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     coverage_summary: list[dict[str, Any]] = Field(default_factory=list)
     evidence_gap_summary: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class SupplementRequest(BaseModel):
+    request_id: str = Field(default_factory=lambda: f'spr_{uuid4().hex[:10]}')
+    message: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    revision_number: int = 0
+
+
+class PreResearchSnapshot(BaseModel):
+    target_product: str = ''
+    target_product_description: str = ''
+    user_intent_summary: str = ''
+    industry: str = ''
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
+    product_profile: dict[str, Any] = Field(default_factory=dict)
+    candidate_groups: dict[str, Any] = Field(default_factory=dict)
+    planned_competitors: list[str] = Field(default_factory=list)
+    analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
+    comparison_search_plan: dict[str, Any] = Field(default_factory=dict)
+    comparison_corpus_summary: dict[str, Any] = Field(default_factory=dict)
+    summary_text: str = ''
+
+
+class PlanRevision(BaseModel):
+    revision_id: str = Field(default_factory=lambda: f'plr_{uuid4().hex[:10]}')
+    revision_number: int = 1
+    source_prompt: str = ''
+    target_product: str = ''
+    target_product_description: str = ''
+    user_intent_summary: str = ''
+    industry: str = ''
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
+    candidate_groups: dict[str, Any] = Field(default_factory=dict)
+    planned_competitors: list[str] = Field(default_factory=list)
+    analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
+    comparison_search_plan: dict[str, Any] = Field(default_factory=dict)
+    comparison_corpus_summary: dict[str, Any] = Field(default_factory=dict)
+    pre_research_summary: str = ''
+    based_on_revision: int | None = None
+    supplement_request: str = ''
+    product_profile: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class PlanConfirmationState(BaseModel):
+    status: PlanConfirmationStatus = PlanConfirmationStatus.pending
+    confirmation_message: str = ''
+    goal_summary: str = ''
+    industry_summary: str = ''
+    target_product_summary: str = ''
+    competitor_summary: str = ''
+    schema_summary: str = ''
+    revision_number: int = 0
+    supplement_request: str = ''
+    confirmed_at: str = ''
+    updated_at: str = ''
 
 
 class TaskType(StrEnum):
@@ -243,6 +318,7 @@ class TaskStatus(StrEnum):
 
 
 class HandoffType(StrEnum):
+    confirm_plan = 'confirm_plan'
     collect = 'collect'
     analyze = 'analyze'
     draft = 'draft'
@@ -352,6 +428,7 @@ class DecisionContextSnapshot(BaseModel):
     finding_count: int = 0
     report_ready: bool = False
     report_section_count: int = 0
+    target_product: str = ''
     missing_competitors: list[str] = Field(default_factory=list)
     missing_schema_fields: list[str] = Field(default_factory=list)
     reanalyze_candidates: list[dict[str, Any]] = Field(default_factory=list)
@@ -374,6 +451,9 @@ class DecisionContextSnapshot(BaseModel):
     qa_collect_allowed: bool = False
     qa_collect_pending: bool = False
     qa_reanalyze_pending: bool = False
+    plan_confirmation_status: str = ''
+    awaiting_user_confirmation: bool = False
+    confirmation_approved: bool = False
     qa_failure_kind: str = 'unknown'
     finalize_with_risk_eligible: bool = False
     quality_gate: dict[str, Any] = Field(default_factory=dict)
@@ -466,6 +546,7 @@ class DraftHandoff(BaseModel):
     run_id: str
     attempt: int
     competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     report: Report | None = None
     section_status: list[dict[str, Any]] = Field(default_factory=list)
     claim_coverage: list[dict[str, Any]] = Field(default_factory=list)
@@ -651,6 +732,9 @@ class RunState(BaseModel):
     competitors: list[str]
     user_prompt: str = ''
     task_summary: str = ''
+    target_product: str = ''
+    target_product_description: str = ''
+    user_intent_summary: str = ''
     competitor_hints: list[str] = Field(default_factory=list)
     aspect_hints: list[str] = Field(default_factory=list)
     language: str = 'zh-CN'
@@ -659,7 +743,13 @@ class RunState(BaseModel):
     core_schema_version: str = 'core_v1'
     domain_schema_version: str = 'v1'
     planned_competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     planner_meta: dict[str, Any] = Field(default_factory=dict)
+    plan_revision: int = 0
+    plan_revision_history: list[PlanRevision] = Field(default_factory=list)
+    pre_research_snapshot: PreResearchSnapshot = Field(default_factory=PreResearchSnapshot)
+    plan_confirmation: PlanConfirmationState = Field(default_factory=PlanConfirmationState)
+    supplement_requests: list[SupplementRequest] = Field(default_factory=list)
     analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
     evidences: list[Evidence] = Field(default_factory=list)
     competitor_analyses: list[CompetitorAnalysisRecord] = Field(default_factory=list)
@@ -687,6 +777,64 @@ class RunState(BaseModel):
     schema_evolution_proposals: list[SchemaEvolutionProposal] = Field(default_factory=list)
     todo_plan: TodoPlan = Field(default_factory=TodoPlan)
     status: Literal['running', 'failed', 'completed'] = 'running'
+
+    def effective_analysis_subjects(self) -> list[AnalysisSubject]:
+        subjects: list[AnalysisSubject] = []
+        seen: set[str] = set()
+
+        def _append(name: str, role: str, *, is_target: bool = False) -> None:
+            cleaned = str(name or '').strip()
+            if not cleaned:
+                return
+            key = cleaned.casefold()
+            if key in seen:
+                return
+            seen.add(key)
+            subject_role = role if role in {'target', 'direct', 'substitute'} else 'direct'
+            subjects.append(AnalysisSubject(name=cleaned, role=subject_role, is_target=is_target or subject_role == 'target'))
+
+        for item in self.analysis_subjects or []:
+            if isinstance(item, AnalysisSubject):
+                _append(item.name, item.role, is_target=item.is_target)
+            elif isinstance(item, dict):
+                _append(str(item.get('name', '')).strip(), str(item.get('role', 'direct')).strip(), is_target=bool(item.get('is_target', False)))
+
+        _append(self.target_product, 'target', is_target=True)
+
+        candidate_groups = self.planner_meta.get('candidate_groups', {}) if isinstance(self.planner_meta, dict) else {}
+        if isinstance(candidate_groups, dict):
+            target_item = candidate_groups.get('target')
+            if isinstance(target_item, dict):
+                _append(str(target_item.get('name', '')).strip(), 'target', is_target=True)
+            for role in ('direct', 'substitute'):
+                items = candidate_groups.get(role, [])
+                if not isinstance(items, list):
+                    continue
+                for item in items:
+                    if isinstance(item, dict):
+                        _append(str(item.get('name', '')).strip(), role)
+                    else:
+                        _append(str(item).strip(), role)
+
+        for name in self.planned_competitors or self.competitors:
+            _append(name, 'direct')
+        return subjects
+
+    def effective_analysis_subject_names(self) -> list[str]:
+        return [item.name for item in self.effective_analysis_subjects()]
+
+    def target_subject_name(self) -> str:
+        for item in self.effective_analysis_subjects():
+            if item.is_target or item.role == 'target':
+                return item.name
+        return str(self.target_product or '').strip()
+
+    def subject_role_for(self, product_name: str) -> str:
+        target = str(product_name or '').strip().casefold()
+        for item in self.effective_analysis_subjects():
+            if item.name.casefold() == target:
+                return item.role
+        return ''
 
 
 class EventRecord(BaseModel):

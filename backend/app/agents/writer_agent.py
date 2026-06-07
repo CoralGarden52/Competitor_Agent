@@ -76,7 +76,7 @@ class WriterAgent:
                 'agent_name': 'WriterAgent',
                 'model': self.llm.config.openai_model,
                 'industry': state.industry,
-                'competitor_count': len(state.planned_competitors or state.competitors),
+                'competitor_count': len(state.effective_analysis_subject_names()),
                 'attempt': state.attempt,
                 'agent_name': 'WriterAgent',
                 'node_name': 'draft',
@@ -128,7 +128,7 @@ class WriterAgent:
                 'agent_name': 'WriterAgent',
                 'model': self.llm.config.openai_model,
                 'industry': state.industry,
-                'competitor_count': len(records),
+                'competitor_count': len(state.effective_analysis_subject_names()),
                 'attempt': state.attempt,
             },
             temperature=0.2,
@@ -145,13 +145,8 @@ class WriterAgent:
         report = Report(
             executive_summary=self._executive_summary_from_body(state, records, self._comparison_matrix(state, records)),
             comparison_matrix=self._comparison_matrix(state, records),
-            swot={
-                'strengths': ['字段级分析可追溯', '报告结构与模板对齐'] if records else [],
-                'weaknesses': ['部分章节依赖公开网页信号，证据深度不均'] if records else [],
-                'opportunities': ['优先补充关键证据不足字段', '强化产品定位与商业策略维度'] if records else [],
-                'threats': ['公开来源更新频率和质量波动'] if records else [],
-            },
-            opportunities=self._opportunity_bullets(records),
+            swot=self._target_swot(state, records),
+            opportunities=self._opportunity_bullets(records, state=state),
             appendix_sources=self._appendix_sources(state),
             sections=self._template_sections(state, records, include_overview_sections=False),
         )
@@ -171,7 +166,7 @@ class WriterAgent:
         report = Report(
             executive_summary=self._executive_summary_from_markdown(state, records, cleaned_markdown, sections),
             comparison_matrix=self._comparison_matrix(state, records),
-            opportunities=self._opportunity_bullets(records),
+            opportunities=self._opportunity_bullets(records, state=state),
             appendix_sources=self._appendix_sources(state),
             sections=sections,
             markdown=cleaned_markdown,
@@ -322,7 +317,7 @@ class WriterAgent:
         if not report.appendix_sources:
             report.appendix_sources = self._appendix_sources(state)
         if not report.opportunities:
-            report.opportunities = self._opportunity_bullets(records)
+            report.opportunities = self._opportunity_bullets(records, state=state)
         if not report.blocks:
             report.blocks = self._blocks_from_report(state, report)
         else:
@@ -336,14 +331,34 @@ class WriterAgent:
         return DraftOutput(report=report)
 
     def _records(self, state: RunState) -> list[CompetitorAnalysisRecord]:
+        subject_names = [name for name in state.effective_analysis_subject_names() if str(name or '').strip()]
         if state.competitor_analyses:
-            return state.competitor_analyses
-        return [CompetitorAnalysisRecord(product_name=profile.product_name, fields=[]) for profile in state.profiles]
+            record_map = {record.product_name: record for record in state.competitor_analyses}
+            ordered_records = [record_map[name] for name in subject_names if name in record_map]
+            seen = {record.product_name for record in ordered_records}
+            for record in state.competitor_analyses:
+                if record.product_name not in seen:
+                    ordered_records.append(record)
+                    seen.add(record.product_name)
+            return ordered_records
+        fallback_names = subject_names or [profile.product_name for profile in state.profiles]
+        seen: set[str] = set()
+        records: list[CompetitorAnalysisRecord] = []
+        for name in fallback_names:
+            cleaned = str(name or '').strip()
+            if not cleaned or cleaned in seen:
+                continue
+            seen.add(cleaned)
+            records.append(CompetitorAnalysisRecord(product_name=cleaned, fields=[]))
+        return records
 
     def _comparison_matrix(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[dict]:
         matrix: list[dict] = []
         for record in records:
-            row = {'product': self._display_product_name(state, record.product_name)}
+            row = {
+                'product': self._display_product_name(state, record.product_name),
+                'role': state.subject_role_for(record.product_name),
+            }
             for field in record.fields:
                 row[field.field_name] = self._format_text_for_report(field.summary, context='matrix_cell')
             matrix.append(row)
@@ -397,6 +412,8 @@ class WriterAgent:
 
     def _display_product_name(self, state: RunState, product_name: str) -> str:
         fit_type = self._competitor_fit_type(state, product_name)
+        if fit_type == 'target':
+            return f'{product_name}（目标产品）'
         if fit_type == 'direct':
             return f'{product_name}（直接竞品）'
         if fit_type == 'substitute':
@@ -405,23 +422,7 @@ class WriterAgent:
 
     @staticmethod
     def _competitor_fit_type(state: RunState, product_name: str) -> str:
-        candidate_groups = state.planner_meta.get('candidate_groups', {}) if isinstance(state.planner_meta, dict) else {}
-        if not isinstance(candidate_groups, dict):
-            return ''
-        target = product_name.strip().casefold()
-        for fit_type in ('direct', 'substitute'):
-            items = candidate_groups.get(fit_type, [])
-            if not isinstance(items, list):
-                continue
-            for item in items:
-                name = ''
-                if isinstance(item, dict):
-                    name = str(item.get('name', '')).strip()
-                else:
-                    name = str(item).strip()
-                if name.casefold() == target:
-                    return fit_type
-        return ''
+        return state.subject_role_for(product_name)
 
     def _template_sections(
         self,
@@ -509,7 +510,7 @@ class WriterAgent:
             return claims, self._strengths_weaknesses_text(state, records)
         if section_id == 'action_recommendations':
             claims = self._collect_weakness_claims(records)
-            content = '\n'.join(f"- {item}" for item in self._opportunity_bullets(records))
+            content = '\n'.join(f"- {item}" for item in self._opportunity_bullets(records, state=state))
             return claims, content or '暂无建议动作。'
         if field_name:
             claims = self._field_claims(records, preferred_fields=[field_name])
@@ -523,9 +524,9 @@ class WriterAgent:
             ReportBlock(
                 block_id='title',
                 block_type='title',
-                title='竞品分析报告',
+                title=f"{state.target_product or '目标产品'}竞品分析报告",
                 order=0,
-                content='竞品分析报告',
+                content=f"{state.target_product or '目标产品'}竞品分析报告",
             ),
             ReportBlock(
                 block_id='executive_summary',
@@ -538,7 +539,7 @@ class WriterAgent:
             ReportBlock(
                 block_id='comparison_matrix',
                 block_type='comparison_matrix',
-                title='竞品对比矩阵',
+                title='分析对象对比矩阵',
                 order=2,
                 content=report.comparison_matrix,
                 citations=self._citations_from_refs(state, self._claim_refs(report.sections), limit=6),
@@ -584,8 +585,9 @@ class WriterAgent:
 
     def _markdown_lines_for_block(self, block: ReportBlock) -> list[str]:
         lines: list[str] = []
+        default_title = '目标产品竞品分析报告'
         if block.block_type == 'title':
-            lines.extend([f"# {str(block.content or '竞品分析报告').strip()}", ''])
+            lines.extend([f"# {str(block.content or default_title).strip()}", ''])
         elif block.block_type == 'executive_summary':
             lines.extend(['## 执行摘要', str(block.content or '暂无执行摘要。').strip()])
             citation_line = self._markdown_citation_line(block.citations)
@@ -593,10 +595,10 @@ class WriterAgent:
                 lines.append(citation_line)
             lines.append('')
         elif block.block_type == 'comparison_matrix':
-            lines.extend(['## 竞品对比矩阵', ''])
+            lines.extend(['## 分析对象对比矩阵', ''])
             matrix = block.content if isinstance(block.content, list) else []
             if matrix:
-                headers = ['product', *[k for k in matrix[0].keys() if k != 'product']]
+                headers = ['product', *[k for k in matrix[0].keys() if k not in {'product', 'role'}]]
                 display_headers = [self._schema_field_label(item) for item in headers]
                 lines.append('| ' + ' | '.join(display_headers) + ' |')
                 lines.append('| ' + ' | '.join(['---'] * len(headers)) + ' |')
@@ -633,12 +635,16 @@ class WriterAgent:
             f"<div class='hero-card'><div class='hero-label'>{escape(label)}</div><div class='hero-value'>{escape(value)}</div></div>"
             for label, value in [
                 ('行业', state.industry),
-                ('竞品数量', str(len(self._records(state)))),
+                ('目标产品', state.target_product or '未识别'),
+                ('分析对象数量', str(len(self._records(state)))),
                 ('维度数量', str(max((len(record.fields) for record in self._records(state)), default=0))),
             ]
         )
         blocks = report.blocks or self._blocks_from_report(state, report)
-        hero_title = next((str(block.content or '竞品分析报告').strip() for block in blocks if block.block_type == 'title'), '竞品分析报告')
+        hero_title = next(
+            (str(block.content or '').strip() for block in blocks if block.block_type == 'title' and str(block.content or '').strip()),
+            f"{state.target_product or '目标产品'}竞品分析报告",
+        )
         summary_block = next((block for block in blocks if block.block_type == 'executive_summary'), None)
         sections_html = ''.join(self._report_block_html(block) for block in blocks if block.block_type in {'comparison_matrix', 'section_paragraph', 'section_bullets'})
         sources_block = next((block for block in blocks if block.block_type == 'reference_list'), None)
@@ -826,7 +832,7 @@ class WriterAgent:
         if block.block_type == 'comparison_matrix':
             return (
                 "<section class='report-section'>"
-                "<h2>竞品对比矩阵</h2>"
+                "<h2>分析对象对比矩阵</h2>"
                 f"<div class='matrix'>{self._comparison_matrix_html(block.content if isinstance(block.content, list) else [])}</div>"
                 f"{self._citation_badges_html(block.citations)}"
                 "</section>"
@@ -1048,17 +1054,19 @@ class WriterAgent:
             positioning = self._positioning_summary(record)
             pricing = self._get_field(record, 'pricing_model')
             price_text = pricing.summary if pricing is not None and pricing.summary.strip().lower() != 'unknown' else '定价模式待进一步确认'
+            prefix = record.product_name
             lines.append(
-                f"- {record.product_name}：定位上 "
+                f"- {prefix}：定位上 "
                 f"{self._format_text_for_report(positioning, context='comparison_overview')}；商业化上 "
                 f"{self._format_text_for_report(price_text, context='comparison_overview')}"
             )
-        return '\n'.join(lines) or '暂无竞品总览信息。'
+        return '\n'.join(lines) or '暂无分析对象总览信息。'
 
     def _background_text(self, state: RunState) -> str:
+        target_name = state.target_subject_name() or state.target_product or '目标产品'
         if state.user_prompt.strip():
-            return f"本次竞品分析围绕用户请求展开：{state.user_prompt.strip()}。目标是在公开信息范围内，识别竞品在核心功能、商业策略、用户反馈和扩展维度上的差异。"
-        return f"本次分析聚焦 {state.industry} 行业，基于公开网页证据对主要竞品进行结构化对比，输出适合汇报阅读的竞品分析报告。"
+            return f"本次竞品分析围绕用户请求展开：{state.user_prompt.strip()}。本报告以 {target_name} 为核心主体，在公开信息范围内识别目标产品与竞品在核心功能、商业策略、用户反馈和扩展维度上的差异。"
+        return f"本次分析聚焦 {state.industry} 行业，基于公开网页证据对 {target_name} 及其主要竞品进行结构化对比，输出适合汇报阅读的竞品分析报告。"
 
     def _positioning_summary(self, record: CompetitorAnalysisRecord) -> str:
         strengths = self._get_field(record, 'strengths')
@@ -1079,27 +1087,41 @@ class WriterAgent:
             parts.append(feedback.summary)
         return '；'.join(parts) if parts else '缺少稳定的用户与市场定位证据。'
 
-    def _opportunity_bullets(self, records: list[CompetitorAnalysisRecord]) -> list[str]:
+    def _opportunity_bullets(self, records: list[CompetitorAnalysisRecord], *, state: RunState) -> list[str]:
+        target = self._target_record(state, records)
+        peers = self._peer_records(state, records)
         bullets: list[str] = []
-        for record in records:
-            weakness = self._get_field(record, 'weaknesses')
+        if target is not None:
+            weakness = self._get_field(target, 'weaknesses')
             if weakness is not None and weakness.summary.strip().lower() != 'unknown':
                 bullets.append(
-                    f"围绕 {record.product_name} 的短板补位："
+                    f"优先补齐 {target.product_name} 的短板能力："
                     f"{self._format_text_for_report(weakness.summary, context='opportunity')}"
                 )
-            gaps = [field.field_name for field in record.fields if field.evidence_gaps]
-            if gaps:
-                gap_labels = [self._schema_field_label(item) for item in gaps[:3]]
-                bullets.append(f"优先补充 {record.product_name} 在 {', '.join(gap_labels)} 维度的公开证据。")
-        return bullets[:6] or ['优先补充产品定位、商业策略和增长数据相关证据。']
+            target_gaps = [field.field_name for field in target.fields if field.evidence_gaps]
+            if target_gaps:
+                gap_labels = [self._schema_field_label(item) for item in target_gaps[:3]]
+                bullets.append(f"优先补充 {target.product_name} 在 {', '.join(gap_labels)} 维度的公开证据，避免核心判断失真。")
+        for record in peers[:2]:
+            strength = self._get_field(record, 'strengths')
+            if strength is not None and strength.summary.strip().lower() != 'unknown':
+                bullets.append(
+                    f"针对 {record.product_name} 的优势建立应对动作："
+                    f"{self._format_text_for_report(strength.summary, context='opportunity')}"
+                )
+        return bullets[:6] or ['优先补充目标产品的定位、商业策略和增长数据相关证据。']
 
     @staticmethod
     def _executive_summary(state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
         if not records:
-            return f'{state.industry} 竞品报告基于公开信息生成，但当前缺少稳定字段级分析结果。'
+            return f'{state.industry} 目标产品竞品报告基于公开信息生成，但当前缺少稳定字段级分析结果。'
+        target_name = state.target_subject_name() or records[0].product_name
+        peer_count = max(len(records) - 1, 0)
         field_count = max((len(record.fields) for record in records), default=0)
-        return f'本报告围绕 {len(records)} 个竞品、{field_count} 个分析维度生成，按“背景-结论-定位-策略-设计-数据-反馈”的竞品分析模板重组内容，适合内部汇报与快速决策。'
+        return (
+            f'本报告以 {target_name} 为核心主体，对 {peer_count} 个竞品进行横向比较，'
+            f'覆盖 {field_count} 个分析维度，适合用于产品判断、竞争复盘与策略讨论。'
+        )
 
     @staticmethod
     def _appendix_sources(state: RunState) -> list[str]:
@@ -1115,15 +1137,64 @@ class WriterAgent:
 
     def _strengths_weaknesses_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
         lines: list[str] = []
+        target_name = state.target_subject_name()
         for record in records:
             strengths = self._get_field(record, 'strengths')
             weaknesses = self._get_field(record, 'weaknesses')
             strength_text = strengths.summary if strengths is not None and strengths.summary.strip().lower() != 'unknown' else '暂无稳定优势结论'
             weakness_text = weaknesses.summary if weaknesses is not None and weaknesses.summary.strip().lower() != 'unknown' else '暂无明确短板证据'
-            lines.append(f"- {record.product_name}")
+            prefix = f"{record.product_name}（目标产品）" if target_name and record.product_name == target_name else record.product_name
+            lines.append(f"- {prefix}")
             lines.append(f"  - 优势：{self._format_text_for_report(strength_text, context='strength_weakness')}")
             lines.append(f"  - 劣势/风险：{self._format_text_for_report(weakness_text, context='strength_weakness')}")
         return '\n'.join(lines) or '暂无优劣势对比内容。'
+
+    def _target_record(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> CompetitorAnalysisRecord | None:
+        target_name = state.target_subject_name()
+        if target_name:
+            for record in records:
+                if record.product_name == target_name:
+                    return record
+        return records[0] if records else None
+
+    def _peer_records(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[CompetitorAnalysisRecord]:
+        target = self._target_record(state, records)
+        if target is None:
+            return records[1:] if len(records) > 1 else []
+        return [record for record in records if record.product_name != target.product_name]
+
+    def _target_swot(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> dict[str, list[str]]:
+        target = self._target_record(state, records)
+        peers = self._peer_records(state, records)
+        if target is None:
+            return {'strengths': [], 'weaknesses': [], 'opportunities': [], 'threats': []}
+
+        strengths_field = self._get_field(target, 'strengths')
+        weaknesses_field = self._get_field(target, 'weaknesses')
+        strengths = []
+        weaknesses = []
+        opportunities = []
+        threats = []
+
+        if strengths_field is not None and strengths_field.summary.strip().lower() != 'unknown':
+            strengths.append(self._format_text_for_report(strengths_field.summary, context='strength_weakness'))
+        else:
+            strengths.append(f'{target.product_name} 已形成基础产品能力，但仍需更多公开证据支撑差异化判断。')
+
+        if weaknesses_field is not None and weaknesses_field.summary.strip().lower() != 'unknown':
+            weaknesses.append(self._format_text_for_report(weaknesses_field.summary, context='strength_weakness'))
+        else:
+            weaknesses.append(f'{target.product_name} 当前公开资料对短板暴露有限，需要结合更多市场与用户证据验证风险。')
+
+        peer_names = '、'.join(record.product_name for record in peers[:3]) or '主要竞品'
+        opportunities.append(f'可围绕 {peer_names} 已验证的需求热点，强化 {target.product_name} 的差异化定位与商业化表达。')
+        threats.append(f'{peer_names} 的公开能力与市场信号更丰富，可能在用户认知和采购决策中对 {target.product_name} 形成压力。')
+        return {
+            'strengths': strengths[:3],
+            'weaknesses': weaknesses[:3],
+            'opportunities': opportunities[:3],
+            'threats': threats[:3],
+        }
 
     @staticmethod
     def _field_has_reportable_content(field: AnalysisFieldResult) -> bool:
@@ -1252,7 +1323,7 @@ class WriterAgent:
                         'agent_name': 'WriterAgent',
                         'model': self.llm.config.openai_model,
                         'industry': state.industry,
-                        'competitor_count': len(state.planned_competitors or state.competitors),
+                'competitor_count': len(state.effective_analysis_subject_names()),
                         'attempt': state.attempt,
                         'stage': 'overview',
                         'agent_name': 'WriterAgent',
@@ -1321,9 +1392,10 @@ class WriterAgent:
 
     def _background_text_from_body(self, state: RunState, comparison_matrix: list[dict]) -> str:
         focus_text = self._matrix_focus_text(comparison_matrix)
+        target_name = state.target_subject_name() or state.target_product or '目标产品'
         if state.user_prompt.strip():
-            return f"本次研究围绕“{state.user_prompt.strip()}”展开，选取已识别的主要竞品进行对比，重点关注{focus_text}，目标是为产品判断、方案取舍和后续策略提供一页式结论。"
-        return f"本次研究聚焦 {state.industry} 方向的主要竞品，基于公开信息对产品能力、商业模式和用户采用信号进行结构化对比，重点关注{focus_text}。"
+            return f"本次研究围绕“{state.user_prompt.strip()}”展开，以 {target_name} 为核心主体，选取已识别的主要竞品进行对比，重点关注{focus_text}，目标是为产品判断、方案取舍和后续策略提供一页式结论。"
+        return f"本次研究聚焦 {state.industry} 方向，以 {target_name} 为核心主体，基于公开信息对目标产品与竞品的产品能力、商业模式和用户采用信号进行结构化对比，重点关注{focus_text}。"
 
     def _conclusion_text_from_body(
         self,
@@ -1334,7 +1406,7 @@ class WriterAgent:
         summary = self._executive_summary_from_body(state, records, comparison_matrix)
         lines = [summary]
         lines.extend(self._matrix_overview_bullets(comparison_matrix))
-        actions = self._opportunity_bullets(records)[:2]
+        actions = self._opportunity_bullets(records, state=state)[:2]
         if actions:
             lines.append('建议优先动作：')
             lines.extend(f"- {item}" for item in actions)
@@ -1348,17 +1420,19 @@ class WriterAgent:
     ) -> str:
         if not records:
             return f"本次{state.industry or '竞品'}分析已形成基础报告，但当前可用于归纳的稳定字段仍然有限，建议结合正文查看已采集到的差异信息。"
-        names = [record.product_name for record in records[:3]]
-        name_text = '、'.join(names)
+        target = self._target_record(state, records)
+        peers = self._peer_records(state, records)
+        target_name = target.product_name if target is not None else (state.target_subject_name() or records[0].product_name)
+        peer_text = '、'.join(record.product_name for record in peers[:3]) or '主要竞品'
         focus_text = self._matrix_focus_text(comparison_matrix)
         if self._matrix_has_dynamic_dimensions(comparison_matrix):
-            return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在{focus_text}等维度上，其中扩展能力和商业化路径最能拉开区分度。建议优先结合对比矩阵与后续建议动作判断产品取舍。"
-        return f"从当前公开信息看，{name_text} 等竞品的主要差异集中在产品能力、定价方式和用户采用信号上。建议重点结合对比总览、优劣势与建议动作章节判断取舍。"
+            return f"从当前公开信息看，{target_name} 与 {peer_text} 的主要差异集中在{focus_text}等维度上，其中扩展能力和商业化路径最能拉开区分度。建议优先结合目标产品与竞品矩阵判断 {target_name} 的取舍方向。"
+        return f"从当前公开信息看，{target_name} 与 {peer_text} 的主要差异集中在产品能力、定价方式和用户采用信号上。建议重点结合对比总览、优劣势与建议动作章节判断 {target_name} 的下一步动作。"
 
     def _matrix_focus_text(self, comparison_matrix: list[dict]) -> str:
         if not comparison_matrix:
             return '核心能力、商业化、用户反馈等维度'
-        keys = [key for key in comparison_matrix[0].keys() if key != 'product']
+        keys = [key for key in comparison_matrix[0].keys() if key not in {'product', 'role'}]
         labels = [self._schema_field_label(key) for key in keys[:4]]
         labels = [label for label in labels if label]
         return '、'.join(labels) if labels else '核心能力、商业化、用户反馈等维度'
@@ -1367,7 +1441,7 @@ class WriterAgent:
     def _matrix_has_dynamic_dimensions(comparison_matrix: list[dict]) -> bool:
         if not comparison_matrix:
             return False
-        core_fields = {'product', 'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
+        core_fields = {'product', 'role', 'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
         keys = {key for key in comparison_matrix[0].keys()}
         return any(key not in core_fields for key in keys)
 
@@ -1379,7 +1453,7 @@ class WriterAgent:
                 continue
             highlights = []
             for key, value in row.items():
-                if key == 'product':
+                if key in {'product', 'role'}:
                     continue
                 text = ' '.join(str(value or '').split())
                 if text:

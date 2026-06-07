@@ -31,12 +31,13 @@ class QACriticAgent:
             "industry": state.industry,
             "language": state.language,
             "analysis_schema_plan": [x.model_dump(mode="json") for x in state.analysis_schema_plan],
-            "expected_competitors": state.planned_competitors or state.competitors,
+            "expected_competitors": state.effective_analysis_subject_names(),
             "competitors": [x.model_dump(mode="json") for x in state.competitor_analyses],
             "profiles": [x.model_dump(mode="json") for x in state.profiles],
             "findings": [x.model_dump(mode="json") for x in state.findings],
             "report": state.report.model_dump(mode="json") if state.report else None,
             "evidences": [x.model_dump(mode="json") for x in state.evidences],
+            "target_product": state.target_subject_name(),
             "field_evidence_summary": self._build_field_evidence_summary(state),
             "constraints": {
                 "require_traceable_evidence": True,
@@ -59,7 +60,7 @@ class QACriticAgent:
             "agent_name": "QACriticAgent",
             "model": self.llm.config.openai_model,
             "industry": state.industry,
-            "competitor_count": len(state.planned_competitors or state.competitors),
+            "competitor_count": len(state.effective_analysis_subject_names()),
             "attempt": state.attempt,
         }
         try:
@@ -153,6 +154,7 @@ class QACriticAgent:
             industry=industry_hint or "general",
             competitors=[competitor],
             planned_competitors=[competitor],
+            target_product=competitor,
             user_prompt="analysis_stage_qa",
         )
         self._append_qa_log(

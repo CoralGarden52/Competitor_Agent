@@ -35,6 +35,10 @@ class QuestionnaireUpdateRequest(BaseModel):
     markdown: str = Field(min_length=1)
 
 
+class PlanSupplementRequest(BaseModel):
+    message: str = Field(min_length=1)
+
+
 @router.post('', response_model=RunResponse)
 def create_run(payload: RunRequest, service: CompetitorWorkflowService = Depends(get_service)) -> RunResponse:
     return service.start_run_async(payload)
@@ -105,6 +109,34 @@ def workspace_run(run_id: str, service: CompetitorWorkflowService = Depends(get_
     if data.get('status') == 'not_found':
         raise HTTPException(status_code=404, detail='run not found')
     return data
+
+
+@router.get('/{run_id}/plan-confirmation')
+def get_plan_confirmation(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.get_plan_confirmation_payload(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.post('/{run_id}/plan-confirmation/confirm', response_model=RunResponse)
+def confirm_plan_confirmation(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> RunResponse:
+    result = service.confirm_plan_confirmation(run_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    return result
+
+
+@router.post('/{run_id}/plan-confirmation/supplement', response_model=RunResponse)
+def submit_plan_supplement(
+    run_id: str,
+    payload: PlanSupplementRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> RunResponse:
+    result = service.submit_plan_supplement(run_id, payload.message)
+    if result is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    return result
 
 
 @router.get('/{run_id}/report.md')
