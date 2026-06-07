@@ -71,6 +71,53 @@ function renderJsonBlock(payload: unknown) {
   return <pre className="json-block">{JSON.stringify(payload, null, 2)}</pre>;
 }
 
+function compactTraceName(value?: string): string {
+  const text = String(value || "").trim();
+  if (!text) return "LLM Call";
+  return text
+    .replace(/^agent\./i, "")
+    .replace(/\./g, " / ")
+    .replace(/\bpricing_model\b/gi, "Pricing Model")
+    .replace(/\bfeature_tree\b/gi, "Feature Tree")
+    .replace(/\buser_feedback\b/gi, "User Feedback");
+}
+
+function compactEventName(value?: string): string {
+  const text = String(value || "").trim();
+  if (!text) return "event";
+  return text.replace(/^runtime\./, "").replace(/^agent\./, "");
+}
+
+function readNumber(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return null;
+}
+
+function extractTokenCount(payload: unknown): number | null {
+  if (!payload || typeof payload !== "object") return null;
+  const queue: unknown[] = [payload];
+  while (queue.length) {
+    const current = queue.shift();
+    if (!current || typeof current !== "object") continue;
+    const record = current as Record<string, unknown>;
+    const total = readNumber(record.total_tokens);
+    if (total !== null && total > 0) return total;
+    const prompt = readNumber(record.prompt_tokens);
+    const completion = readNumber(record.completion_tokens);
+    if (prompt !== null || completion !== null) {
+      return Math.max(0, (prompt || 0) + (completion || 0));
+    }
+    for (const value of Object.values(record)) {
+      if (value && typeof value === "object") queue.push(value);
+    }
+  }
+  return null;
+}
+
 export function StageDetailPanel({
   stage,
   stageCard,
@@ -157,10 +204,13 @@ export function StageDetailPanel({
             <section className="detail-section">
               <h3>阶段交接</h3>
               {handoff ? (
-                <>
-                  <p>{handoff.handoff_summary || "已生成阶段交接数据。"}</p>
+                <details className="detail-disclosure">
+                  <summary>
+                    <span>{handoff.handoff_summary || "已生成阶段交接数据。"}</span>
+                    <span className="detail-disclosure-hint">展开详情…</span>
+                  </summary>
                   {renderJsonBlock(handoff.output_schema?.payload)}
-                </>
+                </details>
               ) : (
                 <p className="empty-state">暂无 handoff。</p>
               )}
@@ -174,12 +224,19 @@ export function StageDetailPanel({
                     const key = buildStepKey(call, index);
                     const expanded = expandedCallKeys.includes(key);
                     return (
-                      <article key={key}>
+                      <article key={key} className="detail-item-card">
                         <button type="button" className="detail-toggle" onClick={() => onToggleCall(key)}>
-                          <strong>{call.display_name || call.trace_name || `LLM Call ${index + 1}`}</strong>
-                          <span>{expanded ? "收起" : "展开"}</span>
+                          <span className="detail-toggle-main">
+                            <strong>{compactTraceName(call.display_name || call.trace_name || `LLM Call ${index + 1}`)}</strong>
+                            <small>{call.model || "model"}</small>
+                          </span>
+                          <span className="detail-toggle-action">{expanded ? "收起" : "展开"}</span>
                         </button>
-                        <p>{`${call.model || "model"} · ${call.total_tokens || 0} tokens · ${formatDuration(call.latency_ms)}`}</p>
+                        <div className="detail-meta-row">
+                          <span>{`${call.total_tokens || 0} tokens`}</span>
+                          <span>{formatDuration(call.latency_ms)}</span>
+                          {call.finish_reason ? <span>{call.finish_reason}</span> : null}
+                        </div>
                         {expanded ? renderJsonBlock(call.parsed_response || call.raw_response || {}) : null}
                       </article>
                     );
@@ -197,12 +254,21 @@ export function StageDetailPanel({
                   {events.map((event, index) => {
                     const key = `${event.event_id || index}:${event.event_type || "event"}`;
                     const expanded = expandedEventKeys.includes(key);
+                    const tokenCount = extractTokenCount(event.payload);
                     return (
-                      <article key={key}>
+                      <article key={key} className="detail-item-card">
                         <button type="button" className="detail-toggle" onClick={() => onToggleEvent(key)}>
-                          <strong>{String(event.event_type || "event")}</strong>
-                          <span>{formatEventTime(event.created_at)}</span>
+                          <span className="detail-toggle-main">
+                            <strong>{compactEventName(String(event.event_type || "event"))}</strong>
+                            <small>{String(event.stage || stage || "")}</small>
+                          </span>
+                          <span className="detail-toggle-action">{expanded ? "收起" : "展开"}</span>
                         </button>
+                        <div className="detail-meta-row">
+                          <span>{formatEventTime(event.created_at)}</span>
+                          {tokenCount !== null ? <span>{`tokens ${tokenCount}`}</span> : null}
+                          {typeof event.event_id === "number" ? <span>{`#${event.event_id}`}</span> : null}
+                        </div>
                         {expanded ? renderJsonBlock(event.payload || {}) : null}
                       </article>
                     );
