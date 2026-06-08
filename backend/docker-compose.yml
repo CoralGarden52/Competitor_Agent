@@ -1,0 +1,102 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    container_name: competitor-analysis-backend
+    restart: unless-stopped
+    ports:
+      - "8010:8010"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
+      POSTGRES_DB: ${POSTGRES_DB:-competitor_analysis}
+      REDIS_ENABLED: ${REDIS_ENABLED:-true}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      REDIS_DB: ${REDIS_DB:-0}
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
+      FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
+      JINA_API_KEY: ${JINA_API_KEY:-}
+      JINA_USER_AGENT: ${JINA_USER_AGENT:-}
+      BAIDU_SEARCH_API_KEY: ${BAIDU_SEARCH_API_KEY:-}
+      BAIDU_SEARCH_ENDPOINT: ${BAIDU_SEARCH_ENDPOINT:-https://qianfan.baidubce.com/v2/ai_search/web_search}
+      ZHIHU_CLIENT_ID: ${ZHIHU_CLIENT_ID:-}
+      ZHIHU_CLIENT_SECRET: ${ZHIHU_CLIENT_SECRET:-}
+      ZHIHU_BASE_URL: ${ZHIHU_BASE_URL:-https://api.zhihu.com}
+      ZHIHU_SEARCH_ACCESS_SECRET: ${ZHIHU_SEARCH_ACCESS_SECRET:-}
+      ZHIHU_SEARCH_ENDPOINT: ${ZHIHU_SEARCH_ENDPOINT:-https://developer.zhihu.com/api/v1/content/zhihu_search}
+      BING_API_KEY: ${BING_API_KEY:-}
+      BING_ENDPOINT: ${BING_ENDPOINT:-https://api.bing.microsoft.com/v7.0/search}
+      REQUEST_TIMEOUT_SECONDS: ${REQUEST_TIMEOUT_SECONDS:-60}
+      COLLECTOR_CACHE_TTL_DAYS: ${COLLECTOR_CACHE_TTL_DAYS:-30}
+      COLLECTOR_MAX_URLS: ${COLLECTOR_MAX_URLS:-10}
+      COLLECTOR_PER_FIELD_LIMIT: ${COLLECTOR_PER_FIELD_LIMIT:-1}
+      COLLECTOR_PREVIEW_AUTO_SAVE_ENABLED: ${COLLECTOR_PREVIEW_AUTO_SAVE_ENABLED:-true}
+      COLLECTOR_PREVIEW_SAVE_DIR: ${COLLECTOR_PREVIEW_SAVE_DIR:-/app/.data/collector_exports}
+      TRACING_MODE: ${TRACING_MODE:-relaxed}
+      LANGSMITH_TRACING: ${LANGSMITH_TRACING:-false}
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY:-}
+      LANGSMITH_PROJECT: ${LANGSMITH_PROJECT:-competitor-analysis}
+      LANGSMITH_ENDPOINT: ${LANGSMITH_ENDPOINT:-https://api.smith.langchain.com}
+      WJX_EXPORT_ENABLED: ${WJX_EXPORT_ENABLED:-false}
+      WJX_API_KEY: ${WJX_API_KEY:-}
+      WJX_BASE_URL: ${WJX_BASE_URL:-https://www.wjx.cn}
+      WJX_CLI_PATH: ${WJX_CLI_PATH:-wjx}
+      WJX_EXPORT_PUBLISH: ${WJX_EXPORT_PUBLISH:-true}
+      WJX_EXPORT_TIMEOUT_SEC: ${WJX_EXPORT_TIMEOUT_SEC:-90}
+      WJX_EXPORT_DIR: ${WJX_EXPORT_DIR:-/app/.data/wjx_exports}
+    volumes:
+      - backend_data:/app/.data
+      - backend_logs:/app/log
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8010/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  postgres:
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/postgres:16-alpine
+    container_name: competitor-analysis-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
+      POSTGRES_DB: ${POSTGRES_DB:-competitor_analysis}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-competitor_analysis}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/redis:7-alpine
+    container_name: competitor-analysis-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  backend_data:
+  backend_logs:
+  postgres_data:
+  redis_data:
