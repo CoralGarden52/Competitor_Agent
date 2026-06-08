@@ -1,7 +1,10 @@
 ﻿from __future__ import annotations
 
+import concurrent.futures
 from html import escape
+import json
 import logging
+from pathlib import Path
 import re
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
@@ -12,6 +15,7 @@ from app.core.models import (
     CompetitorAnalysisRecord,
     DraftOutput,
     ReportBlock,
+    ReportContentItem,
     ReportCitation,
     Report,
     ReportClaim,
@@ -19,20 +23,37 @@ from app.core.models import (
     RunState,
     TaskEnvelope,
     TaskResult,
+    WriterFragmentResult,
+    WriterWriteGroup,
 )
-from app.core.prompts.agent_prompts import DRAFT_MARKDOWN_STREAM_SYSTEM_PROMPT, DRAFT_OVERVIEW_SYSTEM_PROMPT, DRAFT_SYSTEM_PROMPT
+from app.core.prompts.agent_prompts import (
+    DRAFT_MARKDOWN_STREAM_SYSTEM_PROMPT,
+    DRAFT_OVERVIEW_SYSTEM_PROMPT,
+    DRAFT_SECTION_SYSTEM_PROMPT,
+    DRAFT_SWOT_PRODUCT_SYSTEM_PROMPT,
+    DRAFT_SYSTEM_PROMPT,
+)
 
 
-TEMPLATE_SECTION_ORDER: list[tuple[str, str, str]] = [
-    ('background_goal', '一、研究范围与目标', ''),
-    ('conclusion_advice', '二、核心结论', ''),
-    ('comparison_overview', '三、竞品对比总览', ''),
-    ('capability_comparison', '四、核心能力与产品形态', 'feature_tree'),
-    ('pricing_strategy', '五、商业化与定价', 'pricing_model'),
-    ('user_feedback_analysis', '六、用户反馈与采用信号', 'user_feedback'),
-    ('strengths_weaknesses', '七、核心优劣势与风险', ''),
-    ('action_recommendations', '八、建议动作', ''),
-]
+_REPORT_TEMPLATE_PATH = Path(__file__).resolve().parents[3] / 'skills' / 'competitor-analysis-report' / 'report_template.json'
+
+
+def _load_template_section_order() -> list[tuple[str, str, str]]:
+    payload = json.loads(_REPORT_TEMPLATE_PATH.read_text(encoding='utf-8'))
+    sections = payload.get('sections', [])
+    output: list[tuple[str, str, str]] = []
+    for item in sections:
+        if not isinstance(item, dict):
+            continue
+        section_id = str(item.get('section_id', '')).strip()
+        title = str(item.get('title', '')).strip()
+        field_name = str(item.get('field_name', '')).strip()
+        if section_id and title:
+            output.append((section_id, title, field_name))
+    return output
+
+
+TEMPLATE_SECTION_ORDER: list[tuple[str, str, str]] = _load_template_section_order()
 
 CORE_REPORT_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
 SCHEMA_FIELD_ZH_LABELS = {
@@ -54,7 +75,7 @@ class WriterAgent:
 
     def run_llm(self, state: RunState) -> DraftOutput:
         self._refresh_dynamic_schema_labels(state)
-        section_specs = self._section_specs(state, include_overview_sections=False)
+        section_specs = self._section_specs(state, include_overview_sections=True)
         payload = {
             'industry': state.industry,
             'language': state.language,
@@ -85,8 +106,8 @@ class WriterAgent:
         )
         try:
             parsed = DraftOutput.model_validate(result)
-            drafted = self._ensure_report_consistency(parsed, state=state, include_overview_sections=False)
-            return self._synthesize_overview_sections(drafted, state=state)
+            drafted = self._ensure_report_consistency(parsed, state=state, include_overview_sections=True)
+            return drafted
         except Exception as exc:
             raise LLMCallError(
                 reason='validation_error',
@@ -139,6 +160,457 @@ class WriterAgent:
             on_delta(delta)
         return ''.join(chunks).strip()
 
+    def run_parallel_markdown_stream(self, state: RunState, *, on_delta) -> DraftOutput:
+        self._refresh_dynamic_schema_labels(state)
+        records = self._records(state)
+        groups = self.plan_report_write_groups(state, records)
+        if not groups:
+            raise LLMCallError(reason='empty_groups', message='no writer groups planned', attempt_count=1, retry_count_used=0)
+
+        matrix = self._comparison_matrix(state, records)
+        executive_summary = self._executive_summary_from_body(state, records, matrix)
+        title = f"# {state.target_product or state.target_subject_name() or '目标产品'}竞品分析报告\n\n"
+        summary_block = f"## 执行摘要\n\n{executive_summary}\n\n"
+        on_delta(title)
+        on_delta(summary_block)
+
+        results_by_group: dict[str, WriterFragmentResult] = {}
+        pending_by_id = {group.group_id: group for group in groups}
+        ordered_groups = sorted(groups, key=lambda item: item.sort_key)
+        emitted_sections: set[str] = set()
+        flushed_group_ids: set[str] = set()
+        markdown_chunks = [title, summary_block]
+
+        max_workers = min(self.app_config.writer_parallel_max_workers, max(len(groups), 1))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix='writer-parallel') as executor:
+            future_map = {
+                executor.submit(self._execute_write_group_with_retry, state, records, group): group
+                for group in groups
+            }
+            for future in concurrent.futures.as_completed(future_map):
+                group = future_map[future]
+                results_by_group[group.group_id] = future.result()
+                while True:
+                    next_group = next((item for item in ordered_groups if item.group_id not in flushed_group_ids), None)
+                    if next_group is None or next_group.group_id not in results_by_group:
+                        break
+                    fragment = results_by_group[next_group.group_id]
+                    piece = self._stream_fragment_markdown(state, next_group, fragment, matrix=matrix, emitted_sections=emitted_sections)
+                    if piece:
+                        markdown_chunks.append(piece)
+                        on_delta(piece)
+                    flushed_group_ids.add(next_group.group_id)
+                    pending_by_id.pop(next_group.group_id, None)
+
+        references_markdown = self._reference_markdown(state)
+        if references_markdown:
+            markdown_chunks.append(references_markdown)
+            on_delta(references_markdown)
+
+        sections = self._sections_from_fragments(state, ordered_groups, results_by_group)
+        report = Report(
+            executive_summary=executive_summary,
+            comparison_matrix=matrix,
+            swot=self._target_swot(state, records),
+            opportunities=self._opportunity_bullets(records, state=state),
+            appendix_sources=self._appendix_sources(state),
+            sections=sections,
+            markdown=''.join(markdown_chunks).strip(),
+        )
+        drafted = DraftOutput(report=report)
+        drafted = self._ensure_report_consistency(drafted, state=state, include_overview_sections=True)
+        drafted.report.blocks = self._blocks_from_report(state, drafted.report)
+        drafted.report.citations = self._global_citations_from_blocks(drafted.report.blocks)
+        drafted.report.html = self._html_from_blocks(state, drafted.report)
+        return drafted
+
+    def plan_report_write_groups(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[WriterWriteGroup]:
+        groups: list[WriterWriteGroup] = []
+        sort_key = 0
+        for section_id, title, field_name in self._section_specs(state, include_overview_sections=True):
+            if section_id == 'swot_analysis':
+                for product_index, record in enumerate(records, start=1):
+                    groups.append(
+                        WriterWriteGroup(
+                            group_id=f'{section_id}:{record.product_name}',
+                            section_id=section_id,
+                            title=title,
+                            field_name=field_name,
+                            group_type='product_section',
+                            product_name=record.product_name,
+                            sort_key=sort_key * 100 + product_index,
+                        )
+                    )
+                sort_key += 1
+                continue
+            groups.append(
+                WriterWriteGroup(
+                    group_id=section_id,
+                    section_id=section_id,
+                    title=title,
+                    field_name=field_name,
+                    group_type='section',
+                    sort_key=sort_key * 100,
+                )
+            )
+            sort_key += 1
+        return groups
+
+    def _execute_write_group_with_retry(
+        self,
+        state: RunState,
+        records: list[CompetitorAnalysisRecord],
+        group: WriterWriteGroup,
+    ) -> WriterFragmentResult:
+        try:
+            return self._execute_write_group(state, records, group)
+        except Exception:
+            return self._execute_write_group(state, records, group)
+
+    def _execute_write_group(
+        self,
+        state: RunState,
+        records: list[CompetitorAnalysisRecord],
+        group: WriterWriteGroup,
+    ) -> WriterFragmentResult:
+        if group.section_id == 'swot_analysis' and group.product_name:
+            return self._run_swot_llm_for_product(state, records, group)
+        return self._run_section_llm(state, records, group)
+
+    def _run_section_llm(
+        self,
+        state: RunState,
+        records: list[CompetitorAnalysisRecord],
+        group: WriterWriteGroup,
+    ) -> WriterFragmentResult:
+        payload = {
+            'industry': state.industry,
+            'language': state.language,
+            'section_id': group.section_id,
+            'section_title': group.title,
+            'field_name': group.field_name,
+            'section_context': self._section_context_payload(state, records, group),
+            'findings': [item.model_dump(mode='json') for item in self._findings_for_section(state, group)],
+            'evidences': [item.model_dump(mode='json') for item in state.evidences[:18]],
+            'report_requirements': {
+                'provenance_granularity': 'item',
+                'must_be_section_scoped': True,
+            },
+        }
+        result = self._invoke_llm_json(
+            trace_name=f'agent.draft.section.{group.section_id}',
+            system_prompt=DRAFT_SECTION_SYSTEM_PROMPT,
+            user_payload=payload,
+            metadata={
+                'run_id': state.run_id,
+                'node_name': 'draft',
+                'agent_name': 'WriterAgent',
+                'model': self.llm.config.openai_model,
+                'industry': state.industry,
+                'section_id': group.section_id,
+                'attempt': state.attempt,
+            },
+            tool_names=['web.extract'],
+        )
+        return self._fragment_from_section_result(state, group, result)
+
+    def _run_swot_llm_for_product(
+        self,
+        state: RunState,
+        records: list[CompetitorAnalysisRecord],
+        group: WriterWriteGroup,
+    ) -> WriterFragmentResult:
+        target_record = next((record for record in records if record.product_name == group.product_name), None)
+        if target_record is None:
+            raise LLMCallError(reason='missing_target_record', message=f'missing SWOT record for {group.product_name}', attempt_count=1, retry_count_used=0)
+        peer_records = [record for record in records if record.product_name != target_record.product_name]
+        payload = self._build_swot_prompt_context(state, target_record, peer_records)
+        result = self._invoke_llm_json(
+            trace_name=f'agent.draft.swot.{group.product_name}',
+            system_prompt=DRAFT_SWOT_PRODUCT_SYSTEM_PROMPT,
+            user_payload=payload,
+            metadata={
+                'run_id': state.run_id,
+                'node_name': 'draft',
+                'agent_name': 'WriterAgent',
+                'model': self.llm.config.openai_model,
+                'industry': state.industry,
+                'section_id': 'swot_analysis',
+                'product_name': target_record.product_name,
+                'attempt': state.attempt,
+            },
+            tool_names=['web.extract'],
+        )
+        return self._fragment_from_swot_result(state, group, result)
+
+    def _build_swot_prompt_context(
+        self,
+        state: RunState,
+        target_record: CompetitorAnalysisRecord,
+        peer_records: list[CompetitorAnalysisRecord],
+    ) -> dict:
+        focus_fields = ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
+        return {
+            'industry': state.industry,
+            'language': state.language,
+            'target_product': target_record.product_name,
+            'target_fields': self._record_field_context(target_record, focus_fields),
+            'peer_products': [
+                {
+                    'product_name': record.product_name,
+                    'fields': self._record_field_context(record, focus_fields),
+                }
+                for record in peer_records
+            ],
+            'findings': [item.model_dump(mode='json') for item in state.findings[:20]],
+            'evidences': [item.model_dump(mode='json') for item in state.evidences[:20]],
+            'swot_rules': {
+                'relative_ot_enabled': True,
+                'opportunities_and_threats_can_use_peer_strengths_weaknesses': True,
+            },
+        }
+
+    def _record_field_context(self, record: CompetitorAnalysisRecord, focus_fields: list[str]) -> list[dict]:
+        output: list[dict] = []
+        for field_name in focus_fields:
+            field = self._get_field(record, field_name)
+            if field is None:
+                continue
+            output.append(
+                {
+                    'field_name': field_name,
+                    'summary': self._field_primary_text(field),
+                    'evidence_refs': field.evidence_refs[:4],
+                    'normalized_value': field.normalized_value,
+                    'evidence_gaps': field.evidence_gaps[:4],
+                }
+            )
+        return output
+
+    def _section_context_payload(
+        self,
+        state: RunState,
+        records: list[CompetitorAnalysisRecord],
+        group: WriterWriteGroup,
+    ) -> dict:
+        focus_by_section = {
+            'analysis_background': [],
+            'comparison_overview': [item.field_name for item in state.analysis_schema_plan if item.field_name],
+            'capability_comparison': ['feature_tree', *[item.field_name for item in self._dynamic_section_fields(state)]],
+            'pricing_strategy': ['pricing_model'],
+            'user_feedback_analysis': ['user_feedback'],
+            'strategic_insights': ['strengths', 'weaknesses', 'pricing_model', 'user_feedback', 'feature_tree'],
+            'conclusion_risks': ['strengths', 'weaknesses', 'pricing_model', 'user_feedback', 'feature_tree'],
+        }
+        focus_fields = focus_by_section.get(group.section_id, [group.field_name] if group.field_name else [])
+        return {
+            'target_product': state.target_subject_name() or state.target_product or '',
+            'user_prompt': state.user_prompt,
+            'analysis_scope': [record.product_name for record in records],
+            'matrix': self._comparison_matrix(state, records),
+            'records': [
+                {
+                    'product_name': record.product_name,
+                    'fields': self._record_field_context(record, focus_fields),
+                }
+                for record in records
+            ],
+        }
+
+    def _findings_for_section(self, state: RunState, group: WriterWriteGroup) -> list:
+        category_map = {
+            'pricing_strategy': {'pricing', 'risk'},
+            'user_feedback_analysis': {'feedback', 'risk'},
+            'strategic_insights': {'feature', 'pricing', 'feedback', 'risk'},
+            'conclusion_risks': {'risk', 'feedback', 'pricing'},
+        }
+        categories = category_map.get(group.section_id)
+        if not categories:
+            return state.findings[:12]
+        return [item for item in state.findings if item.category in categories][:12]
+
+    def _fragment_from_section_result(self, state: RunState, group: WriterWriteGroup, payload: dict) -> WriterFragmentResult:
+        items: list[ReportContentItem] = []
+        refs_seen: set[str] = set()
+        raw_items = []
+        for key in ('paragraphs', 'bullets'):
+            value = payload.get(key, [])
+            if isinstance(value, list):
+                raw_items.extend(value)
+        for index, raw in enumerate(raw_items, start=1):
+            if not isinstance(raw, dict):
+                continue
+            text = str(raw.get('text', '')).strip()
+            if not text:
+                continue
+            refs = self._sanitize_refs(state, raw.get('evidence_refs', []))
+            citations = self._citations_from_refs(state, refs, limit=3)
+            items.append(
+                ReportContentItem(
+                    item_id=f'{group.group_id}:{index}',
+                    text=text,
+                    kind=str(raw.get('kind', 'paragraph') or 'paragraph'),
+                    evidence_refs=refs,
+                    citations=citations,
+                )
+            )
+            refs_seen.update(refs)
+        markdown = self._markdown_for_items(items)
+        claims = [ReportClaim(statement=item.text, evidence_refs=item.evidence_refs[:3], confidence=0.75) for item in items[:8]]
+        return WriterFragmentResult(
+            fragment_id=group.group_id,
+            section_id=group.section_id,
+            title=str(payload.get('title', '')).strip() or group.title,
+            field_name=group.field_name,
+            markdown=markdown,
+            items=items,
+            claims=claims,
+            evidence_refs=list(refs_seen)[:12],
+            citations=self._citations_from_refs(state, list(refs_seen), limit=6),
+            sort_key=group.sort_key,
+        )
+
+    def _fragment_from_swot_result(self, state: RunState, group: WriterWriteGroup, payload: dict) -> WriterFragmentResult:
+        product_name = str(payload.get('product_name', '')).strip() or group.product_name
+        title = f"### {product_name} SWOT分析"
+        items: list[ReportContentItem] = []
+        refs_seen: set[str] = set()
+        labels = {
+            'strengths': '优势 Strengths',
+            'weaknesses': '劣势 Weaknesses',
+            'opportunities': '机会 Opportunities',
+            'threats': '威胁 Threats',
+        }
+        index = 1
+        for key in ('strengths', 'weaknesses', 'opportunities', 'threats'):
+            raw_items = payload.get(key, [])
+            for raw in raw_items if isinstance(raw_items, list) else []:
+                if not isinstance(raw, dict):
+                    continue
+                text = str(raw.get('text', '')).strip()
+                if not text:
+                    continue
+                refs = self._sanitize_refs(state, raw.get('evidence_refs', []))
+                refs_seen.update(refs)
+                items.append(
+                    ReportContentItem(
+                        item_id=f'{group.group_id}:{index}',
+                        text=f"{labels[key]}：{text}",
+                        kind='bullet',
+                        evidence_refs=refs,
+                        citations=self._citations_from_refs(state, refs, limit=3),
+                    )
+                )
+                index += 1
+        body_lines = [title]
+        body_lines.extend(self._markdown_for_items(items).splitlines())
+        markdown = '\n'.join(body_lines).strip()
+        claims = [ReportClaim(statement=item.text, evidence_refs=item.evidence_refs[:3], confidence=0.75) for item in items[:8]]
+        return WriterFragmentResult(
+            fragment_id=group.group_id,
+            section_id=group.section_id,
+            title=group.title,
+            product_name=product_name,
+            field_name=group.field_name,
+            markdown=markdown,
+            items=items,
+            claims=claims,
+            evidence_refs=list(refs_seen)[:12],
+            citations=self._citations_from_refs(state, list(refs_seen), limit=6),
+            sort_key=group.sort_key,
+        )
+
+    def _sanitize_refs(self, state: RunState, raw_refs) -> list[str]:
+        valid_refs = {item.evidence_id for item in state.evidences}
+        refs: list[str] = []
+        for raw in raw_refs if isinstance(raw_refs, list) else []:
+            ref = str(raw or '').strip()
+            if not ref or ref not in valid_refs or ref in refs:
+                continue
+            refs.append(ref)
+        return refs[:3]
+
+    def _markdown_for_items(self, items: list[ReportContentItem]) -> str:
+        lines: list[str] = []
+        for item in items:
+            prefix = '- ' if item.kind == 'bullet' else ''
+            lines.append(f'{prefix}{item.text}'.rstrip())
+            citation_line = self._markdown_citation_line(item.citations)
+            if citation_line:
+                lines.append(citation_line)
+        return '\n'.join(lines).strip()
+
+    def _stream_fragment_markdown(
+        self,
+        state: RunState,
+        group: WriterWriteGroup,
+        fragment: WriterFragmentResult,
+        *,
+        matrix: list[dict],
+        emitted_sections: set[str],
+    ) -> str:
+        lines: list[str] = []
+        if group.section_id not in emitted_sections:
+            lines.append(f'## {group.title}')
+            lines.append('')
+            emitted_sections.add(group.section_id)
+            if group.section_id == 'comparison_overview':
+                lines.extend(self._matrix_markdown_lines(matrix))
+                lines.append('')
+        if fragment.markdown.strip():
+            lines.append(fragment.markdown.strip())
+            lines.append('')
+        return '\n'.join(lines)
+
+    def _matrix_markdown_lines(self, matrix: list[dict]) -> list[str]:
+        if not matrix:
+            return ['暂无对比矩阵。']
+        headers = ['product', *[key for key in matrix[0].keys() if key not in {'product', 'role'}]]
+        display_headers = [self._schema_field_label(item) for item in headers]
+        lines = ['| ' + ' | '.join(display_headers) + ' |', '| ' + ' | '.join(['---'] * len(headers)) + ' |']
+        for row in matrix:
+            lines.append('| ' + ' | '.join(str(row.get(header, '')) for header in headers) + ' |')
+        return lines
+
+    def _reference_markdown(self, state: RunState) -> str:
+        urls = self._appendix_sources(state)
+        if not urls:
+            return ''
+        lines = ['## 参考来源', '']
+        lines.extend(f'- {url}' for url in urls)
+        lines.append('')
+        return '\n'.join(lines)
+
+    def _sections_from_fragments(
+        self,
+        state: RunState,
+        groups: list[WriterWriteGroup],
+        results_by_group: dict[str, WriterFragmentResult],
+    ) -> list[ReportSection]:
+        sections: list[ReportSection] = []
+        for section_id, title, field_name in self._section_specs(state, include_overview_sections=True):
+            relevant_groups = [group for group in groups if group.section_id == section_id]
+            fragments = [results_by_group[group.group_id] for group in sorted(relevant_groups, key=lambda item: item.sort_key) if group.group_id in results_by_group]
+            items: list[ReportContentItem] = []
+            claims: list[ReportClaim] = []
+            markdown_parts: list[str] = []
+            for fragment in fragments:
+                items.extend(fragment.items)
+                claims.extend(fragment.claims)
+                if fragment.markdown.strip():
+                    markdown_parts.append(fragment.markdown.strip())
+            sections.append(
+                ReportSection(
+                    section_id=section_id,
+                    title=title,
+                    field_name=field_name,
+                    claims=claims[:12],
+                    content_markdown='\n\n'.join(markdown_parts).strip(),
+                    content_items=items,
+                )
+            )
+        return sections
+
     def build_streamable_report(self, state: RunState) -> DraftOutput:
         self._refresh_dynamic_schema_labels(state)
         records = self._records(state)
@@ -148,11 +620,10 @@ class WriterAgent:
             swot=self._target_swot(state, records),
             opportunities=self._opportunity_bullets(records, state=state),
             appendix_sources=self._appendix_sources(state),
-            sections=self._template_sections(state, records, include_overview_sections=False),
+            sections=self._template_sections(state, records, include_overview_sections=True),
         )
         drafted = DraftOutput(report=report)
-        drafted = self._ensure_report_consistency(drafted, state=state, include_overview_sections=False)
-        drafted = self._synthesize_overview_sections(drafted, state=state, allow_llm=False)
+        drafted = self._ensure_report_consistency(drafted, state=state, include_overview_sections=True)
         drafted.report.blocks = self._blocks_from_report(state, drafted.report)
         drafted.report.citations = self._global_citations_from_blocks(drafted.report.blocks)
         drafted.report.markdown = self._markdown_from_blocks(state, drafted.report)
@@ -249,13 +720,13 @@ class WriterAgent:
             if entry is None:
                 continue
             actual_title, body = entry
-            claims = self._claims_and_content_for_section(
+            claims, _, items = self._claims_and_content_for_section(
                 state,
                 records,
                 section_id=section_id,
                 title=actual_title,
                 field_name=field_name,
-            )[0]
+            )
             sections.append(
                 ReportSection(
                     section_id=section_id,
@@ -263,6 +734,7 @@ class WriterAgent:
                     field_name=field_name,
                     claims=claims,
                     content_markdown=body,
+                    content_items=items or self._items_from_lines(state, section_id, body.splitlines(), refs=self._claim_refs_from_list(claims)),
                 )
             )
         return sections
@@ -274,8 +746,13 @@ class WriterAgent:
         markdown: str,
         sections: list[ReportSection],
     ) -> str:
+        summary_match = re.search(r'(?ms)^##\s+执行摘要\s*(.+?)(?=^##\s+|\Z)', markdown)
+        if summary_match:
+            text = '\n'.join(self._clean_report_lines(summary_match.group(1))).strip()
+            if text:
+                return text.split('\n', 1)[0][:280]
         for section in sections:
-            if section.section_id == 'conclusion_advice':
+            if section.section_id == 'conclusion_risks':
                 text = re.sub(r'(?m)^\s*[-*]\s*', '', section.content_markdown or '').strip()
                 if text:
                     return text.split('\n', 1)[0][:280]
@@ -354,30 +831,21 @@ class WriterAgent:
 
     def _comparison_matrix(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[dict]:
         matrix: list[dict] = []
+        schema_fields = [item.field_name for item in state.analysis_schema_plan or [] if str(item.field_name or '').strip()]
         for record in records:
             row = {
                 'product': self._display_product_name(state, record.product_name),
                 'role': state.subject_role_for(record.product_name),
             }
+            for field_name in schema_fields:
+                row[field_name] = '需进一步确认'
             for field in record.fields:
                 row[field.field_name] = self._format_text_for_report(field.summary, context='matrix_cell')
             matrix.append(row)
         return matrix
 
     def _section_specs(self, state: RunState, *, include_overview_sections: bool = True) -> list[tuple[str, str, str]]:
-        specs: list[tuple[str, str, str]] = []
-        dynamic_specs = [
-            (f'dynamic_{item.field_name}', self._dynamic_section_title(item.field_name), item.field_name)
-            for item in self._dynamic_section_fields(state)
-        ]
-        for section in TEMPLATE_SECTION_ORDER:
-            if not include_overview_sections and section[0] in {'background_goal', 'conclusion_advice'}:
-                continue
-            if section[0] == 'strengths_weaknesses':
-                specs.extend(dynamic_specs)
-            specs.append(section)
-        used_fields = {field_name for _, _, field_name in specs if field_name}
-        return specs
+        return list(TEMPLATE_SECTION_ORDER)
 
     def _dynamic_section_fields(self, state: RunState) -> list[AnalysisSchemaField]:
         schema_plan = state.analysis_schema_plan or []
@@ -433,7 +901,7 @@ class WriterAgent:
     ) -> list[ReportSection]:
         sections: list[ReportSection] = []
         for section_id, title, field_name in self._section_specs(state, include_overview_sections=include_overview_sections):
-            claims, content = self._claims_and_content_for_section(state, records, section_id=section_id, title=title, field_name=field_name)
+            claims, content, items = self._claims_and_content_for_section(state, records, section_id=section_id, title=title, field_name=field_name)
             sections.append(
                 ReportSection(
                     section_id=section_id,
@@ -441,6 +909,7 @@ class WriterAgent:
                     field_name=field_name,
                     claims=claims,
                     content_markdown=content,
+                    content_items=items,
                 )
             )
         return sections
@@ -458,11 +927,27 @@ class WriterAgent:
         for section_id, title, field_name in self._section_specs(state, include_overview_sections=include_overview_sections):
             base = by_id.get(section_id)
             if base is None:
-                claims, content = self._claims_and_content_for_section(state, records, section_id=section_id, title=title, field_name=field_name)
-                merged.append(ReportSection(section_id=section_id, title=title, field_name=field_name, claims=claims, content_markdown=content))
+                claims, content, items = self._claims_and_content_for_section(state, records, section_id=section_id, title=title, field_name=field_name)
+                merged.append(
+                    ReportSection(
+                        section_id=section_id,
+                        title=title,
+                        field_name=field_name,
+                        claims=claims,
+                        content_markdown=content,
+                        content_items=items,
+                    )
+                )
                 continue
-            claims = base.claims or self._claims_and_content_for_section(state, records, section_id=section_id, title=title, field_name=field_name)[0]
-            content = base.content_markdown.strip() or self._claims_and_content_for_section(state, records, section_id=section_id, title=title, field_name=field_name)[1]
+            generated_claims, generated_content, generated_items = self._claims_and_content_for_section(
+                state,
+                records,
+                section_id=section_id,
+                title=title,
+                field_name=field_name,
+            )
+            claims = base.claims or generated_claims
+            content = base.content_markdown.strip() or generated_content
             merged.append(
                 ReportSection(
                     section_id=section_id,
@@ -470,6 +955,7 @@ class WriterAgent:
                     field_name=base.field_name or field_name,
                     claims=claims,
                     content_markdown=content,
+                    content_items=base.content_items or generated_items,
                 )
             )
         return merged
@@ -482,42 +968,201 @@ class WriterAgent:
         section_id: str,
         title: str,
         field_name: str,
-    ) -> tuple[list[ReportClaim], str]:
-        if section_id == 'background_goal':
-            text = self._background_text(state)
-            return [], text
-        if section_id == 'conclusion_advice':
-            claims = self._top_claims_from_records(records, limit=4)
-            lines = [self._executive_summary(state, records)]
-            lines.extend([f"- {claim.statement}" for claim in claims])
-            return claims, '\n'.join(lines)
+    ) -> tuple[list[ReportClaim], str, list[ReportContentItem]]:
+        if section_id == 'analysis_background':
+            text = self._analysis_background_text(state)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=[])
+            return [], text, items
         if section_id == 'comparison_overview':
             claims = self._top_claims_from_records(records, limit=6)
-            content = self._comparison_overview_text(records)
-            return claims, content
+            text = self._comparison_overview_section_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
         if section_id == 'capability_comparison':
-            claims = self._field_claims(records, preferred_fields=['feature_tree'])
-            return claims, self._dynamic_field_section_text(state, records, 'feature_tree') or '暂无核心能力结构证据。'
+            claims = self._field_claims(records, preferred_fields=['feature_tree', *[item.field_name for item in self._dynamic_section_fields(state)]])
+            text = self._capability_comparison_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
         if section_id == 'pricing_strategy':
             claims = self._field_claims(records, preferred_fields=['pricing_model'])
-            content = self._dynamic_field_section_text(state, records, 'pricing_model')
-            return claims, content or '暂无稳定的定价与商业化证据。'
+            text = self._pricing_strategy_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
         if section_id == 'user_feedback_analysis':
             claims = self._field_claims(records, preferred_fields=['user_feedback'])
-            return claims, self._dynamic_field_section_text(state, records, 'user_feedback') or '暂无足够用户反馈证据。'
-        if section_id == 'strengths_weaknesses':
-            claims = self._field_claims(records, preferred_fields=['strengths', 'weaknesses'])
-            return claims, self._strengths_weaknesses_text(state, records)
-        if section_id == 'action_recommendations':
-            claims = self._collect_weakness_claims(records)
-            content = '\n'.join(f"- {item}" for item in self._opportunity_bullets(records, state=state))
-            return claims, content or '暂无建议动作。'
+            text = self._user_feedback_analysis_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
+        if section_id == 'swot_analysis':
+            claims = self._field_claims(records, preferred_fields=['strengths', 'weaknesses', 'pricing_model', 'user_feedback', 'feature_tree'])
+            text = self._swot_analysis_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
+        if section_id == 'strategic_insights':
+            claims = self._top_claims_from_records(records, limit=8)
+            text = self._strategic_insights_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
+        if section_id == 'conclusion_risks':
+            claims = self._top_claims_from_records(records, limit=6)
+            text = self._conclusion_risks_text(state, records)
+            items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, text, items
         if field_name:
             claims = self._field_claims(records, preferred_fields=[field_name])
             content = self._dynamic_field_section_text(state, records, field_name)
-            return claims, content or ('\n'.join(f"- {claim.statement}" for claim in claims) or '暂无足够字段证据。')
+            items = self._items_from_lines(state, section_id, content.splitlines(), refs=self._claim_refs_from_list(claims))
+            return claims, content or ('\n'.join(f"- {claim.statement}" for claim in claims) or '暂无足够字段证据。'), items
         claims = self._field_claims(records, preferred_fields=[])
-        return claims, '\n'.join(f"- {claim.statement}" for claim in claims)
+        text = '\n'.join(f"- {claim.statement}" for claim in claims)
+        items = self._items_from_lines(state, section_id, text.splitlines(), refs=self._claim_refs_from_list(claims))
+        return claims, text, items
+
+    @staticmethod
+    def _claim_refs_from_list(claims: list[ReportClaim]) -> list[str]:
+        refs: list[str] = []
+        seen: set[str] = set()
+        for claim in claims:
+            for ref in claim.evidence_refs:
+                if ref in seen:
+                    continue
+                seen.add(ref)
+                refs.append(ref)
+        return refs
+
+    def _items_from_lines(self, state: RunState, section_id: str, lines: list[str], *, refs: list[str]) -> list[ReportContentItem]:
+        cleaned_lines = [line.strip() for line in lines if str(line).strip()]
+        items: list[ReportContentItem] = []
+        for index, line in enumerate(cleaned_lines, start=1):
+            text = re.sub(r'^[\-\*\u2022]\s*', '', line).strip()
+            if not text or self._is_provenance_line(text):
+                continue
+            kind = 'bullet' if line.lstrip().startswith(('-', '*', '•')) else 'paragraph'
+            citations = self._citations_from_refs(state, refs, limit=3)
+            items.append(
+                ReportContentItem(
+                    item_id=f'{section_id}:{index}',
+                    text=text,
+                    kind=kind,
+                    evidence_refs=refs[:3],
+                    citations=citations,
+                )
+            )
+        return items
+
+    def _analysis_background_text(self, state: RunState) -> str:
+        target_name = state.target_subject_name() or state.target_product or '目标产品'
+        scenario = state.industry or '相关行业'
+        user_prompt = state.user_prompt.strip() or f'围绕 {target_name} 的竞品竞争格局'
+        return '\n'.join(
+            [
+                f"分析目的：本次分析围绕“{user_prompt}”展开，目标是为 {target_name} 的产品判断、竞争复盘和策略设计提供结构化输入。",
+                f"目标业务场景/行业：本报告聚焦 {scenario} 的公开竞争信息，覆盖目标产品、直接竞品与可替代方案，并重点观察能力、定价和采用信号。",
+                f"自身产品定位：当前以 {target_name} 作为核心主体，结合公开页面、定价信息、用户反馈与动态维度，识别其差异化方向与短板边界。",
+            ]
+        )
+
+    def _comparison_overview_section_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        lines = [self._executive_summary_from_body(state, records, self._comparison_matrix(state, records))]
+        lines.extend(self._matrix_overview_bullets(self._comparison_matrix(state, records)))
+        return '\n'.join(lines) or '暂无稳定的竞品总览结论。'
+
+    def _capability_comparison_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        capability_text = self._dynamic_field_section_text(state, records, 'feature_tree') or '暂无核心能力结构证据。'
+        dynamic_fields = [item.field_name for item in self._dynamic_section_fields(state)]
+        lines = ['### 4.1 核心能力对比', capability_text, '', '### 4.2 产品形态对比']
+        for field_name in dynamic_fields[:2]:
+            lines.append(f"- {self._schema_field_label(field_name)}：{self._dynamic_field_section_text(state, records, field_name) or '暂无稳定公开证据。'}")
+        lines.extend(['', '### 4.3 能力差距与机会判断'])
+        lines.extend(f"- {item}" for item in self._opportunity_bullets(records, state=state)[:3])
+        return '\n'.join(lines)
+
+    def _pricing_strategy_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        lines = ['### 5.1 定价模式对比', '| 产品/竞品 | 定价模式 | 免费版/试用 | 企业版能力 | 私有化/定制化 | 备注 |', '| --- | --- | --- | --- | --- | --- |']
+        for record in records:
+            field = self._get_field(record, 'pricing_model')
+            summary = field.summary if field is not None and field.summary.strip() and field.summary.strip().lower() != 'unknown' else self._normalized_value_summary('pricing_model', field.normalized_value if field else {})
+            lines.append(f"| {record.product_name} | {summary or '待确认'} | 待从公开证据确认 | 待从公开证据确认 | 待从公开证据确认 | 基于现有 pricing_model 证据归纳 |")
+        lines.extend(['', '### 5.2 商业化策略分析', self._dynamic_field_section_text(state, records, 'pricing_model') or '暂无稳定的定价与商业化证据。'])
+        return '\n'.join(lines)
+
+    def _user_feedback_analysis_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        feedback_text = self._dynamic_field_section_text(state, records, 'user_feedback') or '暂无足够用户反馈证据。'
+        lines = ['### 6.1 用户反馈总结', feedback_text, '', '### 6.2 用户需求缺口']
+        lines.extend(f"- {item}" for item in self._opportunity_bullets(records, state=state)[:3])
+        return '\n'.join(lines)
+
+    def _swot_analysis_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        lines: list[str] = []
+        target_name = state.target_subject_name()
+        for index, record in enumerate(records, start=1):
+            title = f"### 7.{index} {record.product_name} SWOT分析"
+            strengths = self._get_field(record, 'strengths')
+            weaknesses = self._get_field(record, 'weaknesses')
+            pricing = self._get_field(record, 'pricing_model')
+            feedback = self._get_field(record, 'user_feedback')
+            feature = self._get_field(record, 'feature_tree')
+            peer_strength, peer_weakness = self._relative_swot_signals(record, records)
+            opportunity = pricing.summary if pricing is not None and pricing.summary.strip().lower() != 'unknown' else peer_weakness or '公开信息显示其商业化路径仍有拓展空间。'
+            threat = feedback.summary if feedback is not None and feedback.summary.strip().lower() != 'unknown' else peer_strength or '样本反馈仍有限，需持续监测市场替代风险。'
+            lines.extend(
+                [
+                    title,
+                    f"- 优势 Strengths：{strengths.summary if strengths is not None and strengths.summary.strip().lower() != 'unknown' else (feature.summary if feature is not None else '公开能力证据仍有限。')}",
+                    f"- 劣势 Weaknesses：{weaknesses.summary if weaknesses is not None and weaknesses.summary.strip().lower() != 'unknown' else '公开短板证据仍有限。'}",
+                    f"- 机会 Opportunities：{opportunity}",
+                    f"- 威胁 Threats：{threat}",
+                ]
+            )
+            if target_name and record.product_name == target_name:
+                lines.append('- 注：目标产品 SWOT 应优先用于后续策略动作排序。')
+            lines.append('')
+        return '\n'.join(lines).strip()
+
+    def _relative_swot_signals(
+        self,
+        target_record: CompetitorAnalysisRecord,
+        records: list[CompetitorAnalysisRecord],
+    ) -> tuple[str, str]:
+        peer_strength = ''
+        peer_weakness = ''
+        for record in records:
+            if record.product_name == target_record.product_name:
+                continue
+            strength = self._get_field(record, 'strengths')
+            weakness = self._get_field(record, 'weaknesses')
+            if not peer_strength and strength is not None and strength.summary.strip() and strength.summary.strip().lower() != 'unknown':
+                peer_strength = f"已有证据表明，{record.product_name} 的优势在于{strength.summary}，这可能对 {target_record.product_name} 形成直接竞争威胁。"
+            if not peer_weakness and weakness is not None and weakness.summary.strip() and weakness.summary.strip().lower() != 'unknown':
+                peer_weakness = f"公开信息显示，{record.product_name} 在{weakness.summary}方面存在短板，{target_record.product_name} 可围绕该缺口形成差异化机会。"
+            if peer_strength and peer_weakness:
+                break
+        return peer_strength, peer_weakness
+
+    def _strategic_insights_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        lines = ['### 8.1 核心差异洞察', self._executive_summary_from_body(state, records, self._comparison_matrix(state, records))]
+        lines.extend(self._matrix_overview_bullets(self._comparison_matrix(state, records)))
+        lines.extend(['', '### 8.2 标准化策略建议', '| 优先级 | 策略类别 | 具体行动建议 | 预期目标 | 责任部门建议 |', '| --- | --- | --- | --- | --- |'])
+        for index, item in enumerate(self._opportunity_bullets(records, state=state)[:3], start=1):
+            priority = '高' if index == 1 else ('中' if index == 2 else '低')
+            lines.append(f"| {priority} | 产品优化 | {item} | 提升目标产品竞争力 | 产品部 |")
+        return '\n'.join(lines)
+
+    def _conclusion_risks_text(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> str:
+        gaps = []
+        for record in records:
+            for field in record.fields:
+                if field.evidence_gaps:
+                    gaps.append(f"{record.product_name} 的 {self._schema_field_label(field.field_name)} 仍存在证据缺口")
+        lines = [
+            f"总结：{self._executive_summary_from_body(state, records, self._comparison_matrix(state, records))}",
+            "风险提示：以下结论依赖公开资料与有限用户反馈样本，若竞品页面、价格或口碑近期发生变化，需重新验证。",
+        ]
+        for gap in gaps[:4]:
+            lines.append(f"- {gap}。")
+        if not gaps:
+            lines.append('- 当前主要风险集中在公开资料覆盖范围与第三方评价样本偏差。')
+        return '\n'.join(lines)
 
     def _blocks_from_report(self, state: RunState, report: Report) -> list[ReportBlock]:
         blocks: list[ReportBlock] = [
@@ -534,12 +1179,12 @@ class WriterAgent:
                 title='执行摘要',
                 order=1,
                 content=report.executive_summary or '暂无执行摘要。',
-                citations=self._citations_from_refs(state, self._claim_refs(report.sections[:2]), limit=3),
+                citations=self._citations_from_refs(state, self._claim_refs(report.sections), limit=3),
             ),
             ReportBlock(
                 block_id='comparison_matrix',
                 block_type='comparison_matrix',
-                title='分析对象对比矩阵',
+                title='二、竞品对比总览',
                 order=2,
                 content=report.comparison_matrix,
                 citations=self._citations_from_refs(state, self._claim_refs(report.sections), limit=6),
@@ -548,7 +1193,13 @@ class WriterAgent:
         order = 3
         for section in report.sections:
             content = str(section.content_markdown or '').strip()
-            block_type = 'section_bullets' if self._looks_like_bullet_section(content) else 'section_paragraph'
+            content_items = section.content_items or self._items_from_lines(
+                state,
+                section.section_id,
+                content.splitlines(),
+                refs=self._claim_refs_from_list(section.claims),
+            )
+            block_type = 'section_bullets' if content_items and all(item.kind == 'bullet' for item in content_items) else 'section_paragraph'
             blocks.append(
                 ReportBlock(
                     block_id=f'section:{section.section_id}',
@@ -556,7 +1207,7 @@ class WriterAgent:
                     section_id=section.section_id,
                     title=section.title,
                     order=order,
-                    content=self._section_block_content(content, bullet_mode=block_type == 'section_bullets'),
+                    content=content_items,
                     citations=self._citations_from_claims(state, section.claims),
                 )
             )
@@ -595,7 +1246,7 @@ class WriterAgent:
                 lines.append(citation_line)
             lines.append('')
         elif block.block_type == 'comparison_matrix':
-            lines.extend(['## 分析对象对比矩阵', ''])
+            lines.extend([f"## {block.title or '二、竞品对比总览'}", ''])
             matrix = block.content if isinstance(block.content, list) else []
             if matrix:
                 headers = ['product', *[k for k in matrix[0].keys() if k not in {'product', 'role'}]]
@@ -612,7 +1263,16 @@ class WriterAgent:
             lines.append('')
         elif block.block_type in {'section_paragraph', 'section_bullets'}:
             lines.extend([f"## {block.title}", ''])
-            if block.block_type == 'section_bullets':
+            items = block.content if isinstance(block.content, list) else []
+            if items and all(isinstance(item, (dict, ReportContentItem)) for item in items):
+                for raw_item in items:
+                    item = raw_item if isinstance(raw_item, ReportContentItem) else ReportContentItem.model_validate(raw_item)
+                    prefix = '- ' if item.kind == 'bullet' else ''
+                    lines.append(f"{prefix}{item.text}")
+                    citation_line = self._markdown_citation_line(item.citations)
+                    if citation_line:
+                        lines.append(citation_line)
+            elif block.block_type == 'section_bullets':
                 items = block.content if isinstance(block.content, list) else []
                 lines.extend([f"- {str(item).strip()}" for item in items if str(item).strip()])
                 if not items:
@@ -620,9 +1280,6 @@ class WriterAgent:
             else:
                 body = str(block.content or '').strip()
                 lines.append(body or '暂无内容。')
-            citation_line = self._markdown_citation_line(block.citations)
-            if citation_line:
-                lines.append(citation_line)
             lines.append('')
         elif block.block_type == 'reference_list':
             lines.extend(['## 参考来源', ''])
@@ -747,13 +1404,17 @@ class WriterAgent:
             payload = block.model_dump(mode='json')
             block_type = str(payload.get('block_type', '') or '')
             content = payload.get('content')
-            if block_type == 'section_bullets' and isinstance(content, list):
+            if block_type in {'section_bullets', 'section_paragraph'} and isinstance(content, list):
                 cleaned_items = []
                 for item in content:
-                    text = str(item or '').strip()
-                    if not text:
+                    if isinstance(item, dict) and 'text' in item:
+                        text = str(item.get('text', '')).strip()
+                        if not text or cls._is_provenance_line(text):
+                            continue
+                        cleaned_items.append(item)
                         continue
-                    if cls._is_provenance_line(text):
+                    text = str(item or '').strip()
+                    if not text or cls._is_provenance_line(text):
                         continue
                     cleaned_items.append(text)
                 payload['content'] = cleaned_items
@@ -814,7 +1475,14 @@ class WriterAgent:
         output: list[ReportCitation] = []
         seen: set[str] = set()
         for block in blocks:
-            for citation in block.citations:
+            citations = list(block.citations)
+            if isinstance(block.content, list):
+                for item in block.content:
+                    if isinstance(item, ReportContentItem):
+                        citations.extend(item.citations)
+                    elif isinstance(item, dict) and 'citations' in item and isinstance(item.get('citations'), list):
+                        citations.extend(ReportCitation.model_validate(citation) for citation in item.get('citations', []))
+            for citation in citations:
                 key = citation.url.strip()
                 if not key or key in seen:
                     continue
@@ -832,12 +1500,24 @@ class WriterAgent:
         if block.block_type == 'comparison_matrix':
             return (
                 "<section class='report-section'>"
-                "<h2>分析对象对比矩阵</h2>"
+                f"<h2>{escape(block.title or '二、竞品对比总览')}</h2>"
                 f"<div class='matrix'>{self._comparison_matrix_html(block.content if isinstance(block.content, list) else [])}</div>"
                 f"{self._citation_badges_html(block.citations)}"
                 "</section>"
             )
-        if block.block_type == 'section_bullets':
+        if isinstance(block.content, list) and block.content and all(
+            isinstance(item, (dict, ReportContentItem)) for item in block.content
+        ):
+            html_parts: list[str] = []
+            for raw_item in block.content:
+                item = raw_item if isinstance(raw_item, ReportContentItem) else ReportContentItem.model_validate(raw_item)
+                text = self._render_inline_markdown_links(item.text)
+                if item.kind == 'bullet':
+                    html_parts.append(f"<div class='section-item bullet'><ul><li>{text}</li></ul>{self._citation_badges_html(item.citations)}</div>")
+                else:
+                    html_parts.append(f"<div class='section-item paragraph'><p>{text}</p>{self._citation_badges_html(item.citations)}</div>")
+            body = ''.join(html_parts) if html_parts else '<p>暂无内容。</p>'
+        elif block.block_type == 'section_bullets':
             items = block.content if isinstance(block.content, list) else []
             body = '<ul>' + ''.join(f"<li>{self._render_inline_markdown_links(str(item))}</li>" for item in items) + '</ul>' if items else '<p>暂无内容。</p>'
         else:
@@ -992,14 +1672,15 @@ class WriterAgent:
             if not claims and field_name:
                 claims = self._field_claims(records, preferred_fields=[field_name])
             content = section.content_markdown.strip()
+            generated_items: list[ReportContentItem] = []
             if not content:
-                content = self._claims_and_content_for_section(
+                claims, content, generated_items = self._claims_and_content_for_section(
                     state,
                     records,
                     section_id=section.section_id,
                     title=fallback_title,
                     field_name=field_name,
-                )[1]
+                )
             normalized.append(
                 ReportSection(
                     section_id=section.section_id,
@@ -1007,6 +1688,12 @@ class WriterAgent:
                     field_name=field_name,
                     claims=claims,
                     content_markdown=content,
+                    content_items=section.content_items or generated_items or self._items_from_lines(
+                        state,
+                        section.section_id,
+                        content.splitlines(),
+                        refs=self._claim_refs_from_list(claims),
+                    ),
                 )
             )
         return normalized

@@ -81,6 +81,9 @@ class AppConfig(BaseSettings):
     agent_llm_fallback_enabled: bool = True
     agent_llm_fallback_on_validation_error: bool = True
     analyze_llm_max_workers: int = Field(default=6, ge=1, le=32)
+    writer_parallel_enabled: bool = True
+    writer_parallel_max_workers: int = Field(default=4, ge=1, le=16)
+    writer_swot_parallel_max_workers: int = Field(default=4, ge=1, le=16)
     report_truncation_enabled: bool = False
     report_truncation_limits_json: str = ''
     subagent_enabled: bool = True
@@ -199,6 +202,9 @@ class AppConfig(BaseSettings):
             'openai_base_url': self.openai_base_url,
             'openai_api_key_masked': masked_key,
             'openai_config_ready': self.has_openai_config(),
+            'writer_parallel_enabled': self.writer_parallel_enabled,
+            'writer_parallel_max_workers': self.writer_parallel_max_workers,
+            'writer_swot_parallel_max_workers': self.writer_swot_parallel_max_workers,
             'report_truncation_enabled': self.report_truncation_enabled,
             'report_truncation_limits': self.report_truncation_limits,
         }

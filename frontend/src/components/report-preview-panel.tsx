@@ -1,6 +1,6 @@
 "use client";
 
-import type { WorkspaceReportBlock, WorkspaceReportCitation } from "@/components/workspace-types";
+import type { WorkspaceReportBlock, WorkspaceReportCitation, WorkspaceReportContentItem } from "@/components/workspace-types";
 
 type ReportPreviewPanelProps = {
   blocks?: WorkspaceReportBlock[];
@@ -52,6 +52,11 @@ function CitationBadges({ citations }: { citations: WorkspaceReportCitation[] })
   );
 }
 
+function contentItemsOf(block: WorkspaceReportBlock): WorkspaceReportContentItem[] {
+  if (!Array.isArray(block.content)) return [];
+  return block.content.filter((item): item is WorkspaceReportContentItem => Boolean(item) && typeof item === "object" && "text" in (item as Record<string, unknown>));
+}
+
 function MatrixBlock({ block }: { block: WorkspaceReportBlock }) {
   const rows = Array.isArray(block.content) ? (block.content as Array<Record<string, unknown>>) : [];
   if (!rows.length) {
@@ -87,6 +92,28 @@ function MatrixBlock({ block }: { block: WorkspaceReportBlock }) {
 
 function SectionBlock({ block }: { block: WorkspaceReportBlock }) {
   const isBullets = block.block_type === "section_bullets";
+  const contentItems = contentItemsOf(block);
+  if (contentItems.length) {
+    return (
+      <section className="report-block-card">
+        <h2>{block.title || "报告章节"}</h2>
+        <div className="report-block-paragraphs">
+          {contentItems.map((item, index) => {
+            const text = String(item.text || "").trim();
+            if (!text) return null;
+            const citations = Array.isArray(item.citations) ? item.citations : [];
+            return (
+              <div key={`${item.item_id || block.block_id}-${index}`} className="report-section-item">
+                {item.kind === "bullet" ? <ul><li>{text}</li></ul> : <p>{text}</p>}
+                <CitationBadges citations={citations} />
+              </div>
+            );
+          })}
+        </div>
+        <CitationBadges citations={citationsOf(block)} />
+      </section>
+    );
+  }
   const items = Array.isArray(block.content) ? block.content.map((item) => String(item || "").trim()).filter(Boolean) : [];
   const text = typeof block.content === "string" ? block.content : "";
   return (

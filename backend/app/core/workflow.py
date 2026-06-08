@@ -2680,7 +2680,57 @@ class CompetitorWorkflowService:
             success_criteria=['produce_report_markdown'],
         )
         try:
-            drafted = self.writer_agent.build_streamable_report(state)
+            try:
+                drafted = self.writer_agent.run_parallel_markdown_stream(
+                    state,
+                    on_delta=lambda delta: self._save_and_event(
+                        state,
+                        StageName.draft,
+                        'draft_markdown.delta',
+                        {'delta': delta},
+                    ),
+                )
+                preview_markdown = drafted.report.markdown
+            except Exception as parallel_exc:
+                stream_interrupted = True
+                self._save_and_event(
+                    state,
+                    StageName.draft,
+                    'draft_markdown.failed',
+                    {'error': str(parallel_exc), 'terminal': False, 'will_continue': True, 'preview_length': len(preview_markdown), 'mode': 'parallel'},
+                )
+                try:
+                    preview_markdown = self.writer_agent.run_markdown_stream(
+                        state,
+                        on_delta=lambda delta: self._save_and_event(
+                            state,
+                            StageName.draft,
+                            'draft_markdown.delta',
+                            {'delta': delta},
+                        ),
+                    )
+                    drafted = self.writer_agent.build_report_from_markdown(state, preview_markdown)
+                    self._save_and_event(
+                        state,
+                        StageName.draft,
+                        'draft_markdown.recovered',
+                        {'length': len(preview_markdown), 'mode': 'single_stream'},
+                    )
+                except Exception as stream_exc:
+                    self._save_and_event(
+                        state,
+                        StageName.draft,
+                        'draft_markdown.failed',
+                        {'error': str(stream_exc), 'terminal': False, 'will_continue': True, 'preview_length': len(preview_markdown), 'mode': 'single_stream'},
+                    )
+                    drafted = self.writer_agent.run_llm(state)
+                    preview_markdown = drafted.report.markdown
+                    self._save_and_event(
+                        state,
+                        StageName.draft,
+                        'draft_markdown.recovered',
+                        {'length': len(preview_markdown), 'mode': 'non_stream_llm'},
+                    )
             for block in drafted.report.blocks:
                 block_payload = block.model_dump(mode='json')
                 self._save_and_event(
@@ -2689,15 +2739,6 @@ class CompetitorWorkflowService:
                     'draft_report.block_delta',
                     {'block': block_payload},
                 )
-                fragment = self.writer_agent.block_markdown_fragment(block)
-                if fragment:
-                    preview_markdown += fragment
-                    self._save_and_event(
-                        state,
-                        StageName.draft,
-                        'draft_markdown.delta',
-                        {'delta': fragment},
-                    )
                 self._save_and_event(
                     state,
                     StageName.draft,
@@ -2719,7 +2760,6 @@ class CompetitorWorkflowService:
             task_result = self.writer_agent.build_task_result(task, drafted)
             self._record_task_result(state, task_result)
         except Exception as exc:
-            stream_interrupted = True
             self._save_and_event(
                 state,
                 StageName.draft,

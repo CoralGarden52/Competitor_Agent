@@ -7,6 +7,7 @@ from app.core.models import (
     AnalysisSchemaField,
     CompetitorAnalysisRecord,
     Evidence,
+    Finding,
     RunState,
 )
 
@@ -16,6 +17,41 @@ class _DummyLLM:
 
     def invoke_json(self, *args, **kwargs):
         raise AssertionError('invoke_json should not be called in this test')
+
+    def invoke_text_stream(self, *args, **kwargs):
+        if False:
+            yield ""
+
+
+class _ParallelLLM:
+    config = type('Cfg', (), {'agent_llm_retry_count': 0, 'openai_model': 'test-model'})()
+
+    def invoke_json_with_tools(self, *args, **kwargs):
+        payload = kwargs['user_payload']
+        trace_name = kwargs.get('trace_name', '')
+        if 'swot' in trace_name:
+            target = payload['target_product']
+            peer_name = payload['peer_products'][0]['product_name'] if payload.get('peer_products') else 'peer'
+            return {
+                'product_name': target,
+                'strengths': [{'text': f'{target} 核心能力聚焦', 'evidence_refs': ['ev1']}],
+                'weaknesses': [{'text': f'{target} 品牌认知仍需加强', 'evidence_refs': ['ev1']}],
+                'opportunities': [{'text': f'可利用 {peer_name} 在实施复杂度上的短板切入', 'evidence_refs': ['ev1', 'ev2']}],
+                'threats': [{'text': f'{peer_name} 的生态优势可能压缩 {target} 的获客空间', 'evidence_refs': ['ev2']}],
+            }
+        section_id = payload['section_id']
+        return {
+            'title': payload['section_title'],
+            'paragraphs': [{'text': f'{section_id} 段落结论', 'kind': 'paragraph', 'evidence_refs': ['ev1']}],
+            'bullets': [{'text': f'{section_id} 要点', 'kind': 'bullet', 'evidence_refs': ['ev2']}],
+        }
+
+    def invoke_json(self, *args, **kwargs):
+        return self.invoke_json_with_tools(*args, **kwargs)
+
+    def invoke_text_stream(self, *args, **kwargs):
+        if False:
+            yield ""
 
 
 def _build_state(long_text: str) -> tuple[RunState, list[CompetitorAnalysisRecord]]:
@@ -265,3 +301,135 @@ def test_records_and_report_prioritize_target_product() -> None:
     assert '目标产品' in matrix[0]['product']
     assert report.comparison_matrix[0]['role'] == 'target'
     assert 'My Product' in report.executive_summary
+
+
+def test_streamable_report_uses_new_section_order_and_item_level_content() -> None:
+    agent = WriterAgent(llm=_DummyLLM())
+    state, _ = _build_state('能力完整且价格清晰')
+
+    report = agent.build_streamable_report(state).report
+
+    assert [section.section_id for section in report.sections] == [
+        'analysis_background',
+        'comparison_overview',
+        'capability_comparison',
+        'pricing_strategy',
+        'user_feedback_analysis',
+        'swot_analysis',
+        'strategic_insights',
+        'conclusion_risks',
+    ]
+    section_blocks = [block for block in report.blocks if block.block_type in {'section_paragraph', 'section_bullets'}]
+    assert section_blocks
+    assert any(isinstance(block.content, list) and block.content for block in section_blocks)
+    first_item_block = next(block for block in section_blocks if isinstance(block.content, list) and block.content)
+    first_item = first_item_block.content[0]
+    assert isinstance(first_item, dict) or hasattr(first_item, 'text')
+
+
+def test_parallel_writer_swot_uses_peer_strengths_and_weaknesses_for_relative_ot() -> None:
+    agent = WriterAgent(llm=_ParallelLLM())
+    state = RunState(
+        industry='knowledge_base',
+        competitors=['Comp A'],
+        planned_competitors=['Comp A'],
+        target_product='My Product',
+        analysis_subjects=[
+            {'name': 'My Product', 'role': 'target', 'is_target': True},
+            {'name': 'Comp A', 'role': 'direct', 'is_target': False},
+        ],
+        competitor_analyses=[
+            CompetitorAnalysisRecord(
+                product_name='My Product',
+                fields=[
+                    AnalysisFieldResult(field_name='strengths', summary='问答链路更聚焦', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='weaknesses', summary='品牌认知较弱', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+            CompetitorAnalysisRecord(
+                product_name='Comp A',
+                fields=[
+                    AnalysisFieldResult(field_name='strengths', summary='生态更完整', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='weaknesses', summary='实施复杂度更高', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+        ],
+        findings=[
+            Finding(statement='Comp A 生态更完整', category='feature', evidence_refs=['ev2'], competitor='Comp A', impact='high', confidence=0.8),
+        ],
+        evidences=[
+            Evidence(source_url='https://example.com/my-product', snippet='my product evidence', evidence_id='ev1'),
+            Evidence(source_url='https://example.com/comp-a', snippet='comp a evidence', evidence_id='ev2'),
+        ],
+    )
+
+    groups = agent.plan_report_write_groups(state, agent._records(state))
+    target_group = next(group for group in groups if group.section_id == 'swot_analysis' and group.product_name == 'My Product')
+
+    fragment = agent._run_swot_llm_for_product(state, agent._records(state), target_group)
+
+    texts = [item.text for item in fragment.items]
+    assert any('Comp A' in text and '机会 Opportunities' in text for text in texts)
+    assert any('Comp A' in text and '威胁 Threats' in text for text in texts)
+    assert any(set(item.evidence_refs) == {'ev1', 'ev2'} for item in fragment.items if '机会 Opportunities' in item.text)
+
+
+def test_parallel_writer_aggregates_sections_in_template_order() -> None:
+    agent = WriterAgent(llm=_ParallelLLM())
+    state = RunState(
+        industry='saas',
+        competitors=['Comp A'],
+        target_product='My Product',
+        analysis_subjects=[
+            {'name': 'My Product', 'role': 'target', 'is_target': True},
+            {'name': 'Comp A', 'role': 'direct', 'is_target': False},
+        ],
+        analysis_schema_plan=[
+            AnalysisSchemaField(field_name='feature_tree', priority=1),
+            AnalysisSchemaField(field_name='pricing_model', priority=2),
+            AnalysisSchemaField(field_name='user_feedback', priority=3),
+        ],
+        competitor_analyses=[
+            CompetitorAnalysisRecord(
+                product_name='My Product',
+                fields=[
+                    AnalysisFieldResult(field_name='feature_tree', summary='支持问答', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='pricing_model', summary='按席位订阅', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='user_feedback', summary='反馈集中在易用性', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='strengths', summary='聚焦场景', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='weaknesses', summary='生态仍小', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+            CompetitorAnalysisRecord(
+                product_name='Comp A',
+                fields=[
+                    AnalysisFieldResult(field_name='feature_tree', summary='支持知识管理', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='pricing_model', summary='企业定制报价', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='user_feedback', summary='反馈集中在生态联动', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='strengths', summary='生态完整', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                    AnalysisFieldResult(field_name='weaknesses', summary='学习成本高', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+                ],
+            ),
+        ],
+        evidences=[
+            Evidence(source_url='https://example.com/my-product', snippet='my product evidence', evidence_id='ev1'),
+            Evidence(source_url='https://example.com/comp-a', snippet='comp a evidence', evidence_id='ev2'),
+        ],
+    )
+
+    streamed: list[str] = []
+    drafted = agent.run_parallel_markdown_stream(state, on_delta=streamed.append)
+
+    assert drafted.report.markdown.startswith('# My Product竞品分析报告')
+    assert [section.section_id for section in drafted.report.sections] == [
+        'analysis_background',
+        'comparison_overview',
+        'capability_comparison',
+        'pricing_strategy',
+        'user_feedback_analysis',
+        'swot_analysis',
+        'strategic_insights',
+        'conclusion_risks',
+    ]
+    assert '## 参考来源' in drafted.report.markdown
+    assert any('### My Product SWOT分析' in chunk for chunk in streamed)

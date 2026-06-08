@@ -309,6 +309,14 @@ export type WorkspaceReportCitation = {
   source_title?: string;
 };
 
+export type WorkspaceReportContentItem = {
+  item_id?: string;
+  text?: string;
+  kind?: "paragraph" | "bullet" | "table_note";
+  evidence_refs?: string[];
+  citations?: WorkspaceReportCitation[];
+};
+
 export type WorkspaceReportBlock = {
   block_id?: string;
   block_type?: "title" | "executive_summary" | "comparison_matrix" | "section_paragraph" | "section_bullets" | "reference_list";

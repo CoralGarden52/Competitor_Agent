@@ -509,6 +509,14 @@ class ReportCitation(BaseModel):
     source_title: str = ''
 
 
+class ReportContentItem(BaseModel):
+    item_id: str
+    text: str
+    kind: Literal['paragraph', 'bullet', 'table_note'] = 'paragraph'
+    evidence_refs: list[str] = Field(default_factory=list)
+    citations: list[ReportCitation] = Field(default_factory=list)
+
+
 class ReportBlock(BaseModel):
     block_id: str
     block_type: Literal['title', 'executive_summary', 'comparison_matrix', 'section_paragraph', 'section_bullets', 'reference_list']
@@ -526,6 +534,31 @@ class ReportSection(BaseModel):
     field_name: str = ''
     claims: list[ReportClaim] = Field(default_factory=list)
     content_markdown: str = ''
+    content_items: list[ReportContentItem] = Field(default_factory=list)
+
+
+class WriterWriteGroup(BaseModel):
+    group_id: str
+    section_id: str
+    title: str
+    field_name: str = ''
+    group_type: Literal['section', 'product_section'] = 'section'
+    product_name: str = ''
+    sort_key: int = 0
+
+
+class WriterFragmentResult(BaseModel):
+    fragment_id: str
+    section_id: str
+    title: str
+    product_name: str = ''
+    field_name: str = ''
+    markdown: str = ''
+    items: list[ReportContentItem] = Field(default_factory=list)
+    claims: list[ReportClaim] = Field(default_factory=list)
+    evidence_refs: list[str] = Field(default_factory=list)
+    citations: list[ReportCitation] = Field(default_factory=list)
+    sort_key: int = 0
 
 
 class Report(BaseModel):
@@ -537,7 +570,7 @@ class Report(BaseModel):
     sections: list[ReportSection] = Field(default_factory=list)
     blocks: list[ReportBlock] = Field(default_factory=list)
     citations: list[ReportCitation] = Field(default_factory=list)
-    render_version: str = 'v2_structured'
+    render_version: str = 'v3_structured_streaming'
     markdown: str = ''
     html: str = ''
 

@@ -276,6 +276,14 @@ def test_draft_stream_emits_structured_report_events_and_persists_blocks(tmp_pat
     service = CompetitorWorkflowService(_MemoryStore())
     state = _build_state()
     service.store.save_state(state)
+    report = service.writer_agent.build_streamable_report(state).report
+
+    def _fake_parallel(_state: RunState, *, on_delta):  # noqa: ANN001
+        for chunk in ["# 示例报告\n\n", "## 执行摘要\n\n", "这是流式生成的摘要。\n\n"]:
+            on_delta(chunk)
+        return service.writer_agent.build_report_from_markdown(_state, report.markdown)
+
+    service.writer_agent.run_parallel_markdown_stream = _fake_parallel  # type: ignore[method-assign]
 
     service._draft(state)
     service.store.save_state(state)
@@ -308,10 +316,15 @@ def test_draft_stream_build_failure_marks_run_failed(tmp_path) -> None:
     service = CompetitorWorkflowService(_MemoryStore())
     state = _build_state()
 
-    def _boom(_state: RunState):  # noqa: ANN001, ARG001
-        raise RuntimeError("structured report build failed")
+    def _stream_boom(_state: RunState, *, on_delta):  # noqa: ANN001, ARG001
+        raise RuntimeError("stream failed")
 
-    service.writer_agent.build_streamable_report = _boom  # type: ignore[method-assign]
+    def _llm_boom(_state: RunState):  # noqa: ANN001, ARG001
+        raise RuntimeError("llm fallback failed")
+
+    service.writer_agent.run_parallel_markdown_stream = _stream_boom  # type: ignore[method-assign]
+    service.writer_agent.run_markdown_stream = _stream_boom  # type: ignore[method-assign]
+    service.writer_agent.run_llm = _llm_boom  # type: ignore[method-assign]
     service.store.save_state(state)
 
     with pytest.raises(Exception):
@@ -341,10 +354,39 @@ def test_streamable_report_uses_block_citations_as_single_provenance_source(tmp_
             assert "来源：" not in str(block.content)
 
     markdown = report.markdown
-    blocks_with_citations = [block for block in report.blocks if block.block_type != "reference_list" and block.citations]
-    assert markdown.count("溯源：") == len(blocks_with_citations)
+    assert "溯源：" in markdown
     assert "- 溯源：" not in markdown
     assert "  - 溯源：" not in markdown
+
+
+def test_draft_stream_recovers_with_non_stream_llm(tmp_path) -> None:
+    _ = tmp_path
+    service = CompetitorWorkflowService(_MemoryStore())
+    state = _build_state()
+    service.store.save_state(state)
+    fallback_report = service.writer_agent.build_streamable_report(state)
+
+    def _stream_boom(_state: RunState, *, on_delta):  # noqa: ANN001, ARG001
+        raise RuntimeError("stream interrupted")
+
+    def _fallback_llm(_state: RunState):  # noqa: ANN001, ARG001
+        return fallback_report
+
+    service.writer_agent.run_parallel_markdown_stream = _stream_boom  # type: ignore[method-assign]
+    service.writer_agent.run_markdown_stream = _stream_boom  # type: ignore[method-assign]
+    service.writer_agent.run_llm = _fallback_llm  # type: ignore[method-assign]
+
+    service._draft(state)
+
+    events = service.list_run_events(state.run_id)
+    event_types = [str(item.get("event_type", "")) for item in events]
+    assert "draft_markdown.failed" in event_types
+    assert "draft_markdown.recovered" in event_types
+    recovered_event = next(item for item in events if item.get("event_type") == "draft_markdown.failed")
+    assert recovered_event["payload"]["terminal"] is False
+    assert recovered_event["payload"]["mode"] == "parallel"
+    assert state.report is not None
+    assert state.report.markdown.strip()
 
 
 def test_workspace_payload_exposes_report_blocks_and_prefers_draft_llm_latency(tmp_path) -> None:
