@@ -1,17 +1,55 @@
 ﻿from __future__ import annotations
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+import asyncio
+import hashlib
+import json
 
+from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi.responses import Response, StreamingResponse
+from pydantic import BaseModel, Field
+
+from app.core.agent_llm import LLMCallError
 from app.core.deps import get_service
-from app.core.models import RunRequest, RunResponse, RunSummary
+from app.core.models import ChatTurnRequest, ChatTurnResponse, ChatTurnResult, QuestionnaireDesign, RunRequest, RunResponse, RunSummary
+from app.core.wjx_export import QuestionnaireExportError
 from app.core.workflow import CompetitorWorkflowService
 
 router = APIRouter(prefix='/runs', tags=['runs'])
 
 
+class TaskSummaryRequest(BaseModel):
+    text: str = Field(min_length=1)
+    language: str = 'zh-CN'
+
+
+class QuestionnaireDesignRequest(BaseModel):
+    target_audience: str = '竞品相关潜在用户或现有用户'
+    objective: str = '验证竞品差异点、用户感知与转化障碍'
+
+
+class ReportUpdateRequest(BaseModel):
+    markdown: str = Field(min_length=1)
+
+
+class QuestionnaireUpdateRequest(BaseModel):
+    markdown: str = Field(min_length=1)
+
+
+class PlanSupplementRequest(BaseModel):
+    message: str = Field(min_length=1)
+
+
 @router.post('', response_model=RunResponse)
 def create_run(payload: RunRequest, service: CompetitorWorkflowService = Depends(get_service)) -> RunResponse:
-    return service.start_run(payload)
+    return service.start_run_async(payload)
+
+
+@router.post('/summary')
+def summarize_task(payload: TaskSummaryRequest, service: CompetitorWorkflowService = Depends(get_service)) -> dict[str, str]:
+    text = payload.text.strip()
+    if not text:
+        raise HTTPException(status_code=400, detail='text is required')
+    return service.summarize_task(text=text, language=payload.language)
 
 
 @router.get('', response_model=list[RunSummary])
@@ -27,17 +65,412 @@ def get_run(run_id: str, service: CompetitorWorkflowService = Depends(get_servic
     return run
 
 
+@router.delete('/{run_id}')
+def delete_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict[str, bool]:
+    deleted = service.delete_run(run_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail='run not found')
+    return {'ok': True}
+
+
 @router.get('/{run_id}/events')
-def get_run_events(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> list[dict]:
+def get_run_events(
+    run_id: str,
+    after_id: int = Query(default=0, ge=0),
+    limit: int = Query(default=200, ge=1, le=1000),
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> dict:
     run = service.get_run(run_id)
     if run is None:
         raise HTTPException(status_code=404, detail='run not found')
-    return service.list_run_events(run_id)
+    items = service.list_run_events(run_id, after_id=after_id, limit=limit)
+    last_event_id = after_id
+    if items:
+        last_event_id = max(int(item.get('event_id', 0) or 0) for item in items)
+    return {
+        'run_id': run_id,
+        'items': items,
+        'next_after_id': last_event_id,
+        'has_more': len(items) >= limit,
+    }
 
 
 @router.get('/{run_id}/replay')
 def replay_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
     data = service.replay_run(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.get('/{run_id}/workspace')
+def workspace_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.workspace_payload(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.get('/{run_id}/plan-confirmation')
+def get_plan_confirmation(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.get_plan_confirmation_payload(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.post('/{run_id}/plan-confirmation/confirm', response_model=RunResponse)
+def confirm_plan_confirmation(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> RunResponse:
+    result = service.confirm_plan_confirmation(run_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    return result
+
+
+@router.post('/{run_id}/plan-confirmation/supplement', response_model=RunResponse)
+def submit_plan_supplement(
+    run_id: str,
+    payload: PlanSupplementRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> RunResponse:
+    result = service.submit_plan_supplement(run_id, payload.message)
+    if result is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    return result
+
+
+@router.get('/{run_id}/report.md')
+def download_report_markdown(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> Response:
+    run = service.get_run(run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    markdown = run.state.report.markdown if run.state.report else ''
+    if not str(markdown).strip():
+        raise HTTPException(status_code=404, detail='report not found')
+    filename = f'{run_id}.md'
+    return Response(
+        content=markdown,
+        media_type='text/markdown; charset=utf-8',
+        headers={'Content-Disposition': f'attachment; filename="{filename}"'},
+    )
+
+
+@router.patch('/{run_id}/report', response_model=RunResponse)
+def update_report_markdown(
+    run_id: str,
+    payload: ReportUpdateRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> RunResponse:
+    markdown = str(payload.markdown or '').strip()
+    if not markdown:
+        raise HTTPException(status_code=400, detail='markdown is required')
+    updated = service.update_report_markdown(run_id, markdown)
+    if updated is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='report not found')
+    return updated
+
+
+@router.post('/{run_id}/chat', response_model=ChatTurnResponse)
+def create_chat_turn(
+    run_id: str,
+    payload: ChatTurnRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> ChatTurnResponse:
+    response = service.start_chat_turn(run_id, payload)
+    if response is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    return response
+
+
+@router.get('/{run_id}/chat')
+def get_chat(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.chat_payload(run_id)
+    if data.get('status') == 'not_found':
+        raise HTTPException(status_code=404, detail='run not found')
+    return data
+
+
+@router.get('/{run_id}/chat/{turn_id}', response_model=ChatTurnResult)
+def get_chat_turn(
+    run_id: str,
+    turn_id: str,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> ChatTurnResult:
+    result = service.chat_turn_payload(run_id, turn_id)
+    if result is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='turn not found')
+    return result
+
+
+@router.get('/{run_id}/chat/{turn_id}/stream')
+async def stream_chat_turn(
+    run_id: str,
+    turn_id: str,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> StreamingResponse:
+    run = service.get_run(run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    existing = service.chat_turn_payload(run_id, turn_id)
+    if existing is None:
+        raise HTTPException(status_code=404, detail='turn not found')
+
+    async def event_generator():
+        queue = await service.chat_stream_broker.subscribe(turn_id)
+        try:
+            bootstrap = service.chat_turn_payload(run_id, turn_id)
+            if bootstrap is not None:
+                initial = {
+                    'run_id': run_id,
+                    'conversation_id': bootstrap.conversation_id,
+                    'turn_id': turn_id,
+                    'status': bootstrap.status,
+                    'assistant_answer': bootstrap.assistant_answer,
+                }
+                yield f"event: chat_bootstrap\ndata: {json.dumps(initial, ensure_ascii=False, default=str)}\n\n"
+                if bootstrap.assistant_answer:
+                    yield f"event: chat_snapshot\ndata: {json.dumps({'assistant_answer': bootstrap.assistant_answer}, ensure_ascii=False, default=str)}\n\n"
+                if bootstrap.status in ('completed', 'failed'):
+                    event_name = 'chat_done' if bootstrap.status == 'completed' else 'chat_error'
+                    payload = {'result': bootstrap.model_dump(mode='json')} if bootstrap.status == 'completed' else {'error': bootstrap.error_message}
+                    yield f"event: {event_name}\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"
+                    return
+            while True:
+                try:
+                    item = await asyncio.to_thread(queue.get, True, 15)
+                except Exception:
+                    yield "event: heartbeat\ndata: {\"ok\": true}\n\n"
+                    continue
+                event_name = str(item.get('event', '') or 'chat_progress')
+                data = item.get('data', {}) if isinstance(item.get('data', {}), dict) else {}
+                if event_name == 'chat_close':
+                    break
+                yield f"event: {event_name}\ndata: {json.dumps(data, ensure_ascii=False, default=str)}\n\n"
+                if event_name in {'chat_done', 'chat_error'}:
+                    break
+        finally:
+            await service.chat_stream_broker.unsubscribe(turn_id, queue)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'X-Accel-Buffering': 'no',
+        },
+    )
+
+
+@router.post('/{run_id}/questionnaire')
+def design_questionnaire(
+    run_id: str,
+    payload: QuestionnaireDesignRequest = Body(default_factory=QuestionnaireDesignRequest),
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> dict:
+    try:
+        design = service.design_questionnaire_from_report(
+            run_id,
+            target_audience=payload.target_audience,
+            objective=payload.objective,
+        )
+    except LLMCallError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    if design is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='report not found')
+    return design.model_dump(mode='json')
+
+
+@router.patch('/{run_id}/questionnaire', response_model=QuestionnaireDesign)
+def update_questionnaire_markdown(
+    run_id: str,
+    payload: QuestionnaireUpdateRequest,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> QuestionnaireDesign:
+    markdown = str(payload.markdown or '').strip()
+    if not markdown:
+        raise HTTPException(status_code=400, detail='markdown is required')
+    updated = service.update_questionnaire_markdown(run_id, markdown)
+    if updated is None:
+        run = service.get_run(run_id)
+        if run is None:
+            raise HTTPException(status_code=404, detail='run not found')
+        raise HTTPException(status_code=404, detail='questionnaire not found')
+    return updated
+
+
+@router.post('/{run_id}/questionnaire/export/wenjuan')
+def export_questionnaire_to_wenjuan(
+    run_id: str,
+    service: CompetitorWorkflowService = Depends(get_service),
+) -> dict[str, object]:
+    try:
+        result = service.export_questionnaire_to_wenjuan(run_id)
+    except QuestionnaireExportError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
+    if result is None:
+        raise HTTPException(status_code=404, detail='run not found')
+    if not result:
+        raise HTTPException(status_code=404, detail='questionnaire not found')
+    return {
+        'provider': result.get('provider', 'wjx'),
+        'status': result.get('status', ''),
+        'title': result.get('title', ''),
+        'url': result.get('url', ''),
+        'vid': result.get('vid', ''),
+        'exported_at': result.get('exported_at', ''),
+    }
+
+
+@router.get('/{run_id}/stream')
+async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> StreamingResponse:
+    run = service.get_run(run_id)
+    if run is None:
+        raise HTTPException(status_code=404, detail='run not found')
+
+    async def event_generator():
+        last_event_id = 0
+        workspace_signature: str | None = None
+        run_stream_subscription = await service.cache.subscribe_run_stream(run_id) if getattr(service, 'cache', None) is not None else None
+        run_stream_queue = run_stream_subscription.stream_queue if run_stream_subscription is not None else None
+
+        def _workspace_signature(workspace: dict, fallback_status: str = 'running') -> str:
+            run_block = workspace.get('run', {}) if isinstance(workspace, dict) else {}
+            workflow = workspace.get('workflow', {}) if isinstance(workspace, dict) else {}
+            qa_block = workspace.get('qa', {}) if isinstance(workspace, dict) else {}
+            observability = workspace.get('observability', {}) if isinstance(workspace, dict) else {}
+            stages = workflow.get('agent_stages', []) if isinstance(workflow, dict) else []
+            events = observability.get('events', []) if isinstance(observability, dict) else []
+
+            stage_digest = [
+                {
+                    'stage': item.get('stage', ''),
+                    'status': item.get('status', ''),
+                    'duration_ms': item.get('duration_ms', None),
+                }
+                for item in stages
+                if isinstance(item, dict)
+            ]
+            last_event = 0
+            if isinstance(events, list) and events:
+                last_event = max(int(item.get('event_id', 0) or 0) for item in events if isinstance(item, dict))
+
+            basis = {
+                'status': str(run_block.get('status', fallback_status)) if isinstance(run_block, dict) else fallback_status,
+                'task_summary': str(run_block.get('task_summary', '')) if isinstance(run_block, dict) else '',
+                'evidence_count': int(run_block.get('evidence_count', 0) or 0) if isinstance(run_block, dict) else 0,
+                'finding_count': int(run_block.get('finding_count', 0) or 0) if isinstance(run_block, dict) else 0,
+                'stage_digest': stage_digest,
+                'qa_issue_count': int(qa_block.get('issue_count', 0) or 0) if isinstance(qa_block, dict) else 0,
+                'qa_collect_items': len(qa_block.get('collect_items', []) if isinstance(qa_block, dict) and isinstance(qa_block.get('collect_items', []), list) else []),
+                'last_event_id': last_event,
+            }
+            text = json.dumps(basis, ensure_ascii=False, sort_keys=True, default=str)
+            return hashlib.sha1(text.encode('utf-8')).hexdigest()
+
+        initial_workspace = service.workspace_payload(run_id)
+        if initial_workspace.get('status') != 'not_found':
+            initial_run = initial_workspace.get('run', {})
+            payload = {
+                'run_id': run_id,
+                'status': initial_run.get('status', 'running') if isinstance(initial_run, dict) else 'running',
+                'workspace': initial_workspace,
+            }
+            yield f"event: workspace\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"
+            event_list = initial_workspace.get('observability', {}).get('events', []) if isinstance(initial_workspace.get('observability', {}), dict) else []
+            if isinstance(event_list, list) and event_list:
+                last_event_id = max(int(item.get('event_id', 0) or 0) for item in event_list)
+            workspace_signature = _workspace_signature(initial_workspace, str(payload['status']))
+
+        while True:
+            current_run = service.get_run(run_id)
+            if current_run is None:
+                payload = {'run_id': run_id, 'status': 'not_found'}
+                yield f"event: error\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
+                break
+
+            new_events: list[dict] = []
+            if run_stream_queue is not None:
+                try:
+                    first_item = await asyncio.to_thread(run_stream_queue.get, True, 1)
+                    if isinstance(first_item, dict):
+                        new_events.append(first_item)
+                    while True:
+                        try:
+                            item = run_stream_queue.get_nowait()
+                        except Exception:
+                            break
+                        if isinstance(item, dict):
+                            new_events.append(item)
+                except Exception:
+                    pass
+            db_events = service.list_run_events(run_id, after_id=last_event_id, limit=200)
+            seen_event_ids = {int(item.get('event_id', 0) or 0) for item in new_events if isinstance(item, dict)}
+            for item in db_events:
+                event_id = int(item.get('event_id', 0) or 0)
+                if event_id and event_id in seen_event_ids:
+                    continue
+                new_events.append(item)
+            new_events.sort(key=lambda item: int(item.get('event_id', 0) or 0))
+            for item in new_events:
+                last_event_id = max(last_event_id, int(item.get('event_id', 0) or 0))
+                yield f"event: run_event\ndata: {json.dumps(item, ensure_ascii=False, default=str)}\n\n"
+                if item.get('event_type') == 'task.summary.refined':
+                    event_payload = item.get('payload', {})
+                    task_summary = str(event_payload.get('task_summary', '') if isinstance(event_payload, dict) else '').strip()
+                    if task_summary:
+                        payload = {'run_id': run_id, 'task_summary': task_summary}
+                        yield f"event: task_summary\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"
+
+            should_refresh_workspace = bool(new_events) or current_run.state.status in ('completed', 'failed')
+            if should_refresh_workspace:
+                workspace = service.workspace_payload(run_id)
+                run_block = workspace.get('run', {})
+                signature = _workspace_signature(workspace, 'running')
+                if signature != workspace_signature:
+                    payload = {
+                        'run_id': run_id,
+                        'status': str(run_block.get('status', 'running')) if isinstance(run_block, dict) else 'running',
+                        'workspace': workspace,
+                    }
+                    yield f"event: workspace\ndata: {json.dumps(payload, ensure_ascii=False, default=str)}\n\n"
+                    workspace_signature = signature
+
+            if current_run.state.status in ('completed', 'failed'):
+                payload = {'run_id': run_id, 'status': current_run.state.status, 'last_event_id': last_event_id}
+                yield f"event: run_done\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
+                break
+
+            yield "event: heartbeat\ndata: {\"ok\": true}\n\n"
+            if run_stream_queue is None:
+                await asyncio.sleep(1)
+
+        if run_stream_subscription is not None:
+            await run_stream_subscription.close()
+
+    return StreamingResponse(
+        event_generator(),
+        media_type='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'X-Accel-Buffering': 'no',
+        },
+    )
+
+
+@router.get('/{run_id}/logs/export')
+def export_run_logs(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> dict:
+    data = service.export_run_logs(run_id)
     if data.get('status') == 'not_found':
         raise HTTPException(status_code=404, detail='run not found')
     return data
@@ -62,7 +495,21 @@ def resume_run(run_id: str, service: CompetitorWorkflowService = Depends(get_ser
 @router.post('/{run_id}/ops/intervene', response_model=RunResponse)
 def intervene_run(
     run_id: str,
-    payload: dict = Body(..., example={'node_name': 'plan', 'action': 'edit_schema', 'actor': 'judge', 'reason': 'manual approve', 'patch': {'analysis_schema_plan': []}}),
+    payload: dict = Body(
+        ...,
+        examples={
+            'default': {
+                'summary': 'Manual intervention payload',
+                'value': {
+                    'node_name': 'plan',
+                    'action': 'edit_schema',
+                    'actor': 'judge',
+                    'reason': 'manual approve',
+                    'patch': {'analysis_schema_plan': []},
+                },
+            }
+        },
+    ),
     service: CompetitorWorkflowService = Depends(get_service),
 ) -> RunResponse:
     result = service.manual_intervene(

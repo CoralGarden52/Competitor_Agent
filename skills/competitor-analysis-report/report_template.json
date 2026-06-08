@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "provenance_granularity": "item",
+  "sections": [
+    {
+      "section_id": "analysis_background",
+      "title": "一、分析背景与目标",
+      "field_name": "",
+      "required_subsections": ["分析目的", "目标业务场景/行业", "自身产品定位"]
+    },
+    {
+      "section_id": "comparison_overview",
+      "title": "二、竞品对比总览",
+      "field_name": "",
+      "required_subsections": ["对比矩阵", "矩阵解读"]
+    },
+    {
+      "section_id": "capability_comparison",
+      "title": "三、核心能力与产品形态",
+      "field_name": "feature_tree",
+      "required_subsections": ["核心能力对比", "产品形态对比", "能力差距与机会判断"]
+    },
+    {
+      "section_id": "pricing_strategy",
+      "title": "四、商业化与定价",
+      "field_name": "pricing_model",
+      "required_subsections": ["定价模式对比", "商业化策略分析"]
+    },
+    {
+      "section_id": "user_feedback_analysis",
+      "title": "五、用户反馈与采用信号",
+      "field_name": "user_feedback",
+      "required_subsections": ["用户反馈总结", "用户需求缺口"]
+    },
+    {
+      "section_id": "swot_analysis",
+      "title": "六、标准化SWOT分析",
+      "field_name": "",
+      "required_subsections": ["目标产品 SWOT", "核心竞品 SWOT"]
+    },
+    {
+      "section_id": "strategic_insights",
+      "title": "七、深度洞察与战略建议",
+      "field_name": "",
+      "required_subsections": ["核心差异洞察", "标准化策略建议"]
+    },
+    {
+      "section_id": "conclusion_risks",
+      "title": "八、结论与风险提示",
+      "field_name": "",
+      "required_subsections": ["总结", "风险提示"]
+    }
+  ]
+}

@@ -1,4 +1,6 @@
-﻿from __future__ import annotations
+from __future__ import annotations
+
+from urllib.parse import urlparse
 
 
 def dedup_by_url_and_hash(items: list[dict]) -> list[dict]:
@@ -14,13 +16,16 @@ def dedup_by_url_and_hash(items: list[dict]) -> list[dict]:
 
 
 def verify_cross_source(items: list[dict]) -> list[dict]:
-    provider_counts: dict[str, int] = {}
+    hosts_by_field: dict[str, set[str]] = {}
     for item in items:
-        provider = item.get('source_provider', 'unknown')
-        provider_counts[provider] = provider_counts.get(provider, 0) + 1
-
+        field_name = str(item.get('schema_field', '') or '')
+        host = urlparse(str(item.get('source_url', '') or '')).netloc.casefold()
+        if host:
+            hosts_by_field.setdefault(field_name, set()).add(host)
     for item in items:
-        item['cross_source_ok'] = len(provider_counts) >= 2
+        source_host_count = len(hosts_by_field.get(str(item.get('schema_field', '') or ''), set()))
+        item['source_host_count'] = source_host_count
+        item['cross_source_ok'] = source_host_count >= 2
         if not item['cross_source_ok']:
             item['risk_flag'] = True
     return items

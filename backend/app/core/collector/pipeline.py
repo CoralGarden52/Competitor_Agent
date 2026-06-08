@@ -7,32 +7,29 @@ from pathlib import Path
 from urllib.parse import urlparse
 from typing import Any
 
-from app.core.collector.extractor import extract_fields, mask_pii
 from app.core.collector.normalizer import content_hash, normalize_url, recency_score
-from app.core.collector.provider_registry import ProviderRegistry
-from app.core.collector.readability_local import extract_to_markdown
-from app.core.collector.providers import build_fetch_provider_catalog, build_search_provider_catalog
 from app.core.collector.query_planner import build_queries
-from app.core.collector.types import CollectorOutput, SearchHit
+from app.core.collector.types import CollectorOutput
 from app.core.collector.verifier import dedup_by_url_and_hash, verify_cross_source
 from app.core.config import AppConfig
 from app.core.models import AnalysisSchemaField
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
+from harness.tools import ToolRequest, ToolRouter
+from harness.tools.bootstrap import build_tool_runtime
+from harness.tools.providers import ProviderRegistry, SearchHit
 
 
 class CollectorPipeline:
-    def __init__(self, config: AppConfig, store: SQLiteStore):
+    def __init__(self, config: AppConfig, store: PostgresStore, tool_router: ToolRouter | None = None, provider_registry: ProviderRegistry | None = None):
         self.config = config
         self.store = store
-        self.registry = ProviderRegistry(
-            search_catalog=build_search_provider_catalog(config),
-            fetch_catalog=build_fetch_provider_catalog(config),
-            search_order=config.collector_search_order_list,
-            fetch_order=config.collector_fetch_order_list,
-            strict_search_order=config.collector_search_order_strict,
-        )
+        runtime = build_tool_runtime(config) if tool_router is None else None
+        self.tool_router = tool_router or runtime.router
+        self.registry = provider_registry or (runtime.provider_registry if runtime is not None else None)
 
     def provider_health(self) -> dict:
+        if self.registry is None:
+            return {}
         search = [p.health().__dict__ for p in self.registry.ordered_search_providers()]
         fetch = [p.health().__dict__ for p in self.registry.ordered_fetch_providers()]
         return {
@@ -52,6 +49,7 @@ class CollectorPipeline:
         schema_plan: list[AnalysisSchemaField] | list[dict] | None = None,
         per_field_limit: int = 3,
         field_query_overrides: dict[str, list[str]] | None = None,
+        target_fields: set[str] | None = None,
     ) -> CollectorOutput:
         output = CollectorOutput()
         fields = self._resolve_schema_fields(
@@ -60,12 +58,14 @@ class CollectorPipeline:
             schema_plan=schema_plan,
             field_query_overrides=field_query_overrides,
         )
+        if target_fields:
+            fields = [item for item in fields if str(item.get('field_name', '')).strip() in target_fields]
         candidate_rows: list[dict] = []
         fallback_trace: list[dict] = []
         max_items = max_urls if max_urls is not None and max_urls > 0 else None
 
         fetch_tasks: list[tuple[str, str, str, list[str], str, str, str]] = []
-        search_tasks: list[tuple[str, str, list[str], int, list[str] | None, str]] = []
+        search_tasks: list[tuple[str, str, list[str], int, list[str] | None, list[str] | None, str]] = []
 
         for field_plan in fields:
             field_name = field_plan['field_name']
@@ -82,22 +82,33 @@ class CollectorPipeline:
             for query in queries:
                 if field_name == 'pricing_model':
                     provider_allowlist = ['tavily']
+                    provider_priority = None
                     search_strategy = 'strict_tavily_only'
+                elif field_name == 'user_feedback':
+                    provider_allowlist = None
+                    provider_priority = ['zhihu_official']
+                    search_strategy = 'prefer_zhihu_then_fallback'
                 else:
                     provider_allowlist = None
+                    provider_priority = None
                     search_strategy = 'default_fallback'
-                search_tasks.append((field_name, query, recommended_sources, per_field_limit, provider_allowlist, search_strategy))
+                field_limit = self._field_prefetch_limit(field_name=field_name, per_field_limit=per_field_limit)
+                search_tasks.append((field_name, query, recommended_sources, field_limit, provider_allowlist, provider_priority, search_strategy))
 
-        def _search_one(task: tuple[str, str, list[str], int, list[str] | None, str]) -> list[tuple[str, str, str, list[str], str, str, str]]:
-            field_name, query, recommended_sources, _, provider_allowlist, search_strategy = task
+        def _search_one(
+            task: tuple[str, str, list[str], int, list[str] | None, list[str] | None, str],
+        ) -> list[tuple[str, str, str, list[str], str, str, str]]:
+            field_name, query, recommended_sources, search_limit, provider_allowlist, provider_priority, search_strategy = task
             local_fallback_trace: list[dict] = []
             search_hits = self._run_search_phase(
                 query=query,
                 output=output,
                 fallback_trace=local_fallback_trace,
                 provider_allowlist=provider_allowlist,
+                provider_priority=provider_priority,
                 field_name=field_name,
                 strategy=search_strategy,
+                max_results=search_limit,
             )
             fallback_trace.extend(local_fallback_trace)
             results: list[tuple[str, str, str, list[str], str, str, str]] = []
@@ -108,7 +119,8 @@ class CollectorPipeline:
 
         all_search_results: list[tuple[str, str, str, list[str], str, str, str]] = []
         if search_tasks:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(search_tasks), 3)) as executor:
+            search_max_workers = min(len(search_tasks), 4)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=search_max_workers) as executor:
                 futures = [executor.submit(_search_one, task) for task in search_tasks]
                 for future in concurrent.futures.as_completed(futures):
                     all_search_results.extend(future.result())
@@ -133,6 +145,19 @@ class CollectorPipeline:
                 continue
             fetch_tasks.append((field_name, query, source_url, recommended_sources, title, snippet, source_provider))
             field_hit_counts[field_name] = current_hits + 1
+            output.provider_events.append(
+                {
+                    'event_type': 'collector.fetch.scheduled',
+                    'competitor': competitor,
+                    'field_name': field_name,
+                    'query': query,
+                    'url': source_url,
+                    'title': title,
+                    'snippet': snippet,
+                    'source_provider': source_provider,
+                    'rank': len(fetch_tasks),
+                }
+            )
 
         for field_name in field_hit_counts:
             output.provider_events.append(
@@ -161,16 +186,34 @@ class CollectorPipeline:
             fallback_trace.extend(local_fallback_trace)
 
             if content and len(content) > 100:
-                markdown_text = extract_to_markdown(content, title=search_title or competitor, content_type='markdown')
-                sanitized = mask_pii(markdown_text)
-                extracted_fields = extract_fields(sanitized, search_snippet)
+                extracted = self.tool_router.invoke(
+                    ToolRequest(
+                        name='web.extract',
+                        args={'content': content, 'title': search_title or competitor, 'snippet': search_snippet},
+                        metadata={'group': 'web'},
+                    )
+                )
+                output.tool_events.append(
+                    {'event_type': 'collector.tool.extract', 'tool_name': 'web.extract', 'ok': extracted.ok}
+                )
+                sanitized = str(extracted.output.get('sanitized', ''))
+                extracted_fields = extracted.output.get('extract_fields', {})
                 retrieval_status = 'ok'
                 snippet = sanitized[:500]
                 confidence = 0.72
             else:
-                markdown_text = extract_to_markdown(search_snippet or content, title=search_title or competitor, content_type='markdown')
-                sanitized = mask_pii(markdown_text)
-                extracted_fields = extract_fields(sanitized, search_snippet)
+                extracted = self.tool_router.invoke(
+                    ToolRequest(
+                        name='web.extract',
+                        args={'content': search_snippet or content, 'title': search_title or competitor, 'snippet': search_snippet},
+                        metadata={'group': 'web'},
+                    )
+                )
+                output.tool_events.append(
+                    {'event_type': 'collector.tool.extract', 'tool_name': 'web.extract', 'ok': extracted.ok}
+                )
+                sanitized = str(extracted.output.get('sanitized', ''))
+                extracted_fields = extracted.output.get('extract_fields', {})
                 retrieval_status = 'partial'
                 snippet = search_snippet[:500] if search_snippet else ''
                 confidence = 0.55
@@ -316,8 +359,6 @@ class CollectorPipeline:
 
     @staticmethod
     def _field_prefetch_limit(*, field_name: str, per_field_limit: int) -> int:
-        if field_name == 'pricing_model':
-            return max(per_field_limit * 3, 6)
         return per_field_limit
 
     def _rerank_pricing_candidates(
@@ -431,17 +472,28 @@ class CollectorPipeline:
         output: CollectorOutput,
         fallback_trace: list[dict],
         provider_allowlist: list[str] | None,
+        provider_priority: list[str] | None,
         field_name: str,
         strategy: str,
+        max_results: int,
     ) -> list[SearchHit]:
-        from app.core.collector.search import search_with_fallback
-        hits, trace = search_with_fallback(
-            query=query,
-            registry=self.registry,
-            fallback_trace=fallback_trace,
-            provider_allowlist=provider_allowlist,
+        result = self.tool_router.invoke(
+            ToolRequest(
+                name='web.search',
+                args={
+                    'query': query,
+                    'provider_allowlist': provider_allowlist,
+                    'provider_priority': provider_priority,
+                    'max_results': max_results,
+                },
+                metadata={'group': 'web'},
+            )
         )
-        if provider_allowlist:
+        raw_hits = result.output.get('hits', []) if result.ok else []
+        hits = self._coerce_search_hits(raw_hits, query=query)
+        trace = result.output.get('trace', []) if result.ok else []
+        output.tool_events.append({'event_type': 'collector.tool.search', 'tool_name': 'web.search', 'ok': result.ok})
+        if provider_allowlist or provider_priority:
             output.provider_events.append(
                 {
                     'event_type': 'collector.search.strategy',
@@ -449,6 +501,8 @@ class CollectorPipeline:
                     'field_name': field_name,
                     'strategy': strategy,
                     'provider_allowlist': provider_allowlist,
+                    'provider_priority': provider_priority,
+                    'max_results': max_results,
                 }
             )
         fallback_trace.extend(trace)
@@ -462,8 +516,44 @@ class CollectorPipeline:
                 'source_provider': hit.source_provider,
                 'field_name': field_name,
                 'strategy': strategy,
+                'max_results': max_results,
             })
         return hits
+
+    @staticmethod
+    def _coerce_search_hits(raw_hits: Any, *, query: str) -> list[SearchHit]:
+        if not isinstance(raw_hits, list):
+            return []
+        normalized: list[SearchHit] = []
+        for item in raw_hits:
+            if isinstance(item, SearchHit):
+                normalized.append(item)
+                continue
+            if isinstance(item, dict):
+                normalized.append(
+                    SearchHit(
+                        query=str(item.get('query', '') or query),
+                        title=str(item.get('title', '') or ''),
+                        url=str(item.get('url', '') or ''),
+                        snippet=str(item.get('snippet', '') or ''),
+                        source_provider=str(item.get('source_provider', '') or ''),
+                        status=str(item.get('status', 'ok') or 'ok'),
+                        latency_ms=int(item.get('latency_ms', 0) or 0),
+                    )
+                )
+                continue
+            normalized.append(
+                SearchHit(
+                    query=str(getattr(item, 'query', '') or query),
+                    title=str(getattr(item, 'title', '') or ''),
+                    url=str(getattr(item, 'url', '') or ''),
+                    snippet=str(getattr(item, 'snippet', '') or ''),
+                    source_provider=str(getattr(item, 'source_provider', '') or ''),
+                    status=str(getattr(item, 'status', 'ok') or 'ok'),
+                    latency_ms=int(getattr(item, 'latency_ms', 0) or 0),
+                )
+            )
+        return normalized
 
     def _run_fetch_phase(
         self,
@@ -475,71 +565,17 @@ class CollectorPipeline:
         field_name: str,
         strategy: str,
     ) -> tuple[str, str]:
-        trace: list[dict] = []
-        content = ''
-        provider_name = ''
-
-        for provider_key in provider_order:
-            provider = self.registry.fetch_catalog.get(provider_key)
-            if provider is None:
-                trace.append(
-                    {
-                        'provider': provider_key,
-                        'status': 'missing',
-                        'field_name': field_name,
-                        'strategy': strategy,
-                    }
-                )
-                continue
-            try:
-                provider_content, provider_errors = provider.fetch(url)
-                current_name = provider.name()
-                if provider_content and len(provider_content) > 100:
-                    content = provider_content
-                    provider_name = current_name
-                    trace.append(
-                        {
-                            'provider': current_name,
-                            'status': 'success',
-                            'content_length': len(provider_content),
-                            'field_name': field_name,
-                            'strategy': strategy,
-                        }
-                    )
-                    break
-                if provider_content:
-                    content = provider_content
-                    provider_name = current_name
-                    trace.append(
-                        {
-                            'provider': current_name,
-                            'status': 'partial',
-                            'content_length': len(provider_content),
-                            'errors': provider_errors,
-                            'field_name': field_name,
-                            'strategy': strategy,
-                        }
-                    )
-                    continue
-                trace.append(
-                    {
-                        'provider': current_name,
-                        'status': 'empty',
-                        'errors': provider_errors,
-                        'field_name': field_name,
-                        'strategy': strategy,
-                    }
-                )
-            except Exception as exc:
-                trace.append(
-                    {
-                        'provider': provider.name() if provider else provider_key,
-                        'status': 'error',
-                        'error': str(exc),
-                        'field_name': field_name,
-                        'strategy': strategy,
-                    }
-                )
+        result = self.tool_router.invoke(
+            ToolRequest(
+                name='web.fetch',
+                args={'url': url, 'provider_order': provider_order},
+                metadata={'group': 'web'},
+            )
+        )
+        trace = result.output.get('trace', []) if result.ok else []
+        content = str(result.output.get('content', '')) if result.ok else ''
+        provider_name = result.provider if result.ok else ''
+        output.tool_events.append({'event_type': 'collector.tool.fetch', 'tool_name': 'web.fetch', 'ok': result.ok})
 
         fallback_trace.extend(trace)
         output.provider_events.append({

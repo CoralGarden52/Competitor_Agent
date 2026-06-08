@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 
 from app.core.models import ApprovalPolicy, PolicyDecision, PolicyDecisionResult, RiskLevel, SchemaEvolutionProposal
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 
 _RISK_SCORE = {
@@ -20,7 +20,7 @@ class PolicyContext:
 
 
 class ApprovalPolicyEngine:
-    def __init__(self, store: SQLiteStore):
+    def __init__(self, store: PostgresStore):
         self.store = store
 
     def decide(self, proposal: SchemaEvolutionProposal, context: PolicyContext) -> PolicyDecisionResult:

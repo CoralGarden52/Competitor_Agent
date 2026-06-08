@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import UTC, datetime
 import json
+import logging
 from pathlib import Path
 import re
 from typing import Any
@@ -14,14 +15,14 @@ from app.core.prompts.agent_prompts import (
     QA_ANALYSIS_REVIEW_SYSTEM_PROMPT,
     QA_SYSTEM_PROMPT,
 )
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 
 class QACriticAgent:
     _SENSITIVE_KEYS = {"api_key", "token", "secret", "password", "authorization"}
     _URL_SENSITIVE_KEYS = {"token", "sig", "signature", "key", "api_key", "access_token"}
 
-    def __init__(self, llm: AgentLLMClient, store: SQLiteStore):
+    def __init__(self, llm: AgentLLMClient, store: PostgresStore):
         self.llm = llm
         self.store = store
 
@@ -30,12 +31,13 @@ class QACriticAgent:
             "industry": state.industry,
             "language": state.language,
             "analysis_schema_plan": [x.model_dump(mode="json") for x in state.analysis_schema_plan],
-            "expected_competitors": state.planned_competitors or state.competitors,
+            "expected_competitors": state.effective_analysis_subject_names(),
             "competitors": [x.model_dump(mode="json") for x in state.competitor_analyses],
             "profiles": [x.model_dump(mode="json") for x in state.profiles],
             "findings": [x.model_dump(mode="json") for x in state.findings],
             "report": state.report.model_dump(mode="json") if state.report else None,
             "evidences": [x.model_dump(mode="json") for x in state.evidences],
+            "target_product": state.target_subject_name(),
             "field_evidence_summary": self._build_field_evidence_summary(state),
             "constraints": {
                 "require_traceable_evidence": True,
@@ -58,15 +60,16 @@ class QACriticAgent:
             "agent_name": "QACriticAgent",
             "model": self.llm.config.openai_model,
             "industry": state.industry,
-            "competitor_count": len(state.planned_competitors or state.competitors),
+            "competitor_count": len(state.effective_analysis_subject_names()),
             "attempt": state.attempt,
         }
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name="agent.qa.evaluate_report",
                 system_prompt=QA_SYSTEM_PROMPT,
                 user_payload=payload,
                 metadata=metadata,
+                tool_names=["web.search", "web.fetch"],
             )
         except Exception as exc:
             self._append_qa_log(
@@ -151,6 +154,7 @@ class QACriticAgent:
             industry=industry_hint or "general",
             competitors=[competitor],
             planned_competitors=[competitor],
+            target_product=competitor,
             user_prompt="analysis_stage_qa",
         )
         self._append_qa_log(
@@ -165,11 +169,12 @@ class QACriticAgent:
             },
         )
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name="agent.qa.analysis_review",
                 system_prompt=QA_ANALYSIS_REVIEW_SYSTEM_PROMPT,
                 user_payload=payload,
-                metadata={"agent_name": "QACriticAgent", "mode": "analysis_stage", "competitor": competitor},
+                metadata={"agent_name": "QACriticAgent", "mode": "analysis_stage", "competitor": competitor, "node_name": "qa"},
+                tool_names=["web.search", "web.fetch"],
             )
             self._append_qa_log(
                 event_type="qa_analysis_review_output",
@@ -190,6 +195,30 @@ class QACriticAgent:
                 },
             )
             raise
+
+    def _invoke_llm_json(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        tool_names: list[str],
+    ) -> dict[str, Any]:
+        if hasattr(self.llm, "invoke_json_with_tools"):
+            return self.llm.invoke_json_with_tools(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+                tool_names=tool_names,
+            )
+        return self.llm.invoke_json(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+        )
 
     @staticmethod
     def _build_field_evidence_summary(state: RunState) -> list[dict]:
@@ -259,7 +288,7 @@ class QACriticAgent:
             with target.open("a", encoding="utf-8") as fh:
                 fh.write(json.dumps(record, ensure_ascii=False, default=str) + "\n")
         except Exception as exc:  # noqa: BLE001
-            print(f"[QACriticAgent] failed to write qa log: {exc}")
+            logging.getLogger(__name__).warning("[QACriticAgent] failed to write qa log: %s", exc)
 
     @classmethod
     def _mask_sensitive(cls, obj: Any, *, parent_key: str = "") -> Any:

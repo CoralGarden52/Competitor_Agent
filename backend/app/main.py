@@ -8,7 +8,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.collector import router as collector_router
 from app.api.runs import router as runs_router
 from app.api.schema import router as schema_router
+from app.core.logging_setup import configure_logging
 from app.core.tracing_factory import get_tracing_runtime
+
+configure_logging()
 
 logger = logging.getLogger(__name__)
 

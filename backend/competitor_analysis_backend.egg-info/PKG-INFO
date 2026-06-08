@@ -10,6 +10,7 @@ Requires-Dist: pydantic-settings>=2.4.0
 Requires-Dist: openai>=1.30.0
 Requires-Dist: langgraph>=0.2.30
 Requires-Dist: langsmith>=0.7.0
+Requires-Dist: tavily-python>=0.5.0
 Provides-Extra: dev
 Requires-Dist: pytest>=8.3.0; extra == "dev"
 Requires-Dist: httpx>=0.28.0; extra == "dev"

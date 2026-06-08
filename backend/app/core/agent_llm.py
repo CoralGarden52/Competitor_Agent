@@ -9,11 +9,12 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, Iterator
 
 from app.core.config import AppConfig
 from app.core.models import LLMCallTrace
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
+from harness.tools import ToolLoopError, ToolLoopExecutor, ToolRequest, ToolRouter
 from app.core.tracing_factory import get_tracing_runtime
 
 logger = logging.getLogger(__name__)
@@ -31,9 +32,41 @@ class LLMCallError(RuntimeError):
 
 
 class AgentLLMClient:
-    def __init__(self, config: AppConfig, store: SQLiteStore | None = None):
+    def __init__(self, config: AppConfig, store: PostgresStore | None = None, tool_router: ToolRouter | None = None):
         self.config = config
         self.store = store
+        self.tool_router = tool_router
+        self.hook_registry = None
+
+    def _emit_hook(
+        self,
+        hook_point: str,
+        *,
+        metadata: dict[str, Any],
+        trace_name: str,
+        payload: dict[str, Any],
+        error: dict[str, Any] | None = None,
+    ) -> None:
+        if self.hook_registry is None:
+            return
+        try:
+            from app.core.hooks import HookContext
+
+            self.hook_registry.emit(
+                hook_point,
+                HookContext(
+                    hook_point=hook_point,
+                    run_id=str(metadata.get('run_id', '') or ''),
+                    attempt=int(metadata.get('attempt', 0) or 0),
+                    stage=str(metadata.get('node_name', '') or ''),
+                    agent_name=str(metadata.get('agent_name', '') or ''),
+                    trace_name=trace_name,
+                    payload=payload,
+                    error=error,
+                ),
+            )
+        except Exception:
+            return
 
     def enabled(self) -> bool:
         return bool(self.config.openai_api_key and self.config.openai_base_url and self.config.openai_model)
@@ -46,7 +79,28 @@ class AgentLLMClient:
         user_payload: dict[str, Any],
         metadata: dict[str, Any],
         network_retries: int | None = None,
+        token_tracker: Any | None = None,
     ) -> dict[str, Any]:
+        if self.tool_router is not None and not bool(metadata.get('_via_tool', False)):
+            routed = self.tool_router.invoke(
+                ToolRequest(
+                    name='llm.invoke_json',
+                    args={
+                        'trace_name': trace_name,
+                        'system_prompt': system_prompt,
+                        'user_payload': user_payload,
+                        'metadata': {**metadata, '_via_tool': True},
+                    },
+                    max_retries=network_retries if network_retries is not None else self.config.agent_llm_retry_count,
+                    metadata={'group': 'llm'},
+                )
+            )
+            if routed.ok:
+                parsed = routed.output.get('parsed', {})
+                if isinstance(parsed, dict):
+                    return parsed
+            raise LLMCallError(reason=routed.error_code or 'llm_invoke_failed', message=routed.error_message or 'llm_invoke_failed')
+
         if not self.enabled():
             raise LLMCallError(
                 reason='llm_not_configured',
@@ -60,9 +114,9 @@ class AgentLLMClient:
                 'role': 'system',
                 'content': (
                     f'{system_prompt}\n'
-                    'Return only one valid JSON object. '
-                    'Do not include markdown code fences. '
-                    'Do not include explanation text before or after JSON.'
+                    '只返回一个合法的 JSON 对象。'
+                    '不要包含 markdown 代码块。'
+                    '不要在 JSON 前后添加解释文本。'
                 ),
             },
             {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
@@ -75,6 +129,71 @@ class AgentLLMClient:
             messages=messages,
             network_retries=network_retries,
             temperature=0.2,
+            token_tracker=token_tracker,
+        )
+
+    def invoke_text(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        network_retries: int | None = None,
+        temperature: float = 0.2,
+    ) -> str:
+        if not self.enabled():
+            raise LLMCallError(
+                reason='llm_not_configured',
+                message='LLM is not configured: missing OPENAI_API_KEY/OPENAI_BASE_URL/OPENAI_MODEL',
+                attempt_count=0,
+                retry_count_used=0,
+            )
+
+        messages = [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
+        ]
+        return self._invoke_text_with_messages(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+            messages=messages,
+            network_retries=network_retries,
+            temperature=temperature,
+        )
+
+    def invoke_text_stream(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        network_retries: int | None = None,
+        temperature: float = 0.2,
+    ) -> Iterator[str]:
+        if not self.enabled():
+            raise LLMCallError(
+                reason='llm_not_configured',
+                message='LLM is not configured: missing OPENAI_API_KEY/OPENAI_BASE_URL/OPENAI_MODEL',
+                attempt_count=0,
+                retry_count_used=0,
+            )
+
+        messages = [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': json.dumps(user_payload, ensure_ascii=False)},
+        ]
+        yield from self._invoke_text_stream_with_messages(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+            messages=messages,
+            network_retries=network_retries,
+            temperature=temperature,
         )
 
     def invoke_json_multimodal(
@@ -100,9 +219,9 @@ class AgentLLMClient:
                 'role': 'system',
                 'content': (
                     f'{system_prompt}\n'
-                    'Return only one valid JSON object. '
-                    'Do not include markdown code fences. '
-                    'Do not include explanation text before or after JSON.'
+                    '只返回一个合法的 JSON 对象。'
+                    '不要包含 markdown 代码块。'
+                    '不要在 JSON 前后添加解释文本。'
                 ),
             },
             {
@@ -123,6 +242,55 @@ class AgentLLMClient:
             temperature=0.0,
         )
 
+    def invoke_json_with_tools(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        tool_names: list[str],
+        max_tool_rounds: int = 4,
+        tool_policy: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        if self.tool_router is None:
+            return self.invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+            )
+        policy = dict(tool_policy or {})
+        disable_tools = bool(policy.get('disable_tools', False))
+        if disable_tools:
+            return self.invoke_json(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+            )
+        effective_rounds = max(1, int(policy.get('max_tool_rounds', max_tool_rounds) or max_tool_rounds))
+        denied_tools = {str(item).strip() for item in policy.get('denied_tools', []) if str(item).strip()} if isinstance(policy.get('denied_tools', []), list) else set()
+        allowed_tool_names = [name for name in tool_names if name not in denied_tools]
+        try:
+            return ToolLoopExecutor(self.tool_router).run(
+                invoke_model=self.invoke_json,
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+                tool_names=allowed_tool_names,
+                max_tool_rounds=effective_rounds,
+                fallback_to_plain_json=bool(policy.get('fallback_to_plain_json', True)),
+            ).final_output
+        except ToolLoopError as exc:
+            if bool(policy.get('fallback_to_plain_json', True)):
+                return self.invoke_json(
+                    trace_name=trace_name, system_prompt=system_prompt, user_payload=user_payload,
+                    metadata={**metadata, '_via_tool': True, 'tool_protocol_fallback': True},
+                )
+            raise LLMCallError(reason=exc.code, message=str(exc), attempt_count=effective_rounds) from exc
+
     def _invoke_json_with_messages(
         self,
         *,
@@ -133,7 +301,147 @@ class AgentLLMClient:
         messages: list[dict[str, Any]],
         network_retries: int | None,
         temperature: float,
+        token_tracker: Any | None = None,
     ) -> dict[str, Any]:
+        self._emit_hook(
+            'before_llm',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={'user_payload': user_payload, 'temperature': temperature},
+        )
+        retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
+        attempts = retries + 1
+
+        runtime = get_tracing_runtime()
+        base_url = self.config.openai_base_url.rstrip('/')
+        url = f'{base_url}/chat/completions'
+        payload = {
+            'model': self.config.openai_model,
+            'messages': messages,
+            'temperature': temperature,
+        }
+        if token_tracker is not None:
+            payload['max_tokens'] = token_tracker.before_request(messages)
+
+        last_exc: Exception | None = None
+        last_reason = 'unknown'
+
+        trace_ctx = _trace_ctx(
+            name=trace_name,
+            inputs=user_payload,
+            metadata={'model': self.config.openai_model, **metadata},
+            project=runtime.project,
+            client=runtime.client,
+            enabled=runtime.langsmith_enabled,
+        )
+
+        with trace_ctx as trace_span:
+            for idx in range(attempts):
+                started_at = time.time()
+                try:
+                    data = self._post_chat_completion(url=url, payload=payload)
+                    choices = data.get('choices', [])
+                    if not choices:
+                        raise LLMCallError(
+                            reason='empty_choices',
+                            message='LLM response missing choices',
+                            attempt_count=idx + 1,
+                            retry_count_used=idx,
+                        )
+                    content = (choices[0].get('message') or {}).get('content', '{}')
+                    if token_tracker is not None:
+                        token_tracker.after_response(data.get('usage', {}), messages, content)
+                    try:
+                        parsed = _parse_json_content(content)
+                    except ValueError:
+                        repaired = self._repair_json_response(
+                            url=url,
+                            raw_content=content,
+                            trace_name=trace_name,
+                            metadata=metadata,
+                        )
+                        parsed = _parse_json_content(repaired)
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response=data,
+                        parsed_response=parsed,
+                        status='completed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                    )
+                    _finish_trace(trace_span, {'parsed_response': parsed})
+                    return parsed
+                except LLMCallError as exc:
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=exc.reason,
+                        error_message=str(exc),
+                    )
+                    last_exc = exc
+                    last_reason = exc.reason
+                    if idx < attempts - 1 and _is_retryable_reason(exc.reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+                except Exception as exc:
+                    if exc.__class__.__name__ == 'SubagentBudgetExceeded':
+                        raise
+                    reason = _classify_error(exc)
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=reason,
+                        error_message=str(exc),
+                    )
+                    last_exc = exc
+                    last_reason = reason
+                    if idx < attempts - 1 and _is_retryable_reason(reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+
+        message = f'LLM call failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM call failed'
+        self._emit_hook(
+            'on_error',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={},
+            error={'reason': last_reason, 'message': message},
+        )
+        raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
+
+    def _invoke_text_with_messages(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        messages: list[dict[str, Any]],
+        network_retries: int | None,
+        temperature: float,
+    ) -> str:
+        self._emit_hook(
+            'before_llm',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={'user_payload': user_payload, 'temperature': temperature},
+        )
         retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
         attempts = retries + 1
 
@@ -158,7 +466,7 @@ class AgentLLMClient:
             enabled=runtime.langsmith_enabled,
         )
 
-        with trace_ctx:
+        with trace_ctx as trace_span:
             for idx in range(attempts):
                 started_at = time.time()
                 try:
@@ -171,28 +479,19 @@ class AgentLLMClient:
                             attempt_count=idx + 1,
                             retry_count_used=idx,
                         )
-                    content = (choices[0].get('message') or {}).get('content', '{}')
-                    try:
-                        parsed = _parse_json_content(content)
-                    except ValueError:
-                        repaired = self._repair_json_response(
-                            url=url,
-                            raw_content=content,
-                            trace_name=trace_name,
-                            metadata=metadata,
-                        )
-                        parsed = _parse_json_content(repaired)
+                    content = str((choices[0].get('message') or {}).get('content', '') or '')
                     self._record_llm_trace(
                         trace_name=trace_name,
                         system_prompt=system_prompt,
                         user_payload=user_payload,
                         metadata=metadata,
                         raw_response=data,
-                        parsed_response=parsed,
+                        parsed_response={'text': content},
                         status='completed',
                         latency_ms=int((time.time() - started_at) * 1000),
                     )
-                    return parsed
+                    _finish_trace(trace_span, {'text': content})
+                    return content
                 except LLMCallError as exc:
                     self._record_llm_trace(
                         trace_name=trace_name,
@@ -213,6 +512,8 @@ class AgentLLMClient:
                         continue
                     break
                 except Exception as exc:
+                    if exc.__class__.__name__ == 'SubagentBudgetExceeded':
+                        raise
                     reason = _classify_error(exc)
                     self._record_llm_trace(
                         trace_name=trace_name,
@@ -234,6 +535,117 @@ class AgentLLMClient:
                     break
 
         message = f'LLM call failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM call failed'
+        self._emit_hook(
+            'on_error',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={},
+            error={'reason': last_reason, 'message': message},
+        )
+        raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
+
+    def _invoke_text_stream_with_messages(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        messages: list[dict[str, Any]],
+        network_retries: int | None,
+        temperature: float,
+    ) -> Iterator[str]:
+        self._emit_hook(
+            'before_llm',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={'user_payload': user_payload, 'temperature': temperature, 'stream': True},
+        )
+        retries = self.config.agent_llm_retry_count if network_retries is None else max(0, network_retries)
+        attempts = retries + 1
+
+        runtime = get_tracing_runtime()
+        base_url = self.config.openai_base_url.rstrip('/')
+        url = f'{base_url}/chat/completions'
+        payload = {
+            'model': self.config.openai_model,
+            'messages': messages,
+            'temperature': temperature,
+            'stream': True,
+        }
+
+        last_exc: Exception | None = None
+        last_reason = 'unknown'
+
+        trace_ctx = _trace_ctx(
+            name=trace_name,
+            inputs=user_payload,
+            metadata={'model': self.config.openai_model, **metadata, 'stream': True},
+            project=runtime.project,
+            client=runtime.client,
+            enabled=runtime.langsmith_enabled,
+        )
+
+        with trace_ctx as trace_span:
+            for idx in range(attempts):
+                started_at = time.time()
+                text_parts: list[str] = []
+                try:
+                    for delta in self._post_chat_completion_stream(url=url, payload=payload):
+                        if delta:
+                            text_parts.append(delta)
+                            yield delta
+                    content = ''.join(text_parts)
+                    if not content:
+                        raise LLMCallError(
+                            reason='empty_choices',
+                            message='LLM stream returned empty content',
+                            attempt_count=idx + 1,
+                            retry_count_used=idx,
+                        )
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={'text': content, 'stream': True},
+                        status='completed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                    )
+                    _finish_trace(trace_span, {'text': content, 'stream': True})
+                    return
+                except Exception as exc:
+                    reason = exc.reason if isinstance(exc, LLMCallError) else _classify_error(exc)
+                    self._record_llm_trace(
+                        trace_name=trace_name,
+                        system_prompt=system_prompt,
+                        user_payload=user_payload,
+                        metadata=metadata,
+                        raw_response={},
+                        parsed_response={'text': ''.join(text_parts), 'stream': True} if text_parts else {},
+                        status='failed',
+                        latency_ms=int((time.time() - started_at) * 1000),
+                        error_reason=reason,
+                        error_message=str(exc),
+                    )
+                    last_exc = exc
+                    last_reason = reason
+                    if text_parts:
+                        break
+                    if idx < attempts - 1 and _is_retryable_reason(reason):
+                        _sleep_backoff(idx, self.config.agent_llm_retry_backoff_ms, self.config.agent_llm_retry_max_backoff_ms)
+                        continue
+                    break
+
+        message = f'LLM stream failed after {attempts} attempt(s): {last_exc}' if last_exc else 'LLM stream failed'
+        self._emit_hook(
+            'on_error',
+            metadata=metadata,
+            trace_name=trace_name,
+            payload={},
+            error={'reason': last_reason, 'message': message},
+        )
         raise LLMCallError(reason=last_reason, message=message, attempt_count=attempts, retry_count_used=max(0, attempts - 1))
 
     def _post_chat_completion(self, *, url: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -243,12 +655,56 @@ class AgentLLMClient:
             headers={
                 'Content-Type': 'application/json',
                 'Authorization': f'Bearer {self.config.openai_api_key}',
+                'Accept': 'application/json',
+                'Connection': 'close',
             },
             method='POST',
         )
         with urllib.request.urlopen(req, timeout=self.config.request_timeout_seconds) as resp:
             body = resp.read().decode('utf-8', errors='ignore')
         return json.loads(body)
+
+    def _post_chat_completion_stream(self, *, url: str, payload: dict[str, Any]) -> Iterator[str]:
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload, ensure_ascii=False).encode('utf-8'),
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {self.config.openai_api_key}',
+                'Accept': 'text/event-stream',
+                'Connection': 'close',
+            },
+            method='POST',
+        )
+        with urllib.request.urlopen(req, timeout=self.config.request_timeout_seconds) as resp:
+            for raw_line in resp:
+                line = raw_line.decode('utf-8', errors='ignore').strip()
+                if not line or not line.startswith('data:'):
+                    continue
+                data = line[5:].strip()
+                if not data or data == '[DONE]':
+                    if data == '[DONE]':
+                        break
+                    continue
+                try:
+                    parsed = json.loads(data)
+                except json.JSONDecodeError:
+                    continue
+                choices = parsed.get('choices', [])
+                if not choices or not isinstance(choices[0], dict):
+                    continue
+                delta = choices[0].get('delta', {}) or {}
+                content = delta.get('content', '')
+                if isinstance(content, list):
+                    for item in content:
+                        if isinstance(item, dict) and item.get('type') == 'text':
+                            text = str(item.get('text', '') or '')
+                            if text:
+                                yield text
+                    continue
+                text = str(content or '')
+                if text:
+                    yield text
 
     def _repair_json_response(
         self,
@@ -353,6 +809,15 @@ class _NullTrace:
         return False
 
 
+def _finish_trace(span: Any, outputs: dict[str, Any]) -> None:
+    if span is None or not hasattr(span, 'end'):
+        return
+    try:
+        span.end(outputs=outputs)
+    except Exception:
+        return
+
+
 def _trace_ctx(*, name: str, inputs: dict[str, Any], metadata: dict[str, Any], project: str, client: Any | None, enabled: bool):
     if not enabled or client is None:
         return _NullTrace()
@@ -403,7 +868,7 @@ def _classify_error(exc: Exception) -> str:
         reason = str(exc.reason).lower()
         if 'timed out' in reason:
             return 'network_timeout'
-        if 'reset' in reason or 'closed' in reason:
+        if 'reset' in reason or 'closed' in reason or 'eof occurred in violation of protocol' in reason:
             return 'network_reset'
         return 'unknown_network'
     if isinstance(exc, json.JSONDecodeError):

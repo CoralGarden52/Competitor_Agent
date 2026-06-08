@@ -4,7 +4,7 @@ import concurrent.futures
 import logging
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
 from app.core.models import (
@@ -22,21 +22,27 @@ from app.core.models import (
     PricingTier,
     RawEvidence,
     RunState,
+    TaskEnvelope,
+    TaskResult,
 )
 from app.core.prompts.agent_prompts import ANALYZE_SYSTEM_PROMPT
+from app.core.run_logging import log_run_output
 from app.core.schema_registry import get_domain_schema
-from app.core.storage import SQLiteStore
+from app.core.storage import PostgresStore
 
 logger = logging.getLogger(__name__)
 
 
 CORE_PROFILE_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
+CORE_ANALYSIS_FIELDS = {'feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback'}
 
 
 class AnalystAgent:
-    def __init__(self, llm: AgentLLMClient, store: SQLiteStore):
+    def __init__(self, llm: AgentLLMClient, store: PostgresStore):
         self.llm = llm
         self.store = store
+        self._runtime_run_id = ''
+        self._runtime_attempt = 0
 
     def run_llm(
         self,
@@ -44,6 +50,7 @@ class AnalystAgent:
         *,
         reanalyze_targets: dict[str, set[str]] | None = None,
         previous_records: list[CompetitorAnalysisRecord] | None = None,
+        progress_callback: Callable[[str, AnalysisFieldResult], None] | None = None,
     ) -> AnalyzeOutput:
         schema_plan = self._schema_plan(state)
         schema_map = {item.field_name: item for item in schema_plan}
@@ -52,14 +59,16 @@ class AnalystAgent:
         should_reanalyze = bool(reanalyze_targets)
 
         tasks: list[tuple[int, int, str, FieldEvidenceBundle, AnalysisSchemaField | None]] = []
+        self._runtime_run_id = state.run_id
+        self._runtime_attempt = state.attempt
         for bundle_index, bundle in enumerate(bundles):
-            print(f"  分析竞品: {bundle.product_name}")
+            log_run_output(state.run_id, f"  分析竞品: {bundle.product_name}")
             for field_index, field_bundle in enumerate(bundle.fields):
                 if should_reanalyze:
                     target_fields = reanalyze_targets.get(bundle.product_name, set()) if reanalyze_targets else set()
                     if field_bundle.field_name not in target_fields:
                         continue
-                print(f"    分析字段: {field_bundle.field_name}")
+                log_run_output(state.run_id, f"    分析字段: {field_bundle.field_name}")
                 tasks.append(
                     (
                         bundle_index,
@@ -86,10 +95,12 @@ class AnalystAgent:
 
         if tasks:
             with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-                futures = [executor.submit(_run_task, task) for task in tasks]
-                for future in concurrent.futures.as_completed(futures):
+                future_map = {executor.submit(_run_task, task): task[2] for task in tasks}
+                for future in concurrent.futures.as_completed(future_map):
                     key, result = future.result()
                     field_results[key] = result
+                    if progress_callback is not None:
+                        progress_callback(future_map[future], result)
 
         records = []
         for bundle_index, bundle in enumerate(bundles):
@@ -118,7 +129,52 @@ class AnalystAgent:
 
         profiles = [self._profile_from_record(state=state, record=record) for record in records]
         findings = self._build_findings_from_records(records)
+        self._runtime_run_id = ''
+        self._runtime_attempt = 0
         return AnalyzeOutput(competitors=records, profiles=profiles, findings=findings)
+
+    def consume_task(
+        self,
+        task: TaskEnvelope,
+        state: RunState,
+        *,
+        progress_callback: Callable[[str, AnalysisFieldResult], None] | None = None,
+    ) -> tuple[TaskResult, AnalyzeOutput]:
+        payload = task.input_payload if isinstance(task.input_payload, dict) else {}
+        raw_targets = payload.get('reanalyze_targets', {})
+        reanalyze_targets: dict[str, set[str]] | None = None
+        if isinstance(raw_targets, dict):
+            parsed: dict[str, set[str]] = {}
+            for competitor, fields in raw_targets.items():
+                if not isinstance(fields, list):
+                    continue
+                cleaned = {str(item).strip() for item in fields if str(item).strip()}
+                if cleaned:
+                    parsed[str(competitor).strip()] = cleaned
+            reanalyze_targets = parsed or None
+        previous_records = state.competitor_analyses if reanalyze_targets else None
+        result = self.run_llm(
+            state,
+            reanalyze_targets=reanalyze_targets,
+            previous_records=previous_records,
+            progress_callback=progress_callback,
+        )
+        changed_fields = [field.field_name for record in result.competitors for field in record.fields]
+        task_result = TaskResult(
+            task_id=task.task_id,
+            run_id=task.run_id,
+            owner_agent='AnalystAgent',
+            status='completed',
+            summary=f'analyzed {len(result.competitors)} analysis subjects into {len(result.findings)} findings',
+            output_payload={
+                'competitor_count': len(result.competitors),
+                'profile_count': len(result.profiles),
+                'finding_count': len(result.findings),
+            },
+            changed_fields=changed_fields,
+            next_recommendations=['draft_report'] if result.findings else ['collect_evidence'],
+        )
+        return task_result, result
     def _analyze_single_field(
         self,
         competitor: str,
@@ -126,6 +182,8 @@ class AnalystAgent:
         evidences: list[RawEvidence],
         industry: str,
         schema_item: AnalysisSchemaField | None = None,
+        run_id: str = '',
+        attempt: int = 0,
     ) -> AnalysisFieldResult:
         """对单个字段进行分析，单独调用 LLM。"""
         if not evidences:
@@ -161,16 +219,19 @@ class AnalystAgent:
                 industry=industry,
                 schema_item=schema_item,
                 evidence_ids=evidence_ids,
+                run_id=run_id or str(getattr(self, '_runtime_run_id', '') or ''),
+                attempt=attempt or int(getattr(self, '_runtime_attempt', 0) or 0),
             )
             if pricing_result is not None:
                 return pricing_result
 
         sys_prompt = (
             f"{ANALYZE_SYSTEM_PROMPT}\n\n"
-            "Analyze exactly one schema field and return strict JSON only:\n"
+            "只分析一个 schema 字段，并且只返回严格 JSON：\n"
             '{"summary":"...","normalized_value":{},"evidence_gaps":[]}\n'
-            "Summarize from evidence instead of copying raw text. Keep output field-specific. "
-            "If evidence is partial, provide confirmed facts first and list remaining gaps."
+            "请根据证据进行归纳，不要复制原始文本。输出内容必须聚焦当前字段。"
+            "如果证据不完整，请优先给出已确认事实，并列出剩余缺口。"
+            "必要时可以调用 corpus.search 检索 Plan 阶段保存的横向竞品对比语料。"
         )
         
         user_prompt = {
@@ -185,21 +246,27 @@ class AnalystAgent:
             },
             'evidences': evidence_contents,
             'instruction': (
-                f"Based on the evidence above, analyze the field [{field_name}]. "
-                "Use field_context to focus the summary, avoid hallucination, and return only JSON-compatible output."
+                f"请基于以上证据分析字段 [{field_name}]。"
+                "使用 field_context 聚焦归纳内容，避免编造，并且只返回符合 JSON 结构的输出。"
             ),
         }
         
         try:
-            result = self.llm.invoke_json(
+            result = self._invoke_llm_json(
                 trace_name=f'agent.analyze.field.{field_name}',
                 system_prompt=sys_prompt,
                 user_payload=user_prompt,
                 metadata={
+                    'run_id': run_id,
+                    'attempt': attempt,
+                    'model': str(getattr(getattr(self.llm, 'config', None), 'openai_model', '')),
                     'competitor': competitor,
                     'field_name': field_name,
                     'evidence_count': len(evidences),
+                    'agent_name': 'AnalystAgent',
+                    'node_name': 'analyze',
                 },
+                tool_names=['corpus.search', 'web.search', 'web.fetch', 'web.extract'],
             )
             summary = str(result.get('summary', '')).strip()
             normalized_value = self._coerce_normalized_value(
@@ -211,6 +278,7 @@ class AnalystAgent:
             
             # 只要 summary / normalized_value / evidence_gaps 任一部分有有效信息，就保留结果
             if not self._has_meaningful_field_output(
+                field_name=field_name,
                 summary=summary,
                 normalized_value=normalized_value,
                 evidence_gaps=evidence_gaps,
@@ -249,6 +317,8 @@ class AnalystAgent:
         industry: str,
         schema_item: AnalysisSchemaField | None,
         evidence_ids: list[str],
+        run_id: str,
+        attempt: int,
     ) -> AnalysisFieldResult | None:
         evidence_blocks = self._build_pricing_evidence_blocks(evidences)
         if not evidence_blocks:
@@ -259,12 +329,12 @@ class AnalystAgent:
 
         for chunk_index, chunk in enumerate(chunks, start=1):
             try:
-                result = self.llm.invoke_json(
+                result = self._invoke_llm_json(
                     trace_name='agent.analyze.field.pricing_model.chunk',
                     system_prompt=(
-                        "You are an enterprise software pricing analysis assistant. "
-                        "Extract any pricing facts from this evidence chunk and return JSON only. "
-                        "Keep partial but confirmed facts; do not hallucinate."
+                        "你是企业软件定价分析助手。"
+                        "请从当前证据分片中提取所有定价事实，并且只返回 JSON。"
+                        "保留不完整但已确认的事实；不要编造。"
                         "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
                         "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
                         "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
@@ -283,17 +353,23 @@ class AnalystAgent:
                         },
                         'evidences': chunk,
                         'instruction': (
-                            "Extract all pricing-relevant facts from this chunk, including partial facts "
-                            "such as plan names, billing cycle, seat limits, free tier, or any explicit prices."
+                            "提取当前分片中所有与定价相关的事实，包括不完整信息，"
+                            "例如套餐名称、计费周期、席位限制、免费套餐或任何明确价格。"
                         ),
                     },
                     metadata={
+                        'run_id': run_id,
+                        'attempt': attempt,
+                        'model': str(getattr(getattr(self.llm, 'config', None), 'openai_model', '')),
                         'competitor': competitor,
                         'field_name': 'pricing_model',
                         'chunk_index': chunk_index,
                         'chunk_size': len(chunk),
                         'evidence_count': len(evidences),
+                        'agent_name': 'AnalystAgent',
+                        'node_name': 'analyze',
                     },
+                    tool_names=['web.search', 'web.fetch', 'web.extract'],
                 )
                 chunk_results.append(
                     {
@@ -310,12 +386,12 @@ class AnalystAgent:
             return None
 
         try:
-            final_result = self.llm.invoke_json(
+            final_result = self._invoke_llm_json(
                 trace_name='agent.analyze.field.pricing_model.reduce',
                 system_prompt=(
-                    "You are an enterprise software pricing analysis assistant. "
-                    "Merge chunk-level extraction results into one final pricing_model JSON. "
-                    "Preserve confirmed facts and avoid hallucination."
+                    "你是企业软件定价分析助手。"
+                    "请将各证据分片的提取结果合并为最终的 pricing_model JSON。"
+                    "保留已确认事实，避免编造。"
                     "{\"summary\":\"...\",\"normalized_value\":{\"model_type\":\"...\",\"free_tier\":false,"
                     "\"billing_dimensions\":[],\"tiers\":[{\"name\":\"...\",\"price_range\":\"...\","
                     "\"billing_cycle\":\"...\",\"limits\":[]}]},\"evidence_gaps\":[]}"
@@ -326,15 +402,21 @@ class AnalystAgent:
                     'field_name': 'pricing_model',
                     'chunk_results': chunk_results,
                     'instruction': (
-                        "Merge chunk results and keep any confirmed plan/tier/pricing facts, even if partial."
+                        "合并各分片结果，并保留所有已确认的套餐、层级和定价事实，即使信息不完整。"
                     ),
                 },
                 metadata={
+                    'run_id': run_id,
+                    'attempt': attempt,
+                    'model': str(getattr(getattr(self.llm, 'config', None), 'openai_model', '')),
                     'competitor': competitor,
                     'field_name': 'pricing_model',
                     'chunk_count': len(chunk_results),
                     'evidence_count': len(evidences),
+                    'agent_name': 'AnalystAgent',
+                    'node_name': 'analyze',
                 },
+                tool_names=['web.search', 'web.fetch', 'web.extract'],
             )
             summary = str(final_result.get('summary', '')).strip()
             normalized_value = self._coerce_normalized_value(
@@ -344,6 +426,7 @@ class AnalystAgent:
             )
             evidence_gaps = self._clean_evidence_gaps(final_result.get('evidence_gaps', []))
             if not self._has_meaningful_field_output(
+                field_name='pricing_model',
                 summary=summary,
                 normalized_value=normalized_value,
                 evidence_gaps=evidence_gaps,
@@ -382,6 +465,30 @@ class AnalystAgent:
                 normalized_value=normalized_value,
                 evidence_gaps=merged_gaps,
             )
+
+    def _invoke_llm_json(
+        self,
+        *,
+        trace_name: str,
+        system_prompt: str,
+        user_payload: dict[str, Any],
+        metadata: dict[str, Any],
+        tool_names: list[str],
+    ) -> dict[str, Any]:
+        if hasattr(self.llm, 'invoke_json_with_tools'):
+            return self.llm.invoke_json_with_tools(
+                trace_name=trace_name,
+                system_prompt=system_prompt,
+                user_payload=user_payload,
+                metadata=metadata,
+                tool_names=tool_names,
+            )
+        return self.llm.invoke_json(
+            trace_name=trace_name,
+            system_prompt=system_prompt,
+            user_payload=user_payload,
+            metadata=metadata,
+        )
 
     def _build_pricing_evidence_blocks(self, evidences: list[RawEvidence]) -> list[str]:
         blocks: list[str] = []
@@ -423,6 +530,26 @@ class AnalystAgent:
     @staticmethod
     def _has_meaningful_field_output(
         *,
+        field_name: str,
+        summary: str,
+        normalized_value: dict[str, Any],
+        evidence_gaps: list[str],
+    ) -> bool:
+        if field_name in CORE_ANALYSIS_FIELDS:
+            return AnalystAgent._has_meaningful_core_field_output(
+                summary=summary,
+                normalized_value=normalized_value,
+                evidence_gaps=evidence_gaps,
+            )
+        return AnalystAgent._has_meaningful_dynamic_field_output(
+            summary=summary,
+            normalized_value=normalized_value,
+            evidence_gaps=evidence_gaps,
+        )
+
+    @staticmethod
+    def _has_meaningful_core_field_output(
+        *,
         summary: str,
         normalized_value: dict[str, Any],
         evidence_gaps: list[str],
@@ -430,6 +557,27 @@ class AnalystAgent:
         normalized_summary = str(summary or '').strip()
         if normalized_summary and normalized_summary.lower() not in {'none', 'unknown'}:
             return True
+        if AnalystAgent._normalized_value_has_signal(normalized_value):
+            return True
+        return bool(evidence_gaps)
+
+    @staticmethod
+    def _has_meaningful_dynamic_field_output(
+        *,
+        summary: str,
+        normalized_value: dict[str, Any],
+        evidence_gaps: list[str],
+    ) -> bool:
+        normalized_summary = str(summary or '').strip()
+        if normalized_summary and normalized_summary.lower() not in {'none', 'unknown'}:
+            return True
+        if isinstance(normalized_value, dict):
+            value_text = str(normalized_value.get('value', '')).strip()
+            if value_text and value_text.lower() not in {'none', 'unknown'}:
+                return True
+            observations = normalized_value.get('key_observations', [])
+            if isinstance(observations, list) and any(str(item).strip() for item in observations):
+                return True
         if AnalystAgent._normalized_value_has_signal(normalized_value):
             return True
         return bool(evidence_gaps)
@@ -474,20 +622,31 @@ class AnalystAgent:
         state: RunState,
         schema_plan: list[AnalysisSchemaField],
     ) -> list[CompetitorEvidenceBundle]:
-        active_competitors = state.planned_competitors or state.competitors
+        active_competitors = state.effective_analysis_subject_names()
         field_names = [item.field_name for item in schema_plan]
         bundles: list[CompetitorEvidenceBundle] = []
         for competitor in active_competitors:
             field_bundles: list[FieldEvidenceBundle] = []
             for field_name in field_names:
                 matches = [
-                    ev
+                    self._coerce_raw_evidence(ev)
                     for ev in state.evidences
                     if self._evidence_matches_competitor(ev, competitor) and self._evidence_matches_field(ev, field_name)
                 ]
+                matches.sort(key=lambda ev: ev.domain_extensions.get('origin') == 'plan_comparison_corpus')
                 field_bundles.append(FieldEvidenceBundle(field_name=field_name, evidences=matches))
             bundles.append(CompetitorEvidenceBundle(product_name=competitor, fields=field_bundles))
         return bundles
+
+    @staticmethod
+    def _coerce_raw_evidence(evidence: Any) -> RawEvidence:
+        if isinstance(evidence, RawEvidence):
+            return evidence
+        if hasattr(evidence, 'model_dump'):
+            return RawEvidence.model_validate(evidence.model_dump(mode='python'))
+        if isinstance(evidence, dict):
+            return RawEvidence.model_validate(evidence)
+        return RawEvidence.model_validate(evidence)
 
     def _ensure_analysis_consistency(
         self,
@@ -502,6 +661,8 @@ class AnalystAgent:
         else:
             bundles = self._build_competitor_evidence_bundles(state, schema_plan)
             records = [self._fallback_record(bundle, schema_plan) for bundle in bundles]
+        order_map = {name: index for index, name in enumerate(state.effective_analysis_subject_names())}
+        records.sort(key=lambda item: order_map.get(item.product_name, len(order_map)))
 
         profiles = analyzed.profiles or [self._profile_from_record(state=state, record=record) for record in records]
         findings = analyzed.findings or self._build_findings_from_records(records)
@@ -624,6 +785,10 @@ class AnalystAgent:
 
     @staticmethod
     def _evidence_matches_competitor(evidence: RawEvidence, competitor: str) -> bool:
+        if evidence.domain_extensions.get('origin') == 'plan_comparison_corpus':
+            mentions = evidence.domain_extensions.get('mentioned_competitors', [])
+            if isinstance(mentions, list) and any(competitor.casefold() in str(item).casefold() for item in mentions):
+                return True
         competitor_hint = str(evidence.domain_extensions.get('competitor', '')).strip().casefold()
         if competitor_hint and competitor_hint == competitor.casefold():
             return True
@@ -639,6 +804,8 @@ class AnalystAgent:
 
     @staticmethod
     def _evidence_matches_field(evidence: RawEvidence, field_name: str) -> bool:
+        if evidence.domain_extensions.get('origin') == 'plan_comparison_corpus':
+            return True
         schema_field = str(evidence.domain_extensions.get('schema_field', '')).strip().casefold()
         if schema_field:
             return schema_field == field_name.casefold()
@@ -931,4 +1098,3 @@ class AnalystAgent:
         if non_generic:
             return non_generic[0][:220]
         return f'{record.product_name} market positioning inferred from public sources'
-

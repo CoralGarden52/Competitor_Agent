@@ -7,11 +7,28 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+_BACKEND_DIR = Path(__file__).resolve().parents[2]
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+
 class AppConfig(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix='', env_file='.env', extra='ignore')
+    model_config = SettingsConfigDict(
+        env_prefix='',
+        env_file=(
+            str(_PROJECT_ROOT / '.env'),
+            str(_BACKEND_DIR / '.env'),
+        ),
+        extra='ignore',
+    )
 
     sqlite_path: str = '.data/competitor_analysis.db'
+    postgres_host: str = 'localhost'
+    postgres_port: int = Field(default=5433, ge=1, le=65535)
+    postgres_user: str = 'postgres'
+    postgres_password: str = 'root'
+    postgres_db: str = 'competitor_analysis'
     max_rework_iterations: int = Field(default=2, ge=1, le=5)
+    runtime_max_turns: int = Field(default=40, ge=5, le=500)
     enable_schema_evolution: bool = True
 
     # Runtime / OpenAI-compatible config
@@ -40,6 +57,7 @@ class AppConfig(BaseSettings):
     planner_llm_retry_backoff_ms: int = Field(default=800, ge=50, le=10000)
     planner_llm_retry_max_backoff_ms: int = Field(default=4000, ge=100, le=30000)
     planner_schema_max_candidates: int = Field(default=8, ge=1, le=20)
+    planner_comparison_corpus_max_docs: int = Field(default=12, ge=1, le=30)
     max_search_results: int = Field(default=8, ge=1, le=20)
     collector_timeout_sec: int = Field(default=12, ge=3, le=60)
     collector_max_results_per_query: int = Field(default=5, ge=1, le=20)
@@ -54,6 +72,8 @@ class AppConfig(BaseSettings):
     collector_per_field_limit: int = Field(default=3, ge=1, le=20)
     collector_preview_auto_save_enabled: bool = True
     collector_preview_save_dir: str = '.data/collector_exports'
+    demo_workspace_auto_save_enabled: bool = True
+    demo_workspace_save_dir: str = 'mock_data/demo_workspace'
     tracing_mode: str = 'relaxed'
     agent_llm_retry_count: int = Field(default=2, ge=0, le=6)
     agent_llm_retry_backoff_ms: int = Field(default=400, ge=50, le=10000)
@@ -61,12 +81,65 @@ class AppConfig(BaseSettings):
     agent_llm_fallback_enabled: bool = True
     agent_llm_fallback_on_validation_error: bool = True
     analyze_llm_max_workers: int = Field(default=6, ge=1, le=32)
+    writer_parallel_enabled: bool = True
+    writer_parallel_max_workers: int = Field(default=4, ge=1, le=16)
+    writer_swot_parallel_max_workers: int = Field(default=4, ge=1, le=16)
     report_truncation_enabled: bool = False
     report_truncation_limits_json: str = ''
+    subagent_enabled: bool = True
+    subagent_max_rounds: int = Field(default=3, ge=1, le=10)
+    subagent_max_tool_calls: int = Field(default=6, ge=1, le=30)
+    subagent_max_tokens: int = Field(default=4000, ge=500, le=50000)
+    subagent_timeout_seconds: int = Field(default=90, ge=5, le=600)
+    subagent_max_concurrency: int = Field(default=3, ge=1, le=12)
+    subagent_max_tasks_per_collect: int = Field(default=12, ge=1, le=100)
+    wjx_api_key: str = ''
+    wjx_base_url: str = 'https://www.wjx.cn'
+    wjx_cli_path: str = 'wjx'
+    wjx_export_enabled: bool = False
+    wjx_export_publish: bool = True
+    wjx_export_timeout_sec: int = Field(default=90, ge=5, le=600)
+    wjx_export_dir: str = '.data/wjx_exports'
+    redis_enabled: bool = False
+    redis_host: str = '127.0.0.1'
+    redis_port: int = Field(default=6379, ge=1, le=65535)
+    redis_password: str = ''
+    redis_db: int = Field(default=0, ge=0, le=15)
+    redis_max_connections: int = Field(default=10, ge=1, le=200)
+    redis_default_ttl_seconds: int = Field(default=300, ge=1, le=86400)
+    redis_workspace_ttl_seconds: int = Field(default=60, ge=1, le=86400)
+    redis_chat_ttl_seconds: int = Field(default=300, ge=1, le=86400)
+    redis_report_chunks_ttl_seconds: int = Field(default=1800, ge=1, le=86400)
+    backend_log_dir: str = 'log'
+    backend_log_filename: str = 'backend.log'
+    backend_log_level: str = 'INFO'
+    backend_log_max_bytes: int = Field(default=10 * 1024 * 1024, ge=1024, le=1024 * 1024 * 1024)
+    backend_log_backup_count: int = Field(default=5, ge=1, le=50)
 
     @property
     def sqlite_path_obj(self) -> Path:
-        return Path(self.sqlite_path)
+        path = Path(self.sqlite_path)
+        return path if path.is_absolute() else _PROJECT_ROOT / path
+
+    @property
+    def backend_log_dir_obj(self) -> Path:
+        path = Path(self.backend_log_dir)
+        return path if path.is_absolute() else _PROJECT_ROOT / path
+
+    @property
+    def postgres_dsn(self) -> str:
+        return (
+            f"host={self.postgres_host} "
+            f"port={self.postgres_port} "
+            f"user={self.postgres_user} "
+            f"password={self.postgres_password} "
+            f"dbname={self.postgres_db}"
+        )
+
+    @property
+    def wjx_export_dir_obj(self) -> Path:
+        path = Path(self.wjx_export_dir)
+        return path if path.is_absolute() else _PROJECT_ROOT / path
 
     def has_openai_config(self) -> bool:
         return bool(self.openai_api_key and self.openai_base_url and self.openai_model)
@@ -129,6 +202,9 @@ class AppConfig(BaseSettings):
             'openai_base_url': self.openai_base_url,
             'openai_api_key_masked': masked_key,
             'openai_config_ready': self.has_openai_config(),
+            'writer_parallel_enabled': self.writer_parallel_enabled,
+            'writer_parallel_max_workers': self.writer_parallel_max_workers,
+            'writer_swot_parallel_max_workers': self.writer_swot_parallel_max_workers,
             'report_truncation_enabled': self.report_truncation_enabled,
             'report_truncation_limits': self.report_truncation_limits,
         }

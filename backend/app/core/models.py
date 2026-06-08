@@ -43,6 +43,7 @@ class PolicyDecision(StrEnum):
 
 class StageName(StrEnum):
     plan = 'plan'
+    confirm_plan = 'confirm_plan'
     collect = 'collect'
     normalize = 'normalize'
     analyze = 'analyze'
@@ -51,12 +52,46 @@ class StageName(StrEnum):
     finalize = 'finalize'
 
 
+class TransitionReason(StrEnum):
+    stage_succeeded = 'stage_succeeded'
+    qa_passed = 'qa_passed'
+    qa_rework_collect = 'qa_rework_collect'
+    qa_recollect_skipped = 'qa_recollect_skipped'
+    retryable_error = 'retryable_error'
+    terminal_error = 'terminal_error'
+    max_turns_reached = 'max_turns_reached'
+    completed = 'completed'
+
+
+class RecoveryState(StrEnum):
+    none = 'none'
+    retrying = 'retrying'
+    fallback = 'fallback'
+    reworking = 'reworking'
+    halted = 'halted'
+
+
+class TodoTaskStatus(StrEnum):
+    pending = 'pending'
+    in_progress = 'in_progress'
+    completed = 'completed'
+    blocked = 'blocked'
+
+
 class EventType(StrEnum):
     plan_started = 'plan.started'
     collect_completed = 'collect.completed'
     analyze_completed = 'analyze.completed'
     draft_completed = 'draft.completed'
     qa_rework_ticket_created = 'qa.rework_ticket_created'
+
+
+class PlanConfirmationStatus(StrEnum):
+    pending = 'pending'
+    awaiting_user_confirmation = 'awaiting_user_confirmation'
+    confirmed = 'confirmed'
+    supplement_requested = 'supplement_requested'
+    replanning = 'replanning'
 
 
 class FeatureNode(BaseModel):
@@ -138,6 +173,7 @@ class AnalysisSchemaField(BaseModel):
     query_templates: list[str] = Field(default_factory=list)
     recommended_sources: list[str] = Field(default_factory=list)
     priority: int = 1
+    corpus_refs: list[str] = Field(default_factory=list)
 
 
 class FieldEvidenceBundle(BaseModel):
@@ -164,21 +200,31 @@ class CompetitorAnalysisRecord(BaseModel):
     fields: list[AnalysisFieldResult] = Field(default_factory=list)
 
 
+class AnalysisSubject(BaseModel):
+    name: str
+    role: Literal['target', 'direct', 'substitute'] = 'direct'
+    is_target: bool = False
+
+
 class PlanHandoff(BaseModel):
     run_id: str
     attempt: int
     inferred_industry: str
     planned_competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     candidate_groups: dict[str, Any] = Field(default_factory=dict)
     analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
     split_strategy: str = 'by_competitor'
     planner_meta: dict[str, Any] = Field(default_factory=dict)
+    comparison_search_plan: dict[str, Any] = Field(default_factory=dict)
+    comparison_corpus_refs: list[str] = Field(default_factory=list)
 
 
 class CollectHandoff(BaseModel):
     run_id: str
     attempt: int
     competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     schema_fields: list[str] = Field(default_factory=list)
     evidence_bundles: list[CompetitorEvidenceBundle] = Field(default_factory=list)
     provider_events: list[dict[str, Any]] = Field(default_factory=list)
@@ -191,11 +237,262 @@ class AnalyzeHandoff(BaseModel):
     run_id: str
     attempt: int
     competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     competitor_analyses: list[CompetitorAnalysisRecord] = Field(default_factory=list)
     profiles: list[CompetitorProfile] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     coverage_summary: list[dict[str, Any]] = Field(default_factory=list)
     evidence_gap_summary: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class SupplementRequest(BaseModel):
+    request_id: str = Field(default_factory=lambda: f'spr_{uuid4().hex[:10]}')
+    message: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    revision_number: int = 0
+
+
+class PreResearchSnapshot(BaseModel):
+    target_product: str = ''
+    target_product_description: str = ''
+    user_intent_summary: str = ''
+    industry: str = ''
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
+    product_profile: dict[str, Any] = Field(default_factory=dict)
+    candidate_groups: dict[str, Any] = Field(default_factory=dict)
+    planned_competitors: list[str] = Field(default_factory=list)
+    analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
+    comparison_search_plan: dict[str, Any] = Field(default_factory=dict)
+    comparison_corpus_summary: dict[str, Any] = Field(default_factory=dict)
+    summary_text: str = ''
+
+
+class PlanRevision(BaseModel):
+    revision_id: str = Field(default_factory=lambda: f'plr_{uuid4().hex[:10]}')
+    revision_number: int = 1
+    source_prompt: str = ''
+    target_product: str = ''
+    target_product_description: str = ''
+    user_intent_summary: str = ''
+    industry: str = ''
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
+    candidate_groups: dict[str, Any] = Field(default_factory=dict)
+    planned_competitors: list[str] = Field(default_factory=list)
+    analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
+    comparison_search_plan: dict[str, Any] = Field(default_factory=dict)
+    comparison_corpus_summary: dict[str, Any] = Field(default_factory=dict)
+    pre_research_summary: str = ''
+    based_on_revision: int | None = None
+    supplement_request: str = ''
+    product_profile: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class PlanConfirmationState(BaseModel):
+    status: PlanConfirmationStatus = PlanConfirmationStatus.pending
+    confirmation_message: str = ''
+    goal_summary: str = ''
+    industry_summary: str = ''
+    target_product_summary: str = ''
+    competitor_summary: str = ''
+    schema_summary: str = ''
+    revision_number: int = 0
+    supplement_request: str = ''
+    confirmed_at: str = ''
+    updated_at: str = ''
+
+
+class TaskType(StrEnum):
+    collect_evidence = 'collect_evidence'
+    analyze_evidence = 'analyze_evidence'
+    draft_report = 'draft_report'
+
+
+class TaskStatus(StrEnum):
+    queued = 'queued'
+    claimed = 'claimed'
+    in_progress = 'in_progress'
+    completed = 'completed'
+    blocked = 'blocked'
+    failed = 'failed'
+
+
+class HandoffType(StrEnum):
+    confirm_plan = 'confirm_plan'
+    collect = 'collect'
+    analyze = 'analyze'
+    draft = 'draft'
+
+
+class AgentMessageType(StrEnum):
+    task_created = 'task_created'
+    task_claimed = 'task_claimed'
+    handoff_submitted = 'handoff_submitted'
+    task_completed = 'task_completed'
+    task_blocked = 'task_blocked'
+
+
+class TaskEnvelope(BaseModel):
+    task_id: str = Field(default_factory=lambda: f'tsk_{uuid4().hex[:10]}')
+    run_id: str
+    attempt: int
+    task_type: TaskType
+    status: TaskStatus = TaskStatus.queued
+    requester_agent: str
+    owner_agent: str
+    priority: int = Field(default=5, ge=1, le=10)
+    input_payload: dict[str, Any] = Field(default_factory=dict)
+    success_criteria: list[str] = Field(default_factory=list)
+    related_ticket_id: str | None = None
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class TaskResult(BaseModel):
+    task_id: str
+    run_id: str
+    owner_agent: str
+    status: Literal['completed', 'blocked', 'failed']
+    summary: str = ''
+    output_payload: dict[str, Any] = Field(default_factory=dict)
+    artifacts: dict[str, Any] = Field(default_factory=dict)
+    changed_fields: list[str] = Field(default_factory=list)
+    next_recommendations: list[str] = Field(default_factory=list)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class HandoffEnvelope(BaseModel):
+    handoff_id: str = Field(default_factory=lambda: f'hof_{uuid4().hex[:10]}')
+    run_id: str
+    attempt: int
+    handoff_type: HandoffType
+    from_agent: str
+    to_agent: str
+    related_task_id: str
+    payload_schema: str
+    payload: dict[str, Any]
+    trace_context: dict[str, Any] = Field(default_factory=dict)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class AgentMessage(BaseModel):
+    message_id: str = Field(default_factory=lambda: f'msg_{uuid4().hex[:10]}')
+    run_id: str
+    attempt: int
+    msg_type: AgentMessageType
+    from_agent: str
+    to_agent: str
+    task_id: str | None = None
+    handoff_id: str | None = None
+    payload: dict[str, Any] = Field(default_factory=dict)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class AgentMailbox(BaseModel):
+    inbox: list[AgentMessage] = Field(default_factory=list)
+    outbox: list[AgentMessage] = Field(default_factory=list)
+
+
+class ActionType(StrEnum):
+    plan_scope = 'plan_scope'
+    collect_initial = 'collect_initial'
+    collect_gap = 'collect_gap'
+    normalize_evidence = 'normalize_evidence'
+    analyze_targets = 'analyze_targets'
+    reanalyze_targets = 'reanalyze_targets'
+    draft_report = 'draft_report'
+    run_qa = 'run_qa'
+    finalize_run = 'finalize_run'
+
+
+class ActionTarget(BaseModel):
+    competitors: list[str] = Field(default_factory=list)
+    fields: list[str] = Field(default_factory=list)
+    sections: list[str] = Field(default_factory=list)
+    ticket_ids: list[str] = Field(default_factory=list)
+
+
+class DecisionContextSnapshot(BaseModel):
+    run_id: str
+    status: str = 'running'
+    turn_count: int = 0
+    current_stage: str = ''
+    planned_competitors: list[str] = Field(default_factory=list)
+    schema_fields: list[str] = Field(default_factory=list)
+    plan_ready: bool = False
+    collect_ready: bool = False
+    analyze_ready: bool = False
+    draft_ready: bool = False
+    qa_ready: bool = False
+    evidence_count: int = 0
+    competitor_analysis_count: int = 0
+    finding_count: int = 0
+    report_ready: bool = False
+    report_section_count: int = 0
+    target_product: str = ''
+    missing_competitors: list[str] = Field(default_factory=list)
+    missing_schema_fields: list[str] = Field(default_factory=list)
+    reanalyze_candidates: list[dict[str, Any]] = Field(default_factory=list)
+    coverage_summary: dict[str, Any] = Field(default_factory=dict)
+    gap_summary: list[dict[str, Any]] = Field(default_factory=list)
+    latest_ticket_summary: dict[str, Any] = Field(default_factory=dict)
+    self_eval_summary: dict[str, Any] = Field(default_factory=dict)
+    last_action_type: str = ''
+    last_action_status: str = ''
+    last_action_changed_fields: list[str] = Field(default_factory=list)
+    last_qa_checked: bool = False
+    last_qa_passed: bool = False
+    last_qa_issue_count: int = 0
+    qa_reviewed: bool = False
+    qa_passed: bool = False
+    qa_issue_count: int = 0
+    qa_collect_item_count: int = 0
+    qa_target_agent: str = ''
+    qa_recommendation: str = ''
+    qa_collect_allowed: bool = False
+    qa_collect_pending: bool = False
+    qa_reanalyze_pending: bool = False
+    plan_confirmation_status: str = ''
+    awaiting_user_confirmation: bool = False
+    confirmation_approved: bool = False
+    qa_failure_kind: str = 'unknown'
+    finalize_with_risk_eligible: bool = False
+    quality_gate: dict[str, Any] = Field(default_factory=dict)
+    routing_policy: dict[str, Any] = Field(default_factory=dict)
+    recent_failures: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class ManagerDecision(BaseModel):
+    decision_id: str = Field(default_factory=lambda: f'dec_{uuid4().hex[:10]}')
+    turn: int = Field(default=0, ge=0)
+    action_type: ActionType
+    target_agent: str
+    targets: ActionTarget = Field(default_factory=ActionTarget)
+    reason: str
+    expected_outcome: str = ''
+    success_criteria: list[str] = Field(default_factory=list)
+    priority: int = Field(default=1, ge=1, le=10)
+    decision_basis: list[str] = Field(default_factory=list)
+    rejected_actions: list[dict[str, str]] = Field(default_factory=list)
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class DecisionHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    turn: int
+    decision: ManagerDecision
+    context_snapshot: DecisionContextSnapshot
+
+
+class ActionExecutionResult(BaseModel):
+    action_type: ActionType
+    target_agent: str
+    status: Literal['completed', 'failed'] = 'completed'
+    summary: str = ''
+    changed_fields: list[str] = Field(default_factory=list)
+    artifacts: dict[str, Any] = Field(default_factory=dict)
+    next_hints: list[str] = Field(default_factory=list)
 
 
 class ReportClaim(BaseModel):
@@ -204,12 +501,64 @@ class ReportClaim(BaseModel):
     confidence: float = Field(default=0.7, ge=0.0, le=1.0)
 
 
+class ReportCitation(BaseModel):
+    citation_id: str
+    label: str
+    url: str
+    evidence_refs: list[str] = Field(default_factory=list)
+    source_title: str = ''
+
+
+class ReportContentItem(BaseModel):
+    item_id: str
+    text: str
+    kind: Literal['paragraph', 'bullet', 'table_note'] = 'paragraph'
+    evidence_refs: list[str] = Field(default_factory=list)
+    citations: list[ReportCitation] = Field(default_factory=list)
+
+
+class ReportBlock(BaseModel):
+    block_id: str
+    block_type: Literal['title', 'executive_summary', 'comparison_matrix', 'section_paragraph', 'section_bullets', 'reference_list']
+    section_id: str = ''
+    title: str = ''
+    order: int = 0
+    content: Any = ''
+    citations: list[ReportCitation] = Field(default_factory=list)
+    status: Literal['draft', 'completed'] = 'completed'
+
+
 class ReportSection(BaseModel):
     section_id: str
     title: str
     field_name: str = ''
     claims: list[ReportClaim] = Field(default_factory=list)
     content_markdown: str = ''
+    content_items: list[ReportContentItem] = Field(default_factory=list)
+
+
+class WriterWriteGroup(BaseModel):
+    group_id: str
+    section_id: str
+    title: str
+    field_name: str = ''
+    group_type: Literal['section', 'product_section'] = 'section'
+    product_name: str = ''
+    sort_key: int = 0
+
+
+class WriterFragmentResult(BaseModel):
+    fragment_id: str
+    section_id: str
+    title: str
+    product_name: str = ''
+    field_name: str = ''
+    markdown: str = ''
+    items: list[ReportContentItem] = Field(default_factory=list)
+    claims: list[ReportClaim] = Field(default_factory=list)
+    evidence_refs: list[str] = Field(default_factory=list)
+    citations: list[ReportCitation] = Field(default_factory=list)
+    sort_key: int = 0
 
 
 class Report(BaseModel):
@@ -219,8 +568,63 @@ class Report(BaseModel):
     opportunities: list[str] = Field(default_factory=list)
     appendix_sources: list[str] = Field(default_factory=list)
     sections: list[ReportSection] = Field(default_factory=list)
+    blocks: list[ReportBlock] = Field(default_factory=list)
+    citations: list[ReportCitation] = Field(default_factory=list)
+    render_version: str = 'v3_structured_streaming'
     markdown: str = ''
     html: str = ''
+
+
+class DraftHandoff(BaseModel):
+    run_id: str
+    attempt: int
+    competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
+    report: Report | None = None
+    section_status: list[dict[str, Any]] = Field(default_factory=list)
+    claim_coverage: list[dict[str, Any]] = Field(default_factory=list)
+    unresolved_gaps: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class QuestionnaireQuestion(BaseModel):
+    question_id: str
+    question_type: Literal['single_choice', 'multiple_choice', 'scale', 'open_text', 'matrix'] = 'open_text'
+    title: str
+    intent: str = ''
+    options: list[str] = Field(default_factory=list)
+    scale_min: int | None = None
+    scale_max: int | None = None
+    required: bool = True
+    field_refs: list[str] = Field(default_factory=list)
+
+
+class QuestionnaireSection(BaseModel):
+    section_id: str
+    title: str
+    objective: str = ''
+    questions: list[QuestionnaireQuestion] = Field(default_factory=list)
+
+
+class QuestionnaireDesign(BaseModel):
+    title: str
+    target_audience: str
+    objective: str
+    introduction: str
+    estimated_minutes: int = 8
+    sections: list[QuestionnaireSection] = Field(default_factory=list)
+    closing_message: str = ''
+    markdown: str = ''
+
+
+class QuestionnaireSignalChunk(BaseModel):
+    chunk_id: str
+    chunk_title: str
+    key_points: list[str] = Field(default_factory=list)
+    candidate_dimensions: list[str] = Field(default_factory=list)
+    candidate_questions: list[str] = Field(default_factory=list)
+    user_phrases: list[str] = Field(default_factory=list)
+    decision_factors: list[str] = Field(default_factory=list)
+    risk_points: list[str] = Field(default_factory=list)
 
 
 class ReworkIssue(BaseModel):
@@ -320,10 +724,29 @@ class PolicyDecisionResult(BaseModel):
 
 class RunRequest(BaseModel):
     industry: str
-    competitors: list[str] = Field(min_length=1)
+    competitors: list[str] = Field(default_factory=list)
     user_prompt: str = ''
+    competitor_hints: list[str] = Field(default_factory=list)
+    aspect_hints: list[str] = Field(default_factory=list)
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
+
+
+class TodoTask(BaseModel):
+    task_id: str
+    title: str
+    owner_agent: str
+    stage: StageName
+    status: TodoTaskStatus = TodoTaskStatus.pending
+    depends_on: list[str] = Field(default_factory=list)
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    notes: str = ''
+
+
+class TodoPlan(BaseModel):
+    tasks: list[TodoTask] = Field(default_factory=list)
+    current_task_id: str | None = None
+    version: int = 1
 
 
 class RunState(BaseModel):
@@ -331,26 +754,122 @@ class RunState(BaseModel):
     attempt: int = 1
     parent_attempt: int | None = None
     ticket_id: str | None = None
+    turn_count: int = 0
+    max_turns: int = 40
+    current_stage: StageName = StageName.plan
+    next_stage: StageName | None = StageName.plan
+    transition_reason: TransitionReason | None = None
+    recovery_state: RecoveryState = RecoveryState.none
+    last_error: dict[str, Any] = Field(default_factory=dict)
     industry: str
     competitors: list[str]
     user_prompt: str = ''
+    task_summary: str = ''
+    target_product: str = ''
+    target_product_description: str = ''
+    user_intent_summary: str = ''
+    competitor_hints: list[str] = Field(default_factory=list)
+    aspect_hints: list[str] = Field(default_factory=list)
     language: str = 'zh-CN'
     timeframe: str = 'last_12_months'
     split_strategy: str = 'by_competitor'
     core_schema_version: str = 'core_v1'
     domain_schema_version: str = 'v1'
     planned_competitors: list[str] = Field(default_factory=list)
+    analysis_subjects: list[AnalysisSubject] = Field(default_factory=list)
     planner_meta: dict[str, Any] = Field(default_factory=dict)
+    plan_revision: int = 0
+    plan_revision_history: list[PlanRevision] = Field(default_factory=list)
+    pre_research_snapshot: PreResearchSnapshot = Field(default_factory=PreResearchSnapshot)
+    plan_confirmation: PlanConfirmationState = Field(default_factory=PlanConfirmationState)
+    supplement_requests: list[SupplementRequest] = Field(default_factory=list)
     analysis_schema_plan: list[AnalysisSchemaField] = Field(default_factory=list)
     evidences: list[Evidence] = Field(default_factory=list)
     competitor_analyses: list[CompetitorAnalysisRecord] = Field(default_factory=list)
     profiles: list[CompetitorProfile] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     report: Report | None = None
+    questionnaire: QuestionnaireDesign | None = None
+    questionnaire_export: dict[str, Any] = Field(default_factory=dict)
     tickets: list[ReworkTicket] = Field(default_factory=list)
     self_eval: dict[str, SelfEval] = Field(default_factory=dict)
+    decision_history: list[ManagerDecision] = Field(default_factory=list)
+    latest_decision: ManagerDecision | None = None
+    last_action_result: dict[str, Any] = Field(default_factory=dict)
+    runtime_action_context: dict[str, Any] = Field(default_factory=dict)
+    task_board: list[TaskEnvelope] = Field(default_factory=list)
+    handoff_log: list[HandoffEnvelope] = Field(default_factory=list)
+    agent_mailboxes: dict[str, AgentMailbox] = Field(
+        default_factory=lambda: {
+            'ManagerAgent': AgentMailbox(),
+            'CollectorAgent': AgentMailbox(),
+            'AnalystAgent': AgentMailbox(),
+            'WriterAgent': AgentMailbox(),
+        }
+    )
     schema_evolution_proposals: list[SchemaEvolutionProposal] = Field(default_factory=list)
+    todo_plan: TodoPlan = Field(default_factory=TodoPlan)
     status: Literal['running', 'failed', 'completed'] = 'running'
+
+    def effective_analysis_subjects(self) -> list[AnalysisSubject]:
+        subjects: list[AnalysisSubject] = []
+        seen: set[str] = set()
+
+        def _append(name: str, role: str, *, is_target: bool = False) -> None:
+            cleaned = str(name or '').strip()
+            if not cleaned:
+                return
+            key = cleaned.casefold()
+            if key in seen:
+                return
+            seen.add(key)
+            subject_role = role if role in {'target', 'direct', 'substitute'} else 'direct'
+            subjects.append(AnalysisSubject(name=cleaned, role=subject_role, is_target=is_target or subject_role == 'target'))
+
+        for item in self.analysis_subjects or []:
+            if isinstance(item, AnalysisSubject):
+                _append(item.name, item.role, is_target=item.is_target)
+            elif isinstance(item, dict):
+                _append(str(item.get('name', '')).strip(), str(item.get('role', 'direct')).strip(), is_target=bool(item.get('is_target', False)))
+
+        _append(self.target_product, 'target', is_target=True)
+
+        candidate_groups = self.planner_meta.get('candidate_groups', {}) if isinstance(self.planner_meta, dict) else {}
+        candidate_policy = str(self.planner_meta.get('candidate_policy', '')).strip() if isinstance(self.planner_meta, dict) else ''
+        if isinstance(candidate_groups, dict):
+            target_item = candidate_groups.get('target')
+            if isinstance(target_item, dict):
+                _append(str(target_item.get('name', '')).strip(), 'target', is_target=True)
+            roles_to_include = ('direct',) if candidate_policy == 'direct_only_analysis' else ('direct', 'substitute')
+            for role in roles_to_include:
+                items = candidate_groups.get(role, [])
+                if not isinstance(items, list):
+                    continue
+                for item in items:
+                    if isinstance(item, dict):
+                        _append(str(item.get('name', '')).strip(), role)
+                    else:
+                        _append(str(item).strip(), role)
+
+        for name in self.planned_competitors or self.competitors:
+            _append(name, 'direct')
+        return subjects
+
+    def effective_analysis_subject_names(self) -> list[str]:
+        return [item.name for item in self.effective_analysis_subjects()]
+
+    def target_subject_name(self) -> str:
+        for item in self.effective_analysis_subjects():
+            if item.is_target or item.role == 'target':
+                return item.name
+        return str(self.target_product or '').strip()
+
+    def subject_role_for(self, product_name: str) -> str:
+        target = str(product_name or '').strip().casefold()
+        for item in self.effective_analysis_subjects():
+            if item.name.casefold() == target:
+                return item.role
+        return ''
 
 
 class EventRecord(BaseModel):
@@ -366,6 +885,8 @@ class RunSummary(BaseModel):
     industry: str
     status: str
     competitor_count: int
+    user_prompt: str = ''
+    task_summary: str = ''
     created_at: datetime
     updated_at: datetime
 
@@ -386,6 +907,7 @@ class StageSnapshot(BaseModel):
 class CollectOutput(BaseModel):
     raw_evidences: list[RawEvidence] = Field(default_factory=list)
     provider_events: list[dict[str, Any]] = Field(default_factory=list)
+    tool_events: list[dict[str, Any]] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
 
 
@@ -509,3 +1031,32 @@ class QAResult(BaseModel):
         if not self.passed and self.target_agent is None:
             raise ValueError('target_agent is required when QA fails')
         return self
+
+
+class ChatTurnRequest(BaseModel):
+    message: str = Field(min_length=1)
+    mode: Literal['auto', 'answer_only', 'edit_report'] = 'auto'
+    allow_web_collect: bool = True
+    auto_apply: bool = True
+
+
+class ChatTurnResponse(BaseModel):
+    run_id: str
+    conversation_id: str
+    turn_id: str
+    status: str
+    message: str
+
+
+class ChatTurnResult(BaseModel):
+    run_id: str
+    conversation_id: str
+    turn_id: str
+    status: str
+    assistant_answer: str = ''
+    actions_taken: list[str] = Field(default_factory=list)
+    report_updated: bool = False
+    report_revision_id: str = ''
+    source_refs: list[str] = Field(default_factory=list)
+    memory_snapshot: dict[str, Any] = Field(default_factory=dict)
+    error_message: str = ''

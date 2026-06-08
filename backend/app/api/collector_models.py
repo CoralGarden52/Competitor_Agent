@@ -7,3 +7,4 @@ class CollectorPreviewRequest(BaseModel):
     prompt: str = Field(min_length=1)
     industry_hint: str = ''
     competitor_hints: list[str] = Field(default_factory=list)
+    deep_dive: bool = False
