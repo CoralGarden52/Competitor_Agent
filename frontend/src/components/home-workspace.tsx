@@ -210,6 +210,66 @@ function stripLinksFromSummary(value: string): string {
     .trim();
 }
 
+type QaFieldCardItem = {
+  competitor: string;
+  field_name: string;
+  field_label: string;
+  before_summary: string;
+  before_evidence_ref_count: number;
+  after_summary?: string;
+  after_evidence_ref_count?: number;
+};
+
+function buildQaFieldCardItems(
+  reviewDetails: Array<Record<string, unknown>>,
+  improvementDetails: Array<Record<string, unknown>>,
+  showAfter: boolean,
+): QaFieldCardItem[] {
+  const items = new Map<string, QaFieldCardItem>();
+
+  for (const reviewRow of reviewDetails) {
+    const competitor = String(reviewRow.competitor || "").trim();
+    const fieldReviews = Array.isArray(reviewRow.field_reviews) ? reviewRow.field_reviews : [];
+    for (const rawFieldReview of fieldReviews) {
+      const fieldReview = rawFieldReview as Record<string, unknown>;
+      const fieldName = String(fieldReview.field_name || "").trim();
+      if (!competitor || !fieldName) continue;
+      const key = `${competitor}::${fieldName}`;
+      items.set(key, {
+        competitor,
+        field_name: fieldName,
+        field_label: String(fieldReview.field_label || fieldName).trim(),
+        before_summary: String(fieldReview.before_summary || "").trim(),
+        before_evidence_ref_count: Number(fieldReview.before_evidence_ref_count || 0),
+      });
+    }
+  }
+
+  if (!showAfter) {
+    return Array.from(items.values());
+  }
+
+  for (const rawItem of improvementDetails) {
+    const item = rawItem as Record<string, unknown>;
+    const competitor = String(item.competitor || "").trim();
+    const fieldName = String(item.field_name || "").trim();
+    if (!competitor || !fieldName) continue;
+    const key = `${competitor}::${fieldName}`;
+    const existing = items.get(key);
+    items.set(key, {
+      competitor,
+      field_name: fieldName,
+      field_label: String(item.field_label || existing?.field_label || fieldName).trim(),
+      before_summary: String(item.before_summary || existing?.before_summary || "").trim(),
+      before_evidence_ref_count: Number(item.before_evidence_ref_count || existing?.before_evidence_ref_count || 0),
+      after_summary: String(item.after_summary || "").trim(),
+      after_evidence_ref_count: Number(item.after_evidence_ref_count || 0),
+    });
+  }
+
+  return Array.from(items.values());
+}
+
 function mergeCardUrls(
   previous: Array<{ label: string; url: string }> | undefined,
   nextItem: { label: string; url: string },
@@ -2370,8 +2430,22 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                               const collectUrls = step.stage === "collect"
                                 ? (streamCard?.urls?.length ? streamCard.urls : collectPreviewItems)
                                 : [];
+                              const qaReviewDetails = step.stage === "qa" ? ((workspaceData?.qa?.review_details || []) as Array<Record<string, unknown>>) : [];
                               const qaImprovementDetails = step.stage === "qa" ? (workspaceData?.qa?.improvement_details || []) : [];
                               const qaCollectItems = step.stage === "qa" ? (workspaceData?.qa?.collect_items || []) : [];
+                              const currentRunStage = String(workspaceData?.run?.current_stage || "").trim();
+                              const showQaAfterPreview =
+                                step.stage === "qa"
+                                && !Boolean(workspaceData?.qa?.passed)
+                                && (currentRunStage === "collect" || currentRunStage === "analyze");
+                              const showQaAfterFinal =
+                                step.stage === "qa"
+                                && Boolean(workspaceData?.qa?.passed)
+                                && (currentRunStage === "draft" || currentRunStage === "finalize");
+                              const showQaAfter = showQaAfterPreview || showQaAfterFinal;
+                              const qaFieldCardItems = step.stage === "qa"
+                                ? buildQaFieldCardItems(qaReviewDetails, qaImprovementDetails as Array<Record<string, unknown>>, showQaAfter)
+                                : [];
                               return (
                                 <li key={`${step.stage}-${index}`} className={`thought-item agent-card stage-${step.stage}`}>
                                   <div className="thought-head">
@@ -2384,14 +2458,16 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                                         <strong>质检过程与结果</strong>
                                         {summaryLines.length ? summaryLines.map((line, lineIndex) => <p key={`${step.stage}-line-${lineIndex}`}>{line}</p>) : <p>等待执行...</p>}
                                       </div>
-                                      {qaImprovementDetails.length ? (
+                                      {qaFieldCardItems.length ? (
                                         <div className="collect-web-preview">
                                           <strong>质检前后字段内容</strong>
-                                          {qaImprovementDetails.map((item, itemIndex) => (
+                                          {qaFieldCardItems.map((item, itemIndex) => (
                                             <div key={`qa-after-${itemIndex}`}>
                                               <p>{`${item.competitor || "分析对象"} · ${item.field_label || item.field_name || "字段"}`}</p>
                                               <p>{`质检前：${stripLinksFromSummary(String(item.before_summary || "unknown"))}（证据 ${item.before_evidence_ref_count || 0} 条）`}</p>
-                                              <p>{`质检后：${stripLinksFromSummary(String(item.after_summary || "unknown"))}（证据 ${item.after_evidence_ref_count || 0} 条）`}</p>
+                                              {showQaAfter && item.after_summary ? (
+                                                <p>{`质检后：${stripLinksFromSummary(String(item.after_summary || "unknown"))}（证据 ${item.after_evidence_ref_count || 0} 条）`}</p>
+                                              ) : null}
                                             </div>
                                           ))}
                                         </div>

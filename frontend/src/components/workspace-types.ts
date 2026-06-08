@@ -32,6 +32,8 @@ export type WorkspaceRequest = {
 export type WorkspaceRun = {
   run_id?: string;
   status?: string;
+  current_stage?: string;
+  next_stage?: string | null;
   task_summary?: string;
   industry?: string;
   target_product?: string;
