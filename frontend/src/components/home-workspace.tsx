@@ -557,7 +557,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       ? "正在生成报告..."
       : draftStreamError
         ? draftStreamError
-        : "报告尚未开始生成，进入写作阶段后会在这里流式输出。");
+        : "报告尚未开始生成，进入写作阶段后会在这里输出。");
   const currentQuestionnaireContent = isEditingQuestionnaire
     ? questionnaireDraft
     : questionnaireDraft || workspaceData?.questionnaire?.markdown || "";
