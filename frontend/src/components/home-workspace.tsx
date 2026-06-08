@@ -84,12 +84,11 @@ type AgentCardStreamState = {
 type AgentCardStreams = Partial<Record<StageName, AgentCardStreamState>>;
 
 const STAGE_ORDER: StageName[] = ["plan", "confirm_plan", "collect", "normalize", "analyze", "qa", "draft", "finalize"];
-const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8010").replace(/\/$/, "");
 const PENDING_TASK_TITLE = "生成标题中";
 const COLLECT_PREVIEW_LIMIT = 6;
 
-function backendUrl(path: string) {
-  return `${BACKEND_BASE_URL}${path}`;
+function backendPath(path: string) {
+  return path;
 }
 
 function isStageName(value: string): value is StageName {
@@ -741,7 +740,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsSavingReport(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/report`), {
+      const response = await fetch(backendPath(`/runs/${runId}/report`), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ markdown: reportDraft }),
@@ -877,7 +876,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsGeneratingQuestionnaire(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire`), {
+      const response = await fetch(backendPath(`/runs/${runId}/questionnaire`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -936,7 +935,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsSavingQuestionnaire(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire`), {
+      const response = await fetch(backendPath(`/runs/${runId}/questionnaire`), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ markdown: questionnaireDraft }),
@@ -962,7 +961,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsExportingQuestionnaire(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire/export/wenjuan`), {
+      const response = await fetch(backendPath(`/runs/${runId}/questionnaire/export/wenjuan`), {
         method: "POST",
       });
       const payload = (await response.json().catch(() => ({}))) as WorkspaceQuestionnaireExport & { detail?: string };
@@ -1223,13 +1222,13 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   }
 
   async function confirmPlanAndContinue(runId: string): Promise<void> {
-    const response = await fetch(backendUrl(`/runs/${runId}/plan-confirmation/confirm`), { method: "POST" });
+    const response = await fetch(backendPath(`/runs/${runId}/plan-confirmation/confirm`), { method: "POST" });
     const payload = (await response.json().catch(() => ({}))) as { detail?: string };
     if (!response.ok) throw new Error(payload.detail || "确认采集结果失败，请稍后重试。");
   }
 
   async function submitPlanSupplement(runId: string, message: string): Promise<void> {
-    const response = await fetch(backendUrl(`/runs/${runId}/plan-confirmation/supplement`), {
+    const response = await fetch(backendPath(`/runs/${runId}/plan-confirmation/supplement`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),
@@ -1274,7 +1273,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   }
 
   async function fetchRunChat(runId: string): Promise<ReportChatPayload> {
-    const response = await fetch(backendUrl(`/runs/${runId}/chat`));
+    const response = await fetch(backendPath(`/runs/${runId}/chat`));
     const payload = (await response.json().catch(() => ({}))) as ReportChatPayload & { detail?: string };
     if (!response.ok) throw new Error(payload.detail || `chat fetch failed: ${response.status}`);
     return payload;
@@ -1306,7 +1305,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   async function streamReportChatTurn(runId: string, turnId: string, pendingAssistantId: string): Promise<ChatTurnResult> {
     return await new Promise<ChatTurnResult>((resolve, reject) => {
       stopReportChatStream();
-      const source = new window.EventSource(backendUrl(`/runs/${runId}/chat/${turnId}/stream`));
+      const source = new window.EventSource(backendPath(`/runs/${runId}/chat/${turnId}/stream`));
       reportChatStreamRef.current = source;
       let latestResult: ChatTurnResult = { status: "running" };
       let sawDelta = false;
@@ -1386,7 +1385,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       { id: pendingAssistantId, role: "assistant", content: "正在读取报告、memory 和相关语料..." },
     ]);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/chat`), {
+      const response = await fetch(backendPath(`/runs/${runId}/chat`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

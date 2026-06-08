@@ -35,11 +35,22 @@ from app.core.prompts.agent_prompts import (
 )
 
 
-_REPORT_TEMPLATE_PATH = Path(__file__).resolve().parents[3] / 'skills' / 'competitor-analysis-report' / 'report_template.json'
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+_REPORT_TEMPLATE_CANDIDATES = (
+    _PROJECT_ROOT / 'skills' / 'competitor-analysis-report' / 'report_template.json',
+    Path('/skills/competitor-analysis-report/report_template.json'),
+)
+
+
+def _resolve_report_template_path() -> Path:
+    for candidate in _REPORT_TEMPLATE_CANDIDATES:
+        if candidate.exists():
+            return candidate
+    return _REPORT_TEMPLATE_CANDIDATES[0]
 
 
 def _load_template_section_order() -> list[tuple[str, str, str]]:
-    payload = json.loads(_REPORT_TEMPLATE_PATH.read_text(encoding='utf-8'))
+    payload = json.loads(_resolve_report_template_path().read_text(encoding='utf-8'))
     sections = payload.get('sections', [])
     output: list[tuple[str, str, str]] = []
     for item in sections:
