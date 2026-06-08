@@ -163,6 +163,9 @@ def test_generate_dynamic_plan_prefers_comparison_corpus_synthesis_result() -> N
     assert [item['name'] for item in plan['candidate_groups']['substitute']] == ['喧喧私有化部署方案', '全时云会议', 'Webex（思科）']
     assert plan['planner_meta']['candidate_policy'] == 'direct_only_analysis'
 
+    assert len(plan['planner_meta']['comparison_decision_full']['direct']) == 4
+    assert len(plan['planner_meta']['comparison_decision_full']['substitute']) == 3
+
     state = RunState(
         industry='video_meeting_saas',
         competitors=[],

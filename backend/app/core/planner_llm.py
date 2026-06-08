@@ -79,6 +79,7 @@ def build_default_schema_plan(*, current_year: int | None = None) -> list[dict[s
 DEFAULT_SCHEMA_PLAN: list[dict[str, Any]] = build_default_schema_plan()
 
 CORE_DYNAMIC_FIELDS: list[str] = ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
+DEFAULT_MAX_DIRECT_COMPETITORS_FOR_ANALYSIS = 2
 TARGET_COMPARISON_CORPUS_DOCS = 6
 MIN_TIMELY_COMPARISON_CORPUS_DOCS = 3
 MAX_COMPARISON_CORPUS_CANDIDATE_DOCS = 12
@@ -430,7 +431,7 @@ class PlannerLLMClient:
         prompt: str,
         industry: str = '',
         competitor_hints: list[str],
-        max_direct: int = 2,
+        max_direct: int = DEFAULT_MAX_DIRECT_COMPETITORS_FOR_ANALYSIS,
         max_substitute: int = 1,
     ) -> dict[str, Any]:
         """基于搜索验证的竞品发现方法"""
@@ -513,7 +514,6 @@ class PlannerLLMClient:
             industry=normalized_industry,
             competitor_hints=competitor_hints,
             comparison_corpus=comparison_corpus,
-            candidate_pool=candidate_pool,
         )
         authoritative_decision = corpus_decision if isinstance(corpus_decision, dict) else {}
         direct_from_corpus = list(authoritative_decision.get('direct', [])) if isinstance(authoritative_decision.get('direct', []), list) else []
@@ -1175,13 +1175,13 @@ class PlannerLLMClient:
             result.get('direct', []),
             fallback_hints=competitor_hints,
             default_fit='direct',
-            allowed_names=candidate_pool or None,
+            allowed_names=None,
         )
         substitute = self._clean_candidates(
             result.get('substitute', []),
             fallback_hints=[],
             default_fit='substitute',
-            allowed_names=candidate_pool or None,
+            allowed_names=None,
         )
         return {'direct': direct[:max_direct], 'substitute': substitute[:max_substitute]}
 
@@ -1532,12 +1532,10 @@ class PlannerLLMClient:
         industry: str,
         competitor_hints: list[str],
         comparison_corpus: list[dict[str, Any]],
-        candidate_pool: list[str],
     ) -> dict[str, Any]:
         if not comparison_corpus:
             return self._fallback_synthesize_comparison_corpus(
                 competitor_hints=competitor_hints,
-                candidate_pool=candidate_pool,
                 comparison_corpus=[],
             )
         extracts = self._build_synthesis_extracts(comparison_corpus, compact=False)
@@ -1545,7 +1543,6 @@ class PlannerLLMClient:
         if not self.enabled():
             return self._fallback_synthesize_comparison_corpus(
                 competitor_hints=competitor_hints,
-                candidate_pool=candidate_pool,
                 comparison_corpus=extracts,
             )
         sys_prompt = (
@@ -1558,14 +1555,12 @@ class PlannerLLMClient:
                 prompt=prompt,
                 industry=industry,
                 competitor_hints=competitor_hints,
-                candidate_pool=candidate_pool,
                 extracts=extracts,
             ),
             self._build_synthesis_prompt(
                 prompt=prompt,
                 industry=industry,
                 competitor_hints=competitor_hints,
-                candidate_pool=candidate_pool,
                 extracts=compact_extracts,
             ),
         ]
@@ -1574,8 +1569,8 @@ class PlannerLLMClient:
             try:
                 result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.comparison_corpus.synthesize')
                 self._record_step_status('comparison_corpus_synthesize')
-                normalized = self._normalize_synthesis_result(result, candidate_pool=candidate_pool)
-                if normalized.get('extra_schema_fields'):
+                normalized = self._normalize_synthesis_result(result)
+                if normalized.get('direct') or normalized.get('substitute') or normalized.get('extra_schema_fields'):
                     return normalized
             except Exception as exc:
                 last_exc = exc
@@ -1583,7 +1578,6 @@ class PlannerLLMClient:
         self._record_step_status('comparison_corpus_synthesize')
         fallback = self._fallback_synthesize_comparison_corpus(
             competitor_hints=competitor_hints,
-            candidate_pool=candidate_pool,
             comparison_corpus=compact_extracts,
         )
         if last_exc is not None:
@@ -1620,11 +1614,10 @@ class PlannerLLMClient:
         prompt: str,
         industry: str,
         competitor_hints: list[str],
-        candidate_pool: list[str],
         extracts: list[dict[str, Any]],
     ) -> str:
         return (
-            f'用户需求：{prompt}\n行业：{industry}\n用户竞品线索：{competitor_hints}\n候选竞品池：{candidate_pool}\n'
+            f'用户需求：{prompt}\n行业：{industry}\n用户竞品线索：{competitor_hints}\n'
             f'逐篇语料提炼：{json.dumps(extracts, ensure_ascii=False)}\n'
             f'请综合确认直接竞品、替代竞品和 0-{MAX_DYNAMIC_FIELD_COUNT} 个高价值动态字段。'
             '每个结论保留 corpus_id 引用，动态字段必须来源于横向对比语料；如果证据不足，可以少输出，不要虚构占位字段。'
@@ -1635,19 +1628,19 @@ class PlannerLLMClient:
             '"decision_evidence_refs":[]}'
         )
 
-    def _normalize_synthesis_result(self, payload: Any, *, candidate_pool: list[str]) -> dict[str, Any]:
+    def _normalize_synthesis_result(self, payload: Any) -> dict[str, Any]:
         data = payload if isinstance(payload, dict) else {}
         direct = self._clean_candidates(
             data.get('direct', []),
-            fallback_hints=candidate_pool,
+            fallback_hints=[],
             default_fit='direct',
-            allowed_names=candidate_pool or None,
+            allowed_names=None,
         )
         substitute = self._clean_candidates(
             data.get('substitute', []),
             fallback_hints=[],
             default_fit='substitute',
-            allowed_names=candidate_pool or None,
+            allowed_names=None,
         )
         extra = self._normalize_extra_schema(
             data.get('extra_schema_fields', []),
@@ -1666,11 +1659,9 @@ class PlannerLLMClient:
         self,
         *,
         competitor_hints: list[str],
-        candidate_pool: list[str],
         comparison_corpus: list[dict[str, Any]],
     ) -> dict[str, Any]:
         ranked_candidates = self._rank_candidates_from_corpus(
-            candidate_pool=candidate_pool,
             competitor_hints=competitor_hints,
             comparison_corpus=comparison_corpus,
         )
@@ -1694,14 +1685,12 @@ class PlannerLLMClient:
     def _rank_candidates_from_corpus(
         self,
         *,
-        candidate_pool: list[str],
         competitor_hints: list[str],
         comparison_corpus: list[dict[str, Any]],
     ) -> list[tuple[str, list[str]]]:
         scores: dict[str, float] = {}
         refs_by_name: dict[str, set[str]] = {}
         display: dict[str, str] = {}
-        allowed = {self._normalize_candidate_key(item): item for item in candidate_pool if str(item).strip()}
         for hint in competitor_hints:
             key = self._normalize_candidate_key(hint)
             if key:
@@ -1718,9 +1707,9 @@ class PlannerLLMClient:
             for raw in mentioned if isinstance(mentioned, list) else []:
                 name = self._clean_candidate_name(str(raw).strip())
                 key = self._normalize_candidate_key(name)
-                if not name or (allowed and key not in allowed):
+                if not name:
                     continue
-                display.setdefault(key, allowed.get(key, name) if allowed else name)
+                display.setdefault(key, name)
                 scores[key] = scores.get(key, 0.0) + max(0.5, relevance)
                 refs_by_name.setdefault(key, set()).add(corpus_id)
         ranked = sorted(scores.items(), key=lambda item: (-item[1], item[0]))

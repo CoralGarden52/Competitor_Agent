@@ -212,13 +212,55 @@ def test_discover_competitors_grouped_does_not_fallback_when_corpus_synthesis_is
     assert result['comparison_decision']['decision_evidence_refs'] == ['corpus_1']
 
 
+def test_normalize_synthesis_result_keeps_synthesize_direct_without_candidate_pool_filter() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+
+    normalized = planner._normalize_synthesis_result(  # type: ignore[attr-defined]
+        {
+            'direct': [
+                {'name': 'Microsoft Teams', 'reason': 'corpus', 'confidence': 0.9, 'corpus_refs': ['corpus_1']},
+                {'name': '华为云会议', 'reason': 'corpus', 'confidence': 0.9, 'corpus_refs': ['corpus_1']},
+            ],
+            'substitute': [
+                {'name': '觅讯会议', 'reason': 'corpus', 'confidence': 0.7, 'corpus_refs': ['corpus_2']},
+            ],
+            'extra_schema_fields': [],
+            'decision_evidence_refs': ['corpus_1', 'corpus_2'],
+        },
+    )
+
+    assert [item['name'] for item in normalized['direct']] == ['Microsoft Teams', '华为云会议']
+    assert [item['name'] for item in normalized['substitute']] == ['觅讯会议']
+
+
+def test_synthesize_comparison_corpus_returns_direct_even_without_extra_schema_fields() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._chat_json = lambda *_args, **_kwargs: {  # type: ignore[method-assign]
+        'direct': [{'name': 'Microsoft Teams', 'reason': 'corpus', 'confidence': 0.9, 'corpus_refs': ['corpus_1']}],
+        'substitute': [],
+        'extra_schema_fields': [],
+        'decision_evidence_refs': ['corpus_1'],
+    }
+
+    result = planner._synthesize_comparison_corpus(  # type: ignore[attr-defined]
+        prompt='腾讯会议竞品分析',
+        industry='video meeting saas',
+        competitor_hints=[],
+        comparison_corpus=[{'corpus_id': 'corpus_1', 'llm_extract': {'mentioned_competitors': ['Microsoft Teams'], 'comparison_dimensions': []}}],
+    )
+
+    assert [item['name'] for item in result['direct']] == ['Microsoft Teams']
+    assert result['substitute'] == []
+
+
 def test_fallback_synthesize_comparison_corpus_does_not_emit_placeholder_dimensions() -> None:
     cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
     planner = PlannerLLMClient(cfg)
 
     result = planner._fallback_synthesize_comparison_corpus(  # type: ignore[attr-defined]
         competitor_hints=[],
-        candidate_pool=[],
         comparison_corpus=[],
     )
 
@@ -236,7 +278,6 @@ def test_normalize_synthesis_result_does_not_backfill_placeholder_dimensions() -
             'extra_schema_fields': [{'field_name': 'feature_comparison', 'query_templates': ['{product} 功能对比'], 'recommended_sources': ['public_web'], 'priority': 6, 'corpus_refs': ['corpus_1']}],
             'decision_evidence_refs': ['corpus_1'],
         },
-        candidate_pool=[],
     )
 
     assert [item['field_name'] for item in result['extra_schema_fields']] == ['feature_comparison']

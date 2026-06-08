@@ -66,6 +66,16 @@ SCHEMA_FIELD_ZH_LABELS = {
 }
 logger = logging.getLogger(__name__)
 
+MATRIX_CELL_SUMMARY_SYSTEM_PROMPT = """
+你是竞品分析报告助手。请把单个竞品字段内容压缩成适合 Markdown 对比表格单元格的一句话摘要。
+
+要求：
+1. 只输出一句中文摘要，不要项目符号，不要换行，不要解释。
+2. 保留最关键的产品差异、能力结论或商业信息。
+3. 如果信息不充分，只输出“需进一步确认”。
+4. 尽量避免照抄原文，改写成更适合表格横向对比的短句。
+""".strip()
+
 
 class WriterAgent:
     def __init__(self, llm: AgentLLMClient):
@@ -476,10 +486,10 @@ class WriterAgent:
         items: list[ReportContentItem] = []
         refs_seen: set[str] = set()
         labels = {
-            'strengths': '优势 Strengths',
-            'weaknesses': '劣势 Weaknesses',
-            'opportunities': '机会 Opportunities',
-            'threats': '威胁 Threats',
+            'strengths': '优势',
+            'weaknesses': '劣势',
+            'opportunities': '机会',
+            'threats': '威胁',
         }
         index = 1
         for key in ('strengths', 'weaknesses', 'opportunities', 'threats'):
@@ -832,6 +842,7 @@ class WriterAgent:
     def _comparison_matrix(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[dict]:
         matrix: list[dict] = []
         schema_fields = [item.field_name for item in state.analysis_schema_plan or [] if str(item.field_name or '').strip()]
+        pending_tasks: list[tuple[dict, str, CompetitorAnalysisRecord, AnalysisFieldResult]] = []
         for record in records:
             row = {
                 'product': self._display_product_name(state, record.product_name),
@@ -840,9 +851,83 @@ class WriterAgent:
             for field_name in schema_fields:
                 row[field_name] = '需进一步确认'
             for field in record.fields:
-                row[field.field_name] = self._format_text_for_report(field.summary, context='matrix_cell')
+                if field.field_name not in row:
+                    continue
+                pending_tasks.append((row, field.field_name, record, field))
             matrix.append(row)
+        if not pending_tasks:
+            return matrix
+
+        max_workers = min(max(1, self.app_config.writer_parallel_max_workers), len(pending_tasks))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix='writer-matrix') as executor:
+            future_map = {
+                executor.submit(self._summarize_matrix_cell, state, record, field): (row, field_name)
+                for row, field_name, record, field in pending_tasks
+            }
+            for future in concurrent.futures.as_completed(future_map):
+                row, field_name = future_map[future]
+                try:
+                    row[field_name] = future.result()
+                except Exception as exc:
+                    logger.warning('Matrix cell future failed field=%s error=%s', field_name, exc)
         return matrix
+
+    def _summarize_matrix_cell(
+        self,
+        state: RunState,
+        record: CompetitorAnalysisRecord,
+        field: AnalysisFieldResult,
+    ) -> str:
+        primary_text = self._field_primary_text(field).strip()
+        if not primary_text or primary_text.lower() == 'unknown':
+            return '需进一步确认'
+
+        fallback = self._format_text_for_report(primary_text, context='matrix_cell')
+        invoke_text = getattr(self.llm, 'invoke_text', None)
+        if not callable(invoke_text):
+            return fallback
+
+        try:
+            response = invoke_text(
+                trace_name=f'agent.draft.matrix_cell.{record.product_name}.{field.field_name}',
+                system_prompt=MATRIX_CELL_SUMMARY_SYSTEM_PROMPT,
+                user_payload={
+                    'industry': state.industry,
+                    'target_product': state.target_subject_name() or state.target_product or '',
+                    'product_name': record.product_name,
+                    'product_role': state.subject_role_for(record.product_name),
+                    'field_name': field.field_name,
+                    'field_label': self._schema_field_label(field.field_name),
+                    'field_summary': primary_text,
+                    'normalized_value': field.normalized_value if isinstance(field.normalized_value, dict) else {},
+                    'evidence_refs': field.evidence_refs[:4],
+                    'evidence_gaps': field.evidence_gaps[:3],
+                },
+                metadata={
+                    'run_id': state.run_id,
+                    'node_name': 'draft',
+                    'agent_name': 'WriterAgent',
+                    'model': self.llm.config.openai_model,
+                    'industry': state.industry,
+                    'product_name': record.product_name,
+                    'field_name': field.field_name,
+                    'attempt': state.attempt,
+                },
+                temperature=0.1,
+            )
+        except Exception as exc:
+            logger.warning(
+                'Matrix cell summarization fallback triggered product=%s field=%s error=%s',
+                record.product_name,
+                field.field_name,
+                exc,
+            )
+            return fallback
+
+        cleaned = self._clean_matrix_cell_summary(response)
+        if not cleaned or cleaned.lower() == 'unknown':
+            return fallback
+        return self._format_text_for_report(cleaned, context='matrix_cell')
 
     def _section_specs(self, state: RunState, *, include_overview_sections: bool = True) -> list[tuple[str, str, str]]:
         return list(TEMPLATE_SECTION_ORDER)
@@ -1108,10 +1193,10 @@ class WriterAgent:
             lines.extend(
                 [
                     title,
-                    f"- 优势 Strengths：{strengths.summary if strengths is not None and strengths.summary.strip().lower() != 'unknown' else (feature.summary if feature is not None else '公开能力证据仍有限。')}",
-                    f"- 劣势 Weaknesses：{weaknesses.summary if weaknesses is not None and weaknesses.summary.strip().lower() != 'unknown' else '公开短板证据仍有限。'}",
-                    f"- 机会 Opportunities：{opportunity}",
-                    f"- 威胁 Threats：{threat}",
+                    f"- 优势：{strengths.summary if strengths is not None and strengths.summary.strip().lower() != 'unknown' else (feature.summary if feature is not None else '公开能力证据仍有限。')}",
+                    f"- 劣势：{weaknesses.summary if weaknesses is not None and weaknesses.summary.strip().lower() != 'unknown' else '公开短板证据仍有限。'}",
+                    f"- 机会：{opportunity}",
+                    f"- 威胁：{threat}",
                 ]
             )
             if target_name and record.product_name == target_name:
@@ -1181,17 +1266,20 @@ class WriterAgent:
                 content=report.executive_summary or '暂无执行摘要。',
                 citations=self._citations_from_refs(state, self._claim_refs(report.sections), limit=3),
             ),
-            ReportBlock(
-                block_id='comparison_matrix',
-                block_type='comparison_matrix',
-                title='二、竞品对比总览',
-                order=2,
-                content=report.comparison_matrix,
-                citations=self._citations_from_refs(state, self._claim_refs(report.sections), limit=6),
-            ),
         ]
-        order = 3
+        order = 2
+        matrix_block = ReportBlock(
+            block_id='comparison_matrix',
+            block_type='comparison_matrix',
+            title='二、竞品对比总览',
+            order=order,
+            content=report.comparison_matrix,
+            citations=self._citations_from_refs(state, self._claim_refs(report.sections), limit=6),
+        )
+        matrix_inserted = False
         for section in report.sections:
+            if section.section_id == 'comparison_overview':
+                continue
             content = str(section.content_markdown or '').strip()
             content_items = section.content_items or self._items_from_lines(
                 state,
@@ -1211,6 +1299,15 @@ class WriterAgent:
                     citations=self._citations_from_claims(state, section.claims),
                 )
             )
+            order += 1
+            if section.section_id == 'analysis_background' and not matrix_inserted:
+                matrix_block.order = order
+                blocks.append(matrix_block)
+                order += 1
+                matrix_inserted = True
+        if not matrix_inserted:
+            matrix_block.order = order
+            blocks.append(matrix_block)
             order += 1
         blocks.append(
             ReportBlock(
@@ -1546,12 +1643,23 @@ class WriterAgent:
     def _comparison_matrix_html(self, matrix: list[dict]) -> str:
         if not matrix:
             return '<p>暂无对比矩阵。</p>'
-        headers = ['product', *[k for k in matrix[0].keys() if k != 'product']]
+        headers = ['product', *[k for k in matrix[0].keys() if k not in {'product', 'role'}]]
         head = ''.join(f'<th>{escape(self._schema_field_label(h))}</th>' for h in headers)
         rows = []
         for row in matrix:
             rows.append('<tr>' + ''.join(f"<td>{escape(str(row.get(h, '')))}</td>" for h in headers) + '</tr>')
         return f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table>"
+
+    @staticmethod
+    def _clean_matrix_cell_summary(text: str) -> str:
+        cleaned = ' '.join(str(text or '').replace('\n', ' ').split()).strip()
+        cleaned = re.sub(r'^[\-\*\u2022\d\.\)\s]+', '', cleaned)
+        cleaned = cleaned.strip('：:;； ')
+        if not cleaned:
+            return ''
+        if len(cleaned) > 1 and cleaned[-1] not in '。！？':
+            cleaned += '。'
+        return cleaned
 
     @classmethod
     def _markdownish_to_html(cls, text: str) -> str:

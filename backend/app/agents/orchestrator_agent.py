@@ -7,7 +7,11 @@ from typing import Any
 
 from app.agents.router import RouteDecision, route_after_qa
 from app.core.models import QAOutput, RunState, StageName
-from app.core.planner_llm import CORE_DYNAMIC_FIELDS, PlannerLLMClient
+from app.core.planner_llm import (
+    CORE_DYNAMIC_FIELDS,
+    DEFAULT_MAX_DIRECT_COMPETITORS_FOR_ANALYSIS,
+    PlannerLLMClient,
+)
 
 
 StageHandler = Callable[[RunState], None]
@@ -51,7 +55,7 @@ class OrchestratorAgent:
         industry_hint: str | None = None,
         competitor_hints: list[str] | None = None,
         aspect_hints: list[str] | None = None,
-        max_direct: int = 2,
+        max_direct: int = DEFAULT_MAX_DIRECT_COMPETITORS_FOR_ANALYSIS,
         max_substitute: int = 3,
     ) -> dict[str, Any]:
         raw_competitors = competitors or competitor_hints or []
@@ -158,7 +162,13 @@ class OrchestratorAgent:
             planner_meta['llm_call_status'] = self.planner.last_call_status()
             planner_meta['llm_call_status_by_step'] = self.planner.step_call_status()
             planner_meta['candidate_policy'] = 'direct_only_analysis'
+            planner_meta['analysis_direct_limit'] = max_direct
             planner_meta['comparison_search_plan'] = discover_result.get('comparison_search_plan', {})
+            planner_meta['comparison_decision_full'] = (
+                discover_result.get('comparison_decision', {})
+                if isinstance(discover_result.get('comparison_decision', {}), dict)
+                else {}
+            )
             planner_meta['comparison_corpus_count'] = len(discover_result.get('comparison_corpus', []))
             planner_meta['comparison_corpus_target_count'] = '6 (>=3 timely within 18 months)'
             planner_meta['comparison_corpus_saved_count'] = len(discover_result.get('comparison_corpus', []))

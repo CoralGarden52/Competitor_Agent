@@ -54,6 +54,22 @@ class _ParallelLLM:
             yield ""
 
 
+class _MatrixSummaryLLM:
+    config = type('Cfg', (), {'agent_llm_retry_count': 0, 'openai_model': 'test-model'})()
+
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, str]] = []
+
+    def invoke_text(self, *args, **kwargs):
+        payload = kwargs['user_payload']
+        self.calls.append((payload['product_name'], payload['field_name']))
+        return f"{payload['product_name']} 的 {payload['field_label']}已总结"
+
+    def invoke_text_stream(self, *args, **kwargs):
+        if False:
+            yield ""
+
+
 def _build_state(long_text: str) -> tuple[RunState, list[CompetitorAnalysisRecord]]:
     records = [
         CompetitorAnalysisRecord(
@@ -255,6 +271,34 @@ def test_report_text_truncated_when_enabled_with_custom_limits() -> None:
         cfg.report_truncation_limits_json = old_limits_json
 
 
+def test_comparison_matrix_uses_llm_summary_per_cell_when_available() -> None:
+    llm = _MatrixSummaryLLM()
+    agent = WriterAgent(llm=llm)
+    state = RunState(
+        industry='meeting_software',
+        competitors=['腾讯会议'],
+        analysis_schema_plan=[
+            AnalysisSchemaField(field_name='feature_tree', priority=1),
+            AnalysisSchemaField(field_name='pricing_model', priority=2),
+        ],
+    )
+    records = [
+        CompetitorAnalysisRecord(
+            product_name='腾讯会议',
+            fields=[
+                AnalysisFieldResult(field_name='feature_tree', summary='支持会议、录制与协作', evidence_refs=['ev1'], confidence=0.8, normalized_value={}),
+                AnalysisFieldResult(field_name='pricing_model', summary='提供免费版与企业版', evidence_refs=['ev2'], confidence=0.8, normalized_value={}),
+            ],
+        )
+    ]
+
+    matrix = agent._comparison_matrix(state, records)
+
+    assert matrix[0]['feature_tree'] == '腾讯会议 的 功能体系已总结。'
+    assert matrix[0]['pricing_model'] == '腾讯会议 的 定价模式已总结。'
+    assert set(llm.calls) == {('腾讯会议', 'feature_tree'), ('腾讯会议', 'pricing_model')}
+
+
 def test_records_and_report_prioritize_target_product() -> None:
     agent = WriterAgent(llm=_DummyLLM())
     state = RunState(
@@ -321,6 +365,8 @@ def test_streamable_report_uses_new_section_order_and_item_level_content() -> No
     ]
     section_blocks = [block for block in report.blocks if block.block_type in {'section_paragraph', 'section_bullets'}]
     assert section_blocks
+    assert [block.block_type for block in report.blocks[:4]] == ['title', 'executive_summary', 'section_paragraph', 'comparison_matrix']
+    assert sum(1 for block in report.blocks if block.section_id == 'comparison_overview') == 0
     assert any(isinstance(block.content, list) and block.content for block in section_blocks)
     first_item_block = next(block for block in section_blocks if isinstance(block.content, list) and block.content)
     first_item = first_item_block.content[0]
@@ -369,9 +415,9 @@ def test_parallel_writer_swot_uses_peer_strengths_and_weaknesses_for_relative_ot
     fragment = agent._run_swot_llm_for_product(state, agent._records(state), target_group)
 
     texts = [item.text for item in fragment.items]
-    assert any('Comp A' in text and '机会 Opportunities' in text for text in texts)
-    assert any('Comp A' in text and '威胁 Threats' in text for text in texts)
-    assert any(set(item.evidence_refs) == {'ev1', 'ev2'} for item in fragment.items if '机会 Opportunities' in item.text)
+    assert any('Comp A' in text and '机会：' in text for text in texts)
+    assert any('Comp A' in text and '威胁：' in text for text in texts)
+    assert any(set(item.evidence_refs) == {'ev1', 'ev2'} for item in fragment.items if '机会：' in item.text)
 
 
 def test_parallel_writer_aggregates_sections_in_template_order() -> None:

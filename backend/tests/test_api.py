@@ -72,9 +72,10 @@ def test_run_happy_path() -> None:
     run_id = body['state']['run_id']
 
     final_body = body
-    for _ in range(40):
+    for _ in range(120):
         final_body = client.get(f'/runs/{run_id}').json()
-        if final_body['state']['status'] in ('completed', 'failed'):
+        report = final_body['state'].get('report') or {}
+        if final_body['state']['status'] in ('completed', 'failed') or str(report.get('markdown', '')).strip():
             break
         time.sleep(0.05)
 

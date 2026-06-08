@@ -54,7 +54,9 @@ function CitationBadges({ citations }: { citations: WorkspaceReportCitation[] })
 
 function contentItemsOf(block: WorkspaceReportBlock): WorkspaceReportContentItem[] {
   if (!Array.isArray(block.content)) return [];
-  return block.content.filter((item): item is WorkspaceReportContentItem => Boolean(item) && typeof item === "object" && "text" in (item as Record<string, unknown>));
+  return block.content.filter(
+    (item): item is WorkspaceReportContentItem => Boolean(item) && typeof item === "object" && "text" in (item as Record<string, unknown>),
+  );
 }
 
 function MatrixBlock({ block }: { block: WorkspaceReportBlock }) {
@@ -62,15 +64,15 @@ function MatrixBlock({ block }: { block: WorkspaceReportBlock }) {
   if (!rows.length) {
     return (
       <section className="report-block-card">
-        <h2>{block.title || "分析对象对比矩阵"}</h2>
+        <h2>{block.title || "二、竞品对比总览"}</h2>
         <p className="empty-state">暂无对比矩阵。</p>
       </section>
     );
   }
-  const headers = Object.keys(rows[0] || {});
+  const headers = Object.keys(rows[0] || {}).filter((header) => header !== "role");
   return (
     <section className="report-block-card">
-      <h2>{block.title || "分析对象对比矩阵"}</h2>
+      <h2>{block.title || "二、竞品对比总览"}</h2>
       <div className="report-matrix-table">
         <table>
           <thead>
@@ -131,38 +133,83 @@ function SectionBlock({ block }: { block: WorkspaceReportBlock }) {
   );
 }
 
-export function ReportPreviewPanel({ blocks = [], html = "", markdown = "" }: ReportPreviewPanelProps) {
-  const normalizedBlocks = [...blocks].sort((left, right) => Number(left.order || 0) - Number(right.order || 0));
-  if (normalizedBlocks.length) {
-    const titleBlock = normalizedBlocks.find((block) => block.block_type === "title");
-    const summaryBlock = normalizedBlocks.find((block) => block.block_type === "executive_summary");
-    const referenceBlock = normalizedBlocks.find((block) => block.block_type === "reference_list");
-    const bodyBlocks = normalizedBlocks.filter((block) => block.block_type !== "title" && block.block_type !== "executive_summary" && block.block_type !== "reference_list");
-    const references = Array.isArray(referenceBlock?.content) ? referenceBlock.content.map((item) => String(item || "").trim()).filter(Boolean) : [];
+function TitleBlock({ block }: { block: WorkspaceReportBlock }) {
+  return (
+    <section className="report-block-card">
+      <h1>{String(block.content || block.title || "竞品分析报告")}</h1>
+    </section>
+  );
+}
 
+function ExecutiveSummaryBlock({ block }: { block: WorkspaceReportBlock }) {
+  const text = String(block.content || "").trim() || "暂无执行摘要。";
+  return (
+    <section className="report-block-card">
+      <h2>{block.title || "执行摘要"}</h2>
+      <div className="report-block-paragraphs">
+        {text.split(/\n+/).filter(Boolean).map((line, index) => <p key={`${block.block_id || "summary"}-${index}`}>{line}</p>)}
+      </div>
+      <CitationBadges citations={citationsOf(block)} />
+    </section>
+  );
+}
+
+function ReferenceBlock({ block }: { block: WorkspaceReportBlock }) {
+  const references = Array.isArray(block.content)
+    ? block.content.map((item) => String(item || "").trim()).filter(Boolean)
+    : [];
+  return (
+    <section className="report-block-card report-reference-card">
+      <h2>{block.title || "参考来源"}</h2>
+      {references.length ? (
+        <ol>
+          {references.map((item, index) => <li key={`ref-${index}`}>{item}</li>)}
+        </ol>
+      ) : (
+        <p className="empty-state">暂无参考来源。</p>
+      )}
+    </section>
+  );
+}
+
+function blockSortWeight(block: WorkspaceReportBlock): number {
+  if (block.block_type === "title") return 0;
+  if (block.block_type === "executive_summary") return 1;
+  if (block.section_id === "analysis_background") return 2;
+  if (block.block_type === "comparison_matrix") return 3;
+  if (block.section_id === "comparison_overview") return 4;
+  if (block.section_id === "capability_comparison") return 5;
+  if (block.section_id === "pricing_strategy") return 6;
+  if (block.section_id === "user_feedback_analysis") return 7;
+  if (block.section_id === "swot_analysis") return 8;
+  if (block.section_id === "strategic_insights") return 9;
+  if (block.section_id === "conclusion_risks") return 10;
+  if (block.block_type === "reference_list") return 99;
+  return 50 + Number(block.order || 0);
+}
+
+export function ReportPreviewPanel({ blocks = [], html = "", markdown = "" }: ReportPreviewPanelProps) {
+  const hasMatrixBlock = blocks.some((block) => block.block_type === "comparison_matrix");
+  const normalizedBlocks = [...blocks]
+    .filter((block) => !(hasMatrixBlock && block.section_id === "comparison_overview"))
+    .sort((left, right) => {
+      const weightDiff = blockSortWeight(left) - blockSortWeight(right);
+      if (weightDiff !== 0) return weightDiff;
+      return Number(left.order || 0) - Number(right.order || 0);
+    });
+
+  if (normalizedBlocks.length) {
     return (
       <article className="structured-report-preview">
-        <header className="structured-report-hero">
-          <h1>{String(titleBlock?.content || "竞品分析报告")}</h1>
-          <div className="structured-report-summary">
-            <p>{String(summaryBlock?.content || "暂无执行摘要。")}</p>
-            <CitationBadges citations={summaryBlock ? citationsOf(summaryBlock) : []} />
-          </div>
-        </header>
         <div className="structured-report-body">
-          {bodyBlocks.map((block) => {
+          {normalizedBlocks.map((block) => {
+            if (block.block_type === "title") return <TitleBlock key={block.block_id || "title"} block={block} />;
+            if (block.block_type === "executive_summary") return <ExecutiveSummaryBlock key={block.block_id || "executive_summary"} block={block} />;
             if (block.block_type === "comparison_matrix") return <MatrixBlock key={block.block_id || `matrix-${block.order}`} block={block} />;
+            if (block.block_type === "reference_list") return <ReferenceBlock key={block.block_id || "references"} block={block} />;
             return <SectionBlock key={block.block_id || `${block.block_type}-${block.order}`} block={block} />;
           })}
         </div>
-        {references.length ? (
-          <section className="report-block-card report-reference-card">
-            <h2>{referenceBlock?.title || "参考来源"}</h2>
-            <ol>
-              {references.map((item, index) => <li key={`ref-${index}`}>{item}</li>)}
-            </ol>
-          </section>
-        ) : null}
       </article>
     );
   }

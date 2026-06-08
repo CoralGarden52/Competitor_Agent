@@ -4,7 +4,7 @@ import concurrent.futures
 import re
 
 from app.core.agent_llm import AgentLLMClient, LLMCallError
-from app.core.models import QuestionnaireDesign, QuestionnaireSignalChunk, RunState
+from app.core.models import QuestionnaireDesign, QuestionnaireSignalChunk, Report, ReportBlock, ReportContentItem, RunState
 from app.core.prompts.agent_prompts import (
     QUESTIONNAIRE_MARKDOWN_SYSTEM_PROMPT,
     QUESTIONNAIRE_REVIEW_SYSTEM_PROMPT,
@@ -14,13 +14,15 @@ from app.core.prompts.agent_prompts import (
 QUESTIONNAIRE_MAX_CHUNK_CHARS = 2800
 QUESTIONNAIRE_SIGNAL_MAX_WORKERS = 6
 QUESTIONNAIRE_REVIEW_MAX_ROUNDS = 2
-QUESTIONNAIRE_ALLOWED_TITLES = {
-    '二、核心结论',
-    '三、竞品对比总览',
-    '四、核心能力与产品形态',
-    '五、商业化与定价',
-    '六、用户反馈与采用信号',
-    '七、核心优劣势与风险',
+QUESTIONNAIRE_ALLOWED_SECTION_IDS = {
+    'executive_summary',
+    'comparison_overview',
+    'capability_comparison',
+    'pricing_strategy',
+    'user_feedback_analysis',
+    'swot_analysis',
+    'strategic_insights',
+    'conclusion_risks',
 }
 QUESTIONNAIRE_BANNED_PHRASES = (
     '设计意图',
@@ -45,21 +47,11 @@ class QuestionnaireAgent:
         target_audience: str = '竞品相关潜在用户或现有用户',
         objective: str = '验证竞品差异点、用户感知与转化障碍',
     ) -> QuestionnaireDesign:
-        report = state.report
-        report_markdown = report.markdown if report else ''
-        chunks = self._split_report_for_questionnaire(report_markdown)
+        chunks = self._questionnaire_chunks_from_report(state.report)
         if not chunks:
             raise LLMCallError(
                 reason='empty_report',
                 message='Questionnaire generation requires a non-empty report markdown.',
-                attempt_count=1,
-                retry_count_used=0,
-            )
-        chunks = self._filter_questionnaire_chunks(chunks)
-        if not chunks:
-            raise LLMCallError(
-                reason='empty_questionnaire_chunks',
-                message='No eligible questionnaire chunks remained after filtering report sections.',
                 attempt_count=1,
                 retry_count_used=0,
             )
@@ -174,55 +166,76 @@ class QuestionnaireAgent:
             },
         )
 
-    def _split_report_for_questionnaire(self, markdown: str) -> list[dict[str, str]]:
-        text = str(markdown or '').strip()
-        if not text:
+    def _questionnaire_chunks_from_report(self, report: Report | None) -> list[dict[str, str]]:
+        if report is None:
             return []
-        lines = text.splitlines()
-        chunks: list[dict[str, str]] = []
-        current_title = 'report_overview'
-        current_lines: list[str] = []
+        if not report.blocks:
+            return []
+        return self._chunks_from_report_blocks(report.blocks)
 
-        def flush() -> None:
-            nonlocal current_lines, current_title
-            content = '\n'.join(current_lines).strip()
+    def _chunks_from_report_blocks(self, blocks: list[ReportBlock]) -> list[dict[str, str]]:
+        ordered_blocks = sorted(blocks or [], key=lambda item: int(item.order or 0))
+        chunks: list[dict[str, str]] = []
+        for block in ordered_blocks:
+            block_type = str(block.block_type or '').strip()
+            section_id = str(block.section_id or block_type).strip()
+            if block_type in {'title', 'reference_list'}:
+                continue
+            if section_id not in QUESTIONNAIRE_ALLOWED_SECTION_IDS and block_type not in {'comparison_matrix', 'executive_summary'}:
+                continue
+            content = self._report_block_to_markdown(block).strip()
             if not content:
-                return
-            normalized_title = current_title.strip().lower()
-            if normalized_title in {'参考来源', '参考来源_cont'} or '参考来源' in current_title:
-                current_lines = []
-                return
+                continue
             chunks.append(
                 {
-                    'chunk_id': f'chunk_{len(chunks) + 1}',
-                    'chunk_title': current_title,
+                    'chunk_id': f'block_{len(chunks) + 1}',
+                    'chunk_title': str(block.title or section_id or block_type).strip(),
                     'content': content[:QUESTIONNAIRE_MAX_CHUNK_CHARS],
+                    'section_id': section_id,
+                    'block_type': block_type,
                 }
             )
-            current_lines = []
-
-        for line in lines:
-            if line.startswith('## '):
-                flush()
-                current_title = line[3:].strip() or f'chunk_{len(chunks) + 1}'
-                current_lines = [line]
-                continue
-            current_lines.append(line)
-            joined = '\n'.join(current_lines)
-            if len(joined) >= QUESTIONNAIRE_MAX_CHUNK_CHARS:
-                flush()
-                current_title = f'{current_title}_cont'
-
-        flush()
         return chunks
 
     def _filter_questionnaire_chunks(self, chunks: list[dict[str, str]]) -> list[dict[str, str]]:
-        filtered: list[dict[str, str]] = []
-        for chunk in chunks:
-            title = str(chunk.get('chunk_title', '')).strip()
-            if title in QUESTIONNAIRE_ALLOWED_TITLES:
-                filtered.append(chunk)
-        return filtered
+        return chunks
+
+    def _report_block_to_markdown(self, block: ReportBlock) -> str:
+        title = str(block.title or '').strip()
+        if block.block_type == 'executive_summary':
+            return '\n'.join(part for part in [f'## {title or "执行摘要"}', str(block.content or '').strip()] if part).strip()
+        if block.block_type == 'comparison_matrix':
+            rows = block.content if isinstance(block.content, list) else []
+            if not rows:
+                return f'## {title or "竞品对比总览"}'
+            headers = ['product', *[key for key in rows[0].keys() if key not in {'product', 'role'}]]
+            lines = [f'## {title or "竞品对比总览"}', '']
+            lines.append('| ' + ' | '.join(headers) + ' |')
+            lines.append('| ' + ' | '.join(['---'] * len(headers)) + ' |')
+            for row in rows:
+                lines.append('| ' + ' | '.join(str(row.get(key, '')).strip() for key in headers) + ' |')
+            return '\n'.join(lines).strip()
+        if isinstance(block.content, list):
+            lines = [f'## {title}' if title else '']
+            for raw_item in block.content:
+                if isinstance(raw_item, ReportContentItem):
+                    item = raw_item
+                elif isinstance(raw_item, dict) and 'text' in raw_item:
+                    item = ReportContentItem.model_validate(raw_item)
+                else:
+                    text = str(raw_item or '').strip()
+                    if text:
+                        lines.append(f'- {text}')
+                    continue
+                text = str(item.text or '').strip()
+                if not text:
+                    continue
+                lines.append(f'- {text}' if item.kind == 'bullet' else text)
+            return '\n'.join(line for line in lines if line).strip()
+        text = str(block.content or '').strip()
+        if not text:
+            return ''
+        return '\n'.join(part for part in [f'## {title}' if title else '', text] if part).strip()
 
     def _extract_signals_parallel(
         self,
