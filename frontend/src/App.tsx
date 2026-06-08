@@ -300,6 +300,14 @@ function App() {
     }
     return workspace?.observability.llm_calls.filter((item) => item.node_name === stage) ?? []
   }, [workspace, selectedStageRecord])
+  const selectedStageEvents = useMemo(() => {
+    const stage = selectedStageRecord?.stage ?? ''
+    const stageLogs = workspace?.observability.stage_logs?.[stage]
+    if (stageLogs?.events && Array.isArray(stageLogs.events)) {
+      return stageLogs.events as Array<Record<string, unknown>>
+    }
+    return workspace?.observability.events.filter((item) => item.stage === stage) ?? []
+  }, [workspace, selectedStageRecord])
   const selectedAgentWorkflow = useMemo(
     () =>
       workspace?.workflow.agent_workflows?.[selectedStageRecord?.stage ?? ''] ??
@@ -727,6 +735,33 @@ function App() {
                               </div>
                             ) : (
                               <p className="inspector-empty">这个阶段当前没有单独的 LLM 调用记录。</p>
+                            )}
+                          </div>
+
+                          <div className="inspector-panel">
+                            <h4>Stage Events</h4>
+                            {selectedStageEvents.length ? (
+                              <div className="trace-grid compact">
+                                {selectedStageEvents.map((event) => (
+                                  <article key={`${event.event_id ?? event.event_type ?? Math.random()}`} className="trace-card">
+                                    <h3>{String(event.event_type ?? 'event')}</h3>
+                                    <p>{String(event.stage ?? selectedStageRecord?.stage ?? '')}</p>
+                                    <div className="trace-meta">
+                                      <span>{String(event.created_at ?? '')}</span>
+                                      <span>{String(event.status ?? '') || 'recorded'}</span>
+                                    </div>
+                                    <details className="trace-details">
+                                      <summary>查看 Event Payload</summary>
+                                      <div className="trace-details-body">
+                                        <h5>Payload</h5>
+                                        <pre>{safeJson(event.payload)}</pre>
+                                      </div>
+                                    </details>
+                                  </article>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="inspector-empty">这个阶段当前没有单独的 Stage Event 记录。</p>
                             )}
                           </div>
                         </div>

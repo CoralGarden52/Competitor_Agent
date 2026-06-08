@@ -386,7 +386,13 @@ class PlannerLLMClient:
         competitor_hints: list[str] | None = None,
     ) -> dict[str, Any]:
         hints = [str(x).strip() for x in (competitor_hints or []) if str(x).strip()]
-        fallback = self._fallback_product_profile(prompt=prompt, industry=industry, competitor_hints=hints)
+        explicit_target_product = self.infer_target_product_from_prompt(prompt=prompt, industry=industry)
+        fallback = self._fallback_product_profile(
+            prompt=prompt,
+            industry=industry,
+            competitor_hints=hints,
+            explicit_target_product=explicit_target_product,
+        )
         if not self.enabled():
             return fallback
 
@@ -399,8 +405,10 @@ class PlannerLLMClient:
             f'用户研究需求：{prompt}\n'
             f'行业上下文：{industry}\n'
             f'已知竞品线索：{hints}\n'
+            f'已识别目标产品候选：{explicit_target_product}\n'
             '请抽取一个 product_profile，用于后续竞品发现。'
             '重点关注：核心功能、目标用户、主要使用场景、产品类别、市场定位、交付/部署风格。\n'
+            '如果用户明确写了“目标产品是 XXX / 目标产品：XXX”，请把 XXX 作为 target_product，不要把整句任务描述当成产品名。\n'
             '返回 JSON：'
             '{"product_profile":{'
             '"target_product":"",'
@@ -420,10 +428,53 @@ class PlannerLLMClient:
                 result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.infer_product_profile')
             self._record_step_status('infer_product_profile')
             profile = result.get('product_profile', {})
-            return self._normalize_product_profile(profile, fallback=fallback)
+            return self._normalize_product_profile(
+                profile,
+                fallback=fallback,
+                prompt=prompt,
+                explicit_target_product=explicit_target_product,
+            )
         except Exception:
             self._record_step_status('infer_product_profile')
             return fallback
+
+    def infer_target_product_from_prompt(self, *, prompt: str, industry: str = '') -> str:
+        text = re.sub(r'\s+', ' ', str(prompt).strip())
+        explicit = self._extract_explicit_target_product(text)
+        if explicit:
+            return explicit
+        if not self.enabled():
+            return ''
+
+        sys_prompt = (
+            '你是一位目标产品识别助手。'
+            '你的任务是从用户研究需求里识别“本次要被分析的目标产品”。'
+            '如果用户没有明确指定目标产品，则返回空字符串。'
+            '只返回严格 JSON。'
+        )
+        user_prompt = (
+            f'用户研究需求：{text}\n'
+            f'行业上下文：{industry}\n'
+            '请只识别本次分析的目标产品本体，不要返回任务描述、行业名称、泛化品类或整句话。\n'
+            '返回值必须是用户原文中已经出现过的连续文本片段，不能改写、概括、泛化、扩写或同义替换。\n'
+            '如果你找不到用户明确写出的目标产品，请返回空字符串。\n'
+            '例如，若用户说“给出在线主流会议软件的竞品分析，目标产品是腾讯会议”，'
+            '则 target_product 必须返回“腾讯会议”。\n'
+            '返回 JSON：{"target_product":"","reason":""}'
+        )
+        try:
+            with self._trace_llm_call(name='planner.infer_target_product', inputs={'prompt': text, 'industry': industry}):
+                result = self._chat_json(sys_prompt, user_prompt, trace_name='planner.infer_target_product')
+            self._record_step_status('infer_target_product')
+            candidate = self._clean_candidate_name(str(result.get('target_product', '')).strip())
+            if self._looks_like_instruction_text(candidate):
+                return ''
+            if not self._is_target_product_grounded_in_prompt(candidate, text):
+                return ''
+            return candidate
+        except Exception:
+            self._record_step_status('infer_target_product')
+            return ''
 
     def discover_competitors_grouped(
         self,
@@ -765,6 +816,7 @@ class PlannerLLMClient:
         text = re.sub(r'\s+', ' ', str(prompt).strip())
         if not text:
             return ''
+        text = re.sub(r'[，。,.!?！？；;]?\s*目标产品(?:是|为|[:：]).*$', '', text).strip()
 
         generic_markers = (
             '软件', '工具', '平台', '助手', '系统', '服务', '应用',
@@ -774,7 +826,7 @@ class PlannerLLMClient:
         if not any(marker in normalized for marker in generic_markers):
             return ''
 
-        topic = re.sub(r'帮我做一个|帮我做一份|请分析|竞品分析|产品分析|市场分析', '', text, flags=re.IGNORECASE).strip()
+        topic = re.sub(r'帮我做一个|帮我做一份|请分析|请给出|给出|竞品分析|产品分析|市场分析', '', text, flags=re.IGNORECASE).strip()
         topic = re.sub(r'的竞品分析$|的产品分析$|的市场分析$|竞品分析$|产品分析$|市场分析$', '', topic).strip()
         topic = re.sub(r'的$', '', topic).strip()
         topic = re.sub(r'[，。,.!?！？]+$', '', topic).strip()
@@ -786,7 +838,14 @@ class PlannerLLMClient:
 
         return topic[:60]
 
-    def _normalize_product_profile(self, raw: Any, *, fallback: dict[str, Any]) -> dict[str, Any]:
+    def _normalize_product_profile(
+        self,
+        raw: Any,
+        *,
+        fallback: dict[str, Any],
+        prompt: str = '',
+        explicit_target_product: str = '',
+    ) -> dict[str, Any]:
         payload = raw if isinstance(raw, dict) else {}
 
         def _clean_list(value: Any, limit: int = 4) -> list[str]:
@@ -818,8 +877,25 @@ class PlannerLLMClient:
             'seed_products': _clean_list(payload.get('seed_products', []), limit=6),
         }
 
-        merged = dict(fallback)
+        # Target-product fields should come from LLM outputs only. The dedicated
+        # target-product extractor has higher priority than the broader profile
+        # step, and fallback heuristics must not overwrite either of them.
+        if explicit_target_product:
+            profile['target_product'] = explicit_target_product
+        if not profile['intent_summary']:
+            profile['intent_summary'] = re.sub(r'\s+', ' ', str(prompt).strip())[:160]
+
+        merged = {
+            'target_product': profile['target_product'],
+            'target_product_description': profile['target_product_description'],
+        }
+        for key, value in fallback.items():
+            if key in merged:
+                continue
+            merged[key] = value
         for key, value in profile.items():
+            if key in {'target_product', 'target_product_description'}:
+                continue
             if isinstance(value, list):
                 if value:
                     merged[key] = value
@@ -833,9 +909,11 @@ class PlannerLLMClient:
         prompt: str,
         industry: str,
         competitor_hints: list[str],
+        explicit_target_product: str = '',
     ) -> dict[str, Any]:
         text = re.sub(r'\s+', ' ', str(prompt).strip())
-        category = self._extract_generic_topic(text, industry=industry) or (industry or 'general software')
+        topic_text = re.sub(r'[，。,.!?！？；;]?\s*目标产品(?:是|为|[:：]).*$', '', text).strip()
+        category = (industry or self._extract_generic_topic(topic_text, industry='') or 'general software')
         capabilities: list[str] = []
         users: list[str] = []
         use_cases: list[str] = []
@@ -859,9 +937,9 @@ class PlannerLLMClient:
 
         if not capabilities and category:
             capabilities.append(category)
-        target_product = ''
+        target_product = explicit_target_product
         match = re.search(r'([\w\u4e00-\u9fff][\w\u4e00-\u9fff\s\-·]{1,40})(?:的|产品|平台|系统|工具)', text)
-        if match:
+        if match and not target_product:
             target_product = self._repair_mojibake(match.group(1).strip())[:80]
         if not target_product and competitor_hints:
             target_product = competitor_hints[0][:80]
@@ -878,6 +956,60 @@ class PlannerLLMClient:
             'delivery_model': 'saas_or_software',
             'seed_products': competitor_hints[:6],
         }
+
+    def _extract_explicit_target_product(self, prompt: str) -> str:
+        text = re.sub(r'\s+', ' ', str(prompt).strip())
+        patterns = (
+            r'目标产品(?:是|为)\s*([A-Za-z0-9\u4e00-\u9fff·\- ]{2,40})',
+            r'目标产品[:：]\s*([A-Za-z0-9\u4e00-\u9fff·\- ]{2,40})',
+        )
+        for pattern in patterns:
+            match = re.search(pattern, text)
+            if not match:
+                continue
+            candidate = re.split(r'[，。,；;（(]', match.group(1).strip(), maxsplit=1)[0].strip()
+            candidate = self._clean_candidate_name(candidate)
+            if candidate and not self._looks_like_instruction_text(candidate):
+                return candidate
+        return ''
+
+    @staticmethod
+    def _is_target_product_grounded_in_prompt(candidate: str, prompt: str) -> bool:
+        cleaned = re.sub(r'\s+', ' ', str(candidate or '').strip())
+        text = re.sub(r'\s+', ' ', str(prompt or '').strip())
+        if not cleaned or not text:
+            return False
+        if cleaned not in text:
+            return False
+        generic_markers = (
+            '主流会议软件',
+            '在线会议软件',
+            '云视频会议',
+            '视频会议软件',
+            '通用型',
+            '主流在线',
+            'saas产品',
+            'SaaS产品',
+        )
+        return not any(marker in cleaned for marker in generic_markers)
+
+    @staticmethod
+    def _looks_like_instruction_text(value: str) -> bool:
+        text = re.sub(r'\s+', ' ', str(value or '').strip())
+        if not text:
+            return False
+        instruction_markers = (
+            '目标产品',
+            '竞品分析',
+            '给出',
+            '分析',
+            '报告',
+            '主流',
+            '请',
+            '需要',
+            '软件的',
+        )
+        return any(marker in text for marker in instruction_markers)
 
     def _fallback_candidates_from_search_results(
         self,

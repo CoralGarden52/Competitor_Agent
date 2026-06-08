@@ -1583,8 +1583,10 @@ class CompetitorWorkflowService:
         if target_desc and target_desc not in target_text:
             target_text = f'{target_text}（{target_desc}）'.strip('（）')
         candidate_groups = state.planner_meta.get('candidate_groups', {}) if isinstance(state.planner_meta, dict) else {}
+        candidate_policy = str(state.planner_meta.get('candidate_policy', '')).strip() if isinstance(state.planner_meta, dict) else ''
         direct = [str(item.get('name', '')).strip() for item in candidate_groups.get('direct', []) if isinstance(item, dict) and str(item.get('name', '')).strip()]
         substitute = [str(item.get('name', '')).strip() for item in candidate_groups.get('substitute', []) if isinstance(item, dict) and str(item.get('name', '')).strip()]
+        include_substitute = candidate_policy != 'direct_only_analysis'
         competitor_parts: list[str] = []
         if state.target_product.strip():
             competitor_parts.append(f"目标产品：{state.target_product.strip()}")
@@ -1592,9 +1594,9 @@ class CompetitorWorkflowService:
             competitor_parts.append(f"直接竞品：{'、'.join(direct)}")
         elif state.target_product.strip():
             competitor_parts.append("直接竞品：当前未通过横向语料确认到有效结果")
-        if substitute:
+        if include_substitute and substitute:
             competitor_parts.append(f"替代竞品：{'、'.join(substitute)}")
-        if len(competitor_parts) <= 1 and state.planned_competitors and not direct and not substitute:
+        if len(competitor_parts) <= 1 and state.planned_competitors and not direct and (not substitute or not include_substitute):
             competitor_parts.append('竞品：' + '、'.join(state.planned_competitors))
         schema_text = '、'.join(self._schema_labels(state.analysis_schema_plan))
         return (
@@ -2554,6 +2556,52 @@ class CompetitorWorkflowService:
             )
         return details
 
+    def _build_qa_improvement_details_from_review_details(self, state: RunState) -> list[dict[str, object]]:
+        planner_meta = state.planner_meta if isinstance(state.planner_meta, dict) else {}
+        review_details = planner_meta.get('qa_last_review_details', [])
+        collect_urls_map = planner_meta.get('qa_last_collect_urls', {})
+        if not isinstance(review_details, list):
+            return []
+
+        current_snapshot = self._analysis_snapshot(state)
+        details: list[dict[str, object]] = []
+        for review_row in review_details:
+            if not isinstance(review_row, dict):
+                continue
+            competitor = str(review_row.get('competitor', '') or '').strip()
+            field_reviews = review_row.get('field_reviews', [])
+            if not competitor or not isinstance(field_reviews, list):
+                continue
+            for field_review in field_reviews:
+                if not isinstance(field_review, dict):
+                    continue
+                field_name = str(field_review.get('field_name', '') or '').strip()
+                if not field_name:
+                    continue
+                after = current_snapshot.get(competitor, {}).get(field_name, {}) if isinstance(current_snapshot.get(competitor, {}), dict) else {}
+                collect_urls: list[str] = []
+                if isinstance(collect_urls_map, dict):
+                    competitor_urls = collect_urls_map.get(competitor, {})
+                    if isinstance(competitor_urls, dict):
+                        field_urls = competitor_urls.get(field_name, [])
+                        if isinstance(field_urls, list):
+                            collect_urls = [str(url).strip() for url in field_urls if str(url).strip()]
+                details.append(
+                    {
+                        'competitor': competitor,
+                        'field_name': field_name,
+                        'field_label': str(field_review.get('field_label', '') or '').strip() or field_label_zh(field_name),
+                        'before_summary': str(field_review.get('before_summary', '') or '').strip(),
+                        'after_summary': str(after.get('summary', '') or '').strip(),
+                        'before_evidence_ref_count': int(field_review.get('before_evidence_ref_count', 0) or 0),
+                        'after_evidence_ref_count': int(after.get('evidence_ref_count', 0) or 0),
+                        'before_confidence': float(field_review.get('before_confidence', 0.0) or 0.0),
+                        'after_confidence': float(after.get('confidence', 0.0) or 0.0),
+                        'collected_urls': collect_urls,
+                    }
+                )
+        return details
+
     @staticmethod
     def _stored_qa_improvement_details(state: RunState) -> list[dict[str, object]] | None:
         planner_meta = state.planner_meta if isinstance(state.planner_meta, dict) else {}
@@ -2567,10 +2615,15 @@ class CompetitorWorkflowService:
         return normalized
 
     def _qa_improvement_details_for_display(self, state: RunState) -> list[dict[str, object]]:
+        planner_meta = state.planner_meta if isinstance(state.planner_meta, dict) else {}
+        last_qa_passed = bool(planner_meta.get('last_qa_passed', False))
         stored = self._stored_qa_improvement_details(state)
-        if stored is not None:
+        if stored and last_qa_passed:
             return stored
-        return self._build_qa_improvement_details(state)
+        built = self._build_qa_improvement_details(state)
+        if built:
+            return built
+        return self._build_qa_improvement_details_from_review_details(state)
 
     def _apply_qa_coverage_gate(
         self,
@@ -2847,6 +2900,8 @@ class CompetitorWorkflowService:
                 analysis_json=payload,
                 schema_fields=schema_fields,
                 industry_hint=state.industry,
+                run_id=state.run_id,
+                attempt=state.attempt,
             )
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -3011,9 +3066,11 @@ class CompetitorWorkflowService:
             },
         )
         if isinstance(state.planner_meta, dict):
-            state.planner_meta['qa_last_failed_analysis_snapshot'] = analysis_snapshot
-            state.planner_meta['qa_last_review_details'] = review_details
-            state.planner_meta['qa_last_collect_items'] = normalized_items
+            if not bool(state.planner_meta.get('qa_first_failure_frozen', False)):
+                state.planner_meta['qa_last_failed_analysis_snapshot'] = analysis_snapshot
+                state.planner_meta['qa_last_review_details'] = review_details
+                state.planner_meta['qa_last_collect_items'] = normalized_items
+                state.planner_meta['qa_first_failure_frozen'] = True
             state.planner_meta['qa_last_improvement_details'] = []
         self._save_and_event(
             state,

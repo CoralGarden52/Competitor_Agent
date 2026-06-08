@@ -314,6 +314,7 @@ def test_workspace_qa_improvement_details_prefer_frozen_snapshot(tmp_path) -> No
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / "qa_improvement_snapshot.db"))
     state = RunState(industry="general", competitors=["alpha"], planned_competitors=["alpha"], user_prompt="test")
     state.planner_meta = {
+        "last_qa_passed": True,
         "qa_last_improvement_details": [
             {
                 "competitor": "alpha",
@@ -341,3 +342,118 @@ def test_workspace_qa_improvement_details_prefer_frozen_snapshot(tmp_path) -> No
 
     assert details[0]["before_summary"] == "old summary"
     assert details[0]["after_summary"] == "new summary"
+
+
+def test_workspace_qa_improvement_details_fallback_to_review_details(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "qa_improvement_review_fallback.db"))
+    state = RunState(industry="general", competitors=["alpha"], planned_competitors=["alpha"], user_prompt="test")
+    state.planner_meta = {
+        "last_qa_passed": True,
+        "qa_last_improvement_details": [],
+        "qa_last_review_details": [
+            {
+                "competitor": "alpha",
+                "needs_recollect": True,
+                "field_reviews": [
+                    {
+                        "field_name": "strengths",
+                        "field_label": "优势",
+                        "before_summary": "old summary",
+                        "before_evidence_ref_count": 1,
+                        "before_confidence": 0.4,
+                    }
+                ],
+            }
+        ],
+        "qa_last_collect_urls": {"alpha": {"strengths": ["https://example.com/alpha-strengths"]}},
+    }
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[AnalysisFieldResult(field_name="strengths", summary="new summary", evidence_refs=["ev1", "ev2"], confidence=0.9)],
+        )
+    ]
+
+    details = service._qa_improvement_details_for_display(state)
+
+    assert len(details) == 1
+    assert details[0]["before_summary"] == "old summary"
+    assert details[0]["after_summary"] == "new summary"
+    assert details[0]["before_evidence_ref_count"] == 1
+    assert details[0]["after_evidence_ref_count"] == 2
+    assert details[0]["collected_urls"] == ["https://example.com/alpha-strengths"]
+
+
+def test_workspace_qa_improvement_details_preview_before_qa_passes(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "qa_improvement_preview_before_pass.db"))
+    state = RunState(industry="general", competitors=["alpha"], planned_competitors=["alpha"], user_prompt="test")
+    state.planner_meta = {
+        "last_qa_passed": False,
+        "qa_last_improvement_details": [],
+        "qa_last_review_details": [
+            {
+                "competitor": "alpha",
+                "needs_recollect": True,
+                "field_reviews": [
+                    {
+                        "field_name": "strengths",
+                        "field_label": "优势",
+                        "before_summary": "old summary",
+                        "before_evidence_ref_count": 1,
+                    }
+                ],
+            }
+        ],
+        "qa_last_collect_urls": {"alpha": {"strengths": ["https://example.com/alpha-strengths"]}},
+    }
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[AnalysisFieldResult(field_name="strengths", summary="new summary", evidence_refs=["ev1", "ev2"], confidence=0.9)],
+        )
+    ]
+
+    details = service._qa_improvement_details_for_display(state)
+
+    assert len(details) == 1
+    assert details[0]["before_summary"] == "old summary"
+    assert details[0]["after_summary"] == "new summary"
+
+
+def test_workspace_qa_first_failure_snapshot_preserved_on_later_failure(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "qa_first_failure_preserved.db"))
+    state = RunState(industry="general", competitors=["alpha"], planned_competitors=["alpha"], user_prompt="test")
+    state.planner_meta = {
+        "qa_first_failure_frozen": True,
+        "qa_last_failed_analysis_snapshot": {
+            "alpha": {"strengths": {"summary": "first old summary", "evidence_ref_count": 1, "confidence": 0.4}}
+        },
+        "qa_last_review_details": [
+            {
+                "competitor": "alpha",
+                "needs_recollect": True,
+                "field_reviews": [
+                    {
+                        "field_name": "strengths",
+                        "field_label": "优势",
+                        "before_summary": "first old summary",
+                        "before_evidence_ref_count": 1,
+                    }
+                ],
+            }
+        ],
+        "qa_last_collect_items": [{"competitor": "alpha", "field_name": "strengths"}],
+        "last_qa_passed": False,
+    }
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name="alpha",
+            fields=[AnalysisFieldResult(field_name="strengths", summary="latest new summary", evidence_refs=["ev1", "ev2"], confidence=0.9)],
+        )
+    ]
+
+    details = service._qa_improvement_details_for_display(state)
+
+    assert len(details) == 1
+    assert details[0]["before_summary"] == "first old summary"
+    assert details[0]["after_summary"] == "latest new summary"

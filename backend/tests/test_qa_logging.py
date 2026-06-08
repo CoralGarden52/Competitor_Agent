@@ -79,3 +79,31 @@ def test_qa_logging_masks_sensitive_values(tmp_path, monkeypatch) -> None:
     input_payload = rows[0]["payload"]["user_payload"]
     # prompt in payload should be masked for bearer/token-like fragments
     assert "abcdefghijklmnopqrstuvwxyz123456" not in json.dumps(input_payload, ensure_ascii=False)
+
+
+def test_qa_analysis_review_llm_propagates_run_trace_metadata(tmp_path, monkeypatch) -> None:
+    store = SQLiteStore(tmp_path / "test.db")
+    agent = QACriticAgent(_FakeLLM(), store)  # type: ignore[arg-type]
+    monkeypatch.setattr(QACriticAgent, "_qa_log_dir", classmethod(lambda cls: tmp_path / "QA_log"))
+
+    captured: dict[str, object] = {}
+
+    def fake_invoke_llm_json(**kwargs):
+        captured["metadata"] = kwargs["metadata"]
+        return {"needs_recollect": False, "insufficient_fields": [], "collect_plan": {"items": []}}
+
+    monkeypatch.setattr(agent, "_invoke_llm_json", fake_invoke_llm_json)
+
+    _ = agent.run_competitor_analysis_review_llm(
+        analysis_json={"competitor": "alpha", "fields": []},
+        schema_fields=["feature_tree"],
+        industry_hint="saas",
+        run_id="run_trace_case",
+        attempt=3,
+    )
+
+    metadata = captured["metadata"]
+    assert isinstance(metadata, dict)
+    assert metadata["run_id"] == "run_trace_case"
+    assert metadata["attempt"] == 3
+    assert metadata["node_name"] == "qa"
