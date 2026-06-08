@@ -1583,8 +1583,10 @@ class CompetitorWorkflowService:
         if target_desc and target_desc not in target_text:
             target_text = f'{target_text}（{target_desc}）'.strip('（）')
         candidate_groups = state.planner_meta.get('candidate_groups', {}) if isinstance(state.planner_meta, dict) else {}
+        candidate_policy = str(state.planner_meta.get('candidate_policy', '')).strip() if isinstance(state.planner_meta, dict) else ''
         direct = [str(item.get('name', '')).strip() for item in candidate_groups.get('direct', []) if isinstance(item, dict) and str(item.get('name', '')).strip()]
         substitute = [str(item.get('name', '')).strip() for item in candidate_groups.get('substitute', []) if isinstance(item, dict) and str(item.get('name', '')).strip()]
+        include_substitute = candidate_policy != 'direct_only_analysis'
         competitor_parts: list[str] = []
         if state.target_product.strip():
             competitor_parts.append(f"目标产品：{state.target_product.strip()}")
@@ -1592,9 +1594,9 @@ class CompetitorWorkflowService:
             competitor_parts.append(f"直接竞品：{'、'.join(direct)}")
         elif state.target_product.strip():
             competitor_parts.append("直接竞品：当前未通过横向语料确认到有效结果")
-        if substitute:
+        if include_substitute and substitute:
             competitor_parts.append(f"替代竞品：{'、'.join(substitute)}")
-        if len(competitor_parts) <= 1 and state.planned_competitors and not direct and not substitute:
+        if len(competitor_parts) <= 1 and state.planned_competitors and not direct and (not substitute or not include_substitute):
             competitor_parts.append('竞品：' + '、'.join(state.planned_competitors))
         schema_text = '、'.join(self._schema_labels(state.analysis_schema_plan))
         return (

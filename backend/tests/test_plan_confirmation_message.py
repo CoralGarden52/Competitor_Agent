@@ -15,10 +15,11 @@ def test_plan_confirmation_message_uses_plain_labels_without_markdown(tmp_path) 
         target_product='腾讯会议',
         target_product_description='云视频会议 SaaS',
         planner_meta={
+            'candidate_policy': 'direct_only_analysis',
             'candidate_groups': {
                 'direct': [{'name': 'Zoom'}],
                 'substitute': [{'name': 'Google Meet'}],
-            }
+            },
         },
     )
     state.analysis_schema_plan = [AnalysisSchemaField(field_name='feature_tree')]
@@ -27,7 +28,8 @@ def test_plan_confirmation_message_uses_plain_labels_without_markdown(tmp_path) 
 
     assert '核心目的：' in message
     assert '目标行业/场景：' in message
-    assert '分析对象：目标产品：腾讯会议；直接竞品：Zoom；替代竞品：Google Meet' in message
+    assert '分析对象：目标产品：腾讯会议；直接竞品：Zoom' in message
+    assert 'Google Meet' not in message
     assert '- **核心目的**' not in message
 
 
@@ -46,3 +48,26 @@ def test_plan_confirmation_message_marks_missing_direct_competitors_explicitly(t
     message = service._build_plan_confirmation_message(state)
 
     assert '直接竞品：当前未通过横向语料确认到有效结果' in message
+
+
+def test_plan_confirmation_message_keeps_substitute_when_not_direct_only(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'confirm_with_substitute.db'))
+    state = RunState(
+        industry='video meeting saas',
+        competitors=['Zoom'],
+        planned_competitors=['Zoom'],
+        user_prompt='分析腾讯会议竞品',
+        target_product='腾讯会议',
+        target_product_description='云视频会议 SaaS',
+        planner_meta={
+            'candidate_groups': {
+                'direct': [{'name': 'Zoom'}],
+                'substitute': [{'name': 'Google Meet'}],
+            },
+        },
+    )
+    state.analysis_schema_plan = [AnalysisSchemaField(field_name='feature_tree')]
+
+    message = service._build_plan_confirmation_message(state)
+
+    assert '替代竞品：Google Meet' in message

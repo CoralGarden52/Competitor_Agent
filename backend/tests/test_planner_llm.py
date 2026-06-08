@@ -443,3 +443,92 @@ def test_check_health_reports_parse_failure() -> None:
     assert health['enabled'] is True
     assert health['success'] is False
     assert 'json_parse_failed' in str(health['reason'])
+
+
+def test_infer_target_product_from_prompt_extracts_explicit_target() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+
+    target = planner.infer_target_product_from_prompt(
+        prompt='给出在线主流会议软件的竞品分析，目标产品是腾讯会议',
+        industry='video meeting saas',
+    )
+
+    assert target == '腾讯会议'
+
+
+def test_infer_target_product_from_prompt_rejects_generic_llm_category_answer() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._extract_explicit_target_product = lambda _prompt: ''  # type: ignore[method-assign]
+    planner._chat_json = lambda *_args, **_kwargs: {  # type: ignore[method-assign]
+        'target_product': '通用型主流在线云视频会议SaaS产品',
+        'reason': 'generic category',
+    }
+
+    target = planner.infer_target_product_from_prompt(
+        prompt='给出在线主流会议软件的竞品分析，目标产品是腾讯会议',
+        industry='video meeting saas',
+    )
+
+    assert target == ''
+
+
+def test_infer_product_profile_keeps_llm_target_fields_without_fallback_override() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+
+    def _fake_chat(_system_prompt: str, _user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, object]:
+        if trace_name == 'planner.infer_target_product':
+            return {'target_product': '腾讯会议', 'reason': 'explicit target in prompt'}
+        if trace_name == 'planner.infer_product_profile':
+            return {
+                'product_profile': {
+                    'target_product': '给出在线主流会议软件',
+                    'target_product_description': '云视频会议 saas 给出在线主流会议软件的，目标产品是腾讯会议',
+                    'intent_summary': '给出在线主流会议软件的竞品分析，目标产品是腾讯会议',
+                    'product_category': '云视频会议 saas',
+                    'primary_use_cases': ['远程会议'],
+                }
+            }
+        raise AssertionError(f'unexpected trace_name: {trace_name}')
+
+    planner._chat_json = _fake_chat  # type: ignore[method-assign]
+
+    profile = planner.infer_product_profile(
+        prompt='给出在线主流会议软件的竞品分析，目标产品是腾讯会议',
+        industry='video meeting saas',
+        competitor_hints=[],
+    )
+
+    assert profile['target_product'] == '腾讯会议'
+    assert profile['target_product_description'] == '云视频会议 saas 给出在线主流会议软件的，目标产品是腾讯会议'
+
+
+def test_infer_product_profile_uses_target_extractor_only_when_profile_target_is_empty() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+
+    def _fake_chat(_system_prompt: str, _user_prompt: str, *, trace_name: str = 'planner.call') -> dict[str, object]:
+        if trace_name == 'planner.infer_target_product':
+            return {'target_product': '腾讯会议', 'reason': 'explicit target in prompt'}
+        if trace_name == 'planner.infer_product_profile':
+            return {
+                'product_profile': {
+                    'target_product': '',
+                    'target_product_description': '',
+                    'product_category': '云视频会议 saas',
+                }
+            }
+        raise AssertionError(f'unexpected trace_name: {trace_name}')
+
+    planner._chat_json = _fake_chat  # type: ignore[method-assign]
+
+    profile = planner.infer_product_profile(
+        prompt='给出在线主流会议软件的竞品分析，目标产品是腾讯会议',
+        industry='video meeting saas',
+        competitor_hints=[],
+    )
+
+    assert profile['target_product'] == '腾讯会议'
+    assert profile['target_product_description'] == ''
