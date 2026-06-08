@@ -2849,6 +2849,8 @@ class CompetitorWorkflowService:
                 analysis_json=payload,
                 schema_fields=schema_fields,
                 industry_hint=state.industry,
+                run_id=state.run_id,
+                attempt=state.attempt,
             )
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:

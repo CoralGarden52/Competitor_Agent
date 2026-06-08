@@ -142,6 +142,8 @@ class QACriticAgent:
         analysis_json: dict[str, Any],
         schema_fields: list[str] | None = None,
         industry_hint: str = "",
+        run_id: str = "",
+        attempt: int = 0,
     ) -> dict[str, Any]:
         competitor = str(analysis_json.get("competitor", "unknown_competitor")).strip() or "unknown_competitor"
         payload = {
@@ -151,6 +153,8 @@ class QACriticAgent:
             "constraints": {"query_list_min": 1, "query_list_max": 2},
         }
         shadow_state = RunState(
+            run_id=run_id or f"qa_shadow_{competitor}",
+            attempt=max(1, int(attempt or 1)),
             industry=industry_hint or "general",
             competitors=[competitor],
             planned_competitors=[competitor],
@@ -173,7 +177,15 @@ class QACriticAgent:
                 trace_name="agent.qa.analysis_review",
                 system_prompt=QA_ANALYSIS_REVIEW_SYSTEM_PROMPT,
                 user_payload=payload,
-                metadata={"agent_name": "QACriticAgent", "mode": "analysis_stage", "competitor": competitor, "node_name": "qa"},
+                metadata={
+                    "run_id": run_id,
+                    "attempt": attempt,
+                    "agent_name": "QACriticAgent",
+                    "mode": "analysis_stage",
+                    "competitor": competitor,
+                    "node_name": "qa",
+                    "model": self.llm.config.openai_model,
+                },
                 tool_names=["web.search", "web.fetch"],
             )
             self._append_qa_log(
