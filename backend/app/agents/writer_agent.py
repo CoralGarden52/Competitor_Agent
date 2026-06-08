@@ -66,14 +66,15 @@ SCHEMA_FIELD_ZH_LABELS = {
 }
 logger = logging.getLogger(__name__)
 
-MATRIX_CELL_SUMMARY_SYSTEM_PROMPT = """
-你是竞品分析报告助手。请把单个竞品字段内容压缩成适合 Markdown 对比表格单元格的一句话摘要。
+MATRIX_ROW_SUMMARY_SYSTEM_PROMPT = """
+你是竞品分析报告助手。请针对单个竞品的多个分析维度，输出适合 Markdown 对比表格的逐字段摘要。
 
 要求：
-1. 只输出一句中文摘要，不要项目符号，不要换行，不要解释。
-2. 保留最关键的产品差异、能力结论或商业信息。
-3. 如果信息不充分，只输出“需进一步确认”。
-4. 尽量避免照抄原文，改写成更适合表格横向对比的短句。
+1. 只输出 JSON 对象，不要 Markdown，不要解释，不要代码块。
+2. JSON 的 key 必须是输入中的 field_name，value 必须是一句中文摘要。
+3. 每个 value 只保留最关键的产品差异、能力结论或商业信息，不要换行。
+4. 如果某个字段信息不充分，value 输出“需进一步确认”。
+5. 尽量避免照抄原文，改写成更适合表格横向对比的短句。
 """.strip()
 
 
@@ -842,7 +843,7 @@ class WriterAgent:
     def _comparison_matrix(self, state: RunState, records: list[CompetitorAnalysisRecord]) -> list[dict]:
         matrix: list[dict] = []
         schema_fields = [item.field_name for item in state.analysis_schema_plan or [] if str(item.field_name or '').strip()]
-        pending_tasks: list[tuple[dict, str, CompetitorAnalysisRecord, AnalysisFieldResult]] = []
+        pending_tasks: list[tuple[dict, CompetitorAnalysisRecord]] = []
         for record in records:
             row = {
                 'product': self._display_product_name(state, record.product_name),
@@ -850,10 +851,8 @@ class WriterAgent:
             }
             for field_name in schema_fields:
                 row[field_name] = '需进一步确认'
-            for field in record.fields:
-                if field.field_name not in row:
-                    continue
-                pending_tasks.append((row, field.field_name, record, field))
+            if any(field.field_name in row for field in record.fields):
+                pending_tasks.append((row, record))
             matrix.append(row)
         if not pending_tasks:
             return matrix
@@ -861,47 +860,61 @@ class WriterAgent:
         max_workers = min(max(1, self.app_config.writer_parallel_max_workers), len(pending_tasks))
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix='writer-matrix') as executor:
             future_map = {
-                executor.submit(self._summarize_matrix_cell, state, record, field): (row, field_name)
-                for row, field_name, record, field in pending_tasks
+                executor.submit(self._summarize_matrix_row, state, record, schema_fields): row
+                for row, record in pending_tasks
             }
             for future in concurrent.futures.as_completed(future_map):
-                row, field_name = future_map[future]
+                row = future_map[future]
                 try:
-                    row[field_name] = future.result()
+                    row.update(future.result())
                 except Exception as exc:
-                    logger.warning('Matrix cell future failed field=%s error=%s', field_name, exc)
+                    logger.warning('Matrix row future failed product=%s error=%s', row.get('product', ''), exc)
         return matrix
 
-    def _summarize_matrix_cell(
+    def _summarize_matrix_row(
         self,
         state: RunState,
         record: CompetitorAnalysisRecord,
-        field: AnalysisFieldResult,
-    ) -> str:
-        primary_text = self._field_primary_text(field).strip()
-        if not primary_text or primary_text.lower() == 'unknown':
-            return '需进一步确认'
-
-        fallback = self._format_text_for_report(primary_text, context='matrix_cell')
-        invoke_text = getattr(self.llm, 'invoke_text', None)
-        if not callable(invoke_text):
-            return fallback
-
-        try:
-            response = invoke_text(
-                trace_name=f'agent.draft.matrix_cell.{record.product_name}.{field.field_name}',
-                system_prompt=MATRIX_CELL_SUMMARY_SYSTEM_PROMPT,
-                user_payload={
-                    'industry': state.industry,
-                    'target_product': state.target_subject_name() or state.target_product or '',
-                    'product_name': record.product_name,
-                    'product_role': state.subject_role_for(record.product_name),
+        schema_fields: list[str],
+    ) -> dict[str, str]:
+        field_payloads: list[dict] = []
+        fallback_by_field: dict[str, str] = {}
+        for field_name in schema_fields:
+            field = self._get_field(record, field_name)
+            if field is None:
+                continue
+            primary_text = self._field_primary_text(field).strip()
+            if not primary_text or primary_text.lower() == 'unknown':
+                fallback_by_field[field_name] = '需进一步确认'
+                continue
+            fallback_by_field[field_name] = self._format_text_for_report(primary_text, context='matrix_cell')
+            field_payloads.append(
+                {
                     'field_name': field.field_name,
                     'field_label': self._schema_field_label(field.field_name),
                     'field_summary': primary_text,
                     'normalized_value': field.normalized_value if isinstance(field.normalized_value, dict) else {},
                     'evidence_refs': field.evidence_refs[:4],
                     'evidence_gaps': field.evidence_gaps[:3],
+                }
+            )
+        if not field_payloads:
+            return fallback_by_field
+
+        invoke_text = getattr(self.llm, 'invoke_text', None)
+        if not callable(invoke_text):
+            return fallback_by_field
+
+        try:
+            response = invoke_text(
+                trace_name=f'agent.draft.matrix_row.{record.product_name}',
+                system_prompt=MATRIX_ROW_SUMMARY_SYSTEM_PROMPT,
+                user_payload={
+                    'industry': state.industry,
+                    'target_product': state.target_subject_name() or state.target_product or '',
+                    'product_name': record.product_name,
+                    'product_role': state.subject_role_for(record.product_name),
+                    'fields': field_payloads,
                 },
                 metadata={
                     'run_id': state.run_id,
@@ -910,24 +923,67 @@ class WriterAgent:
                     'model': self.llm.config.openai_model,
                     'industry': state.industry,
                     'product_name': record.product_name,
-                    'field_name': field.field_name,
+                    'field_count': len(field_payloads),
                     'attempt': state.attempt,
                 },
                 temperature=0.1,
             )
         except Exception as exc:
             logger.warning(
-                'Matrix cell summarization fallback triggered product=%s field=%s error=%s',
+                'Matrix row summarization fallback triggered product=%s error=%s',
                 record.product_name,
-                field.field_name,
                 exc,
             )
-            return fallback
+            return fallback_by_field
 
-        cleaned = self._clean_matrix_cell_summary(response)
-        if not cleaned or cleaned.lower() == 'unknown':
-            return fallback
-        return self._format_text_for_report(cleaned, context='matrix_cell')
+        parsed = self._parse_matrix_row_summary_response(response, allowed_fields={item['field_name'] for item in field_payloads})
+        summarized: dict[str, str] = {}
+        for field_name, fallback in fallback_by_field.items():
+            cleaned = self._clean_matrix_cell_summary(parsed.get(field_name, ''))
+            if not cleaned or cleaned.lower() == 'unknown':
+                summarized[field_name] = fallback
+                continue
+            summarized[field_name] = self._format_text_for_report(cleaned, context='matrix_cell')
+        return summarized
+
+    @staticmethod
+    def _parse_matrix_row_summary_response(text: str, *, allowed_fields: set[str]) -> dict[str, str]:
+        raw = str(text or '').strip()
+        if not raw:
+            return {}
+        if raw.startswith('```'):
+            raw = re.sub(r'^```(?:json)?\s*|\s*```$', '', raw, flags=re.IGNORECASE | re.DOTALL).strip()
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            return {}
+
+        if isinstance(payload, dict):
+            if isinstance(payload.get('summaries'), dict):
+                payload = payload['summaries']
+            elif isinstance(payload.get('fields'), list):
+                result: dict[str, str] = {}
+                for item in payload['fields']:
+                    if not isinstance(item, dict):
+                        continue
+                    field_name = str(item.get('field_name', '')).strip()
+                    summary = str(item.get('summary', '')).strip()
+                    if field_name in allowed_fields and summary:
+                        result[field_name] = summary
+                return result
+
+        if not isinstance(payload, dict):
+            return {}
+
+        result: dict[str, str] = {}
+        for key, value in payload.items():
+            field_name = str(key or '').strip()
+            if field_name not in allowed_fields:
+                continue
+            summary = str(value or '').strip()
+            if summary:
+                result[field_name] = summary
+        return result
 
     def _section_specs(self, state: RunState, *, include_overview_sections: bool = True) -> list[tuple[str, str, str]]:
         return list(TEMPLATE_SECTION_ORDER)

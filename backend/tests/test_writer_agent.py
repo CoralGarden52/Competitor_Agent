@@ -58,12 +58,16 @@ class _MatrixSummaryLLM:
     config = type('Cfg', (), {'agent_llm_retry_count': 0, 'openai_model': 'test-model'})()
 
     def __init__(self) -> None:
-        self.calls: list[tuple[str, str]] = []
+        self.calls: list[tuple[str, tuple[str, ...]]] = []
 
     def invoke_text(self, *args, **kwargs):
         payload = kwargs['user_payload']
-        self.calls.append((payload['product_name'], payload['field_name']))
-        return f"{payload['product_name']} 的 {payload['field_label']}已总结"
+        field_names = tuple(item['field_name'] for item in payload['fields'])
+        self.calls.append((payload['product_name'], field_names))
+        return {
+            'feature_tree': f"{payload['product_name']} 的 功能体系已总结",
+            'pricing_model': f"{payload['product_name']} 的 定价模式已总结",
+        }.__repr__().replace("'", '"')
 
     def invoke_text_stream(self, *args, **kwargs):
         if False:
@@ -271,7 +275,7 @@ def test_report_text_truncated_when_enabled_with_custom_limits() -> None:
         cfg.report_truncation_limits_json = old_limits_json
 
 
-def test_comparison_matrix_uses_llm_summary_per_cell_when_available() -> None:
+def test_comparison_matrix_uses_llm_summary_per_row_when_available() -> None:
     llm = _MatrixSummaryLLM()
     agent = WriterAgent(llm=llm)
     state = RunState(
@@ -296,7 +300,7 @@ def test_comparison_matrix_uses_llm_summary_per_cell_when_available() -> None:
 
     assert matrix[0]['feature_tree'] == '腾讯会议 的 功能体系已总结。'
     assert matrix[0]['pricing_model'] == '腾讯会议 的 定价模式已总结。'
-    assert set(llm.calls) == {('腾讯会议', 'feature_tree'), ('腾讯会议', 'pricing_model')}
+    assert llm.calls == [('腾讯会议', ('feature_tree', 'pricing_model'))]
 
 
 def test_records_and_report_prioritize_target_product() -> None:
