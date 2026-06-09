@@ -35,7 +35,7 @@ from app.core.prompts.agent_prompts import (
 )
 
 
-_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
 _REPORT_TEMPLATE_CANDIDATES = (
     _PROJECT_ROOT / 'skills' / 'competitor-analysis-report' / 'report_template.json',
     Path('/skills/competitor-analysis-report/report_template.json'),

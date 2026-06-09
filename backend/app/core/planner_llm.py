@@ -574,7 +574,7 @@ class PlannerLLMClient:
         # 不再让普通候选池、搜索结果抽取或兜底逻辑回写覆盖。
         if direct_from_corpus or substitute_from_corpus:
             competitors = {
-                'direct': direct_from_corpus[:max_direct],
+                'direct': direct_from_corpus,
                 'substitute': substitute_from_corpus[:max_substitute],
             }
         else:
@@ -1800,11 +1800,11 @@ class PlannerLLMClient:
         dynamic_fields = self._build_dynamic_fields_from_corpus(comparison_corpus)
         direct = [
             self._make_candidate(name=name, fit_type='direct', reason='corpus_frequency_fallback', confidence=0.66, corpus_refs=refs)
-            for name, refs in ranked_candidates[:2]
+            for name, refs in ranked_candidates
         ]
         substitute = [
             self._make_candidate(name=name, fit_type='substitute', reason='corpus_frequency_fallback', confidence=0.55, corpus_refs=refs)
-            for name, refs in ranked_candidates[2:3]
+            for name, refs in ranked_candidates[len(direct) : len(direct) + 1]
         ]
         evidence_refs = sorted({ref for _name, refs in ranked_candidates for ref in refs})
         return {
