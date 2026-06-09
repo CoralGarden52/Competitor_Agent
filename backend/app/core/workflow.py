@@ -581,7 +581,15 @@ class CompetitorWorkflowService:
         replacement: tuple[ActionType, str, str] | None = None
         qa_reviewed = bool(context.qa_reviewed or context.last_qa_checked or context.qa_ready)
         qa_passed = bool(context.qa_passed or context.last_qa_passed or context.qa_ready)
+        remediation_actions_since_last_qa = self._failed_qa_remediation_actions_since_last_qa(state)
         if (
+            qa_reviewed
+            and not qa_passed
+            and decision.action_type in {ActionType.collect_gap, ActionType.reanalyze_targets}
+            and len(remediation_actions_since_last_qa) >= 2
+        ):
+            replacement = (ActionType.run_qa, 'QACriticAgent', 'failed_qa_remediation_budget_exhausted_run_qa_required')
+        elif (
             decision.action_type == ActionType.reanalyze_targets
             and context.last_action_type == ActionType.reanalyze_targets.value
             and context.last_action_status == 'completed'
@@ -669,6 +677,16 @@ class CompetitorWorkflowService:
             },
         )
         return guarded
+
+    def _failed_qa_remediation_actions_since_last_qa(self, state: RunState) -> list[ActionType]:
+        actions: list[ActionType] = []
+        for prior_decision in reversed(state.decision_history):
+            if prior_decision.action_type == ActionType.run_qa:
+                break
+            if prior_decision.action_type in {ActionType.collect_gap, ActionType.reanalyze_targets}:
+                actions.append(prior_decision.action_type)
+        actions.reverse()
+        return actions
 
     def _manager_act(self, state: RunState) -> tuple[ManagerDecision, ActionExecutionResult]:
         decision = self._manager_decide(state)
