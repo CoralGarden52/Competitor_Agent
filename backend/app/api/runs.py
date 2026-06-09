@@ -214,6 +214,8 @@ async def stream_chat_turn(
     turn_id: str,
     service: CompetitorWorkflowService = Depends(get_service),
 ) -> StreamingResponse:
+    if hasattr(service, 'stream_chat_turn_response'):
+        return await service.stream_chat_turn_response(run_id, turn_id)
     run = service.get_run(run_id)
     if run is None:
         raise HTTPException(status_code=404, detail='run not found')
@@ -333,6 +335,8 @@ def export_questionnaire_to_wenjuan(
 
 @router.get('/{run_id}/stream')
 async def stream_run(run_id: str, service: CompetitorWorkflowService = Depends(get_service)) -> StreamingResponse:
+    if hasattr(service, 'stream_run_response'):
+        return await service.stream_run_response(run_id)
     run = service.get_run(run_id)
     if run is None:
         raise HTTPException(status_code=404, detail='run not found')

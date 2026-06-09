@@ -2,6 +2,95 @@
 
 Backend v1 for a Deer-Flow-inspired multi-agent competitor analysis workflow.
 
+## Docker Compose
+
+Goal: after cloning the repository, run `docker compose up -d` in `backend/` and bring up the full backend stack.
+
+### 1) Prepare env
+
+```bash
+cd backend
+cp ".env example" .env
+```
+
+Edit `.env` and at least fill:
+
+- `OPENAI_API_KEY`
+- `OPENAI_BASE_URL`
+- `OPENAI_MODEL`
+
+Optional search/fetch providers can be filled as needed.
+
+### 2) Start locally
+
+```bash
+cd backend
+docker compose up -d --build
+```
+
+Services started by Compose:
+
+- `backend`: FastAPI service, exposed on `8010`
+- `postgres`: runtime database, exposed on host `5433`
+- `redis`: cache / pubsub service, exposed on host `6379`
+
+Check status:
+
+```bash
+docker compose ps
+curl http://127.0.0.1:8010/healthz
+```
+
+View logs:
+
+```bash
+docker compose logs -f backend
+```
+
+Stop services:
+
+```bash
+docker compose down
+```
+
+If you also want to remove persisted database/cache volumes:
+
+```bash
+docker compose down -v
+```
+
+### 3) Deploy on a server
+
+On the target Linux server:
+
+```bash
+git clone <your-repo-url>
+cd Competitor_Agent/backend
+cp ".env example" .env
+```
+
+Update `.env` with your production API keys and model config, then start:
+
+```bash
+docker compose up -d --build
+```
+
+Suggested server operations:
+
+```bash
+docker compose ps
+docker compose logs -f backend
+docker compose pull
+docker compose up -d --build
+```
+
+Notes:
+
+- PostgreSQL data is persisted in the `postgres_data` volume.
+- Redis data is persisted in the `redis_data` volume.
+- Backend-generated exports and runtime files are persisted in the `backend_data` volume.
+- The backend automatically creates the target PostgreSQL database and tables on startup, so no extra migration container is required.
+
 ## Run
 
 ```bash

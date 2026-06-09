@@ -74,6 +74,9 @@ class AppConfig(BaseSettings):
     collector_preview_save_dir: str = '.data/collector_exports'
     demo_workspace_auto_save_enabled: bool = True
     demo_workspace_save_dir: str = 'mock_data/demo_workspace'
+    mock_site_demo_enabled: bool = False
+    mock_site_demo_dir: str = 'mock_site_demo'
+    mock_site_demo_fixture: str = 'full_site_demo'
     tracing_mode: str = 'relaxed'
     agent_llm_retry_count: int = Field(default=2, ge=0, le=6)
     agent_llm_retry_backoff_ms: int = Field(default=400, ge=50, le=10000)
@@ -202,6 +205,8 @@ class AppConfig(BaseSettings):
             'openai_base_url': self.openai_base_url,
             'openai_api_key_masked': masked_key,
             'openai_config_ready': self.has_openai_config(),
+            'mock_site_demo_enabled': self.mock_site_demo_enabled,
+            'mock_site_demo_fixture': self.mock_site_demo_fixture,
             'writer_parallel_enabled': self.writer_parallel_enabled,
             'writer_parallel_max_workers': self.writer_parallel_max_workers,
             'writer_swot_parallel_max_workers': self.writer_swot_parallel_max_workers,

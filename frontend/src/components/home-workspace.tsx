@@ -84,12 +84,11 @@ type AgentCardStreamState = {
 type AgentCardStreams = Partial<Record<StageName, AgentCardStreamState>>;
 
 const STAGE_ORDER: StageName[] = ["plan", "confirm_plan", "collect", "normalize", "analyze", "qa", "draft", "finalize"];
-const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8010").replace(/\/$/, "");
 const PENDING_TASK_TITLE = "生成标题中";
 const COLLECT_PREVIEW_LIMIT = 6;
 
-function backendUrl(path: string) {
-  return `${BACKEND_BASE_URL}${path}`;
+function backendPath(path: string) {
+  return path;
 }
 
 function isStageName(value: string): value is StageName {
@@ -557,11 +556,11 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       ? "正在生成报告..."
       : draftStreamError
         ? draftStreamError
-        : "报告尚未开始生成，进入写作阶段后会在这里流式输出。");
+        : "报告尚未开始生成，进入写作阶段后会在这里输出。");
   const currentQuestionnaireContent = isEditingQuestionnaire
     ? questionnaireDraft
     : questionnaireDraft || workspaceData?.questionnaire?.markdown || "";
-  const hasQuestionnaire = Boolean(workspaceData?.questionnaire?.markdown?.trim());
+  const hasQuestionnaire = Boolean(currentQuestionnaireContent.trim());
   const currentQuestionnaireExport = questionnaireExport || workspaceData?.questionnaire_export || null;
   const topChatMessages = chatMessages.filter((message) => !isReportFollowupMessage(message));
   const reportFollowupMessages = chatMessages.filter(isReportFollowupMessage);
@@ -741,7 +740,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsSavingReport(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/report`), {
+      const response = await fetch(backendPath(`/runs/${runId}/report`), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ markdown: reportDraft }),
@@ -874,10 +873,14 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   async function handleGenerateQuestionnaire() {
     const runId = activeRunIdRef.current;
     if (!runId) return;
+    if (hasQuestionnaire) {
+      openQuestionnairePreview();
+      return;
+    }
     setError("");
     setIsGeneratingQuestionnaire(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire`), {
+      const response = await fetch(backendPath(`/runs/${runId}/questionnaire`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -894,6 +897,20 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       setIsEditingQuestionnaire(false);
       setQuestionnaireOpen(true);
     } catch (questionnaireError) {
+      try {
+        const workspace = await refreshWorkspaceSnapshot(runId);
+        const existingQuestionnaire = workspace.questionnaire;
+        if (existingQuestionnaire?.markdown?.trim()) {
+          syncQuestionnaireSnapshot(runId, existingQuestionnaire);
+          setQuestionnaireDraft(existingQuestionnaire.markdown || "");
+          setIsEditingQuestionnaire(false);
+          setQuestionnaireOpen(true);
+          setError("");
+          return;
+        }
+      } catch {
+        // Fall through to the original error when reconciliation also fails.
+      }
       const message = questionnaireError instanceof Error ? questionnaireError.message : "问卷生成失败，请稍后重试。";
       setError(message);
     } finally {
@@ -936,7 +953,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsSavingQuestionnaire(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire`), {
+      const response = await fetch(backendPath(`/runs/${runId}/questionnaire`), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ markdown: questionnaireDraft }),
@@ -962,7 +979,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
     setError("");
     setIsExportingQuestionnaire(true);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/questionnaire/export/wenjuan`), {
+      const response = await fetch(backendPath(`/runs/${runId}/questionnaire/export/wenjuan`), {
         method: "POST",
       });
       const payload = (await response.json().catch(() => ({}))) as WorkspaceQuestionnaireExport & { detail?: string };
@@ -1223,13 +1240,13 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   }
 
   async function confirmPlanAndContinue(runId: string): Promise<void> {
-    const response = await fetch(backendUrl(`/runs/${runId}/plan-confirmation/confirm`), { method: "POST" });
+    const response = await fetch(backendPath(`/runs/${runId}/plan-confirmation/confirm`), { method: "POST" });
     const payload = (await response.json().catch(() => ({}))) as { detail?: string };
     if (!response.ok) throw new Error(payload.detail || "确认采集结果失败，请稍后重试。");
   }
 
   async function submitPlanSupplement(runId: string, message: string): Promise<void> {
-    const response = await fetch(backendUrl(`/runs/${runId}/plan-confirmation/supplement`), {
+    const response = await fetch(backendPath(`/runs/${runId}/plan-confirmation/supplement`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),
@@ -1274,7 +1291,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   }
 
   async function fetchRunChat(runId: string): Promise<ReportChatPayload> {
-    const response = await fetch(backendUrl(`/runs/${runId}/chat`));
+    const response = await fetch(backendPath(`/runs/${runId}/chat`));
     const payload = (await response.json().catch(() => ({}))) as ReportChatPayload & { detail?: string };
     if (!response.ok) throw new Error(payload.detail || `chat fetch failed: ${response.status}`);
     return payload;
@@ -1283,6 +1300,13 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   async function refreshReportChat(runId: string) {
     const payload = await fetchRunChat(runId);
     applyReportChatPayload(runId, payload);
+  }
+
+  async function refreshWorkspaceSnapshot(runId: string, options?: { preserveSelectedStage?: boolean }): Promise<WorkspacePayload> {
+    const workspace = await fetchRunWorkspace(runId);
+    if (!isActiveRun(runId)) return workspace;
+    applyWorkspace(workspace, options);
+    return workspace;
   }
 
   function updatePendingReportMessage(runId: string, pendingAssistantId: string, content: string) {
@@ -1306,7 +1330,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
   async function streamReportChatTurn(runId: string, turnId: string, pendingAssistantId: string): Promise<ChatTurnResult> {
     return await new Promise<ChatTurnResult>((resolve, reject) => {
       stopReportChatStream();
-      const source = new window.EventSource(backendUrl(`/runs/${runId}/chat/${turnId}/stream`));
+      const source = new window.EventSource(backendPath(`/runs/${runId}/chat/${turnId}/stream`));
       reportChatStreamRef.current = source;
       let latestResult: ChatTurnResult = { status: "running" };
       let sawDelta = false;
@@ -1386,7 +1410,7 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
       { id: pendingAssistantId, role: "assistant", content: "正在读取报告、memory 和相关语料..." },
     ]);
     try {
-      const response = await fetch(backendUrl(`/runs/${runId}/chat`), {
+      const response = await fetch(backendPath(`/runs/${runId}/chat`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1401,9 +1425,8 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
 
       const result = await streamReportChatTurn(runId, payload.turn_id, pendingAssistantId);
       await refreshReportChat(runId);
+      const workspace = await refreshWorkspaceSnapshot(runId);
       if (result.report_updated) {
-        const workspace = await fetchRunWorkspace(runId);
-        applyWorkspace(workspace);
         setOriginalReportContent(workspace.report?.markdown || "");
         setReportDraft(workspace.report?.markdown || "");
       }
@@ -1411,9 +1434,18 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
         setError(result.error_message || "报告追问处理失败。");
       }
     } catch (chatError) {
-      const messageText = chatError instanceof Error ? chatError.message : "报告追问提交失败，请稍后重试。";
-      setError(messageText);
-      syncMainChatMessages(runId, (previous) => previous.map((item) => (item.id === pendingAssistantId ? { ...item, content: messageText } : item)));
+      let messageText = chatError instanceof Error ? chatError.message : "报告追问提交失败，请稍后重试。";
+      try {
+        await refreshReportChat(runId);
+        await refreshWorkspaceSnapshot(runId);
+        messageText = "";
+      } catch {
+        // Keep the original error if reconciliation also fails.
+      }
+      if (messageText) {
+        setError(messageText);
+        syncMainChatMessages(runId, (previous) => previous.map((item) => (item.id === pendingAssistantId ? { ...item, content: messageText } : item)));
+      }
     } finally {
       stopReportChatStream();
       setIsReportChatSubmitting(false);
@@ -2539,10 +2571,16 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                           <button
                             type="button"
                             className="report-download-btn"
-                            onClick={() => void handleGenerateQuestionnaire()}
+                            onClick={() => {
+                              if (hasQuestionnaire) {
+                                openQuestionnairePreview();
+                                return;
+                              }
+                              void handleGenerateQuestionnaire();
+                            }}
                             disabled={isDraftStreaming || isGeneratingQuestionnaire || !currentReportContent.trim()}
                           >
-                            {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
+                            {hasQuestionnaire ? "查看问卷" : isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
                           </button>
                         </section>
                       ) : null}
@@ -2710,10 +2748,16 @@ export function HomeWorkspace({ initialRunId = "" }: HomeWorkspaceProps) {
                       type="button"
                       aria-label="生成问卷"
                       title="生成问卷"
-                      onClick={() => void handleGenerateQuestionnaire()}
+                      onClick={() => {
+                        if (hasQuestionnaire) {
+                          openQuestionnairePreview();
+                          return;
+                        }
+                        void handleGenerateQuestionnaire();
+                      }}
                       disabled={isDraftStreaming || isGeneratingQuestionnaire || !currentReportContent.trim()}
                     >
-                      {isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
+                      {hasQuestionnaire ? "查看问卷" : isGeneratingQuestionnaire ? "生成中..." : "生成问卷"}
                     </button>
                   </>
                 ) : (

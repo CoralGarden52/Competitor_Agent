@@ -1286,55 +1286,108 @@ class PostgresStore:
         corpus_id = str(document.get('corpus_id', '') or f"corpus_{document.get('content_hash', '')[:12]}").strip()
         if not corpus_id:
             raise ValueError('comparison corpus document requires corpus_id or content_hash')
+        source_url = str(document.get('source_url', ''))
+        content_hash = str(document.get('content_hash', ''))
+        title = str(document.get('title', ''))
+        topic_key = str(document.get('topic_key', ''))
+        industry = str(document.get('industry', ''))
+        keywords_json = json.dumps(document.get('keywords', []), ensure_ascii=False)
+        query = str(document.get('query', ''))
+        summary = str(document.get('summary', ''))
+        content = str(document.get('content', ''))
+        published_at = str(document.get('published_at', '') or '') or None
+        date_confidence = str(document.get('date_confidence', 'unknown') or 'unknown')
+        source_provider = str(document.get('source_provider', ''))
+        llm_extract_json = json.dumps(document.get('llm_extract', {}), ensure_ascii=False)
+        fetched_at = str(document.get('fetched_at', '') or now)
         with self._connect() as conn:
-            conn.execute(
+            existing = conn.execute(
                 '''
-                INSERT INTO comparison_corpus_documents (
-                    corpus_id, source_url, title, topic_key, industry, keywords_json, query,
-                    summary, content, content_hash, published_at, date_confidence,
-                    source_provider, llm_extract_json, fetched_at, updated_at
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ON CONFLICT(source_url, content_hash) DO UPDATE SET
-                    title=excluded.title,
-                    topic_key=excluded.topic_key,
-                    industry=excluded.industry,
-                    keywords_json=excluded.keywords_json,
-                    query=excluded.query,
-                    summary=excluded.summary,
-                    content=excluded.content,
-                    published_at=excluded.published_at,
-                    date_confidence=excluded.date_confidence,
-                    source_provider=excluded.source_provider,
-                    llm_extract_json=excluded.llm_extract_json,
-                    updated_at=excluded.updated_at
+                SELECT corpus_id
+                FROM comparison_corpus_documents
+                WHERE corpus_id = ? OR (source_url = ? AND content_hash = ?)
                 ''',
-                (
-                    corpus_id,
-                    str(document.get('source_url', '')),
-                    str(document.get('title', '')),
-                    str(document.get('topic_key', '')),
-                    str(document.get('industry', '')),
-                    json.dumps(document.get('keywords', []), ensure_ascii=False),
-                    str(document.get('query', '')),
-                    str(document.get('summary', '')),
-                    str(document.get('content', '')),
-                    str(document.get('content_hash', '')),
-                    str(document.get('published_at', '') or '') or None,
-                    str(document.get('date_confidence', 'unknown') or 'unknown'),
-                    str(document.get('source_provider', '')),
-                    json.dumps(document.get('llm_extract', {}), ensure_ascii=False),
-                    str(document.get('fetched_at', '') or now),
-                    now,
-                ),
-            )
-            row = conn.execute(
-                'SELECT corpus_id FROM comparison_corpus_documents WHERE source_url = ? AND content_hash = ?',
-                (str(document.get('source_url', '')), str(document.get('content_hash', ''))),
+                (corpus_id, source_url, content_hash),
             ).fetchone()
-        final_id = str(row['corpus_id']) if row is not None else corpus_id
+            final_id = str(existing['corpus_id']) if existing is not None else corpus_id
+
+            if existing is not None:
+                conn.execute(
+                    '''
+                    UPDATE comparison_corpus_documents
+                    SET
+                        source_url = ?,
+                        title = ?,
+                        topic_key = ?,
+                        industry = ?,
+                        keywords_json = ?,
+                        query = ?,
+                        summary = ?,
+                        content = ?,
+                        content_hash = ?,
+                        published_at = ?,
+                        date_confidence = ?,
+                        source_provider = ?,
+                        llm_extract_json = ?,
+                        fetched_at = ?,
+                        updated_at = ?
+                    WHERE corpus_id = ?
+                    ''',
+                    (
+                        source_url,
+                        title,
+                        topic_key,
+                        industry,
+                        keywords_json,
+                        query,
+                        summary,
+                        content,
+                        content_hash,
+                        published_at,
+                        date_confidence,
+                        source_provider,
+                        llm_extract_json,
+                        fetched_at,
+                        now,
+                        final_id,
+                    ),
+                )
+            else:
+                conn.execute(
+                    '''
+                    INSERT INTO comparison_corpus_documents (
+                        corpus_id, source_url, title, topic_key, industry, keywords_json, query,
+                        summary, content, content_hash, published_at, date_confidence,
+                        source_provider, llm_extract_json, fetched_at, updated_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''',
+                    (
+                        final_id,
+                        source_url,
+                        title,
+                        topic_key,
+                        industry,
+                        keywords_json,
+                        query,
+                        summary,
+                        content,
+                        content_hash,
+                        published_at,
+                        date_confidence,
+                        source_provider,
+                        llm_extract_json,
+                        fetched_at,
+                        now,
+                    ),
+                )
+            row = conn.execute(
+                'SELECT corpus_id FROM comparison_corpus_documents WHERE corpus_id = ?',
+                (final_id,),
+            ).fetchone()
+        final_id = str(row['corpus_id']) if row is not None else final_id
         if self.cache is not None:
-            self.cache.invalidate_corpus_industry(str(document.get('industry', '') or ''))
+            self.cache.invalidate_corpus_industry(industry)
         return final_id
 
     def link_run_comparison_corpus(self, *, run_id: str, corpus_id: str, usage_type: str = 'plan_selected') -> None:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.core.models import AnalysisFieldResult, AnalysisSchemaField, CompetitorAnalysisRecord, DecisionContextSnapshot, Finding, RawEvidence, Report, ReportSection, RunState
+from app.core.models import ActionTarget, ActionType, AnalysisFieldResult, AnalysisSchemaField, CompetitorAnalysisRecord, DecisionContextSnapshot, Finding, ManagerDecision, RawEvidence, Report, ReportSection, RunState
 from app.core.storage import SQLiteStore
 from app.core.workflow import CompetitorWorkflowService
 from app.agents.manager_agent import ManagerAgent
@@ -413,6 +413,49 @@ def test_manager_fallback_uses_pending_qa_collect_plan(tmp_path) -> None:
     assert decision.action_type.value == 'collect_gap'
     assert decision.target_agent == 'CollectorAgent'
     assert decision.reason == 'qa_failed_collect_plan_pending'
+
+
+def test_manager_guard_forces_qa_after_completed_reanalyze(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / 'manager_guard_reanalyze.db'))
+    state = RunState(
+        industry='saas',
+        competitors=['alpha'],
+        planned_competitors=['alpha'],
+        user_prompt='analyze alpha',
+    )
+    state.analysis_schema_plan = [AnalysisSchemaField(field_name='pricing_model')]
+    state.competitor_analyses = [
+        CompetitorAnalysisRecord(
+            product_name='alpha',
+            fields=[AnalysisFieldResult(field_name='pricing_model', summary='tiered', evidence_refs=['evd_1'])],
+        )
+    ]
+    state.findings = [Finding(statement='alpha has tiered pricing', category='pricing', evidence_refs=['evd_1'])]
+    service.store.save_state(state)
+
+    context = service._build_decision_context(state).model_copy(
+        update={
+            'last_action_type': ActionType.reanalyze_targets.value,
+            'last_action_status': 'completed',
+        }
+    )
+    decision = ManagerDecision(
+        turn=context.turn_count,
+        action_type=ActionType.reanalyze_targets,
+        target_agent='AnalystAgent',
+        targets=ActionTarget(competitors=['alpha'], fields=['pricing_model']),
+        reason='qa_failed_reanalyze_pending',
+        expected_outcome='refresh competitor analysis',
+        success_criteria=['analysis updated'],
+        priority=1,
+    )
+
+    guarded = service._guard_manager_decision(state=state, context=context, decision=decision)
+
+    assert guarded.action_type == ActionType.run_qa
+    assert guarded.target_agent == 'QACriticAgent'
+    assert guarded.metadata['guard_rewritten'] is True
+    assert guarded.metadata['guard_reason'] == 'repeat_reanalyze_blocked_run_qa_required'
 
 
 def test_manager_fallback_does_not_auto_finalize_after_qa_collect_budget_used(tmp_path) -> None:

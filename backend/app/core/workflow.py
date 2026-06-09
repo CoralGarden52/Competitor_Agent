@@ -581,7 +581,13 @@ class CompetitorWorkflowService:
         replacement: tuple[ActionType, str, str] | None = None
         qa_reviewed = bool(context.qa_reviewed or context.last_qa_checked or context.qa_ready)
         qa_passed = bool(context.qa_passed or context.last_qa_passed or context.qa_ready)
-        if decision.action_type == ActionType.collect_gap and not context.qa_collect_allowed and not (qa_reviewed and not qa_passed):
+        if (
+            decision.action_type == ActionType.reanalyze_targets
+            and context.last_action_type == ActionType.reanalyze_targets.value
+            and context.last_action_status == 'completed'
+        ):
+            replacement = (ActionType.run_qa, 'QACriticAgent', 'repeat_reanalyze_blocked_run_qa_required')
+        elif decision.action_type == ActionType.collect_gap and not context.qa_collect_allowed and not (qa_reviewed and not qa_passed):
             replacement = (ActionType.collect_initial, 'CollectorAgent', 'collect_gap_requires_active_qa_ticket')
         elif (
             decision.action_type == ActionType.run_qa

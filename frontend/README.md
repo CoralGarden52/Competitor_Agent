@@ -26,6 +26,14 @@ pnpm dev
 export NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8010
 ```
 
+部署到 Vercel 时，推荐只配置服务端环境变量 `BACKEND_URL`，通过 Next.js rewrites 代理到后端：
+
+```bash
+BACKEND_URL=http://<server-ip>:8010
+```
+
+这样浏览器只请求当前前端域名下的 `/runs`、`/collector`、`/schema`，由 Vercel 服务端转发到后端 HTTP 地址，可以避免 mixed content 和复杂 CORS。除非你是在本地直接联调浏览器到后端，否则不要在生产环境暴露 `NEXT_PUBLIC_BACKEND_URL`。
+
 ## 联调说明
 
 - 前端调用 `POST /runs/async` 启动异步任务

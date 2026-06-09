@@ -101,7 +101,7 @@ class OrchestratorAgent:
             if isinstance(comparison_decision, dict):
                 authoritative_groups = {
                     'direct': (
-                        list(comparison_decision.get('direct', []))[:max_direct]
+                        list(comparison_decision.get('direct', []))
                         if isinstance(comparison_decision.get('direct', []), list)
                         else []
                     ),
