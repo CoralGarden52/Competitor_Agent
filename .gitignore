@@ -50,6 +50,7 @@ backend/collector_exports/
 .data/
 mock_data/
 QA_log/
+test/
 
 # Frontend / Node
 node_modules/
