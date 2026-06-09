@@ -5,8 +5,11 @@ const nextConfig = {
   typedRoutes: true,
   async rewrites() {
     return [
+      { source: '/runs', destination: `${backendUrl}/runs` },
       { source: '/runs/:path*', destination: `${backendUrl}/runs/:path*` },
+      { source: '/collector', destination: `${backendUrl}/collector` },
       { source: '/collector/:path*', destination: `${backendUrl}/collector/:path*` },
+      { source: '/schema', destination: `${backendUrl}/schema` },
       { source: '/schema/:path*', destination: `${backendUrl}/schema/:path*` },
       { source: '/healthz', destination: `${backendUrl}/healthz` },
     ];
