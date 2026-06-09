@@ -26,7 +26,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 COPY backend/app ./app
 COPY backend/harness ./harness
 COPY backend/scripts ./scripts
-COPY skills ./skills
+COPY backend/skills ./skills
 COPY backend/README.md ./README.md
 COPY backend/README-zn.md ./README-zn.md
 

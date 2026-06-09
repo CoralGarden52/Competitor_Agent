@@ -34,19 +34,16 @@ from app.core.prompts.agent_prompts import (
     DRAFT_SYSTEM_PROMPT,
 )
 
-
-_PROJECT_ROOT = Path(__file__).resolve().parents[3]
-_REPORT_TEMPLATE_CANDIDATES = (
-    _PROJECT_ROOT / 'skills' / 'competitor-analysis-report' / 'report_template.json',
-    Path('/skills/competitor-analysis-report/report_template.json'),
-)
-
-
 def _resolve_report_template_path() -> Path:
-    for candidate in _REPORT_TEMPLATE_CANDIDATES:
+    config = get_config()
+    candidates = (
+        config.skills_dir_obj / 'competitor-analysis-report' / 'report_template.json',
+        Path('/app/skills/competitor-analysis-report/report_template.json'),
+    )
+    for candidate in candidates:
         if candidate.exists():
             return candidate
-    return _REPORT_TEMPLATE_CANDIDATES[0]
+    return candidates[0]
 
 
 def _load_template_section_order() -> list[tuple[str, str, str]]:
