@@ -407,6 +407,145 @@ def test_guard_blocks_immediate_repeated_failed_qa_without_pending_work(tmp_path
     assert guarded.metadata["guard_reason"] == "repeat_qa_blocked_recollect_required"
 
 
+def test_guard_allows_single_failed_qa_remediation_cycle_before_forcing_qa(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
+    state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
+    state.decision_history = [
+        ManagerDecision(
+            turn=4,
+            action_type=ActionType.run_qa,
+            target_agent="QACriticAgent",
+            targets=ActionTarget(),
+            reason="failed_qa_round_1",
+        ),
+        ManagerDecision(
+            turn=5,
+            action_type=ActionType.collect_gap,
+            target_agent="CollectorAgent",
+            targets=ActionTarget(competitors=["alpha"], fields=["pricing_model"]),
+            reason="qa_gap_collection",
+        ),
+    ]
+    context = DecisionContextSnapshot(
+        run_id=state.run_id,
+        turn_count=6,
+        report_ready=True,
+        analyze_ready=True,
+        qa_reviewed=True,
+        qa_passed=False,
+    )
+    decision = ManagerDecision(
+        turn=6,
+        action_type=ActionType.reanalyze_targets,
+        target_agent="AnalystAgent",
+        targets=ActionTarget(competitors=["alpha"], fields=["pricing_model"]),
+        reason="qa_gap_reanalysis",
+    )
+
+    guarded = service._guard_manager_decision(state=state, context=context, decision=decision)
+
+    assert guarded.action_type == ActionType.reanalyze_targets
+    assert "guard_rewritten" not in guarded.metadata
+
+
+def test_guard_forces_run_qa_after_failed_qa_collect_analyze_cycle_on_collect(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
+    state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
+    state.decision_history = [
+        ManagerDecision(
+            turn=4,
+            action_type=ActionType.run_qa,
+            target_agent="QACriticAgent",
+            targets=ActionTarget(),
+            reason="failed_qa_round_1",
+        ),
+        ManagerDecision(
+            turn=5,
+            action_type=ActionType.collect_gap,
+            target_agent="CollectorAgent",
+            targets=ActionTarget(competitors=["alpha"], fields=["pricing_model"]),
+            reason="qa_gap_collection",
+        ),
+        ManagerDecision(
+            turn=6,
+            action_type=ActionType.reanalyze_targets,
+            target_agent="AnalystAgent",
+            targets=ActionTarget(competitors=["alpha"], fields=["pricing_model"]),
+            reason="qa_gap_reanalysis",
+        ),
+    ]
+    context = DecisionContextSnapshot(
+        run_id=state.run_id,
+        turn_count=7,
+        report_ready=True,
+        analyze_ready=True,
+        qa_reviewed=True,
+        qa_passed=False,
+    )
+    decision = ManagerDecision(
+        turn=7,
+        action_type=ActionType.collect_gap,
+        target_agent="CollectorAgent",
+        targets=ActionTarget(competitors=["alpha"], fields=["feature_tree"]),
+        reason="unexpected_second_recollect",
+    )
+
+    guarded = service._guard_manager_decision(state=state, context=context, decision=decision)
+
+    assert guarded.action_type == ActionType.run_qa
+    assert guarded.target_agent == "QACriticAgent"
+    assert guarded.metadata["guard_reason"] == "failed_qa_remediation_budget_exhausted_run_qa_required"
+
+
+def test_guard_forces_run_qa_after_failed_qa_collect_analyze_cycle_on_reanalyze(tmp_path) -> None:
+    service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
+    state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
+    state.decision_history = [
+        ManagerDecision(
+            turn=4,
+            action_type=ActionType.run_qa,
+            target_agent="QACriticAgent",
+            targets=ActionTarget(),
+            reason="failed_qa_round_1",
+        ),
+        ManagerDecision(
+            turn=5,
+            action_type=ActionType.reanalyze_targets,
+            target_agent="AnalystAgent",
+            targets=ActionTarget(competitors=["alpha"], fields=["pricing_model"]),
+            reason="qa_gap_reanalysis_first",
+        ),
+        ManagerDecision(
+            turn=6,
+            action_type=ActionType.collect_gap,
+            target_agent="CollectorAgent",
+            targets=ActionTarget(competitors=["alpha"], fields=["pricing_model"]),
+            reason="qa_gap_collection_second",
+        ),
+    ]
+    context = DecisionContextSnapshot(
+        run_id=state.run_id,
+        turn_count=7,
+        report_ready=True,
+        analyze_ready=True,
+        qa_reviewed=True,
+        qa_passed=False,
+    )
+    decision = ManagerDecision(
+        turn=7,
+        action_type=ActionType.reanalyze_targets,
+        target_agent="AnalystAgent",
+        targets=ActionTarget(competitors=["alpha"], fields=["feature_tree"]),
+        reason="unexpected_second_reanalysis",
+    )
+
+    guarded = service._guard_manager_decision(state=state, context=context, decision=decision)
+
+    assert guarded.action_type == ActionType.run_qa
+    assert guarded.target_agent == "QACriticAgent"
+    assert guarded.metadata["guard_reason"] == "failed_qa_remediation_budget_exhausted_run_qa_required"
+
+
 def test_guard_blocks_draft_when_qa_failed_collect_gap_is_pending(tmp_path) -> None:
     service = CompetitorWorkflowService(SQLiteStore(tmp_path / "guard.db"))
     state = RunState(industry="general", competitors=["alpha"], user_prompt="test")
