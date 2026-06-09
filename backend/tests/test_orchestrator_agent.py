@@ -50,10 +50,10 @@ def test_generate_dynamic_plan_does_not_merge_competitor_hints_into_planned_comp
 
     planner.infer_industry_from_prompt = lambda **_kwargs: 'video_meeting_saas'  # type: ignore[method-assign]
     planner.infer_product_profile = lambda **_kwargs: {  # type: ignore[method-assign]
-        'target_product': '腾讯会议',
-        'target_product_description': '云视频会议 SaaS',
-        'intent_summary': '分析腾讯会议竞品',
-        'product_category': '云视频会议 SaaS',
+        'target_product': 'Tencent Meeting',
+        'target_product_description': 'video meeting saas',
+        'intent_summary': 'analyze competitors',
+        'product_category': 'video meeting saas',
     }
     planner.discover_competitors_grouped = lambda **_kwargs: {  # type: ignore[method-assign]
         'competitors': {
@@ -72,8 +72,8 @@ def test_generate_dynamic_plan_does_not_merge_competitor_hints_into_planned_comp
     planner.step_call_status = lambda: {}  # type: ignore[method-assign]
 
     plan = orchestrator.generate_dynamic_plan(
-        prompt='分析腾讯会议竞品',
-        competitor_hints=['并与 Google 日历、Google Meet：为 Workspace'],
+        prompt='analyze competitors',
+        competitor_hints=['Google Workspace with Meet'],
     )
 
     assert plan['planned_competitors'] == ['Zoom']
@@ -85,10 +85,10 @@ def test_generate_dynamic_plan_skips_plan_schema_when_no_competitors_confirmed()
 
     planner.infer_industry_from_prompt = lambda **_kwargs: 'video_meeting_saas'  # type: ignore[method-assign]
     planner.infer_product_profile = lambda **_kwargs: {  # type: ignore[method-assign]
-        'target_product': '腾讯会议',
-        'target_product_description': '云视频会议 SaaS',
-        'intent_summary': '分析腾讯会议竞品',
-        'product_category': '云视频会议 SaaS',
+        'target_product': 'Tencent Meeting',
+        'target_product_description': 'video meeting saas',
+        'intent_summary': 'analyze competitors',
+        'product_category': 'video meeting saas',
     }
     planner.discover_competitors_grouped = lambda **_kwargs: {  # type: ignore[method-assign]
         'competitors': {'direct': [], 'substitute': []},
@@ -107,7 +107,7 @@ def test_generate_dynamic_plan_skips_plan_schema_when_no_competitors_confirmed()
 
     planner.plan_schema = _unexpected_plan_schema  # type: ignore[method-assign]
 
-    plan = orchestrator.generate_dynamic_plan(prompt='分析腾讯会议竞品')
+    plan = orchestrator.generate_dynamic_plan(prompt='analyze competitors')
 
     assert plan['planned_competitors'] == []
     assert [item['field_name'] for item in plan['analysis_schema_plan'][:5]] == ['feature_tree', 'strengths', 'weaknesses', 'pricing_model', 'user_feedback']
@@ -119,27 +119,27 @@ def test_generate_dynamic_plan_prefers_comparison_corpus_synthesis_result() -> N
 
     planner.infer_industry_from_prompt = lambda **_kwargs: 'video_meeting_saas'  # type: ignore[method-assign]
     planner.infer_product_profile = lambda **_kwargs: {  # type: ignore[method-assign]
-        'target_product': '腾讯会议',
-        'target_product_description': '视频会议 SaaS',
-        'intent_summary': '分析腾讯会议竞品',
-        'product_category': '视频会议 SaaS',
+        'target_product': 'Tencent Meeting',
+        'target_product_description': 'video meeting saas',
+        'intent_summary': 'analyze competitors',
+        'product_category': 'video meeting saas',
     }
     planner.discover_competitors_grouped = lambda **_kwargs: {  # type: ignore[method-assign]
         'competitors': {
-            'direct': [{'name': '未来'}],
-            'substitute': [{'name': '总之'}],
+            'direct': [{'name': 'placeholder'}],
+            'substitute': [{'name': 'placeholder_substitute'}],
         },
         'comparison_decision': {
             'direct': [
-                {'name': '钉钉会议'},
+                {'name': 'DingTalk Meetings'},
                 {'name': 'Microsoft Teams'},
                 {'name': 'Zoom'},
-                {'name': '华为云会议'},
+                {'name': 'Huawei Cloud Meeting'},
             ],
             'substitute': [
-                {'name': '喧喧私有化部署方案'},
-                {'name': '全时云会议'},
-                {'name': 'Webex（思科）'},
+                {'name': 'Private Deployment Suite'},
+                {'name': 'All Hands Cloud Meeting'},
+                {'name': 'Webex'},
             ],
         },
         'comparison_schema_fields': [],
@@ -153,16 +153,26 @@ def test_generate_dynamic_plan_prefers_comparison_corpus_synthesis_result() -> N
     planner.last_call_status = lambda: {}  # type: ignore[method-assign]
     planner.step_call_status = lambda: {}  # type: ignore[method-assign]
 
-    plan = orchestrator.generate_dynamic_plan(prompt='分析腾讯会议竞品')
+    plan = orchestrator.generate_dynamic_plan(prompt='analyze competitors')
 
     assert plan['planned_competitors'] == [
-        '钉钉会议',
+        'DingTalk Meetings',
         'Microsoft Teams',
+        'Zoom',
+        'Huawei Cloud Meeting',
     ]
-    assert [item['name'] for item in plan['candidate_groups']['direct']] == ['钉钉会议', 'Microsoft Teams']
-    assert [item['name'] for item in plan['candidate_groups']['substitute']] == ['喧喧私有化部署方案', '全时云会议', 'Webex（思科）']
+    assert [item['name'] for item in plan['candidate_groups']['direct']] == [
+        'DingTalk Meetings',
+        'Microsoft Teams',
+        'Zoom',
+        'Huawei Cloud Meeting',
+    ]
+    assert [item['name'] for item in plan['candidate_groups']['substitute']] == [
+        'Private Deployment Suite',
+        'All Hands Cloud Meeting',
+        'Webex',
+    ]
     assert plan['planner_meta']['candidate_policy'] == 'direct_only_analysis'
-
     assert len(plan['planner_meta']['comparison_decision_full']['direct']) == 4
     assert len(plan['planner_meta']['comparison_decision_full']['substitute']) == 3
 
@@ -174,6 +184,12 @@ def test_generate_dynamic_plan_prefers_comparison_corpus_synthesis_result() -> N
             'candidate_groups': plan['candidate_groups'],
             'candidate_policy': plan['planner_meta']['candidate_policy'],
         },
-        target_product='腾讯会议',
+        target_product='Tencent Meeting',
     )
-    assert state.effective_analysis_subject_names() == ['腾讯会议', '钉钉会议', 'Microsoft Teams']
+    assert state.effective_analysis_subject_names() == [
+        'Tencent Meeting',
+        'DingTalk Meetings',
+        'Microsoft Teams',
+        'Zoom',
+        'Huawei Cloud Meeting',
+    ]

@@ -65,3 +65,7 @@ harness实现.md
 collector_exports/
 竞品分析.md
 log/
+mock_site_demo/
+test/
+评分细则.txt
+test_llm.py

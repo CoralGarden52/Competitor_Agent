@@ -30,19 +30,75 @@ def _document(*, content_hash: str = 'abc123', date_confidence: str = 'parsed') 
     }
 
 
+def _variant_document(
+    *,
+    content_hash: str,
+    topic_key: str,
+    industry: str,
+    keywords: list[str],
+) -> dict:
+    item = _document(content_hash=content_hash)
+    item['topic_key'] = topic_key
+    item['industry'] = industry
+    item['keywords'] = keywords
+    item['query'] = ' '.join(keywords)
+    return item
+
+
 def test_comparison_corpus_is_persisted_and_retrievable(tmp_path) -> None:
     store = SQLiteStore(tmp_path / 'test.db')
-    corpus_id = store.upsert_comparison_corpus_document(_document())
+    document = _variant_document(
+        content_hash='abc123_primary',
+        topic_key='meeting_software_primary',
+        industry='collaboration_primary',
+        keywords=['meeting-primary'],
+    )
+    corpus_id = store.upsert_comparison_corpus_document(document)
     store.link_run_comparison_corpus(run_id='run_a', corpus_id=corpus_id)
 
     results = store.search_comparison_corpus(
-        topic_key='meeting_software',
-        industry='collaboration',
-        keywords=['meeting'],
+        topic_key='meeting_software_primary',
+        industry='collaboration_primary',
+        keywords=['meeting-primary'],
     )
 
-    assert [item['corpus_id'] for item in results] == ['corpus_abc123']
-    assert results[0]['llm_extract']['mentioned_competitors'] == ['Zoom', 'Teams']
+    matched = [item for item in results if item['corpus_id'] == 'corpus_abc123_primary']
+    assert len(matched) == 1
+    assert matched[0]['llm_extract']['mentioned_competitors'] == ['Zoom', 'Teams']
+
+
+def test_comparison_corpus_upsert_handles_existing_corpus_id_with_changed_url(tmp_path) -> None:
+    store = SQLiteStore(tmp_path / 'test.db')
+    original = _variant_document(
+        content_hash='samehash',
+        topic_key='meeting_software_variant',
+        industry='collaboration_variant',
+        keywords=['meeting-variant'],
+    )
+    updated = _variant_document(
+        content_hash='samehash',
+        topic_key='meeting_software_variant',
+        industry='collaboration_variant',
+        keywords=['meeting-variant'],
+    )
+    updated['source_url'] = 'https://example.com/samehash-updated'
+    updated['title'] = 'Updated title'
+
+    first_id = store.upsert_comparison_corpus_document(original)
+    second_id = store.upsert_comparison_corpus_document(updated)
+
+    assert first_id == 'corpus_samehash'
+    assert second_id == first_id
+
+    results = store.search_comparison_corpus(
+        topic_key='meeting_software_variant',
+        industry='collaboration_variant',
+        keywords=['meeting-variant'],
+    )
+    matched = [item for item in results if item['corpus_id'] == 'corpus_samehash']
+    assert len(matched) == 1
+    assert matched[0]['source_url'] == 'https://example.com/samehash-updated'
+    assert matched[0]['title'] == 'Updated title'
 
 
 def test_comparison_corpus_evidence_excludes_out_of_range_documents() -> None:

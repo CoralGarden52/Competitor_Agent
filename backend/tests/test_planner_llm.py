@@ -255,6 +255,52 @@ def test_synthesize_comparison_corpus_returns_direct_even_without_extra_schema_f
     assert result['substitute'] == []
 
 
+def test_discover_competitors_grouped_keeps_all_direct_from_comparison_corpus() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._generate_search_queries = lambda *_args, **_kwargs: ['meeting software recent comparison']  # type: ignore[method-assign]
+    planner._search_and_summarize = lambda *_args, **_kwargs: [  # type: ignore[method-assign]
+        {'title': '2026 meeting software comparison', 'url': 'https://example.com/a', 'summary': 'Zoom vs Teams vs Meet'}
+    ]
+    planner._build_candidate_pool = lambda **_kwargs: ['Zoom', 'Microsoft Teams', 'Google Meet']  # type: ignore[method-assign]
+    planner._collect_comparison_corpus = lambda **_kwargs: [  # type: ignore[method-assign]
+        {'corpus_id': 'corpus_1', 'llm_extract': {'mentioned_competitors': ['Zoom', 'Microsoft Teams', 'Google Meet'], 'comparison_dimensions': ['feature_tree']}}
+    ]
+    planner._synthesize_comparison_corpus = lambda **_kwargs: {  # type: ignore[method-assign]
+        'direct': [
+            {'name': 'Zoom', 'reason': 'corpus', 'confidence': 0.9, 'corpus_refs': ['corpus_1']},
+            {'name': 'Microsoft Teams', 'reason': 'corpus', 'confidence': 0.88, 'corpus_refs': ['corpus_1']},
+            {'name': 'Google Meet', 'reason': 'corpus', 'confidence': 0.86, 'corpus_refs': ['corpus_1']},
+        ],
+        'substitute': [{'name': 'Webex', 'reason': 'corpus', 'confidence': 0.7, 'corpus_refs': ['corpus_1']}],
+        'extra_schema_fields': [],
+        'decision_evidence_refs': ['corpus_1'],
+    }
+
+    result = planner.discover_competitors_grouped(prompt='腾讯会议竞品分析', industry='video meeting saas', competitor_hints=[])
+
+    assert [item['name'] for item in result['competitors']['direct']] == ['Zoom', 'Microsoft Teams', 'Google Meet']
+    assert [item['name'] for item in result['competitors']['substitute']] == ['Webex']
+
+
+def test_fallback_synthesize_comparison_corpus_keeps_all_direct_candidates() -> None:
+    cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
+    planner = PlannerLLMClient(cfg)
+    planner._rank_candidates_from_corpus = lambda **_kwargs: [  # type: ignore[method-assign]
+        ('Zoom', ['corpus_1']),
+        ('Microsoft Teams', ['corpus_2']),
+        ('Google Meet', ['corpus_3']),
+    ]
+
+    result = planner._fallback_synthesize_comparison_corpus(  # type: ignore[attr-defined]
+        competitor_hints=[],
+        comparison_corpus=[{'corpus_id': 'corpus_1'}],
+    )
+
+    assert [item['name'] for item in result['direct']] == ['Zoom', 'Microsoft Teams', 'Google Meet']
+    assert result['substitute'] == []
+
+
 def test_fallback_synthesize_comparison_corpus_does_not_emit_placeholder_dimensions() -> None:
     cfg = AppConfig(openai_api_key='k', openai_base_url='https://example.com/v1', openai_model='m')
     planner = PlannerLLMClient(cfg)
