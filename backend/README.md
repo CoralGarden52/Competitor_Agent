@@ -40,6 +40,12 @@ cd Competitor_Analysis/backend
 docker compose up -d --build
 ```
 
+Questionnaire export in Docker:
+
+- The backend image now installs Node.js 20 and `wjx-cli` during build, so the container provides the `wjx` command by default.
+- To enable the frontend "generate questionnaire link" action, set `WJX_EXPORT_ENABLED=true` and provide a valid `WJX_API_KEY` in `backend/.env`.
+- In Docker deployments, keep `WJX_CLI_PATH=wjx`. Do not point it to a host-only path such as a Windows `D:\...` executable, because that path does not exist inside the Linux container.
+
 
 ### 3. Verify the deployment
 
