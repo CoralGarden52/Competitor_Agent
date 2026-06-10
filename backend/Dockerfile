@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     UV_LINK_MODE=copy \
-    UV_DEFAULT_INDEX=https://mirrors.aliyun.com/pypi/simple/ \
+    UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple/ \
     UV_CACHE_DIR=/root/.cache/uv
 
 WORKDIR /app
@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir uv
 
 COPY backend/pyproject.toml backend/uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev --default-index https://mirrors.aliyun.com/pypi/simple/
+    uv sync --frozen --no-dev --default-index https://pypi.tuna.tsinghua.edu.cn/simple/
 
 COPY backend/app ./app
 COPY backend/harness ./harness
