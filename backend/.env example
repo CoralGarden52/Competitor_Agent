@@ -1,4 +1,4 @@
-﻿# Model runtime
+# Model runtime
 OPENAI_API_KEY=your_openai_api_key_here
 OPENAI_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
 OPENAI_MODEL=your_model_id_here
@@ -22,23 +22,22 @@ COLLECTOR_PER_FIELD_LIMIT=1
 COLLECTOR_PREVIEW_AUTO_SAVE_ENABLED=true
 COLLECTOR_PREVIEW_SAVE_DIR=collector_exports
 
-# InfoQuest
-INFOQUEST_API_KEY=your_infoquest_api_key_here
+# Wenjuanxing / WJX export
+WJX_API_KEY=your_wjx_api_key_here
+WJX_EXPORT_ENABLED=true
+WJX_CLI_PATH=wjx
 
 # Jina Reader
 # JINA_API_KEY should start with "jina_" for authenticated higher limits.
 # Optional: set JINA_USER_AGENT to override default browser UA for anti-bot sensitive sites.
-JINA_API_KEY=your_jina_api_key_here
-JINA_USER_AGENT=
+# JINA_API_KEY=your_jina_api_key_here
+# JINA_USER_AGENT=
 
 # Baidu Search (aligned with competitive_agent/config.py)
 BAIDU_SEARCH_API_KEY=your_baidu_search_api_key_here
 BAIDU_SEARCH_ENDPOINT=https://qianfan.baidubce.com/v2/ai_search/web_search
 
 # Zhihu Open Platform (official API)
-ZHIHU_CLIENT_ID=your_zhihu_client_id_here
-ZHIHU_CLIENT_SECRET=your_zhihu_client_secret_here
-ZHIHU_BASE_URL=
 ZHIHU_SEARCH_ACCESS_SECRET=your_zhihu_search_access_secret_here
 ZHIHU_SEARCH_ENDPOINT=https://developer.zhihu.com/api/v1/content/zhihu_search
 
@@ -46,6 +45,7 @@ ZHIHU_SEARCH_ENDPOINT=https://developer.zhihu.com/api/v1/content/zhihu_search
 BING_SEARCH_API_KEY=your_bing_search_api_key_here
 BING_SEARCH_ENDPOINT=https://api.bing.microsoft.com/v7.0/search
 REQUEST_TIMEOUT_SECONDS=60
+
 # Planner LLM resilience
 PLANNER_LLM_RETRY_COUNT=2
 PLANNER_LLM_RETRY_BACKOFF_MS=800
@@ -54,8 +54,8 @@ PLANNER_SCHEMA_MAX_CANDIDATES=8
 MAX_SEARCH_RESULTS=8
 COLLECTOR_PROVIDER_TIMEOUT_SEC=12
 COLLECTOR_PROVIDER_RETRY=1
-COLLECTOR_SEARCH_ORDER=tavily,firecrawl_search,zhihu_official,qianfan
-COLLECTOR_FETCH_ORDER=jina,firecrawl_fetch,tavily_extract
+COLLECTOR_SEARCH_ORDER=tavily,zhihu_official
+COLLECTOR_FETCH_ORDER=tavily_extract
 
 # Tracing mode: relaxed (dev) | strict (prod/contest)
 TRACING_MODE=relaxed
@@ -64,7 +64,6 @@ LANGSMITH_API_KEY=your_langsmith_api_key_here
 LANGSMITH_PROJECT=competitor-analysis
 LANGSMITH_ENDPOINT=https://api.smith.langchain.com
 
-
 # Agent LLM resilience
 AGENT_LLM_RETRY_COUNT=2
 AGENT_LLM_RETRY_BACKOFF_MS=400
@@ -72,12 +71,22 @@ AGENT_LLM_RETRY_MAX_BACKOFF_MS=2000
 AGENT_LLM_FALLBACK_ENABLED=true
 AGENT_LLM_FALLBACK_ON_VALIDATION_ERROR=true
 
-# Wenjuanxing / WJX export
-# Requires Node.js >= 20 and wjx-cli: npm install -g wjx-cli
-WJX_EXPORT_ENABLED=false
-WJX_API_KEY=your_wjx_api_key_here
-WJX_BASE_URL=https://www.wjx.cn
-WJX_CLI_PATH=wjx
-WJX_EXPORT_PUBLISH=true
-WJX_EXPORT_TIMEOUT_SEC=90
-WJX_EXPORT_DIR=.data/wjx_exports
+# Report truncation strategy
+# false: do not truncate report text; keep full content
+# true: truncate by context limits and append "..."
+REPORT_TRUNCATION_ENABLED=false
+# JSON object, example:
+# {"matrix_cell":110,"comparison_overview":90,"opportunity":120,"strength_weakness":160,"matrix_highlight":50}
+REPORT_TRUNCATION_LIMITS_JSON=
+
+# Redis cache / chat stream
+REDIS_ENABLED=true
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+REDIS_PASSWORD=your_redis_password_here
+REDIS_DB=0
+REDIS_MAX_CONNECTIONS=10
+REDIS_DEFAULT_TTL_SECONDS=300
+REDIS_WORKSPACE_TTL_SECONDS=60
+REDIS_CHAT_TTL_SECONDS=300
+REDIS_REPORT_CHUNKS_TTL_SECONDS=1800
